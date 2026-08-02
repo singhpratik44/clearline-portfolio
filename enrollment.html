@@ -218,6 +218,7 @@ let STATE = buildEnroll(ePack);
 function switchEnroll(pk){
   ePack = pk; STATE = buildEnroll(pk);
   document.getElementById('enrollSel').value = pk;
+  if(window.CLG){CLG.reset();CLG.chain(STATE.ledger);}
   render();
 }
 const FLOOR = 0.55, STALE = 28;
@@ -378,6 +379,32 @@ render();
 // deep-link: ?pack=fitness|clinic|tutoring|preschool
 const _eqp=new URLSearchParams(location.search).get('pack');
 if(_eqp && ENROLL_PACKS[_eqp]) switchEnroll(_eqp);
+</script>
+<script src="clg-enterprise.js"></script>
+<script>
+// ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
+CLG.chain(STATE.ledger);
+CLG.summary(function(){
+  const d=derive(); const p=ENROLL_PACKS[ePack];
+  const lines=[];
+  lines.push("INSTRUMENT: "+document.title);
+  lines.push("Domain pack: "+p.label);
+  lines.push("Seats filled: "+d.filled+" of "+d.seats+" ("+Math.round(d.filled/d.seats*100)+"% occupancy)");
+  lines.push("Below-floor "+p.unit+"s on supported plans: "+d.schoolRows.filter(s=>s.below).length);
+  lines.push("Proposals in queue: "+STATE.proposals.filter(x=>x.status==='held').length+" held at the gate");
+  lines.push("Gate reliability: "+(d.reliability*100).toFixed(2)+"%");
+  lines.push("");
+  lines.push("COMMITTED RECORD ("+STATE.ledger.length+" entries, newest first):");
+  STATE.ledger.forEach(e=>lines.push("  - "+e.decision+" ["+e.by+"]"));
+  return lines.join("\n");
+});
+CLG.tour([
+  {el:"#unitH2", title:"Unit-by-unit status", body:"Every unit reads from one canonical state. Occupancy below the 55% floor routes the unit into a supported plan automatically — the system does not wait for a person to notice."},
+  {el:function(){return document.querySelectorAll('h2')[1];}, title:"Proposals held at the spend gate", body:"Two-stage commit: agents propose, a person decides, the ledger remembers. Nothing executes at the gate without your approval — approve or reject and watch the ledger write."},
+  {el:function(){return document.querySelectorAll('h2')[2];}, title:"Gate reliability", body:"Layered containment: a proposal must clear every gate before spend moves. Stale attribution locks optimization until re-measured — missing data does not pass by approximation."},
+  {el:function(){return document.querySelectorAll('h2')[3];}, title:"Decision ledger", body:"Every decision lands here with its causal inputs. The bar below carries the tamper-evident digest — any silent edit to this record breaks the chain. Use Replay to walk the record in order."},
+  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Economic valuation", body:"The same state drives the valuation: seats to the floor, revenue at target, resale value created, and the royalty stream — computed at render time, never pre-baked."}
+]);
 </script>
 </body>
 </html>
