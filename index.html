@@ -3,66 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pratik Singh — Governed Operating Infrastructure</title>
+<title>Clearline Group — Governance &amp; Operating Infrastructure</title>
 <style>
-  :root{--bg:#0c0f14;--panel:#131820;--line:#232b38;--ink:#e6ebf2;--dim:#8b96a6;--acc:#4cc2a0;--warn:#e0a458;--risk:#e06565;--mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace}
+  :root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:'SF Mono',ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
   *{margin:0;padding:0;box-sizing:border-box}
-  body{background:var(--bg);color:var(--ink);font:15px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
-  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 96px}
+  body{background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,'Segoe UI',Roboto,sans-serif}
+  .docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .wrap{max-width:1080px;margin:0 auto;padding:44px 24px 96px}
   .tag{font:11px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--acc)}
-  h1{font-size:34px;font-weight:700;margin:10px 0 6px}
-  .sub{color:var(--dim);max-width:640px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:40px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:24px;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
-  .card:hover{border-color:var(--acc);transform:translateY(-2px)}
-  .card h2{font-size:18px;margin:8px 0 6px}
+  h1{font-family:var(--serif);font-size:32px;font-weight:700;margin:12px 0 8px;color:var(--ink)}
+  .sub{color:var(--dim);max-width:720px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:36px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:24px;display:flex;flex-direction:column;transition:border-color .2s}
+  .card:hover{border-color:var(--acc)}
+  .card h2{font-family:var(--serif);font-size:18px;margin:8px 0 6px}
   .card p{color:var(--dim);font-size:13.5px;flex:1}
-  .num{font:26px var(--mono);color:var(--acc)}
-  a.open{display:inline-block;margin-top:16px;font:12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--acc);text-decoration:none;border:1px solid var(--acc);border-radius:6px;padding:8px 14px;width:max-content}
-  a.open:hover{background:var(--acc);color:#0c0f14}
-  .adapt{margin-top:56px;background:var(--panel);border:1px solid var(--acc);border-radius:12px;padding:26px}
-  .adapt h2{font-size:17px;margin-bottom:4px}
+  .num{font:22px var(--mono);color:var(--acc)}
+  a.open{display:inline-block;margin-top:16px;font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--acc);text-decoration:none;border:1px solid var(--acc);border-radius:3px;padding:8px 14px;width:max-content}
+  a.open:hover{background:var(--acc);color:#fff}
+  .adapt{margin-top:52px;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:4px;padding:26px}
+  .adapt h2{font-family:var(--serif);font-size:18px;margin-bottom:4px}
   .adapt .sub2{color:var(--dim);font-size:13px;margin-bottom:14px}
-  textarea{width:100%;min-height:110px;background:#0a0d12;border:1px solid var(--line);border-radius:8px;color:var(--ink);font:13px/1.5 var(--mono);padding:12px;resize:vertical}
+  textarea{width:100%;min-height:110px;background:#faf9f6;border:1px solid var(--line);border-radius:3px;color:var(--ink);font:13px/1.5 var(--mono);padding:12px;resize:vertical}
   textarea:focus{outline:none;border-color:var(--acc)}
-  .adapt button{margin-top:12px;font:12px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#0c0f14;border:none;border-radius:6px;padding:9px 18px;cursor:pointer}
+  .adapt button{margin-top:12px;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#fff;border:none;border-radius:3px;padding:9px 18px;cursor:pointer}
   .adapt button.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)}
   #adaptOut{display:none;margin-top:20px;border-top:1px solid var(--line);padding-top:18px}
   #adaptOut h3{font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:16px 0 8px}
   .trackrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
   .trackrow .name{width:250px;color:var(--ink)}
-  .trackbar{flex:1;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+  .trackbar{flex:1;height:8px;background:var(--line);border-radius:2px;overflow:hidden}
   .trackbar i{display:block;height:100%;background:var(--acc)}
   .trackrow .pct{width:44px;text-align:right;font-family:var(--mono);color:var(--acc)}
-  .outbox{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:14px;font-size:13.5px}
+  .outbox{background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:14px;font-size:13.5px}
   .outbox b{color:var(--acc)}
-  .kw{display:inline-block;font:10.5px var(--mono);background:rgba(76,194,160,.12);color:var(--acc);border-radius:4px;padding:2px 8px;margin:2px 3px 2px 0}
-  .kw.miss{background:rgba(224,164,88,.12);color:var(--warn)}
-  .builder{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:26px}
-  .builder h2{font-size:17px;margin-bottom:4px}
+  .kw{display:inline-block;font:10.5px var(--mono);background:rgba(31,58,95,.08);color:var(--acc);border-radius:3px;padding:2px 8px;margin:2px 3px 2px 0}
+  .kw.miss{background:rgba(138,109,59,.12);color:var(--warn)}
+  .builder{margin-top:26px;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:26px}
+  .builder h2{font-family:var(--serif);font-size:18px;margin-bottom:4px}
   .builder label{display:block;font:10.5px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin:12px 0 4px}
-  .builder input{width:100%;background:#0a0d12;border:1px solid var(--line);border-radius:8px;color:var(--ink);font:13px/1.5 var(--mono);padding:9px 12px}
+  .builder input{width:100%;background:#faf9f6;border:1px solid var(--line);border-radius:3px;color:var(--ink);font:13px/1.5 var(--mono);padding:9px 12px}
   .builder input:focus{outline:none;border-color:var(--acc)}
-  .builder button{margin-top:14px;font:12px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#0c0f14;border:none;border-radius:6px;padding:9px 18px;cursor:pointer}
+  .builder button{margin-top:14px;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#fff;border:none;border-radius:3px;padding:9px 18px;cursor:pointer}
   .builder button.ghost{background:transparent;color:var(--acc);border:1px solid var(--acc)}
   .bgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
   @media(max-width:760px){.bgrid{grid-template-columns:1fr}}
   #packOut{display:none;margin-top:18px}
-  #packOut pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:14px;font:11.5px/1.5 var(--mono);color:#9fb4c8;overflow:auto;max-height:280px}
-  .principles{margin-top:56px;border-top:1px solid var(--line);padding-top:32px}
-  .principles h2{font-size:15px;letter-spacing:.15em;text-transform:uppercase;color:var(--dim);margin-bottom:18px}
+  #packOut pre{background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:14px;font:11.5px/1.5 var(--mono);color:#4a5462;overflow:auto;max-height:280px}
+  .principles{margin-top:52px;border-top:2px solid var(--ink);padding-top:28px}
+  .principles h2{font-family:var(--serif);font-size:17px;color:var(--ink);margin-bottom:18px}
   .plist{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
-  .plist div{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;font-size:13px;color:var(--dim)}
+  .plist div{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px;font-size:13px;color:var(--dim)}
   .plist b{display:block;color:var(--ink);font-size:13px;margin-bottom:4px}
-  footer{margin-top:64px;color:var(--dim);font-size:12.5px;border-top:1px solid var(--line);padding-top:20px}
+  footer{margin-top:64px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);padding-top:20px}
   footer a{color:var(--acc)}
+  .sec{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:44px}
 </style>
 </head>
 <body>
+<div class="docbar"><span>Clearline Group LLC</span><span>Governance &amp; Operating Infrastructure</span></div>
+<div class="docmeta"><span>Document CLG-00 · Version 7.0 · Supersedes all prior demonstrations</span><span>Classification: Public demonstration · Data status: simulated unless expressly cited</span></div>
 <div class="wrap">
-  <div class="tag">Proof of work — live operating models</div>
-  <h1>Governed Operating Infrastructure for Franchise Networks</h1>
-  <p class="sub">Three functional systems built by Pratik “Parry” Singh. Not decks — every figure recomputes from one canonical state as you act. Child safety and data integrity precede growth, structurally.</p>
+  <div class="tag">Prepared by Pratik “Parry” Singh · Principal Operating Architect</div>
+  <h1>Governed Operating Infrastructure for Multi-Unit Networks</h1>
+  <p class="sub">Five working systems, each executable in this document set. Every figure is recomputed from a single canonical state at render time; nothing is pre-computed, cached, or asserted without a recorded source. Safety and data integrity are structurally prior to growth.</p>
+
+  <div class="sec">Article I — The Systems</div>
 
   <div class="grid">
     <div class="card">
@@ -92,26 +99,28 @@
     <div class="card">
       <div class="num">05</div>
       <h2>Youth Basketball Academy Engine</h2>
-      <p>The governed-ops engine instantiated for a youth basketball academy — membership economics, player-development pathways, and an integration layer for the basketball-AI stack (CV shot analysis, smartphone assessments, workload wearables). Built as a live artifact for a Bay Area Operations & Sales role.</p>
+      <p>The governed-ops engine instantiated for a youth basketball academy — membership economics, player-development pathways, and an integration layer for the basketball-AI stack (CV shot analysis, smartphone assessments, workload wearables). Built as a live artifact for a Bay Area Operations &amp; Sales role.</p>
       <a class="open" href="basketball.html">Open the model</a>
     </div>
   </div>
 
+  <div class="sec">Article II — Role Adaptation Instrument</div>
   <div class="adapt">
-    <h2>Adapt this packet to any job</h2>
-    <p class="sub2">Paste a job description. The adapter scores the role against five tracks, re-ranks the portfolio emphasis, and drafts tailored positioning — same canonical facts, re-weighted for the reader. Nothing is invented; it re-orders proof, it doesn't fabricate it.</p>
+    <h2>Adaptation of this document set to a specified role</h2>
+    <p class="sub2">Paste a job description. The instrument scores the role against five practice areas, re-orders the portfolio emphasis, and drafts positioning from the same canonical record. It re-weights documented proof; it does not fabricate qualifications.</p>
     <textarea id="jd" placeholder="Paste the job description here…"></textarea>
     <button onclick="adapt()">Adapt packet</button>
     <button class="ghost" onclick="copyOut()">Copy tailored text</button>
     <div id="adaptOut"></div>
   </div>
 
+  <div class="sec">Article III — Domain Pack Instrument</div>
   <div class="builder">
     <h2>Domain pack builder</h2>
-    <p class="sub2" style="color:var(--dim);font-size:13px">Five questions define any governed network. Answer them and get a drop-in domain pack — the schema (nodes · gates · clocks · proposals · ledger · control variables) never changes.</p>
+    <p class="sub2" style="color:var(--dim);font-size:13px">Five determinations define any governed network. The canonical schema — nodes, gates, clocks, proposals, ledger, control variables — is invariant; only the lexicon and seed change.</p>
     <div class="bgrid">
       <div><label>1 · What is a node (singular / plural)?</label><input id="bNode" placeholder="e.g. depot / depots"></div>
-      <div><label>2 · What is the non-negotiable safety gate?</label><input id="bGate" placeholder="e.g. driver & cargo safety"></div>
+      <div><label>2 · What is the non-negotiable safety gate?</label><input id="bGate" placeholder="e.g. driver &amp; cargo safety"></div>
       <div><label>3 · What are the regulatory clocks?</label><input id="bClock" placeholder="e.g. DOT inspections, license renewals"></div>
       <div><label>4 · What is the protected revenue line?</label><input id="bRev" placeholder="e.g. contract logistics revenue"></div>
       <div><label>5 · Who are the two transparency sides?</label><input id="bSides" placeholder="e.g. network HQ / depot operator"></div>
@@ -123,7 +132,7 @@
   </div>
 
   <div class="principles">
-    <h2>Design principles — shared by all three systems</h2>
+    <h2>Article IV — Governing principles, common to all systems</h2>
     <div class="plist">
       <div><b>Canonical state</b>One shared structure feeds every view. No cached copies, no version drift.</div>
       <div><b>Fail-safe by default</b>Missing, stale, or unverified data does not pass. The proposal holds; the system never approximates.</div>
@@ -136,7 +145,7 @@
   </div>
 
   <footer>
-    Built by Pratik “Parry” Singh · Clearline Group · <a href="mailto:clearlinegroupllc@gmail.com">clearlinegroupllc@gmail.com</a> · Simulated figures are labeled; network-level facts are seeded from public records.
+    <b>Notice.</b> This document set is a demonstration of operating systems authored by Pratik “Parry” Singh, Clearline Group LLC, San Francisco Bay Area · <a href="mailto:clearlinegroupllc@gmail.com">clearlinegroupllc@gmail.com</a>. Figures designated “simulated” are illustrative; figures cited to public records (franchise disclosure documents, published benchmarks) are identified as such at the point of use. Nothing herein constitutes an offer, a representation of actual network performance, or legal, financial, or investment advice.
   </footer>
 </div>
 <script>
