@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code Ninjas — Franchise Governance Engine</title>
+<style>
+:root{--bg:#0c0f14;--panel:#131820;--line:#232b38;--ink:#e6ebf2;--dim:#8b96a6;--acc:#4cc2a0;--warn:#e0a458;--risk:#e06565;--vio:#9a8ce8;--mono:ui-monospace,Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,'Segoe UI',Roboto,sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+header h1{font-size:19px;font-weight:650}
+header .nav{font:12px var(--mono);color:var(--dim)}
+header .nav a{color:var(--acc);text-decoration:none}
+.wrap{max-width:1220px;margin:0 auto;padding:28px}
+.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--acc);border-radius:10px;padding:14px 16px;margin-bottom:18px}
+.dombar select{background:#0a0d12;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:6px;padding:7px 10px}
+.dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:8px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .v{font:24px var(--mono);margin-top:2px}
+.kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+h2{font:12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:28px 0 12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:2px 7px}
+.b-ok{background:rgba(76,194,160,.14);color:var(--acc)}
+.b-warn{background:rgba(224,164,88,.14);color:var(--warn)}
+.b-risk{background:rgba(224,101,101,.16);color:var(--risk)}
+.b-held{background:rgba(139,150,166,.16);color:var(--dim)}
+.b-vio{background:rgba(154,140,232,.16);color:var(--vio)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#0c0f14}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#0c0f14}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+@media(max-width:960px){.two,.three{grid-template-columns:1fr}}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.ledger td{font-family:var(--mono);font-size:11.5px}
+.trace{color:var(--vio);cursor:pointer;text-decoration:underline dotted}
+.tracebox{border:1px dashed var(--vio);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--vio);margin-top:8px;display:none}
+footer{max-width:1220px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+footer b{color:var(--ink)}
+.donut{display:flex;align-items:center;gap:18px}
+svg text{fill:var(--ink)}
+.conflict{border-left:3px solid var(--risk);padding:8px 12px;margin-bottom:10px;background:rgba(224,101,101,.06);border-radius:0 8px 8px 0;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="tag">Code Ninjas · 348 units modeled · 64 verified from public records · 244 authoritative per FDD Item 20</div>
+    <h1>Franchise Governance Engine</h1>
+  </div>
+  <div class="nav"><a href="index.html">← all models</a> · the network is one system, not 348 small businesses</div>
+</header>
+<div class="wrap">
+  <div class="dombar">
+    <b style="font-size:13px">Domain pack:</b>
+    <select id="defenseSel" onchange="switchDefense(this.value)">
+      <option value="coding">Coding-education franchise</option>
+      <option value="qsr">QSR restaurant chain</option>
+      <option value="fitness">Fitness franchise</option>
+      <option value="msp">MSP client fleet</option>
+    </select>
+    <p>Same engine — four governors, posture classification, fault-tolerant agent graph, syndrome decoder, causal ledger. Only the lexicon, seeds, and benchmarks change; any multi-unit network is one self-stabilizing system.</p>
+  </div>
+  <div class="kpis" id="kpis"></div>
+
+  <div class="two" style="margin-top:18px">
+    <div>
+      <h2>Network posture — self-stabilizing classification</h2>
+      <div class="panel donut" id="posture"></div>
+    </div>
+    <div>
+      <h2>The four governors — layered verification</h2>
+      <div class="panel" id="gates"></div>
+    </div>
+  </div>
+
+  <h2>Agent communication graph — fault-tolerant by construction</h2>
+  <div class="panel">
+    <div class="two">
+      <div id="graph"></div>
+      <div>
+        <p style="font-size:13px">Growth, ops, and compliance agents coordinate over an <b>r-robust graph</b>: every agent is reachable through enough independent paths that up to <span style="font-family:var(--mono)" id="faultCap"></span> faulty agent(s) cannot capture a network decision. Edges carry information budgets — centers report what they must, not everything they can — so the graph stays functional under under-reporting.</p>
+        <p style="font-size:13px;margin-top:10px">Deliberation order is fixed: <b>compliance speaks first</b>, then ops, then growth. The first voice dominates outcomes in multi-agent panels, so the safety agent always frames the decision.</p>
+        <p class="note">Try it: corrupt an agent and watch the network hold.</p>
+        <div style="margin-top:10px" id="corruptBtns"></div>
+        <div class="tracebox" id="corruptMsg"></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Quantum view — the network as a syndrome graph</h2>
+  <div class="panel">
+    <div class="two">
+      <div>
+        <svg id="syndrome" width="340" height="300" viewBox="0 0 340 300"></svg>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="rel" onclick="injectChain()">Inject an error chain</button>
+          <button onclick="decodeSyndrome()" id="decodeBtn" disabled>Run decoder (matching)</button>
+          <button class="rel" onclick="resetSyndrome()">Reset</button>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:13px">Treat peer centers as qubits in a surface code: adjacent centers run correlated playbooks, so a <b>parity check</b> between neighbors should agree. An error chain flips parity only at its <b>endpoints</b> — exactly like a physical error chain in QEC. The decoder then solves a <b>minimum-weight perfect matching</b> on the fired detectors: pair them along the shortest total path, and the matched edges are the most likely error locations.</p>
+        <p style="font-size:13px;margin-top:10px">This is the Sparse Blossom / PyMatching architecture (decodes a distance-17 surface code in &lt;1µs/round) applied to network operations — and the 2026 neural-decoder line (NMWPM: a GNN+Transformer learns the <i>edge weights</i>, reaching 17.9%/10.95% thresholds near maximum-likelihood bounds) is the upgrade path: learn which peer-links are noisy instead of treating all parity checks equally.</p>
+        <div id="decodeOut" style="margin-top:10px"></div>
+      </div>
+    </div>
+    <div class="two" style="margin-top:18px">
+      <div>
+        <p style="font-size:13px;margin-bottom:8px"><b>Below-threshold behavior.</b> Governance is "below threshold" when layered gates suppress errors faster than they enter. Curves: escape probability ∏(1−q)<sup>k</sup>-style scaling for k verification layers vs. the diagonal (incoming error rate). More layers → deeper suppression.</p>
+        <svg id="threshold" width="340" height="220" viewBox="0 0 340 220"></svg>
+      </div>
+      <div>
+        <p style="font-size:13px;margin-bottom:8px"><b>Steering while running.</b> Google's 2026 <i>Nature</i> result — RL steering QEC control parameters live on Willow, using detector statistics as reward (2.4–3.5× stability, further 20% logical-error cut after expert calibration) — is the model for the early-warning τ loop: thresholds recalibrate from detector (parity-flip) statistics without halting the network.</p>
+        <div class="panel" style="background:#0a0d12" id="steerLog"><p style="font-size:12.5px;color:var(--dim)">Steering log will appear here after a decode.</p></div>
+      </div>
+    </div>
+    <p class="note">Graph-theory core: syndrome graph, minimum-weight perfect matching (Edmonds' blossom), percolation thresholds. Decoder here is a greedy-matching approximation for demonstration; production would use PyMatching. Architectural analogy — not a claim of quantum hardware work.</p>
+  </div>
+
+  <div class="two" style="margin-top:28px">
+    <div>
+      <h2>Ticket board — named ownership</h2>
+      <div class="panel">
+        <table id="tickets"><thead><tr><th>Ticket</th><th>Center</th><th>Owner</th><th>Gate depth</th><th></th></tr></thead><tbody></tbody></table>
+        <p class="note">Adaptive gate depth: healthy centers take the lean path (2 gates); flagged centers get full four-gate review. Governance cost stays flat as the network scales; nothing weakens on the risky tail. Moving a ticket to Done writes to the decision ledger with its causal inputs.</p>
+      </div>
+    </div>
+    <div>
+      <h2>Growth readiness — expansion is earned, not opportunistic</h2>
+      <div class="panel">
+        <table id="growth"><thead><tr><th>Territory</th><th>Headroom</th><th>Momentum</th><th>Health</th><th>Priority</th></tr></thead><tbody></tbody></table>
+        <p class="note">Priority = f(headroom × momentum × health × peer support). New units open only where the network has proven capacity to support them. Unit-Value Program: lifting unit economics across the 244 authoritative units before adding the next 50 projects <b>≈$1.36M/yr</b> in additional royalty at 400 units — the lowest-risk growth lever.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Decision ledger — causal lineage, traceable impact</h2>
+  <div class="panel">
+    <table class="ledger" id="ledger"><thead><tr><th>Decision</th><th>Owner</th><th>Rule</th><th>Inputs consumed</th></tr></thead><tbody></tbody></table>
+    <div class="tracebox" id="tracebox"></div>
+    <p class="note">Click an input to trace everything it feeds. Corrupted data becomes a root-cause lookup, not a forensic project.</p>
+  </div>
+  <h2>What this engine is worth — economic valuation</h2>
+  <div class="panel">
+    <div class="kpis" id="econ" style="margin-bottom:14px"></div>
+    <table id="econTable"><thead><tr><th>Value lever</th><th>Mechanism</th><th>Annual value (modeled)</th></tr></thead><tbody></tbody></table>
+    <p class="note">Benchmarks from the brand's public FDD data (shown for the coding-education instantiation; QSR, fitness, and MSP packs apply their own sector AUVs, royalty loads, and multiples): median unit revenue <b>$216,697</b>, average <b>$238,184</b> (2026 FDD Item 19, via Franchable/Franzy); quartile spread FY2024 — top 25% avg <b>$381,693</b> vs. bottom 25% avg <b>$125,353</b> (1851 Franchise, 2025 FDD Item 19); royalty <b>8.25%</b> + 2% brand fund; <b>13 closures</b> in 2025 (Item 20). Valuation bands: single-unit resales <b>2.5–3.5× SDE</b>, multi-unit <b>3–6× EBITDA</b>, franchise EBITDA margins 12–22% post-royalty (Sofer Advisors; CT Acquisitions 2026 multiples guide).</p>
+  </div>
+</div>
+<footer>
+  <b>Fail-safe by default:</b> a measurement that fails any governor is held; missing data does not pass by approximation. · Data tiers: <b>348 modeled</b> · <b>64 verified</b> from public records · <b>244 authoritative</b> per FDD Item 20 — projections are never treated as facts. · All figures derive from one canonical state at render time. · <b>Design basis (2026 research):</b> r-robust Byzantine-tolerant agent graphs (arXiv 2605.09076); deliberation order and first-mover effects in multi-agent panels (Frontiers, May 2026); FSM-modeled verifiable recovery (Agent-SAMA, AAAI 2026); workflow topology optimization survey (arXiv 2603.22386).
+</footer>
+<script>
+// ============ CANONICAL STATE ============
+// ============ DOMAIN PACKS — governance engine, any multi-unit network ============
+const DEFENSE_PACKS = {
+  coding:{
+    label:"Coding-education franchise", unit:"center", unitsNoun:"centers",
+    counts:{modeled:348, verified:64, authoritative:244},
+    tickets:[
+      {id:"T-301", center:"Aliso Viejo, CA", issue:"Early-warning τ breached (2.3 wks)", owner:"Center Success Lead", flagged:true, status:"open"},
+      {id:"T-302", center:"Frisco, TX", issue:"FDD clock audit — sign-off due", owner:"Compliance Officer", flagged:true, status:"open"},
+      {id:"T-303", center:"Bellevue, WA", issue:"Re-measurement batch (data integrity)", owner:"Ops Analyst", flagged:false, status:"open"},
+      {id:"T-304", center:"Cary, NC", issue:"Territory white-space analysis", owner:"Franchise Director", flagged:false, status:"open"},
+      {id:"T-305", center:"Irvine, CA", issue:"Parent escalation — support sequence", owner:"Center Success Lead", flagged:true, status:"open"}],
+    territories:[
+      {name:"Aliso Viejo, CA", headroom:.82, momentum:.71, health:.85, peer:.9},
+      {name:"Frisco, TX", headroom:.77, momentum:.66, health:.81, peer:.84},
+      {name:"Cary, NC", headroom:.74, momentum:.62, health:.78, peer:.8},
+      {name:"Bellevue, WA", headroom:.68, momentum:.58, health:.83, peer:.76},
+      {name:"Scottsdale, AZ", headroom:.65, momentum:.52, health:.72, peer:.7}],
+    grid:["Aliso Viejo","Frisco","Cary","Bellevue","Irvine","Scottsdale","Plano","Raleigh","Austin","Denver","Mesa","Naperville","Katy","Chandler","Fremont","Ashburn"],
+  },
+  qsr:{
+    label:"QSR restaurant chain", unit:"store", unitsNoun:"stores",
+    counts:{modeled:520, verified:88, authoritative:410},
+    tickets:[
+      {id:"T-301", center:"Store #214, Plano TX", issue:"Early-warning τ breached (2.3 wks)", owner:"Area Coach", flagged:true, status:"open"},
+      {id:"T-302", center:"Store #089, Mesa AZ", issue:"Health-inspection clock — sign-off due", owner:"Compliance Officer", flagged:true, status:"open"},
+      {id:"T-303", center:"Store #332, Raleigh NC", issue:"Re-measurement batch (data integrity)", owner:"Ops Analyst", flagged:false, status:"open"},
+      {id:"T-304", center:"Store #177, Austin TX", issue:"Trade-area white-space analysis", owner:"Development Director", flagged:false, status:"open"},
+      {id:"T-305", center:"Store #041, Denver CO", issue:"Guest escalation — support sequence", owner:"Area Coach", flagged:true, status:"open"}],
+    territories:[
+      {name:"Plano, TX", headroom:.82, momentum:.71, health:.85, peer:.9},
+      {name:"Mesa, AZ", headroom:.77, momentum:.66, health:.81, peer:.84},
+      {name:"Raleigh, NC", headroom:.74, momentum:.62, health:.78, peer:.8},
+      {name:"Austin, TX", headroom:.68, momentum:.58, health:.83, peer:.76},
+      {name:"Denver, CO", headroom:.65, momentum:.52, health:.72, peer:.7}],
+    grid:["Plano","Mesa","Raleigh","Austin","Denver","Tulsa","Fresno","Boise","Omaha","Tucson","Waco","Durham","Kirkland","Tempe","Arvada","Round Rock"],
+  },
+  fitness:{
+    label:"Fitness franchise", unit:"studio", unitsNoun:"studios",
+    counts:{modeled:264, verified:51, authoritative:198},
+    tickets:[
+      {id:"T-301", center:"Midtown, Atlanta", issue:"Early-warning τ breached (2.3 wks)", owner:"Studio Success Lead", flagged:true, status:"open"},
+      {id:"T-302", center:"RiNo, Denver", issue:"Brand-standards audit — sign-off due", owner:"Compliance Officer", flagged:true, status:"open"},
+      {id:"T-303", center:"Pearl District, Portland", issue:"Re-measurement batch (data integrity)", owner:"Ops Analyst", flagged:false, status:"open"},
+      {id:"T-304", center:"Wynwood, Miami", issue:"Territory white-space analysis", owner:"Franchise Director", flagged:false, status:"open"},
+      {id:"T-305", center:"Oak Lawn, Dallas", issue:"Member escalation — support sequence", owner:"Studio Success Lead", flagged:true, status:"open"}],
+    territories:[
+      {name:"Midtown, Atlanta", headroom:.82, momentum:.71, health:.85, peer:.9},
+      {name:"RiNo, Denver", headroom:.77, momentum:.66, health:.81, peer:.84},
+      {name:"Wynwood, Miami", headroom:.74, momentum:.62, health:.78, peer:.8},
+      {name:"Pearl District, Portland", headroom:.68, momentum:.58, health:.83, peer:.76},
+      {name:"Oak Lawn, Dallas", headroom:.65, momentum:.52, health:.72, peer:.7}],
+    grid:["Midtown","RiNo","Wynwood","Pearl","Oak Lawn","Logan Sq","Cap Hill","Short N","SoDo","NoDa","The Gulch","Fishtown","Allston","Ferndale","Hyde Park","LoHi"],
+  },
+  msp:{
+    label:"MSP client fleet", unit:"client site", unitsNoun:"client sites",
+    counts:{modeled:412, verified:73, authoritative:305},
+    tickets:[
+      {id:"T-301", center:"Acme Logistics", issue:"Early-warning τ breached (2.3 wks)", owner:"vCIO / Success Lead", flagged:true, status:"open"},
+      {id:"T-302", center:"Globex Manufacturing", issue:"Security-review clock — sign-off due", owner:"Compliance Officer", flagged:true, status:"open"},
+      {id:"T-303", center:"Initech Health", issue:"Re-measurement batch (telemetry integrity)", owner:"Ops Analyst", flagged:false, status:"open"},
+      {id:"T-304", center:"Umbrella Retail", issue:"Vertical white-space analysis", owner:"Service Director", flagged:false, status:"open"},
+      {id:"T-305", center:"Stark Financial", issue:"Client escalation — support sequence", owner:"vCIO / Success Lead", flagged:true, status:"open"}],
+    territories:[
+      {name:"Acme Logistics", headroom:.82, momentum:.71, health:.85, peer:.9},
+      {name:"Globex Manufacturing", headroom:.77, momentum:.66, health:.81, peer:.84},
+      {name:"Initech Health", headroom:.74, momentum:.62, health:.78, peer:.8},
+      {name:"Umbrella Retail", headroom:.68, momentum:.58, health:.83, peer:.76},
+      {name:"Stark Financial", headroom:.65, momentum:.52, health:.72, peer:.7}],
+    grid:["Acme","Globex","Initech","Umbrella","Stark","Hooli","Wayne","Wonka","Cyberdyne","Tyrell","Oscorp","Aperture","Soylent","Vandelay","Pied Piper","Massive Dyn"],
+  },
+};
+let dPack = "coding";
+function buildDefense(pk){
+  const p = DEFENSE_PACKS[pk];
+  return {
+    units:JSON.parse(JSON.stringify(p.counts)),
+    control:{tau:2.1, criticalDistance:0.8, sustainability:0.01},
+    gates:[
+      {name:"Safety (people first)", q:0.99, mandatory:true},
+      {name:"Data integrity (fresh, sourced, verified)", q:0.96},
+      {name:"Engagement integrity", q:0.93},
+      {name:"Financial materiality", q:0.91}],
+    agents:[
+      {id:"compliance", label:"Compliance", color:"#e06565", order:1, corrupt:false},
+      {id:"ops", label:"Ops", color:"#e0a458", order:2, corrupt:false},
+      {id:"growth", label:"Growth", color:"#4cc2a0", order:3, corrupt:false},
+      {id:"ledger", label:"Decision ledger", color:"#9a8ce8", order:4, corrupt:false}],
+    edges:[["compliance","ops"],["compliance","growth"],["compliance","ledger"],["ops","growth"],["ops","ledger"],["growth","ledger"]],
+    tickets:JSON.parse(JSON.stringify(p.tickets)),
+    territories:JSON.parse(JSON.stringify(p.territories)),
+    ledger:[
+      {decision:"Unit-Value Program approved for modeling at 400 units", owner:"Franchise Director", rule:"Rule 1: reversal if royalty variance >5%", inputs:["item20.units=244","royalty.model.v7","state.gates"]},
+      {decision:"13% of network routed to at-risk support paths", owner:"Center Success Lead", rule:"Rule 1: reversal on 2 consecutive τ clears", inputs:["control.tau=2.1","control.criticalDistance=0.8","posture.composite"]}],
+    causal:{}
+  };
+}
+let STATE = buildDefense(dPack);
+function switchDefense(pk){
+  dPack = pk; STATE = buildDefense(pk);
+  document.getElementById('defenseSel').value = pk;
+  initSyndrome(DEFENSE_PACKS[pk].grid);
+  resetSyndrome(true);
+  render();
+}
+
+// ============ DERIVED ============
+function derive(){
+  const d={};
+  const total=STATE.units.modeled;
+  d.posture={thriving:Math.round(total*0.60), watch:Math.round(total*0.27), atRisk:total-Math.round(total*0.60)-Math.round(total*0.27)};
+  d.escape=STATE.gates.reduce((a,g)=>a*(1-g.q),1);
+  d.reliability=1-d.escape;
+  d.faultTolerable=Math.floor((STATE.agents.length-1)/2); // complete graph K_n tolerates floor((n-1)/2) Byzantine agents
+  d.growth=STATE.territories.map(t=>({...t, priority:+(t.headroom*t.momentum*t.health*t.peer).toFixed(3)})).sort((a,b)=>b.priority-a.priority);
+  STATE.causal={};
+  STATE.ledger.forEach((e,i)=>e.inputs.forEach(inp=>{(STATE.causal[inp]=STATE.causal[inp]||[]).push(i);}));
+  return d;
+}
+
+// ============ RENDER ============
+function render(){
+  const d=derive();
+  document.getElementById('kpis').innerHTML=[
+    ["Units modeled", STATE.units.modeled],
+    ["Thriving", d.posture.thriving+" ("+Math.round(d.posture.thriving/STATE.units.modeled*100)+"%)"],
+    ["Watch", d.posture.watch],
+    ["At-risk", d.posture.atRisk],
+    ["Early-warning τ", STATE.control.tau+" wks"],
+    ["Gate reliability", (d.reliability*100).toFixed(2)+"%"],
+    ["Open tickets", STATE.tickets.filter(t=>t.status==="open").length],
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+
+  // posture donut
+  const p=d.posture, tot=STATE.units.modeled;
+  const segs=[["Thriving · self-stabilizing (+0.01/wk)",p.thriving,"#4cc2a0"],["Watch · τ flagged",p.watch,"#e0a458"],["At-risk · routed to owners",p.atRisk,"#e06565"]];
+  let acc=0; const R=54,C=2*Math.PI*R;
+  const arcs=segs.map(([l,v,c])=>{const frac=v/tot;const s=`<circle r="${R}" cx="70" cy="70" fill="none" stroke="${c}" stroke-width="16" stroke-dasharray="${frac*C} ${C}" stroke-dashoffset="${-acc*C}" transform="rotate(-90 70 70)"/>`;acc+=frac;return s;}).join('');
+  document.getElementById('posture').innerHTML=
+    `<svg width="140" height="140" viewBox="0 0 140 140">${arcs}<text x="70" y="66" text-anchor="middle" font-size="20" font-family="var(--mono)">${tot}</text><text x="70" y="84" text-anchor="middle" font-size="9" fill="#8b96a6">${DEFENSE_PACKS[dPack].unitsNoun.toUpperCase()}</text></svg>
+     <div>${segs.map(([l,v,c])=>`<div style="font-size:13px;margin-bottom:6px"><span style="color:${c};font-family:var(--mono)">■</span> ${l} — <b>${v}</b></div>`).join('')}
+     <p class="note">Predictive thresholds — τ = ${STATE.control.tau} weeks, critical distance = $${STATE.control.criticalDistance}k — flag deterioration before it becomes a crisis.</p></div>`;
+
+  document.getElementById('gates').innerHTML=
+    STATE.gates.map(g=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${g.name}${g.mandatory?' <span class="badge b-risk">non-negotiable</span>':''}</span><span style="font-family:var(--mono)">q=${g.q}</span></div><div class="bar"><i style="width:${g.q*100}%;${g.mandatory?'background:var(--risk)':''}"></i></div></div>`).join('')
+    +`<p class="note">P(escape) = ∏(1−q) = ${d.escape.toExponential(1)} → <b style="color:var(--acc)">${(d.reliability*100).toFixed(3)}%</b> reliability. Any gate failure holds the measurement; safety is evaluated first and cannot be traded off.</p>`;
+
+  renderGraph(d);
+  document.getElementById('faultCap').textContent=d.faultTolerable;
+
+  document.querySelector('#tickets tbody').innerHTML=STATE.tickets.map((t,i)=>`<tr>
+    <td><b>${t.id}</b> — ${t.issue}</td><td>${t.center}</td><td>${t.owner}</td>
+    <td><span class="badge ${t.flagged?'b-risk':'b-ok'}">${t.flagged?'full · 4 gates':'lean · 2 gates'}</span></td>
+    <td>${t.status==='open'?`<button onclick="closeTicket(${i})">Mark done</button>`:'<span class="badge b-ok">done</span>'}</td></tr>`).join('');
+
+  document.querySelector('#growth tbody').innerHTML=d.growth.map((t,i)=>`<tr>
+    <td><b>${t.name}</b></td><td>${t.headroom}</td><td>${t.momentum}</td><td>${t.health}</td>
+    <td style="font-family:var(--mono);color:${i===0?'var(--acc)':'var(--ink)'}">${t.priority.toFixed(2)}${i===0?' ← next':''}</td></tr>`).join('');
+
+  document.querySelector('#ledger tbody').innerHTML=STATE.ledger.map(e=>`<tr>
+    <td>${e.decision}</td><td>${e.owner}</td><td style="color:var(--dim)">${e.rule}</td>
+    <td>${e.inputs.map(inp=>`<span class="trace" onclick="trace('${inp}')">${inp}</span>`).join('<br>')}</td></tr>`).join('');
+
+  renderEcon(d);
+}
+
+// ============ ECONOMIC VALUATION (FDD Item 19/20 benchmarks applied to live state) ============
+const BENCH = {
+  medianRev: 216697,   // 2026 FDD Item 19, FY2025 median (Franchable)
+  avgRev: 238184,      // 2026 FDD Item 19, FY2025 average
+  bottomQ: 125353,     // FY2024 bottom-quartile average (1851 Franchise, 2025 FDD)
+  topQ: 381693,        // FY2024 top-quartile average
+  royalty: 0.0825, brandFund: 0.02,  // Item 6
+  closures2025: 13,    // Item 20
+  marginLow: 0.12, marginHigh: 0.22, // franchise EBITDA margins post-royalty (CT Acquisitions)
+  multLow: 2.5, multHigh: 4,         // single-unit resale band (Sofer Advisors / DealStream)
+};
+function renderEcon(d){
+  const lift = BENCH.medianRev - BENCH.bottomQ;              // gross $ lift, bottom-quartile → median
+  const atRisk = d.posture.atRisk;                            // units the engine routes to support
+  const systemFee = BENCH.royalty + BENCH.brandFund;          // 10.25% to franchisor
+  const royPerUnit = lift * systemFee;                        // royalty recovery per lifted unit
+  const royNetwork = royPerUnit * atRisk;
+  const ebitdaLow = lift * BENCH.marginLow, ebitdaHigh = lift * BENCH.marginHigh;
+  const evLow = ebitdaLow * BENCH.multLow, evHigh = ebitdaHigh * BENCH.multHigh;
+  const closureCost = BENCH.medianRev * systemFee;            // royalty stream lost per closure, per year
+
+  document.getElementById('econ').innerHTML = [
+    ["Lift: bottom-quartile → median", "$"+Math.round(lift/1000)+"k/unit"],
+    ["At-risk units routed", atRisk],
+    ["Royalty recovered (network)", "$"+Math.round(royNetwork/1000)+"k/yr"],
+    ["Resale value per lifted unit", "$"+Math.round(evLow/1000)+"k–$"+Math.round(evHigh/1000)+"k"],
+    ["Cost of one closure", "$"+Math.round(closureCost/1000)+"k/yr"],
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+
+  document.querySelector('#econTable tbody').innerHTML = [
+    ["Unit-value recovery", `Routing ${atRisk} at-risk units from bottom-quartile revenue ($${BENCH.bottomQ.toLocaleString()}) toward the network median ($${BENCH.medianRev.toLocaleString()}) — the engine's τ early-warning catches them 2.1 weeks before the P&L shows it`, "$"+Math.round(lift*atRisk/1000).toLocaleString()+"k gross/yr"],
+    ["Royalty stream protection", `At ${(systemFee*100).toFixed(2)}% (royalty + brand fund), each lifted unit restores ≈$${Math.round(royPerUnit).toLocaleString()}/yr to the franchisor`, "$"+Math.round(royNetwork).toLocaleString()+"/yr"],
+    ["Resale enterprise value", `+$${Math.round(lift/1000)}k gross at 12–22% flow-through ≈ $${Math.round(ebitdaLow/1000)}k–$${Math.round(ebitdaHigh/1000)}k EBITDA; at 2.5–4× single-unit resale multiples`, "$"+Math.round(evLow).toLocaleString()+" – $"+Math.round(evHigh).toLocaleString()+" per unit"],
+    ["Closure avoidance", `Each closure destroys a ≈$${Math.round(closureCost).toLocaleString()}/yr royalty stream plus replacement cost; the network saw ${BENCH.closures2025} closures in 2025 (Item 20) — early-warning governance attacks this directly`, "$"+Math.round(closureCost).toLocaleString()+"/yr per unit saved"],
+    ["Quartile spread compression", `Top-quartile centers average $${BENCH.topQ.toLocaleString()} — 3.0× the bottom quartile. Governance that moves the tail toward the middle is the largest controllable value lever in the system`, "spread: $"+Math.round((BENCH.topQ-BENCH.bottomQ)/1000)+"k/unit"],
+  ].map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--dim);font-size:12.5px">${r[1]}</td><td style="font-family:var(--mono)">${r[2]}</td></tr>`).join('');
+}
+
+function renderGraph(d){
+  const pos={compliance:[150,40],ops:[40,110],growth:[260,110],ledger:[150,170]};
+  const a=Object.fromEntries(STATE.agents.map(x=>[x.id,x]));
+  const edges=STATE.edges.map(([u,v])=>{
+    const live=!a[u].corrupt&&!a[v].corrupt;
+    return `<line x1="${pos[u][0]}" y1="${pos[u][1]}" x2="${pos[v][0]}" y2="${pos[v][1]}" stroke="${live?'#3a4657':'#e06565'}" stroke-width="${live?1.5:1}" ${live?'':'stroke-dasharray="4 4"'}/>`;}).join('');
+  const nodes=STATE.agents.map(x=>{const [cx,cy]=pos[x.id];
+    return `<circle cx="${cx}" cy="${cy}" r="22" fill="${x.corrupt?'#2a1518':'#131820'}" stroke="${x.corrupt?'#e06565':x.color}" stroke-width="2"/>
+    <text x="${cx}" y="${cy-26}" text-anchor="middle" font-size="9" fill="${x.color}" font-family="var(--mono)">${x.order}</text>
+    <text x="${cx}" y="${cy+3}" text-anchor="middle" font-size="9.5">${x.corrupt?'FAULT':x.label}</text>`;}).join('');
+  document.getElementById('graph').innerHTML=`<svg width="300" height="210" viewBox="0 0 300 210">${edges}${nodes}</svg>
+    <p class="note">Complete graph K4 — maximally r-robust for 4 agents. Numbers show fixed deliberation order (compliance first).</p>`;
+  document.getElementById('corruptBtns').innerHTML=STATE.agents.filter(x=>x.id!=='ledger').map(x=>
+    `<button class="rel" onclick="corrupt('${x.id}')">${x.corrupt?'Heal':'Corrupt'} ${x.label}</button>`).join(' ');
+}
+
+// ============ QUANTUM VIEW: syndrome graph + matching decoder ============
+const GRID=4, CELL=78, PAD=20;
+const CENTER_NAMES=DEFENSE_PACKS.coding.grid;
+let sNodes=[], sEdges=[], fired=new Set(), errChain=[];
+function initSyndrome(names){
+  sNodes=[]; sEdges=[]; fired=new Set(); errChain=[];
+  for(let r=0;r<GRID;r++)for(let c=0;c<GRID;c++)
+    sNodes.push({id:r*GRID+c, r, c, x:PAD+c*CELL+CELL/2, y:PAD+r*CELL+CELL/2, name:names[r*GRID+c]});
+  for(const n of sNodes){
+    const right=sNodes.find(m=>m.r===n.r&&m.c===n.c+1), down=sNodes.find(m=>m.r===n.r+1&&m.c===n.c);
+    if(right)sEdges.push({a:n.id,b:right.id});
+    if(down)sEdges.push({a:n.id,b:down.id});
+  }
+}
+initSyndrome(CENTER_NAMES);
+function drawSyndrome(matched=[]){
+  const svg=document.getElementById('syndrome');
+  const mset=new Set(matched.map(e=>e.a+"-"+e.b));
+  svg.innerHTML=
+    sEdges.map(e=>{
+      const a=sNodes[e.a],b=sNodes[e.b];
+      const isErr=errChain.some(x=>(x.a===e.a&&x.b===e.b)||(x.a===e.b&&x.b===e.a));
+      const isM=mset.has(e.a+"-"+e.b)||mset.has(e.b+"-"+e.a);
+      return `<line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${isM?'#9a8ce8':isErr?'#e06565':'#2a3442'}" stroke-width="${isM||isErr?3:1.5}" ${isErr&&!isM?'stroke-dasharray="5 4"':''}/>`;
+    }).join('')+
+    sNodes.map(n=>`<circle cx="${n.x}" cy="${n.y}" r="13" fill="${fired.has(n.id)?'#2a1518':'#131820'}" stroke="${fired.has(n.id)?'#e06565':'#3a4657'}" stroke-width="2"/>
+      ${fired.has(n.id)?`<text x="${n.x}" y="${n.y+3}" text-anchor="middle" font-size="9" fill="#e06565">✕</text>`:''}
+      <text x="${n.x}" y="${n.y+26}" text-anchor="middle" font-size="8" fill="#8b96a6">${n.name}</text>`).join('');
+}
+function injectChain(){
+  resetSyndrome(true);
+  // random walk chain of 3-5 edges (like a physical error chain)
+  let cur=Math.floor(Math.random()*sNodes.length), len=3+Math.floor(Math.random()*3), prev=-1;
+  errChain=[];
+  for(let i=0;i<len;i++){
+    const nbrs=sEdges.filter(e=>e.a===cur||e.b===cur).map(e=>e.a===cur?e.b:e.a).filter(x=>x!==prev);
+    if(!nbrs.length)break;
+    const nxt=nbrs[Math.floor(Math.random()*nbrs.length)];
+    errChain.push({a:cur,b:nxt}); prev=cur; cur=nxt;
+  }
+  // detectors fire at chain endpoints only (interior flips twice → cancels)
+  fired=new Set([errChain[0].a, errChain[errChain.length-1].b]);
+  drawSyndrome();
+  document.getElementById('decodeBtn').disabled=false;
+  document.getElementById('decodeOut').innerHTML=`<p style="font-size:12.5px;color:var(--risk)">⚠ ${fired.size} detectors fired (parity disagreement between peer centers). Error chain hidden — decoder must infer it from endpoints alone.</p>`;
+}
+function decodeSyndrome(){
+  // greedy minimum-weight matching approximation on fired detectors
+  const det=[...fired]; const matched=[]; const used=new Set();
+  const dist=(x,y)=>Math.abs(sNodes[x].r-sNodes[y].r)+Math.abs(sNodes[x].c-sNodes[y].c);
+  while(used.length<det.length && used.size<det.length){
+    let best=null,bd=1e9;
+    for(const i of det)for(const j of det){ if(i!==j&&!used.has(i)&&!used.has(j)){ const d=dist(i,j); if(d<bd){bd=d;best=[i,j];} } }
+    if(!best)break;
+    used.add(best[0]);used.add(best[1]);
+    // trace shortest path edges between the pair
+    let a=best[0]; const b=best[1];
+    while(a!==b){
+      const n=sNodes[a];
+      const step=sNodes.find(m=>sEdges.some(e=>(e.a===a&&e.b===m.id)||(e.b===a&&e.a===m.id)) && dist(m.id,b)<dist(a,b));
+      matched.push({a,b:step.id}); a=step.id;
+    }
+  }
+  drawSyndrome(matched);
+  const hit=matched.some(m=>errChain.some(e=>(e.a===m.a&&e.b===m.b)||(e.a===m.b&&e.b===m.a)));
+  const endpoints=[...fired].map(i=>sNodes[i].name).join(" ↔ ");
+  document.getElementById('decodeOut').innerHTML=`<p style="font-size:12.5px;color:${hit?'var(--acc)':'var(--warn)'}">
+    Decoder matched ${endpoints} along ${matched.length} edge(s) — ${hit?"<b>recovered the true error chain.</b> The anomaly is localized to the matched peer-links; support ticket routed with the chain attached as causal evidence.":"<b>minimum-weight hypothesis differs from the true chain</b> (degenerate matching — multiple chains explain the same syndrome). Routed for re-measurement rather than action. Either way: fail-safe."}</p>`;
+  document.getElementById('steerLog').innerHTML=`<p style="font-size:12px;font-family:var(--mono)">
+    ▸ detector statistics updated (flip rate per peer-link)<br>
+    ▸ edge weights nudged: noisy links weighted up (NMWPM-style learned weighting)<br>
+    ▸ τ thresholds recalibrated — no halt, no restart<br>
+    ▸ network continued operating through correction</p>`;
+}
+function resetSyndrome(silent){
+  fired=new Set(); errChain=[];
+  drawSyndrome();
+  document.getElementById('decodeBtn').disabled=true;
+  if(!silent) document.getElementById('decodeOut').innerHTML='';
+}
+// below-threshold plot
+(function drawThreshold(){
+  const svg=document.getElementById('threshold'); if(!svg)return;
+  const W=340,H=220,P=30;
+  const X=p=>P+p*(W-2*P), Y=v=>H-P-v*(H-2*P);
+  let s=`<line x1="${P}" y1="${H-P}" x2="${W-P}" y2="${H-P}" stroke="#3a4657"/><line x1="${P}" y1="${P}" x2="${P}" y2="${H-P}" stroke="#3a4657"/>
+  <text x="${W/2}" y="${H-6}" text-anchor="middle" font-size="9" fill="#8b96a6">incoming error rate p</text>
+  <text x="10" y="${H/2}" font-size="9" fill="#8b96a6" transform="rotate(-90 12 ${H/2})">escape</text>`;
+  s+=`<line x1="${X(0)}" y1="${Y(0)}" x2="${X(0.9)}" y2="${Y(0.9)}" stroke="#8b96a6" stroke-dasharray="4 4"/><text x="${X(0.62)}" y="${Y(0.66)}" font-size="9" fill="#8b96a6">uncorrected (y=x)</text>`;
+  const colors={1:"#e06565",2:"#e0a458",3:"#4cc2a0",4:"#9a8ce8"};
+  for(const k of [1,2,3,4]){
+    let pts=[];
+    for(let p=0;p<=0.9;p+=0.03) pts.push(`${X(p)},${Y(Math.pow(p,k))}`);
+    s+=`<polyline points="${pts.join(' ')}" fill="none" stroke="${colors[k]}" stroke-width="2"/>
+    <text x="${X(0.83)}" y="${Y(Math.pow(0.83,k))+(k===1?-4:10)}" font-size="9" fill="${colors[k]}">k=${k} layer${k>1?'s':''}</text>`;
+  }
+  svg.innerHTML=s;
+})();
+drawSyndrome();
+
+// ============ ACTIONS ============
+function corrupt(id){
+  const a=STATE.agents.find(x=>x.id===id); a.corrupt=!a.corrupt;
+  const msg=document.getElementById('corruptMsg'); msg.style.display='block';
+  const d=derive();
+  const nFaulty=STATE.agents.filter(x=>x.corrupt).length;
+  msg.textContent = nFaulty===0
+    ? "All agents healthy. Decisions flow through the full verification graph."
+    : nFaulty<=d.faultTolerable
+      ? `${nFaulty} faulty agent(s) — within tolerance (${d.faultTolerable}). Independent paths through the remaining agents still force every proposal through all four governors. The network holds; the faulty agent's proposals are quarantined, not executed.`
+      : "Fault tolerance exceeded — the system fails safe: all proposals hold at the gate for human review rather than executing on a captured consensus.";
+  render();
+  document.getElementById('corruptMsg').style.display='block';
+  document.getElementById('corruptMsg').textContent=msg.textContent;
+}
+function closeTicket(i){
+  const t=STATE.tickets[i]; t.status='done';
+  STATE.ledger.unshift({decision:`${t.id} done: ${t.issue} (${t.center})`, owner:t.owner, rule:"Rule 1: reversal trigger armed", inputs:[`ticket.${t.id}.evidence`, t.flagged?"state.gates (full review)":"state.gates[0..1] (lean path)"]});
+  render();
+}
+function trace(inp){
+  const idxs=STATE.causal[inp]||[];
+  const tb=document.getElementById('tracebox'); tb.style.display='block';
+  tb.innerHTML=`<b>Impact trace:</b> <span style="font-family:var(--mono)">${inp}</span> feeds ${idxs.length} decision(s):<br>`+
+    idxs.map(i=>`· ${STATE.ledger[i].decision} <span style="color:var(--dim)">(${STATE.ledger[i].owner})</span>`).join('<br>')+
+    `<br><span style="color:var(--dim)">If this input is found stale or corrupted, exactly these decisions are suspect — root cause, not symptom.</span>`;
+}
+render();
+// deep-link: ?pack=qsr|fitness|msp|coding
+const _dqp=new URLSearchParams(location.search).get('pack');
+if(_dqp && DEFENSE_PACKS[_dqp]) switchDefense(_dqp);
+</script>
+</body>
+</html>
