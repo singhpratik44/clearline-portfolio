@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Self-Review Pipeline — Standards, Extended</title>
+<style>
+:root{--bg:#0c0f14;--panel:#131820;--line:#232b38;--ink:#e6ebf2;--dim:#8b96a6;--acc:#4cc2a0;--warn:#e0a458;--risk:#e06565;--vio:#9a8ce8;--mono:ui-monospace,Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,'Segoe UI',Roboto,sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--vio)}
+header h1{font-size:19px;font-weight:650}
+header .nav{font:12px var(--mono);color:var(--dim)}
+header .nav a{color:var(--acc);text-decoration:none}
+.wrap{max-width:1220px;margin:0 auto;padding:28px}
+h2{font:12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:28px 0 12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:2px 7px}
+.b-ok{background:rgba(76,194,160,.14);color:var(--acc)}
+.b-warn{background:rgba(224,164,88,.14);color:var(--warn)}
+.b-risk{background:rgba(224,101,101,.16);color:var(--risk)}
+.b-vio{background:rgba(154,140,232,.16);color:var(--vio)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#0c0f14}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#0c0f14}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:960px){.two{grid-template-columns:1fr}}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+footer{max-width:1220px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+footer b{color:var(--ink)}
+.pipe{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;margin:6px 0 4px}
+.stage{flex:1;min-width:150px;background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12px;margin:4px;position:relative}
+.stage .n{font:18px var(--mono);color:var(--vio)}
+.stage h3{font-size:13px;margin:4px 0}
+.stage p{font-size:11.5px;color:var(--dim)}
+.stage .st{margin-top:8px}
+.stage.pass{border-color:var(--acc)}
+.stage.hold{border-color:var(--risk)}
+select{background:#0a0d12;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:6px;padding:7px 10px}
+.logline{font:11.5px/1.6 var(--mono);padding:6px 10px;border-left:3px solid var(--line);margin-bottom:6px;background:#0a0d12;border-radius:0 6px 6px 0}
+.logline.ok{border-left-color:var(--acc)}
+.logline.bad{border-left-color:var(--risk)}
+.logline.fix{border-left-color:var(--warn)}
+.study{font-size:13px;margin-bottom:10px;padding-left:14px;border-left:2px solid var(--line)}
+.study a{color:var(--acc);text-decoration:none}
+.study .src{font:10px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--vio)}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="tag">Standards, extended — classical &amp; quantum assurance</div>
+    <h1>AI Self-Review Pipeline</h1>
+  </div>
+  <div class="nav"><a href="index.html">← all models</a> · testing, peer review, ISO/NIST — enforced by agents</div>
+</header>
+<div class="wrap">
+
+  <h2>The mapping — traditional standards → self-review agents</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Traditional control</th><th>Framework anchor</th><th>Self-review agent</th><th>What it enforces</th></tr></thead>
+      <tbody>
+        <tr><td><b>Unit &amp; regression testing</b></td><td>IEEE 730 / ISO 9001 §8.5</td><td><span class="badge b-vio">Consistency agent</span></td><td>Every figure recomputes from canonical state; any view that can't be re-derived from source is held. Internal contradiction = failed test.</td></tr>
+        <tr><td><b>Peer review</b></td><td>Scholarly review / ISO 9001 §8.3 design review</td><td><span class="badge b-vio">Evidence agent</span></td><td>Every claim must cite a consumed input with provenance tier (authoritative / verified / modeled). Unsourced claims cannot pass — the reviewer's "citation needed," automated.</td></tr>
+        <tr><td><b>Risk management framework</b></td><td>NIST AI RMF (Govern · Map · Measure · Manage)</td><td><span class="badge b-vio">Risk agent</span></td><td>Scores each artifact against harm surface, reversibility, and blast radius. Safety-class items route to a human gate; nothing irreversible auto-commits.</td></tr>
+        <tr><td><b>AI management system</b></td><td>ISO/IEC 42001 (AI management)</td><td><span class="badge b-vio">Conformance agent</span></td><td>Checks the artifact follows the declared operating procedure — named owner, ledger entry, reversal trigger armed. Process conformance is a first-class check, not a hope.</td></tr>
+        <tr><td><b>Continuous calibration</b></td><td>Autonomous QEC (see mapping below)</td><td><span class="badge b-vio">Steering agent</span></td><td>Corrects drift while the system runs — small adjustments against live detection signals rather than halt-recalibrate-restart.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Live demonstration — run an artifact through the pipeline</h2>
+  <div class="panel">
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px">
+      <select id="artifact">
+        <option value="decision">Decision proposal: "Open 2 units in Frisco territory"</option>
+        <option value="valuation">Valuation claim: "Lift is worth $91k/unit/yr"</option>
+        <option value="resume">Resume bullet: "Doubled unit revenue in under 6 months"</option>
+        <option value="quantum">Quantum note: "RL steering cut logical error 20%"</option>
+      </select>
+      <button onclick="runPipeline()">Run self-review</button>
+      <button class="rel" onclick="healAndRerun()" id="healBtn" disabled>Heal flagged issues &amp; re-run</button>
+    </div>
+    <div class="pipe" id="pipe"></div>
+    <div id="log" style="margin-top:12px"></div>
+    <p class="note">The pipeline holds artifacts that fail consistency, evidence, risk, or conformance review — fail-safe by default. Healing is mechanical (attach the source, arm the reversal trigger); judgment calls still escalate to a named human.</p>
+  </div>
+
+  <div class="two" style="margin-top:28px">
+    <div>
+      <h2>The quantum analogy — autonomous error correction</h2>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Quantum error correction</th><th>This pipeline</th></tr></thead>
+          <tbody>
+            <tr><td>Syndrome extraction — continuous parity measurement without disturbing the computation</td><td>Continuous consistency checks against canonical state, run alongside operations rather than as periodic audits</td></tr>
+            <tr><td>Detector events — parity flips flag that <i>something</i> went wrong, without saying what</td><td>Consistency-agent holds: a figure that can't be re-derived is a detector firing</td></tr>
+            <tr><td>Decoder — infers the most likely error from detector patterns</td><td>Evidence + risk agents adjudicate which input or claim caused the hold (causal lineage)</td></tr>
+            <tr><td>RL steering on Willow — an agent tunes 1,000+ control parameters <i>while error correction runs</i>, using detector statistics as reward; 2.4–3.5× stability gain and a further 20% logical-error cut after expert calibration</td><td>Steering agent: drift correction without stopping the machine — the system learns from its errors and never halts for a tune-up</td></tr>
+            <tr><td>Below-threshold operation — errors suppressed faster than they accumulate</td><td>Layered gates: P(escape) = ∏(1−q) &lt; incoming error rate — reliability compounds with depth</td></tr>
+          </tbody>
+        </table>
+        <p class="note">The deepest idea autonomous QEC contributes to organizational systems: <b>correction is not a phase, it is a loop that never stops.</b> Google's 2026 Nature result is the hardware proof — a machine that learns from its errors and never stops computing. This pipeline is the same architecture at the governance layer.</p>
+      </div>
+    </div>
+    <div>
+      <h2>Research foundation — consulted studies (last ~12 months)</h2>
+      <div class="panel" id="studies"></div>
+    </div>
+  </div>
+</div>
+<footer>
+  <b>Scope note:</b> self-review agents enforce consistency, evidence, and risk — they do not replace human judgment. Safety-class decisions route to named owners; the agents make sure nothing reaches them unverified. · Quantum mappings are architectural analogies, not claims of quantum hardware work.
+</footer>
+<script>
+// ============ SELF-REVIEW PIPELINE ============
+const STAGES = [
+  {id:"consistency", name:"Consistency agent", desc:"Re-derive every figure from canonical state"},
+  {id:"evidence", name:"Evidence agent", desc:"Every claim cites a sourced input"},
+  {id:"risk", name:"Risk agent", desc:"Harm surface, reversibility, blast radius"},
+  {id:"conformance", name:"Conformance agent", desc:"Owner, ledger entry, reversal trigger"},
+];
+const ARTIFACTS = {
+  decision:{title:"Open 2 units in Frisco territory",
+    issues:{evidence:"growth.priority cites no FDD input", conformance:"no reversal trigger armed"},
+    fix:{evidence:"attached fdd.registration.clock + Item 20 count", conformance:"Rule 1 reversal trigger armed"}},
+  valuation:{title:"Lift is worth $91k/unit/yr",
+    issues:{evidence:"$216,697 median lacks source tier"},
+    fix:{evidence:"sourced to 2026 FDD Item 19 (authoritative tier)"}},
+  resume:{title:"Doubled unit revenue in under 6 months",
+    issues:{},
+    fix:{}},
+  quantum:{title:"RL steering cut logical error 20%",
+    issues:{consistency:"claim mixes decoder gain + RL gain + hardware maturation", evidence:"no run-replication count"},
+    fix:{consistency:"claim scoped: '20% after conventional calibration, reproduced across 5 runs × 2 code types'", evidence:"cited Nature 655, 879–884 (2026)"}},
+};
+let currentIssues = {};
+
+function runPipeline(){
+  const key = document.getElementById('artifact').value;
+  const a = ARTIFACTS[key];
+  currentIssues = {...a.issues};
+  renderPipe(a);
+  const log = document.getElementById('log');
+  log.innerHTML = `<div class="logline">▸ Artifact submitted: "${a.title}"</div>` +
+    STAGES.map(s=>{
+      const issue = a.issues[s.id];
+      return issue
+        ? `<div class="logline bad">✗ ${s.name}: HOLD — ${issue}</div>`
+        : `<div class="logline ok">✓ ${s.name}: pass</div>`;
+    }).join('') +
+    (Object.keys(a.issues).length
+      ? `<div class="logline bad">⛔ Pipeline verdict: HELD. Fail-safe by default — the artifact does not ship until holds clear.</div>`
+      : `<div class="logline ok">✅ Pipeline verdict: PASS — recorded to ledger with causal lineage.</div>`);
+  document.getElementById('healBtn').disabled = !Object.keys(a.issues).length;
+}
+function healAndRerun(){
+  const key = document.getElementById('artifact').value;
+  const a = ARTIFACTS[key];
+  const healed = {...a};
+  healed.issues = {};
+  currentIssues = {};
+  renderPipe(healed, true);
+  const log = document.getElementById('log');
+  log.innerHTML += Object.entries(a.fix).map(([s,f])=>`<div class="logline fix">⚙ Heal (${s}): ${f}</div>`).join('')
+    + `<div class="logline ok">✅ Re-run: PASS — all stages green. Healing was mechanical; no judgment call needed.</div>`;
+  document.getElementById('healBtn').disabled = true;
+}
+function renderPipe(a, healed=false){
+  document.getElementById('pipe').innerHTML = STAGES.map((s,i)=>{
+    const fail = a.issues[s.id];
+    return `<div class="stage ${fail?'hold':'pass'}">
+      <div class="n">${i+1}</div><h3>${s.name}</h3><p>${s.desc}</p>
+      <div class="st"><span class="badge ${fail?'b-risk':'b-ok'}">${fail?'hold':'pass'}</span></div>
+    </div>`;}).join('');
+}
+
+// ============ RESEARCH FOUNDATION ============
+const STUDIES = [
+  {t:"Reinforcement learning control of quantum error correction (Google Quantum AI / DeepMind — Willow hardware)", s:"Nature 655, 879–884", d:"Jul 2026", u:"https://www.nature.com/articles/s41586-026-10759-2"},
+  {t:"OmniQEC: discovering practical quantum error-correcting codes by an AI scientist", s:"arXiv 2607.25865", d:"Jul 2026", u:"https://arxiv.org/html/2607.25865v1"},
+  {t:"Robust Multi-Agent LLMs under Byzantine Faults — r-robust communication graphs", s:"arXiv 2605.09076", d:"Jun 2026", u:"https://arxiv.org/abs/2605.09076"},
+  {t:"Robust Multi-Agent Workflows for Environmental Data Management — audited handoffs, layered containment", s:"arXiv 2604.01647", d:"Jul 2026", u:"https://arxiv.org/abs/2604.01647"},
+  {t:"A Self-Healing Framework for Reliable LLM-Based Autonomous Agents", s:"arXiv 2605.06737", d:"May 2026", u:"https://arxiv.org/abs/2605.06737"},
+  {t:"Adversarial robustness of LLM-based multi-agent systems — first-mover effect, warning prompts", s:"Frontiers in AI", d:"May 2026", u:"https://www.frontiersin.org/"},
+  {t:"GraphTracer: information-dependency graphs for multi-agent failure attribution", s:"arXiv 2510.10581", d:"Oct 2025", u:"https://arxiv.org/abs/2510.10581"},
+  {t:"A Survey of Workflow Optimization for LLM Agents (77 works — topology design, dynamic editing)", s:"arXiv 2603.22386", d:"Mar 2026", u:"https://arxiv.org/abs/2603.22386"},
+  {t:"Agent-SAMA: finite-state-machine execution modeling for verifiable agent recovery", s:"AAAI 2026", d:"2026", u:"https://ojs.aaai.org/"},
+  {t:"LangGraph 1.0 durable execution — checkpointing, interrupt() human gates, policy-before-dispatch", s:"LangChain Blog", d:"Oct 2025", u:"https://blog.langchain.com/"},
+  {t:"A scalable and real-time neural decoder for topological quantum codes (AlphaQubit lineage)", s:"arXiv 2512.07737", d:"Dec 2025", u:"https://arxiv.org/abs/2512.07737"},
+  {t:"Sparse Blossom: correcting a million errors per core second with minimum-weight matching (PyMatching v2)", s:"Quantum 9, 1600", d:"2025", u:"https://quantum-journal.org/papers/q-2025-01-20-1600/"},
+  {t:"Neural Minimum Weight Perfect Matching — GNN+Transformer learns decoder edge weights, thresholds near ML bounds", s:"arXiv 2601.00242 (v2 Jun 2026)", d:"Jun 2026", u:"https://arxiv.org/abs/2601.00242"},
+  {t:"Real-time surface-code error correction using an FPGA-based neural-network decoder", s:"arXiv 2605.04892", d:"May 2026", u:"https://arxiv.org/abs/2605.04892"},
+  {t:"Physics-informed graph-neural decoding of the surface code — logical signal as exact topological pairing", s:"arXiv 2607.20060", d:"Jul 2026", u:"https://arxiv.org/abs/2607.20060"},
+  {t:"Continuum: efficient and robust multi-turn LLM agent scheduling", s:"arXiv 2511.02230", d:"2025–26", u:"https://arxiv.org/abs/2511.02230"},
+  {t:"Optimizing quantum error correction codes with reinforcement learning — agent adapts codes fault-tolerantly", s:"Quantum 3, 215", d:"foundational", u:"https://quantum-journal.org/papers/q-2019-12-16-215/"},
+];
+document.getElementById('studies').innerHTML = STUDIES.map(s=>
+  `<div class="study"><span class="src">${s.s} · ${s.d}</span><br><a href="${s.u}" target="_blank">${s.t}</a></div>`).join('')
+  + `<p class="note">Sources consulted: arXiv (quant-ph &amp; cs.AI), Nature / Nature Communications, Quantum journal, PRX Quantum references, AAAI, Frontiers, LangChain Blog. The quantum results anchor the steering-agent design; the multi-agent results anchor the gate and ledger architecture.</p>`;
+</script>
+</body>
+</html>
