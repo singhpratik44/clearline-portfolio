@@ -262,5 +262,28 @@ log('Compliance speaks first: proposals P-101…P-105 proposed by agents, none a
 log('P-105 BLOCKED at safety gate — workload flag on Jordan M. precedes any growth action.');
 renderAll();
 </script>
+<script src="clg-enterprise.js"></script>
+<script>
+// ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
+CLG.chain(LED);
+CLG.summary(function(){
+  var lines=[];
+  lines.push("INSTRUMENT: "+document.title);
+  lines.push("Baseline: Bay Area youth basketball academy · membership model · simulated network");
+  lines.push("Athletes: "+SEED.athletes+" of "+SEED.capacity+" capacity ("+Math.round(SEED.athletes/SEED.capacity*100)+"% occupancy)");
+  lines.push("Safety clause: where athlete-safety flags and growth actions conflict, the safety determination controls.");
+  lines.push("");
+  lines.push("OPERATIONS LOG ("+LED.length+" entries, newest first):");
+  LED.forEach(function(m){lines.push("  "+m);});
+  return lines.join("\n");
+});
+CLG.tour([
+  {el:function(){return document.querySelectorAll('h2')[0];}, title:"Academy snapshot", body:"One canonical seed drives every figure on this instrument — occupancy, revenue, development pipeline. School-level figures are labeled simulated."},
+  {el:function(){return document.querySelectorAll('h2')[1];}, title:"Player development pathways", body:"Development is administered athlete by athlete — the same family-by-family discipline as enrollment. Select an athlete to read the development record."},
+  {el:function(){return document.querySelectorAll('h2')[2];}, title:"Basketball-AI integration layer", body:"Cited technologies only — nothing claimed that is not sourced. This is the integration map, not a feature wishlist."},
+  {el:function(){return document.querySelectorAll('h2')[3];}, title:"Governed operations pipeline", body:"Agents propose, a person decides, the ledger remembers — and the safety gate speaks first. P-105 is blocked on a workload flag: safety precedes growth, structurally."},
+  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Retention and growth loop", body:"AI evidence feeds membership economics; the record below is tamper-evident. Replay walks the operations log in order; Export takes it offline."}
+]);
+</script>
 </body>
 </html>
