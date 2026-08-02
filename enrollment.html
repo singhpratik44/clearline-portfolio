@@ -3,59 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enrollment Growth &amp; Franchise Marketing Engine</title>
+<title>CLG-01 — Enrollment Growth &amp; Network Marketing Engine</title>
 <style>
-:root{--bg:#0c0f14;--panel:#131820;--line:#232b38;--ink:#e6ebf2;--dim:#8b96a6;--acc:#4cc2a0;--warn:#e0a458;--risk:#e06565;--mono:ui-monospace,Menlo,Consolas,monospace}
+:root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,'Segoe UI',Roboto,sans-serif}
-header{border-bottom:1px solid var(--line);padding:18px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
+.docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta a{color:var(--acc);text-decoration:none}
+header{border-bottom:2px solid var(--ink);padding:20px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
 header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
-header h1{font-size:19px;font-weight:650}
+header h1{font-family:var(--serif);font-size:22px;font-weight:700}
 header .nav{font:12px var(--mono);color:var(--dim)}
 header .nav a{color:var(--acc);text-decoration:none}
 .wrap{max-width:1180px;margin:0 auto;padding:28px}
-.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--acc);border-radius:10px;padding:14px 16px;margin-bottom:18px}
-.dombar select{background:#0a0d12;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:6px;padding:7px 10px}
+.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:3px;padding:14px 16px;margin-bottom:18px}
+.dombar select{background:#faf9f6;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:3px;padding:7px 10px}
 .dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.kpi .v{font:26px var(--mono);margin-top:2px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.kpi .v{font:26px var(--mono);margin-top:2px;color:var(--acc)}
 .kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-h2{font:12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:26px 0 12px}
+h2{font-family:var(--serif);font-size:17px;color:var(--ink);margin:28px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
 td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-tr.held td{background:rgba(224,101,101,.05)}
-.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:2px 7px}
-.b-ok{background:rgba(76,194,160,.14);color:var(--acc)}
-.b-warn{background:rgba(224,164,88,.14);color:var(--warn)}
-.b-risk{background:rgba(224,101,101,.16);color:var(--risk)}
-.b-held{background:rgba(139,150,166,.16);color:var(--dim)}
-button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:5px 10px;cursor:pointer}
-button:hover{background:var(--acc);color:#0c0f14}
+tr.held td{background:rgba(122,31,31,.04)}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.b-ok{background:rgba(31,58,95,.08);color:var(--acc)}
+.b-warn{background:rgba(138,109,59,.12);color:var(--warn)}
+.b-risk{background:rgba(122,31,31,.10);color:var(--risk)}
+.b-held{background:rgba(90,98,112,.12);color:var(--dim)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:3px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#fff}
 button:disabled{border-color:var(--line);color:var(--dim);cursor:not-allowed;background:transparent}
 button.rel{border-color:var(--warn);color:var(--warn)}
-button.rel:hover{background:var(--warn);color:#0c0f14}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+button.rel:hover{background:var(--warn);color:#fff}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:860px){.two{grid-template-columns:1fr}}
 .note{font-size:12px;color:var(--dim);margin-top:8px}
-.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar{height:6px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:6px}
 .bar i{display:block;height:100%;background:var(--acc)}
 .ledger td{font-family:var(--mono);font-size:11.5px}
-.holdbox{border:1px dashed var(--risk);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
+.holdbox{border:1px dashed var(--risk);border-radius:3px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
 footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
 footer b{color:var(--ink)}
 .pulse{color:var(--acc)}
 </style>
 </head>
 <body>
+<div class="docbar"><span>Clearline Group LLC</span><span>Governance &amp; Operating Infrastructure</span></div>
+<div class="docmeta"><span>Document CLG-01 · Version 7.0</span><span>Classification: Public demonstration · Data status: simulated unless expressly cited</span></div>
 <header>
   <div>
-    <div class="tag">Building Kidz · simulated network · 100 agreements · 11 states</div>
-    <h1>Enrollment Growth &amp; Franchise Marketing Engine</h1>
+    <div class="tag">Instrument CLG-01 · Baseline instantiation: preschool network · 100 agreements · 11 states</div>
+    <h1>Enrollment Growth &amp; Network Marketing Engine</h1>
   </div>
-  <div class="nav"><a href="index.html">← all models</a> · child safety precedes growth</div>
+  <div class="nav"><a href="index.html">← Index of instruments</a> · Safety precedes growth</div>
 </header>
 <div class="wrap">
   <div class="dombar">
@@ -70,7 +75,7 @@ footer b{color:var(--ink)}
   </div>
   <div class="kpis" id="kpis"></div>
 
-  <h2 id="unitH2">School-by-school status</h2>
+  <h2 id="unitH2">Article I — Unit-by-unit status</h2>
   <div class="panel">
     <table id="schools">
       <thead><tr><th id="unitTh">School</th><th>Occupancy</th><th>Attribution age</th><th>Status</th><th>Route</th></tr></thead>
@@ -81,7 +86,7 @@ footer b{color:var(--ink)}
 
   <div class="two" style="margin-top:26px">
     <div>
-      <h2>Proposals held at the spend gate</h2>
+      <h2>Article II — Proposals held at the spend gate</h2>
       <div class="panel">
         <table id="props"><thead><tr><th>Proposal</th><th>Unit</th><th>Gate</th><th></th></tr></thead><tbody></tbody></table>
         <div class="holdbox" id="holdbox" style="display:none"></div>
@@ -89,9 +94,9 @@ footer b{color:var(--ink)}
       </div>
     </div>
     <div>
-      <h2>Gate reliability — layered containment</h2>
+      <h2>Article III — Gate reliability (layered containment)</h2>
       <div class="panel" id="reliability"></div>
-      <h2 style="margin-top:22px">Decision ledger</h2>
+      <h2 style="margin-top:22px">Article IV — Decision ledger</h2>
       <div class="panel">
         <table class="ledger" id="ledger"><thead><tr><th>Decision</th><th>By</th><th>Inputs consumed</th></tr></thead><tbody></tbody></table>
         <p class="note">Each committed decision records exactly which inputs it consumed (causal lineage). If an input is later found stale or corrupted, everything it touched is traceable.</p>
@@ -100,7 +105,7 @@ footer b{color:var(--ink)}
   </div>
 </div>
 
-  <h2>What this engine is worth — economic valuation</h2>
+  <h2>Article V — Economic valuation of this instrument</h2>
   <div class="panel">
     <div class="kpis" id="econ" style="margin-bottom:14px"></div>
     <table id="econTable"><thead><tr><th>Value lever</th><th>Mechanism</th><th>Annual value (modeled)</th></tr></thead><tbody></tbody></table>
@@ -108,7 +113,7 @@ footer b{color:var(--ink)}
   </div>
 </div>
 <footer>
-  <b>Safety-first ordering:</b> child safety precedes growth in the decision stack; spend gates and creative approvals are structurally subordinate to safety checks. · Seed data: publicly announced network facts (100 agreements, 11 states, 1,100 seats); school-level figures are <b>simulated</b>. · All figures derive from one canonical state at render time — no pre-computed numbers, no cached copies. · <b>Design basis (2026 research):</b> layered error containment ∏(1−q) (arXiv 2604.01647); durable, checkpointed execution with pre-dispatch policy checks (LangGraph 1.0); correction-as-a-loop, never halt to recalibrate (RL control of quantum error correction, Nature 655, 2026).
+  <b>Notice.</b> This instrument is a public demonstration of method. It is not an offer of securities, a franchise disclosure document, or legal, financial, or investment advice. · <b>Ordering clause:</b> safety precedes growth in the decision stack; spend gates and creative approvals are structurally subordinate to safety checks. · <b>Data status:</b> network facts as publicly announced (100 agreements, 11 states, 1,100 seats); unit-level figures are simulated. All figures derive from one canonical state at render time — no pre-computed numbers, no cached copies. · <b>Design basis (2026 research):</b> layered error containment ∏(1−q) (arXiv 2604.01647); durable, checkpointed execution with pre-dispatch policy checks (LangGraph 1.0); correction-as-a-loop (RL control of quantum error correction, Nature 655, 2026).
 </footer>
 <script>
 // ============ CANONICAL STATE (single source of truth) ============
@@ -245,7 +250,7 @@ function render(){
   const d = derive();
   const P = ENROLL_PACKS[ePack];
   const capU = P.unit.charAt(0).toUpperCase()+P.unit.slice(1);
-  document.getElementById('unitH2').textContent = `${capU}-by-${P.unit} status`;
+  document.getElementById('unitH2').textContent = `Article I — ${capU}-by-${P.unit} status`;
   document.getElementById('unitTh').textContent = capU;
   document.getElementById('kpis').innerHTML = [
     ["Franchise agreements", STATE.network.agreements],
