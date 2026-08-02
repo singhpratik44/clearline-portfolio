@@ -59,6 +59,45 @@
   footer{margin-top:64px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);padding-top:20px}
   footer a{color:var(--acc)}
   .sec{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--dim);margin-top:44px}
+  /* ---- Global search + export bar (ported from reference header, catalog §3.2/§11) ---- */
+  .ctrlbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:22px}
+  .ctrlbar .search{flex:1 1 260px;max-width:460px;background:var(--panel);border:1px solid var(--line);border-radius:3px;color:var(--ink);font:13px/1.4 var(--mono);padding:9px 12px}
+  .ctrlbar .search:focus{outline:none;border-color:var(--acc)}
+  .ctrlbar button{font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;background:var(--acc);color:#fff;border:none;border-radius:3px;padding:10px 16px;cursor:pointer}
+  .ctrlbar button:hover{opacity:.9}
+  #searchStatus{font:10.5px var(--mono);letter-spacing:.08em;color:var(--dim)}
+  .card.hidden{display:none}
+  /* ---- Footer register block (modeled on reference SUBMISSION ARTIFACT, catalog §11) ---- */
+  .register{margin-top:56px;border-top:3px double var(--ink);padding-top:20px}
+  .register .rtag{font:11px var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--acc)}
+  .reggrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:14px}
+  .reggrid .rtile{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:12px 14px}
+  .reggrid .rtile b{display:block;font:20px var(--mono);color:var(--acc)}
+  .reggrid .rtile span{font:10px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .reglist{margin-top:14px;font:11.5px/1.8 var(--mono);color:var(--dim);columns:2;column-gap:32px}
+  .reglist div b{color:var(--ink);font-weight:600}
+  .regnote{margin-top:14px;font-size:12.5px;color:var(--dim);border-left:3px solid var(--acc);padding-left:12px}
+  @media(max-width:640px){.reglist{columns:1}}
+  /* ---- Print CSS (catalog §1.5/§11) ---- */
+  @media print{
+    .no-print{display:none!important}
+    body{background:#fff}
+    .wrap{max-width:100%;padding:20px 0 40px}
+    .card{break-inside:avoid;border:1px solid #999;box-shadow:none}
+    .adapt,.builder{display:none}
+    a.open{border:none;padding:0;color:var(--ink)}
+    a.open::after{content:" — see register block"}
+  }
+  /* ---- Mobile improvements (catalog §1.5) ---- */
+  @media(max-width:640px){
+    .wrap{padding:28px 16px 72px}
+    h1{font-size:25px}
+    .docbar,.docmeta{padding-left:14px;padding-right:14px}
+    .ctrlbar .search{flex:1 1 100%;max-width:none;min-height:34px}
+    .ctrlbar button{min-height:34px}
+    .trackrow .name{width:140px}
+    a.open{min-height:34px;display:inline-flex;align-items:center}
+  }
 </style>
 </head>
 <body>
@@ -68,6 +107,12 @@
   <div class="tag">Prepared by Pratik “Parry” Singh · Principal Operating Architect</div>
   <h1>Governed Operating Infrastructure for Multi-Unit Networks</h1>
   <p class="sub">Five working systems, each executable in this document set. Every figure is recomputed from a single canonical state at render time; nothing is pre-computed, cached, or asserted without a recorded source. Safety and data integrity are structurally prior to growth.</p>
+
+  <div class="ctrlbar no-print">
+    <input class="search" id="engineSearch" type="search" placeholder="Search the register — filter instruments live…" aria-label="Search instruments" oninput="filterEngines()">
+    <button onclick="printSummary()">⬇ Print summary</button>
+    <span id="searchStatus" role="status" aria-live="polite"></span>
+  </div>
 
   <div class="sec">Article I — The Systems</div>
 
@@ -150,10 +195,30 @@
     </div>
   </div>
 
+  <div class="register" id="register">
+    <div class="rtag">Instrument Register — Submission Record</div>
+    <div class="reggrid">
+      <div class="rtile"><b>6</b><span>Instruments on record</span></div>
+      <div class="rtile"><b id="regDigest">—</b><span>Tamper-evident digest</span></div>
+      <div class="rtile"><b>7.0</b><span>Document version</span></div>
+      <div class="rtile"><b>Public</b><span>Classification</span></div>
+    </div>
+    <div class="reglist">
+      <div><b>CLG-01</b> · Enrollment Growth &amp; Marketing Engine — enrollment.html</div>
+      <div><b>CLG-02</b> · Franchise Governance Engine — unit-defense.html</div>
+      <div><b>CLG-03</b> · Clearline Network Governance Model — governance.html</div>
+      <div><b>CLG-04</b> · AI Self-Review Pipeline — self-review.html</div>
+      <div><b>CLG-05</b> · Youth Basketball Academy Engine — basketball.html</div>
+      <div><b>CLG-06</b> · Enterprise Governance Engine, Full Build — protecting-the-center.netlify.app</div>
+    </div>
+    <p class="regnote"><b style="color:var(--ink)">Tamper-evident digest.</b> This register is stamped into every summary export generated from this page; the hash-chain digest over the committed record is shown above and recomputed live. A silently edited record cannot reproduce the digest. Every figure in this document set is derived from one canonical state at render time — no view holds a separate copy. · Clearline Group LLC · Pratik “Parry” Singh, Principal Operating Architect.</p>
+  </div>
+
   <footer>
     <b>Notice.</b> This document set is a demonstration of operating systems authored by Pratik “Parry” Singh, Clearline Group LLC, San Francisco Bay Area · <a href="mailto:clearlinegroupllc@gmail.com">clearlinegroupllc@gmail.com</a>. Figures designated “simulated” are illustrative; figures cited to public records (franchise disclosure documents, published benchmarks) are identified as such at the point of use. Nothing herein constitutes an offer, a representation of actual network performance, or legal, financial, or investment advice.
   </footer>
 </div>
+<script src="clg-enterprise.js"></script>
 <script>
 // ============ ADAPT-TO-JOB ENGINE (client-side, deterministic) ============
 const TRACKS = {
@@ -305,6 +370,99 @@ function buildPack(){
   <p style="font-size:12px;color:var(--dim);margin-top:8px">Every engine on this site runs this schema — the pack is the only thing that changes. That is what domain-agnostic means operationally.</p>`;
 }
 function copyPack(){ if(!window._packJSON){buildPack(); if(!window._packJSON)return;} navigator.clipboard.writeText(window._packJSON); }
+
+// ============ GLOBAL SEARCH — live card filter (ported from reference header search, catalog §3.2) ============
+function filterEngines(){
+  const q=(document.getElementById('engineSearch').value||'').trim().toLowerCase();
+  const cards=document.querySelectorAll('.grid .card');
+  let shown=0;
+  cards.forEach(function(c){
+    const hit=!q||c.textContent.toLowerCase().includes(q);
+    c.classList.toggle('hidden',!hit);
+    if(hit)shown++;
+  });
+  const st=document.getElementById('searchStatus');
+  if(st)st.textContent=q?("showing "+shown+" of "+cards.length+" instruments"):"";
+  if(typeof CLG!=='undefined'&&CLG&&window._ledger)window._ledger.push({decision:'Register search',rule:'live filter',inputs:[q||'(cleared)']});
+}
+
+// ============ REGISTER SUMMARY — text summary of engine list + status (catalog §11) ============
+const REGISTER=[
+  ["CLG-01","Enrollment Growth & Marketing Engine","enrollment.html","active — local instrument"],
+  ["CLG-02","Franchise Governance Engine","unit-defense.html","active — local instrument"],
+  ["CLG-03","Clearline Network Governance Model","governance.html","active — local instrument"],
+  ["CLG-04","AI Self-Review Pipeline","self-review.html","active — local instrument"],
+  ["CLG-05","Youth Basketball Academy Engine","basketball.html","active — local instrument"],
+  ["CLG-06","Enterprise Governance Engine — Full Build","https://protecting-the-center.netlify.app","active — hosted instrument"]
+];
+function buildRegisterSummary(){
+  const lines=[
+    "CLEARLINE GROUP — GOVERNANCE & OPERATING INFRASTRUCTURE REGISTER",
+    "Document CLG-00 · Version 7.0 · Classification: Public demonstration · Data status: simulated unless expressly cited",
+    "",
+    "INSTRUMENTS ON RECORD: "+REGISTER.length,
+    ""
+  ];
+  REGISTER.forEach(function(r){ lines.push(r[0]+" · "+r[1]); lines.push("    location: "+r[2]); lines.push("    status:   "+r[3]); lines.push(""); });
+  if(typeof CLG!=='undefined'&&CLG&&typeof CLG.digest==='function'){
+    lines.push("Tamper-evident digest: "+CLG.digest()+" over "+CLG.entries()+" committed entries — a silently edited record cannot reproduce this digest.");
+  }else{
+    lines.push("Tamper-evident digest: enterprise kit not loaded — digest unavailable for this export.");
+  }
+  lines.push("Attribution: Clearline Group LLC · Pratik “Parry” Singh, Principal Operating Architect · clearlinegroupllc@gmail.com");
+  lines.push("Nothing herein constitutes an offer, a representation of actual network performance, or legal, financial, or investment advice.");
+  return lines.join("\n");
+}
+function printSummary(){
+  const txt=buildRegisterSummary();
+  // Route through the kit's exporter when available (it prepends provenance + digest header).
+  if(typeof CLG!=='undefined'&&CLG&&typeof CLG.summary==='function'&&window._clgSummaryWired){
+    const bar=document.querySelectorAll('button'); // kit owns the export; invoke its button if present
+    // Prefer the kit bar's "Export summary" button; otherwise fall through to local download.
+    for(let i=0;i<bar.length;i++){ if(/export summary/i.test(bar[i].textContent)){ bar[i].click(); return; } }
+  }
+  const blob=new Blob([txt],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download="clearline-group-register-summary.txt";
+  a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+  if(typeof CLG!=='undefined'&&CLG&&window._ledger)window._ledger.push({decision:'Summary export generated',owner:'Clearline Group LLC',rule:'portable offline record',inputs:['register summary','6 instruments']});
+}
+
+// ============ VIEW ERROR BOUNDARY (ported from reference EngineErrorBoundary) ============
+// One failing view shows an inline error card instead of breaking the page.
+function viewFail(err){
+  const host=document.querySelector('.wrap')||document.body;
+  const card=document.createElement('div');
+  card.style.cssText='background:#fff;border:1px solid #ccc;border-left:3px solid #8b0000;border-radius:4px;padding:16px 20px;margin:16px 0;font-size:13px';
+  const t=document.createElement('div');t.style.cssText='font-weight:700;margin-bottom:6px';t.textContent="Something in this view didn't render";
+  const p=document.createElement('div');p.style.cssText='color:#5a6270;margin-bottom:10px';p.textContent='The rest of the register is untouched. Reload this view to try again.';
+  const b=document.createElement('button');b.textContent='Reload this view';b.onclick=function(){card.remove();};
+  const m=document.createElement('div');m.style.cssText='margin-top:8px;font:10px ui-monospace,Menlo,Consolas,monospace;color:#8b0000';m.textContent=String(err&&err.message||err);
+  card.appendChild(t);card.appendChild(p);card.appendChild(b);card.appendChild(m);
+  host.insertBefore(card,host.firstChild);
+}
+function guard(fn){return function(){try{return fn.apply(this,arguments);}catch(e){viewFail(e);}};}
+adapt=guard(adapt); buildPack=guard(buildPack); copyOut=guard(copyOut); copyPack=guard(copyPack); printSummary=guard(printSummary); filterEngines=guard(filterEngines);
+
+// ============ CLG ENTERPRISE KIT WIRING — fail-safe: page works fully if the kit fails to load ============
+(function(){
+  window._ledger=[]; // register ledger; joined to the kit's hash chain when available
+  if(typeof CLG==='undefined'||!CLG){
+    const d=document.getElementById('regDigest'); if(d)d.textContent="offline";
+    return; // kit unavailable — search, export, and all page features continue to work locally
+  }
+  if(typeof CLG.chain==='function')CLG.chain(window._ledger);
+  if(typeof CLG.summary==='function'){ CLG.summary(buildRegisterSummary); window._clgSummaryWired=true; }
+  function stampDigest(){
+    const d=document.getElementById('regDigest');
+    if(d&&typeof CLG.digest==='function')d.textContent=CLG.digest();
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',stampDigest);else stampDigest();
+  window._ledger.push({decision:'Register opened',owner:'Clearline Group LLC',rule:'document CLG-00 v7.0',inputs:['6 instruments','canonical register']});
+  stampDigest();
+})();
 </script>
 </body>
 </html>
