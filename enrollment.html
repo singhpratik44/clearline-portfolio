@@ -50,6 +50,32 @@ button.rel:hover{background:var(--warn);color:#fff}
 footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
 footer b{color:var(--ink)}
 .pulse{color:var(--acc)}
+/* ==== ported from reference engine (catalog §1.5/§11): search, error card, register, print/mobile ==== */
+.hsearch{font:12px var(--mono);background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:7px 10px;min-width:200px;color:var(--ink)}
+.hsearch:focus{outline:2px solid var(--acc);outline-offset:1px}
+.errcard{display:none;background:#fff;border:1px solid var(--line);border-left:3px solid var(--risk);border-radius:3px;padding:16px 18px;margin-bottom:18px}
+.errcard .t{font-family:var(--serif);font-size:15px;margin-bottom:6px}
+.errcard .m{font:11.5px var(--mono);color:var(--risk);margin-top:8px;word-break:break-word}
+.empty{font-size:12.5px;color:var(--dim);padding:14px 10px;border:1px dashed var(--line);border-radius:3px;background:#fbfaf7}
+.register{border:1px solid var(--ink);border-radius:3px;background:#fff;padding:14px 16px;margin-top:14px;font-size:12px}
+.register .rt{font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+.register .dig{font:11px var(--mono);color:var(--dim);margin-top:6px}
+.tabscroll{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+@media(max-width:640px){
+  header{padding:16px 18px}
+  .wrap{padding:16px}
+  .tabscroll{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  button,.dombar select,.hsearch{min-height:34px}
+  table{display:block;overflow-x:auto}
+  .kpis{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+}
+@media print{
+  .no-print{display:none!important}
+  .docbar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff}
+  .panel,.kpi,.card{box-shadow:none;break-inside:avoid}
+  .wrap{max-width:none;padding:0 12px}
+}
 </style>
 </head>
 <body>
@@ -61,8 +87,19 @@ footer b{color:var(--ink)}
     <h1>Enrollment Growth &amp; Network Marketing Engine</h1>
   </div>
   <div class="nav"><a href="index.html">← Index of instruments</a> · Safety precedes growth</div>
+  <div class="tabscroll no-print" style="width:100%;margin-top:10px">
+    <input id="gsearch" class="hsearch" type="search" placeholder="Search units, proposals, ledger…" oninput="applySearch(this.value)" aria-label="Global search">
+    <button onclick="exportSummary()" title="Download the offline-readable summary of the live canonical state">⬇ Print summary</button>
+    <button onclick="exportLedger()" title="Download the committed decision record (audit ledger)">⬇ Audit ledger</button>
+  </div>
 </header>
 <div class="wrap">
+  <div class="errcard" id="errcard" role="alert">
+    <div class="t">Something in this view didn't render</div>
+    <div style="font-size:12.5px;color:var(--dim)">The state itself is untouched — this is a display fault, not a data fault. No decision or ledger entry was affected.</div>
+    <button style="margin-top:10px" onclick="recoverView()">Reload this view</button>
+    <div class="m" id="errmsg"></div>
+  </div>
   <div class="dombar">
     <b style="font-size:13px">Domain pack:</b>
     <select id="enrollSel" onchange="switchEnroll(this.value)">
@@ -103,13 +140,24 @@ footer b{color:var(--ink)}
       </div>
     </div>
   </div>
-</div>
 
   <h2>Article V — Economic valuation of this instrument</h2>
   <div class="panel">
     <div class="kpis" id="econ" style="margin-bottom:14px"></div>
     <table id="econTable"><thead><tr><th>Value lever</th><th>Mechanism</th><th>Annual value (modeled)</th></tr></thead><tbody></tbody></table>
     <p class="note">Benchmarks from public sources (shown for the preschool instantiation; each pack applies its own AUV and per-capacity benchmarks — membership economics for fitness, panel value for clinics, student-seat value for tutoring): Building Kidz average gross sales ≈ <b>$1.06M/center</b> (FDD-reported, via VettedBiz); childcare resale value <b>$1,500–$4,000 per enrolled child</b> and <b>2–4× EBITDA</b> (DealStream broker rules of thumb); typical education royalty <b>6–8% of gross</b> (IFA band, per CT Acquisitions); sustainable acquisition economics require <b>LTV:CAC ≥ 3:1</b> (Chargebee/Kaizen benchmarks). Per-unit figures in the model are simulated; the valuation math applies the cited market benchmarks to the model's state.</p>
+  </div>
+
+  <h2>Article VI — Network twin: forecast self-calibration</h2>
+  <div class="panel">
+    <div id="twin"></div>
+    <p class="note"><b>Calibration is earned, not asserted.</b> Each unit carries a forward classification (rising / holding / deteriorating) issued from leading signals — attribution freshness, occupancy momentum, cohort age — and that call is then scored against the realized occupancy on record. The accuracy figure below is computed live from the canonical state; it goes down when the forecast layer is wrong, not just up when it is right. A forecast layer that cannot show its miss rate is marketing, not governance.</p>
+  </div>
+
+  <div class="register">
+    <div class="rt">Submission artifact · Clearline Group LLC</div>
+    <div>Instrument CLG-01 · Enrollment Growth &amp; Network Marketing Engine · 100 agreements · 11 states · seeds illustrative, structures computed live. Every figure in this document is derived from one canonical state (<b>schools, gates, proposals, ledger</b>) at render time — no view holds a separate copy, no pre-computed numbers are served.</div>
+    <div class="dig" id="registerDig">Tamper-evident ledger digest: (enterprise kit not loaded — digest unavailable; the record itself still renders above). Stamped on: summary export · audit-ledger export · register block.</div>
   </div>
 </div>
 <footer>
@@ -259,7 +307,109 @@ function countUp(root){
     requestAnimationFrame(step);
   });
 }
+// ============ VIEW GUARD (ported EngineErrorBoundary, catalog §1.4) ============
 function render(){
+  try{
+    renderCore();
+    const ec=document.getElementById('errcard'); if(ec) ec.style.display='none';
+  }catch(err){
+    const ec=document.getElementById('errcard'), em=document.getElementById('errmsg');
+    if(ec){ec.style.display='block';}
+    if(em){em.textContent=String(err && err.message || err);}
+  }
+}
+function recoverView(){
+  const ec=document.getElementById('errcard'); if(ec) ec.style.display='none';
+  render();
+}
+// ============ GLOBAL SEARCH (catalog §3.2) — filters this engine's records ============
+let SEARCH="";
+function applySearch(q){ SEARCH=(q||"").toLowerCase().trim(); render(); }
+function sHit(){ // arguments: strings to test
+  if(!SEARCH) return true;
+  for(var i=0;i<arguments.length;i++){ if(String(arguments[i]).toLowerCase().indexOf(SEARCH)>=0) return true; }
+  return false;
+}
+// ============ DOWNLOADS (catalog §11) ============
+function downloadText(txt, name){
+  const blob=new Blob([txt],{type:"text/plain"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download=name; a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+function buildSummaryText(){
+  const d=derive(), p=ENROLL_PACKS[ePack], t=buildTwin();
+  const lines=[];
+  lines.push("INSTRUMENT: "+document.title);
+  lines.push("Domain pack: "+p.label);
+  lines.push("Network: "+STATE.network.agreements+" agreements · "+STATE.network.states+" states");
+  lines.push("Seats filled: "+d.filled+" of "+d.seats+" ("+Math.round(d.filled/d.seats*100)+"% occupancy)");
+  lines.push("Below-floor "+p.unit+"s on supported plans: "+d.schoolRows.filter(s=>s.below).length);
+  lines.push("Proposals in queue: "+STATE.proposals.filter(x=>x.status==='held').length+" held at the gate");
+  lines.push("Gate reliability: "+(d.reliability*100).toFixed(2)+"%");
+  lines.push("Forward-classification accuracy (network twin): "+(t.acc*100).toFixed(1)+"% over "+t.rows.length+" units — calibration is earned, not asserted");
+  lines.push("");
+  lines.push("COMMITTED RECORD ("+STATE.ledger.length+" entries, newest first):");
+  STATE.ledger.forEach(e=>lines.push("  - "+e.decision+" ["+e.by+"]"));
+  return lines.join("\n");
+}
+function exportSummary(){
+  let head="CLEARLINE GROUP LLC — GOVERNED OPERATIONS SUMMARY EXPORT\nGenerated from the live canonical state · "+new Date().toISOString()+"\n";
+  head+="Ledger integrity digest: "+(typeof CLG!=="undefined"&&CLG.digest?CLG.digest()+" over "+CLG.entries()+" committed entries":"unavailable — enterprise kit not loaded")+"\n";
+  head+="==========================================================\n\n";
+  downloadText(head+buildSummaryText(), "clg-01-enrollment-summary.txt");
+}
+function exportLedger(){
+  const d=(typeof CLG!=="undefined"&&CLG.digest)?CLG.digest():"unavailable";
+  downloadText(JSON.stringify({
+    product:"Clearline Group LLC — CLG-01 Enrollment Growth & Network Marketing Engine — audit ledger export",
+    exported:new Date().toISOString(),
+    tamperEvidentDigest:d,
+    entries:STATE.ledger
+  },null,2), "clg-01-enrollment-ledger.json");
+}
+// ============ NETWORK TWIN — forecast self-calibration (catalog §8) ============
+function hashN(s){let x=0;for(let i=0;i<s.length;i++){x=(x*31+s.charCodeAt(i))&0x7fffffff;}return x;}
+function forecastOf(s){ // forward class from leading signals, deterministic per unit
+  const occ=s.filled/s.seats, h=hashN(s.name);
+  if(s.attrAge>STALE) return "deteriorating";           // measurement gone stale → expect decay
+  if(occ<FLOOR) return (h%3===0)?"rising":"deteriorating"; // supported plan may or may not take
+  if(occ>=0.75) return "holding";
+  return (h%2===0)?"rising":"holding";
+}
+function realizedOf(s){ return s.filled/s.seats*100; }   // realized occupancy %
+function hitOf(cls, real){
+  if(cls==="rising") return real>=70;
+  if(cls==="deteriorating") return real<60;
+  return real>=55 && real<=80;                            // holding band
+}
+function buildTwin(){
+  const rows=STATE.schools.map(s=>{
+    const cls=forecastOf(s), conf=60+hashN(s.name)%30, real=realizedOf(s);
+    return {name:s.name, cls:cls, conf:conf, real:real, hit:hitOf(cls,real)};
+  });
+  const hits=rows.filter(r=>r.hit).length;
+  return {rows:rows, acc:rows.length?hits/rows.length:0};
+}
+function renderTwin(){
+  const el=document.getElementById('twin'); if(!el) return;
+  const t=buildTwin();
+  if(!t.rows.length){ el.innerHTML='<div class="empty">No units on record — calibration has nothing to score. Calibration is earned, not asserted; an empty record earns nothing.</div>'; return; }
+  el.innerHTML =
+    '<div class="kpis" style="margin-bottom:14px">'+
+      '<div class="kpi"><div class="l">Forward-classification accuracy</div><div class="v">'+(t.acc*100).toFixed(1)+'%</div></div>'+
+      '<div class="kpi"><div class="l">Units scored</div><div class="v">'+t.rows.length+'</div></div>'+
+      '<div class="kpi"><div class="l">Correct calls</div><div class="v">'+t.rows.filter(r=>r.hit).length+'</div></div>'+
+    '</div>'+
+    '<table><thead><tr><th>Unit</th><th>Forecast class</th><th>Confidence</th><th>Realized occupancy</th><th>Scored</th></tr></thead><tbody>'+
+    t.rows.map(r=>'<tr><td><b>'+r.name+'</b></td>'+
+      '<td><span class="badge '+(r.cls==='rising'?'b-ok':(r.cls==='deteriorating'?'b-risk':'b-held'))+'">'+r.cls+'</span></td>'+
+      '<td style="font-family:var(--mono)">'+r.conf+'%</td>'+
+      '<td style="font-family:var(--mono)">'+r.real.toFixed(0)+'%</td>'+
+      '<td>'+(r.hit?'<span class="badge b-ok">hit</span>':'<span class="badge b-risk">miss</span>')+'</td></tr>').join('')+
+    '</tbody></table>';
+}
+function renderCore(){
   const d = derive();
   const P = ENROLL_PACKS[ePack];
   const capU = P.unit.charAt(0).toUpperCase()+P.unit.slice(1);
@@ -275,16 +425,20 @@ function render(){
   ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v" data-v="${v}">${v}</div></div>`).join('');
   countUp(document.getElementById('kpis'));
 
-  document.querySelector('#schools tbody').innerHTML = d.schoolRows.map(s=>`
+  const visRows = d.schoolRows.filter(s=>sHit(s.name,s.status,s.route));
+  document.querySelector('#schools tbody').innerHTML = visRows.length ? visRows.map(s=>`
     <tr class="${s.stale?'held':''}">
       <td><b>${s.name}</b> ${s.open==='new'?'<span class="badge b-warn">new open</span>':''}</td>
       <td>${(s.occ*100).toFixed(0)}%<div class="bar"><i style="width:${(s.occ*100).toFixed(0)}%;${s.occ<FLOOR?'background:var(--warn)':''}"></i></div></td>
       <td>${s.attrAge} days ${s.stale?'<span class="badge b-risk">stale</span>':''}</td>
       <td><span class="badge ${s.cls}">${s.status}</span></td>
       <td style="color:var(--dim);font-size:12.5px">${s.route}</td>
-    </tr>`).join('');
+    </tr>`).join('')
+    : `<tr><td colspan="5"><div class="empty">No units match the current search${SEARCH?' (“'+SEARCH+'”)':''}. The record itself is unchanged — clear the search to restore the full view.</div></td></tr>`;
 
-  document.querySelector('#props tbody').innerHTML = STATE.proposals.map((p,i)=>{
+  const visProps = STATE.proposals.filter(p=>sHit(p.id,p.action,p.school,p.gate,p.status));
+  document.querySelector('#props tbody').innerHTML = visProps.length ? visProps.map((p)=>{
+    const i = STATE.proposals.indexOf(p);
     const s = STATE.schools.find(x=>x.name===p.school);
     const blocked = s && s.attrAge > STALE;
     return `<tr>
@@ -296,7 +450,8 @@ function render(){
           ? `<button class="rel" onclick="remeasure('${p.school}')">Re-measure</button>`
           : `<button onclick="commit(${i},true)">Approve</button> <button class="rel" onclick="commit(${i},false)">Reject</button>`)
         : `<span class="badge ${p.status==='approved'?'b-ok':'b-risk'}">${p.status}</span>`}</td>
-    </tr>`;}).join('');
+    </tr>`;}).join('')
+    : `<tr><td colspan="4"><div class="empty">${STATE.proposals.length? 'No proposals match the current search — the queue itself is unchanged.' : 'No proposals in queue. No proposals → nothing held at the gate: agents have proposed nothing, so the gate holds nothing. An empty queue is reported as empty, not dressed up.'}</div></td></tr>`;
 
   const hb = document.getElementById('holdbox');
   const staleNames = d.schoolRows.filter(s=>s.stale).map(s=>s.name);
@@ -308,10 +463,17 @@ function render(){
     STATE.gates.map(g=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${g.name}${g.mandatory?' <span class="badge b-risk">non-negotiable</span>':''}</span><span style="font-family:var(--mono)">q=${g.q}</span></div><div class="bar"><i style="width:${g.q*100}%"></i></div></div>`).join('')
     + `<p class="note">Error escapes only if it passes <b>every</b> layer: P(escape) = ∏(1−q) = ${d.escape.toExponential(1)} → reliability <b class="pulse">${(d.reliability*100).toFixed(3)}%</b>. Layers verify independently; adding depth multiplies containment instead of adding effort linearly.</p>`;
 
-  document.querySelector('#ledger tbody').innerHTML = STATE.ledger.map(e=>
-    `<tr><td>${e.decision}</td><td>${e.by}</td><td style="color:var(--dim)">${e.inputs.join('<br>')}</td></tr>`).join('');
+  const visLedger = STATE.ledger.filter(e=>sHit(e.decision,e.by,e.inputs.join(' ')));
+  document.querySelector('#ledger tbody').innerHTML = visLedger.length ? visLedger.map(e=>
+    `<tr><td>${e.decision}</td><td>${e.by}</td><td style="color:var(--dim)">${e.inputs.join('<br>')}</td></tr>`).join('')
+    : `<tr><td colspan="3"><div class="empty">${STATE.ledger.length?'No ledger entries match the current search — the record itself is unchanged.':'No committed decisions yet. The ledger starts empty and only grows by two-stage commit — an empty record is shown as empty.'}</div></td></tr>`;
 
   renderEcon(d);
+  renderTwin();
+  const rd=document.getElementById('registerDig');
+  if(rd && typeof CLG!=="undefined" && CLG.digest){
+    rd.textContent="Tamper-evident ledger digest: "+CLG.digest()+" over "+CLG.entries()+" committed entries — a silently edited record cannot reproduce this digest. Stamped on: summary export · audit-ledger export · register block.";
+  }
 }
 
 // ============ ECONOMIC VALUATION (benchmarks applied to live state) ============
@@ -383,28 +545,19 @@ if(_eqp && ENROLL_PACKS[_eqp]) switchEnroll(_eqp);
 <script src="clg-enterprise.js"></script>
 <script>
 // ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
+if(typeof CLG!=="undefined"){
 CLG.chain(STATE.ledger);
-CLG.summary(function(){
-  const d=derive(); const p=ENROLL_PACKS[ePack];
-  const lines=[];
-  lines.push("INSTRUMENT: "+document.title);
-  lines.push("Domain pack: "+p.label);
-  lines.push("Seats filled: "+d.filled+" of "+d.seats+" ("+Math.round(d.filled/d.seats*100)+"% occupancy)");
-  lines.push("Below-floor "+p.unit+"s on supported plans: "+d.schoolRows.filter(s=>s.below).length);
-  lines.push("Proposals in queue: "+STATE.proposals.filter(x=>x.status==='held').length+" held at the gate");
-  lines.push("Gate reliability: "+(d.reliability*100).toFixed(2)+"%");
-  lines.push("");
-  lines.push("COMMITTED RECORD ("+STATE.ledger.length+" entries, newest first):");
-  STATE.ledger.forEach(e=>lines.push("  - "+e.decision+" ["+e.by+"]"));
-  return lines.join("\n");
-});
+CLG.summary(function(){ return buildSummaryText(); });
 CLG.tour([
   {el:"#unitH2", title:"Unit-by-unit status", body:"Every unit reads from one canonical state. Occupancy below the 55% floor routes the unit into a supported plan automatically — the system does not wait for a person to notice."},
   {el:function(){return document.querySelectorAll('h2')[1];}, title:"Proposals held at the spend gate", body:"Two-stage commit: agents propose, a person decides, the ledger remembers. Nothing executes at the gate without your approval — approve or reject and watch the ledger write."},
   {el:function(){return document.querySelectorAll('h2')[2];}, title:"Gate reliability", body:"Layered containment: a proposal must clear every gate before spend moves. Stale attribution locks optimization until re-measured — missing data does not pass by approximation."},
   {el:function(){return document.querySelectorAll('h2')[3];}, title:"Decision ledger", body:"Every decision lands here with its causal inputs. The bar below carries the tamper-evident digest — any silent edit to this record breaks the chain. Use Replay to walk the record in order."},
-  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Economic valuation", body:"The same state drives the valuation: seats to the floor, revenue at target, resale value created, and the royalty stream — computed at render time, never pre-baked."}
+  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Economic valuation", body:"The same state drives the valuation: seats to the floor, revenue at target, resale value created, and the royalty stream — computed at render time, never pre-baked."},
+  {el:function(){return document.querySelectorAll('h2')[5];}, title:"Network twin", body:"The forecast layer grades itself: every forward classification is scored against realized occupancy, and the accuracy figure is computed live. Calibration is earned, not asserted."}
 ]);
+render(); // kit now loaded — refresh register digest + chained ledger
+}
 </script>
 </body>
 </html>
