@@ -3,66 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clearline Group — Franchise Network Governance Model</title>
+<title>CLG-03 — Network Governance &amp; Control Plane · Clearline Group LLC</title>
 <style>
-:root{--bg:#0c0f14;--panel:#131820;--line:#232b38;--ink:#e6ebf2;--dim:#8b96a6;--acc:#4cc2a0;--warn:#e0a458;--risk:#e06565;--vio:#9a8ce8;--mono:ui-monospace,Menlo,Consolas,monospace}
+:root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,'Segoe UI',Roboto,sans-serif}
-header{border-bottom:1px solid var(--line);padding:18px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
+.docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta a{color:var(--acc);text-decoration:none}
+header{border-bottom:2px solid var(--ink);padding:20px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
 header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
-header h1{font-size:19px;font-weight:650}
+header h1{font-family:var(--serif);font-size:22px;font-weight:700}
 header .nav{font:12px var(--mono);color:var(--dim)}
 header .nav a{color:var(--acc);text-decoration:none}
-.wrap{max-width:1220px;margin:0 auto;padding:28px}
-.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--acc);border-radius:10px;padding:14px 16px;margin-bottom:18px}
-.dombar select{background:#0a0d12;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:6px;padding:7px 10px}
+.wrap{max-width:1180px;margin:0 auto;padding:28px}
+.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:3px;padding:14px 16px;margin-bottom:18px}
+.dombar select{background:#faf9f6;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:3px;padding:7px 10px}
 .dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.kpi .v{font:24px var(--mono);margin-top:2px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.kpi .v{font:26px var(--mono);margin-top:2px;color:var(--acc)}
 .kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-h2{font:12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:28px 0 12px}
+h2{font-family:var(--serif);font-size:17px;color:var(--ink);margin:28px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
 table{width:100%;border-collapse:collapse;font-size:13px}
 th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
 td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:2px 7px}
-.b-ok{background:rgba(76,194,160,.14);color:var(--acc)}
-.b-warn{background:rgba(224,164,88,.14);color:var(--warn)}
-.b-risk{background:rgba(224,101,101,.16);color:var(--risk)}
-.b-vio{background:rgba(154,140,232,.16);color:var(--vio)}
-button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:5px 10px;cursor:pointer}
-button:hover{background:var(--acc);color:#0c0f14}
+tr.held td{background:rgba(122,31,31,.04)}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.b-ok{background:rgba(31,58,95,.08);color:var(--acc)}
+.b-warn{background:rgba(138,109,59,.12);color:var(--warn)}
+.b-risk{background:rgba(122,31,31,.10);color:var(--risk)}
+.b-held{background:rgba(90,98,112,.12);color:var(--dim)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:3px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#fff}
+button:disabled{border-color:var(--line);color:var(--dim);cursor:not-allowed;background:transparent}
 button.rel{border-color:var(--warn);color:var(--warn)}
-button.rel:hover{background:var(--warn);color:#0c0f14}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+button.rel:hover{background:var(--warn);color:#fff}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:960px){.two{grid-template-columns:1fr}}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
 .note{font-size:12px;color:var(--dim);margin-top:8px}
+.bar{height:6px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc)}
 .ledger td{font-family:var(--mono);font-size:11.5px}
-footer{max-width:1220px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+.holdbox{border:1px dashed var(--risk);border-radius:3px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
+footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
 footer b{color:var(--ink)}
-.conflict{border-left:3px solid var(--risk);padding:10px 14px;margin-bottom:12px;background:rgba(224,101,101,.06);border-radius:0 8px 8px 0}
-.conflict.resolved{border-left-color:var(--acc);background:rgba(76,194,160,.05)}
-.drawer{border:1px solid var(--vio);border-radius:10px;padding:16px 18px;background:rgba(154,140,232,.05);display:none;margin-top:14px}
+.pulse{color:var(--acc)}
+
+.b-vio{background:#e4e9f2;color:#3a4d80}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#fff}
+.conflict{border-left:3px solid var(--risk);padding:10px 14px;margin-bottom:12px;background:rgba(122,31,31,.06);border-radius:0 3px 3px 0}
+.conflict.resolved{border-left-color:var(--acc);background:rgba(31,58,95,.05)}
+.drawer{border:1px solid #3a4d80;border-radius:3px;padding:16px 18px;background:#f2f4f8;display:none;margin-top:14px}
 .steps{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
-.steps span{font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:4px;background:var(--line);color:var(--dim)}
-.steps span.on{background:var(--vio);color:#0c0f14}
-pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12px;font:11px/1.5 var(--mono);color:#9fb4c8;overflow:auto;max-height:260px}
+.steps span{font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:var(--line);color:var(--dim)}
+.steps span.on{background:#3a4d80;color:#fff}
+pre{background:#fbfaf7;border:1px solid var(--line);border-radius:3px;padding:12px;font:11px/1.5 var(--mono);color:#33404f;overflow:auto;max-height:260px}
 .toggle{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--dim);cursor:pointer;user-select:none}
 .toggle .sw{width:34px;height:18px;border-radius:9px;background:var(--line);position:relative;transition:.2s}
 .toggle .sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--dim);transition:.2s}
 .toggle.on .sw{background:var(--acc)}
-.toggle.on .sw::after{left:18px;background:#0c0f14}
-.selfheal{border-left:3px solid var(--acc);padding:8px 12px;margin-bottom:8px;background:rgba(76,194,160,.05);border-radius:0 8px 8px 0;font-size:12.5px}
+.toggle.on .sw::after{left:18px;background:#fff}
+.selfheal{border-left:3px solid var(--acc);padding:8px 12px;margin-bottom:8px;background:rgba(31,58,95,.05);border-radius:0 3px 3px 0;font-size:12.5px}
+@media(max-width:960px){.two{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
+<div class="docbar"><span>Clearline Group LLC</span><span>Governance &amp; Operating Infrastructure</span></div>
+<div class="docmeta"><span>Document CLG-03 · Version 7.0</span><span>Classification: Public demonstration · Data status: simulated unless expressly cited</span></div>
 <header>
   <div>
-    <div class="tag">Clearline Group · independent practice · franchise-agnostic control plane</div>
-    <h1>Franchise Network Governance Model</h1>
+    <div class="tag">Instrument CLG-03 · Independent practice · franchise-agnostic control plane</div>
+    <h1>Network Governance &amp; Control Plane</h1>
   </div>
-  <div class="nav"><a href="index.html">← all models</a> · 350+ centers, one system</div>
+  <div class="nav"><a href="index.html">← Index of instruments</a> · 350+ centers, one system</div>
 </header>
 <div class="wrap">
   <div class="dombar">
@@ -79,18 +95,18 @@ pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12
 
   <div class="two" style="margin-top:18px">
     <div>
-      <h2>Self-stabilizing dynamics — control variables, not static KPIs</h2>
+      <h2>Article I — Self-stabilizing dynamics (control variables, not static KPIs)</h2>
       <div class="panel">
         <table id="control"><thead><tr><th>Unit</th><th>Health</th><th>τ breach</th><th>Distance</th><th>Zone</th><th></th></tr></thead><tbody></tbody></table>
         <p class="note">τ = 2.1-week early-warning window; critical distance = $0.8k. These are control-system variables: they determine whether the network is converging toward health or diverging toward failure — and flag it <i>before</i> it becomes a crisis.</p>
       </div>
-      <h2 style="margin-top:22px">Self-healing loop</h2>
+      <h2 style="margin-top:22px">Article II — Self-healing loop</h2>
       <div class="panel" id="selfheal"></div>
     </div>
     <div>
-      <h2>Cross-agent conflicts — open deliberation</h2>
+      <h2>Article III — Cross-agent conflicts (open deliberation)</h2>
       <div class="panel" id="conflicts"></div>
-      <h2 style="margin-top:22px" id="clockH2">FDD clock audits</h2>
+      <h2 style="margin-top:22px" id="clockH2">Article IV — FDD clock audits</h2>
       <div class="panel">
         <table id="fdd"><thead><tr><th>Obligation</th><th>Clock</th><th>Owner</th><th>Status</th></tr></thead><tbody></tbody></table>
         <p class="note" id="clockNote">Regulatory deadlines are first-class system events with running clocks and named owners — not calendar reminders.</p>
@@ -98,7 +114,7 @@ pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12
     </div>
   </div>
 
-  <h2>Program view — critical path on the decision DAG</h2>
+  <h2>Article V — Program view (critical path on the decision DAG)</h2>
   <div class="panel">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
       <p style="font-size:13px;max-width:680px">Every initiative is a node; dependencies are edges. The engine runs forward/backward passes over the DAG — earliest start, latest start, slack — and the <b>critical path</b> (longest path) is the sequence where any delay moves the whole network. Same graph theory as the QEC decoder's matching graph, pointed at schedule instead of errors.</p>
@@ -112,7 +128,7 @@ pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12
     <p class="note">FDD clocks are hard constraints pinned to the calendar (no slack by law); support plans and expansion commits float until they land on the critical path. Delay a node and watch the path re-route — the system re-sequences work instead of discovering the slip at quarter-end. (Initiative seed shown for the franchise pack; each domain pack ships its own initiative DAG.)</p>
   </div>
 
-  <h2>Decision nexus — commit drawer</h2>
+  <h2>Article VI — Decision nexus (commit drawer)</h2>
   <div class="panel">
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <p style="font-size:13px;max-width:640px">Structured decision flow: <b>Field</b> (connected inputs) → <b>Futures</b> (branches) → <b>Interference</b> (conflicts) → <b>Commit</b> (Rule 1 satisfied) → <b>Realized</b> (recorded with causal lineage).</p>
@@ -123,7 +139,7 @@ pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12
 
   <div class="two" style="margin-top:28px">
     <div>
-      <h2>Canonical state — checkpointed &amp; replayable</h2>
+      <h2>Article VII — Canonical state (checkpointed and replayable)</h2>
       <div class="panel">
         <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
           <button onclick="checkpoint()">Checkpoint state</button>
@@ -135,15 +151,15 @@ pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12
       </div>
     </div>
     <div>
-      <h2>Symmetric transparency <span class="toggle" id="symToggle" onclick="toggleSym()"><span class="sw"></span> franchisee view</span></h2>
+      <h2>Article VIII — Symmetric transparency <span class="toggle" id="symToggle" onclick="toggleSym()"><span class="sw"></span> franchisee view</span></h2>
       <div class="panel" id="symmetry"></div>
-      <h2 style="margin-top:22px">Realized ledger</h2>
+      <h2 style="margin-top:22px">Article IX — Realized ledger</h2>
       <div class="panel">
         <table class="ledger" id="ledger"><thead><tr><th>Decision</th><th>Owner</th><th>Inputs consumed</th></tr></thead><tbody></tbody></table>
       </div>
     </div>
   </div>
-  <h2>What this control plane is worth — economic valuation</h2>
+  <h2>Article X — Economic valuation of this control plane</h2>
   <div class="panel">
     <div class="kpis" id="econ" style="margin-bottom:14px"></div>
     <table id="econTable"><thead><tr><th>Value lever</th><th>Mechanism</th><th>Annual value (modeled)</th></tr></thead><tbody></tbody></table>
@@ -151,7 +167,7 @@ pre{background:#0a0d12;border:1px solid var(--line);border-radius:8px;padding:12
   </div>
 </div>
 <footer>
-  <b>One canonical state, two directions:</b> if the network operator sees a health score of 84, the unit sees the same 84, computed from the same state — in any domain. Trust is structural, not policy. · Simulated demonstration; figures labeled. · Built by Pratik “Parry” Singh, Clearline Group. · <b>Design basis (2026 research):</b> information-dependency graphs for causal failure tracing (GraphTracer, arXiv 2510.10581); self-healing agent loops (arXiv 2605.06737); durable execution with human interrupt gates (LangGraph 1.0); RL steering of error correction while the system runs (Nature 655, 2026).
+  <b>Notice.</b> This instrument is a public demonstration of method. It is not an offer of securities, a franchise disclosure document, or legal, financial, or investment advice. · <b>Canonical-state clause:</b> if the network operator sees a health score of 84, the unit sees the same 84, computed from the same state — in any domain. Trust is structural, not policy. · <b>Data status:</b> simulated demonstration; figures labeled. · Prepared by Pratik “Parry” Singh, Clearline Group LLC. · <b>Design basis (2026 research):</b> information-dependency graphs for causal failure tracing (GraphTracer, arXiv 2510.10581); self-healing agent loops (arXiv 2605.06737); durable execution with human interrupt gates (LangGraph 1.0); RL steering of error correction while the system runs (Nature 655, 2026).
 </footer>
 <script>
 // ============ CANONICAL STATE ============
@@ -255,7 +271,7 @@ function switchDomain(dk){
   STATE = buildState(dk);
   document.getElementById('domainSel').value = dk;
   const p = DOMAIN_PACKS[dk];
-  document.getElementById('clockH2').textContent = p.clockTitle;
+  document.getElementById('clockH2').textContent = 'Article IV — '+p.clockTitle;
   document.getElementById('clockNote').textContent = p.clockNote;
   document.getElementById('domainBlurb').textContent =
     `Canonical schema unchanged — nodes, edges, gates, clocks, proposals, ledger, control variables. Only the lexicon and seed swapped: now governing a ${p.label.toLowerCase()} of ${p.count} ${p.units}, where the protected revenue line is the ${p.metric} and the regulatory anchor is ${p.seed}.`;
@@ -397,21 +413,21 @@ function cpm(){
 function drawGantt(){
   const {map,projEnd}=cpm();
   const W=900,labelW=250,rowH=32,top=28,scale=(W-labelW-40)/Math.max(projEnd,40);
-  let s=`<text x="${labelW}" y="16" font-size="9" fill="#8b96a6">days → (0 to ${projEnd})</text>`;
+  let s=`<text x="${labelW}" y="16" font-size="9" fill="#5a6270">days → (0 to ${projEnd})</text>`;
   // dependency arrows
   INITS.forEach((n,i)=>{
     const m=map[n.id], y=top+i*rowH+rowH/2;
     n.deps.forEach(d=>{
       const di=INITS.findIndex(x=>x.id===d), dm=map[d], dy=top+di*rowH+rowH/2;
-      s+=`<line x1="${labelW+dm.ef*scale}" y1="${dy}" x2="${labelW+m.es*scale}" y2="${y}" stroke="#3a4657" stroke-width="1" marker-end="url(#arr)"/>`;
+      s+=`<line x1="${labelW+dm.ef*scale}" y1="${dy}" x2="${labelW+m.es*scale}" y2="${y}" stroke="#c8c2b4" stroke-width="1" marker-end="url(#arr)"/>`;
     });
   });
-  s=`<defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#3a4657"/></marker></defs>`+s;
+  s=`<defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c8c2b4"/></marker></defs>`+s;
   INITS.forEach((n,i)=>{
     const m=map[n.id], y=top+i*rowH;
-    const col=m.hard?"#e06565":m.critical?"#e0a458":"#4cc2a0";
-    s+=`<text x="0" y="${y+rowH/2+3}" font-size="11" fill="#e6ebf2">${n.id} · ${n.name}</text>`;
-    if(m.slack>0) s+=`<rect x="${labelW+m.ef*scale}" y="${y+9}" width="${m.slack*scale}" height="${rowH-18}" fill="rgba(139,150,166,.18)" rx="3"/>`;
+    const col=m.hard?"#7a1f1f":m.critical?"#8a6d3b":"#1f3a5f";
+    s+=`<text x="0" y="${y+rowH/2+3}" font-size="11" fill="#1b2431">${n.id} · ${n.name}</text>`;
+    if(m.slack>0) s+=`<rect x="${labelW+m.ef*scale}" y="${y+9}" width="${m.slack*scale}" height="${rowH-18}" fill="rgba(90,98,112,.18)" rx="3"/>`;
     s+=`<rect x="${labelW+m.es*scale}" y="${y+6}" width="${Math.max(n.dur*scale,4)}" height="${rowH-12}" fill="${col}" rx="4" opacity="0.85"/>
     <text x="${labelW+m.es*scale+Math.max(n.dur*scale,4)+6}" y="${y+rowH/2+3}" font-size="9" fill="${col}">${n.dur}d${m.hard?" · hard":m.critical?" · critical":" · slack "+m.slack+"d"}</text>`;
   });
