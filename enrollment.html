@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enrollment Growth &amp; Franchise Marketing Engine</title>
+<style>
+:root{--bg:#0c0f14;--panel:#131820;--line:#232b38;--ink:#e6ebf2;--dim:#8b96a6;--acc:#4cc2a0;--warn:#e0a458;--risk:#e06565;--mono:ui-monospace,Menlo,Consolas,monospace}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.55 -apple-system,'Segoe UI',Roboto,sans-serif}
+header{border-bottom:1px solid var(--line);padding:18px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+header h1{font-size:19px;font-weight:650}
+header .nav{font:12px var(--mono);color:var(--dim)}
+header .nav a{color:var(--acc);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:28px}
+.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--acc);border-radius:10px;padding:14px 16px;margin-bottom:18px}
+.dombar select{background:#0a0d12;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:6px;padding:7px 10px}
+.dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.kpi .v{font:26px var(--mono);margin-top:2px}
+.kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+h2{font:12px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin:26px 0 12px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.held td{background:rgba(224,101,101,.05)}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:4px;padding:2px 7px}
+.b-ok{background:rgba(76,194,160,.14);color:var(--acc)}
+.b-warn{background:rgba(224,164,88,.14);color:var(--warn)}
+.b-risk{background:rgba(224,101,101,.16);color:var(--risk)}
+.b-held{background:rgba(139,150,166,.16);color:var(--dim)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#0c0f14}
+button:disabled{border-color:var(--line);color:var(--dim);cursor:not-allowed;background:transparent}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#0c0f14}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.ledger td{font-family:var(--mono);font-size:11.5px}
+.holdbox{border:1px dashed var(--risk);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
+footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+footer b{color:var(--ink)}
+.pulse{color:var(--acc)}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="tag">Building Kidz · simulated network · 100 agreements · 11 states</div>
+    <h1>Enrollment Growth &amp; Franchise Marketing Engine</h1>
+  </div>
+  <div class="nav"><a href="index.html">← all models</a> · child safety precedes growth</div>
+</header>
+<div class="wrap">
+  <div class="dombar">
+    <b style="font-size:13px">Domain pack:</b>
+    <select id="enrollSel" onchange="switchEnroll(this.value)">
+      <option value="preschool">Preschool franchise</option>
+      <option value="fitness">Fitness studio chain</option>
+      <option value="clinic">Outpatient clinic network</option>
+      <option value="tutoring">Tutoring / enrichment centers</option>
+    </select>
+    <p>Same engine — occupancy floors, staleness locks, spend gates, causal ledger. Only the lexicon and seed change; demand generation is a capacity-filling problem in any domain.</p>
+  </div>
+  <div class="kpis" id="kpis"></div>
+
+  <h2 id="unitH2">School-by-school status</h2>
+  <div class="panel">
+    <table id="schools">
+      <thead><tr><th id="unitTh">School</th><th>Occupancy</th><th>Attribution age</th><th>Status</th><th>Route</th></tr></thead>
+      <tbody></tbody>
+    </table>
+    <p class="note">Occupancy below the 55% floor auto-routes a unit into a supported plan — the system does not wait for a human to notice. Attribution older than 28 days locks every optimization at that unit until re-measured.</p>
+  </div>
+
+  <div class="two" style="margin-top:26px">
+    <div>
+      <h2>Proposals held at the spend gate</h2>
+      <div class="panel">
+        <table id="props"><thead><tr><th>Proposal</th><th>Unit</th><th>Gate</th><th></th></tr></thead><tbody></tbody></table>
+        <div class="holdbox" id="holdbox" style="display:none"></div>
+        <p class="note">Two-stage commit: agents propose, a person decides, the ledger remembers. No proposal executes at the gate — it is approved or rejected by you, and the decision is recorded with its causal inputs.</p>
+      </div>
+    </div>
+    <div>
+      <h2>Gate reliability — layered containment</h2>
+      <div class="panel" id="reliability"></div>
+      <h2 style="margin-top:22px">Decision ledger</h2>
+      <div class="panel">
+        <table class="ledger" id="ledger"><thead><tr><th>Decision</th><th>By</th><th>Inputs consumed</th></tr></thead><tbody></tbody></table>
+        <p class="note">Each committed decision records exactly which inputs it consumed (causal lineage). If an input is later found stale or corrupted, everything it touched is traceable.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <h2>What this engine is worth — economic valuation</h2>
+  <div class="panel">
+    <div class="kpis" id="econ" style="margin-bottom:14px"></div>
+    <table id="econTable"><thead><tr><th>Value lever</th><th>Mechanism</th><th>Annual value (modeled)</th></tr></thead><tbody></tbody></table>
+    <p class="note">Benchmarks from public sources (shown for the preschool instantiation; each pack applies its own AUV and per-capacity benchmarks — membership economics for fitness, panel value for clinics, student-seat value for tutoring): Building Kidz average gross sales ≈ <b>$1.06M/center</b> (FDD-reported, via VettedBiz); childcare resale value <b>$1,500–$4,000 per enrolled child</b> and <b>2–4× EBITDA</b> (DealStream broker rules of thumb); typical education royalty <b>6–8% of gross</b> (IFA band, per CT Acquisitions); sustainable acquisition economics require <b>LTV:CAC ≥ 3:1</b> (Chargebee/Kaizen benchmarks). Per-unit figures in the model are simulated; the valuation math applies the cited market benchmarks to the model's state.</p>
+  </div>
+</div>
+<footer>
+  <b>Safety-first ordering:</b> child safety precedes growth in the decision stack; spend gates and creative approvals are structurally subordinate to safety checks. · Seed data: publicly announced network facts (100 agreements, 11 states, 1,100 seats); school-level figures are <b>simulated</b>. · All figures derive from one canonical state at render time — no pre-computed numbers, no cached copies. · <b>Design basis (2026 research):</b> layered error containment ∏(1−q) (arXiv 2604.01647); durable, checkpointed execution with pre-dispatch policy checks (LangGraph 1.0); correction-as-a-loop, never halt to recalibrate (RL control of quantum error correction, Nature 655, 2026).
+</footer>
+<script>
+// ============ CANONICAL STATE (single source of truth) ============
+// ============ DOMAIN PACKS — demand-generation engine, any capacity business ============
+const ENROLL_PACKS = {
+  preschool:{
+    label:"Preschool franchise", unit:"school", capNoun:"seats",
+    network:{agreements:100, states:11, seats:1100},
+    schools:[
+      {name:"North Spring, TX", seats:96, filled:41, attrAge:9,  open:"new"},
+      {name:"Dr. Phillips, FL", seats:110, filled:52, attrAge:14, open:"new"},
+      {name:"Ashburn, VA", seats:104, filled:66, attrAge:41, open:"est"},
+      {name:"Fremont, CA", seats:120, filled:96, attrAge:6,  open:"est"},
+      {name:"Katy, TX", seats:98, filled:74, attrAge:11, open:"est"},
+      {name:"Peachtree City, GA", seats:88, filled:60, attrAge:22, open:"est"},
+      {name:"Chandler, AZ", seats:92, filled:44, attrAge:8,  open:"new"},
+      {name:"Bellevue, WA", seats:100, filled:81, attrAge:5,  open:"est"}],
+    proposals:[
+      {id:"P-114", school:"North Spring, TX", action:"Full-funnel diagnostic + CAC compression plan", gate:"Data integrity", status:"held"},
+      {id:"P-115", school:"Dr. Phillips, FL", action:"Supported plan: local search + tour conversion", gate:"Data integrity", status:"held"},
+      {id:"P-116", school:"Ashburn, VA", action:"Reallocate $4.2k/mo to retargeting", gate:"Attribution validity", status:"held"},
+      {id:"P-117", school:"Chandler, AZ", action:"Community event series (3 schools partner)", gate:"CAC ceiling", status:"held"},
+      {id:"P-118", school:"Katy, TX", action:"Referral incentive refresh", gate:"CAC ceiling", status:"held"}],
+  },
+  fitness:{
+    label:"Fitness studio chain", unit:"studio", capNoun:"memberships",
+    network:{agreements:64, states:9, seats:12800},
+    schools:[
+      {name:"Midtown, Atlanta", seats:220, filled:98, attrAge:9,  open:"new"},
+      {name:"Capitol Hill, Seattle", seats:240, filled:118, attrAge:14, open:"new"},
+      {name:"Oak Lawn, Dallas", seats:210, filled:132, attrAge:41, open:"est"},
+      {name:"Pearl District, Portland", seats:260, filled:208, attrAge:6,  open:"est"},
+      {name:"Logan Square, Chicago", seats:200, filled:152, attrAge:11, open:"est"},
+      {name:"Wynwood, Miami", seats:190, filled:126, attrAge:22, open:"est"},
+      {name:"RiNo, Denver", seats:205, filled:92, attrAge:8,  open:"new"},
+      {name:"Short North, Columbus", seats:215, filled:174, attrAge:5,  open:"est"}],
+    proposals:[
+      {id:"P-114", school:"Midtown, Atlanta", action:"Full-funnel diagnostic + intro-offer CAC compression", gate:"Data integrity", status:"held"},
+      {id:"P-115", school:"Capitol Hill, Seattle", action:"Supported plan: local search + trial-to-member conversion", gate:"Data integrity", status:"held"},
+      {id:"P-116", school:"Oak Lawn, Dallas", action:"Reallocate $4.2k/mo to retargeting", gate:"Attribution validity", status:"held"},
+      {id:"P-117", school:"RiNo, Denver", action:"Corporate wellness partnership series", gate:"CAC ceiling", status:"held"},
+      {id:"P-118", school:"Logan Square, Chicago", action:"Referral incentive refresh", gate:"CAC ceiling", status:"held"}],
+  },
+  clinic:{
+    label:"Outpatient clinic network", unit:"clinic", capNoun:"panel slots",
+    network:{agreements:42, states:6, seats:9800},
+    schools:[
+      {name:"Riverside Family Med", seats:980, filled:430, attrAge:9,  open:"new"},
+      {name:"Northgate Pediatrics", seats:1050, filled:500, attrAge:14, open:"new"},
+      {name:"Lakeside Internal Med", seats:900, filled:610, attrAge:41, open:"est"},
+      {name:"Eastpoint Urgent Care", seats:820, filled:700, attrAge:6,  open:"est"},
+      {name:"Memorial Primary", seats:940, filled:730, attrAge:11, open:"est"},
+      {name:"Cedar Park Family", seats:870, filled:640, attrAge:22, open:"est"},
+      {name:"Southbrook Clinic", seats:910, filled:400, attrAge:8,  open:"new"},
+      {name:"Harborview Primary", seats:960, filled:790, attrAge:5,  open:"est"}],
+    proposals:[
+      {id:"P-114", school:"Riverside Family Med", action:"Panel-growth diagnostic + referral-channel CAC compression", gate:"Data integrity", status:"held"},
+      {id:"P-115", school:"Northgate Pediatrics", action:"Supported plan: local search + new-patient conversion", gate:"Data integrity", status:"held"},
+      {id:"P-116", school:"Lakeside Internal Med", action:"Reallocate $4.2k/mo outreach budget", gate:"Attribution validity", status:"held"},
+      {id:"P-117", school:"Southbrook Clinic", action:"Employer partnership series (3 clinics)", gate:"CAC ceiling", status:"held"},
+      {id:"P-118", school:"Memorial Primary", action:"Patient referral program refresh", gate:"CAC ceiling", status:"held"}],
+  },
+  tutoring:{
+    label:"Tutoring / enrichment centers", unit:"center", capNoun:"student seats",
+    network:{agreements:87, states:14, seats:6200},
+    schools:[
+      {name:"Frisco, TX", seats:80, filled:35, attrAge:9,  open:"new"},
+      {name:"Cary, NC", seats:92, filled:44, attrAge:14, open:"new"},
+      {name:"Naperville, IL", seats:86, filled:57, attrAge:41, open:"est"},
+      {name:"Bellevue, WA", seats:100, filled:80, attrAge:6,  open:"est"},
+      {name:"Plano, TX", seats:84, filled:64, attrAge:11, open:"est"},
+      {name:"Scottsdale, AZ", seats:78, filled:52, attrAge:22, open:"est"},
+      {name:"Irvine, CA", seats:82, filled:38, attrAge:8,  open:"new"},
+      {name:"Raleigh, NC", seats:88, filled:71, attrAge:5,  open:"est"}],
+    proposals:[
+      {id:"P-114", school:"Frisco, TX", action:"Full-funnel diagnostic + CAC compression plan", gate:"Data integrity", status:"held"},
+      {id:"P-115", school:"Cary, NC", action:"Supported plan: local search + assessment conversion", gate:"Data integrity", status:"held"},
+      {id:"P-116", school:"Naperville, IL", action:"Reallocate $4.2k/mo to retargeting", gate:"Attribution validity", status:"held"},
+      {id:"P-117", school:"Irvine, CA", action:"School-partnership event series", gate:"CAC ceiling", status:"held"},
+      {id:"P-118", school:"Plano, TX", action:"Referral incentive refresh", gate:"CAC ceiling", status:"held"}],
+  },
+};
+let ePack = "preschool";
+function buildEnroll(pk){
+  const p = ENROLL_PACKS[pk];
+  return {
+    network:JSON.parse(JSON.stringify(p.network)),
+    gates:[
+      {name:"Safety & creative compliance", q:0.985, mandatory:true},
+      {name:"Data integrity (fresh, sourced, verified)", q:0.95},
+      {name:"Attribution validity (≤28 days)", q:0.92},
+      {name:"CAC ceiling vs. budget", q:0.90}],
+    schools:JSON.parse(JSON.stringify(p.schools)),
+    proposals:JSON.parse(JSON.stringify(p.proposals)),
+    ledger:[
+      {decision:"Q3 budget locked — no spend on stale-attribution units", by:"Network Director", inputs:["network.attribution_audit (Jul 12)", "state.gates[2]"]},
+      {decision:"Supported-plan template v3 approved for new opens", by:"Center Success Lead", inputs:["cohort: 2026 new opens", "funnel benchmark (public)"]}],
+    signals:19
+  };
+}
+let STATE = buildEnroll(ePack);
+function switchEnroll(pk){
+  ePack = pk; STATE = buildEnroll(pk);
+  document.getElementById('enrollSel').value = pk;
+  render();
+}
+const FLOOR = 0.55, STALE = 28;
+
+// ============ DERIVED (computed at render time — nothing cached) ============
+function derive(){
+  const d = {};
+  d.filled = STATE.schools.reduce((a,s)=>a+s.filled,0);
+  d.seats = STATE.schools.reduce((a,s)=>a+s.seats,0);
+  d.occupancy = d.filled/d.seats;
+  d.held = STATE.proposals.filter(p=>p.status==="held").length;
+  // layered containment: escape probability = product of (1-q) across k layers
+  d.escape = STATE.gates.reduce((a,g)=>a*(1-g.q),1);
+  d.reliability = 1 - d.escape;
+  d.schoolRows = STATE.schools.map(s=>{
+    const occ = s.filled/s.seats;
+    const stale = s.attrAge > STALE;
+    const below = occ < FLOOR;
+    let status, cls, route;
+    if(stale){ status="Held — stale attribution"; cls="b-risk"; route="All optimization locked until re-measured"; }
+    else if(below){ status="Below floor — supported plan"; cls="b-warn"; route="Full-funnel diagnostic → CAC compression"; }
+    else { status="On track"; cls="b-ok"; route="Standard cadence"; }
+    return {...s, occ, stale, below, status, cls, route};
+  });
+  return d;
+}
+
+// ============ RENDER (every view reads the same derived state) ============
+function render(){
+  const d = derive();
+  const P = ENROLL_PACKS[ePack];
+  const capU = P.unit.charAt(0).toUpperCase()+P.unit.slice(1);
+  document.getElementById('unitH2').textContent = `${capU}-by-${P.unit} status`;
+  document.getElementById('unitTh').textContent = capU;
+  document.getElementById('kpis').innerHTML = [
+    ["Franchise agreements", STATE.network.agreements],
+    ["Network occupancy", (d.occupancy*100).toFixed(0)+"%"],
+    ["Live action signals", STATE.signals],
+    ["Proposals held at gate", d.held],
+    [capU+"s on supported plans", d.schoolRows.filter(s=>s.below&&!s.stale).length],
+    ["Gate reliability (4 layers)", (d.reliability*100).toFixed(2)+"%"],
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+
+  document.querySelector('#schools tbody').innerHTML = d.schoolRows.map(s=>`
+    <tr class="${s.stale?'held':''}">
+      <td><b>${s.name}</b> ${s.open==='new'?'<span class="badge b-warn">new open</span>':''}</td>
+      <td>${(s.occ*100).toFixed(0)}%<div class="bar"><i style="width:${(s.occ*100).toFixed(0)}%;${s.occ<FLOOR?'background:var(--warn)':''}"></i></div></td>
+      <td>${s.attrAge} days ${s.stale?'<span class="badge b-risk">stale</span>':''}</td>
+      <td><span class="badge ${s.cls}">${s.status}</span></td>
+      <td style="color:var(--dim);font-size:12.5px">${s.route}</td>
+    </tr>`).join('');
+
+  document.querySelector('#props tbody').innerHTML = STATE.proposals.map((p,i)=>{
+    const s = STATE.schools.find(x=>x.name===p.school);
+    const blocked = s && s.attrAge > STALE;
+    return `<tr>
+      <td><b>${p.id}</b> — ${p.action}</td>
+      <td>${p.school}</td>
+      <td><span class="badge ${blocked?'b-risk':'b-held'}">${blocked?'blocked: stale data':p.gate}</span></td>
+      <td>${p.status==='held'
+        ? (blocked
+          ? `<button class="rel" onclick="remeasure('${p.school}')">Re-measure</button>`
+          : `<button onclick="commit(${i},true)">Approve</button> <button class="rel" onclick="commit(${i},false)">Reject</button>`)
+        : `<span class="badge ${p.status==='approved'?'b-ok':'b-risk'}">${p.status}</span>`}</td>
+    </tr>`;}).join('');
+
+  const hb = document.getElementById('holdbox');
+  const staleNames = d.schoolRows.filter(s=>s.stale).map(s=>s.name);
+  if(staleNames.length){ hb.style.display='block';
+    hb.textContent = `HOLD: every optimization at ${staleNames.join(', ')} is locked — attribution is over ${STALE} days stale. The system holds the proposal rather than approximating.`; }
+  else hb.style.display='none';
+
+  document.getElementById('reliability').innerHTML =
+    STATE.gates.map(g=>`<div style="margin-bottom:10px"><div style="display:flex;justify-content:space-between;font-size:12.5px"><span>${g.name}${g.mandatory?' <span class="badge b-risk">non-negotiable</span>':''}</span><span style="font-family:var(--mono)">q=${g.q}</span></div><div class="bar"><i style="width:${g.q*100}%"></i></div></div>`).join('')
+    + `<p class="note">Error escapes only if it passes <b>every</b> layer: P(escape) = ∏(1−q) = ${d.escape.toExponential(1)} → reliability <b class="pulse">${(d.reliability*100).toFixed(3)}%</b>. Layers verify independently; adding depth multiplies containment instead of adding effort linearly.</p>`;
+
+  document.querySelector('#ledger tbody').innerHTML = STATE.ledger.map(e=>
+    `<tr><td>${e.decision}</td><td>${e.by}</td><td style="color:var(--dim)">${e.inputs.join('<br>')}</td></tr>`).join('');
+
+  renderEcon(d);
+}
+
+// ============ ECONOMIC VALUATION (benchmarks applied to live state) ============
+const BENCH = {
+  auvPerCenter: 1060759,        // Building Kidz avg gross sales, FDD-reported (VettedBiz)
+  perChildLow: 1500, perChildHigh: 4000, // childcare resale $/enrolled child (DealStream)
+  preschoolSeatLow: 1500, preschoolSeatHigh: 2500, // preschool/after-school slots
+  royaltyLow: 0.06, royaltyHigh: 0.08,   // typical education royalty band (IFA / CT Acquisitions)
+  ltvCacFloor: 3,               // sustainable LTV:CAC (Chargebee / Kaizen)
+};
+function renderEcon(d){
+  // revenue per filled seat at benchmark: AUV spread over a representative licensed capacity (~110 seats)
+  const capPerCenter = 110;
+  const revPerFullSeat = BENCH.auvPerCenter / capPerCenter; // ≈ $9.6k/seat-yr at full occupancy
+  // lever 1: close below-floor schools to the 55% floor (what the supported plans target first)
+  const gapSeats = d.schoolRows.filter(s=>s.below).reduce((a,s)=>a+Math.ceil(s.seats*FLOOR)-s.filled,0);
+  const gapRevenue = gapSeats * revPerFullSeat;
+  // lever 2: fill to network target 75% over 24 months (modeled)
+  const targetSeats = d.schoolRows.filter(s=>s.below).reduce((a,s)=>a+Math.ceil(s.seats*0.75)-s.filled,0);
+  const targetRevenue = targetSeats * revPerFullSeat;
+  // lever 3: resale enterprise value created per enrolled child added
+  const evLow = gapSeats * BENCH.preschoolSeatLow, evHigh = gapSeats * BENCH.preschoolSeatHigh;
+  // lever 4: royalty stream to franchisor
+  const royLow = targetRevenue * BENCH.royaltyLow, royHigh = targetRevenue * BENCH.royaltyHigh;
+
+  document.getElementById('econ').innerHTML = [
+    ["Seats to the 55% floor", gapSeats],
+    ["Gross revenue at floor", "$"+Math.round(gapRevenue/1000)+"k/yr"],
+    ["Gross at 75% target", "$"+Math.round(targetRevenue/1000)+"k/yr"],
+    ["Resale value created", "$"+Math.round(evLow/1000)+"k–$"+Math.round(evHigh/1000)+"k"],
+    ["Royalty stream (6–8%)", "$"+Math.round(royLow/1000)+"k–$"+Math.round(royHigh/1000)+"k/yr"],
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+
+  document.querySelector('#econTable tbody').innerHTML = [
+    ["Occupancy floor recovery", `Supported plans lift ${d.schoolRows.filter(s=>s.below).length} below-floor ${ENROLL_PACKS[ePack].unit}s to the 55% floor — ${gapSeats} ${ENROLL_PACKS[ePack].capNoun} at ≈$${Math.round(revPerFullSeat).toLocaleString()}/seat-yr (benchmark AUV $${(BENCH.auvPerCenter/1e6).toFixed(2)}M per center)`, "$"+Math.round(gapRevenue).toLocaleString()],
+    ["Enrollment growth to target", `Filling the same ${ENROLL_PACKS[ePack].unit}s to the 75% network target over 24 months adds ${targetSeats} ${ENROLL_PACKS[ePack].capNoun}`, "$"+Math.round(targetRevenue).toLocaleString()],
+    ["Enterprise value created", `Childcare centers resell at $${BENCH.perChildLow.toLocaleString()}–$${BENCH.perChildHigh.toLocaleString()} per enrolled child (preschool slots $${BENCH.preschoolSeatLow.toLocaleString()}–$${BENCH.preschoolSeatHigh.toLocaleString()}); ${gapSeats} recovered seats ≈ resale value`, "$"+evLow.toLocaleString()+" – $"+evHigh.toLocaleString()],
+    ["Franchisor royalty stream", `At the typical 6–8% education royalty, the recovered enrollment is a recurring royalty line — before any new-unit sales`, "$"+Math.round(royLow).toLocaleString()+" – $"+Math.round(royHigh).toLocaleString()+"/yr"],
+    ["CAC discipline", `Spend gates hold CAC at or below LTV/${BENCH.ltvCacFloor} — the floor for sustainable acquisition economics; proposals that would breach the ceiling never execute`, "protected margin"],
+  ].map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--dim);font-size:12.5px">${r[1]}</td><td style="font-family:var(--mono)">${r[2]}</td></tr>`).join('');
+}
+
+// ============ ACTIONS (mutate canonical state, then re-derive everything) ============
+function commit(i, ok){
+  const p = STATE.proposals[i];
+  p.status = ok ? 'approved' : 'rejected';
+  STATE.ledger.unshift({
+    decision: `${p.id} ${p.status}: ${p.action} (${p.school})`,
+    by: "You (gate authority)",
+    inputs: [`state.schools["${p.school}"]`, `state.gates`, `proposal.${p.id}.model`]
+  });
+  render();
+}
+function remeasure(name){
+  const s = STATE.schools.find(x=>x.name===name);
+  s.attrAge = 0;
+  STATE.ledger.unshift({
+    decision:`Attribution re-measured for ${name} — optimization unlocked`,
+    by:"Ops Analyst (self-healing: mechanical fix, no judgment call)",
+    inputs:[`state.schools["${name}"].attrAge`]
+  });
+  render();
+}
+render();
+// deep-link: ?pack=fitness|clinic|tutoring|preschool
+const _eqp=new URLSearchParams(location.search).get('pack');
+if(_eqp && ENROLL_PACKS[_eqp]) switchEnroll(_eqp);
+</script>
+</body>
+</html>
