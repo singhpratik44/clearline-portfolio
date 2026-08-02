@@ -99,6 +99,10 @@ pre{background:#fbfaf7;border:1px solid var(--line);border-radius:3px;padding:12
       <div class="panel">
         <table id="control"><thead><tr><th>Unit</th><th>Health</th><th>τ breach</th><th>Distance</th><th>Zone</th><th></th></tr></thead><tbody></tbody></table>
         <p class="note">τ = 2.1-week early-warning window; critical distance = $0.8k. These are control-system variables: they determine whether the network is converging toward health or diverging toward failure — and flag it <i>before</i> it becomes a crisis.</p>
+        <div style="margin-top:12px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
+          <button id="twinBtn" onclick="toggleTwin()">Run live twin</button>
+          <span class="note" id="twinStatus" style="margin-top:0">Twin idle — observed seed state shown. Running the twin advances an event-driven simulation clock: unit health, τ, and distance evolve each tick, and new divergences are auto-routed to the ledger (Article IX). Figures while running are a simulated forecast, labeled as such.</span>
+        </div>
       </div>
       <h2 style="margin-top:22px">Article II — Self-healing loop</h2>
       <div class="panel" id="selfheal"></div>
@@ -515,6 +519,30 @@ function replay(){
 function exportState(){
   const blob=new Blob([JSON.stringify(STATE,null,2)],{type:'application/json'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='clearline-canonical-state.json'; a.click();
+}
+// ============ LIVE TWIN (event-driven simulation clock) ============
+let twinTimer=null, twinTick=0;
+function toggleTwin(){
+  if(twinTimer){ clearInterval(twinTimer); twinTimer=null;
+    document.getElementById('twinBtn').textContent='Run live twin';
+    document.getElementById('twinStatus').textContent='Twin paused at tick '+twinTick+' — state holds on the same canonical state; resume continues from it. Figures above remain the twin\u2019s simulated forecast until reset.';
+    return; }
+  document.getElementById('twinBtn').textContent='Pause twin';
+  twinTimer=setInterval(twinStep,1400);
+  twinStep();
+}
+function twinStep(){
+  twinTick++;
+  STATE.units.forEach(function(u){
+    u.health=Math.max(40,Math.min(99,Math.round((u.health+(Math.random()-0.48)*3)*10)/10));
+    u.tauBreach=Math.max(0.2,Math.round((u.tauBreach+(Math.random()-0.5)*0.5)*10)/10);
+    u.distance=Math.max(0.1,Math.round((u.distance+(Math.random()-0.5)*0.2)*10)/10);
+    if(zone(u).cls==='b-risk' && Math.random()<0.5){
+      STATE.ledger.unshift({decision:'Twin tick '+twinTick+': '+u.name+' entered diverging zone — auto-routed to named support owner (safety precedes growth)', owner:'Live twin (event clock)', inputs:['state.units['+u.name+'].tauBreach='+u.tauBreach,'control.tau='+STATE.control.tau]});
+    }
+  });
+  document.getElementById('twinStatus').textContent='Twin running — tick '+twinTick+' (simulated forecast, not observed; seed restored on reload). New divergences auto-route to the ledger below.';
+  render();
 }
 render();
 // deep-link: ?pack=healthcare|education|saas|franchise
