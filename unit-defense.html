@@ -60,6 +60,8 @@ button.rel:hover{background:var(--warn);color:#fff}
 .tracebox{border:1px dashed #3a4d80;border-radius:3px;padding:10px 12px;font-size:12.5px;color:#3a4d80;margin-top:8px;display:none;background:#f2f4f8}
 .donut{display:flex;align-items:center;gap:18px}
 svg text{fill:var(--ink)}
+line.sig{stroke-dasharray:7 6;animation:sigflow 1.6s linear infinite}
+@keyframes sigflow{to{stroke-dashoffset:-26}}
 .conflict{border-left:3px solid var(--risk);padding:8px 12px;margin-bottom:10px;background:rgba(122,31,31,.06);border-radius:0 3px 3px 0;font-size:13px}
 @media(max-width:960px){.two,.three{grid-template-columns:1fr}}
 </style>
@@ -385,13 +387,13 @@ function renderGraph(d){
   const a=Object.fromEntries(STATE.agents.map(x=>[x.id,x]));
   const edges=STATE.edges.map(([u,v])=>{
     const live=!a[u].corrupt&&!a[v].corrupt;
-    return `<line x1="${pos[u][0]}" y1="${pos[u][1]}" x2="${pos[v][0]}" y2="${pos[v][1]}" stroke="${live?'#c8c2b4':'#7a1f1f'}" stroke-width="${live?1.5:1}" ${live?'':'stroke-dasharray="4 4"'}/>`;}).join('');
+    return `<line x1="${pos[u][0]}" y1="${pos[u][1]}" x2="${pos[v][0]}" y2="${pos[v][1]}" stroke="${live?'#1f3a5f':'#7a1f1f'}" stroke-width="${live?1.5:1}" ${live?'class="sig"':'stroke-dasharray="4 4"'}/>`;}).join('');
   const nodes=STATE.agents.map(x=>{const [cx,cy]=pos[x.id];
     return `<circle cx="${cx}" cy="${cy}" r="22" fill="${x.corrupt?'#f6e9e9':'#ffffff'}" stroke="${x.corrupt?'#7a1f1f':x.color}" stroke-width="2"/>
     <text x="${cx}" y="${cy-26}" text-anchor="middle" font-size="9" fill="${x.color}" font-family="var(--mono)">${x.order}</text>
     <text x="${cx}" y="${cy+3}" text-anchor="middle" font-size="9.5">${x.corrupt?'FAULT':x.label}</text>`;}).join('');
   document.getElementById('graph').innerHTML=`<svg width="300" height="210" viewBox="0 0 300 210">${edges}${nodes}</svg>
-    <p class="note">Complete graph K4 — maximally r-robust for 4 agents. Numbers show fixed deliberation order (compliance first).</p>`;
+    <p class="note">Complete graph K4 — maximally r-robust for 4 agents. Numbers show fixed deliberation order (compliance first). Animated pulses mark live signal channels; a faulted agent's channels go dark and static.</p>`;
   document.getElementById('corruptBtns').innerHTML=STATE.agents.filter(x=>x.id!=='ledger').map(x=>
     `<button class="rel" onclick="corrupt('${x.id}')">${x.corrupt?'Heal':'Corrupt'} ${x.label}</button>`).join(' ');
 }
