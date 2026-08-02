@@ -77,6 +77,32 @@ footer b{color:var(--ink)}
   .log{background:#fbfaf7;border:1px solid var(--line);border-radius:3px;padding:10px 12px;font-family:var(--mono);font-size:11.5px;max-height:210px;overflow:auto;white-space:pre-wrap;color:var(--ink)}
   button.ghost{background:var(--panel);color:var(--acc);border-color:var(--acc)}
   button.ghost:hover{background:var(--acc);color:#fff}
+  /* ==== ported from reference engine (catalog §1.5/§11): search, error card, register, print/mobile ==== */
+  .hsearch{font:12px var(--mono);background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:7px 10px;min-width:200px;color:var(--ink)}
+  .hsearch:focus{outline:2px solid var(--acc);outline-offset:1px}
+  .errcard{display:none;background:#fff;border:1px solid var(--line);border-left:3px solid var(--risk);border-radius:3px;padding:16px 18px;margin-bottom:18px}
+  .errcard .t{font-family:var(--serif);font-size:15px;margin-bottom:6px}
+  .errcard .m{font:11.5px var(--mono);color:var(--risk);margin-top:8px;word-break:break-word}
+  .empty{font-size:12.5px;color:var(--dim);padding:14px 10px;border:1px dashed var(--line);border-radius:3px;background:#fbfaf7}
+  .register{border:1px solid var(--ink);border-radius:3px;background:#fff;padding:14px 16px;margin-top:14px;font-size:12px}
+  .register .rt{font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+  .register .dig{font:11px var(--mono);color:var(--dim);margin-top:6px}
+  .tabscroll{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  @media(max-width:640px){
+    header{padding:16px 0}
+    .wrap{padding:16px}
+    .tabscroll{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    button,.hsearch{min-height:34px}
+    table{display:block;overflow-x:auto}
+    .grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  }
+  @media print{
+    .no-print{display:none!important}
+    .docbar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{background:#fff}
+    .panel,.kpi,.card{box-shadow:none;break-inside:avoid}
+    .wrap{max-width:none;padding:0 12px}
+  }
 </style>
 </head>
 <body>
@@ -88,7 +114,18 @@ footer b{color:var(--ink)}
 <h1>Youth Basketball Academy — Governed Operations &amp; Player Development</h1>
   <div class="tag">Daily operations, membership growth, and coach workflow on the same governed state — with an integration layer for the basketball-AI stack (computer-vision shot analysis, player tracking, development analytics). <span class="pill real">REAL TECH — cited</span> <span class="pill sim">SIMULATED DATA</span> <span class="pill gate">GOVERNANCE GATE</span></div>
   <div class="nav" style="margin-top:8px"><a href="index.html">&larr; Index of instruments</a> &middot; Simulated roster and financials; cited technologies real</div>
+  <div class="tabscroll no-print" style="margin-top:10px">
+    <input id="gsearch" class="hsearch" type="search" placeholder="Search athletes, proposals, ledger…" oninput="applySearch(this.value)" aria-label="Global search">
+    <button onclick="exportSummary()" title="Download the offline-readable summary of the live canonical state">⬇ Print summary</button>
+    <button onclick="exportLedger()" title="Download the operations ledger (audit trail)">⬇ Audit ledger</button>
+  </div>
 </header>
+<div class="errcard" id="errcard" role="alert">
+  <div class="t">Something in this view didn't render</div>
+  <div style="font-size:12.5px;color:var(--dim)">The state itself is untouched — this is a display fault, not a data fault. No decision or ledger entry was affected.</div>
+  <button style="margin-top:10px" onclick="recoverView()">Reload this view</button>
+  <div class="m" id="errmsg"></div>
+</div>
 
 <h2>Article I — Academy snapshot (simulated; seeded on membership-business economics)</h2>
 <div class="grid" id="kpis"></div>
@@ -151,6 +188,18 @@ footer b{color:var(--ink)}
   <div class="sub" style="margin-top:8px">Reference economics (membership businesses): LTV:CAC floor 3:1; per-athlete revenue and multiples parameterized in the engine — swap the seed, the logic holds for any youth sport.</div>
 </div>
 
+<h2>Article VI — Network twin: forecast self-calibration</h2>
+<div class="card">
+  <div id="twin"></div>
+  <div class="sub" style="margin-top:8px"><b>Calibration is earned, not asserted.</b> Each athlete carries a forward classification (rising / holding / deteriorating) issued from leading signals — CV trend line, workload flags — and that call is then scored against the realized makes on record. The accuracy figure below is computed live from the canonical state; it goes down when the forecast layer is wrong, not just up when it is right. A development model that cannot show its miss rate is marketing, not coaching.</div>
+</div>
+
+<div class="register">
+  <div class="rt">Submission artifact · Clearline Group LLC</div>
+  <div>Instrument CLG-05 · Youth Basketball Academy — Governed Operations &amp; Player Development · seeds illustrative, structures computed live. Every figure in this document is derived from one canonical state (<b>SEED, ROSTER, GATES, PROPS, LED</b>) at render time — no view holds a separate copy, no pre-computed numbers are served.</div>
+  <div class="dig" id="registerDig">Tamper-evident ledger digest: (enterprise kit not loaded — digest unavailable; the record itself still renders above). Stamped on: summary export · audit-ledger export · register block.</div>
+</div>
+
 <footer>
 <div class="foot"><b>Notice.</b> This instrument is a governance-systems demonstration prepared by Clearline Group LLC. It does not constitute an offer of securities, a franchise disclosure document, or legal, financial, or investment advice. Roster and financial figures are simulated; technologies named in Article III are real and cited as integration points only.</div>
 <div class="foot" style="margin-top:8px"><b>Safety clause.</b> Where athlete-safety flags and growth actions conflict, the safety determination controls. Governors: canonical state &middot; fail-safe gates &middot; two-stage commit &middot; safety precedes growth &middot; causal lineage.</div>
@@ -186,6 +235,101 @@ var LED=[];
 function stamp(){var d=new Date();return d.toTimeString().slice(0,8);}
 function log(m){LED.unshift("["+stamp()+"] "+m);if(LED.length>60)LED.pop();renderLedger();}
 
+// ---------- view guard (ported EngineErrorBoundary, catalog §1.4) ----------
+function renderAll(){
+ try{
+  renderAllCore();
+  var ec=document.getElementById('errcard'); if(ec) ec.style.display='none';
+ }catch(err){
+  var ec=document.getElementById('errcard'), em=document.getElementById('errmsg');
+  if(ec) ec.style.display='block';
+  if(em) em.textContent=String(err && err.message || err);
+ }
+}
+function recoverView(){var ec=document.getElementById('errcard'); if(ec) ec.style.display='none'; renderAll();}
+// ---------- global search (catalog §3.2) — filters this engine's records ----------
+var SEARCH="";
+function applySearch(q){SEARCH=(q||"").toLowerCase().trim();renderAll();}
+function sHit(){
+ if(!SEARCH) return true;
+ for(var i=0;i<arguments.length;i++){if(String(arguments[i]).toLowerCase().indexOf(SEARCH)>=0) return true;}
+ return false;
+}
+// ---------- downloads (catalog §11) ----------
+function downloadText(txt,name){
+ var blob=new Blob([txt],{type:"text/plain"});
+ var a=document.createElement("a");
+ a.href=URL.createObjectURL(blob); a.download=name; a.click();
+ setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+}
+function buildSummaryText(){
+ var t=buildTwin();
+ var lines=[];
+ lines.push("INSTRUMENT: "+document.title);
+ lines.push("Baseline: Bay Area youth basketball academy · membership model · simulated network");
+ lines.push("Athletes: "+SEED.athletes+" of "+SEED.capacity+" capacity ("+Math.round(SEED.athletes/SEED.capacity*100)+"% occupancy)");
+ lines.push("Monthly revenue: $"+SEED.monthlyRev.toLocaleString()+" · Retention: "+Math.round(SEED.retention*100)+"% · Waitlist: "+SEED.waitlist);
+ lines.push("Safety clause: where athlete-safety flags and growth actions conflict, the safety determination controls.");
+ lines.push("Forward-classification accuracy (network twin): "+(t.acc*100).toFixed(1)+"% over "+t.rows.length+" athletes — calibration is earned, not asserted");
+ lines.push("");
+ lines.push("OPERATIONS LOG ("+LED.length+" entries, newest first):");
+ LED.forEach(function(m){lines.push("  "+m);});
+ return lines.join("\n");
+}
+function exportSummary(){
+ var head="CLEARLINE GROUP LLC — GOVERNED OPERATIONS SUMMARY EXPORT\nGenerated from the live canonical state · "+new Date().toISOString()+"\n";
+ head+="Ledger integrity digest: "+((typeof CLG!=="undefined"&&CLG.digest)?CLG.digest()+" over "+CLG.entries()+" committed entries":"unavailable — enterprise kit not loaded")+"\n";
+ head+="==========================================================\n\n";
+ downloadText(head+buildSummaryText(),"clg-05-basketball-summary.txt");
+}
+function exportLedger(){
+ var d=(typeof CLG!=="undefined"&&CLG.digest)?CLG.digest():"unavailable";
+ downloadText(JSON.stringify({
+  product:"Clearline Group LLC — CLG-05 Youth Basketball Academy — audit ledger export",
+  exported:new Date().toISOString(),
+  tamperEvidentDigest:d,
+  entries:LED
+ },null,2),"clg-05-basketball-ledger.json");
+}
+// ---------- network twin — forecast self-calibration (catalog §8) ----------
+function hashN(s){var x=0;for(var i=0;i<s.length;i++){x=(x*31+s.charCodeAt(i))&0x7fffffff;}return x;}
+function forecastOf(a){ // forward class from leading signals, deterministic per athlete
+ if(a.flag) return "deteriorating";                       // workload flag → expect regression
+ if(a.trend.indexOf("+")===0) return "rising";            // positive CV trend line
+ if(hashN(a.n)%4===0) return "deteriorating";
+ return "holding";
+}
+function realizedOf(a){ return a.makes; }                  // realized makes (100-shot session)
+function hitOf(cls,real){
+ if(cls==="rising") return real>=60;
+ if(cls==="deteriorating") return real<55;
+ return real>=50 && real<=70;                             // holding band
+}
+function buildTwin(){
+ var rows=ROSTER.map(function(a){
+  var cls=forecastOf(a), real=realizedOf(a);
+  return {n:a.n, stage:STAGES[a.st], cls:cls, conf:60+hashN(a.n)%30, real:real, hit:hitOf(cls,real)};
+ });
+ var hits=rows.filter(function(r){return r.hit;}).length;
+ return {rows:rows, acc:rows.length?hits/rows.length:0};
+}
+function renderTwin(){
+ var el=document.getElementById('twin'); if(!el) return;
+ var t=buildTwin();
+ if(!t.rows.length){el.innerHTML='<div class="empty">No athletes on the roster — calibration has nothing to score. Calibration is earned, not asserted; an empty record earns nothing.</div>';return;}
+ var html='<div class="grid" style="margin-bottom:10px">'+
+  '<div class="card"><h3>Forward-classification accuracy</h3><div class="big">'+(t.acc*100).toFixed(1)+'%</div><div class="sub">scored live against realized makes</div></div>'+
+  '<div class="card"><h3>Athletes scored</h3><div class="big">'+t.rows.length+'</div><div class="sub">correct calls: '+t.rows.filter(function(r){return r.hit;}).length+'</div></div>'+
+  '</div>'+
+  '<table><tr><th>Athlete</th><th>Stage</th><th>Forecast class</th><th>Confidence</th><th>Realized makes</th><th>Scored</th></tr>'+
+  t.rows.map(function(r){return '<tr><td><b>'+r.n+'</b></td><td>'+r.stage+'</td>'+
+   '<td><span class="badge '+(r.cls==='rising'?'b-ok':(r.cls==='deteriorating'?'b-risk':'b-held'))+'">'+r.cls+'</span></td>'+
+   '<td style="font-family:var(--mono)">'+r.conf+'%</td>'+
+   '<td style="font-family:var(--mono)">'+r.real+'</td>'+
+   '<td>'+(r.hit?'<span class="badge b-ok">hit</span>':'<span class="badge b-risk">miss</span>')+'</td></tr>';}).join('')+
+  '</table>';
+ el.innerHTML=html;
+}
 // ---------- render ----------
 function renderKPIs(){
  var occ=Math.round(SEED.athletes/SEED.capacity*100);
@@ -205,8 +349,14 @@ function renderKPIs(){
 }
 function renderRoster(){
  var el=document.getElementById('roster');el.innerHTML='';
- ROSTER.forEach(function(a,i){
-  el.innerHTML+='<div class="athlete" onclick="pick('+i+')"><div><div class="nm">'+a.n+' · '+a.age+'</div><div class="meta">'+a.trend+(a.flag?' · <span style="color:var(--warn)">'+a.flag+'</span>':'')+'</div></div><div class="stage">'+STAGES[a.st]+'</div></div>';
+ var vis=ROSTER.map(function(a,i){return {a:a,i:i};}).filter(function(x){return sHit(x.a.n,STAGES[x.a.st],x.a.trend,x.a.flag||"");});
+ if(!vis.length){
+  el.innerHTML='<div class="empty">'+(ROSTER.length?'No athletes match the current search'+(SEARCH?' (“'+SEARCH+'”)':'')+'. The roster itself is unchanged — clear the search to restore the full view.':'Roster is empty — no athletes enrolled on this record. An empty roster is reported as empty, not dressed up.')+'</div>';
+  return;
+ }
+ vis.forEach(function(x){
+  var a=x.a;
+  el.innerHTML+='<div class="athlete" onclick="pick('+x.i+')"><div><div class="nm">'+a.n+' · '+a.age+'</div><div class="meta">'+a.trend+(a.flag?' · <span style="color:var(--warn)">'+a.flag+'</span>':'')+'</div></div><div class="stage">'+STAGES[a.st]+'</div></div>';
  });
 }
 function pick(i){
@@ -221,7 +371,12 @@ function pick(i){
 }
 function renderProps(){
  var el=document.getElementById('props');el.innerHTML='';
- PROPS.forEach(function(p){
+ var vis=PROPS.filter(function(p){return sHit(p.id,p.t,p.gate,p.status);});
+ if(!vis.length){
+  el.innerHTML='<div class="empty">'+(PROPS.length?'No proposals match the current search — the queue itself is unchanged.':'No proposals in queue. No proposals → nothing held at the gate: agents have proposed nothing, so the gate holds nothing. An empty queue is reported as empty, not dressed up.')+'</div>';
+  return;
+ }
+ vis.forEach(function(p){
   var col=p.status==='BLOCKED'?'var(--risk)':(p.status==='COMMITTED'?'var(--acc)':'var(--warn)');
   el.innerHTML+='<div style="padding:7px 0;border-bottom:1px solid var(--line);font-size:13px"><b>'+p.id+'</b> '+p.t+'<br><span style="font-size:11px;color:'+col+'">'+p.status+'</span> <span class="pill gate">'+p.gate+'</span></div>';
  });
@@ -231,7 +386,12 @@ function renderGates(){
  el.innerHTML='<tr><th>Gate</th><th>q</th><th>Rule</th></tr>';
  GATES.forEach(function(g){el.innerHTML+='<tr><td>'+g.g+'</td><td>'+g.q+'</td><td style="font-size:12px">'+g.rule+'</td></tr>';});
 }
-function renderLedger(){document.getElementById('ledger').textContent=LED.join("\n");}
+function renderLedger(){
+ var vis=LED.filter(function(m){return sHit(m);});
+ var el=document.getElementById('ledger');
+ if(!vis.length){el.textContent=LED.length?"No ledger entries match the current search — the record itself is unchanged.":"No committed entries yet. The ledger starts empty and only grows by two-stage commit — an empty record is shown as empty.";return;}
+ el.textContent=vis.join("\n");
+}
 
 // ---------- actions ----------
 function commitAll(){
@@ -255,7 +415,13 @@ function injectRisk(){
  renderAll();
 }
 function resetSim(){location.reload();}
-function renderAll(){renderKPIs();renderRoster();renderProps();renderGates();}
+function renderAllCore(){
+ renderKPIs();renderRoster();renderProps();renderGates();renderTwin();renderLedger();
+ var rd=document.getElementById('registerDig');
+ if(rd && typeof CLG!=="undefined" && CLG.digest){
+  rd.textContent="Tamper-evident ledger digest: "+CLG.digest()+" over "+CLG.entries()+" committed entries — a silently edited record cannot reproduce this digest. Stamped on: summary export · audit-ledger export · register block.";
+ }
+}
 
 log('Engine initialized — Bay Area youth basketball academy seed (simulated). 4 gates armed.');
 log('Compliance speaks first: proposals P-101…P-105 proposed by agents, none auto-committed.');
@@ -265,25 +431,19 @@ renderAll();
 <script src="clg-enterprise.js"></script>
 <script>
 // ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
+if(typeof CLG!=="undefined"){
 CLG.chain(LED);
-CLG.summary(function(){
-  var lines=[];
-  lines.push("INSTRUMENT: "+document.title);
-  lines.push("Baseline: Bay Area youth basketball academy · membership model · simulated network");
-  lines.push("Athletes: "+SEED.athletes+" of "+SEED.capacity+" capacity ("+Math.round(SEED.athletes/SEED.capacity*100)+"% occupancy)");
-  lines.push("Safety clause: where athlete-safety flags and growth actions conflict, the safety determination controls.");
-  lines.push("");
-  lines.push("OPERATIONS LOG ("+LED.length+" entries, newest first):");
-  LED.forEach(function(m){lines.push("  "+m);});
-  return lines.join("\n");
-});
+CLG.summary(function(){ return buildSummaryText(); });
 CLG.tour([
   {el:function(){return document.querySelectorAll('h2')[0];}, title:"Academy snapshot", body:"One canonical seed drives every figure on this instrument — occupancy, revenue, development pipeline. School-level figures are labeled simulated."},
   {el:function(){return document.querySelectorAll('h2')[1];}, title:"Player development pathways", body:"Development is administered athlete by athlete — the same family-by-family discipline as enrollment. Select an athlete to read the development record."},
   {el:function(){return document.querySelectorAll('h2')[2];}, title:"Basketball-AI integration layer", body:"Cited technologies only — nothing claimed that is not sourced. This is the integration map, not a feature wishlist."},
   {el:function(){return document.querySelectorAll('h2')[3];}, title:"Governed operations pipeline", body:"Agents propose, a person decides, the ledger remembers — and the safety gate speaks first. P-105 is blocked on a workload flag: safety precedes growth, structurally."},
-  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Retention and growth loop", body:"AI evidence feeds membership economics; the record below is tamper-evident. Replay walks the operations log in order; Export takes it offline."}
+  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Retention and growth loop", body:"AI evidence feeds membership economics; the record below is tamper-evident. Replay walks the operations log in order; Export takes it offline."},
+  {el:function(){return document.querySelectorAll('h2')[5];}, title:"Network twin", body:"The forecast layer grades itself: every athlete's forward classification is scored against realized makes, and the accuracy figure is computed live. Calibration is earned, not asserted."}
 ]);
+renderAll(); // kit now loaded — refresh register digest + chained ledger
+}
 </script>
 </body>
 </html>
