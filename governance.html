@@ -280,6 +280,7 @@ function switchDomain(dk){
   document.getElementById('domainBlurb').textContent =
     `Canonical schema unchanged — nodes, edges, gates, clocks, proposals, ledger, control variables. Only the lexicon and seed swapped: now governing a ${p.label.toLowerCase()} of ${p.count} ${p.units}, where the protected revenue line is the ${p.metric} and the regulatory anchor is ${p.seed}.`;
   render(); drawGantt();
+  if(window.CLG){CLG.reset();CLG.chain(STATE.ledger);}
 }
 let symView=false;
 
@@ -548,6 +549,32 @@ render();
 // deep-link: ?pack=healthcare|education|saas|franchise
 const _qp=new URLSearchParams(location.search).get('pack');
 if(_qp && DOMAIN_PACKS[_qp]) switchDomain(_qp);
+</script>
+<script src="clg-enterprise.js"></script>
+<script>
+// ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
+CLG.chain(STATE.ledger);
+CLG.summary(function(){
+  const lines=[];
+  lines.push("INSTRUMENT: "+document.title);
+  lines.push("Domain: "+DOMAIN_PACKS[domain].label+" · "+STATE.units.length+" units under governance");
+  lines.push("Control variables: tau="+STATE.control.tau+" wks · critical distance=$"+STATE.control.criticalDistance+"k · sustainability="+STATE.control.sustainability+"/wk");
+  lines.push("Units diverging (intervene): "+STATE.units.filter(u=>zone(u).cls==='b-risk').length+" · watch: "+STATE.units.filter(u=>zone(u).cls==='b-warn').length+" · self-stabilizing: "+STATE.units.filter(u=>zone(u).cls==='b-ok').length);
+  lines.push("Live twin: tick "+(typeof twinTick!=='undefined'?twinTick:0)+(typeof twinTimer!=='undefined'&&twinTimer?" (running — simulated forecast, not observed)":" (idle — observed seed state)"));
+  lines.push("");
+  lines.push("COMMITTED RECORD ("+STATE.ledger.length+" entries, newest first):");
+  STATE.ledger.forEach(e=>lines.push("  - "+e.decision+" ["+e.owner+"]"));
+  return lines.join("\n");
+});
+CLG.tour([
+  {el:function(){return document.querySelectorAll('h2')[0];}, title:"Self-stabilizing dynamics", body:"Control variables, not static KPIs: early-warning tau, critical distance, sustainability trajectory. Run the live twin to advance the event clock — figures while running are a simulated forecast, labeled as such, and divergences auto-route to the ledger."},
+  {el:function(){return document.querySelectorAll('h2')[1];}, title:"Self-healing loop", body:"The network detects, routes, and re-measures without waiting for a person — mechanical fixes close on the record, judgment calls escalate."},
+  {el:function(){return document.querySelectorAll('h2')[2];}, title:"Cross-agent conflicts", body:"Growth, ops, and compliance agents deliberate in the open. Contradictory proposals are surfaced and held — never silently resolved."},
+  {el:"#clockH2", title:"Clock audits", body:"Regulatory deadlines are first-class system events with running clocks — not calendar reminders."},
+  {el:function(){return document.querySelectorAll('h2')[5];}, title:"Decision nexus", body:"Two-stage commit: agents propose, a person decides, the ledger remembers. Open the commit drawer and take a decision — it writes to the realized ledger with its causal inputs."},
+  {el:function(){return document.querySelectorAll('h2')[7];}, title:"Symmetric transparency", body:"Franchisor and franchisee see the same numbers from the same state. Toggle the franchisee view — the figures do not move."},
+  {el:function(){return document.querySelectorAll('h2')[8];}, title:"Realized ledger", body:"Every commit lands here. The bar below carries the tamper-evident digest over this record — use Replay to walk it chronologically, or Export to take the record offline."}
+]);
 </script>
 </body>
 </html>
