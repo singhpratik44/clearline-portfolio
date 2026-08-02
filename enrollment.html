@@ -246,6 +246,18 @@ function derive(){
 }
 
 // ============ RENDER (every view reads the same derived state) ============
+function countUp(root){
+  root.querySelectorAll('.v[data-v]').forEach(function(el){
+    var raw=el.getAttribute('data-v'), m=String(raw).match(/^([\d.]+)(.*)$/);
+    if(!m) return;
+    var target=parseFloat(m[1]), suf=m[2]||'', dec=(m[1].split('.')[1]||'').length, t0=null;
+    function step(ts){ if(!t0)t0=ts; var k=Math.min(1,(ts-t0)/650);
+      var e=1-Math.pow(1-k,3);
+      el.textContent=(target*e).toFixed(dec)+suf;
+      if(k<1) requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  });
+}
 function render(){
   const d = derive();
   const P = ENROLL_PACKS[ePack];
@@ -259,7 +271,8 @@ function render(){
     ["Proposals held at gate", d.held],
     [capU+"s on supported plans", d.schoolRows.filter(s=>s.below&&!s.stale).length],
     ["Gate reliability (4 layers)", (d.reliability*100).toFixed(2)+"%"],
-  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v" data-v="${v}">${v}</div></div>`).join('');
+  countUp(document.getElementById('kpis'));
 
   document.querySelector('#schools tbody').innerHTML = d.schoolRows.map(s=>`
     <tr class="${s.stale?'held':''}">
