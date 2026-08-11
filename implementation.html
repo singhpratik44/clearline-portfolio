@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLG-07 — Implementation Record · Clearline Group LLC</title>
+<style>
+:root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.65 -apple-system,'Segoe UI',Roboto,sans-serif}
+.docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta a{color:var(--acc);text-decoration:none}
+.wrap{max-width:920px;margin:0 auto;padding:40px 24px 80px}
+.tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+h1{font-family:var(--serif);font-size:28px;font-weight:700;margin:10px 0 8px}
+.sub{color:var(--dim);max-width:700px;margin-bottom:32px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:28px;margin-bottom:24px}
+.card h2{font-family:var(--serif);font-size:20px;margin-bottom:4px}
+.card .meta{font:11px var(--mono);color:var(--dim);letter-spacing:.08em;text-transform:uppercase;margin-bottom:16px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:16px 0}
+@media(max-width:700px){.grid2{grid-template-columns:1fr}}
+.before,.after{background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.before h3,.after h3{font:11px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.after{border-left:3px solid var(--acc)}
+.ba p{font-size:13.5px;color:var(--ink);margin-bottom:6px}
+.maps{font-size:13px;color:var(--dim);margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.maps b{color:var(--acc)}
+.result{font:13px var(--mono);color:var(--acc);margin-top:12px}
+footer{margin-top:48px;color:var(--dim);font-size:12px;border-top:1px solid var(--line);padding-top:18px}
+footer a{color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="docbar"><span>Clearline Group LLC</span><span>CLG-07 · Implementation Record</span></div>
+<div class="docmeta"><span>Document CLG-07 · Version 8.0</span><span><a href="index.html">← Portfolio register</a> · Live deployments · Actual results where cited</span></div>
+<div class="wrap">
+  <div class="tag">Instrument CLG-07 · Field deployments that produced the architecture</div>
+  <h1>Implementation Record</h1>
+  <p class="sub">Governed before/after cards from real deployments. These results are the reason the CLG systems exist — they are not illustrations of the models; the models were built to systematize what worked in the field.</p>
+
+  <div class="card">
+    <h2>theCoderSchool Tri-Valley</h2>
+    <div class="meta">Education · Multi-site coding academy · 3 locations</div>
+    <div class="grid2 ba">
+      <div class="before">
+        <h3>Before</h3>
+        <p>Single-location operations with limited visibility across sites. High staff turnover, uneven enrollment quality, no shared operating system for pricing or retention.</p>
+      </div>
+      <div class="after">
+        <h3>After</h3>
+        <p>3 locations under one governed operating model. Shared enrollment engine, standardized curriculum ladders, KPI dashboards, and retention systems that treated the network as one system.</p>
+      </div>
+    </div>
+    <div class="result">~2× reference-class revenue · 500+ members · 60–70% turnover reduction · 4.8-star rating</div>
+    <div class="maps"><b>Maps to:</b> CLG-01 (Enrollment Growth & Marketing Engine) · CLG-03 (Network Governance Model)</div>
+  </div>
+
+  <div class="card">
+    <h2>Code Ninjas (Mags Associates)</h2>
+    <div class="meta">Franchise · Coding education · Dual-site operations turnaround</div>
+    <div class="grid2 ba">
+      <div class="before">
+        <h3>Before</h3>
+        <p>Underperforming unit economics, weak conversion, high churn, no systematic product ladder or pricing discipline.</p>
+      </div>
+      <div class="after">
+        <h3>After</h3>
+        <p>Pricing restructure ($129 → $269/mo premium migration), product ladder design, KPI-driven management (enrollment, churn, utilization, ARPU), staff training academies, and lifecycle retention systems (6 mo → 1.5 yr).</p>
+      </div>
+    </div>
+    <div class="result">Doubled revenue and lead-to-close conversion in under 6 months · 400+ customers on premium path · ~$1.9–2.3M LTV impact modeled from the cohort</div>
+    <div class="maps"><b>Maps to:</b> CLG-02 (Franchise Governance Engine) · CLG-01 (Enrollment)</div>
+  </div>
+
+  <div class="card">
+    <h2>Kaiser Permanente</h2>
+    <div class="meta">Healthcare · Multi-facility · Government-mandated systems</div>
+    <div class="grid2 ba">
+      <div class="before">
+        <h3>Before</h3>
+        <p>Fragmented staffing panels, MU3 compliance pressure, limited cross-facility governance visibility.</p>
+      </div>
+      <div class="after">
+        <h3>After</h3>
+        <p>MU3 integration with member data / Apple Health pathways, staffing panel solution, multi-facility governance system with safety-first gates and named ownership of decisions.</p>
+      </div>
+    </div>
+    <div class="result">Multi-facility governance system shipped · Safety-gated, proposal-only, auditable · Served millions of members under MU3 requirements</div>
+    <div class="maps"><b>Maps to:</b> CLG-03 (Clearline Network Governance Model) · safety-first gate design that became non-negotiable across all CLG instruments</div>
+  </div>
+
+  <p style="font-size:13.5px;color:var(--dim);margin-top:8px">These three deployments are the customer proof an investor or hiring manager would ask for. The architecture pages (CLG-01–06) show the systems; this page shows that the systems were derived from real operating results, not the other way around.</p>
+
+  <footer>
+    <b>Notice.</b> Actual deployment results as documented by the operator. Figures designated “modeled” elsewhere in the portfolio remain illustrative. · <a href="index.html">← Back to register</a> · Clearline Group LLC · Pratik “Parry” Singh
+  </footer>
+</div>
+</body>
+</html>
