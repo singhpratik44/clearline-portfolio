@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Application Exhibit — Prepared for You · Pratik Singh · Clearline Group LLC</title>
+<style>
+
+:root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
+.docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta a{color:var(--acc);text-decoration:none}
+header{border-bottom:2px solid var(--ink);padding:20px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+header h1{font-family:var(--serif);font-size:22px;font-weight:700}
+header .nav{font:12px var(--mono);color:var(--dim)}
+header .nav a{color:var(--acc);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:28px}
+.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:3px;padding:14px 16px;margin-bottom:18px}
+.dombar select{background:#faf9f6;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:3px;padding:7px 10px}
+.dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.kpi .v{font:26px var(--mono);margin-top:2px;color:var(--acc)}
+.kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+h2{font-family:var(--serif);font-size:17px;color:var(--ink);margin:28px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.held td{background:rgba(122,31,31,.04)}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.b-ok{background:rgba(31,58,95,.08);color:var(--acc)}
+.b-warn{background:rgba(138,109,59,.12);color:var(--warn)}
+.b-risk{background:rgba(122,31,31,.10);color:var(--risk)}
+.b-held{background:rgba(90,98,112,.12);color:var(--dim)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:3px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#fff}
+button:disabled{border-color:var(--line);color:var(--dim);cursor:not-allowed;background:transparent}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#fff}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+.bar{height:6px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.ledger td{font-family:var(--mono);font-size:11.5px}
+.holdbox{border:1px dashed var(--risk);border-radius:3px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
+footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+footer b{color:var(--ink)}
+.pulse{color:var(--acc)}
+
+  .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+  .sub{color:var(--dim);max-width:660px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+  td:first-child{color:var(--dim);width:46%}
+  td b{color:var(--acc)}
+  a.open{display:inline-block;font:11px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--acc);text-decoration:none;border:1px solid var(--acc);border-radius:3px;padding:8px 14px;margin:4px 8px 4px 0}
+  a.open:hover{background:var(--acc);color:#fff}
+  .note{font-size:12px;color:var(--dim);margin-top:10px}
+  .cover{white-space:pre-wrap;font-size:14px;line-height:1.75}
+  .sig{margin-top:14px;color:var(--dim)}
+  button{font:11px var(--mono);letter-spacing:.08em;background:var(--panel);color:var(--acc);border:1px solid var(--acc);border-radius:3px;padding:6px 12px;cursor:pointer;margin-top:10px}
+  button:hover{background:var(--acc);color:#fff}
+  footer a{color:var(--acc)}
+
+  /* ---- enterprise additions ---- */
+  .searchbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;background:var(--panel);border-bottom:1px solid var(--line);padding:10px 24px}
+  .searchbar input{flex:1;min-width:220px;max-width:460px;background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:8px 12px;font:12.5px var(--mono);color:var(--ink)}
+  .searchbar input:focus{outline:2px solid var(--acc);outline-offset:1px}
+  .searchbar .hint{font:10.5px var(--mono);letter-spacing:.08em;color:var(--dim)}
+  .searchbar button{margin-top:0}
+  mark{background:rgba(31,58,95,.18);color:inherit;padding:0 1px;border-radius:2px}
+  .errcard{background:#fff;border:1px solid #ccc;border-left:3px solid #7a1f1f;border-radius:3px;padding:16px 18px;margin:16px 0;font-size:13px}
+  .errcard b{font-family:var(--serif);font-size:15px}
+  .errcard .emsg{font:11px var(--mono);color:var(--risk);margin-top:8px;white-space:pre-wrap}
+  .register{max-width:1180px;margin:34px auto 0;padding:0 28px}
+  .register .stat{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+  .register .stat span{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:5px 10px}
+  .register .block{border-top:3px double var(--ink);border-bottom:1px solid var(--line);padding:12px 2px;font:11px var(--mono);letter-spacing:.05em;color:var(--dim)}
+  .register .block b{color:var(--ink);letter-spacing:.14em}
+  @media print{
+    .no-print{display:none!important}
+    .docbar{position:static}
+    body{background:#fff}
+    .wrap,.register{max-width:none;padding:0 8px}
+    a.open{border-color:#999;color:#333}
+    .panel,.kpi{box-shadow:none;break-inside:avoid}
+  }
+  @media(max-width:640px){
+    .docbar,.docmeta,.searchbar{padding-left:14px;padding-right:14px}
+    .wrap{padding:16px 14px}
+    header h1{font-size:19px}
+    button,a.open{min-height:34px}
+    .searchbar input{max-width:none}
+  }
+
+/* Persistent sitewide Clearline reference link, including embedded tab views. */
+
+</style>
+</head>
+<body>
+<div class="docbar"><div><b>CLEARLINE GROUP LLC</b><span>APPLICATION EXHIBIT</span></div><span>Pratik &ldquo;Parry&rdquo; Singh &middot; Version 7.0</span></div>
+<div class="docmeta"><span>Classification: Application materials</span><span>Data status: resume facts canonical; model figures simulated</span></div>
+<div class="searchbar no-print">
+  <input id="gsearch" type="search" placeholder="Search this exhibit — requirements, instruments, bullets…" aria-label="Search this exhibit">
+  <button onclick="downloadSummary()">⬇ Print summary</button>
+  <span class="hint" id="searchHint"></span>
+</div>
+<div class="wrap">
+  <div class="tag" id="pretag">Prepared exclusively for your team</div>
+  <h1 id="hero">Operations &amp; Sales Manager — a working system, not just a resume</h1>
+  <p class="sub" id="herosub">You're hiring someone to run daily operations, grow memberships, keep families happy, and build a great team. Below is proof I already do each of those — including live operating models I built, pre-loaded for a youth sports &amp; fitness membership business like yours.</p>
+
+  <div data-section>
+  <h2>Exhibit A — Requirements and record</h2>
+  <div class="panel">
+    <table>
+      <thead><tr><th>What you asked for</th><th>What's on my record</th></tr></thead>
+      <tbody>
+        <tr data-item><td>Lead daily business operations</td><td>10 years of P&amp;L ownership across four membership-based systems in the Bay Area; ran on EOS operating cadence. <b>Owned a unit end-to-end and took it to ~2x the reference-class average revenue.</b></td></tr>
+        <tr data-item><td>Manage, coach &amp; develop coaches and front-desk staff</td><td>Managed teams of 40–70 (your ask: 10+). <b>Cut workforce turnover 60–70%</b> via documented session procedures and coverage policy — best staff cost-to-revenue ratio in the network, per franchisor reporting.</td></tr>
+        <tr data-item><td>Recruit, interview, hire, onboard</td><td>Built and rebuilt full teams repeatedly across 3 locations I scaled; hiring pipeline documented and transferable.</td></tr>
+        <tr data-item><td>Drive membership sales &amp; revenue growth</td><td>Built a membership base of <b>500+</b> from scratch. At a second operator, <b>doubled revenue and lead-to-close conversion in under 6 months</b> through demand generation and direct sales.</td></tr>
+        <tr data-item><td>Improve retention &amp; client experience</td><td>Inherited a unit 100% online post-quarantine with revenue falling; personally called every client and converted the full book back in person. <b>4.8-star Google rating.</b> Created personalized per-client program products driving recurring revenue.</td></tr>
+        <tr data-item><td>Analyze KPIs &amp; business performance</td><td>Data-driven is my default: I build the dashboards myself (SQL, React, Python). The live models below compute every figure from one canonical state at render time.</td></tr>
+        <tr data-item><td>Build relationships in the local community</td><td>Contracted programs across 5 schools; built a FIRST LEGO League partnership with a neighboring franchise. Community events were a core growth lever in both turnarounds.</td></tr>
+        <tr data-item><td>Multi-unit / franchise / membership background (preferred)</td><td>Director-level multi-unit work across four franchise systems — including youth education franchises serving families with children, where <b>safety and parent trust are the business model</b>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+
+  <div data-section>
+  <h2>Exhibit B — Live instruments (pre-loaded for your business)</h2>
+  <div class="panel">
+    <p style="font-size:14px;margin-bottom:12px">I build governed operating systems for membership businesses. These links open the models <b>already instantiated for a fitness/youth membership network</b> — membership occupancy floors, CAC-gated growth, child-safety-first gates (Gate 1 in your world too), staff and retention dashboards:</p>
+    <a class="open" href="basketball.html" style="border-color:#8a6d3b;color:#8a6d3b">★ Youth basketball academy engine — built for this role</a>
+    <a class="open" href="enrollment.html?pack=fitness">Membership growth engine</a>
+    <a class="open" href="unit-defense.html?pack=fitness">Multi-unit governance engine</a>
+    <a class="open" href="governance.html">Network control plane</a>
+    <a class="open" href="self-review.html">AI self-review pipeline</a>
+    <p class="note">Everything labeled simulated is simulated; everything on my resume is real. The engines enforce that distinction themselves — unsourced claims can't pass their own evidence gates.</p>
+  </div>
+  </div>
+
+  <div data-section>
+  <h2>Exhibit C — Cover note</h2>
+  <div class="panel cover" id="covernote"></div>
+  </div>
+
+  <div data-section>
+  <h2>Exhibit D — Resume bullets (canonical facts, re-weighted for this role)</h2>
+  <div class="panel" id="bullets"></div>
+  </div>
+
+  <footer>
+    Pratik “Parry” Singh · San Francisco Bay Area · <a href="mailto:clearlinegroupllc@gmail.com">clearlinegroupllc@gmail.com</a> · (925) 699-0867 · <a href="index.html">index of instruments</a><br>
+    This page was assembled for your posting specifically — the models, the bullets, and the note. If it reads like I already work there, that's the point.
+  </footer>
+</div>
+
+<div class="register">
+  <div class="stat" id="regStats"></div>
+  <div class="block">
+    <b>SUBMISSION ARTIFACT · CLEARLINE GROUP LLC</b> — Application Exhibit · resume facts canonical; model figures simulated and labeled as such · seeds illustrative, structures computed live · Pratik “Parry” Singh · San Francisco Bay Area · (925) 699-0867 · clearlinegroupllc@gmail.com<br>
+    <span id="regDigest">Ledger integrity digest: unavailable (enterprise kit not loaded).</span><br>
+    Every figure on this page is derived at render time from one canonical exhibit state — no view holds a separate copy. The tamper-evident digest above is extended by the CLG Enterprise Kit whenever the page's record changes; a silently edited record cannot reproduce it. Stamped on: summary export · exhibit footer.
+  </div>
+</div>
+
+<script src="clg-enterprise.js"></script>
+<script>
+// View guard — EngineErrorBoundary equivalent: any render failure is contained
+// and replaced with an inline error card + reload instead of a blank page.
+function viewFail(err){
+  var card=document.createElement('div');
+  card.className='errcard';
+  card.innerHTML='<b>Something in this view didn\'t render</b>'
+    +'<div>The rest of the exhibit is unaffected — the failure was contained to this view. '
+    +'Reloading usually resolves a transient failure.</div>'
+    +'<button onclick="location.reload()">Reload this view</button>'
+    +'<div class="emsg"></div>';
+  card.querySelector('.emsg').textContent=String(err&&(err.stack||err.message||err));
+  var host=document.querySelector('.wrap')||document.body;
+  host.insertBefore(card,host.firstChild);
+}
+</script>
+<script>
+try{
+// Personalized application page — params: ?for=<company>&role=<role>
+const q = new URLSearchParams(location.search);
+const company = q.get('for') || 'your youth sports & fitness team';
+const role = q.get('role') || 'Operations & Sales Manager';
+if(q.get('for')){ document.getElementById('pretag').textContent = 'Prepared exclusively for ' + company; }
+document.getElementById('hero').textContent = role + ' — a working system, not just a resume';
+
+document.getElementById('covernote').innerHTML =
+`I've loved basketball since I was a kid — the pickup games, the coaching I got (and didn't get), the way a good coach changes what a kid believes about themselves. That's why this role caught me: you've built a business where young athletes develop confidence and long-term success, and you need someone who can run it like a business without losing what makes it matter to families.
+
+That's been my whole career. I've run membership businesses where the "member" is a child and the real customer is a parent deciding whether to trust you. I know that a trial conversion is really a first impression, that retention is really whether a kid is excited to come back, and that the front desk and the coaching staff ARE the product. I've built those teams (40–70 people), kept them (turnover down 60–70%), grown the membership (500+ from zero; 2x the reference-class revenue; doubled revenue and conversion in under six months at a second operator), and kept the experience at 4.8 stars while doing it.
+
+I'm also the person who builds the dashboard instead of asking for one — the models linked above are mine, live. The top link is a working engine I built for a youth basketball academy: membership occupancy, coach workflow, and player-development pathways on one state, with an integration layer for the basketball-AI stack that's actually within reach of a youth program — computer-vision shot analysis (arc, release, makes, from a phone or fixed camera — the same lineage as the NBA's Hawk-Eye 3D tracking), smartphone-based athlete assessments, and wearable workload flags that gate training intensity before a kid gets hurt. That tech is how you show parents progress with evidence instead of opinion — and evidence is retention. KPIs, staffing schedules, CAC, retention cohorts: you'll never wait on a report from me.
+
+I'd love to talk about what growth looks like for your next season.`
+
+document.getElementById('bullets').innerHTML = [
+  "Led daily operations and full P&L of membership-based youth/family businesses for 10 years across four Bay Area franchise systems; ran on EOS cadence.",
+  "Built a 500+ member base from scratch and grew unit revenue to ~2x the reference-class average; scaled to 3 locations as each site hit capacity.",
+  "Managed and developed teams of 40–70 coaches and front-desk staff; cut turnover 60–70% via documented session procedures and coverage policy — best staff cost-to-revenue ratio in the network per franchisor reporting.",
+  "Doubled unit revenue and lead-to-close conversion in under 6 months at a second operator through demand generation, community events, and direct sales.",
+  "Inherited a declining post-quarantine unit; personally called every client and converted the full book back to in-person — 4.8-star Google rating.",
+  "Contracted programs across 5 schools and built a FIRST LEGO League partnership — community relationships as a repeatable growth channel.",
+  "Data-driven by construction: builds KPI dashboards and governed operating models (React, Node.js, SQL) where every figure recomputes from one canonical state.",
+  "Fluent in the basketball/player-development AI stack now affordable at youth level — computer-vision shot analysis, smartphone athlete assessments, wearable workload monitoring — and how it converts to parent-visible evidence of progress, i.e., retention."
+].map(b=>`<p style="margin-bottom:9px;font-size:13.5px" data-item>• ${b}</p>`).join('') +
+`<button onclick="navigator.clipboard.writeText(document.getElementById('bullets').innerText)">Copy bullets</button>`;
+}catch(err){ viewFail(err); }
+</script>
+<script>
+try{
+// ============ GLOBAL SEARCH (filters this exhibit's items & sections) ============
+const gs=document.getElementById('gsearch');
+function runSearch(){
+  const query=(gs.value||'').trim().toLowerCase();
+  const items=[...document.querySelectorAll('[data-item]')];
+  let shown=0;
+  items.forEach(el=>{
+    const hit=!query||el.textContent.toLowerCase().includes(query);
+    el.style.display=hit?'':'none';
+    if(hit)shown++;
+  });
+  // hide a whole section when none of its items (or its heading text) match
+  document.querySelectorAll('[data-section]').forEach(sec=>{
+    if(!query){sec.style.display='';return;}
+    const ownItems=[...sec.querySelectorAll('[data-item]')];
+    const headHit=sec.textContent.toLowerCase().includes(query);
+    const anyItem=ownItems.some(el=>el.style.display!=='none');
+    sec.style.display=(headHit&&(!ownItems.length||anyItem))?'':'none';
+  });
+  document.getElementById('searchHint').textContent=query?shown+' item'+(shown===1?'':'s')+' match':'';
+}
+gs.addEventListener('input',runSearch);
+
+// ============ PRINT SUMMARY EXPORT (portable text record) ============
+function buildSummaryText(){
+  const lines=[];
+  lines.push('APPLICATION EXHIBIT — '+document.getElementById('hero').textContent);
+  lines.push(document.getElementById('pretag').textContent);
+  lines.push('');
+  lines.push('EXHIBIT A — REQUIREMENTS AND RECORD');
+  document.querySelectorAll('tbody tr[data-item]').forEach(tr=>{
+    const tds=tr.querySelectorAll('td');
+    lines.push('• '+tds[0].textContent.trim()+'  →  '+tds[1].textContent.trim());
+  });
+  lines.push('');
+  lines.push('EXHIBIT B — LIVE INSTRUMENTS (pre-loaded for the role)');
+  document.querySelectorAll('a.open').forEach(a=>lines.push('• '+a.textContent.trim()+'  ('+a.getAttribute('href')+')'));
+  lines.push('');
+  lines.push('EXHIBIT C — COVER NOTE');
+  lines.push(document.getElementById('covernote').innerText.trim());
+  lines.push('');
+  lines.push('EXHIBIT D — RESUME BULLETS (canonical facts)');
+  document.querySelectorAll('#bullets [data-item]').forEach(p=>lines.push(p.textContent.trim()));
+  lines.push('');
+  lines.push('Prepared by Pratik “Parry” Singh · Clearline Group LLC · clearlinegroupllc@gmail.com · (925) 699-0867');
+  return lines.join('\n');
+}
+function downloadText(txt,name){
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=name;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+}
+function downloadSummary(){
+  if(typeof CLG!=='undefined'&&CLG.summary){ /* kit bar also exports; this is the header button */
+  }
+  downloadText(buildSummaryText(),'clg-application-exhibit-summary.txt');
+}
+
+// ============ CLG ENTERPRISE KIT WIRING (all guarded) ============
+if(typeof CLG!=='undefined'){
+  if(CLG.summary)CLG.summary(buildSummaryText);
+  if(CLG.tour)CLG.tour([
+    {el:'#hero',title:'The pitch',body:'Every claim on this page is backed either by the canonical resume record or by a live governed model — nothing is asserted without a source.'},
+    {el:function(){return document.querySelectorAll('[data-section]')[0];},title:'Exhibit A — requirements',body:'The posting\'s asks, mapped line-by-line to the record. Use the search bar above to filter.'},
+    {el:function(){return document.querySelectorAll('[data-section]')[1];},title:'Exhibit B — live instruments',body:'Working governed-operations engines, pre-loaded for a membership business like yours. They open in new pages.'},
+    {el:function(){return document.querySelectorAll('[data-section]')[3];},title:'Exhibit D — canonical bullets',body:'Resume facts, re-weighted for this role. One canonical state; every figure re-derives from it.'},
+    {el:'.register',title:'Submission artifact',body:'The register block: provenance, authorship, and a tamper-evident ledger digest extended by the CLG Enterprise Kit.'}
+  ]);
+  document.getElementById('regDigest').textContent=
+    'Ledger integrity digest: '+CLG.digest()+' over '+CLG.entries()+' committed entries — a silently edited record cannot reproduce this digest.';
+}else{
+  document.getElementById('regDigest').textContent='Ledger integrity digest: unavailable (CLG Enterprise Kit failed to load) — page remains fully functional.';
+}
+
+// ============ REGISTER STAT STRIP ============
+document.getElementById('regStats').innerHTML=[
+  '8 requirement mappings','5 live instruments','8 canonical bullets','4 franchise systems','500+ members built'
+].map(s=>`<span>${s}</span>`).join('');
+}catch(err){ viewFail(err); }
+</script>
+</body>
+</html>

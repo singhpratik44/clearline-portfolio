@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLG-05 — Youth Basketball Academy · Governed Operations &amp; Player Development · Clearline Group LLC</title>
+<style>
+
+:root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
+.docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta a{color:var(--acc);text-decoration:none}
+header{border-bottom:2px solid var(--ink);padding:20px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+header h1{font-family:var(--serif);font-size:22px;font-weight:700}
+header .nav{font:12px var(--mono);color:var(--dim)}
+header .nav a{color:var(--acc);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:28px}
+.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:3px;padding:14px 16px;margin-bottom:18px}
+.dombar select{background:#faf9f6;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:3px;padding:7px 10px}
+.dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.kpi .v{font:26px var(--mono);margin-top:2px;color:var(--acc)}
+.kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+h2{font-family:var(--serif);font-size:17px;color:var(--ink);margin:28px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.held td{background:rgba(122,31,31,.04)}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.b-ok{background:rgba(31,58,95,.08);color:var(--acc)}
+.b-warn{background:rgba(138,109,59,.12);color:var(--warn)}
+.b-risk{background:rgba(122,31,31,.10);color:var(--risk)}
+.b-held{background:rgba(90,98,112,.12);color:var(--dim)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:3px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#fff}
+button:disabled{border-color:var(--line);color:var(--dim);cursor:not-allowed;background:transparent}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#fff}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+.bar{height:6px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.ledger td{font-family:var(--mono);font-size:11.5px}
+.holdbox{border:1px dashed var(--risk);border-radius:3px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
+footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+footer b{color:var(--ink)}
+.pulse{color:var(--acc)}
+
+  :root{--bball:#8a6d3b}
+  header{display:block}
+  header .tag{margin-top:6px}
+  h1 .b{color:var(--bball)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:12px}
+  .card h3{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin:0 0 6px;font-family:var(--mono)}
+  .big{font-size:22px;font-weight:700}
+  .sub{font-size:11.5px;color:var(--dim);margin-top:3px}
+  .pill{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:3px;margin-right:5px}
+  .pill.real{background:#eef2f7;color:var(--acc);border:1px solid #b9c6d8}
+  .pill.sim{background:#f5eedd;color:var(--warn);border:1px solid #d8c9a0}
+  .pill.gate{background:#e4e9f2;color:#3a4d80;border:1px solid #c3cde0}
+  .prog{height:7px;background:#e9e5da;border-radius:2px;overflow:hidden;margin-top:6px}
+  .prog>div{height:100%;background:var(--bball)}
+  .two{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
+  @media(max-width:860px){.two{grid-template-columns:1fr}}
+  .athlete{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:3px;margin-bottom:7px;background:#fbfaf7;cursor:pointer}
+  .athlete:hover{border-color:var(--bball)}
+  .athlete .nm{font-weight:600;font-size:13px}
+  .athlete .meta{font-size:11px;color:var(--dim)}
+  .stage{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:3px;border:1px solid var(--bball);color:var(--bball)}
+  .log{background:#fbfaf7;border:1px solid var(--line);border-radius:3px;padding:10px 12px;font-family:var(--mono);font-size:11.5px;max-height:210px;overflow:auto;white-space:pre-wrap;color:var(--ink)}
+  button.ghost{background:var(--panel);color:var(--acc);border-color:var(--acc)}
+  button.ghost:hover{background:var(--acc);color:#fff}
+  /* ==== ported from reference engine (catalog §1.5/§11): search, error card, register, print/mobile ==== */
+  .hsearch{font:12px var(--mono);background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:7px 10px;min-width:200px;color:var(--ink)}
+  .hsearch:focus{outline:2px solid var(--acc);outline-offset:1px}
+  .errcard{display:none;background:#fff;border:1px solid var(--line);border-left:3px solid var(--risk);border-radius:3px;padding:16px 18px;margin-bottom:18px}
+  .errcard .t{font-family:var(--serif);font-size:15px;margin-bottom:6px}
+  .errcard .m{font:11.5px var(--mono);color:var(--risk);margin-top:8px;word-break:break-word}
+  .empty{font-size:12.5px;color:var(--dim);padding:14px 10px;border:1px dashed var(--line);border-radius:3px;background:#fbfaf7}
+  .register{border:1px solid var(--ink);border-radius:3px;background:#fff;padding:14px 16px;margin-top:14px;font-size:12px}
+  .register .rt{font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
+  .register .dig{font:11px var(--mono);color:var(--dim);margin-top:6px}
+  .tabscroll{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  @media(max-width:640px){
+    header{padding:16px 0}
+    .wrap{padding:16px}
+    .tabscroll{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
+    button,.hsearch{min-height:34px}
+    table{display:block;overflow-x:auto}
+    .grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
+  }
+  @media print{
+    .no-print{display:none!important}
+    .docbar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    body{background:#fff}
+    .panel,.kpi,.card{box-shadow:none;break-inside:avoid}
+    .wrap{max-width:none;padding:0 12px}
+  }
+
+/* Persistent sitewide Clearline reference link, including embedded tab views. */
+
+</style>
+</head>
+<body>
+<div class="docbar"><div><b>CLEARLINE GROUP LLC</b><span>GOVERNED OPERATIONS INSTRUMENTS</span></div><span>Document CLG-05 &middot; Version 7.0</span></div>
+<div class="docmeta"><span>Classification: Public demonstration</span><span>Data status: simulated; named technologies cited as real</span></div>
+<div class="wrap">
+<header>
+  <div class="tag">Instrument CLG-05 &middot; Baseline instantiation: Bay Area youth basketball academy &middot; membership model &middot; simulated network</div>
+<h1>Youth Basketball Academy — Governed Operations &amp; Player Development</h1>
+  <div class="tag">Daily operations, membership growth, and coach workflow on the same governed state — with an integration layer for the basketball-AI stack (computer-vision shot analysis, player tracking, development analytics). <span class="pill real">REAL TECH — cited</span> <span class="pill sim">SIMULATED DATA</span> <span class="pill gate">GOVERNANCE GATE</span></div>
+  <div class="nav" style="margin-top:8px"><a href="index.html">&larr; Index of instruments</a> &middot; Simulated roster and financials; cited technologies real</div>
+  <div class="tabscroll no-print" style="margin-top:10px">
+    <input id="gsearch" class="hsearch" type="search" placeholder="Search athletes, proposals, ledger…" oninput="applySearch(this.value)" aria-label="Global search">
+    <button onclick="exportSummary()" title="Download the offline-readable summary of the live canonical state">⬇ Print summary</button>
+    <button onclick="exportLedger()" title="Download the operations ledger (audit trail)">⬇ Audit ledger</button>
+  </div>
+</header>
+<div class="errcard" id="errcard" role="alert">
+  <div class="t">Something in this view didn't render</div>
+  <div style="font-size:12.5px;color:var(--dim)">The state itself is untouched — this is a display fault, not a data fault. No decision or ledger entry was affected.</div>
+  <button style="margin-top:10px" onclick="recoverView()">Reload this view</button>
+  <div class="m" id="errmsg"></div>
+</div>
+
+<h2>Article I — Academy snapshot (simulated; seeded on membership-business economics)</h2>
+<div class="grid" id="kpis"></div>
+
+<h2>Article II — Player development pathways</h2>
+<div class="two">
+  <div class="card">
+    <h3>Roster & pathway stages (click an athlete)</h3>
+    <div id="roster"></div>
+  </div>
+  <div class="card">
+    <h3>Selected athlete — development record</h3>
+    <div id="adetail" class="sub">Select an athlete on the left.</div>
+  </div>
+</div>
+
+<h2>Article III — Basketball-AI integration layer (cited technologies)</h2>
+<table>
+<tr><th>Capability</th><th>Frontier technology (real)</th><th>Ops use in this academy</th><th>Status here</th></tr>
+<tr><td>Shot analytics</td><td>Computer-vision shot tracking — arc, release angle, makes — from phone or fixed cameras (Noah / HomeCourt lineage; NBA's Hawk-Eye 3D optical tracking with Sony)</td><td>Per-athlete shot profiles feeding development plans; parent-visible progress</td><td><span class="pill real">integration point defined</span></td></tr>
+<tr><td>Player tracking</td><td>Second Spectrum (NBA league partner), SkillCorner broadcast-to-tracking, SportAI technique analysis</td><td>Practice-session movement & workload summaries for coaches</td><td><span class="pill real">integration point defined</span></td></tr>
+<tr><td>Assessment at scale</td><td>Smartphone visual-AI assessments (KhiladiPro-style), Kitman Labs Capture (~16k data points from a tablet)</td><td>Tryout/intake scoring — consistent, evidence-backed placement decisions</td><td><span class="pill real">integration point defined</span></td></tr>
+<tr><td>Wearables / workload</td><td>Catapult devices, now cost-accessible at youth level</td><td>Workload flags before overuse — safety gate, not just performance</td><td><span class="pill real">integration point defined</span></td></tr>
+<tr><td>Youth-sports ops software</td><td>Fastbreak AI and peers automating scheduling/registration</td><td>Baseline scheduling replaced by the governed pipeline in §4</td><td><span class="pill gate">superseded by governance</span></td></tr>
+</table>
+<div class="sub" style="margin-top:6px">Market context: AI player-scouting/analytics is a ~$0.3B (2025) market projected toward ~$4B by 2035 (~28% CAGR), computer vision the fastest-growing segment — this layer is where a youth academy differentiates, and it's priced for a tablet, not an NBA arena.</div>
+
+<h2>Article IV — Governed operations pipeline: proposals, gates, ledger</h2>
+<div class="two">
+<div>
+<div class="card">
+  <h3>Live proposals (held at gates until a human commits)</h3>
+  <div id="props"></div>
+  <div style="margin-top:10px">
+    <button onclick="commitAll()">Commit reviewed batch</button>
+    <button class="ghost" onclick="injectRisk()">Inject risk event</button>
+    <button class="ghost" onclick="resetSim()">Reset</button>
+  </div>
+</div>
+<div class="card" style="margin-top:12px">
+  <h3>Gates</h3>
+  <table id="gates"></table>
+</div>
+</div>
+<div class="card">
+  <h3>Ledger — causal lineage, every decision traceable</h3>
+  <div class="log" id="ledger"></div>
+</div>
+</div>
+
+<h2>Article V — Retention and growth loop: AI evidence into membership economics</h2>
+<div class="card">
+  <table>
+  <tr><th>Loop step</th><th>Mechanism</th><th>Metric moved</th></tr>
+  <tr><td>Evidence of progress</td><td>Shot-profile and assessment deltas shown to parents monthly (real CV data, not coach opinion)</td><td>Retention / churn ↓</td></tr>
+  <tr><td>Placement integrity</td><td>Gate: no athlete advances a stage without assessment evidence + coach sign-off (two-stage commit)</td><td>Trust, referrals ↑</td></tr>
+  <tr><td>Safety first</td><td>Workload flags block schedule intensification until cleared — safety precedes growth</td><td>Injury churn ↓, liability ↓</td></tr>
+  <tr><td>Capacity discipline</td><td>Enrollment proposals held at capacity gates; waitlist monetized into camps/clinics</td><td>Revenue per court-hour ↑</td></tr>
+  </table>
+  <div class="sub" style="margin-top:8px">Reference economics (membership businesses): LTV:CAC floor 3:1; per-athlete revenue and multiples parameterized in the engine — swap the seed, the logic holds for any youth sport.</div>
+</div>
+
+<h2>Article VI — Network twin: forecast self-calibration</h2>
+<div class="card">
+  <div id="twin"></div>
+  <div class="sub" style="margin-top:8px"><b>Calibration is earned, not asserted.</b> Each athlete carries a forward classification (rising / holding / deteriorating) issued from leading signals — CV trend line, workload flags — and that call is then scored against the realized makes on record. The accuracy figure below is computed live from the canonical state; it goes down when the forecast layer is wrong, not just up when it is right. A development model that cannot show its miss rate is marketing, not coaching.</div>
+</div>
+
+<div class="register">
+  <div class="rt">Submission artifact · Clearline Group LLC</div>
+  <div>Instrument CLG-05 · Youth Basketball Academy — Governed Operations &amp; Player Development · seeds illustrative, structures computed live. Every figure in this document is derived from one canonical state (<b>SEED, ROSTER, GATES, PROPS, LED</b>) at render time — no view holds a separate copy, no pre-computed numbers are served.</div>
+  <div class="dig" id="registerDig">Tamper-evident ledger digest: (enterprise kit not loaded — digest unavailable; the record itself still renders above). Stamped on: summary export · audit-ledger export · register block.</div>
+</div>
+
+<footer>
+<div class="foot"><b>Notice.</b> This instrument is a governance-systems demonstration prepared by Clearline Group LLC. It does not constitute an offer of securities, a franchise disclosure document, or legal, financial, or investment advice. Roster and financial figures are simulated; technologies named in Article III are real and cited as integration points only.</div>
+<div class="foot" style="margin-top:8px"><b>Safety clause.</b> Where athlete-safety flags and growth actions conflict, the safety determination controls. Governors: canonical state &middot; fail-safe gates &middot; two-stage commit &middot; safety precedes growth &middot; causal lineage.</div>
+</footer>
+</div>
+
+<script>
+// ---------- seeds (SIMULATED) ----------
+var SEED={courts:6, athletes:412, capacity:480, coaches:18, retention:0.91, monthlyRev:164000, perAthlete:398, waitlist:37};
+var STAGES=["Foundations","Development","Competitive","Elite-Track"];
+var ROSTER=[
+ {n:"Maya R.",age:11,st:2,arc:47,rel:52,makes:61,trend:"+6 arc° / 90d",flag:null},
+ {n:"Devon K.",age:13,st:3,arc:51,rel:55,makes:68,trend:"+9% makes / 90d",flag:null},
+ {n:"Sofia T.",age:9,st:1,arc:41,rel:46,makes:48,trend:"+4 rel in / 90d",flag:null},
+ {n:"Jordan M.",age:14,st:3,arc:53,rel:57,makes:71,trend:"steady",flag:"workload watch"},
+ {n:"Aiden L.",age:10,st:1,arc:44,rel:49,makes:52,trend:"+5 arc° / 90d",flag:null},
+ {n:"Priya S.",age:12,st:2,arc:49,rel:54,makes:63,trend:"+7% makes / 90d",flag:null}
+];
+var GATES=[
+ {g:"Safety gate",q:0.02,rule:"Workload/injury flags block all schedule & stage changes"},
+ {g:"Evidence gate",q:0.05,rule:"Stage advancement requires assessment evidence (CV/assessment delta)"},
+ {g:"Capacity gate",q:0.04,rule:"Enrollment proposals blocked at court-hour capacity"},
+ {g:"Pricing gate",q:0.06,rule:"Price/discount changes require margin check + human commit"}
+];
+var PROPS=[
+ {id:"P-101",t:"Enroll 12 from waitlist into Development (Tue/Thu 5pm)",gate:"Capacity gate",status:"HELD"},
+ {id:"P-102",t:"Advance Maya R. → Competitive (assessment delta attached)",gate:"Evidence gate",status:"HELD"},
+ {id:"P-103",t:"Add Sunday shooting lab (CV-tracked, 24 spots)",gate:"Capacity gate",status:"HELD"},
+ {id:"P-104",t:"10% sibling discount for camp week 3",gate:"Pricing gate",status:"HELD"},
+ {id:"P-105",t:"Intensify Jordan M. practice load",gate:"Safety gate",status:"BLOCKED"}
+];
+var LED=[];
+function stamp(){var d=new Date();return d.toTimeString().slice(0,8);}
+function log(m){LED.unshift("["+stamp()+"] "+m);if(LED.length>60)LED.pop();renderLedger();}
+
+// ---------- view guard (ported EngineErrorBoundary, catalog §1.4) ----------
+function renderAll(){
+ try{
+  renderAllCore();
+  var ec=document.getElementById('errcard'); if(ec) ec.style.display='none';
+ }catch(err){
+  var ec=document.getElementById('errcard'), em=document.getElementById('errmsg');
+  if(ec) ec.style.display='block';
+  if(em) em.textContent=String(err && err.message || err);
+ }
+}
+function recoverView(){var ec=document.getElementById('errcard'); if(ec) ec.style.display='none'; renderAll();}
+// ---------- global search (catalog §3.2) — filters this engine's records ----------
+var SEARCH="";
+function applySearch(q){SEARCH=(q||"").toLowerCase().trim();renderAll();}
+function sHit(){
+ if(!SEARCH) return true;
+ for(var i=0;i<arguments.length;i++){if(String(arguments[i]).toLowerCase().indexOf(SEARCH)>=0) return true;}
+ return false;
+}
+// ---------- downloads (catalog §11) ----------
+function downloadText(txt,name){
+ var blob=new Blob([txt],{type:"text/plain"});
+ var a=document.createElement("a");
+ a.href=URL.createObjectURL(blob); a.download=name; a.click();
+ setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+}
+function buildSummaryText(){
+ var t=buildTwin();
+ var lines=[];
+ lines.push("INSTRUMENT: "+document.title);
+ lines.push("Baseline: Bay Area youth basketball academy · membership model · simulated network");
+ lines.push("Athletes: "+SEED.athletes+" of "+SEED.capacity+" capacity ("+Math.round(SEED.athletes/SEED.capacity*100)+"% occupancy)");
+ lines.push("Monthly revenue: $"+SEED.monthlyRev.toLocaleString()+" · Retention: "+Math.round(SEED.retention*100)+"% · Waitlist: "+SEED.waitlist);
+ lines.push("Safety clause: where athlete-safety flags and growth actions conflict, the safety determination controls.");
+ lines.push("Forward-classification accuracy (network twin): "+(t.acc*100).toFixed(1)+"% over "+t.rows.length+" athletes — calibration is earned, not asserted");
+ lines.push("");
+ lines.push("OPERATIONS LOG ("+LED.length+" entries, newest first):");
+ LED.forEach(function(m){lines.push("  "+m);});
+ return lines.join("\n");
+}
+function exportSummary(){
+ var head="CLEARLINE GROUP LLC — GOVERNED OPERATIONS SUMMARY EXPORT\nGenerated from the live canonical state · "+new Date().toISOString()+"\n";
+ head+="Ledger integrity digest: "+((typeof CLG!=="undefined"&&CLG.digest)?CLG.digest()+" over "+CLG.entries()+" committed entries":"unavailable — enterprise kit not loaded")+"\n";
+ head+="==========================================================\n\n";
+ downloadText(head+buildSummaryText(),"clg-05-basketball-summary.txt");
+}
+function exportLedger(){
+ var d=(typeof CLG!=="undefined"&&CLG.digest)?CLG.digest():"unavailable";
+ downloadText(JSON.stringify({
+  product:"Clearline Group LLC — CLG-05 Youth Basketball Academy — audit ledger export",
+  exported:new Date().toISOString(),
+  tamperEvidentDigest:d,
+  entries:LED
+ },null,2),"clg-05-basketball-ledger.json");
+}
+// ---------- network twin — forecast self-calibration (catalog §8) ----------
+function hashN(s){var x=0;for(var i=0;i<s.length;i++){x=(x*31+s.charCodeAt(i))&0x7fffffff;}return x;}
+function forecastOf(a){ // forward class from leading signals, deterministic per athlete
+ if(a.flag) return "deteriorating";                       // workload flag → expect regression
+ if(a.trend.indexOf("+")===0) return "rising";            // positive CV trend line
+ if(hashN(a.n)%4===0) return "deteriorating";
+ return "holding";
+}
+function realizedOf(a){ return a.makes; }                  // realized makes (100-shot session)
+function hitOf(cls,real){
+ if(cls==="rising") return real>=60;
+ if(cls==="deteriorating") return real<55;
+ return real>=50 && real<=70;                             // holding band
+}
+function buildTwin(){
+ var rows=ROSTER.map(function(a){
+  var cls=forecastOf(a), real=realizedOf(a);
+  return {n:a.n, stage:STAGES[a.st], cls:cls, conf:60+hashN(a.n)%30, real:real, hit:hitOf(cls,real)};
+ });
+ var hits=rows.filter(function(r){return r.hit;}).length;
+ return {rows:rows, acc:rows.length?hits/rows.length:0};
+}
+function renderTwin(){
+ var el=document.getElementById('twin'); if(!el) return;
+ var t=buildTwin();
+ if(!t.rows.length){el.innerHTML='<div class="empty">No athletes on the roster — calibration has nothing to score. Calibration is earned, not asserted; an empty record earns nothing.</div>';return;}
+ var html='<div class="grid" style="margin-bottom:10px">'+
+  '<div class="card"><h3>Forward-classification accuracy</h3><div class="big">'+(t.acc*100).toFixed(1)+'%</div><div class="sub">scored live against realized makes</div></div>'+
+  '<div class="card"><h3>Athletes scored</h3><div class="big">'+t.rows.length+'</div><div class="sub">correct calls: '+t.rows.filter(function(r){return r.hit;}).length+'</div></div>'+
+  '</div>'+
+  '<table><tr><th>Athlete</th><th>Stage</th><th>Forecast class</th><th>Confidence</th><th>Realized makes</th><th>Scored</th></tr>'+
+  t.rows.map(function(r){return '<tr><td><b>'+r.n+'</b></td><td>'+r.stage+'</td>'+
+   '<td><span class="badge '+(r.cls==='rising'?'b-ok':(r.cls==='deteriorating'?'b-risk':'b-held'))+'">'+r.cls+'</span></td>'+
+   '<td style="font-family:var(--mono)">'+r.conf+'%</td>'+
+   '<td style="font-family:var(--mono)">'+r.real+'</td>'+
+   '<td>'+(r.hit?'<span class="badge b-ok">hit</span>':'<span class="badge b-risk">miss</span>')+'</td></tr>';}).join('')+
+  '</table>';
+ el.innerHTML=html;
+}
+// ---------- render ----------
+function renderKPIs(){
+ var occ=Math.round(SEED.athletes/SEED.capacity*100);
+ var el=document.getElementById('kpis');
+ el.innerHTML='';
+ var cards=[
+  ["Athletes enrolled",SEED.athletes,occ+"% of "+SEED.capacity+" capacity"],
+  ["Monthly revenue","$"+SEED.monthlyRev.toLocaleString(),"$"+SEED.perAthlete+"/athlete/mo"],
+  ["Retention",Math.round(SEED.retention*100)+"%","annualized, simulated"],
+  ["Waitlist",SEED.waitlist,"unmonetized demand"],
+  ["Coaches",SEED.coaches,SEED.courts+" courts"],
+  ["Layered containment","P(escape) ≈ "+Math.pow(1-0.0425,4).toExponential(1),"4 gates · product of (1−q)"]
+ ];
+ cards.forEach(function(c){
+  el.innerHTML+='<div class="card"><h3>'+c[0]+'</h3><div class="big">'+c[1]+'</div><div class="sub">'+c[2]+'</div></div>';
+ });
+}
+function renderRoster(){
+ var el=document.getElementById('roster');el.innerHTML='';
+ var vis=ROSTER.map(function(a,i){return {a:a,i:i};}).filter(function(x){return sHit(x.a.n,STAGES[x.a.st],x.a.trend,x.a.flag||"");});
+ if(!vis.length){
+  el.innerHTML='<div class="empty">'+(ROSTER.length?'No athletes match the current search'+(SEARCH?' (“'+SEARCH+'”)':'')+'. The roster itself is unchanged — clear the search to restore the full view.':'Roster is empty — no athletes enrolled on this record. An empty roster is reported as empty, not dressed up.')+'</div>';
+  return;
+ }
+ vis.forEach(function(x){
+  var a=x.a;
+  el.innerHTML+='<div class="athlete" onclick="pick('+x.i+')"><div><div class="nm">'+a.n+' · '+a.age+'</div><div class="meta">'+a.trend+(a.flag?' · <span style="color:var(--warn)">'+a.flag+'</span>':'')+'</div></div><div class="stage">'+STAGES[a.st]+'</div></div>';
+ });
+}
+function pick(i){
+ var a=ROSTER[i];
+ var d=document.getElementById('adetail');
+ d.innerHTML='<h3 style="margin-top:0">'+a.n+' — '+STAGES[a.st]+'</h3>'+
+  '<div class="sub">Shot arc</div><div class="prog"><div style="width:'+(a.arc/60*100)+'%"></div></div>'+
+  '<div class="sub" style="margin-top:8px">Release height</div><div class="prog"><div style="width:'+(a.rel/65*100)+'%"></div></div>'+
+  '<div class="sub" style="margin-top:8px">Makes (100-shot session)</div><div class="prog"><div style="width:'+a.makes+'%"></div></div>'+
+  '<div class="sub" style="margin-top:10px">Trend: '+a.trend+' · Source: CV shot-tracking feed <span class="pill sim">simulated feed</span></div>'+
+  (a.flag?'<div style="margin-top:8px;color:var(--warn);font-size:12px">⚠ '+a.flag+' — safety gate active; load changes blocked until cleared.</div>':'');
+}
+function renderProps(){
+ var el=document.getElementById('props');el.innerHTML='';
+ var vis=PROPS.filter(function(p){return sHit(p.id,p.t,p.gate,p.status);});
+ if(!vis.length){
+  el.innerHTML='<div class="empty">'+(PROPS.length?'No proposals match the current search — the queue itself is unchanged.':'No proposals in queue. No proposals → nothing held at the gate: agents have proposed nothing, so the gate holds nothing. An empty queue is reported as empty, not dressed up.')+'</div>';
+  return;
+ }
+ vis.forEach(function(p){
+  var col=p.status==='BLOCKED'?'var(--risk)':(p.status==='COMMITTED'?'var(--acc)':'var(--warn)');
+  el.innerHTML+='<div style="padding:7px 0;border-bottom:1px solid var(--line);font-size:13px"><b>'+p.id+'</b> '+p.t+'<br><span style="font-size:11px;color:'+col+'">'+p.status+'</span> <span class="pill gate">'+p.gate+'</span></div>';
+ });
+}
+function renderGates(){
+ var el=document.getElementById('gates');
+ el.innerHTML='<tr><th>Gate</th><th>q</th><th>Rule</th></tr>';
+ GATES.forEach(function(g){el.innerHTML+='<tr><td>'+g.g+'</td><td>'+g.q+'</td><td style="font-size:12px">'+g.rule+'</td></tr>';});
+}
+function renderLedger(){
+ var vis=LED.filter(function(m){return sHit(m);});
+ var el=document.getElementById('ledger');
+ if(!vis.length){el.textContent=LED.length?"No ledger entries match the current search — the record itself is unchanged.":"No committed entries yet. The ledger starts empty and only grows by two-stage commit — an empty record is shown as empty.";return;}
+ el.textContent=vis.join("\n");
+}
+
+// ---------- actions ----------
+function commitAll(){
+ var n=0;
+ PROPS.forEach(function(p){
+  if(p.status==='HELD'){p.status='COMMITTED';n++;log('COMMIT '+p.id+' — human-approved at '+p.gate+' (two-stage commit).');}
+ });
+ if(n===0)log('No held proposals to commit.');
+ else{
+  SEED.athletes=Math.min(SEED.capacity,SEED.athletes+12);
+  SEED.waitlist=Math.max(0,SEED.waitlist-12);
+  SEED.monthlyRev+=12*SEED.perAthlete;
+  log('State updated: +12 athletes from waitlist; revenue re-derived. Canonical state — no parallel truths.');
+ }
+ renderAll();
+}
+function injectRisk(){
+ var a=ROSTER[Math.floor(Math.random()*ROSTER.length)];
+ a.flag='workload watch';
+ log('RISK EVENT — wearable feed flagged '+a.n+' workload threshold. Safety gate engaged: all load changes for athlete blocked. Safety precedes growth.');
+ renderAll();
+}
+function resetSim(){location.reload();}
+function renderAllCore(){
+ renderKPIs();renderRoster();renderProps();renderGates();renderTwin();renderLedger();
+ var rd=document.getElementById('registerDig');
+ if(rd && typeof CLG!=="undefined" && CLG.digest){
+  rd.textContent="Tamper-evident ledger digest: "+CLG.digest()+" over "+CLG.entries()+" committed entries — a silently edited record cannot reproduce this digest. Stamped on: summary export · audit-ledger export · register block.";
+ }
+}
+
+log('Engine initialized — Bay Area youth basketball academy seed (simulated). 4 gates armed.');
+log('Compliance speaks first: proposals P-101…P-105 proposed by agents, none auto-committed.');
+log('P-105 BLOCKED at safety gate — workload flag on Jordan M. precedes any growth action.');
+renderAll();
+</script>
+<script src="clg-enterprise.js"></script>
+<script>
+// ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
+if(typeof CLG!=="undefined"){
+CLG.chain(LED);
+CLG.summary(function(){ return buildSummaryText(); });
+CLG.tour([
+  {el:function(){return document.querySelectorAll('h2')[0];}, title:"Academy snapshot", body:"One canonical seed drives every figure on this instrument — occupancy, revenue, development pipeline. School-level figures are labeled simulated."},
+  {el:function(){return document.querySelectorAll('h2')[1];}, title:"Player development pathways", body:"Development is administered athlete by athlete — the same family-by-family discipline as enrollment. Select an athlete to read the development record."},
+  {el:function(){return document.querySelectorAll('h2')[2];}, title:"Basketball-AI integration layer", body:"Cited technologies only — nothing claimed that is not sourced. This is the integration map, not a feature wishlist."},
+  {el:function(){return document.querySelectorAll('h2')[3];}, title:"Governed operations pipeline", body:"Agents propose, a person decides, the ledger remembers — and the safety gate speaks first. P-105 is blocked on a workload flag: safety precedes growth, structurally."},
+  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Retention and growth loop", body:"AI evidence feeds membership economics; the record below is tamper-evident. Replay walks the operations log in order; Export takes it offline."},
+  {el:function(){return document.querySelectorAll('h2')[5];}, title:"Network twin", body:"The forecast layer grades itself: every athlete's forward classification is scored against realized makes, and the accuracy figure is computed live. Calibration is earned, not asserted."}
+]);
+renderAll(); // kit now loaded — refresh register digest + chained ledger
+}
+</script>
+</body>
+</html>

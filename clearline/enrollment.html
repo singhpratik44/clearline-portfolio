@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLG-01 — Enrollment Growth &amp; Network Marketing Engine · Full-Depth Build · Clearline Group LLC</title>
+<style>
+  html,body{margin:0;padding:0;background:#fff}
+  .docbar{background:#1f3a5f;color:#e9e5da;font:10.5px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .docmeta{border-bottom:1px solid #d9d5cb;background:#eceae3;color:#5a6270;font:11px ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+  .docmeta a{color:#1f3a5f}
+  #loading{font-family:Helvetica,Arial,sans-serif;color:#666;padding:60px;text-align:center;font-size:14px}
+  #loading a{color:#1f3a5f}
+  @media print{.no-print{display:none!important}}
+
+/* Persistent sitewide Clearline reference link, including embedded tab views. */
+
+</style>
+</head>
+<body>
+<div class="docbar no-print"><span>Clearline Group LLC</span><span>CLG-01 · Enrollment Growth &amp; Network Marketing Engine</span></div>
+<div class="docmeta no-print"><span>Full-depth Building Kidz build — hosted in-repo · 30+ live views</span><span><a href="index.html">← Portfolio register</a> · Data status: simulated unless expressly cited</span></div>
+<div id="root"><div id="loading">Assembling the full enrollment engine…</div></div>
+<script type="module">
+// The full-depth engine ships as an in-repo, content-addressed bundle split into
+// 27 chunks (GitHub API write limits). Reassemble the exact bytes, then execute.
+const N=27;
+const names=[...Array(N)].map((_,i)=>'assets/bk-'+String(i).padStart(2,'0')+'.js');
+const el=document.getElementById('loading');
+try{
+  const texts=await Promise.all(names.map(async n=>{
+    const r=await fetch(n);
+    if(!r.ok)throw new Error(n+' → HTTP '+r.status);
+    return r.text();
+  }));
+  const blob=new Blob(texts,{type:'text/javascript'});
+  await import(URL.createObjectURL(blob));
+}catch(e){
+  el.innerHTML='The full engine could not be assembled in this deployment ('+String(e.message||e)+'). '+
+    '<a href="https://buildingkidenrollment.netlify.app">Open the hosted original →</a>';
+}
+</script>
+</body>
+</html>

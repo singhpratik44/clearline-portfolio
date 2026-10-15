@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CLG-03 — Network Governance &amp; Control Plane · Clearline Group LLC</title>
+<style>
+:root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
+.docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.docmeta a{color:var(--acc);text-decoration:none}
+header{border-bottom:2px solid var(--ink);padding:20px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
+header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
+header h1{font-family:var(--serif);font-size:22px;font-weight:700}
+header .nav{font:12px var(--mono);color:var(--dim)}
+header .nav a{color:var(--acc);text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:28px}
+.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:3px;padding:14px 16px;margin-bottom:18px}
+.dombar select{background:#faf9f6;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:3px;padding:7px 10px}
+.dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
+.kpi .v{font:26px var(--mono);margin-top:2px;color:var(--acc)}
+.kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+h2{font-family:var(--serif);font-size:17px;color:var(--ink);margin:28px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
+td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.held td{background:rgba(122,31,31,.04)}
+.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
+.b-ok{background:rgba(31,58,95,.08);color:var(--acc)}
+.b-warn{background:rgba(138,109,59,.12);color:var(--warn)}
+.b-risk{background:rgba(122,31,31,.10);color:var(--risk)}
+.b-held{background:rgba(90,98,112,.12);color:var(--dim)}
+button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:3px;padding:5px 10px;cursor:pointer}
+button:hover{background:var(--acc);color:#fff}
+button:disabled{border-color:var(--line);color:var(--dim);cursor:not-allowed;background:transparent}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#fff}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:860px){.two{grid-template-columns:1fr}}
+.note{font-size:12px;color:var(--dim);margin-top:8px}
+.bar{height:6px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--acc)}
+.ledger td{font-family:var(--mono);font-size:11.5px}
+.holdbox{border:1px dashed var(--risk);border-radius:3px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
+footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
+footer b{color:var(--ink)}
+.pulse{color:var(--acc)}
+
+.b-vio{background:#e4e9f2;color:#3a4d80}
+button.rel{border-color:var(--warn);color:var(--warn)}
+button.rel:hover{background:var(--warn);color:#fff}
+.conflict{border-left:3px solid var(--risk);padding:10px 14px;margin-bottom:12px;background:rgba(122,31,31,.06);border-radius:0 3px 3px 0}
+.conflict.resolved{border-left-color:var(--acc);background:rgba(31,58,95,.05)}
+.drawer{border:1px solid #3a4d80;border-radius:3px;padding:16px 18px;background:#f2f4f8;display:none;margin-top:14px}
+.steps{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.steps span{font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:var(--line);color:var(--dim)}
+.steps span.on{background:#3a4d80;color:#fff}
+pre{background:#fbfaf7;border:1px solid var(--line);border-radius:3px;padding:12px;font:11px/1.5 var(--mono);color:#33404f;overflow:auto;max-height:260px}
+.toggle{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;color:var(--dim);cursor:pointer;user-select:none}
+.toggle .sw{width:34px;height:18px;border-radius:9px;background:var(--line);position:relative;transition:.2s}
+.toggle .sw::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:var(--dim);transition:.2s}
+.toggle.on .sw{background:var(--acc)}
+.toggle.on .sw::after{left:18px;background:#fff}
+.selfheal{border-left:3px solid var(--acc);padding:8px 12px;margin-bottom:8px;background:rgba(31,58,95,.05);border-radius:0 3px 3px 0;font-size:12.5px}
+@media(max-width:960px){.two{grid-template-columns:1fr}}
+
+/* ==== enterprise parity additions (CLG-06 reference port) ==== */
+.hdr-tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap;width:100%;margin-top:12px}
+.hdr-tools input{background:#faf9f6;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:3px;padding:6px 10px;min-width:230px}
+.errcard{background:#fff;border:1px solid var(--line);border-left:3px solid var(--risk);border-radius:3px;padding:14px 16px;margin:12px 0}
+.errcard b{color:var(--risk)}
+.errcard .msg{font:11px var(--mono);color:var(--dim);margin:6px 0 10px;white-space:pre-wrap}
+.tabbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.tabbar button.on{background:var(--acc);color:#fff}
+.register{margin:0 0 16px;border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:3px;background:var(--panel);padding:14px 16px}
+.register .reghead{font:10.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:8px}
+.register .regstats{display:flex;gap:18px;flex-wrap:wrap;font:11px var(--mono);color:var(--ink);margin-bottom:8px}
+@media print{
+  .no-print,button{display:none!important}
+  body{background:#fff}
+  .wrap{max-width:100%;padding:0 12px}
+  .panel,.kpi{box-shadow:none}
+}
+@media(max-width:640px){
+  .tabbar{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:6px}
+  .tabbar button{flex:0 0 auto}
+  button{min-height:34px;padding:6px 12px}
+  .hdr-tools input{min-width:0;flex:1 1 140px}
+  .panel{overflow-x:auto}
+}
+
+/* Persistent sitewide Clearline reference link, including embedded tab views. */
+
+</style>
+</head>
+<body>
+<div class="docbar"><span>Clearline Group LLC</span><span>Governance &amp; Operating Infrastructure</span></div>
+<div class="docmeta"><span>Document CLG-03 · Version 7.0</span><span>Classification: Public demonstration · Data status: simulated unless expressly cited</span></div>
+<header>
+  <div>
+    <div class="tag">Instrument CLG-03 · Independent practice · franchise-agnostic control plane</div>
+    <h1>Network Governance &amp; Control Plane</h1>
+  </div>
+  <div class="nav"><a href="index.html">← Index of instruments</a> · 350+ centers, one system</div>
+  <div class="hdr-tools no-print">
+    <input id="gsearch" placeholder="Search units, clocks, conflicts, ledger…" oninput="globalSearch(this.value)" aria-label="Global search">
+    <button onclick="downloadSummary()">⬇ Print summary</button>
+    <button onclick="exportLedger()">⬇ Export audit ledger</button>
+    <span class="note" id="searchCount" style="margin:0"></span>
+  </div>
+</header>
+<div class="wrap">
+  <div class="dombar">
+    <b style="font-size:13px">Domain pack:</b>
+    <select id="domainSel" onchange="switchDomain(this.value)">
+      <option value="franchise">Franchise network</option>
+      <option value="healthcare">Multi-facility health system</option>
+      <option value="education">School network / district</option>
+      <option value="saas">SaaS customer fleet</option>
+    </select>
+    <p id="domainBlurb">Canonical schema unchanged — nodes, edges, gates, clocks, proposals, ledger, control variables. Only the lexicon and seed swap. The architecture is domain-agnostic; this page is one instantiation.</p>
+  </div>
+  <div class="kpis" id="kpis"></div>
+
+  <div class="two" style="margin-top:18px">
+    <div>
+      <h2>Article I — Self-stabilizing dynamics (control variables, not static KPIs)</h2>
+      <div class="panel">
+        <table id="control"><thead><tr><th>Unit</th><th>Health</th><th>τ breach</th><th>Distance</th><th>Zone</th><th></th></tr></thead><tbody></tbody></table>
+        <p class="note">τ = 2.1-week early-warning window; critical distance = $0.8k. These are control-system variables: they determine whether the network is converging toward health or diverging toward failure — and flag it <i>before</i> it becomes a crisis.</p>
+        <div style="margin-top:12px;display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
+          <button id="twinBtn" onclick="toggleTwin()">Run live twin</button>
+          <span class="note" id="twinStatus" style="margin-top:0">Twin idle — observed seed state shown. Running the twin advances an event-driven simulation clock: unit health, τ, and distance evolve each tick, and new divergences are auto-routed to the ledger (Article IX). Figures while running are a simulated forecast, labeled as such.</span>
+        </div>
+      </div>
+      <h2 style="margin-top:22px">Article II — Self-healing loop</h2>
+      <div class="panel" id="selfheal"></div>
+    </div>
+    <div>
+      <h2>Article III — Cross-agent conflicts (open deliberation)</h2>
+      <div class="panel" id="conflicts"></div>
+      <h2 style="margin-top:22px" id="clockH2">Article IV — FDD clock audits</h2>
+      <div class="panel">
+        <table id="fdd"><thead><tr><th>Obligation</th><th>Clock</th><th>Owner</th><th>Status</th></tr></thead><tbody></tbody></table>
+        <p class="note" id="clockNote">Regulatory deadlines are first-class system events with running clocks and named owners — not calendar reminders.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>Article V — Program view (critical path on the decision DAG)</h2>
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+      <p style="font-size:13px;max-width:680px">Every initiative is a node; dependencies are edges. The engine runs forward/backward passes over the DAG — earliest start, latest start, slack — and the <b>critical path</b> (longest path) is the sequence where any delay moves the whole network. Same graph theory as the QEC decoder's matching graph, pointed at schedule instead of errors.</p>
+      <div style="display:flex;gap:8px">
+        <button class="rel" onclick="delayInit()">Delay Irvine support by 5d</button>
+        <button onclick="resetCPM()">Reset schedule</button>
+      </div>
+    </div>
+    <svg id="gantt" width="100%" height="240" viewBox="0 0 900 240" preserveAspectRatio="xMidYMid meet"></svg>
+    <div id="cpmOut" style="margin-top:10px"></div>
+    <p class="note">FDD clocks are hard constraints pinned to the calendar (no slack by law); support plans and expansion commits float until they land on the critical path. Delay a node and watch the path re-route — the system re-sequences work instead of discovering the slip at quarter-end. (Initiative seed shown for the franchise pack; each domain pack ships its own initiative DAG.)</p>
+  </div>
+
+  <h2>Article VI — Decision nexus (commit drawer)</h2>
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <p style="font-size:13px;max-width:640px">Structured decision flow: <b>Field</b> (connected inputs) → <b>Futures</b> (branches) → <b>Interference</b> (conflicts) → <b>Commit</b> (Rule 1 satisfied) → <b>Realized</b> (recorded with causal lineage).</p>
+      <button onclick="openDrawer()">Open a commit drawer</button>
+    </div>
+    <div class="drawer" id="drawer"></div>
+  </div>
+
+  <div class="two" style="margin-top:28px">
+    <div>
+      <h2>Article VII — Canonical state (checkpointed and replayable)</h2>
+      <div class="panel">
+        <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+          <button onclick="checkpoint()">Checkpoint state</button>
+          <button class="rel" onclick="replay()">Replay from checkpoint</button>
+          <button class="rel" onclick="exportState()">Export JSON</button>
+        </div>
+        <pre id="stateView"></pre>
+        <p class="note" id="cknote">Every figure across every view derives from this one state at render time — no view holds a copy, nothing is pre-computed or cached. Checkpoints survive interruption and replay deterministically; in deployment this syncs via API rather than manual export.</p>
+      </div>
+    </div>
+    <div>
+      <h2>Article VIII — Symmetric transparency <span class="toggle" id="symToggle" onclick="toggleSym()"><span class="sw"></span> franchisee view</span></h2>
+      <div class="panel" id="symmetry"></div>
+      <h2 style="margin-top:22px">Article IX — Realized ledger</h2>
+      <div class="panel">
+        <table class="ledger" id="ledger"><thead><tr><th>Decision</th><th>Owner</th><th>Inputs consumed</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </div>
+  <h2>Article X — Economic valuation of this control plane</h2>
+  <div class="panel">
+    <div class="kpis" id="econ" style="margin-bottom:14px"></div>
+    <table id="econTable"><thead><tr><th>Value lever</th><th>Mechanism</th><th>Annual value (modeled)</th></tr></thead><tbody></tbody></table>
+    <p class="note">Benchmarks from public franchise M&amp;A research (shown for the franchise instantiation; swap in domain-specific benchmarks per pack — capitation economics for healthcare, per-pupil funding for education, NRR multiples for SaaS): governed multi-unit operators command a structural <b>1–2× EBITDA premium</b> over single-unit operators (management depth, diversification, reduced key-person risk — CT Acquisitions 2026 multiples guide); established franchisors trade <b>above 6× EBITDA</b> on recurring royalty income (Sofer Advisors); single-unit resales clear at <b>2.5–3.5× SDE</b>. System revenue anchors to the education-sector median unit revenue of <b>$216,697</b> (2026 FDD Item 19 cohort). Figures derived live from canonical state.</p>
+  </div>
+  <h2>Article XI — Network twin (forecast self-calibration)</h2>
+  <div class="panel" id="twinPanel">
+    <div class="tabbar no-print">
+      <button class="on" onclick="twinTab('score',this)">Calibration scorecard</button>
+      <button onclick="twinTab('method',this)">Method &amp; hit rules</button>
+    </div>
+    <div id="twinScore"></div>
+    <div id="twinMethod" style="display:none">
+      <p style="font-size:13px">Each unit carries a <b>forecast class</b> — <b>rising</b>, <b>holding</b>, or <b>deteriorating</b> — derived deterministically from its own control variables (τ breach, critical distance vs. the τ = 2.1 wk / $0.8k thresholds), plus a stated confidence. The twin then scores the forecast against <b>realized health</b> from the same canonical state:</p>
+      <table style="margin-top:10px"><thead><tr><th>Forecast class</th><th>Hit condition (realized health)</th></tr></thead><tbody>
+        <tr><td><b>rising</b></td><td>health ≥ 70</td></tr>
+        <tr><td><b>deteriorating</b></td><td>health &lt; 60</td></tr>
+        <tr><td><b>holding</b></td><td>55 ≤ health ≤ 80</td></tr>
+      </tbody></table>
+      <p class="note"><b>Calibration is earned, not asserted.</b> The engine publishes its forward-classification accuracy and lets the record — not the rhetoric — argue for trust. A class that keeps missing is visible here before anyone acts on it.</p>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="register">
+    <div class="reghead">Submission artifact · Clearline Group LLC</div>
+    <div class="regstats" id="regStats"></div>
+    <p style="font-size:12px">Every figure on this page is derived from one canonical state (units, conflicts, clocks, proposals, ledger, control variables) at render time — no view holds a separate copy. Seeds are illustrative; structures are computed live.</p>
+    <p style="font-size:12px;margin-top:6px"><b>Tamper-evident digest:</b> ledger digest <span id="regDigest" style="font-family:var(--mono)">—</span> over <span id="regEntries" style="font-family:var(--mono)">—</span> committed entries; a silently edited record cannot reproduce this digest. Stamped on: summary export · weekly brief · reports footer.</p>
+  </div>
+  <b>Notice.</b> This instrument is a public demonstration of method. It is not an offer of securities, a franchise disclosure document, or legal, financial, or investment advice. · <b>Canonical-state clause:</b> if the network operator sees a health score of 84, the unit sees the same 84, computed from the same state — in any domain. Trust is structural, not policy. · <b>Data status:</b> simulated demonstration; figures labeled. · Prepared by Pratik “Parry” Singh, Clearline Group LLC. · <b>Design basis (2026 research):</b> information-dependency graphs for causal failure tracing (GraphTracer, arXiv 2510.10581); self-healing agent loops (arXiv 2605.06737); durable execution with human interrupt gates (LangGraph 1.0); RL steering of error correction while the system runs (Nature 655, 2026).
+</footer>
+<script>
+// ============ CANONICAL STATE ============
+// ============ DOMAIN PACKS — same canonical schema, swappable lexicon + seeds ============
+// Canonical schema (domain-free): nodes(units) · edges(peer parity) · gates(governors) ·
+// clocks(regulatory deadlines) · proposals · conflicts(agents) · ledger(decisions+lineage) · control(τ, distance)
+const DOMAIN_PACKS = {
+  franchise:{
+    label:"Franchise network", unit:"center", units:"centers", count:352,
+    clockTitle:"FDD clock audits", clockNote:"Regulatory deadlines are first-class system events with running clocks and named owners — not calendar reminders.",
+    metric:"royalty stream", seed:"franchise disclosure (FDD)",
+    seedUnits:[
+      {name:"Aliso Viejo, CA", health:84, tauBreach:2.3, distance:0.6},
+      {name:"Frisco, TX", health:78, tauBreach:1.4, distance:1.1},
+      {name:"Cary, NC", health:71, tauBreach:2.6, distance:0.5},
+      {name:"Bellevue, WA", health:88, tauBreach:0.9, distance:1.4},
+      {name:"Irvine, CA", health:66, tauBreach:3.1, distance:0.3}],
+    conflicts:[
+      {id:"C-21", a:"Growth agent: open 2 units in Frisco territory", b:"Compliance agent: FDD clock audit incomplete — hold expansion", status:"open"},
+      {id:"C-22", a:"Growth agent: increase marketing spend at Irvine", b:"Ops agent: Irvine below critical distance — stabilize first", status:"open"}],
+    fdd:[
+      {item:"Item 20 unit count refresh", clock:"23 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Annual disclosure update", clock:"41 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Frisco territory registration", clock:"6 days left", owner:"Compliance Officer", status:"at risk"}],
+  },
+  healthcare:{
+    label:"Multi-facility health system", unit:"facility", units:"facilities", count:128,
+    clockTitle:"CMS / accreditation clocks", clockNote:"CMS conditions of participation, accreditation windows, and reporting deadlines are first-class system events with running clocks and named owners.",
+    metric:"capitated revenue", seed:"CMS conditions of participation",
+    seedUnits:[
+      {name:"Memorial Campus", health:84, tauBreach:2.3, distance:0.6},
+      {name:"Riverside Clinic", health:78, tauBreach:1.4, distance:1.1},
+      {name:"Northgate Surgery", health:71, tauBreach:2.6, distance:0.5},
+      {name:"Lakeside Primary", health:88, tauBreach:0.9, distance:1.4},
+      {name:"Eastpoint Urgent Care", health:66, tauBreach:3.1, distance:0.3}],
+    conflicts:[
+      {id:"C-21", a:"Growth agent: add service line at Riverside", b:"Compliance agent: accreditation window open — hold expansion", status:"open"},
+      {id:"C-22", a:"Growth agent: increase panel size at Eastpoint", b:"Ops agent: Eastpoint below critical distance — stabilize staffing first", status:"open"}],
+    fdd:[
+      {item:"CMS CoP attestation", clock:"23 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Joint Commission window", clock:"41 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Riverside service-line filing", clock:"6 days left", owner:"Compliance Officer", status:"at risk"}],
+  },
+  education:{
+    label:"School network / district", unit:"school", units:"schools", count:214,
+    clockTitle:"State reporting & compliance clocks", clockNote:"State reporting deadlines, accreditation, and funding certifications are first-class system events with running clocks and named owners.",
+    metric:"per-pupil funding", seed:"state education code",
+    seedUnits:[
+      {name:"Lincoln Elementary", health:84, tauBreach:2.3, distance:0.6},
+      {name:"Roosevelt Middle", health:78, tauBreach:1.4, distance:1.1},
+      {name:"Jefferson K-8", health:71, tauBreach:2.6, distance:0.5},
+      {name:"Madison High", health:88, tauBreach:0.9, distance:1.4},
+      {name:"Washington Primary", health:66, tauBreach:3.1, distance:0.3}],
+    conflicts:[
+      {id:"C-21", a:"Growth agent: open enrollment expansion at Roosevelt", b:"Compliance agent: state certification filing incomplete — hold", status:"open"},
+      {id:"C-22", a:"Growth agent: add marketing spend at Washington", b:"Ops agent: Washington below critical distance — stabilize staffing first", status:"open"}],
+    fdd:[
+      {item:"State attendance certification", clock:"23 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Annual accreditation report", clock:"41 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Roosevelt expansion filing", clock:"6 days left", owner:"Compliance Officer", status:"at risk"}],
+  },
+  saas:{
+    label:"SaaS customer fleet", unit:"account", units:"accounts", count:1180,
+    clockTitle:"Renewal & SLA clocks", clockNote:"Renewals, SLA cure periods, and security-review deadlines are first-class system events with running clocks and named owners.",
+    metric:"net revenue retention", seed:"customer contracts",
+    seedUnits:[
+      {name:"Acme Corp", health:84, tauBreach:2.3, distance:0.6},
+      {name:"Globex", health:78, tauBreach:1.4, distance:1.1},
+      {name:"Initech", health:71, tauBreach:2.6, distance:0.5},
+      {name:"Umbrella Health", health:88, tauBreach:0.9, distance:1.4},
+      {name:"Stark Retail", health:66, tauBreach:3.1, distance:0.3}],
+    conflicts:[
+      {id:"C-21", a:"Growth agent: upsell Globex to enterprise tier", b:"Compliance agent: security review clock open — hold commit", status:"open"},
+      {id:"C-22", a:"Growth agent: expand seats at Stark Retail", b:"Ops agent: Stark below critical distance — stabilize adoption first", status:"open"}],
+    fdd:[
+      {item:"Globex security review", clock:"23 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Acme renewal", clock:"41 days left", owner:"Compliance Officer", status:"on track"},
+      {item:"Stark SLA cure period", clock:"6 days left", owner:"Compliance Officer", status:"at risk"}],
+  },
+};
+let domain = "franchise";
+function buildState(dk){
+  const p = DOMAIN_PACKS[dk];
+  return {
+    meta:{practice:"Clearline Group", centers:p.count, version:"ckpt-7"},
+    control:{tau:2.1, criticalDistance:0.8, sustainability:0.01},
+    units:JSON.parse(JSON.stringify(p.seedUnits)),
+    conflicts:JSON.parse(JSON.stringify(p.conflicts)),
+    fdd:JSON.parse(JSON.stringify(p.fdd)),
+    healLog:[],
+    ledger:[
+      {decision:`Realized: supported plan opened for ${p.seedUnits[4].name} (τ 3.1 wks)`, owner:"Center Success Lead", inputs:[`state.units[${p.seedUnits[4].name}].tauBreach`,"control.tau=2.1"]},
+      {decision:"Realized: expansion held at gate pending clock", owner:"Compliance Officer", inputs:["clocks[2]=6d","conflict.C-21"]},
+    ],
+    checkpoints:[]
+  };
+}
+let STATE = buildState(domain);
+function switchDomain(dk){
+  domain = dk;
+  STATE = buildState(dk);
+  document.getElementById('domainSel').value = dk;
+  const p = DOMAIN_PACKS[dk];
+  document.getElementById('clockH2').textContent = 'Article IV — '+p.clockTitle;
+  document.getElementById('clockNote').textContent = p.clockNote;
+  document.getElementById('domainBlurb').textContent =
+    `Canonical schema unchanged — nodes, edges, gates, clocks, proposals, ledger, control variables. Only the lexicon and seed swapped: now governing a ${p.label.toLowerCase()} of ${p.count} ${p.units}, where the protected revenue line is the ${p.metric} and the regulatory anchor is ${p.seed}.`;
+  render(); drawGantt();
+  if(window.CLG){CLG.reset();CLG.chain(STATE.ledger);}
+}
+let symView=false;
+
+// ============ DERIVED ============
+function zone(u){
+  if(u.tauBreach>STATE.control.tau || u.distance<STATE.control.criticalDistance) return {label:"diverging — intervene", cls:"b-risk"};
+  if(u.tauBreach>STATE.control.tau*0.7) return {label:"watch — τ trending", cls:"b-warn"};
+  return {label:"self-stabilizing", cls:"b-ok"};
+}
+function derive(){
+  const d={};
+  d.open=STATE.conflicts.filter(c=>c.status==="open").length;
+  d.diverging=STATE.units.filter(u=>zone(u).cls==="b-risk").length;
+  d.avgHealth=(STATE.units.reduce((a,u)=>a+u.health,0)/STATE.units.length).toFixed(1);
+  return d;
+}
+
+// ============ RENDER ============
+function render(){
+  const d=derive();
+  const P = DOMAIN_PACKS[domain];
+  const capU = P.units.charAt(0).toUpperCase()+P.units.slice(1);
+  document.getElementById('kpis').innerHTML=[
+    [capU+" on one system", STATE.meta.centers],
+    ["Avg unit health", d.avgHealth],
+    ["Diverging units", d.diverging],
+    ["Open cross-agent conflicts", d.open],
+    ["Early-warning τ", STATE.control.tau+" wks"],
+    ["Sustainability", "+"+STATE.control.sustainability+"/wk"],
+    ["State version", STATE.meta.version],
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+
+  document.querySelector('#control tbody').innerHTML=STATE.units.map((u,i)=>{
+    const z=zone(u);
+    return `<tr><td><b>${u.name}</b></td><td style="font-family:var(--mono)">${u.health}</td>
+      <td style="font-family:var(--mono);color:${u.tauBreach>STATE.control.tau?'var(--risk)':'var(--ink)'}">${u.tauBreach} wks</td>
+      <td style="font-family:var(--mono);color:${u.distance<STATE.control.criticalDistance?'var(--risk)':'var(--ink)'}">$${u.distance}k</td>
+      <td><span class="badge ${z.cls}">${z.label}</span></td>
+      <td>${z.cls==='b-risk'?`<button onclick="intervene(${i})">Route to owner</button>`:''}</td></tr>`;}).join('');
+
+  document.getElementById('selfheal').innerHTML =
+    (STATE.healLog.length? STATE.healLog.map(h=>`<div class="selfheal">${h}</div>`).join('')
+    : `<p style="font-size:13px">Loop: Task → Execute → Detect → Evaluate → Heal → Re-execute. Mechanical failures (stale feeds, re-measurement) heal automatically; judgment calls escalate to named owners.</p>
+       <div style="margin-top:10px"><button onclick="simulateFault()">Inject a stale-data fault</button></div>`);
+
+  document.getElementById('conflicts').innerHTML=STATE.conflicts.map((c,i)=>`
+    <div class="conflict ${c.status}">
+      <div style="font-size:13px"><b>${c.id}</b> ${c.status==='resolved'?'<span class="badge b-ok">resolved</span>':'<span class="badge b-risk">open</span>'}</div>
+      <div style="font-size:12.5px;color:var(--dim);margin-top:4px">⚔ ${c.a}<br>⚔ ${c.b}</div>
+      ${c.status==='open'?`<div style="margin-top:8px"><button onclick="resolveConflict(${i})">Resolve (fixed order)</button></div>`:`<div style="font-size:12px;color:var(--acc);margin-top:6px">${c.resolution}</div>`}
+    </div>`).join('')
+    +`<p class="note">Resolution order is fixed: compliance speaks first, then ops, then growth — the first voice frames the panel, so safety always sets the terms. Growth never outranks a hold.</p>`;
+
+  document.querySelector('#fdd tbody').innerHTML=STATE.fdd.map(f=>`<tr>
+    <td><b>${f.item}</b></td><td style="font-family:var(--mono)">${f.clock}</td><td>${f.owner}</td>
+    <td><span class="badge ${f.status==='at risk'?'b-risk':'b-ok'}">${f.status}</span></td></tr>`).join('');
+
+  document.getElementById('stateView').textContent=JSON.stringify(STATE.meta,null,1)+'\n'+JSON.stringify({control:STATE.control,units:STATE.units.map(u=>({name:u.name,health:u.health}))},null,1);
+  document.getElementById('symmetry').innerHTML=symmetry();
+  document.querySelector('#ledger tbody').innerHTML=STATE.ledger.map(e=>
+    `<tr><td>${e.decision}</td><td>${e.owner}</td><td style="color:var(--dim)">${e.inputs.join('<br>')}</td></tr>`).join('');
+
+  renderEcon(d);
+}
+
+// ============ ECONOMIC VALUATION (M&A benchmarks applied to live state) ============
+const BENCH = {
+  medianUnitRev: 216697,   // education-sector median unit revenue, FY2025 Item 19 cohort
+  systemFee: 0.1025,       // royalty 8.25% + brand fund 2% (representative education load)
+  multiUnitPremiumLow: 1.0, multiUnitPremiumHigh: 2.0, // × EBITDA premium (CT Acquisitions)
+  franchisorMult: 6,       // established franchisors >6× EBITDA (Sofer Advisors)
+  margin: 0.18,            // mid franchise EBITDA margin post-royalty
+};
+function renderEcon(d){
+  const n = STATE.meta.centers;
+  const systemGross = n * BENCH.medianUnitRev;
+  const royaltyStream = systemGross * BENCH.systemFee;
+  const systemEbitda = systemGross * BENCH.margin * 0.15; // franchisor-level EBITDA ≈ 15% of system gross (asset-light)
+  const premiumLow = systemEbitda * BENCH.multiUnitPremiumLow, premiumHigh = systemEbitda * BENCH.multiUnitPremiumHigh;
+  const perPoint = royaltyStream * 0.01; // 1% improvement in effective royalty capture (fewer closures, less under-reporting)
+
+  document.getElementById('econ').innerHTML = [
+    ["System gross revenue", "$"+(systemGross/1e6).toFixed(1)+"M"],
+    ["Royalty stream governed", "$"+(royaltyStream/1e6).toFixed(1)+"M/yr"],
+    ["1% capture improvement", "$"+Math.round(perPoint/1000)+"k/yr"],
+    ["Multi-unit premium at stake", "$"+(premiumLow/1e6).toFixed(1)+"M–$"+(premiumHigh/1e6).toFixed(1)+"M"],
+    ["Franchisor EV @ >6×", "$"+(systemEbitda*BENCH.franchisorMult/1e6).toFixed(1)+"M+"],
+  ].map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join('');
+
+  document.querySelector('#econTable tbody').innerHTML = [
+    ["Royalty-stream integrity", `${n} centers × $${BENCH.medianUnitRev.toLocaleString()} median unit revenue = $${(systemGross/1e6).toFixed(1)}M system gross; the ${(BENCH.systemFee*100).toFixed(2)}% royalty+brand load on that stream is what the canonical state, staleness locks, and FDD clocks exist to protect`, "$"+(royaltyStream/1e6).toFixed(1)+"M/yr governed"],
+    ["Under-reporting & closure capture", `Each 1% of the royalty stream lost to under-reported sales, stale data, or preventable closures is recoverable by gate discipline and early-warning τ — without selling a single new unit`, "$"+Math.round(perPoint).toLocaleString()+"/yr per 1%"],
+    ["Governance → exit multiple", `Acquirers pay a 1–2× EBITDA premium for operators with documented multi-unit infrastructure (area management, decision ledgers, audit trails). This control plane is that documentation, running`, "$"+(premiumLow/1e6).toFixed(1)+"M–$"+(premiumHigh/1e6).toFixed(1)+"M enterprise value"],
+    ["Franchisor-level valuation", `Asset-light franchisor EBITDA on this system ≈ $${(systemEbitda/1e6).toFixed(1)}M; established systems trade above ${BENCH.franchisorMult}× EBITDA on recurring royalty income — governance quality is a direct input to the multiple`, "$"+(systemEbitda*BENCH.franchisorMult/1e6).toFixed(1)+"M+ EV"],
+    ["Symmetric transparency effect", `Disputes over numbers are a top cause of franchisee-franchisor litigation and transfer friction (10–20% multiple shave when approval is uncertain — CT Acquisitions). One canonical state, visible in both directions, removes the dispute surface`, "deal-risk reduction"],
+  ].map(r=>`<tr><td><b>${r[0]}</b></td><td style="color:var(--dim);font-size:12.5px">${r[1]}</td><td style="font-family:var(--mono)">${r[2]}</td></tr>`).join('');
+}
+
+function symmetry(){
+  const SIDES={franchise:["Franchisor","Franchisee"],healthcare:["System HQ","Facility"],education:["District office","School"],saas:["Vendor","Customer"]};
+  const [A,B]=SIDES[domain];
+  const u=STATE.units[0];
+  const rows=[["Health score", u.health],["τ breach", u.tauBreach+" wks"],["Critical distance", "$"+u.distance+"k"],["Zone", zone(u).label]];
+  return `<p style="font-size:13px;margin-bottom:10px">${symView?B+' view — ':A+' view — '}${u.name}. Same numbers, same state, both directions:</p>
+    <table>${rows.map(([k,v])=>`<tr><td style="color:var(--dim)">${k}</td><td style="font-family:var(--mono)">${v}</td></tr>`).join('')}</table>
+    <p class="note">Toggle the view — the figures cannot drift, because neither side holds its own copy.</p>`;
+}
+
+// ============ PROGRAM VIEW: CPM on the decision DAG ============
+const INIT_BASE=[
+  {id:"A", name:"Frisco FDD territory registration", dur:6,  deps:[], hard:true,  owner:"Compliance Officer"},
+  {id:"B", name:"Irvine support plan — phase 1 (stabilize)", dur:14, deps:[], hard:false, owner:"Center Success Lead"},
+  {id:"C", name:"Irvine support plan — phase 2 (recovery)", dur:21, deps:["B"], hard:false, owner:"Center Success Lead"},
+  {id:"D", name:"Frisco expansion commit (needs C-21 cleared)", dur:10, deps:["A"], hard:false, owner:"Franchise Director"},
+  {id:"E", name:"Network re-measurement batch (348 units)", dur:7, deps:[], hard:false, owner:"Ops Analyst"},
+  {id:"F", name:"Q4 growth-readiness review", dur:5, deps:["C","D","E"], hard:false, owner:"Franchise Director"},
+];
+let INITS=JSON.parse(JSON.stringify(INIT_BASE));
+function cpm(){
+  const map=Object.fromEntries(INITS.map(n=>[n.id,{...n}]));
+  // forward pass
+  for(const n of INITS){ const m=map[n.id]; m.es=Math.max(0,...n.deps.map(d=>map[d].es+map[d].dur)); m.ef=m.es+n.dur; }
+  const projEnd=Math.max(...INITS.map(n=>map[n.id].ef));
+  // backward pass
+  const succ={}; INITS.forEach(n=>n.deps.forEach(d=>{(succ[d]=succ[d]||[]).push(n.id);}));
+  for(const n of [...INITS].reverse()){
+    const m=map[n.id];
+    const s=succ[n.id]||[];
+    m.lf=s.length?Math.min(...s.map(x=>map[x].ls)):projEnd;
+    m.ls=m.lf-n.dur; m.slack=m.ls-m.es;
+    m.critical=m.slack===0||m.hard&&m.slack===0;
+  }
+  return {map, projEnd};
+}
+function drawGantt(){
+  const {map,projEnd}=cpm();
+  const W=900,labelW=250,rowH=32,top=28,scale=(W-labelW-40)/Math.max(projEnd,40);
+  let s=`<text x="${labelW}" y="16" font-size="9" fill="#5a6270">days → (0 to ${projEnd})</text>`;
+  // dependency arrows
+  INITS.forEach((n,i)=>{
+    const m=map[n.id], y=top+i*rowH+rowH/2;
+    n.deps.forEach(d=>{
+      const di=INITS.findIndex(x=>x.id===d), dm=map[d], dy=top+di*rowH+rowH/2;
+      s+=`<line x1="${labelW+dm.ef*scale}" y1="${dy}" x2="${labelW+m.es*scale}" y2="${y}" stroke="#c8c2b4" stroke-width="1" marker-end="url(#arr)"/>`;
+    });
+  });
+  s=`<defs><marker id="arr" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c8c2b4"/></marker></defs>`+s;
+  INITS.forEach((n,i)=>{
+    const m=map[n.id], y=top+i*rowH;
+    const col=m.hard?"#7a1f1f":m.critical?"#8a6d3b":"#1f3a5f";
+    s+=`<text x="0" y="${y+rowH/2+3}" font-size="11" fill="#1b2431">${n.id} · ${n.name}</text>`;
+    if(m.slack>0) s+=`<rect x="${labelW+m.ef*scale}" y="${y+9}" width="${m.slack*scale}" height="${rowH-18}" fill="rgba(90,98,112,.18)" rx="3"/>`;
+    s+=`<rect x="${labelW+m.es*scale}" y="${y+6}" width="${Math.max(n.dur*scale,4)}" height="${rowH-12}" fill="${col}" rx="4" opacity="0.85"/>
+    <text x="${labelW+m.es*scale+Math.max(n.dur*scale,4)+6}" y="${y+rowH/2+3}" font-size="9" fill="${col}">${n.dur}d${m.hard?" · hard":m.critical?" · critical":" · slack "+m.slack+"d"}</text>`;
+  });
+  document.getElementById('gantt').innerHTML=s;
+  const cp=INITS.filter(n=>map[n.id].critical&&!map[n.id].hard).map(n=>n.id).join(" → ");
+  const hard=INITS.filter(n=>map[n.id].hard).map(n=>n.id).join(", ");
+  document.getElementById('cpmOut').innerHTML=`<p style="font-size:12.5px">
+    <span class="badge b-risk">hard constraints: ${hard}</span>
+    <span class="badge b-warn">critical path: ${cp}</span>
+    <span style="color:var(--dim)">Project length: <b style="color:var(--ink)">${projEnd} days</b>. Delaying any critical node moves the whole network; slack nodes absorb it.</p>`;
+}
+function delayInit(){ INITS.find(n=>n.id==="B").dur+=5; drawGantt();
+  STATE.ledger.unshift({decision:"Schedule perturbation absorbed: Irvine phase 1 +5d — critical path recomputed, downstream owners notified", owner:"Program view (CPM)", inputs:["dag.B.dur","cpm.forward/backward"]});
+  render(); drawGantt(); }
+function resetCPM(){ INITS=JSON.parse(JSON.stringify(INIT_BASE)); drawGantt(); }
+drawGantt();
+
+// ============ COMMIT DRAWER ============
+let drawerStep=0;
+function openDrawer(){drawerStep=0;document.getElementById('drawer').style.display='block';drawDrawer();}
+function drawDrawer(){
+  const steps=["Field","Futures","Interference","Commit · Rule 1","Realized"];
+  const P = DOMAIN_PACKS[domain];
+  const u1 = P.seedUnits[1].name, u4 = P.seedUnits[4].name, clk = P.fdd[2];
+  const bodies=[
+    `Field: decision = expand at ${u1}. Connected inputs: growth.priority(${u1}), posture.health=${P.seedUnits[1].health}, ${clk.item}=${clk.clock}.`,
+    `Futures: branch A (commit now) → revenue upside, compliance exposure; branch B (hold 1 quarter) → upside delayed, ${P.clockTitle.toLowerCase()} cleared first.`,
+    "Interference: 1 open conflict — C-21 (growth vs. compliance). Unresolved conflicts block commit.",
+    "Rule 1 check: no unresolved safety/compliance interference, all inputs fresh and sourced. Rule 1 FAILS while C-21 is open.",
+    "Realized: written to the ledger with owner, rule applied, and causal inputs."
+  ];
+  const el=document.getElementById('drawer');
+  el.innerHTML=`<div class="steps">${steps.map((s,i)=>`<span class="${i===drawerStep?'on':''}">${s}</span>`).join('')}</div>
+    <p style="font-size:13px">${bodies[drawerStep]}</p>
+    <div style="margin-top:12px;display:flex;gap:8px">
+      ${drawerStep<4?`<button onclick="stepDrawer()">${drawerStep===3?'Attempt commit':'Next →'}</button>`:'<span class="badge b-ok">recorded</span>'}
+      <button class="rel" onclick="document.getElementById('drawer').style.display='none'">Close</button>
+    </div>`;
+}
+function stepDrawer(){
+  if(drawerStep===3 && STATE.conflicts.some(c=>c.id==='C-21'&&c.status==='open')){
+    STATE.ledger.unshift({decision:`Commit BLOCKED at Rule 1: C-21 unresolved (compliance interference)`, owner:"Decision nexus", inputs:["conflict.C-21","clocks.registration=6d"]});
+    resolveConflict(0,true); // resolve via fixed order, then commit succeeds next attempt
+  }
+  drawerStep=Math.min(4,drawerStep+1);
+  if(drawerStep===4){
+    const u1=DOMAIN_PACKS[domain].seedUnits[1].name;
+    STATE.ledger.unshift({decision:`Realized: ${u1} expansion — branch B (hold 1 quarter, clock cleared first)`, owner:"You (commit authority)", inputs:[`growth.priority(${u1})`,"clocks.registration","conflict.C-21.resolution"]});
+  }
+  render(); document.getElementById('drawer').style.display='block'; drawDrawer();
+}
+
+// ============ ACTIONS ============
+function resolveConflict(i,silent){
+  const c=STATE.conflicts[i]; if(c.status!=='open')return;
+  c.status='resolved';
+  c.resolution="Resolved by fixed order: compliance hold stands; growth proposal re-enters after the FDD clock clears. Ledger updated.";
+  if(!silent) STATE.ledger.unshift({decision:`${c.id} resolved — compliance-first ordering applied`, owner:"Compliance Officer", inputs:[`conflict.${c.id}`,"fixed_order:[compliance,ops,growth]"]});
+  render();
+}
+function intervene(i){
+  const u=STATE.units[i];
+  STATE.ledger.unshift({decision:`${u.name} routed to named support owner (zone: diverging)`, owner:"Center Success Lead", inputs:[`state.units[${u.name}].tauBreach=${u.tauBreach}`,`control.criticalDistance=${STATE.control.criticalDistance}`]});
+  u.tauBreach=1.8; u.distance=0.9; // support plan begins to converge
+  render();
+}
+function simulateFault(){
+  STATE.healLog.unshift("⚠ Detect: Bellevue feed 31 days stale → hold all optimization at unit");
+  STATE.healLog.unshift("⚙ Heal: re-measurement dispatched automatically (mechanical — no judgment call); feed age reset to 0d; hold released. Loop closed in one cycle.");
+  STATE.ledger.unshift({decision:"Self-heal: Bellevue stale feed re-measured; holds released", owner:"Self-healing loop", inputs:["state.units[Bellevue].feedAge"]});
+  render();
+}
+function toggleSym(){symView=!symView;document.getElementById('symToggle').classList.toggle('on',symView);render();}
+function checkpoint(){
+  STATE.checkpoints.push(JSON.parse(JSON.stringify({meta:STATE.meta,units:STATE.units,conflicts:STATE.conflicts})));
+  document.getElementById('cknote').innerHTML=`✓ Checkpoint saved (${STATE.checkpoints.length} total). Make changes, then replay — the state returns to exactly this point, deterministically.`;
+}
+function replay(){
+  if(!STATE.checkpoints.length){document.getElementById('cknote').textContent="No checkpoint yet — save one first.";return;}
+  const ck=STATE.checkpoints[STATE.checkpoints.length-1];
+  STATE.meta=ck.meta; STATE.units=ck.units; STATE.conflicts=ck.conflicts;
+  document.getElementById('cknote').innerHTML="↩ Replayed from latest checkpoint. Durable execution: an interrupted or corrupted run resumes from known-good state rather than guessing forward.";
+  render();
+}
+function exportState(){
+  const blob=new Blob([JSON.stringify(STATE,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='clearline-canonical-state.json'; a.click();
+}
+// ============ LIVE TWIN (event-driven simulation clock) ============
+let twinTimer=null, twinTick=0;
+function toggleTwin(){
+  if(twinTimer){ clearInterval(twinTimer); twinTimer=null;
+    document.getElementById('twinBtn').textContent='Run live twin';
+    document.getElementById('twinStatus').textContent='Twin paused at tick '+twinTick+' — state holds on the same canonical state; resume continues from it. Figures above remain the twin\u2019s simulated forecast until reset.';
+    return; }
+  document.getElementById('twinBtn').textContent='Pause twin';
+  twinTimer=setInterval(twinStep,1400);
+  twinStep();
+}
+function twinStep(){
+  twinTick++;
+  STATE.units.forEach(function(u){
+    u.health=Math.max(40,Math.min(99,Math.round((u.health+(Math.random()-0.48)*3)*10)/10));
+    u.tauBreach=Math.max(0.2,Math.round((u.tauBreach+(Math.random()-0.5)*0.5)*10)/10);
+    u.distance=Math.max(0.1,Math.round((u.distance+(Math.random()-0.5)*0.2)*10)/10);
+    if(zone(u).cls==='b-risk' && Math.random()<0.5){
+      STATE.ledger.unshift({decision:'Twin tick '+twinTick+': '+u.name+' entered diverging zone — auto-routed to named support owner (safety precedes growth)', owner:'Live twin (event clock)', inputs:['state.units['+u.name+'].tauBreach='+u.tauBreach,'control.tau='+STATE.control.tau]});
+    }
+  });
+  document.getElementById('twinStatus').textContent='Twin running — tick '+twinTick+' (simulated forecast, not observed; seed restored on reload). New divergences auto-route to the ledger below.';
+  render();
+}
+render();
+// deep-link: ?pack=healthcare|education|saas|franchise
+const _qp=new URLSearchParams(location.search).get('pack');
+if(_qp && DOMAIN_PACKS[_qp]) switchDomain(_qp);
+</script>
+
+<script>
+// ============ ENTERPRISE PARITY ADDITIONS (ported from reference engine, vanilla JS) ============
+// All CLG.* usage is guarded: the page remains fully functional if clg-enterprise.js fails to load.
+function fcHash(s){var x=0;for(var i=0;i<s.length;i++){x=(x*31+s.charCodeAt(i))&0x7fffffff;}return x;}
+
+// ---- EngineErrorBoundary equivalent (reference §1.4): one failing view never breaks the page ----
+function showViewError(label,err,mount){
+  var host=(typeof mount==="string")?document.querySelector(mount):mount;
+  if(!host)host=document.querySelector(".wrap")||document.body;
+  var card=document.createElement("div");card.className="errcard";
+  var b=document.createElement("b");b.textContent="Something in this view didn't render";
+  var p=document.createElement("div");p.style.fontSize="12.5px";p.style.marginTop="4px";
+  p.textContent="The rest of the instrument is unaffected. No external logging in this artifact; state capture is enough.";
+  var m=document.createElement("div");m.className="msg";m.textContent=String(err&&(err.stack||err.message)||err);
+  var btn=document.createElement("button");btn.textContent="Reload this view";
+  btn.onclick=function(){card.remove();if(typeof render==="function")render();};
+  card.appendChild(b);card.appendChild(p);card.appendChild(m);card.appendChild(btn);
+  host.insertBefore(card,host.firstChild);
+}
+
+// ---- downloads (reference §11) ----
+function downloadText(txt,name){
+  var blob=new Blob([txt],{type:"text/plain"});var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name;a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+}
+function downloadJSON(obj,name){
+  var blob=new Blob([JSON.stringify(obj,null,2)],{type:"application/json"});var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=name;a.click();
+  setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
+}
+function ledgerDigestFallback(){
+  var d="genesis";try{STATE.ledger.forEach(function(e){d=("0000000"+fcHash(d+"|"+JSON.stringify(e)).toString(16)).slice(-7);});}catch(_){}
+  return d;
+}
+function exportLedger(){
+  downloadJSON({
+    product:"Clearline Group LLC — "+document.title,
+    exported:new Date().toISOString(),
+    tamperEvidentDigest:(typeof CLG!=="undefined"&&CLG.digest)?CLG.digest():ledgerDigestFallback()+" (computed locally — enterprise kit not loaded)",
+    committedEntries:STATE.ledger.length,
+    ledger:STATE.ledger
+  },"clg-ledger-export.json");
+}
+function downloadSummary(){
+  var txt=buildSummaryText();
+  txt="CLEARLINE GROUP LLC — GOVERNED OPERATIONS SUMMARY EXPORT\n"
+     +"Generated from the live canonical state · "+new Date().toISOString()+"\n"
+     +"Ledger integrity digest: "+((typeof CLG!=="undefined"&&CLG.digest)?CLG.digest():ledgerDigestFallback())+" over "+STATE.ledger.length+" committed entries\n"
+     +"==========================================================\n\n"+txt;
+  downloadText(txt,(document.title.split("·")[0].trim().replace(/[^\w-]+/g,"-")||"clg")+"-summary.txt");
+}
+
+// ---- global search (reference §3.2): filters this engine's units/items in place ----
+var _searchQ="";
+function globalSearch(q){_searchQ=q;applySearch();}
+function applySearch(){
+  var q=_searchQ.trim().toLowerCase(),shown=0,total=0;
+  var rows=document.querySelectorAll(".wrap table tbody tr");
+  for(var i=0;i<rows.length;i++){var tr=rows[i];total++;
+    var ok=!q||tr.textContent.toLowerCase().indexOf(q)>=0;
+    tr.style.display=ok?"":"none";if(ok)shown++;}
+  var c=document.getElementById("searchCount");
+  if(c)c.textContent=q?("search: "+shown+" of "+total+" rows match \u2014 \u201C"+_searchQ+"\u201D"):"";
+}
+
+// ---- footer register block updater (reference §11 SUBMISSION ARTIFACT) ----
+function updateRegister(){
+  var dg=document.getElementById("regDigest"),en=document.getElementById("regEntries");
+  if(dg)dg.textContent=(typeof CLG!=="undefined"&&CLG.digest)?CLG.digest():ledgerDigestFallback();
+  if(en)en.textContent=STATE.ledger.length;
+  var st=document.getElementById("regStats");if(st)st.innerHTML=registerStats();
+}
+</script>
+
+<script>
+// ---- CLG-03 network twin: forecast self-calibration (reference §8) ----
+var twinAcc=null;
+function forecast(u){
+  if(u.tauBreach>STATE.control.tau||u.distance<STATE.control.criticalDistance)return"deteriorating";
+  if(u.tauBreach<1.5&&u.distance>=1.0)return"rising";
+  return"holding";
+}
+function twinHit(cls,h){return cls==="rising"?h>=70:cls==="deteriorating"?h<60:(h>=55&&h<=80);}
+function twinTab(which,btn){
+  document.getElementById("twinScore").style.display=which==="score"?"":"none";
+  document.getElementById("twinMethod").style.display=which==="method"?"":"none";
+  var btns=btn.parentNode.querySelectorAll("button");for(var i=0;i<btns.length;i++)btns[i].classList.remove("on");
+  btn.classList.add("on");
+}
+function renderTwin(){
+  var rows=STATE.units.map(function(u){
+    var cls=forecast(u),conf=60+fcHash(u.name)%30;
+    return {u:u,cls:cls,conf:conf,hit:twinHit(cls,u.health)};
+  });
+  twinAcc=Math.round(rows.filter(function(r){return r.hit;}).length/rows.length*100);
+  var badge={rising:"b-ok",holding:"b-warn",deteriorating:"b-risk"};
+  document.getElementById("twinScore").innerHTML=
+    '<p style="font-size:13px;margin-bottom:10px">Forward-classification accuracy across the '+rows.length+' governed units: '
+    +'<b style="font-family:var(--mono);color:var(--acc);font-size:16px">'+twinAcc+'%</b> '
+    +'<span style="color:var(--dim)">\u2014 calibration is earned, not asserted. Live-twin ticks move realized health; the score re-derives from the same state.</span></p>'
+    +'<table><thead><tr><th>Unit</th><th>Forecast class</th><th>Confidence</th><th>Realized health</th><th>Scored</th></tr></thead><tbody>'
+    +rows.map(function(r){
+      return '<tr><td><b>'+r.u.name+'</b></td>'
+        +'<td><span class="badge '+badge[r.cls]+'">'+r.cls+'</span></td>'
+        +'<td style="font-family:var(--mono)">'+r.conf+'%</td>'
+        +'<td style="font-family:var(--mono)">'+r.u.health+'</td>'
+        +'<td>'+(r.hit?'<span class="badge b-ok">hit</span>':'<span class="badge b-risk">miss</span>')+'</td></tr>';
+    }).join('')+'</tbody></table>';
+}
+function registerStats(){
+  var d=derive();var P=DOMAIN_PACKS[domain];
+  return '<span>'+STATE.meta.centers+' '+P.units+' on one system</span>'
+    +'<span>'+STATE.units.length+' tracked live</span>'
+    +'<span>'+d.diverging+' diverging</span>'
+    +'<span>twin accuracy '+(twinAcc===null?'\u2014':twinAcc+'%')+'</span>'
+    +'<span>'+STATE.ledger.length+' committed entries</span>';
+}
+function buildSummaryText(){
+  var d=derive();var P=DOMAIN_PACKS[domain];var lines=[];
+  lines.push("INSTRUMENT: "+document.title);
+  lines.push("Domain: "+P.label+" \u00b7 "+STATE.meta.centers+" "+P.units+" on one system ("+STATE.units.length+" tracked live)");
+  lines.push("Control variables: tau="+STATE.control.tau+" wks \u00b7 critical distance=$"+STATE.control.criticalDistance+"k \u00b7 sustainability=+"+STATE.control.sustainability+"/wk");
+  lines.push("Units diverging (intervene): "+STATE.units.filter(function(u){return zone(u).cls==='b-risk';}).length
+    +" \u00b7 watch: "+STATE.units.filter(function(u){return zone(u).cls==='b-warn';}).length
+    +" \u00b7 self-stabilizing: "+STATE.units.filter(function(u){return zone(u).cls==='b-ok';}).length);
+  lines.push("Open cross-agent conflicts: "+d.open);
+  lines.push("Network twin: forward-classification accuracy "+(twinAcc===null?"\u2014":twinAcc+"%")+" (calibration is earned, not asserted)");
+  lines.push("");
+  lines.push("COMMITTED RECORD ("+STATE.ledger.length+" entries, newest first):");
+  STATE.ledger.forEach(function(e){lines.push("  - "+e.decision+" ["+e.owner+"]");});
+  return lines.join("\n");
+}
+// ---- guarded render wrapper (error boundary + twin + register + search reapply) ----
+render=(function(orig){return function(){
+  try{orig.apply(this,arguments);}catch(err){showViewError("main views",err,".wrap");}
+  try{renderTwin();}catch(err){showViewError("network twin",err,"#twinPanel");}
+  try{updateRegister();}catch(err){/* register is cosmetic; never break the page */}
+  applySearch();
+};})(render);
+drawGantt=(function(orig){return function(){
+  try{orig.apply(this,arguments);}catch(err){showViewError("program view (CPM)",err,"#gantt");}
+};})(drawGantt);
+renderTwin();updateRegister();
+</script>
+<script src="clg-enterprise.js"></script>
+<script>
+// ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
+if(typeof CLG==="undefined"){console.warn("clg-enterprise.js failed to load — page remains fully functional without the kit.");}else{
+CLG.chain(STATE.ledger);
+CLG.summary(function(){
+  const lines=[];
+  lines.push("INSTRUMENT: "+document.title);
+  lines.push("Domain: "+DOMAIN_PACKS[domain].label+" · "+STATE.units.length+" units under governance");
+  lines.push("Control variables: tau="+STATE.control.tau+" wks · critical distance=$"+STATE.control.criticalDistance+"k · sustainability="+STATE.control.sustainability+"/wk");
+  lines.push("Units diverging (intervene): "+STATE.units.filter(u=>zone(u).cls==='b-risk').length+" · watch: "+STATE.units.filter(u=>zone(u).cls==='b-warn').length+" · self-stabilizing: "+STATE.units.filter(u=>zone(u).cls==='b-ok').length);
+  lines.push("Live twin: tick "+(typeof twinTick!=='undefined'?twinTick:0)+(typeof twinTimer!=='undefined'&&twinTimer?" (running — simulated forecast, not observed)":" (idle — observed seed state)"));
+  lines.push("");
+  lines.push("COMMITTED RECORD ("+STATE.ledger.length+" entries, newest first):");
+  STATE.ledger.forEach(e=>lines.push("  - "+e.decision+" ["+e.owner+"]"));
+  return lines.join("\n");
+});
+CLG.tour([
+  {el:function(){return document.querySelectorAll('h2')[0];}, title:"Self-stabilizing dynamics", body:"Control variables, not static KPIs: early-warning tau, critical distance, sustainability trajectory. Run the live twin to advance the event clock — figures while running are a simulated forecast, labeled as such, and divergences auto-route to the ledger."},
+  {el:function(){return document.querySelectorAll('h2')[1];}, title:"Self-healing loop", body:"The network detects, routes, and re-measures without waiting for a person — mechanical fixes close on the record, judgment calls escalate."},
+  {el:function(){return document.querySelectorAll('h2')[2];}, title:"Cross-agent conflicts", body:"Growth, ops, and compliance agents deliberate in the open. Contradictory proposals are surfaced and held — never silently resolved."},
+  {el:"#clockH2", title:"Clock audits", body:"Regulatory deadlines are first-class system events with running clocks — not calendar reminders."},
+  {el:function(){return document.querySelectorAll('h2')[5];}, title:"Decision nexus", body:"Two-stage commit: agents propose, a person decides, the ledger remembers. Open the commit drawer and take a decision — it writes to the realized ledger with its causal inputs."},
+  {el:function(){return document.querySelectorAll('h2')[7];}, title:"Symmetric transparency", body:"Franchisor and franchisee see the same numbers from the same state. Toggle the franchisee view — the figures do not move."},
+  {el:function(){return document.querySelectorAll('h2')[8];}, title:"Realized ledger", body:"Every commit lands here. The bar below carries the tamper-evident digest over this record — use Replay to walk it chronologically, or Export to take the record offline."}
+]);
+}
+</script>
+</body>
+</html>
