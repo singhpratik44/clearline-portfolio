@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {score,route,rank} from './router.mjs';
+const base={id:'a',impact:0.9,reuse:0.8,uncertaintyReduction:0.2,effort:0.2,verificationCost:0.2,risk:0.1};
+test('stable deterministic score',()=>assert.equal(score(base),score({...base})));
+test('rank prefers impact per cost',()=>assert.equal(rank([{...base,id:'low',impact:0.1},{...base,id:'high'}])[0].id,'high'));
+test('human review for high risk',()=>assert.equal(route({...base,risk:0.9}).mode,'human-review'));
+test('simulation for consequential uncertainty',()=>assert.equal(route({...base,risk:0.4,uncertaintyReduction:0.9}).mode,'simulation'));
+test('targeted agent for ambiguous low risk',()=>assert.equal(route({...base,uncertaintyReduction:0.8}).mode,'targeted-agent'));
+test('routine deterministic',()=>assert.equal(route(base).mode,'deterministic'));
+test('invalid and duplicate inputs fail closed',()=>{assert.throws(()=>score({...base,effort:-1}));assert.throws(()=>rank([base,base]));});
+test('threshold permits no action',()=>assert.deepEqual(rank([base],100),[]));
