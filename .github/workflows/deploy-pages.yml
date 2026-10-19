@@ -1,0 +1,66 @@
+name: Deploy Clearline Pages
+on:
+  workflow_dispatch:
+  pull_request:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Compile interactive franchise engine
+        run: |
+          npm install --no-save --no-package-lock react@18 react-dom@18 esbuild@0.25
+          npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
+      - name: Run regression suite
+        run: node --test tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
+      - name: Benchmark bounded simulation
+        run: node tests/benchmark.mjs
+      - name: Stage Pages artifact
+        run: |
+          mkdir -p _site
+          cp *.html *.js _site/
+          cp -R assets clearline _site/
+          mkdir -p _site/research
+          cp research/representation.mjs _site/research/
+          mkdir -p _site/lab _site/src
+          cp lab/index.html _site/lab/
+          cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
+          touch _site/.nojekyll
+      - name: Validate packaged site
+        run: |
+          test -s _site/app.bundle.js
+          test -s _site/index.html
+          test -s _site/clearline/index.html
+          test -d _site/assets
+          test -s _site/interactive-decision-universe.html
+          test -s _site/research/representation.mjs
+          grep -q "from './research/representation.mjs'" _site/interactive-decision-universe.html
+          node --test research/representation.test.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: clearline-preview-site
+          path: _site
+      - if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    if: github.event_name == 'workflow_dispatch'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
