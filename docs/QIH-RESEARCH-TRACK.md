@@ -20,3 +20,18 @@ Do not infer that a holographic universe is proven, that all quantum-inspired ca
 
 ## Immediate integration
 Connect world-graph -> proposal eligibility -> bounded future explorer -> solver router in a pure orchestration layer. Introduce scenario snapshots and event replay before adding interactive visualization.
+
+## Working boundary-representation experiment (experimental)
+
+The Clearline research implementation lives in `src/information-holography.mjs`, with repeatable tests in `tests/information-holography.mjs` and a demonstrator in `lab/index.html`.
+
+- `T = encodeBoundary`: encode a versioned dependency graph into indexed nodes and incoming edge groups, preserving node details, edge attributes, and snapshot metadata.
+- `D = decodeBoundary`: reconstruct a graph, rejecting corrupted references, malformed encodings, and dependency cycles.
+- `O = completeCanonical`: apply a dependency-gated completion to a separate canonical snapshot.
+- `O_H = completeBoundary`: apply that operation directly on the encoded representation.
+- Equivalence experiment: for **tested fixtures**, compare `D(O_H(T(S)))` with `O(S)`, then independently compare operating projections and decision rankings for the original and reconstructed states.
+
+`verifyBoundaryEquivalence` checks both paths. It does not claim a general mathematical proof, quantum execution, physical holography, reduced computational complexity, or correctness outside tested operations and inputs. A successful round trip alone cannot establish compression, acceleration, or any new physical law.
+
+### Experimental next gate
+Measure serialized size, runtime, and correctness on varied graph shapes; add counterexamples and fuzz tests. Compare conventional adjacency graphs, this indexed encoding, and future graph-embedding methods against a shared baseline. Only carry an encoding into an authoritative workflow if it proves useful under these checks. Keep all scenario state read-only and require conventional authorization for real decisions.
