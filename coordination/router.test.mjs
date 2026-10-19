@@ -1,6 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {score,route,rank} from './router.mjs';
+import {score,route,rank,plan,submissionState} from './router.mjs';
+import {append} from './ledger.mjs';
+import {views,explain} from './projections.mjs';
 const base={id:'a',impact:0.9,reuse:0.8,uncertaintyReduction:0.2,effort:0.2,verificationCost:0.2,risk:0.1};
 test('stable deterministic score',()=>assert.equal(score(base),score({...base})));
 test('rank prefers impact per cost',()=>assert.equal(rank([{...base,id:'low',impact:0.1},{...base,id:'high'}])[0].id,'high'));
@@ -10,3 +12,8 @@ test('targeted agent for ambiguous low risk',()=>assert.equal(route({...base,unc
 test('routine deterministic',()=>assert.equal(route(base).mode,'deterministic'));
 test('invalid and duplicate inputs fail closed',()=>{assert.throws(()=>score({...base,effort:-1}));assert.throws(()=>rank([base,base]));});
 test('threshold permits no action',()=>assert.deepEqual(rank([base],100),[]));
+test('unverified and duplicates require no AI',()=>{assert.equal(plan(base).action,'verify-source');assert.equal(plan(base,{verified:true,duplicate:true}).action,'skip-duplicate');});
+test('targeted agent has a strict budget',()=>{const c={...base,uncertaintyReduction:0.8};assert.equal(plan(c,{verified:true,modelBudget:0}).modelCalls,0);assert.equal(plan(c,{verified:true,modelBudget:1}).modelCalls,1);});
+test('human gate cannot be bypassed by score',()=>assert.equal(plan({...base,risk:0.9},{verified:true}).action,'request-human-review'));
+test('provider confirmation distinct from approval',()=>{assert.equal(submissionState({approved:true}),'approved-not-confirmed');assert.equal(submissionState({providerConfirmed:true}),'provider-confirmed');});
+test('end-to-end job evidence to build proposal to review trace',()=>{const evidence='https://jobs.ashbyhq.com/ashby/d46e79d4-43fd-477f-aa06-25b604715223';const common={timestamp:'2026-10-19T00:00:00Z',evidence_urls:[evidence],authority:'agent-proposal'};let ledger=append('',{...common,id:'job-verified',agent:'jobs',entity_id:'job-public',kind:'verified',depends_on:[],summary:'Public role evidence'});ledger=append(ledger,{...common,id:'build-proposed',agent:'build',entity_id:'feature-evidence-card',kind:'proposed',depends_on:['job-verified'],summary:'Reusable decision evidence card'});assert.deepEqual(explain(ledger,'feature-evidence-card').map(x=>x.id),['job-verified','build-proposed']);assert.equal(views(ledger).events,2);assert.equal(submissionState({approved:false}),'awaiting-approval');});
