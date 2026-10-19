@@ -3,11 +3,13 @@ on:
   push:
     paths:
       - 'research/**'
+      - 'coordination/**'
       - 'interactive-decision-universe.html'
       - '.github/workflows/clearline-validation.yml'
   pull_request:
     paths:
       - 'research/**'
+      - 'coordination/**'
       - 'interactive-decision-universe.html'
       - '.github/workflows/clearline-validation.yml'
 jobs:
@@ -19,7 +21,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify deterministic representation invariants
-        run: node --test research/representation.test.mjs
+        run: node --test research/representation.test.mjs coordination/ledger.test.mjs coordination/github-store.test.mjs coordination/router.test.mjs coordination/projections.test.mjs
       - name: Verify touch and keyboard undo support
         run: |
           grep -q "addEventListener('pointerdown',save)" interactive-decision-universe.html
