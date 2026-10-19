@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { canonical, encode, decode, digest, validate, parseLedger, append, project } from './ledger.mjs';
+const event = { id:'evt-1',timestamp:'2026-10-19T00:00:00Z',agent:'jobs',entity_id:'role-1',kind:'verified',evidence_urls:['https://example.org/role'],depends_on:[],summary:'Verified listing',authority:'agent-proposal' };
+test('canonical reversible representation',()=> { assert.deepEqual(decode(encode(event)),canonical(event)); assert.equal(encode({b:1,a:2}),encode({a:2,b:1})); });
+test('append and project',()=> { const text=append('',event); assert.deepEqual(parseLedger(text),[event]); assert.deepEqual(project(parseLedger(text),'jobs'),[event]); assert.deepEqual(project(parseLedger(text),'build'),[]); });
+test('duplicate rejected',()=> { const text=append('',event); assert.throws(()=>append(text,event),/Duplicate/); });
+test('stale state rejected',()=> { const text=append('',event); assert.throws(()=>append(text,{...event,id:'evt-2'},digest([])),/Stale/); });
+test('missing dependencies rejected',()=>assert.throws(()=>append('',{...event,depends_on:['missing']}),/dependency/));
+test('private data rejected',()=>assert.throws(()=>validate({...event,summary:'Contact me at jane@example.com'}),/private/));
+test('unconfirmed submissions rejected',()=>assert.throws(()=>validate({...event,kind:'submitted'}),/provider/));
+test('unapproved approvals rejected',()=>assert.throws(()=>validate({...event,kind:'approved'}),/owner/));
+test('invalid schema rejected',()=>assert.throws(()=>validate({...event,extra:true}),/fields/));
+test('invalid evidence URL rejected',()=>assert.throws(()=>validate({...event,evidence_urls:['http://example.org']}),/URL/));
