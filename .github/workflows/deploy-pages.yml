@@ -30,6 +30,8 @@ jobs:
           mkdir -p _site
           cp *.html *.js _site/
           cp -R assets clearline _site/
+          mkdir -p _site/research
+          cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
           cp lab/index.html _site/lab/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
@@ -40,6 +42,10 @@ jobs:
           test -s _site/index.html
           test -s _site/clearline/index.html
           test -d _site/assets
+          test -s _site/interactive-decision-universe.html
+          test -s _site/research/representation.mjs
+          grep -q "from './research/representation.mjs'" _site/interactive-decision-universe.html
+          node --test research/representation.test.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: clearline-preview-site
