@@ -23,11 +23,16 @@ jobs:
           npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
       - name: Run regression suite
         run: node --test tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs
+      - name: Benchmark bounded simulation
+        run: node tests/benchmark.mjs
       - name: Stage Pages artifact
         run: |
           mkdir -p _site
           cp *.html *.js _site/
           cp -R assets clearline _site/
+          mkdir -p _site/lab _site/src
+          cp lab/index.html _site/lab/
+          cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs _site/src/
           touch _site/.nojekyll
       - name: Validate packaged site
         run: |
