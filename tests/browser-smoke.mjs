@@ -17,7 +17,20 @@ try {
     await page.locator('#root').waitFor({ state: 'visible', timeout: 15000 });
     assert.ok((await page.locator('#root').innerText()).trim().length > 100, 'React root did not render meaningful content');
     assert.deepEqual(errors, [], 'Browser JavaScript exceptions');
-    console.log('PASS viewport', viewport.width, viewport.height);
+    const labResponse = await page.goto('http://127.0.0.1:8765/lab/', { waitUntil: 'networkidle', timeout: 30000 });
+    assert.equal(labResponse.status(), 200);
+    await page.locator('#run').click();
+    await page.waitForFunction(() => document.getElementById('results').textContent.includes('"ready"'), { timeout: 10000 });
+    assert.match(await page.locator('#results').innerText(), /Schedule trial/);
+    await page.locator('#verify-qih').click();
+    await page.waitForFunction(() => document.getElementById('qih-results').textContent.includes('"roundTripEquivalent"'), { timeout: 10000 });
+    const holographicResult = await page.locator('#qih-results').innerText();
+    assert.match(holographicResult, /"roundTripEquivalent": true/);
+    assert.match(holographicResult, /"operatorEquivalent": true/);
+    assert.deepEqual(errors, [], 'Browser JavaScript exceptions after QIH experiment');
+    const documentWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    assert.ok(documentWidth <= viewport.width + 1, 'Decision lab overflows viewport horizontally');
+    console.log('PASS main app + QIH lab viewport', viewport.width, viewport.height);
     await page.close();
   }
 } finally {
