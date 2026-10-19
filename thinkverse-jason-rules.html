@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clearline for Thinkverse | District Partnership Operating Model</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#08111f;color:#eef4ff}
+*{box-sizing:border-box}body{margin:0}main{max-width:1080px;margin:auto;padding:24px}
+h1{font-size:clamp(1.8rem,5vw,3.2rem);margin:.2em 0}.eyebrow{color:#72e0c4;font-weight:800;letter-spacing:.12em;font-size:.78rem}
+p{color:#b9c8dc;line-height:1.55}.lede{max-width:780px;font-size:1.08rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:14px}
+.card{background:#111e32;border:1px solid #30445f;border-radius:16px;padding:18px;margin:14px 0}
+h2{margin-top:0;font-size:1.15rem}.rule{margin:13px 0;padding-left:14px;border-left:3px solid #72e0c4}.rule strong{color:#fff}
+.tag{display:inline-block;color:#72e0c4;border:1px solid #376b68;border-radius:999px;padding:4px 8px;font-size:.75rem;font-weight:800}
+button{background:#72e0c4;color:#08111f;border:0;border-radius:9px;padding:11px 14px;font-weight:800;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #fff}
+label{display:block;margin:12px 0;color:#d9e4f2}select,input{width:100%;margin-top:6px;padding:10px;border-radius:9px;border:1px solid #4c6281;background:#0a1425;color:#eef4ff}
+.result{margin-top:14px;padding:14px;border-radius:10px;background:#0a1425;border-left:4px solid #72e0c4}
+.small{font-size:.86rem;color:#96aac6}.metric{background:#0a1425;border-radius:10px;padding:13px}.metric strong{display:block;color:#72e0c4;font-size:1.05rem;margin-bottom:4px}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">CLEARLINE × THINKVERSE · DISTRICT PARTNERSHIPS</div>
+<h1>Turn district interest into trusted, measurable adoption.</h1>
+<p class="lede">A Thinkverse-specific application of the Jason Rules: improve the representation of the district problem before increasing sales effort, product complexity, or AI reasoning. The result is a clearer partnership path from district need → pilot → evidence → scale.</p>
+<div><span class="tag">AI math co-teacher</span> <span class="tag">K–12 districts</span> <span class="tag">human-led adoption</span> <span class="tag">evidence before scale</span></div>
+
+<section class="card"><h2>The Thinkverse Jason Rules</h2>
+<div class="rule"><strong>1. Start with the district outcome.</strong><p>Frame every conversation around a measurable learning or teaching problem—not around AI novelty.</p></div>
+<div class="rule"><strong>2. Map the decision system.</strong><p>Identify the superintendent, curriculum leader, math lead, teacher, student, family, IT, procurement, and budget dependencies before proposing a pilot.</p></div>
+<div class="rule"><strong>3. Preserve educator agency.</strong><p>Represent Thinkverse as an AI co-teacher that supports professional judgment, not an opaque replacement for teachers.</p></div>
+<div class="rule"><strong>4. Make the pilot reversible.</strong><p>Define a bounded cohort, baseline, success measure, privacy boundary, support plan, exit condition, and expansion gate before launch.</p></div>
+<div class="rule"><strong>5. Separate signal from story.</strong><p>Keep student outcomes, usage, teacher feedback, confidence, and implementation evidence distinct. Never turn engagement into proficiency without proof.</p></div>
+<div class="rule"><strong>6. Route the real bottleneck.</strong><p>If adoption is blocked by training, integration, procurement, or trust, do not respond with more product features or more outreach.</p></div>
+<div class="rule"><strong>7. Use the cheapest sufficient experiment.</strong><p>Test the smallest district-relevant hypothesis that can change the next decision, then expand only when evidence and authority align.</p></div>
+<div class="rule"><strong>8. Convert every objection into a dependency.</strong><p>“Teachers are busy,” “IT needs review,” and “we need budget” become explicit owners, prerequisites, evidence, and next actions.</p></div>
+<div class="rule"><strong>9. Keep agents proposal-only.</strong><p>AI may summarize, identify patterns, and propose next steps; district commitments, claims, and consequential actions require human approval.</p></div>
+<div class="rule"><strong>10. Scale only what survives review.</strong><p>Expansion requires reproducible evidence, educator acceptance, operational readiness, and a clear rollback path.</p></div>
+</section>
+
+<section class="grid">
+<div class="card"><h2>Partnership loop</h2>
+<div class="metric"><strong>1 · Diagnose</strong> District priority, baseline, stakeholders, constraints</div>
+<div class="metric"><strong>2 · Design</strong> Small pilot with explicit measures and safeguards</div>
+<div class="metric"><strong>3 · Learn</strong> Compare outcomes, implementation, and teacher signal</div>
+<div class="metric"><strong>4 · Decide</strong> Continue, adjust, pause, or scale with evidence</div>
+</div>
+<div class="card"><h2>What I would bring</h2>
+<p>Education leadership, partnership development, operating-system design, P&L discipline, lifecycle improvement, and practical governance for AI-enabled programs.</p>
+<p class="small">The operating model is designed to help district partnerships move faster without losing trust, evidence quality, or human accountability.</p>
+</div>
+</section>
+
+<section class="card"><h2>Interactive routing example</h2>
+<p class="small">Use the current district condition to demonstrate how the model selects the next best work.</p>
+<div class="grid">
+<label>Primary bottleneck<select id="b"><option value="outcome">Unclear outcome</option><option value="trust">Educator trust</option><option value="implementation">Implementation capacity</option><option value="evidence">Insufficient evidence</option></select></label>
+<label>Consequence<select id="r"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></label>
+</div>
+<button id="go">Route next action</button><div id="out" class="result" aria-live="polite"></div>
+</section>
+<section class="card"><h2>Evidence boundary</h2><p>Thinkverse describes itself as an AI-driven personalized and adaptive math tutor for K–12 districts, and its public site presents district outcome claims. In an interview or pilot, I would treat those claims as starting evidence to validate by district, cohort, baseline, and measurement design—not as a substitute for local proof.</p><p class="small">This work sample is a proposed operating model, not a claim of Thinkverse internal access or employment.</p></section>
+<script>
+function route(){const b=document.getElementById('b').value,r=document.getElementById('r').value;const x={outcome:['Run a district discovery map','define one measurable math outcome and baseline before demoing scale'],trust:['Run an educator co-design session','show teacher control, explainability, and classroom workflow before expansion'],implementation:['Build a readiness plan','assign owners for training, rostering, IT, support, and procurement'],evidence:['Design a bounded pilot review','compare baseline, usage, teacher signal, and student outcome evidence before scaling']}[b];const gate=r==='high'?'human approval, written evidence, and rollback gate':r==='medium'?'reviewable proposal and evidence record':'reversible next step with lightweight review';document.getElementById('out').innerHTML='<strong>Next action:</strong> '+x[0]+'<br><strong>Why:</strong> '+x[1]+'<br><strong>Authority:</strong> '+gate+'.'}document.getElementById('go').onclick=route;route();
+</script>
+</main></body></html>
