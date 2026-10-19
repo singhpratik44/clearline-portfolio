@@ -10,4 +10,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: node --test tests/*.mjs
+      - name: Build franchise engine in isolated CI workspace
+        run: |
+          npm install --no-save --no-package-lock react@18 react-dom@18 esbuild@0.25
+          npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
+      - name: Validate HTML and local assets
+        run: node --test tests/*.mjs
