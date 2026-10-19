@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify deterministic representation invariants
-        run: node --test research/representation.test.mjs coordination/ledger.test.mjs
+        run: node --test research/representation.test.mjs coordination/ledger.test.mjs coordination/github-store.test.mjs
       - name: Verify touch and keyboard undo support
         run: |
           grep -q "addEventListener('pointerdown',save)" interactive-decision-universe.html
