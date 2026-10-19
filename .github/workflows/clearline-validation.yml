@@ -20,6 +20,10 @@ jobs:
           node-version: '22'
       - name: Verify deterministic representation invariants
         run: node --test research/representation.test.mjs
+      - name: Verify touch and keyboard undo support
+        run: |
+          grep -q "addEventListener('pointerdown',save)" interactive-decision-universe.html
+          grep -q "addEventListener('keydown'" interactive-decision-universe.html
       - name: Verify interactive module wiring
         run: |
           grep -q 'type="module"' interactive-decision-universe.html
