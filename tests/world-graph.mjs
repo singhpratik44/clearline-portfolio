@@ -1,0 +1,11 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { analyzeWorld } from '../src/world-graph.mjs';
+const nodes = [{id:'staff',completed:true},{id:'trial'},{id:'enroll'},{id:'cash'}];
+const edges = [{from:'staff',to:'trial'},{from:'trial',to:'enroll'},{from:'enroll',to:'cash'}];
+test('orders dependencies and reveals actionable work',()=>{const r=analyzeWorld(nodes,edges);assert.deepEqual(r.order,['staff','trial','enroll','cash']);assert.deepEqual(r.actionable,['trial']);});
+test('reports transitive failure blast radius',()=>assert.deepEqual(analyzeWorld(nodes,edges).blastRadius.staff,['cash','enroll','trial']));
+test('computes dependency depth',()=>assert.equal(analyzeWorld(nodes,edges).depth.cash,3));
+test('rejects cycles',()=>assert.throws(()=>analyzeWorld(nodes,[...edges,{from:'cash',to:'staff'}]),/cycle/));
+test('rejects unknown and duplicate edges',()=>{assert.throws(()=>analyzeWorld(nodes,[{from:'x',to:'staff'}]),/unknown/);assert.throws(()=>analyzeWorld(nodes,[edges[0],edges[0]]),/duplicate/);});
+test('preserves input state',()=>{const a=structuredClone(nodes),b=structuredClone(edges);analyzeWorld(nodes,edges);assert.deepEqual(nodes,a);assert.deepEqual(edges,b);});
