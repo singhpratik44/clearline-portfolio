@@ -2,7 +2,7 @@
 
 **Mission:** Make consequential organizational decisions explainable, testable, authorized, recoverable, and more efficient through one versioned operating model.
 
-**[Live portfolio](https://singhpratik44.github.io/clearline-portfolio/)** · **[Interactive Decision Universe (development source)](./interactive-decision-universe.html)** · **[Architecture and goals](./docs/MASTER_PLAN.md)**
+**[Live portfolio](https://singhpratik44.github.io/clearline-portfolio/)** · **[Interactive Decision Universe (development source)](./interactive-decision-universe.html)** · **[Jason Rules](./jason-rules.html)** · **[Architecture and goals](./docs/MASTER_PLAN.md)**
 
 > Status: the interactive prototype is on the development branch, not confirmed deployed. It uses illustrative assumptions, not real employer data. Jason Padgett-inspired reversible representation work is experimental conventional computation, not quantum hardware or a demonstrated quantum advantage.
 
@@ -24,6 +24,8 @@
 Open `interactive-decision-universe.html` through a local static server, because its ES module import requires HTTP rather than `file://`. No API key or build step is required. Example: `python3 -m http.server 8000` from the repository root, then open `http://localhost:8000/interactive-decision-universe.html`.
 
 Run the deterministic research tests with `node --test research/representation.test.mjs` (Node.js 20+). CI configuration is in `.github/workflows/clearline-validation.yml`.
+
+The [Jason Rules page](./jason-rules.html) turns the research boundary into an operational evaluator: representation search, reversible transforms, baseline comparison, bounded routing, stop conditions, and authority gates.
 
 ## Current verified implementation scope
 
