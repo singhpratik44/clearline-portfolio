@@ -1,0 +1,26 @@
+name: Clearline deterministic validation
+on:
+  push:
+    paths:
+      - 'research/**'
+      - 'interactive-decision-universe.html'
+      - '.github/workflows/clearline-validation.yml'
+  pull_request:
+    paths:
+      - 'research/**'
+      - 'interactive-decision-universe.html'
+      - '.github/workflows/clearline-validation.yml'
+jobs:
+  representation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify deterministic representation invariants
+        run: node --test research/representation.test.mjs
+      - name: Verify interactive module wiring
+        run: |
+          grep -q 'type="module"' interactive-decision-universe.html
+          grep -q "from './research/representation.mjs'" interactive-decision-universe.html
