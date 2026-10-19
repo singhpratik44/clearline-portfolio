@@ -28,3 +28,17 @@ jobs:
         run: |
           grep -q 'type="module"' interactive-decision-universe.html
           grep -q "from './research/representation.mjs'" interactive-decision-universe.html
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Chromium browser automation
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Test mobile and desktop interactive journeys
+        run: node tests/interactive-browser.mjs
