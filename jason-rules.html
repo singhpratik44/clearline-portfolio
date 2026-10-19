@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clearline | Jason Rules</title>
+<style>
+:root{color-scheme:dark;font-family:system-ui,-apple-system,sans-serif;background:#08111f;color:#eef4ff}
+*{box-sizing:border-box}body{margin:0}main{max-width:1050px;margin:auto;padding:24px}
+h1{font-size:clamp(1.8rem,5vw,3.2rem);margin:.2em 0}.eyebrow{color:#72e0c4;font-weight:800;letter-spacing:.12em;font-size:.78rem}
+p{color:#b9c8dc;line-height:1.55}.lede{max-width:760px;font-size:1.08rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px}
+.card{background:#111e32;border:1px solid #30445f;border-radius:16px;padding:18px;margin:14px 0}
+h2{margin-top:0;font-size:1.1rem}.rule{display:grid;grid-template-columns:42px 1fr;gap:12px;margin:14px 0}
+.num{color:#08111f;background:#72e0c4;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-weight:900}
+label{display:block;margin:12px 0;color:#d9e4f2}select,input{width:100%;margin-top:6px;padding:10px;border-radius:9px;border:1px solid #4c6281;background:#0a1425;color:#eef4ff}
+button{background:#72e0c4;color:#08111f;border:0;border-radius:9px;padding:11px 14px;font-weight:800;cursor:pointer}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #fff}
+.result{margin-top:14px;padding:14px;border-radius:10px;background:#0a1425;border-left:4px solid #72e0c4}
+.good{color:#72e0c4}.warn{color:#ffcc7a}.small{font-size:.86rem;color:#96aac6}
+code{color:#ffcc7a}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">CLEARLINE / APERTURE · JASON RULES v1</div>
+<h1>Search for better representations. Prove the useful ones.</h1>
+<p class="lede">A disciplined research-and-decision protocol inspired by reversible representation work. It makes the system more intelligent by improving the question and the representation before spending more inference, simulation, or human attention.</p>
+
+<section class="card"><h2>The operating rules</h2>
+<div class="rule"><div class="num">1</div><div><strong>Preserve the object.</strong><p>Never optimize a display, prompt, or score while silently changing the underlying decision object. Keep identity, assumptions, dependencies, and authority intact.</p></div></div>
+<div class="rule"><div class="num">2</div><div><strong>Search representation before complexity.</strong><p>Try a clearer state encoding, dependency graph, invariant, or decomposition before adding a larger model or more agents.</p></div></div>
+<div class="rule"><div class="num">3</div><div><strong>Require reversible transformations.</strong><p>Every transformation must have a deterministic inverse, a round-trip test, or an explicit loss certificate. No hidden information loss.</p></div></div>
+<div class="rule"><div class="num">4</div><div><strong>Separate equivalence from improvement.</strong><p>A new representation may be easier to compute without being more truthful. Test semantic equivalence first; claim improvement only against a baseline.</p></div></div>
+<div class="rule"><div class="num">5</div><div><strong>Use the cheapest sufficient route.</strong><p>Route routine work to deterministic rules, ambiguity to targeted agents, complex tradeoffs to bounded simulation, and consequential actions to authorized humans.</p></div></div>
+<div class="rule"><div class="num">6</div><div><strong>Spend compute where uncertainty is causal.</strong><p>Do not ask an agent to reason about a downstream symptom when a prerequisite, capacity limit, or missing fact explains it.</p></div></div>
+<div class="rule"><div class="num">7</div><div><strong>Make failure informative.</strong><p>Every failed proposal must identify the violated invariant, missing evidence, affected dependencies, and smallest recoverable next experiment.</p></div></div>
+<div class="rule"><div class="num">8</div><div><strong>Bound the search.</strong><p>Set budgets for time, tokens, simulations, branches, and risk. Stop when the marginal evidence is lower than the cost.</p></div></div>
+<div class="rule"><div class="num">9</div><div><strong>Never let exploration mutate truth.</strong><p>Agents and simulations produce proposals, patches, and evidence. Only the kernel can update canonical state, and only after authorization.</p></div></div>
+<div class="rule"><div class="num">10</div><div><strong>Publish uncertainty honestly.</strong><p>Label theory, simulation evidence, operational evidence, and hardware demonstration separately. Never convert an interesting result into an unsupported claim.</p></div></div>
+</section>
+
+<section class="card"><h2>Route a decision</h2>
+<p class="small">This evaluator is deterministic. It demonstrates the rule: complexity and uncertainty choose the method; consequence chooses the approval gate.</p>
+<div class="grid">
+<label>Uncertainty
+<select id="uncertainty"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></label>
+<label>Dependency complexity
+<select id="complexity"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></label>
+<label>Consequence
+<select id="risk"><option value="low">Low</option><option value="medium" selected>Medium</option><option value="high">High</option></select></label>
+</div>
+<button id="route">Evaluate route</button><div id="result" class="result" aria-live="polite"></div>
+</section>
+
+<section class="card"><h2>Proof obligations</h2>
+<p>Before accepting a new representation, run:</p>
+<ul><li>canonicalization is deterministic;</li><li>round-trip output is preserved;</li><li>baseline and new method use the same inputs;</li><li>constraints and authorization remain unchanged;</li><li>failure and rollback paths are recorded;</li><li>claims match the evidence level.</li></ul>
+<p class="small">Jason/QIH is experimental conventional computation. This page does not claim quantum hardware, quantum advantage, or a formal proof of a physical theory.</p>
+</section>
+<script>
+const rank={low:0,medium:1,high:2};
+function evaluate(){
+ const u=document.getElementById('uncertainty').value,c=document.getElementById('complexity').value,r=document.getElementById('risk').value;
+ const score=rank[u]+rank[c], method=score>=4?'bounded simulation / counterfactual search':score>=2?'targeted agent + invariant checks':'deterministic rule / baseline';
+ const gate=r==='high'?'human approval + append-only ledger':r==='medium'?'reviewable proposal + evidence record':'automatic reversible action';
+ const stop=score>=4?'Stop if the search cannot improve the baseline within its budget.':'Stop after the invariant and baseline checks pass.';
+ document.getElementById('result').innerHTML='<strong>Route:</strong> '+method+'<br><strong>Authority:</strong> '+gate+'<br><strong>Stop condition:</strong> '+stop;
+}
+document.getElementById('route').onclick=evaluate;evaluate();
+</script>
+</main></body></html>
