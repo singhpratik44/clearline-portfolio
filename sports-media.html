@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#091526">
+<meta name="description" content="APERTURE Sports & Media: basketball storytelling, audience growth, publisher revenue intelligence, and evidence-first operating systems by Pratik Singh.">
+<meta property="og:title" content="APERTURE | Basketball, Media & Revenue Intelligence">
+<meta property="og:description" content="From compelling basketball stories to measurable audience growth. Research prototypes, editorial samples, and publisher economics — transparently labeled.">
+<title>APERTURE | Basketball, Media & Revenue Intelligence</title>
+<style>
+:root{--bg:#091526;--surface:#11233a;--surface2:#182d47;--ink:#f7f4ed;--muted:#b7c4d2;--gold:#edc67b;--line:#344b62;--focus:#f4d48b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--gold)}a:hover{text-decoration-thickness:2px}a:focus-visible,input:focus-visible,button:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.wrap{max-width:1120px;margin:auto;padding:0 22px}.header{border-bottom:1px solid var(--line);background:#0b1b2e}
+.header .wrap{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:17px;padding-bottom:17px}
+.brand{font:700 14px/1.3 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;color:var(--gold);text-decoration:none}
+.brand span{font:500 10px/1.6 system-ui;display:block;letter-spacing:.12em;color:var(--muted)}
+nav{display:flex;gap:18px;flex-wrap:wrap}nav a{color:var(--ink);text-decoration:none;font-size:13px}
+.eyebrow{font:700 11px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.hero{padding:82px 0 68px;background:radial-gradient(circle at 85% 15%,#213d59 0,#091526 45%)}
+.hero h1{font:500 clamp(40px,6.3vw,76px)/1.06 Georgia,"Times New Roman",serif;max-width:930px;letter-spacing:-.035em;margin:18px 0 23px}
+.hero h1 em{font-style:normal;color:var(--gold)}.hero p{max-width:720px;color:#d0d9e1;font-size:18px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}.btn{display:inline-block;text-decoration:none;color:#0c1b2d;background:var(--gold);padding:12px 19px;border-radius:5px;font-weight:750;font-size:14px}
+.btn.secondary{color:var(--ink);background:transparent;border:1px solid var(--muted)}.section{padding:66px 0;border-top:1px solid var(--line)}
+h2{font:500 clamp(28px,4vw,42px)/1.15 Georgia,serif;letter-spacing:-.02em;margin:10px 0 18px}
+.section-intro{max-width:750px;color:var(--muted);margin-bottom:29px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:25px}
+.card h3{font-size:20px;line-height:1.28;margin:10px 0}.card p{color:var(--muted);margin:10px 0}
+.pill{display:inline-block;border:1px solid #6c7482;border-radius:50px;padding:3px 10px;color:#e4d9c4;font:600 10px ui-monospace,Menlo,monospace;letter-spacing:.07em;text-transform:uppercase}
+.card .link{display:inline-block;margin-top:12px;font-weight:700;text-underline-offset:4px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:30px}
+.kpis div{background:var(--surface);padding:18px}.kpis strong{color:var(--gold);display:block;font-size:22px}.kpis small{color:var(--muted);display:block}
+.model{display:grid;grid-template-columns:1fr 1fr;gap:24px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:26px}
+label{display:block;font-weight:650;margin:19px 0 8px}label span{float:right;color:var(--gold);font-variant-numeric:tabular-nums}
+input[type=range]{width:100%;accent-color:var(--gold);cursor:pointer} .result{background:var(--surface2);border:1px solid var(--line);padding:25px;border-radius:8px;align-self:stretch}
+.result strong{font:600 clamp(30px,5vw,53px)/1.2 Georgia,serif;color:var(--gold);display:block;margin:13px 0}
+.result small,.fineprint{color:var(--muted);font-size:13px}.result dl{display:grid;grid-template-columns:1fr auto;gap:10px}.result dt{color:var(--muted)}.result dd{margin:0;font-variant-numeric:tabular-nums}
+.steps{counter-reset:step;display:grid;gap:14px}.steps div{background:var(--surface);border-left:3px solid var(--gold);padding:15px 20px}.steps h3{margin:0 0 4px;font-size:17px}.steps p{margin:0;color:var(--muted)}
+.table-wrap{overflow-x:auto}.table{width:100%;border-collapse:collapse;min-width:570px}.table th,.table td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);vertical-align:top}.table th{color:var(--gold);font-size:13px}.table td{color:var(--muted);font-size:14px}
+.contact{background:linear-gradient(120deg,#152a42,#23364b);border:1px solid var(--line);padding:32px;border-radius:13px}.contact h2{margin:8px 0 13px}.contact p{max-width:730px;color:#d8e0e8}
+footer{padding:30px 0 44px;color:var(--muted);font-size:12px;border-top:1px solid var(--line)}footer a{margin-right:13px}
+@media(max-width:700px){.hero{padding:58px 0}.section{padding:43px 0}.model{grid-template-columns:1fr;padding:17px}.kpis{grid-template-columns:1fr}.header .wrap{align-items:flex-start}nav{gap:12px}.contact{padding:21px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="header"><div class="wrap">
+  <a class="brand" href="index.html">◈ APERTURE <span>BY CLEARLINE GROUP LLC · PORTFOLIO</span></a>
+  <nav aria-label="Main navigation"><a href="#work">Selected work</a><a href="#economics">Revenue model</a><a href="#method">Method</a><a href="#contact">Contact</a><a href="clearline/">Core portfolio</a></nav>
+</div></header>
+<main>
+<section class="hero"><div class="wrap">
+  <div class="eyebrow">Sports media / audience growth / operational intelligence</div>
+  <h1>Tell a story worth reading. <em>Build an audience worth returning for.</em></h1>
+  <p>I'm Pratik Singh — a basketball coach, multi-unit operations leader, and computer science graduate building APERTURE. I connect the emotional pull of sport with disciplined experimentation: discovery, retention, publishing economics, and decisions that can be checked against evidence.</p>
+  <div class="actions"><a class="btn" href="#work">Explore basketball work</a><a class="btn secondary" href="#economics">Try the publisher revenue model</a><a class="btn secondary" href="https://dependency-delivery.kobez2417.chatgpt.site/" target="_blank" rel="noopener noreferrer">Open APERTURE operating system ↗</a></div>
+</div></section>
+<section class="section" id="work"><div class="wrap">
+  <div class="eyebrow">Selected work · different evidence levels</div><h2>Creative direction meets commercial discipline.</h2>
+  <p class="section-intro">Editorial samples, proposal-stage research, and independent software demonstrations are deliberately separated. None is presented as commissioned publisher work or verified client revenue.</p>
+  <div class="grid">
+    <article class="card"><span class="pill">Independent proposal · hypothetical</span><h3>Basketball Revenue Intelligence</h3><p>A publisher growth case: Lakers/Clippers discovery paths, returning readers, newsletter conversion, ad yield, and a proposed 30-day experiment. Uses illustrative financial scenarios, not LWOS internal performance data.</p><a class="link" href="#economics">Explore financial model →</a></article>
+    <article class="card"><span class="pill">AI-assisted creative sample</span><h3>Fallen Angel — Kobe, loss & legacy</h3><p>Original concept and creative direction exploring Kobe's legacy through emotional basketball storytelling. AI helped structure and polish the presentation. This is not claimed to be a human-only publication submission.</p><a class="link" href="https://fallen-angel-kobe.netlify.app/" target="_blank" rel="noopener noreferrer">Open narrative experience ↗</a></article>
+    <article class="card"><span class="pill">Interactive prototype · simulated</span><h3>Youth Basketball Academy Engine</h3><p>A governed operations model for training pathways, academy economics, program capacity and development decisions. Prototype data is illustrative; no external customer outcomes are claimed.</p><a class="link" href="basketball.html">Explore academy model →</a></article>
+    <article class="card"><span class="pill">Operating framework · demonstrator</span><h3>APERTURE — Decision &amp; Evidence</h3><p>Dependency tracking, proposal gates, owner accountability, evidence registers and correction loops. A cross-domain architecture adapted here to media growth without replacing human editorial authority.</p><a class="link" href="https://dependency-delivery.kobez2417.chatgpt.site/" target="_blank" rel="noopener noreferrer">Open APERTURE ↗</a></article>
+  </div>
+</div></section>
+<section class="section" id="economics"><div class="wrap">
+  <div class="eyebrow">Interactive model · scenario only</div><h2>Viewership is a means. Contribution is the goal.</h2>
+  <p class="section-intro">Advertising alone often requires substantial incremental reach. Adjust the assumptions below to understand gross revenue versus estimated contribution. All values are hypothetical. Real projections require the publisher's own data, contracts, and baseline.</p>
+  <div class="model">
+    <div>
+      <label for="views">Additional monthly pageviews <span id="viewsLabel">100,000</span></label><input type="range" id="views" min="0" max="1000000" step="10000" value="100000">
+      <label for="rpm">Publisher page RPM (USD) <span id="rpmLabel">$5.00</span></label><input type="range" id="rpm" min="1" max="20" step="0.5" value="5">
+      <label for="share">Illustrative contributor payout <span id="shareLabel">25%</span></label><input type="range" id="share" min="0" max="60" step="5" value="25">
+      <label for="cost">Incremental monthly expenses <span id="costLabel">$200</span></label><input type="range" id="cost" min="0" max="5000" step="100" value="200">
+      <p class="fineprint">Page RPM must use one consistent revenue definition. Model excludes sponsorships, taxes, and fixed overhead not changed by the experiment. Negative contribution is possible.</p>
+    </div>
+    <div class="result" aria-live="polite" aria-atomic="true">
+      <div class="eyebrow">Scenario · incremental monthly contribution</div>
+      <strong id="contribution">$175</strong>
+      <dl><dt>Estimated gross ad revenue</dt><dd id="gross">$500</dd><dt>Illustrative contributor payout</dt><dd id="payout">$125</dd><dt>Incremental expenses</dt><dd id="expense">$200</dd></dl>
+      <p class="fineprint">This is a calculator, not a claim about LWOS or another publication's earnings.</p>
+    </div>
+  </div>
+  <div class="kpis"><div><strong>Traffic quality</strong><small>Revenue by referral source, device and article category</small></div><div><strong>Reader loyalty</strong><small>Repeat visits, second-article opens and consented signups</small></div><div><strong>Net contribution</strong><small>Incremental yield less payouts, production and distribution costs</small></div></div>
+</div></section>
+<section class="section" id="method"><div class="wrap">
+  <div class="eyebrow">APERTURE · commercial operating method</div><h2>30 days from assumption to evidence.</h2>
+  <div class="steps">
+    <div><h3>Week 1 — Baseline before forecasts</h3><p>Collect permitted aggregate metrics: monetized pageviews, channel mix, return rate, ad yield, contributor economics and newsletter activity. Record what is missing.</p></div>
+    <div><h3>Week 2 — Test meaningful navigation</h3><p>Compare publisher-approved, team-relevant article recommendations and newsletter placements with existing pathways. Protect user experience.</p></div>
+    <div><h3>Week 3 — Acquire qualified fans responsibly</h3><p>Distribute existing, human-authored editorial through approved social, email and community channels. Attribute costs and repeat engagement.</p></div>
+    <div><h3>Week 4 — Make a commercial decision</h3><p>Measure incremental contribution against the baseline. Scale, revise, or stop. Keep the experiment's assumptions and limitations visible.</p></div>
+  </div>
+  <h2 style="margin-top:46px">Where I can contribute</h2>
+  <div class="table-wrap"><table class="table"><thead><tr><th>Function</th><th>Contribution</th><th>Evidence boundary</th></tr></thead><tbody>
+    <tr><td>Basketball media / creative direction</td><td>Story concepts, coaching perspective, audience empathy, narrative prototyping</td><td>AI involvement disclosed; comply with each outlet's editorial policy</td></tr>
+    <tr><td>Audience development</td><td>Distribution tests, editorially approved recommendations, returning-reader journeys</td><td>Growth hypotheses require traffic analytics to validate</td></tr>
+    <tr><td>Revenue operations</td><td>Publisher economics, pilot ROI, attribution, sponsorship feasibility</td><td>No private publisher data or realized sales claimed</td></tr>
+    <tr><td>Technical program management</td><td>Versioned decisions, dependencies, approval gates, evidence-led operations</td><td>Portfolio prototypes distinguished from live integrations</td></tr>
+  </tbody></table></div>
+  <p class="fineprint" style="margin-top:15px">Editorial integrity: APERTURE may support commercial analytics only with the publisher's consent. It does not authorize AI-written journalism, unlicensed imagery, manipulation of traffic, or the circumvention of editorial standards.</p>
+</div></section>
+<section class="section"><div class="wrap"><div class="contact" id="contact"><div class="eyebrow">Work together</div><h2>A story, a system, or a measurable growth experiment.</h2><p>For sports media publishers, team operations groups, basketball programs, and hiring managers: I can discuss the creative sample, a bounded audience-growth pilot, or technical operations work. I am not claiming editorial employment with Last Word On Sports or any named publisher.</p><div class="actions"><a class="btn" href="mailto:parry.s.2324@gmail.com?subject=APERTURE%20sports%20media%20conversation">Contact Pratik</a><a class="btn secondary" href="https://www.linkedin.com/in/pratik-singh-633578178" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a><a class="btn secondary" href="clearline/">Full portfolio ↗</a></div></div></div></section>
+</main>
+<footer><div class="wrap">© 2026 Pratik Singh · Clearline Group LLC · Independent portfolio work. Financial figures above are scenarios, not actual publisher revenue.<br><a href="index.html">APERTURE home</a><a href="clearline/">Governance register</a><a href="https://github.com/singhpratik44/clearline-portfolio" target="_blank" rel="noopener noreferrer">Source repository</a></div></footer>
+<script>
+(function(){
+const els={views:document.getElementById('views'),rpm:document.getElementById('rpm'),share:document.getElementById('share'),cost:document.getElementById('cost')};
+const money=(v)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(v);
+const integer=(v)=>new Intl.NumberFormat('en-US').format(v);
+function recalc(){
+const views=Number(els.views.value),rpm=Number(els.rpm.value),share=Number(els.share.value)/100,cost=Number(els.cost.value);
+const gross=views*rpm/1000,payout=gross*share,contribution=gross-payout-cost;
+document.getElementById('viewsLabel').textContent=integer(views);
+document.getElementById('rpmLabel').textContent='$'+rpm.toFixed(2);
+document.getElementById('shareLabel').textContent=Math.round(share*100)+'%';
+document.getElementById('costLabel').textContent=money(cost);
+document.getElementById('gross').textContent=money(gross);
+document.getElementById('payout').textContent=money(payout);
+document.getElementById('expense').textContent=money(cost);
+document.getElementById('contribution').textContent=money(contribution);
+}
+Object.values(els).forEach(el=>el.addEventListener('input',recalc));recalc();
+})();
+</script>
+</body></html>
