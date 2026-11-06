@@ -2,9 +2,15 @@
 
 **Mission:** Make consequential organizational decisions explainable, testable, authorized, recoverable, and more efficient through one versioned operating model.
 
-**[Live portfolio](https://singhpratik44.github.io/clearline-portfolio/)** · **[Sports & Media case study](https://singhpratik44.github.io/clearline-portfolio/sports-media.html)** · **[Interactive Decision Universe (development source)](./interactive-decision-universe.html)** · **[Jason Rules](./jason-rules.html)** · **[Thinkverse work sample](./thinkverse-jason-rules.html)** · **[Architecture and goals](./docs/MASTER_PLAN.md)**
+**[Live portfolio](https://singhpratik44.github.io/clearline-portfolio/)** · **[Coaching journey: Faith × APERTURE](./coaching-journey.html)** · **[Sports & Media case study](https://singhpratik44.github.io/clearline-portfolio/sports-media.html)** · **[Interactive Decision Universe (development source)](./interactive-decision-universe.html)** · **[Jason Rules](./jason-rules.html)** · **[Thinkverse work sample](./thinkverse-jason-rules.html)** · **[Architecture and goals](./docs/MASTER_PLAN.md)**
 
 > Status: the interactive prototype is on the development branch, not confirmed deployed. It uses illustrative assumptions, not real employer data. Jason Padgett-inspired reversible representation work is experimental conventional computation, not quantum hardware or a demonstrated quantum advantage.
+
+## Coaching journey and scripture-guided basketball (November 2026)
+
+The [coaching journey](./coaching-journey.html) describes Pratik “Parry” Singh’s actual high-school basketball background, youth coaching with SoCal Elite Sports in 2026, and education leadership. Personal coaching reflections draw respectfully from Sri Guru Granth Sahib Ji (Ang 1) and the Holy Bible (Proverbs 27:17, KJV), distinguishing the traditions instead of treating them as identical.
+
+The embedded practice builder is a deterministic, illustrative 45/60/75-minute session planner. It does not collect athlete profiles, assess minors, access private coaching data, or claim demonstrated player outcomes. From the portfolio home and the existing basketball instrument, navigation links connect this personal narrative to APERTURE coaching and governance prototypes.
 
 ## Sports media and basketball audience growth (November 2026)
 
