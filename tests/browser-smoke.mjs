@@ -30,6 +30,20 @@ try {
     assert.deepEqual(errors, [], 'Browser JavaScript exceptions after QIH experiment');
     const documentWidth = await page.evaluate(() => document.documentElement.scrollWidth);
     assert.ok(documentWidth <= viewport.width + 1, 'Decision lab overflows viewport horizontally');
+    const coachResponse = await page.goto('http://127.0.0.1:8765/coaching-journey.html', { waitUntil: 'networkidle', timeout: 30000 });
+    assert.equal(coachResponse.status(), 200);
+    await page.locator('#duration').selectOption('75');
+    await page.locator('#group').selectOption('growth');
+    await page.locator('#focus').selectOption('passing');
+    await page.locator('#build').click();
+    assert.match(await page.locator('#plan-heading').innerText(), /Passing & teamwork/);
+    assert.match(await page.locator('#plan-subhead').innerText(), /75 minute sample · Grades 6–8/);
+    const minutes = await page.locator('.minutes').allTextContents();
+    assert.equal(minutes.reduce((sum, value) => sum + Number.parseInt(value, 10), 0), 75);
+    const coachingWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    assert.ok(coachingWidth <= viewport.width + 1, 'Coaching journey overflows viewport horizontally');
+    assert.deepEqual(errors, [], 'Browser exceptions on coaching journey');
+    console.log('PASS coaching journey and 75-minute practice lab viewport', viewport.width, viewport.height);
     console.log('PASS main app + QIH lab viewport', viewport.width, viewport.height);
     await page.close();
   }
