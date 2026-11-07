@@ -4,11 +4,15 @@ on:
     paths:
       - 'research/**'
       - 'interactive-decision-universe.html'
+      - 'civilization-lab.html'
+      - 'tests/civilization-browser.mjs'
       - '.github/workflows/clearline-validation.yml'
   pull_request:
     paths:
       - 'research/**'
       - 'interactive-decision-universe.html'
+      - 'civilization-lab.html'
+      - 'tests/civilization-browser.mjs'
       - '.github/workflows/clearline-validation.yml'
 jobs:
   representation:
@@ -41,4 +45,6 @@ jobs:
           npm install --no-save --no-package-lock playwright
           npx playwright install --with-deps chromium
       - name: Test mobile and desktop interactive journeys
-        run: node tests/interactive-browser.mjs
+        run: |
+          node tests/interactive-browser.mjs
+          node tests/civilization-browser.mjs
