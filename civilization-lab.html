@@ -30,4 +30,33 @@ $("resetWorkspace").onclick=()=>{if(!confirm("Clear all locally stored APERTURE 
 $("importTrigger").onclick=()=>$("importFile").click();
 $("importFile").onchange=async e=>{const f=e.target.files&&e.target.files[0];if(!f)return;if(f.size>2000000){$("workspaceStatus").textContent="File too large (maximum 2 MB).";return}try{const data=JSON.parse(await f.text());if(!confirm("Replace the current session ledger with the imported records?"))return;loadData(data);persist();$("workspaceStatus").textContent="Imported ledger and saved locally."}catch(err){$("workspaceStatus").textContent="Import rejected: "+err.message}finally{$("importFile").value=""}};
 render();
+
+const agentSpecs=[
+["Research questions, source list and time horizon","Cited research inventory and open questions","Search results do not establish truth"],
+["Claim, provenance and review criteria","Unsupported or disputed claims","Cannot independently certify institutional facts"],
+["Assumptions, capacity and scenario constraints","Scenario table with sensitivity","Estimates are illustrative until validated"],
+["Domain nodes and prerequisite edges","Dependency checklist and downstream impact","Missing prerequisites cannot be silently ignored"],
+["Risk, policy and delegated authority","Review gates and escalation notes","Agents cannot self-authorize"],
+["Approved plan, owner and permissions","Human-auditable delivery checklist","External writes require explicit approval"],
+["Consented age-appropriate sports observations","Coach and scout planning support","No private youth data in public systems"],
+["Organization context and approved contact channel","Partnership proposal draft","No sending without human approval"],
+["Baseline, observed outcome and measurement window","Outcome comparison and limitations","No invented performance claims"],
+["Reviewed feedback and error patterns","Proposed workflow revisions","Evidence cannot be retroactively rewritten"]
+];
+document.querySelectorAll("[data-agent]").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("[data-agent]").forEach(function(q){q.setAttribute("aria-pressed",String(q===b))});const i=Number(b.dataset.agent),s=agentSpecs[i];$("agentDetail").innerHTML="<strong>"+safe(roles[i])+" / ROLE SPECIFICATION</strong><p><b>Inputs:</b> "+safe(s[0])+"</p><p><b>Outputs:</b> "+safe(s[1])+"</p><p><b>Boundary:</b> "+safe(s[2])+"</p><small>Not deployed; human review required.</small>"})});
+const presets={sports:{title:"Basketball academy / capacity model",participants:200,conversion:35,capacity:60,price:150},stem:{title:"STEM center / capacity model",participants:120,conversion:30,capacity:45,price:250},community:{title:"Community program / capacity model",participants:300,conversion:20,capacity:80,price:40}};
+document.querySelectorAll("[data-preset]").forEach(function(b){b.addEventListener("click",function(){document.querySelectorAll("[data-preset]").forEach(function(x){x.setAttribute("aria-pressed",String(x===b))});const p=presets[b.dataset.preset];$("scenarioTitle").textContent=p.title;["participants","conversion","capacity","price"].forEach(function(k){$(k).value=p[k]});update()})});
+const updateBase=update;
+update=function(){updateBase();const rate=Number($("conversion").value),values=[Math.max(0,rate-10),rate,Math.min(100,rate+10)].map(compute),max=Math.max(1,...values.map(function(x){return x.enrolled}));$("scenarioBars").innerHTML=values.map(function(x,i){return '<div class="barwrap"><small>'+["Low","Base","High"][i]+' '+x.enrolled+'</small><div class="bar" style="height:'+Math.round(x.enrolled/max*100)+'px"></div></div>'}).join("")};
+const renderBase=render;
+render=function(){renderBase();const sel=$("linkedEvidence"),selected=sel.value;sel.innerHTML='<option value="">No record selected</option>'+evidence.map(function(x,i){return '<option value="'+i+'">'+safe(x.claim.slice(0,70))+" / "+safe(x.status)+'</option>'}).join("");if(Array.from(sel.options).some(function(o){return o.value===selected}))sel.value=selected};
+let lastPreflight=null;
+function gateEvaluation(){const proposal=$("proposal").value.trim(),owner=$("owner").value.trim(),risk=$("risk").value,index=$("linkedEvidence").value;const evidenceRecord=index===""?null:evidence[Number(index)];const traceable=!!(evidenceRecord&&evidenceRecord.source.trim()&&evidenceRecord.status.indexOf("Reviewer-attested")===0);return {proposal,owner,risk,checks:[["Specific proposal",proposal.length>=30],["Named accountable owner",owner.length>=3],["Traceable reviewer-attested source",traceable],["Upstream dependencies mapped",$("mappedDeps").checked],["Independent human authorization planned",$("humanGate").checked]]}}
+$("runPreflight").onclick=function(){const result=gateEvaluation(),passed=result.checks.filter(function(x){return x[1]}).length;lastPreflight={...result,checkedAt:new Date().toISOString()};$("preflightResult").innerHTML='<div class="metric">'+passed+'/5</div><strong>'+(passed===5?"READY FOR HUMAN REVIEW":"BLOCKED / INCOMPLETE")+'</strong><p>Risk category: '+safe(result.risk.toUpperCase())+'</p>'+result.checks.map(function(x){return '<div class="gate '+(x[1]?"pass":"fail")+'">'+(x[1]?"✓":"×")+" "+safe(x[0])+"</div>"}).join("")+'<p><small>Advisory only. This tool does not verify claimed sources or grant permission to act.</small></p>';$("recordPreflight").disabled=false};
+$("recordPreflight").onclick=function(){if(!lastPreflight)return;const count=lastPreflight.checks.filter(function(x){return x[1]}).length;record("PREFLIGHT (NOT EXECUTION APPROVAL): "+count+"/5 checks, "+lastPreflight.risk+" risk, owner="+lastPreflight.owner+", proposal="+lastPreflight.proposal);$("recordPreflight").disabled=true;$("preflightResult").insertAdjacentHTML("beforeend","<p><strong>Result recorded in local decision ledger.</strong></p>")};
+["proposal","owner","risk","linkedEvidence","mappedDeps","humanGate"].forEach(function(id){["input","change"].forEach(function(evt){$(id).addEventListener(evt,function(){lastPreflight=null;$("recordPreflight").disabled=true})})});
+document.querySelectorAll("#nodes g").forEach(function(g){g.addEventListener("click",function(){document.querySelectorAll("#nodes g").forEach(function(x){x.classList.toggle("active",x===g)});const selected=Number(g.dataset.i);const connected=links.filter(function(pair){return pair.includes(selected)}).map(function(pair){return domains[pair[0]===selected?pair[1]:pair[0]][0]});$("domainDetail").textContent=domains[selected][0]+": "+domains[selected][3]+" Adjacent domains: "+connected.join(", ")+". Relationships are illustrative, not quantified causal effects."})});
+update();
+render();
+
 </script></body></html>
