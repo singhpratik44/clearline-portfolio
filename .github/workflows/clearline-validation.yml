@@ -5,6 +5,9 @@ on:
       - 'research/**'
       - 'interactive-decision-universe.html'
       - 'civilization-lab.html'
+      - '**/*.html'
+      - 'assets/aperture-shell.js'
+      - 'tests/site-integrity.test.mjs'
       - 'tests/civilization-browser.mjs'
       - '.github/workflows/clearline-validation.yml'
   pull_request:
@@ -12,6 +15,9 @@ on:
       - 'research/**'
       - 'interactive-decision-universe.html'
       - 'civilization-lab.html'
+      - '**/*.html'
+      - 'assets/aperture-shell.js'
+      - 'tests/site-integrity.test.mjs'
       - 'tests/civilization-browser.mjs'
       - '.github/workflows/clearline-validation.yml'
 jobs:
@@ -48,3 +54,13 @@ jobs:
         run: |
           node tests/interactive-browser.mjs
           node tests/civilization-browser.mjs
+
+  site-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check navigation, routes and homepage scripts
+        run: node --test tests/site-integrity.test.mjs
