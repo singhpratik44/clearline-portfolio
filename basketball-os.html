@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0d12">
+<meta name="description" content="APERTURE Courtside — a coach-controlled basketball operating studio. Observe. Design. Execute. Prove. Evolve.">
+<meta property="og:title" content="APERTURE COURTSIDE — Relentless Progression">
+<meta property="og:description" content="The game is complex. The next decision should be clear. A working basketball coaching studio.">
+<meta property="og:type" content="website">
+<title>APERTURE COURTSIDE — The Next Possession</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0d12;--surface:#121821;--surface2:#18202b;--line:#2e3845;--ink:#f6f4ed;--muted:#a4acb5;--gold:#e9be7e;--blue:#9fbcd0;--good:#a8d8b2;--warn:#edbf82;--max:1370px;font-synthesis:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:15px/1.65 Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(ellipse at 89% -12%,#31405345,transparent 40%),var(--bg)}
+button,input,textarea,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.45;cursor:not-allowed}a{color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.skip{position:absolute;left:12px;top:-80px;padding:10px;background:#fff;color:#111;z-index:30}.skip:focus{top:9px}
+.top{height:74px;border-bottom:1px solid var(--line);background:#0c1016e8;backdrop-filter:blur(18px);position:sticky;top:0;z-index:10}
+.top-inner{max-width:var(--max);height:100%;padding:0 28px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.brand{text-decoration:none;font-size:13px;font-weight:850;letter-spacing:.115em}.brand b{color:var(--gold)}
+.top-right{display:flex;gap:20px;align-items:center}.top-right a{font-size:12px;text-decoration:none;color:#c4c9cb}.top-right a:hover{color:var(--gold)}
+.sigil{font:700 10px/1.5 ui-monospace,monospace;letter-spacing:.16em;color:var(--good);border:1px solid #60826e70;padding:7px 10px;border-radius:99px}
+.frame{max-width:var(--max);margin:auto;padding:0 28px}
+.hero{padding:74px 0 50px;border-bottom:1px solid var(--line);position:relative}
+.kicker{font:750 11px/1.4 ui-monospace,monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3,p{margin-top:0}
+h1{font:normal clamp(46px,6.4vw,89px)/1.02 Georgia,'Times New Roman',serif;letter-spacing:-.06em;margin:17px 0}
+h1 em{color:var(--gold);font-style:normal}
+.hero-row{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(235px,.7fr);gap:28px;align-items:center}
+.lede{font:italic clamp(18px,2vw,26px)/1.48 Georgia,serif;color:#dad6cb;max-width:680px}
+.sub{color:var(--muted);font-size:13px;max-width:690px}
+.hero-art{width:100%;max-width:310px;justify-self:end;opacity:.9}
+.meta-row{display:flex;flex-wrap:wrap;gap:9px;margin-top:25px}
+.meta{padding:7px 11px;border:1px solid #414c57;border-radius:99px;font:700 11px/1.5 ui-monospace,monospace;color:#bfc9ca}
+.meta strong{color:var(--gold)}
+.workspace{display:grid;grid-template-columns:245px minmax(0,1fr) 280px;gap:20px;align-items:start;padding-top:34px;padding-bottom:100px}
+.panel,.side,.stage{border:1px solid var(--line);background:var(--surface);border-radius:14px}
+.side{position:sticky;top:94px;overflow:hidden}
+.side-head{padding:20px;border-bottom:1px solid var(--line)}
+.side-head .sub{margin-bottom:0}
+.cycle{font:normal 34px/1.15 Georgia,serif;margin:6px 0;color:var(--ink)}
+.step-list{padding:9px;display:grid;gap:3px}
+.step{display:flex;align-items:center;gap:12px;text-align:left;background:none;border:1px solid transparent;border-radius:8px;color:#b4bdc4;padding:12px 10px;font-weight:650;font-size:13px;width:100%}
+.step .num{font:700 10px ui-monospace,monospace;color:var(--gold);border:1px solid #605d58;border-radius:7px;display:flex;align-items:center;justify-content:center;width:29px;height:29px;flex:none}
+.step:hover{background:#202832}
+.step[aria-current=step]{background:#252c35;color:#fff;border-color:#50545a}
+.step[aria-current=step] .num{background:var(--gold);color:#17160f;border-color:var(--gold)}
+.side-foot{padding:18px 19px;border-top:1px solid var(--line)}
+.meter{height:5px;background:#323a43;border-radius:10px;overflow:hidden;margin:10px 0}.meter div{height:100%;width:0;background:linear-gradient(90deg,#cb9863,var(--gold));transition:width .22s}
+.side-foot .tiny{font:11px/1.6 ui-monospace,monospace;color:#abb3b8}
+.side-foot .tiny strong{color:#f4e4ca}
+.stage{min-height:620px;padding:33px}
+.stage[hidden]{display:none}
+.rail-title{font:700 10px/1.5 ui-monospace,monospace;letter-spacing:.17em;color:var(--gold);text-transform:uppercase}
+.stage h2{font:normal clamp(35px,4vw,53px)/1.09 Georgia,serif;letter-spacing:-.042em;margin:10px 0 13px}
+.stage .intro{color:#b9c1c6;max-width:730px;margin-bottom:29px}
+.divider{height:1px;background:var(--line);margin:27px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:12px;font-weight:750;color:#d8dcde;margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;background:#0e131a;color:#f8f6ec;border:1px solid #4a5360;border-radius:8px;padding:12px 14px;min-height:45px}
+.field textarea{resize:vertical;min-height:88px}
+.field input::placeholder,.field textarea::placeholder{color:#82909a}
+.hint{color:#9da5ae;font-size:12px;line-height:1.7}
+.action-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+.primary,.secondary,.quiet{padding:12px 18px;font-size:13px;font-weight:800;border-radius:8px;min-height:44px}
+.primary{border:1px solid var(--gold);background:var(--gold);color:#15130e}
+.secondary{border:1px solid #606f7a;background:#212b35;color:#f2f2ed}
+.quiet{border:1px solid transparent;background:transparent;color:#c7c8c2}
+.primary:hover,.secondary:hover,.quiet:hover{filter:brightness(1.13)}
+.status{padding:14px 17px;border:1px solid #48525b;border-radius:10px;background:#1b252e;font-size:13px;color:#d7d5cf;margin-top:20px}
+.status strong{color:var(--gold)}
+.plan{display:grid;grid-template-columns:1fr;gap:9px}
+.drill{display:grid;grid-template-columns:62px minmax(0,1fr);gap:15px;padding:16px 18px;border:1px solid #353e49;border-radius:10px;background:#151d27}
+.drill-time{font:750 12px ui-monospace,monospace;color:var(--gold);padding-top:3px}
+.drill strong{display:block;font-size:14px;color:#ece8dd}
+.drill span{display:block;font-size:12px;color:#aeb7be;margin-top:3px}
+.check-list{display:grid;gap:9px}
+.check{display:flex;align-items:start;gap:13px;padding:17px;border:1px solid #3d4753;border-radius:10px;background:#161e28;cursor:pointer}
+.check input{width:19px;height:19px;accent-color:#e9be7e;margin:2px 0 0;flex:none}
+.check strong{display:block;font-size:13px;color:#eee9e0}
+.check span{font-size:12px;color:#b6bdc3}
+.review-card{padding:20px;border:1px solid #48505a;background:#19212b;border-radius:12px}
+.bigstat{font:normal 45px/1 Georgia,serif;letter-spacing:-.04em}
+.bigstat.good{color:var(--good)}
+.bigstat.bad{color:var(--warn)}
+.gate-list{padding:10px 15px 0}
+.gate-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;border-bottom:1px solid #343e4a;padding:13px 0;align-items:center}
+.gate-row:last-child{border:none}
+.gate-row span{font-size:12px;color:#c0c8ce}
+.gate-row b{font:800 10px ui-monospace,monospace;letter-spacing:.06em;color:#c3a782}
+.gate-row b.ready{color:var(--good)}
+.right-head{padding:19px 18px 4px}
+.right-head h3{font:normal 23px Georgia,serif;margin:8px 0 2px}
+.intel{padding-bottom:14px}
+.intel .caption{padding:0 18px;color:#adb6be;font-size:11px}
+.ledger{margin:0 18px;padding:0;list-style:none;max-height:235px;overflow:auto}
+.ledger li{font-size:12px;line-height:1.55;color:#b4bfc3;padding:10px 0;border-top:1px solid #313a46}
+.ledger li b{display:block;color:#eddfcb;font:750 10px/1.5 ui-monospace,monospace}
+.ledger small{color:#8f9ca6}
+.advanced{margin:15px 18px;border-top:1px solid #353f49;padding-top:12px}
+.advanced summary{cursor:pointer;font-size:12px;color:var(--gold);font-weight:800;list-style:none}
+.advanced summary::-webkit-details-marker{display:none}
+.advanced p{font-size:11px;color:#aab3ba;margin:13px 0}
+.path{display:flex;flex-wrap:wrap;align-items:center;gap:4px;margin-top:12px}
+.path b{font:750 10px ui-monospace,monospace;color:var(--gold);border:1px solid #535761;padding:6px 8px;border-radius:5px}
+.path i{color:#8a939d;font-style:normal;font-size:11px}
+.intel button{margin:6px 18px 6px;width:calc(100% - 36px);font-size:12px}
+.trail{border:1px solid #434d57;background:#121923;border-radius:10px;padding:18px;margin-top:17px}
+.trail strong{display:block;margin-bottom:6px;font:800 11px ui-monospace,monospace;color:var(--gold);letter-spacing:.06em}
+.trail p{color:#c5ccd0;font-size:13px;margin:0}
+.sample{color:var(--gold)!important}
+.hidden{display:none!important}
+.footer{border-top:1px solid var(--line);padding:24px 0 43px;color:#98a2a9;font-size:12px}
+.footer .frame{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.footer a{color:#e9be7e}
+@media(max-width:1160px){.workspace{grid-template-columns:210px minmax(0,1fr)}.intel{grid-column:2}.side{top:88px}}
+@media(max-width:780px){.frame{padding:0 18px}.top-inner{padding:0 18px}.workspace{display:block;padding-top:22px}.side{position:static;display:block;margin-bottom:14px}.step-list{grid-template-columns:repeat(5,minmax(0,1fr));overflow:auto;gap:2px}.step{display:block;text-align:center;padding:8px 3px;font-size:10px}.step .num{margin:0 auto 4px}.side-head,.side-foot{display:none}.stage{padding:24px 19px;min-height:510px}.intel{margin-top:16px}.hero{padding:52px 0 35px}.hero-row{grid-template-columns:1fr}.hero-art{display:none}.top-right{gap:9px}.top-right a{font-size:11px}.sigil{display:none}}
+@media(max-width:520px){.two{grid-template-columns:1fr}.drill{grid-template-columns:53px minmax(0,1fr)}.meta{font-size:10px}h1{font-size:47px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.meter div{transition:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#workspace">Skip to coaching studio</a>
+<header class="top"><div class="top-inner"><a class="brand" href="basketball.html">APERTURE <b>/ COURTSIDE</b></a>
+<div class="top-right"><span class="sigil">LOCAL · HUMAN IN COMMAND</span><a href="basketball.html">Story</a><a href="coaching-journey.html">Journey</a></div></div></header>
+<main>
+<div class="hero"><div class="frame hero-row"><div>
+<div class="kicker">Basketball operating studio / Version 2.0</div>
+<h1>THE NEXT <em>POSSESSION.</em></h1>
+<p class="lede">The game is complex. The next decision should be clear.</p>
+<p class="sub">Observe the problem. Build the work. Run the practice. Test the result. Evolve. No invented wins. No black-box verdicts. Just a relentless, human-led progression.</p>
+<div class="meta-row"><span class="meta">01 CANONICAL WORKSPACE</span><span class="meta">05 COACHING STAGES</span><span class="meta"><strong>00</strong> EXTERNAL DATA REQUESTS</span></div>
+</div>
+<svg class="hero-art" viewBox="0 0 360 360" role="img" aria-label="Original minimal gold half-court diagram with a continuing progression arc">
+<defs><radialGradient id="g"><stop stop-color="#d8ae70" stop-opacity=".26"/><stop offset="1" stop-color="#d8ae70" stop-opacity="0"/></radialGradient></defs>
+<circle cx="180" cy="180" r="170" fill="url(#g)"/><g fill="none" stroke="#d2ad75" stroke-width="1.7"><rect x="58" y="58" width="244" height="244" rx="3"/><path d="M116 58v95h128V58M180 153v42"/><ellipse cx="180" cy="198" rx="29" ry="8"/><path d="M58 233Q180 82 302 233"/><path d="M180 302v-46"/></g><path d="M74 284Q112 322 169 326T276 287" fill="none" stroke="#f4d29a" stroke-width="2" stroke-dasharray="3 9"/><circle cx="276" cy="287" r="7" fill="#f4d29a"/></svg>
+</div></div>
+<div class="frame workspace" id="workspace">
+<aside class="side" aria-label="Progression navigation">
+<div class="side-head"><div class="kicker">THE CURRENT CYCLE</div><div class="cycle" id="cycle-title">01 / ∞</div><p class="sub">Start with one observable basketball problem. Everything else depends on it.</p></div>
+<nav class="step-list" aria-label="Coaching stages">
+<button type="button" class="step" data-phase="observe" aria-current="step"><span class="num">01</span>Observe</button>
+<button type="button" class="step" data-phase="design"><span class="num">02</span>Design</button>
+<button type="button" class="step" data-phase="execute"><span class="num">03</span>Execute</button>
+<button type="button" class="step" data-phase="prove"><span class="num">04</span>Prove</button>
+<button type="button" class="step" data-phase="evolve"><span class="num">05</span>Evolve</button>
+</nav>
+<div class="side-foot"><div class="tiny">PREFLIGHT READINESS <strong id="readiness">0 / 5</strong></div><div class="meter" aria-hidden="true"><div id="meter-bar"></div></div><div class="tiny">Only the coach can advance the cycle.</div></div>
+</aside>
+<div class="central">
+<section class="stage" id="phase-observe" aria-label="Observe">
+<div class="rail-title">01 / OBSERVE — NAME THE TRUTH</div><h2>What keeps us<br>from the next stop?</h2>
+<p class="intro">Start with one problem, not twelve dashboards. Record a baseline from ten comparable practice opportunities. The tool cannot know what happened on court unless the coach observes it.</p>
+<div class="two">
+<div class="field"><label for="focus">Competitive priority</label>
+<select id="focus"><option value="defense">Finish defensive stops</option><option value="pressure">Break pressure cleanly</option><option value="glass">Secure contested boards</option><option value="endgame">Execute late-game decisions</option></select></div>
+<div class="field"><label for="level">Team level</label><select id="level"><option value="development">Developmental</option><option value="jv" selected>JV</option><option value="varsity">Varsity</option></select></div>
+</div>
+<div class="two">
+<div class="field"><label for="baseline">Baseline: successful reps / 10</label><input id="baseline" type="number" min="0" max="10" step="1" inputmode="numeric" placeholder="e.g., 4"><div class="hint">One number, from ten attempts. Leave blank until observed.</div></div>
+<div class="field"><label for="target">Next target: successful reps / 10</label><input id="target" type="number" min="0" max="10" step="1" value="6" inputmode="numeric"><div class="hint">A coaching goal, not a predicted outcome.</div></div>
+</div>
+<div class="field"><label for="problem">The problem in basketball language (optional)</label><textarea id="problem" maxlength="280" placeholder="e.g., weak-side help arrives late against the second paint touch. No names or personal athlete details."></textarea></div>
+<div class="action-row"><button type="button" class="primary" id="set-diagnosis">Set the objective</button><button type="button" class="quiet" id="load-sample">Load a clearly labeled example</button></div>
+<div class="status" id="observe-status" role="status">No baseline has been recorded. Start with what you can verify.</div>
+</section>
+<section class="stage" id="phase-design" aria-label="Design" hidden>
+<div class="rail-title">02 / DESIGN — BUILD THE RESPONSE</div><h2>Make the practice<br>answer the film.</h2>
+<p class="intro">A sixty-minute progression, generated from your chosen basketball problem. Learn the read, constrain the action, then test under competition.</p>
+<div class="status" id="plan-summary"></div>
+<div class="divider"></div>
+<div class="plan" id="drill-plan"></div>
+<div class="action-row"><button type="button" class="primary" id="approve-plan">Approve this practice</button><button type="button" class="secondary" id="save-plan">Download plan</button><button type="button" class="quiet" data-next="execute">Continue to execution</button></div>
+<div class="status" id="design-status">Coach approval is required before progression.</div>
+</section>
+<section class="stage" id="phase-execute" aria-label="Execute" hidden>
+<div class="rail-title">03 / EXECUTE — MAKE IT REPEATABLE</div><h2>Progress is<br>a practiced behavior.</h2>
+<p class="intro">Track completed teaching blocks, not just minutes spent in a gym. At least three core blocks and a deliberate safety review are required before the decision gate can open.</p>
+<div class="check-list" id="execution-checks">
+<label class="check"><input type="checkbox" data-block="foundation"><span><strong>Foundation installed</strong><span id="check-foundation">The technique has been demonstrated and corrected.</span></span></label>
+<label class="check"><input type="checkbox" data-block="decision"><span><strong>Live reads practiced</strong><span id="check-decision">Players made decisions against meaningful defensive cues.</span></span></label>
+<label class="check"><input type="checkbox" data-block="transfer"><span><strong>Game transfer tested</strong><span id="check-transfer">The skill survived a contested, scored, or timed possession.</span></span></label>
+<label class="check"><input type="checkbox" data-block="reflection"><span><strong>Reflection completed</strong><span id="check-reflection">Coach named one correction and a next-session test.</span></span></label>
+</div>
+<div class="divider"></div>
+<label class="check"><input type="checkbox" id="safety"><span><strong>Coach confirms safety review</strong><span>Load, drill intensity, supervision, and individual accommodation needs were considered. This checkbox is not medical clearance.</span></span></label>
+<div class="action-row"><button type="button" class="primary" data-next="prove">Record the evidence</button></div>
+<div class="status" id="execute-status"></div>
+</section>
+<section class="stage" id="phase-prove" aria-label="Prove" hidden>
+<div class="rail-title">04 / PROVE — EVIDENCE BEFORE CELEBRATION</div><h2>Don't guess<br>what improved.</h2>
+<p class="intro">Re-test with ten comparable opportunities, using the same observable behavior and measurement rule. A favorable number is a directional practice signal—not proof that a player or team has permanently improved.</p>
+<div class="two">
+<div class="review-card"><div class="kicker">BASELINE</div><div class="bigstat" id="baseline-display">—</div><div class="hint">Successful reps / 10</div></div>
+<div class="review-card"><div class="kicker">FOLLOW-UP</div><div class="bigstat" id="after-display">—</div><div class="hint">Successful reps / 10</div></div>
+</div>
+<div class="divider"></div>
+<div class="field"><label for="after">Observed follow-up successes / 10</label><input id="after" type="number" min="0" max="10" step="1" inputmode="numeric" placeholder="Enter observed result"></div>
+<div class="field"><label for="evidence-note">What changed in the players' decisions? (optional)</label><textarea id="evidence-note" maxlength="320" placeholder="e.g., earlier weak-side tags; fewer two-on-one breakdowns. No player names."></textarea></div>
+<label class="check"><input type="checkbox" id="coach-review"><span><strong>I reviewed the observation</strong><span>Same drill definition, ten comparable opportunities, and no unsupported performance claims.</span></span></label>
+<div class="status" id="proof-status" role="status">Record the post-practice observation to see the comparison.</div>
+<div class="action-row"><button type="button" class="primary" data-next="evolve">Review the decision gates</button></div>
+</section>
+<section class="stage" id="phase-evolve" aria-label="Evolve" hidden>
+<div class="rail-title">05 / EVOLVE — THE NEXT REP BEGINS HERE</div><h2>Never finish.<br><span style="color:var(--gold)">Only refine.</span></h2>
+<p class="intro">The system recommends the next progression from the evidence. It cannot make the decision for you. Five preflight gates must pass before the coach can commit a versioned cycle.</p>
+<div class="review-card"><div class="kicker">PROPOSED NEXT DECISION</div><h3 id="decision-title" style="font:normal 32px/1.2 Georgia,serif;margin:13px 0 8px">Evidence pending</h3><p id="decision-body" class="sub" style="margin-bottom:0"></p></div>
+<div class="divider"></div>
+<div class="gate-list" id="main-gates"></div>
+<div class="action-row"><button type="button" class="primary" id="commit" disabled>Commit reviewed cycle →</button><button type="button" class="secondary" id="export-cycle">Export evidence ledger</button></div>
+<div class="status" id="commit-status" role="status">APERTURE will hold this decision until the dependencies are satisfied.</div>
+</section>
+</div>
+<aside class="side intel" aria-label="APERTURE intelligence layer">
+<div class="right-head"><div class="kicker">APERTURE / DECISION INTELLIGENCE</div><h3>Under the surface.</h3><p class="sub">One calm interface. Explicit rules underneath.</p></div>
+<div class="gate-list" id="side-gates"></div>
+<p class="caption">Gates update from the workspace. No agent claims. A coach—not a model—approves the outcome.</p>
+<details class="advanced"><summary>Dependency integrity + method</summary>
+<div class="path"><b>OBSERVE</b><i>→</i><b>DESIGN</b><i>→</i><b>EXECUTE</b><i>→</i><b>PROVE</b><i>→</i><b>EVOLVE</b></div>
+<p>Truth: directly entered observations are the only performance data. Dependencies: a reviewed plan must precede advancement. Safety: uncertainty holds the decision. Evidence: baseline and follow-up each use ten attempts. Accountability: every committed cycle records its rationale and limitations.</p>
+</details>
+<div class="right-head" style="padding-top:13px"><div class="kicker">LOCAL DECISION LEDGER</div><h3 style="font-size:19px">What changed?</h3></div>
+<ul class="ledger" id="ledger"><li>Awaiting the first coaching decision.</li></ul>
+<button type="button" class="secondary" id="export-all">Export full workspace</button>
+<button type="button" class="quiet" id="reset">Reset local workspace</button>
+<div class="advanced" style="margin-top:8px"><p>Saved on this device's browser only, when local storage is available. No cloud sync, real athlete profiles, fabricated wins, or autonomous coaching decisions.</p></div>
+</aside>
+</div>
+</main>
+<footer class="footer"><div class="frame"><span>© APERTURE Courtside · Independent prototype by Pratik “Locane” Singh</span><span><a href="basketball.html">Coaching story</a> · <a href="basketball-engine.html">Original academy engine</a> · Human judgment always controls</span></div></footer>
+<script>
+(function(){
+'use strict';
+const STORAGE='aperture-courtside-v2';
+const $=id=>document.getElementById(id);
+const F={
+ defense:{name:'Defensive stops',metric:'possessions finished with an organized stop / 10',definition:'Count only possessions with correct containment, help, communication and a secured rebound.',blocks:[['08 min','Connect','Dynamic footwork, closeouts, verbal communication'],['10 min','Teach','Containment and help-side positioning with guided feedback'],['14 min','Constrain','4-on-4 shell: correct rotation must precede a point'],['14 min','Compete','Live advantage play: earn the stop, finish the rebound'],['10 min','Pressure','Timed possessions, score only a fully finished stop'],['04 min','Reflect','One missed assignment; one correction; re-test next time']]},
+ pressure:{name:'Pressure release',metric:'clean escapes leading to a controlled offensive entry / 10',definition:'A success requires escaping the trap without a live-ball turnover and establishing organized offense.',blocks:[['08 min','Connect','Ball security, pivot, pressure passing'],['10 min','Teach','Middle flash, outlet angles, two-pass escape'],['14 min','Constrain','3-on-2 advantage reads in tight spaces'],['14 min','Compete','4-on-4 live trap-escape repetitions'],['10 min','Pressure','Beat the press under shot-clock constraint'],['04 min','Reflect','Explain the trap cue and successful second pass']]},
+ glass:{name:'Defensive rebounding',metric:'contested defensive boards secured / 10 eligible chances',definition:'An eligible chance is a defensive shot attempt in the contested-rebound drill; award success for a controlled defensive rebound.',blocks:[['08 min','Connect','Footwork, balance, rebound pursuit'],['10 min','Teach','Contact, locate, box out, secure'],['14 min','Constrain','2-on-2 collision, pursuit and second effort'],['14 min','Compete','4-on-4 secure board then advance in transition'],['10 min','Pressure','Finish contested defensive possessions to score'],['04 min','Reflect','Identify late contact or lost position']]},
+ endgame:{name:'Late-game decisions',metric:'correct score-clock decisions executed / 10 scenarios',definition:'A success requires the correct score/clock recognition and execution of the coached first and counter reads.',blocks:[['08 min','Connect','Reset routine, clock awareness'],['10 min','Teach','Sideline inbound, timeout, foul and spacing cues'],['14 min','Constrain','Score-clock mini-games with changing constraints'],['14 min','Compete','Five-on-five, alternate defensive coverages'],['10 min','Pressure','Last 45 seconds, two possessions, one timeout'],['04 min','Reflect','One decision that survived the pressure']]}
+};
+const KEYS=['foundation','decision','transfer','reflection'];
+const PHASES=['observe','design','execute','prove','evolve'];
+const state0=()=>({schema:2,cycle:1,focus:'defense',level:'jv',baseline:'',target:6,after:'',problem:'',note:'',planApproved:false,checks:{foundation:false,decision:false,transfer:false,reflection:false},safety:false,coachReview:false,objectiveSet:false,sample:false,phase:'observe',ledger:[],history:[]});
+let st=state0();
+try{const raw=localStorage.getItem(STORAGE);if(raw){const x=JSON.parse(raw);if(x&&x.schema===2&&F[x.focus]&&PHASES.includes(x.phase)){st={...state0(),...x,checks:{...state0().checks,...(x.checks||{})},ledger:Array.isArray(x.ledger)?x.ledger.slice(-80):[],history:Array.isArray(x.history)?x.history.slice(-50):[]};}}}catch(e){}
+function validNum(n){return n!==''&&n!==null&&n!==undefined&&Number.isInteger(Number(n))&&Number(n)>=0&&Number(n)<=10;}
+function n(v){return validNum(v)?Number(v):null;}
+function stamp(){return new Date().toLocaleString('en-US',{year:'numeric',month:'short',day:'numeric',hour:'numeric',minute:'2-digit'});}
+function emit(event,detail){st.ledger.push({cycle:st.cycle,time:stamp(),event,detail,source:st.sample?'EXAMPLE':'USER INPUT'});st.ledger=st.ledger.slice(-80);}
+function save(){try{localStorage.setItem(STORAGE,JSON.stringify(st));}catch(e){}}
+function sync(){
+ $('focus').value=st.focus;$('level').value=st.level;$('baseline').value=st.baseline;$('target').value=st.target;$('problem').value=st.problem;
+ $('after').value=st.after;$('evidence-note').value=st.note;$('safety').checked=st.safety;$('coach-review').checked=st.coachReview;
+ KEYS.forEach(k=>{const x=document.querySelector('[data-block="'+k+'"]');if(x)x.checked=!!st.checks[k];});
+}
+function gates(){
+ const execution=KEYS.filter(k=>st.checks[k]).length;
+ return [
+ {name:'Objective',ok:st.objectiveSet&&validNum(st.baseline)&&validNum(st.target),help:'Ten-rep baseline and target'},
+ {name:'Coach-approved plan',ok:st.planApproved,help:'Review the actual session design'},
+ {name:'Execution + safety',ok:execution>=3&&st.safety,help:execution+'/4 blocks; safety '+(st.safety?'reviewed':'pending')},
+ {name:'Comparable evidence',ok:validNum(st.after)&&validNum(st.baseline),help:'Ten-rep follow-up observation'},
+ {name:'Coach sign-off',ok:st.coachReview,help:'Human review and interpretation'}
+ ];
+}
+function nextDecision(){
+ if(!validNum(st.baseline)||!validNum(st.after)){return {title:'Evidence pending',body:'Complete the observed baseline and ten-rep follow-up before suggesting progression.',type:'hold'};}
+ const b=n(st.baseline),a=n(st.after),target=n(st.target),diff=a-b;
+ if(a>=target&&diff>0)return {title:'Progress the constraint.',body:'Observed '+a+'/10 versus '+b+'/10 at baseline (+'+diff+'). Raise difficulty by one constraint and test again. Directional signal only; not a competitive win.',type:'progress'};
+ if(diff>0)return {title:'Repeat with precision.',body:'Observed '+a+'/10 versus '+b+'/10 (+'+diff+'), but below the '+target+'/10 goal. Reinforce the same read before raising difficulty.',type:'repeat'};
+ if(diff===0)return {title:'Hold. Change the teaching cue.',body:'Observed '+a+'/10 both times. Use different feedback or a smaller-sided constraint; a flat result is information, not failure.',type:'refine'};
+ return {title:'Rebuild the foundation.',body:'Observed '+a+'/10 versus '+b+'/10 ('+diff+'). Reduce complexity, verify the drill definition, then retest rather than claiming progress.',type:'rebuild'};
+}
+function showPhase(p){if(!PHASES.includes(p))return;st.phase=p;PHASES.forEach(name=>{$('phase-'+name).hidden=name!==p;const b=document.querySelector('[data-phase="'+name+'"]');b.setAttribute('aria-current',name===p?'step':'false');});save();render();}
+function renderPlan(){
+ const f=F[st.focus],el=$('drill-plan');el.textContent='';
+ f.blocks.forEach(row=>{const div=document.createElement('div');div.className='drill';const t=document.createElement('div');t.className='drill-time';t.textContent=row[0];const body=document.createElement('div');const strong=document.createElement('strong');strong.textContent=row[1];const span=document.createElement('span');span.textContent=row[2];body.append(strong,span);div.append(t,body);el.appendChild(div);});
+ $('plan-summary').textContent=F[st.focus].name+' · '+st.level.toUpperCase()+' · Measure: '+f.metric;
+ $('design-status').textContent=st.planApproved?'Plan approved by coach. Execution can be recorded.':'Review the sequence and approve it before proceeding.';
+}
+function renderGates(){
+ const gs=gates(); const draw=id=>{const wrap=$(id);wrap.textContent='';gs.forEach(g=>{const row=document.createElement('div');row.className='gate-row';const lab=document.createElement('span');lab.textContent=g.name;lab.title=g.help;const val=document.createElement('b');val.textContent=g.ok?'READY':'HOLD';if(g.ok)val.className='ready';row.append(lab,val);wrap.appendChild(row);});};
+ draw('main-gates');draw('side-gates');
+ const count=gs.filter(g=>g.ok).length;$('readiness').textContent=count+' / 5';$('meter-bar').style.width=(count*20)+'%';$('commit').disabled=count!==5;
+ $('commit-status').textContent=count===5?'Preflight passed. Review the suggested adjustment, then commit the new version.':'Held: '+gs.filter(g=>!g.ok).map(g=>g.name).join(' · ')+'.';
+}
+function renderLedger(){const el=$('ledger');el.textContent='';const entries=st.ledger.slice(-6).reverse();if(!entries.length){const li=document.createElement('li');li.textContent='No recorded decisions. Set the first coaching objective.';el.appendChild(li);return;}
+ entries.forEach(x=>{const li=document.createElement('li'),b=document.createElement('b'),span=document.createElement('span'),sm=document.createElement('small');b.textContent='CYCLE '+String(x.cycle).padStart(2,'0')+' / '+x.event;span.textContent=x.detail;sm.textContent=' · '+x.time+' · '+x.source;li.append(b,span,sm);el.appendChild(li);});}
+function render(){
+ $('cycle-title').textContent=String(st.cycle).padStart(2,'0')+' / ∞';
+ $('observe-status').textContent=st.objectiveSet?'Objective set: '+F[st.focus].name+' · Baseline '+st.baseline+'/10 · Target '+st.target+'/10'+(st.sample?' · ILLUSTRATIVE EXAMPLE':''): 'Awaiting an observed ten-rep baseline and a coaching objective.';
+ renderPlan();
+ const blocks=KEYS.filter(k=>st.checks[k]).length;
+ $('execute-status').textContent=blocks+'/4 core blocks complete · Safety '+(st.safety?'reviewed':'not reviewed')+'.';
+ $('baseline-display').textContent=validNum(st.baseline)?st.baseline+' / 10':'—';
+ $('after-display').textContent=validNum(st.after)?st.after+' / 10':'—';
+ const decision=nextDecision();
+ $('proof-status').textContent=decision.body;
+ $('decision-title').textContent=decision.title;
+ $('decision-body').textContent=decision.body+(st.sample?' · EXAMPLE DATA — never present as achieved result.':'');
+ renderGates();renderLedger();
+}
+function resetDownstream(){st.objectiveSet=false;st.planApproved=false;st.after='';st.note='';st.safety=false;st.coachReview=false;st.checks={foundation:false,decision:false,transfer:false,reflection:false};}
+function modifyScope(){const old=st.focus+'-'+st.level,neu=$('focus').value+'-'+$('level').value;if(old!==neu){st.focus=$('focus').value;st.level=$('level').value;st.baseline='';st.problem='';st.sample=false;resetDownstream();emit('SCOPE CHANGED','New basketball focus requires new observations and a new plan.');sync();save();render();}}
+$('focus').addEventListener('change',modifyScope);$('level').addEventListener('change',modifyScope);
+$('baseline').addEventListener('input',()=>{st.baseline=$('baseline').value;st.objectiveSet=false;st.planApproved=false;save();render();});
+$('target').addEventListener('input',()=>{st.target=$('target').value;st.objectiveSet=false;st.planApproved=false;save();render();});
+$('problem').addEventListener('input',()=>{st.problem=$('problem').value.slice(0,280);save();});
+$('after').addEventListener('input',()=>{st.after=$('after').value;st.coachReview=false;$('coach-review').checked=false;save();render();});
+$('evidence-note').addEventListener('input',()=>{st.note=$('evidence-note').value.slice(0,320);save();});
+$('safety').addEventListener('change',()=>{st.safety=$('safety').checked;save();render();});
+$('coach-review').addEventListener('change',()=>{st.coachReview=$('coach-review').checked;save();render();});
+KEYS.forEach(k=>{document.querySelector('[data-block="'+k+'"]').addEventListener('change',e=>{st.checks[k]=e.target.checked;save();render();});});
+$('set-diagnosis').addEventListener('click',()=>{if(!validNum(st.baseline)||!validNum(st.target)){ $('observe-status').textContent='Enter a valid baseline and target: whole numbers from 0 to 10.';return;}st.objectiveSet=true;st.sample=false;st.planApproved=false;st.after='';st.coachReview=false;st.note='';st.safety=false;st.checks={foundation:false,decision:false,transfer:false};st.checks.reflection=false;emit('OBJECTIVE SET',F[st.focus].name+'; '+st.baseline+'/10 baseline; '+st.target+'/10 target.');sync();save();showPhase('design');});
+$('load-sample').addEventListener('click',()=>{st.focus='defense';st.level='jv';st.baseline='4';st.target=6;st.problem='Illustrative: weak-side help is late, allowing second paint touches.';resetDownstream();st.objectiveSet=true;st.sample=true;emit('EXAMPLE LOADED','Simulated 4/10 defensive stops; no real team or player outcomes.');sync();save();showPhase('design');});
+$('approve-plan').addEventListener('click',()=>{if(!st.objectiveSet||!validNum(st.baseline)){ $('design-status').textContent='Set the coaching objective and baseline in Observe before approval.';return;}st.planApproved=true;emit('PLAN APPROVED','60-minute '+F[st.focus].name+' practice reviewed by coach.');save();showPhase('execute');});
+function download(name,content){const blob=new Blob([content],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+$('save-plan').addEventListener('click',()=>{const f=F[st.focus];download('APERTURE-Courtside-Practice-C'+st.cycle+'.txt','APERTURE COURTSIDE — 60-MINUTE PRACTICE\nCycle '+st.cycle+(st.sample?' (ILLUSTRATIVE EXAMPLE)':'')+'\nFocus: '+f.name+'\nLevel: '+st.level+'\nMetric: '+f.metric+'\nRule: '+f.definition+'\n\n'+f.blocks.map(x=>x.join(' | ')).join('\n')+'\n\nHuman coach must adapt to skill, supervision, safety and school policies.');});
+document.querySelectorAll('[data-phase]').forEach(b=>b.addEventListener('click',()=>showPhase(b.getAttribute('data-phase'))));
+document.querySelectorAll('[data-next]').forEach(b=>b.addEventListener('click',()=>showPhase(b.getAttribute('data-next'))));
+$('commit').addEventListener('click',()=>{
+ if(!gates().every(g=>g.ok)){render();return;}
+ const d=nextDecision(),before=n(st.baseline),after=n(st.after),target=n(st.target);
+ const record={id:'C'+String(st.cycle).padStart(3,'0'),time:stamp(),focus:F[st.focus].name,level:st.level,baseline:before,after,delta:after-before,target,decision:d.type,rationale:d.body,practiceBlocks:{...st.checks},safetyReviewed:st.safety,coachSigned:st.coachReview,coachNote:st.note,scopeNote:st.problem,sample:st.sample,limitation:'Ten-rep practice observation; directional signal only, not causal proof or an official game result.'};
+ st.history.push(record);st.history=st.history.slice(-50);
+ emit('CYCLE COMMITTED',record.id+' · '+d.title+' · '+before+'/10 → '+after+'/10');
+ st.cycle+=1;
+ st.baseline=String(after);
+ st.target=d.type==='progress'?Math.min(10,after+1):target;
+ st.problem=d.type==='rebuild'?'Next iteration: reduce task complexity; review technique before live competition.':d.type==='progress'?'Next iteration: increase one constraint while preserving correct reads.':'Next iteration: sharpen the same cue and repeat the measurement.';
+ resetDownstream();st.objectiveSet=true;sync();save();showPhase('design');
+});
+function exportData(full){const payload=full?{schema:2,createdAt:stamp(),workspace:st,notice:'Local-only coaching prototype. No validated game outcomes are supplied by this website.'}:{schema:2,createdAt:stamp(),history:st.history,ledger:st.ledger,notice:'Ten-rep coaching practice signals are directional, not verified victories.'};download(full?'APERTURE-Courtside-Workspace.json':'APERTURE-Courtside-Evidence.json',JSON.stringify(payload,null,2));}
+$('export-all').addEventListener('click',()=>exportData(true));$('export-cycle').addEventListener('click',()=>exportData(false));
+$('reset').addEventListener('click',()=>{if(!window.confirm('Clear this browser’s APERTURE Courtside workspace and all local coaching history? Export first if needed.'))return;st=state0();sync();save();showPhase('observe');});
+sync();showPhase(st.phase);
+})();
+</script>
+</body>
+</html>
