@@ -1,723 +1,320 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Court Remembers — APERTURE Basketball | Pratik “Locane” Singh</title>
-<meta name="description" content="The Court Remembers: a cinematic basketball coaching manifesto, grounded coaching pedigree, interactive game decisions, practice builder, and evidence-led academy simulation.">
-<meta property="og:title" content="THE COURT REMEMBERS — APERTURE Basketball">
-<meta property="og:description" content="Before the noise. Before the banners. There was the work nobody applauded. A basketball coaching manifesto and interactive playbook.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#090b0e">
+<meta name="description" content="APERTURE Basketball — Pratik Locane Singh's basketball coaching philosophy, competitive game room, training plans, and evidence-led coaching portfolio.">
+<meta property="og:title" content="APERTURE Basketball — The Work Outlives the Buzzer">
+<meta property="og:description" content="A cinematic, practical basketball coaching portfolio. The film remembers why.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://singhpratik44.github.io/clearline-portfolio/basketball.html">
+<link rel="canonical" href="https://singhpratik44.github.io/clearline-portfolio/basketball.html">
+<title>APERTURE Basketball — The Work Outlives the Buzzer</title>
 <style>
-
-:root{--bg:#f5f4f0;--panel:#ffffff;--line:#d9d5cb;--ink:#1b2431;--dim:#5a6270;--acc:#1f3a5f;--warn:#8a6d3b;--risk:#7a1f1f;--mono:ui-monospace,Menlo,Consolas,monospace;--serif:Georgia,'Times New Roman',serif}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:14px/1.6 -apple-system,'Segoe UI',Roboto,sans-serif}
-.docbar{background:#1f3a5f;color:#e9e5da;font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;padding:9px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
-.docmeta{border-bottom:1px solid var(--line);background:#eceae3;color:var(--dim);font:11px var(--mono);letter-spacing:.06em;padding:7px 24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px}
-.docmeta a{color:var(--acc);text-decoration:none}
-header{border-bottom:2px solid var(--ink);padding:20px 28px;display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px}
-header .tag{font:11px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--acc)}
-header h1{font-family:var(--serif);font-size:22px;font-weight:700}
-header .nav{font:12px var(--mono);color:var(--dim)}
-header .nav a{color:var(--acc);text-decoration:none}
-.wrap{max-width:1180px;margin:0 auto;padding:28px}
-.dombar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--panel);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:3px;padding:14px 16px;margin-bottom:18px}
-.dombar select{background:#faf9f6;border:1px solid var(--line);color:var(--ink);font:12px var(--mono);border-radius:3px;padding:7px 10px}
-.dombar p{font-size:12.5px;color:var(--dim);flex:1;min-width:280px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin-bottom:26px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:14px 16px}
-.kpi .v{font:26px var(--mono);margin-top:2px;color:var(--acc)}
-.kpi .l{font:10.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-h2{font-family:var(--serif);font-size:17px;color:var(--ink);margin:28px 0 12px;border-bottom:1px solid var(--line);padding-bottom:6px}
-table{width:100%;border-collapse:collapse;font-size:13px}
-th{font:10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--dim);text-align:left;padding:8px 10px;border-bottom:1px solid var(--line)}
-td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
-tr.held td{background:rgba(122,31,31,.04)}
-.badge{display:inline-block;font:10px var(--mono);letter-spacing:.08em;text-transform:uppercase;border-radius:3px;padding:2px 7px}
-.b-ok{background:rgba(31,58,95,.08);color:var(--acc)}
-.b-warn{background:rgba(138,109,59,.12);color:var(--warn)}
-.b-risk{background:rgba(122,31,31,.10);color:var(--risk)}
-.b-held{background:rgba(90,98,112,.12);color:var(--dim)}
-button{font:11px var(--mono);letter-spacing:.06em;background:transparent;color:var(--acc);border:1px solid var(--acc);border-radius:3px;padding:5px 10px;cursor:pointer}
-button:hover{background:var(--acc);color:#fff}
-button:disabled{border-color:var(--line);color:var(--dim);cursor:not-allowed;background:transparent}
-button.rel{border-color:var(--warn);color:var(--warn)}
-button.rel:hover{background:var(--warn);color:#fff}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+:root{color-scheme:dark;--bg:#090b0e;--panel:#15191f;--panel2:#1c2128;--ink:#f4f1eb;--muted:#acaeb1;--gold:#edc17c;--stroke:#414349;--max:1120px;font-synthesis:none}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);background:var(--bg);font:16px/1.55 system-ui,-apple-system,'Segoe UI',sans-serif}
+a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.48}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+::selection{background:var(--gold);color:#111}
+.sr-only{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.skip{position:absolute;left:10px;top:-60px;z-index:100;background:#fff;color:#111;padding:10px}.skip:focus{top:10px}
+.shell{max-width:var(--max);padding:0 26px;margin:auto}
+.top{position:sticky;top:0;z-index:20;background:#090b0eea;backdrop-filter:blur(16px);border-bottom:1px solid #292a2c}
+.top-in{min-height:68px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-size:13px;font-weight:850;letter-spacing:.12em;text-decoration:none}.brand em{color:var(--gold);font-style:normal}
+.nav{display:flex;gap:21px;align-items:center;flex-wrap:wrap}
+.nav a{text-decoration:none;color:#c8c7c4;font-size:13px}.nav a:hover{color:var(--gold)}
+.nav .hire{border:1px solid #a98b60;border-radius:99px;padding:9px 15px;color:var(--gold)}
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:610px;border-bottom:1px solid #292b30;background:radial-gradient(ellipse at 78% 50%,#8f624c28 0%,transparent 44%),linear-gradient(110deg,#08090b,#12151a 78%,#070809)}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.18;background-image:linear-gradient(90deg,#d5c29a26 1px,transparent 1px);background-size:88px 100%}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:12px;align-items:center;min-height:610px;padding-top:65px;padding-bottom:70px}
+.eyebrow{font:700 11px/1.5 ui-monospace,monospace;letter-spacing:.19em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3,p{margin-top:0}
+h1{font:600 clamp(57px,8vw,105px)/.95 Georgia,'Times New Roman',serif;letter-spacing:-.07em;margin:24px 0}
+h1 span{display:block;color:var(--gold)}
+.hero-lead{font:italic clamp(20px,2.3vw,28px)/1.5 Georgia,serif;color:#e6dac9;max-width:670px}
+.micro{color:var(--muted);font-size:13px;max-width:670px;line-height:1.7}
+.actions{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin-top:28px}
+.action{display:inline-block;background:var(--gold);border:1px solid var(--gold);border-radius:7px;color:#17120c;text-decoration:none;font-size:13px;font-weight:800;padding:13px 18px}
+.action.secondary{background:transparent;color:var(--ink);border-color:#555257}
+.action:hover{filter:brightness(1.12)}
+.orbit{width:min(100%,400px);margin:auto;filter:drop-shadow(0 0 36px #e9ba6525)}
+.strip{display:flex;gap:12px;flex-wrap:wrap;padding:20px 0;border-bottom:1px solid #282b2f}
+.strip span{font-size:12px;border:1px solid #48464a;padding:8px 12px;border-radius:99px;color:#cec7bd}
+section.block{padding:87px 0;border-bottom:1px solid #2e3034}
+.section-top{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:28px}
+.section-top>div{max-width:790px}
+h2{font:500 clamp(34px,5.5vw,65px)/1.08 Georgia,'Times New Roman',serif;letter-spacing:-.045em;margin:13px 0}
+h3{font:650 21px/1.25 system-ui,sans-serif;letter-spacing:-.03em}
+.lead{font:18px/1.75 Georgia,serif;color:#d8d0c6}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.panel{border:1px solid #363941;background:var(--panel);border-radius:12px;padding:23px;min-width:0}
+.panel p{color:#c2c2c2;font-size:14px;line-height:1.75}
+.card-num{color:var(--gold);font:700 11px ui-monospace,monospace;letter-spacing:.17em}
+.quote{font:italic clamp(21px,3.7vw,39px)/1.4 Georgia,serif;color:#e2c08d;border-left:2px solid var(--gold);padding:4px 0 4px 21px;margin:30px 0}
+.small{font-size:12px;color:var(--muted);line-height:1.7}
+.rule{border-top:1px solid #424041;padding-top:16px;margin-top:16px}
+.tag{font:700 10px ui-monospace,monospace;letter-spacing:.1em;color:var(--gold);text-transform:uppercase}
+.tool-shell{border:1px solid #3b3c40;border-radius:15px;background:#11151a;overflow:hidden}
+.tool-tabs{display:flex;gap:6px;overflow:auto;padding:12px;border-bottom:1px solid #34363c}
+.tab{color:#c6c7c8;background:transparent;border:1px solid transparent;border-radius:7px;padding:11px 14px;white-space:nowrap;font-weight:750;font-size:13px}
+.tab[aria-selected=true]{color:#131211;background:var(--gold)}
+.tool-content{padding:25px}
+.tool-page[hidden]{display:none}
+.tool-page h3{margin-bottom:7px}
+.tool-page .desc{color:#c5c1b9;margin-bottom:23px;font-size:14px;max-width:710px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:860px){.two{grid-template-columns:1fr}}
-.note{font-size:12px;color:var(--dim);margin-top:8px}
-.bar{height:6px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:6px}
-.bar i{display:block;height:100%;background:var(--acc)}
-.ledger td{font-family:var(--mono);font-size:11.5px}
-.holdbox{border:1px dashed var(--risk);border-radius:3px;padding:10px 12px;font-size:12.5px;color:var(--risk);margin-top:8px}
-footer{max-width:1180px;margin:40px auto 0;padding:20px 28px 40px;color:var(--dim);font-size:12px;border-top:1px solid var(--line)}
-footer b{color:var(--ink)}
-.pulse{color:var(--acc)}
-
-  :root{--bball:#8a6d3b}
-  header{display:block}
-  header .tag{margin-top:6px}
-  h1 .b{color:var(--bball)}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
-  .card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:12px}
-  .card h3{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin:0 0 6px;font-family:var(--mono)}
-  .big{font-size:22px;font-weight:700}
-  .sub{font-size:11.5px;color:var(--dim);margin-top:3px}
-  .pill{display:inline-block;font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:3px;margin-right:5px}
-  .pill.real{background:#eef2f7;color:var(--acc);border:1px solid #b9c6d8}
-  .pill.sim{background:#f5eedd;color:var(--warn);border:1px solid #d8c9a0}
-  .pill.gate{background:#e4e9f2;color:#3a4d80;border:1px solid #c3cde0}
-  .prog{height:7px;background:#e9e5da;border-radius:2px;overflow:hidden;margin-top:6px}
-  .prog>div{height:100%;background:var(--bball)}
-  .two{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
-  @media(max-width:860px){.two{grid-template-columns:1fr}}
-  .athlete{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:3px;margin-bottom:7px;background:#fbfaf7;cursor:pointer}
-  .athlete:hover{border-color:var(--bball)}
-  .athlete .nm{font-weight:600;font-size:13px}
-  .athlete .meta{font-size:11px;color:var(--dim)}
-  .stage{font-family:var(--mono);font-size:10px;padding:2px 8px;border-radius:3px;border:1px solid var(--bball);color:var(--bball)}
-  .log{background:#fbfaf7;border:1px solid var(--line);border-radius:3px;padding:10px 12px;font-family:var(--mono);font-size:11.5px;max-height:210px;overflow:auto;white-space:pre-wrap;color:var(--ink)}
-  button.ghost{background:var(--panel);color:var(--acc);border-color:var(--acc)}
-  button.ghost:hover{background:var(--acc);color:#fff}
-  /* ==== ported from reference engine (catalog §1.5/§11): search, error card, register, print/mobile ==== */
-  .hsearch{font:12px var(--mono);background:#faf9f6;border:1px solid var(--line);border-radius:3px;padding:7px 10px;min-width:200px;color:var(--ink)}
-  .hsearch:focus{outline:2px solid var(--acc);outline-offset:1px}
-  .errcard{display:none;background:#fff;border:1px solid var(--line);border-left:3px solid var(--risk);border-radius:3px;padding:16px 18px;margin-bottom:18px}
-  .errcard .t{font-family:var(--serif);font-size:15px;margin-bottom:6px}
-  .errcard .m{font:11.5px var(--mono);color:var(--risk);margin-top:8px;word-break:break-word}
-  .empty{font-size:12.5px;color:var(--dim);padding:14px 10px;border:1px dashed var(--line);border-radius:3px;background:#fbfaf7}
-  .register{border:1px solid var(--ink);border-radius:3px;background:#fff;padding:14px 16px;margin-top:14px;font-size:12px}
-  .register .rt{font:10.5px var(--mono);letter-spacing:.18em;text-transform:uppercase;color:var(--acc);margin-bottom:6px}
-  .register .dig{font:11px var(--mono);color:var(--dim);margin-top:6px}
-  .tabscroll{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
-  @media(max-width:640px){
-    header{padding:16px 0}
-    .wrap{padding:16px}
-    .tabscroll{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch}
-    button,.hsearch{min-height:34px}
-    table{display:block;overflow-x:auto}
-    .grid{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-  }
-  @media print{
-    .no-print{display:none!important}
-    .docbar{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-    body{background:#fff}
-    .panel,.kpi,.card{box-shadow:none;break-inside:avoid}
-    .wrap{max-width:none;padding:0 12px}
-  }
-
-/* Persistent sitewide Clearline reference link, including embedded tab views. */
-
-
-/* APERTURE / The Court Remembers — cinematic coaching layer, 2026-11 */
-.bbpoet{color:#eee9df;background:#070709;font-family:Georgia,'Times New Roman',serif;line-height:1.5;isolation:isolate}
-.bbpoet *{box-sizing:border-box}
-.bbpoet a{color:inherit}
-.bbpoet button,.bbpoet select{font:inherit}
-.bbpoet button{cursor:pointer}
-.bbpoet button:focus-visible,.bbpoet a:focus-visible,.bbpoet select:focus-visible{outline:2px solid #e5bd77;outline-offset:4px}
-.bbpoet .bb-nav{display:flex;align-items:center;justify-content:space-between;gap:16px;max-width:1220px;margin:auto;padding:23px 28px;border-bottom:1px solid #7f633e44;font:700 11px/1.4 ui-monospace,SFMono-Regular,monospace;text-transform:uppercase;letter-spacing:.17em}
-.bbpoet .bb-mark{font-size:13px;color:#e6bd7c;text-decoration:none}
-.bbpoet .bb-menu{display:flex;gap:18px;flex-wrap:wrap}
-.bbpoet .bb-menu a{text-decoration:none;color:#c5b9a5}
-.bbpoet .bb-menu a:hover{color:#fff}
-.bbpoet .bb-section{max-width:1220px;margin:auto;padding:110px 28px}
-.bbpoet .bb-kicker{font:700 11px/1.6 ui-monospace,monospace;letter-spacing:.27em;text-transform:uppercase;color:#e3b977}
-.bbpoet .bb-gold{color:#e4b773}
-.bbpoet .bb-hero{position:relative;overflow:hidden;min-height:710px;background:radial-gradient(ellipse at 73% 42%,#88613635 0%,transparent 40%),radial-gradient(ellipse at 40% 105%,#71371225,transparent 45%),#050506}
-.bbpoet .bb-hero:before{content:"";pointer-events:none;position:absolute;inset:0;background:repeating-linear-gradient(90deg,transparent 0 99px,#f6dfa908 100px),linear-gradient(180deg,#0000 77%,#0a080c)}
-.bbpoet .bb-hero-main{position:relative;max-width:1220px;margin:auto;min-height:630px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(260px,.9fr);gap:20px;align-items:center;padding:70px 28px 100px}
-.bbpoet h1{font-family:Georgia,'Times New Roman',serif!important;font-weight:400!important;letter-spacing:-.065em;font-size:clamp(64px,9.2vw,136px)!important;line-height:.94!important;color:#f3ede1;margin:28px 0!important;max-width:750px}
-.bbpoet h1 span{display:block}
-.bbpoet .bb-lead{font-size:clamp(17px,2vw,23px);line-height:1.55;color:#cabfad;max-width:610px}
-.bbpoet .bb-small{font:12px/1.7 ui-monospace,monospace;color:#aaa095}
-.bbpoet .bb-actions{display:flex;gap:12px;flex-wrap:wrap;margin:32px 0}
-.bbpoet .bb-cta{display:inline-block;text-decoration:none!important;border:1px solid #cba46c;padding:13px 20px;font:700 11px/1.4 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:#ecd8b6;transition:background .2s}
-.bbpoet .bb-cta:hover{background:#b08b52;color:#060608}
-.bbpoet .bb-cta.secondary{border-color:#5c5550}
-.bbpoet .bb-court-graphic{width:100%;max-width:540px;opacity:.82;filter:drop-shadow(0 0 30px #d1a26219)}
-.bbpoet .bb-bar{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid #71563d77;border-bottom:1px solid #71563d77;background:#0d0c0f}
-.bbpoet .bb-bar div{padding:24px 28px;border-right:1px solid #71563d45}
-.bbpoet .bb-bar strong{display:block;color:#e3b977;font:700 10px/1.8 ui-monospace,monospace;letter-spacing:.15em;text-transform:uppercase}
-.bbpoet .bb-bar span{font:15px/1.4 Georgia,serif;color:#f4e9d6}
-.bbpoet h2{color:#eee9df!important;font-size:clamp(38px,6.8vw,82px)!important;font-weight:400;letter-spacing:-.048em;line-height:1.08;border:none!important;padding:0!important;margin:15px 0 36px!important}
-.bbpoet p{margin:0 0 18px}
-.bbpoet .bb-blurb{font:clamp(18px,2.25vw,25px)/1.6 Georgia,serif;color:#d4c9ba;max-width:880px}
-.bbpoet .bb-quote{border-left:2px solid #b98f53;padding:10px 0 10px 30px;font:italic clamp(22px,3vw,35px)/1.48 Georgia,serif;max-width:880px;color:#f1e6d3;margin:44px 0}
-.bbpoet .bb-divider{height:1px;background:linear-gradient(90deg,#c59c6080,transparent);margin:20px 0 60px}
-.bbpoet .bb-timeline{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:35px}
-.bbpoet .bb-mile{border-top:1px solid #a17c4c;padding:20px 10px 12px 0}
-.bbpoet .bb-mile .no{font:13px ui-monospace,monospace;color:#e7bd7c}
-.bbpoet .bb-mile h3{color:#f1e5d0;font:normal 24px/1.15 Georgia,serif;margin:14px 0}
-.bbpoet .bb-mile p{color:#bfb3a5;font:14px/1.65 system-ui,sans-serif}
-.bbpoet .bb-notice{border:1px solid #675138;border-left:3px solid #d9a65e;padding:16px 20px;background:#12100e;color:#d4c4ac;font:12px/1.7 system-ui,sans-serif;margin-top:30px}
-.bbpoet .bb-manifesto{background:radial-gradient(ellipse at 18% 12%,#593a2526,transparent 45%),#0a090c}
-.bbpoet .bb-manifesto-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
-.bbpoet .bb-principle{padding:28px;border:1px solid #705c3c55;background:#17131588}
-.bbpoet .bb-principle .num{font:12px ui-monospace,monospace;color:#d5a663}
-.bbpoet .bb-principle h3{font:normal 27px Georgia,serif;color:#f6e5c8;margin:15px 0}
-.bbpoet .bb-principle p{font:15px/1.8 system-ui,sans-serif;color:#c8bbaa}
-.bbpoet .bb-lab{background:#0e1013}
-.bbpoet .bb-workspace{display:grid;grid-template-columns:1.05fr .95fr;gap:20px;align-items:start}
-.bbpoet .bb-panel{border:1px solid #655743;background:#161719;padding:27px;min-width:0}
-.bbpoet .bb-panel h3{font:normal 30px Georgia,serif;color:#f5e7d2;margin:8px 0 15px}
-.bbpoet .bb-panel p{font:14px/1.75 system-ui,sans-serif;color:#c4b8a9}
-.bbpoet .bb-choice-grid{display:grid;gap:8px;margin:20px 0}
-.bbpoet .bb-choice,.bbpoet .bb-btn{border:1px solid #6f5b45;border-radius:0;background:#211d1d;color:#efdebf;text-align:left;font:13px/1.55 system-ui,sans-serif;letter-spacing:0;padding:13px 16px;min-height:44px;cursor:pointer}
-.bbpoet .bb-choice:hover,.bbpoet .bb-choice[aria-pressed="true"],.bbpoet .bb-btn:hover{color:#111;background:#e1b474;border-color:#e1b474}
-.bbpoet .bb-result{min-height:120px;border-top:1px solid #69553d;margin-top:20px;padding-top:20px;color:#e7d7bb;font:15px/1.7 system-ui,sans-serif}
-.bbpoet .bb-tool-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.bbpoet label{font:11px/2 ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#dfb776;display:block}
-.bbpoet select{display:block;width:100%;padding:12px 9px;border:1px solid #776346;color:#f2e6d5;background:#17171b;border-radius:0;margin-bottom:12px}
-.bbpoet .bb-output{white-space:pre-wrap;background:#0b0d0e;border:1px solid #544633;padding:16px;margin-top:15px;min-height:140px;font:13px/1.9 ui-monospace,monospace;color:#e5d8c2}
-.bbpoet .bb-proof{background:#0a090a}
-.bbpoet .bb-proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.bbpoet .bb-proof-row{padding:17px 0;border-bottom:1px solid #4a3e34;display:flex;align-items:baseline;justify-content:space-between;gap:16px}
-.bbpoet .bb-proof-row strong{font:15px/1.6 system-ui,sans-serif;color:#eee0c8}
-.bbpoet .bb-proof-row span{font:11px ui-monospace,monospace;color:#e0b57a;text-align:right}
-.bbpoet .bb-proof-row span.pending{color:#b3a9a0}
-.bbpoet .bb-outro{background:radial-gradient(ellipse at center,#4d2c231b,transparent 70%),#050506;text-align:center;padding:130px 28px}
-.bbpoet .bb-outro p{font:italic clamp(30px,6vw,76px)/1.23 Georgia,serif;letter-spacing:-.03em;max-width:950px;margin:25px auto 37px}
-.bbpoet .bb-chapter{font:700 10px ui-monospace,monospace;letter-spacing:.24em;color:#a28a67;text-transform:uppercase}
-.bbpoet .bb-appendix{font:12px/1.5 ui-monospace,monospace;background:#e6dccb;color:#392e22;padding:12px 24px;border-top:4px solid #b5864e}
-@media(max-width:840px){.bbpoet .bb-hero-main,.bbpoet .bb-workspace{grid-template-columns:1fr}.bbpoet .bb-court-graphic{max-width:340px;margin:auto;display:block}.bbpoet .bb-timeline{grid-template-columns:1fr 1fr}.bbpoet .bb-bar{grid-template-columns:1fr 1fr}.bbpoet .bb-manifesto-grid,.bbpoet .bb-proof-grid{grid-template-columns:1fr}.bbpoet .bb-hero{min-height:auto}}
-@media(max-width:520px){.bbpoet .bb-nav{align-items:start;flex-direction:column}.bbpoet .bb-menu{gap:10px}.bbpoet .bb-section{padding:75px 20px}.bbpoet .bb-hero-main{padding:55px 20px 70px}.bbpoet .bb-timeline{grid-template-columns:1fr}.bbpoet .bb-bar div{padding:17px}.bbpoet .bb-tool-row{grid-template-columns:1fr}.bbpoet .bb-panel{padding:18px}}
-@media(prefers-reduced-motion:reduce){.bbpoet *{scroll-behavior:auto!important;transition:none!important}}
-@media print{.bbpoet .bb-hero{min-height:auto}.bbpoet .bb-hero-main{min-height:auto}.bbpoet .bb-menu,.bbpoet .bb-lab{display:none}.bbpoet{color:#222;background:#fff}.bbpoet h1,.bbpoet h2{color:#222!important}}
-
+label{display:block;font-weight:700;font-size:12px;color:#e4dbcd;margin:0 0 7px}
+select,input,textarea{width:100%;border:1px solid #585b62;background:#1b2027;border-radius:7px;color:#fff;padding:12px;margin:0 0 15px;min-height:43px}
+textarea{min-height:88px;resize:vertical}
+button.primary{border:0;border-radius:7px;padding:12px 18px;background:var(--gold);color:#18140f;font-weight:850;font-size:13px}
+button.outline{border:1px solid #68656a;border-radius:7px;padding:11px 16px;background:transparent;color:#efe5da;font-size:13px}
+button.primary:hover,button.outline:hover{filter:brightness(1.14)}
+.choice{width:100%;text-align:left;padding:14px 16px;margin-bottom:9px;background:#1b2027;color:#f2ebdf;border:1px solid #494a4d;border-radius:8px}
+.choice:hover,.choice[aria-pressed=true]{border-color:var(--gold);background:#2b2722}
+.output{padding:17px 19px;background:#0b1015;border:1px solid #383b41;border-radius:9px;min-height:90px;white-space:pre-wrap;font-size:13px;line-height:1.8;color:#e5dbce;margin-top:17px}
+.mini-title{font:700 11px/1.5 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+.line-list{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.line{padding:15px 17px;border:1px solid #41444a;border-radius:9px;background:#15191f}
+.line strong{display:block;color:#f0e8d9;font-size:14px}
+.line span{display:block;margin-top:5px;color:#aeb0af;font-size:12px}
+.pills{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0}
+.pill{font:700 11px ui-monospace,monospace;border:1px solid #585047;color:#dac5a7;border-radius:99px;padding:9px 13px}
+.timeline{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.timeline .panel{border-top:2px solid var(--gold)}
+.list-plain{margin:0;padding-left:20px;color:#d0c9c0;font-size:14px;line-height:1.9}
+.evidence{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.evidence .panel strong{display:block;font-size:15px;color:#eee4d6}
+.evidence .panel p{margin-bottom:0}
+.evidence .value{font:700 11px ui-monospace,monospace;color:var(--gold)}
+.status-pending{color:#d0b8a0!important}
+.disclaimer{border-left:2px solid var(--gold);padding:16px 19px;background:#1e1b19;color:#cfc2b0;font-size:13px;line-height:1.7;margin-top:21px}
+.cta-bar{padding:45px 0 75px;display:flex;align-items:center;justify-content:space-between;gap:25px;flex-wrap:wrap}
+.cta-bar h2{font-size:clamp(28px,4vw,48px);margin:7px 0}
+footer{background:#07080a;padding:30px 0 50px;color:#a9aaa9;font-size:12px;line-height:1.8}
+footer a{color:var(--gold)}
+details{margin-top:20px;border:1px solid #494747;padding:18px;border-radius:10px;background:#17191c}
+summary{cursor:pointer;font-weight:750}
+details p{font-size:13px;color:#c4beb6;line-height:1.75}
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr;min-height:auto;padding-top:95px}.hero{min-height:auto}.orbit{max-width:250px}.grid,.timeline{grid-template-columns:1fr 1fr}.two,.evidence{grid-template-columns:1fr}.nav{gap:10px}.section-top{display:block}}
+@media(max-width:560px){.shell{padding:0 18px}.top-in{align-items:start;flex-direction:column;padding:15px 0;gap:12px}.top{position:relative}.nav{width:100%}.nav a{font-size:12px}.nav .hire{padding:5px 10px}.hero-grid{padding-top:58px}.orbit{max-width:180px}.grid,.timeline,.line-list{grid-template-columns:1fr}.tool-content{padding:16px}.tool-tabs{padding:8px}.tab{padding:10px 11px}section.block{padding:64px 0}.strip{gap:7px}.strip span{font-size:11px}.quote{margin:22px 0}.hero-lead{font-size:19px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+@media print{.top,.tool-shell,.actions,footer,.cta-bar{display:none!important}body{background:#fff;color:#111}.panel{color:#111;background:#fff;border:1px solid #999}.panel p,.lead{color:#111}section.block{padding:25px 0}h1,h2,h3{color:#111}.hero{min-height:auto;background:#fff}.hero-grid{min-height:auto}.orbit{display:none}}
 </style>
 </head>
 <body>
-
-<section class="bbpoet" id="court-remembers" aria-label="The Court Remembers: basketball coaching philosophy and practical playbook">
- <nav class="bb-nav" aria-label="Basketball portfolio navigation">
-  <a class="bb-mark" href="index.html">APERTURE / BASKETBALL</a>
-  <div class="bb-menu"><a href="#bb-legacy">Pedigree</a><a href="#bb-standard">The standard</a><a href="#bb-practice">Game room</a><a href="#bb-proof">Evidence</a><a href="#bb-engine">The engine</a></div>
- </nav>
- <div class="bb-hero">
-  <div class="bb-hero-main">
-   <div>
-    <div class="bb-kicker">An original coaching manifesto · Pratik “Locane” Singh</div>
-    <h1><span>THE COURT</span><span>REMEMBERS<span class="bb-gold">.</span></span></h1>
-    <p class="bb-lead">Before the noise. Before the banners. Before the shot that decides everything—there was a quiet gym, a promise to the game, and the work nobody applauded.</p>
-    <p class="bb-small">Basketball is not a claim to greatness. It is a daily obligation to prepare for the moment that asks for it.</p>
-    <div class="bb-actions">
-     <a class="bb-cta" href="#bb-practice">Enter the game room</a>
-     <a class="bb-cta secondary" href="#bb-legacy">The coach behind the system</a>
-    </div>
-   </div>
-   <svg class="bb-court-graphic" viewBox="0 0 620 590" role="img" aria-label="Original abstract golden basketball court and shot arc illustration">
-    <defs><radialGradient id="bb-halo"><stop stop-color="#be9456" stop-opacity=".25"/><stop offset="1" stop-color="#be9456" stop-opacity="0"/></radialGradient><linearGradient id="bb-line" x1="0" x2="1"><stop stop-color="#715231" stop-opacity=".15"/><stop offset=".6" stop-color="#ecc082"/><stop offset="1" stop-color="#715231" stop-opacity=".12"/></linearGradient></defs>
-    <circle cx="320" cy="275" r="260" fill="url(#bb-halo)"/>
-    <g fill="none" stroke="url(#bb-line)" stroke-width="2" opacity=".75">
-     <path d="M105 450 L540 450 L575 585 L65 585 Z"/><path d="M200 450L180 585 M443 450L464 585 M165 450a150 150 0 0 0 300 0"/><path d="M245 450 v-120 h150 v120"/><path d="M215 333 h215"/><ellipse cx="322" cy="336" rx="42" ry="11"/>
-     <path d="M318 332 C370 188 225 106 150 89" stroke-dasharray="5 12" stroke-width="2"/>
-    </g>
-    <g stroke="#ecc082" fill="none" stroke-width="5"><path d="M244 268 h156 v11 H244z"/><path d="M320 279 v51"/><ellipse cx="322" cy="317" rx="38" ry="10"/></g>
-    <circle cx="149" cy="89" r="26" fill="#8e512b" stroke="#dca367" stroke-width="2"/>
-    <g fill="none" stroke="#eac38a" stroke-width="2" opacity=".7"><path d="M123 89h52M149 63v52M132 69c35 11 35 30 36 40M167 67c-34 15-32 29-32 43"/></g>
-    <text x="320" y="528" fill="#dbb77e" font-family="monospace" font-size="12" text-anchor="middle" letter-spacing="5">EVERY POSSESSION IS EARNED</text>
-   </svg>
-  </div>
- </div>
- <div class="bb-bar" aria-label="Experience summary">
-  <div><strong>On the floor</strong><span>SoCal Elite youth basketball coach</span></div>
-  <div><strong>Playing foundation</strong><span>Competitive high-school basketball</span></div>
-  <div><strong>Leadership</strong><span>Multi-site youth program director</span></div>
-  <div><strong>Method</strong><span>Independent APERTURE coaching framework</span></div>
- </div>
- <div id="bb-legacy" class="bb-section">
-  <div class="bb-kicker">01 / The person, before the platform</div>
-  <h2>Pedigree isn't a logo.<br><span class="bb-gold">It's what the work can bear.</span></h2>
-  <p class="bb-blurb">The game was first learned as a player. Then came the harder discipline: teaching another person to see what you see, to feel the clock, to stand inside pressure without surrendering judgment.</p>
-  <div class="bb-quote">“A winning habit is made when no one is keeping score. The scoreboard only arrives to testify.”</div>
-  <div class="bb-divider"></div>
-  <div class="bb-timeline">
-   <div class="bb-mile"><div class="no">01 / PLAYER</div><h3>The foundation</h3><p>Competitive high-school basketball. The language of spacing, defensive rotations, preparation, effort, and the consequence of a missed assignment.</p></div>
-   <div class="bb-mile"><div class="no">02 / COACH</div><h3>The responsibility</h3><p>Current youth basketball coaching with SoCal Elite Sports in Southern California. Fundamentals, clear feedback, confidence, sportsmanship, and practice-to-game transfer.</p></div>
-   <div class="bb-mile"><div class="no">03 / LEADER</div><h3>The organization</h3><p>Former director and regional operator across Code Ninjas and theCoderSchool programs. Instructor development, curriculum, family communication, and multi-site execution. Operational results are self-reported.</p></div>
-   <div class="bb-mile"><div class="no">04 / BUILDER</div><h3>The instrument</h3><p>B.S. in Computer Science, San Francisco State University. Designer of APERTURE: a coach-controlled planning, evidence, and decision prototype—not an affiliated team product.</p></div>
-  </div>
-  <div class="bb-notice"><strong>Credibility rule:</strong> No championship titles, coaching win-loss totals, varsity head-coach appointments, athlete outcomes, or professional affiliations are claimed without supporting records. Coaching experience is described from personal work history; organizational metrics remain self-reported. The basketball data lower on this page are simulated.</div>
- </div>
- <div id="bb-standard" class="bb-manifesto">
-  <div class="bb-section">
-   <div class="bb-kicker">02 / The standard</div>
-   <h2>Four things the game<br><span class="bb-gold">never negotiates.</span></h2>
-   <div class="bb-manifesto-grid">
-    <div class="bb-principle"><div class="num">I / GUARD THE INVISIBLE</div><h3>Defense is a promise.</h3><p>Talk early. Shrink the floor. Rotate on the flight of the pass. Finish the stop with a rebound. A good defensive possession is five people keeping one promise.</p></div>
-    <div class="bb-principle"><div class="num">II / MAKE THE READ</div><h3>The open player is the play.</h3><p>Spacing creates possibility; recognition turns possibility into points. Attack the advantage, move the defense, choose the right shot instead of the loud one.</p></div>
-    <div class="bb-principle"><div class="num">III / EARN THE MOMENT</div><h3>Pressure is rehearsed.</h3><p>Late-clock situations, sideline out-of-bounds, free throws with consequences, switches, traps, and after-timeout execution belong in practice long before the final minute.</p></div>
-    <div class="bb-principle"><div class="num">IV / LEAVE PROOF</div><h3>Film doesn't flatter.</h3><p>Record the teaching point. Name the missed rotation. Recognize the next correct read. Separate effort from execution, and never mistake a spreadsheet for a coach's eye.</p></div>
-   </div>
-  </div>
- </div>
- <div id="bb-practice" class="bb-lab">
-  <div class="bb-section">
-   <div class="bb-kicker">03 / The game room · Interactive coaching demonstration</div>
-   <h2>When the game is on the line,<br><span class="bb-gold">what did you teach?</span></h2>
-   <p class="bb-blurb">Three situations. No fake scoreboard. Choose a coaching response, examine the tradeoff, then turn the lesson into a practice. The scenario is synthetic; the basketball questions are real.</p>
-   <div class="bb-workspace">
-    <div class="bb-panel">
-     <div class="bb-kicker">Decision theater / 01</div>
-     <div class="bb-choice-grid" style="grid-template-columns:repeat(3,minmax(0,1fr))">
-      <button type="button" class="bb-choice" data-bb-scene="0">Against the zone</button>
-      <button type="button" class="bb-choice" data-bb-scene="1">Defend the lead</button>
-      <button type="button" class="bb-choice" data-bb-scene="2">One last shot</button>
-     </div>
-     <h3 id="bb-scene-title">Loading possession...</h3>
-     <p id="bb-scene-desc"></p>
-     <div id="bb-scene-choices" class="bb-choice-grid" aria-label="Choose the next coaching action"></div>
-     <div class="bb-result" id="bb-scene-result" aria-live="polite">Select a response. We will examine the basketball logic—not pretend every situation has only one correct call.</div>
-    </div>
-    <div class="bb-panel">
-     <div class="bb-kicker">Practice builder / 02</div>
-     <h3>Put the philosophy on the floor.</h3>
-     <p>Build a sample session around the game problem you want to solve. Every block has a measurable teaching point and a game-transfer test.</p>
-     <div class="bb-tool-row">
-      <div><label for="bb-level">Group</label><select id="bb-level"><option value="Foundations">Foundations (ages and needs vary)</option><option value="Development">Development</option><option value="Competitive">Competitive</option></select></div>
-      <div><label for="bb-focus">Competitive priority</label><select id="bb-focus"><option value="Defense">Defensive stops</option><option value="Pressure">Beat pressure</option><option value="Rebounding">Own the glass</option><option value="Endgame">Late-game execution</option></select></div>
-     </div>
-     <div class="bb-actions" style="margin:12px 0"><button type="button" class="bb-btn" id="bb-build">Generate 60-minute practice</button><button type="button" class="bb-btn" id="bb-save">Download plan</button></div>
-     <div id="bb-plan" class="bb-output" role="status" aria-live="polite">Select a level and a priority, then generate the plan. All examples are coach-reviewed, illustrative, and saved only if you download them.</div>
-    </div>
-   </div>
-  </div>
- </div>
- <div id="bb-proof" class="bb-proof">
-  <div class="bb-section">
-   <div class="bb-kicker">04 / The evidence and the unanswered questions</div>
-   <h2>Don't sell a dynasty.<br><span class="bb-gold">Build one possession at a time.</span></h2>
-   <p class="bb-blurb">A serious coach's résumé is more than a highlight reel. It contains the record, the responsibilities, the adjustments, the setbacks, and the people who can attest to the work.</p>
-   <div class="bb-proof-grid">
-    <div>
-     <div class="bb-proof-row"><strong>Current youth coaching / SoCal Elite</strong><span>Experience stated</span></div>
-     <div class="bb-proof-row"><strong>Competitive high-school playing background</strong><span>Experience stated</span></div>
-     <div class="bb-proof-row"><strong>Multi-site youth education leadership</strong><span>Experience stated</span></div>
-     <div class="bb-proof-row"><strong>APERTURE coaching planning prototype</strong><span>View this page</span></div>
-    </div>
-    <div>
-     <div class="bb-proof-row"><strong>Personal coaching win / loss record</strong><span class="pending">Not documented</span></div>
-     <div class="bb-proof-row"><strong>Tournament finishes / titles</strong><span class="pending">Not documented</span></div>
-     <div class="bb-proof-row"><strong>Athlete development before / after</strong><span class="pending">Evidence needed</span></div>
-     <div class="bb-proof-row"><strong>Head-coaching references / testimonials</strong><span class="pending">Evidence needed</span></div>
-    </div>
-   </div>
-   <div class="bb-notice"><b>The next layer:</b> a season ledger with dated game results and opponent level; game-film clips with the specific teaching adjustment; a 30/60/90-day varsity pipeline; a one-page athletic-director interview packet; and a consent-safe athlete progress system. These are proposed additions, not measured achievements.</div>
-  </div>
- </div>
- <div class="bb-outro">
-  <div class="bb-kicker">05 / After the final horn</div>
-  <p>The noise dies.<br>The lights go dark.<br><span class="bb-gold">The work remains.</span></p>
-  <div class="bb-actions" style="justify-content:center"><a class="bb-cta" href="#bb-engine">Enter the operating engine</a><a class="bb-cta secondary" href="coaching-journey.html">Read the full coaching journey</a><a class="bb-cta secondary" href="https://fallen-angel-kobe.netlify.app/" rel="noopener">Fallen Angel / creative work</a></div>
-  <div class="bb-small">Independent coaching project. No affiliation with Kobe Bryant, the NBA, or SoCal Elite as an official software supplier.</div>
- </div>
-</section>
-<div class="bb-appendix" id="bb-engine"><strong>THE ENGINE BENEATH THE POEM</strong> &nbsp; / &nbsp; CLG-05 SIMULATED ACADEMY DEMONSTRATION — existing governance, athlete pathways, evidence gates, and exports preserved below.</div>
-
-<div class="docbar"><div><b>CLEARLINE GROUP LLC</b><span>GOVERNED OPERATIONS INSTRUMENTS</span></div><span>Document CLG-05 &middot; Version 7.0</span></div>
-<div class="docmeta"><span>Classification: Public demonstration</span><span>Data status: simulated; named technologies cited as real</span></div>
-<div class="wrap">
-<header>
-  <div class="tag">Instrument CLG-05 &middot; Baseline instantiation: Bay Area youth basketball academy &middot; membership model &middot; simulated network</div>
-<h1>Youth Basketball Academy — Governed Operations &amp; Player Development</h1>
-  <div class="tag">Daily operations, membership growth, and coach workflow on the same governed state — with an integration layer for the basketball-AI stack (computer-vision shot analysis, player tracking, development analytics). <span class="pill real">REAL TECH — cited</span> <span class="pill sim">SIMULATED DATA</span> <span class="pill gate">GOVERNANCE GATE</span></div>
-  <div class="nav" style="margin-top:8px"><a href="index.html">&larr; Index of instruments</a> &middot; <a href="coaching-journey.html">Read the coaching journey · Faith × APERTURE</a> &middot; Simulated roster and financials; cited technologies real</div>
-  <div class="tabscroll no-print" style="margin-top:10px">
-    <input id="gsearch" class="hsearch" type="search" placeholder="Search athletes, proposals, ledger…" oninput="applySearch(this.value)" aria-label="Global search">
-    <button onclick="exportSummary()" title="Download the offline-readable summary of the live canonical state">⬇ Print summary</button>
-    <button onclick="exportLedger()" title="Download the operations ledger (audit trail)">⬇ Audit ledger</button>
-  </div>
-</header>
-<div class="errcard" id="errcard" role="alert">
-  <div class="t">Something in this view didn't render</div>
-  <div style="font-size:12.5px;color:var(--dim)">The state itself is untouched — this is a display fault, not a data fault. No decision or ledger entry was affected.</div>
-  <button style="margin-top:10px" onclick="recoverView()">Reload this view</button>
-  <div class="m" id="errmsg"></div>
-</div>
-
-<h2>Article I — Academy snapshot (simulated; seeded on membership-business economics)</h2>
-<div class="grid" id="kpis"></div>
-
-<h2>Article II — Player development pathways</h2>
-<div class="two">
-  <div class="card">
-    <h3>Roster & pathway stages (click an athlete)</h3>
-    <div id="roster"></div>
-  </div>
-  <div class="card">
-    <h3>Selected athlete — development record</h3>
-    <div id="adetail" class="sub">Select an athlete on the left.</div>
-  </div>
-</div>
-
-<h2>Article III — Basketball-AI integration layer (cited technologies)</h2>
-<table>
-<tr><th>Capability</th><th>Frontier technology (real)</th><th>Ops use in this academy</th><th>Status here</th></tr>
-<tr><td>Shot analytics</td><td>Computer-vision shot tracking — arc, release angle, makes — from phone or fixed cameras (Noah / HomeCourt lineage; NBA's Hawk-Eye 3D optical tracking with Sony)</td><td>Per-athlete shot profiles feeding development plans; parent-visible progress</td><td><span class="pill real">integration point defined</span></td></tr>
-<tr><td>Player tracking</td><td>Second Spectrum (NBA league partner), SkillCorner broadcast-to-tracking, SportAI technique analysis</td><td>Practice-session movement & workload summaries for coaches</td><td><span class="pill real">integration point defined</span></td></tr>
-<tr><td>Assessment at scale</td><td>Smartphone visual-AI assessments (KhiladiPro-style), Kitman Labs Capture (~16k data points from a tablet)</td><td>Tryout/intake scoring — consistent, evidence-backed placement decisions</td><td><span class="pill real">integration point defined</span></td></tr>
-<tr><td>Wearables / workload</td><td>Catapult devices, now cost-accessible at youth level</td><td>Workload flags before overuse — safety gate, not just performance</td><td><span class="pill real">integration point defined</span></td></tr>
-<tr><td>Youth-sports ops software</td><td>Fastbreak AI and peers automating scheduling/registration</td><td>Baseline scheduling replaced by the governed pipeline in §4</td><td><span class="pill gate">superseded by governance</span></td></tr>
-</table>
-<div class="sub" style="margin-top:6px">Market context: AI player-scouting/analytics is a ~$0.3B (2025) market projected toward ~$4B by 2035 (~28% CAGR), computer vision the fastest-growing segment — this layer is where a youth academy differentiates, and it's priced for a tablet, not an NBA arena.</div>
-
-<h2>Article IV — Governed operations pipeline: proposals, gates, ledger</h2>
-<div class="two">
+<a class="skip" href="#main">Skip to content</a>
+<header class="top"><div class="shell top-in">
+<a class="brand" href="index.html">APERTURE <em>/ BASKETBALL</em></a>
+<nav class="nav" aria-label="Primary">
+<a href="#philosophy">Philosophy</a><a href="#lab">Coach's Lab</a><a href="#pedigree">Pedigree</a><a href="#hiring" class="hire">Hire / Connect</a>
+</nav></div></header>
+<main id="main">
+<section class="hero" aria-labelledby="hero-title">
+<div class="shell hero-grid">
 <div>
-<div class="card">
-  <h3>Live proposals (held at gates until a human commits)</h3>
-  <div id="props"></div>
-  <div style="margin-top:10px">
-    <button onclick="commitAll()">Commit reviewed batch</button>
-    <button class="ghost" onclick="injectRisk()">Inject risk event</button>
-    <button class="ghost" onclick="resetSim()">Reset</button>
-  </div>
+<div class="eyebrow">Independent coaching portfolio · Pratik “Locane” Singh</div>
+<h1 id="hero-title">THE WORK <span>OUTLIVES</span> THE BUZZER.</h1>
+<p class="hero-lead">The scoreboard records who won. The film remembers why. The player remembers who taught them.</p>
+<p class="micro">A real basketball mindset. A practical coaching lab. A record that separates experience from achievement—and keeps both accountable to the game.</p>
+<div class="actions"><a class="action" href="#lab">Enter the Coach's Lab</a><a class="action secondary" href="#pedigree">View coaching pedigree</a></div>
 </div>
-<div class="card" style="margin-top:12px">
-  <h3>Gates</h3>
-  <table id="gates"></table>
+<svg class="orbit" viewBox="0 0 400 420" role="img" aria-label="Original gold-line basketball half-court illustration">
+<defs><radialGradient id="halo"><stop stop-color="#a76a41" stop-opacity=".4"/><stop offset="1" stop-color="#8a5b3b" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="215" r="192" fill="url(#halo)"/>
+<g stroke="#dcb47c" stroke-width="2" fill="none" opacity=".86"><path d="M45 360H355L380 414H20Z"/><path d="M103 360V194H297V360"/><path d="M165 194A35 35 0 0 1 235 194"/><path d="M200 240V265"/><ellipse cx="200" cy="267" rx="35" ry="9"/><path stroke-dasharray="5 8" d="M200 255Q340 120 270 58"/><circle cx="270" cy="57" r="27" fill="#79462e"/><path d="M243 57H297M270 30V84M252 38Q286 54 290 73M286 37Q255 56 251 77"/></g>
+<text x="200" y="392" fill="#e7c28a" font-family="monospace" letter-spacing="2.5" font-size="10" text-anchor="middle">EVERY POSSESSION IS EARNED</text>
+</svg>
+</div>
+</section>
+<div class="shell strip" aria-label="Portfolio overview">
+<span>Current youth coach · SoCal Elite Sports</span><span>High-school competitive player</span><span>Multi-site youth program leadership</span><span>APERTURE · Independent prototype</span>
+</div>
+<section class="block" id="philosophy"><div class="shell">
+<div class="section-top"><div><div class="eyebrow">01 / The philosophy</div>
+<h2>Win the details.<br><span style="color:var(--gold)">Earn the moment.</span></h2>
+<p class="lead">A victory is never just the final shot. It is the rotation called early, the rebound secured, the extra pass made, the timeout understood, and the trust built long before tipoff.</p></div></div>
+<div class="grid">
+<div class="panel"><div class="card-num">01 / DEFENSE</div><h3>Five players. One promise.</h3><p>Contain the ball. Help and recover on time. Communicate through screens. Finish possessions with a rebound.</p></div>
+<div class="panel"><div class="card-num">02 / DECISIONS</div><h3>See the advantage.</h3><p>Spacing, timing, middle touches, paint pressure, shot selection, and the pass that moves a defense before it breaks.</p></div>
+<div class="panel"><div class="card-num">03 / PRESSURE</div><h3>Rehearse the last minute.</h3><p>Side-out actions, clock awareness, late-game counters, free throws, and the ability to remain calm when the game accelerates.</p></div>
+</div>
+<p class="quote">“Pressure doesn't create your habits. It reveals them.”</p>
+<div class="pills"><span class="pill">Discipline</span><span class="pill">Clarity</span><span class="pill">Humility</span><span class="pill">Team before ego</span></div>
+</div></section>
+<section class="block" id="lab"><div class="shell">
+<div class="section-top"><div><div class="eyebrow">02 / Working demonstration</div><h2>The Coach's Lab.</h2><p class="lead">One compact toolkit: make a read, build the practice, review the film, or prepare a season. All examples are original scenarios—not real athlete records or documented game results.</p></div></div>
+<div class="tool-shell">
+<div class="tool-tabs" role="tablist" aria-label="Coaching tools">
+<button class="tab" type="button" role="tab" id="tab-game" aria-controls="page-game" aria-selected="true" data-tab="game">Game room</button>
+<button class="tab" type="button" role="tab" id="tab-practice" aria-controls="page-practice" aria-selected="false" data-tab="practice" tabindex="-1">Practice</button>
+<button class="tab" type="button" role="tab" id="tab-film" aria-controls="page-film" aria-selected="false" data-tab="film" tabindex="-1">Film room</button>
+<button class="tab" type="button" role="tab" id="tab-season" aria-controls="page-season" aria-selected="false" data-tab="season" tabindex="-1">Season plan</button>
+<button class="tab" type="button" role="tab" id="tab-record" aria-controls="page-record" aria-selected="false" data-tab="record" tabindex="-1">Victory archive</button>
+</div>
+<div class="tool-content">
+<section class="tool-page" id="page-game" role="tabpanel" aria-labelledby="tab-game">
+<div class="two"><div><div class="mini-title">Game 01 / Decision theater</div>
+<label for="scenario">Scenario</label><select id="scenario"><option value="zone">Down two against a 2–3 zone</option><option value="screen">Up one, defend the side ball screen</option><option value="last">Down three, nine seconds left</option></select>
+<h3 id="s-title"></h3><p class="desc" id="s-desc"></p><div id="s-choices"></div></div>
+<div><div class="mini-title">Film review / Coaching judgment</div><div class="output" id="s-result" aria-live="polite">Choose a response to study the tradeoff.</div>
+<p class="small" style="margin-top:14px">No pretend certainty: personnel, opponent, game state, and rehearsed execution determine the best call.</p></div></div>
+</section>
+<section class="tool-page" id="page-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
+<h3>Design the next sixty minutes.</h3><p class="desc">From the problem on film to a measurable change on the floor.</p>
+<div class="two"><div><label for="level">Development stage</label><select id="level"><option>Foundations</option><option>Development</option><option>Competitive</option></select>
+<label for="focus">Team priority</label><select id="focus"><option value="defense">Defensive stops</option><option value="pressure">Beat pressure</option><option value="glass">Rebounding</option><option value="late">Late-game execution</option></select>
+<button class="primary" type="button" id="build">Build practice</button></div>
+<div><div class="mini-title">Session plan / Sample only</div><div id="practice-output" class="output" aria-live="polite">Choose the focus and create the practice.</div><button class="outline" id="download-practice" type="button" style="margin-top:11px">Download plan</button></div></div>
+</section>
+<section class="tool-page" id="page-film" role="tabpanel" aria-labelledby="tab-film" hidden>
+<h3>The film remembers why.</h3><p class="desc">A simple, coach-controlled possession review. Enter only anonymous or fictional notes: do not enter minors' names, video links, or personal information.</p>
+<div class="two">
+<div><label for="film-moment">Possession / game situation</label><input id="film-moment" maxlength="160" placeholder="e.g., 1:12 Q4, weak-side corner help">
+<label for="film-observation">What happened?</label><textarea id="film-observation" maxlength="700" placeholder="Describe the basketball read, not a student's identity."></textarea>
+<label for="film-adjustment">Next coaching correction</label><textarea id="film-adjustment" maxlength="700" placeholder="One actionable change to rehearse."></textarea><button class="primary" type="button" id="film-build">Build film note</button></div>
+<div><div class="mini-title">Coach's observation / Not stored</div><div class="output" id="film-output" aria-live="polite">Your review will appear here. Nothing is sent to a server.</div><button class="outline" id="film-download" type="button" style="margin-top:11px">Download note</button></div>
+</div></section>
+<section class="tool-page" id="page-season" role="tabpanel" aria-labelledby="tab-season" hidden>
+<h3>One team. Ninety days. A standard.</h3><p class="desc">An adaptable head-coach takeover plan: learn the program, install habits, and let competition test what has been taught.</p>
+<div class="timeline">
+<div class="panel"><div class="card-num">DAYS 01–30</div><h3>Listen + assess</h3><p>Meet athletic leadership; understand varsity terminology; evaluate fundamentals; establish safety, family communication, and team standards.</p><div class="tag">Deliverable: baseline assessment</div></div>
+<div class="panel"><div class="card-num">DAYS 31–60</div><h3>Install + repeat</h3><p>Build defensive rules, offensive spacing, transition roles, special situations, and position-appropriate individual development work.</p><div class="tag">Deliverable: practice / film rhythm</div></div>
+<div class="panel"><div class="card-num">DAYS 61–90</div><h3>Compete + adjust</h3><p>Revisit coverage decisions, scout opponent tendencies, track quality of possessions, and align development with next-level expectations.</p><div class="tag">Deliverable: coaching review</div></div>
+</div>
+<div class="rule"><div class="mini-title">The coaching tree / Principles, not claimed mentors</div><p class="small">Learn from game film, experienced staff, high-school fundamentals, youth development, and evidence-led feedback. Specific personal mentors, coaching lineage, and titles will be published only when verified.</p></div>
+</section>
+<section class="tool-page" id="page-record" role="tabpanel" aria-labelledby="tab-record" hidden>
+<h3>A victory archive that earns its numbers.</h3><p class="desc">No fictional championship banners or inflated records. Enter a non-identifying result below to create a session-only example of a game ledger. The site does not save or publish it.</p>
+<div class="two"><div><label for="record-level">Game level</label><select id="record-level"><option>Developmental youth</option><option>JV</option><option>Varsity</option><option>Other</option></select>
+<label for="record-for">Team points</label><input id="record-for" type="number" min="0" max="250" placeholder="0">
+<label for="record-against">Opponent points</label><input id="record-against" type="number" min="0" max="250" placeholder="0">
+<label for="record-lesson">Single coaching takeaway</label><input id="record-lesson" maxlength="150" placeholder="e.g., box-outs decided the final six minutes">
+<button class="primary" type="button" id="record-add">Add result to this session</button></div>
+<div><div class="mini-title">This session only · Not a published win-loss record</div>
+<div class="output" id="record-output" aria-live="polite">No results entered. No personal basketball coaching win total has been independently verified.</div>
+<button class="outline" type="button" id="record-download" style="margin-top:11px">Download session ledger</button>
+<button class="outline" type="button" id="record-clear" style="margin-top:11px">Clear entries</button>
+</div></div>
+</section>
 </div>
 </div>
-<div class="card">
-  <h3>Ledger — causal lineage, every decision traceable</h3>
-  <div class="log" id="ledger"></div>
+<div class="disclaimer">All tactical examples are illustrative. Player information is not collected. Nothing in this demonstration constitutes a real scouting report, verified game result, or promise of competitive outcomes.</div>
+</div></section>
+<section class="block" id="pedigree"><div class="shell">
+<div class="section-top"><div><div class="eyebrow">03 / Pedigree + proof</div><h2>The résumé isn't the record.</h2><p class="lead">Titles without evidence are decoration. Here is the experience behind the work, and the next proof that must be earned.</p></div></div>
+<div class="evidence">
+<div class="panel"><div class="value">EXPERIENCE / SELF-REPORTED</div><strong>Youth basketball coach · SoCal Elite Sports</strong><p>Currently coaching youth athletes in Orange County; focus on fundamentals, communication, repetition, and confidence.</p></div>
+<div class="panel"><div class="value">PLAYING FOUNDATION / SELF-REPORTED</div><strong>Competitive high-school basketball</strong><p>Experience as a player informs emphasis on preparation, decision-making, and team responsibility.</p></div>
+<div class="panel"><div class="value">OPERATIONS / SELF-REPORTED</div><strong>Code Ninjas + theCoderSchool leadership</strong><p>Directed multiple youth education programs; built curricula, coached staff, managed communication, and drove organizational improvement. These are education outcomes, not basketball wins.</p></div>
+<div class="panel"><div class="value">EDUCATION + ORIGINAL WORK</div><strong>B.S. Computer Science · SFSU</strong><p>Built APERTURE as an independent planning and evidence framework. It is not an official product of an employer, school, league, or club.</p></div>
+<div class="panel"><div class="value status-pending">NEXT EVIDENCE / NOT YET PROVIDED</div><strong>Verified team results and responsibilities</strong><p>Season records, named positions, box scores, championship finishes, dated game film, and supervisor references.</p></div>
+<div class="panel"><div class="value status-pending">NEXT EVIDENCE / NOT YET PROVIDED</div><strong>Documented athlete improvement</strong><p>Consented, aggregated, age-appropriate progress measures and clear accounts of the teaching changes responsible.</p></div>
 </div>
+<div class="quote">“The scoreboard records who won. The film remembers why. The player remembers who taught them.”</div>
+<div class="line-list">
+<div class="line"><strong>The locker room code</strong><span>Tell the truth. Defend together. Own the miss. Respect the game. Give the next teammate a chance.</span></div>
+<div class="line"><strong>Player evolution</strong><span>Establish a baseline; teach one observable behavior; retest it under pressure. Never publish a young athlete's record without permission.</span></div>
+<div class="line"><strong>The coaching tree</strong><span>Learn openly from other coaches and game film. Distinguish influences from personal mentorship.</span></div>
+<div class="line"><strong>The legacy chapter</strong><span>The greatest coaching outcome is what a player can carry beyond the gym: composure, clarity, courage, and service.</span></div>
 </div>
-
-<h2>Article V — Retention and growth loop: AI evidence into membership economics</h2>
-<div class="card">
-  <table>
-  <tr><th>Loop step</th><th>Mechanism</th><th>Metric moved</th></tr>
-  <tr><td>Evidence of progress</td><td>Shot-profile and assessment deltas shown to parents monthly (real CV data, not coach opinion)</td><td>Retention / churn ↓</td></tr>
-  <tr><td>Placement integrity</td><td>Gate: no athlete advances a stage without assessment evidence + coach sign-off (two-stage commit)</td><td>Trust, referrals ↑</td></tr>
-  <tr><td>Safety first</td><td>Workload flags block schedule intensification until cleared — safety precedes growth</td><td>Injury churn ↓, liability ↓</td></tr>
-  <tr><td>Capacity discipline</td><td>Enrollment proposals held at capacity gates; waitlist monetized into camps/clinics</td><td>Revenue per court-hour ↑</td></tr>
-  </table>
-  <div class="sub" style="margin-top:8px">Reference economics (membership businesses): LTV:CAC floor 3:1; per-athlete revenue and multiples parameterized in the engine — swap the seed, the logic holds for any youth sport.</div>
+</div></section>
+<section class="block" id="hiring"><div class="shell">
+<div class="section-top"><div><div class="eyebrow">04 / For athletic directors + program leaders</div><h2>Build a team that<br><span style="color:var(--gold)">knows why it wins.</span></h2><p class="lead">Available to discuss head-coaching, developmental coaching, and basketball-program leadership opportunities in Orange County.</p></div></div>
+<div class="two">
+<div class="panel"><h3>What I would bring</h3>
+<ul class="list-plain"><li>Defensive identity and explicit teaching terminology</li><li>Practice plans that connect drills to possessions</li><li>Opponent and late-game decision preparation</li><li>Alignment between JV development and varsity expectations</li><li>Clear communication, safety, and coach-reviewed evidence</li></ul>
+<div class="actions"><a class="action" href="mailto:parry.s.2324@gmail.com?subject=Basketball%20Coaching%20Opportunity">Contact about coaching</a><button type="button" class="outline" id="packet-download">Download AD packet</button></div>
 </div>
-
-<h2>Article VI — Network twin: forecast self-calibration</h2>
-<div class="card">
-  <div id="twin"></div>
-  <div class="sub" style="margin-top:8px"><b>Calibration is earned, not asserted.</b> Each athlete carries a forward classification (rising / holding / deteriorating) issued from leading signals — CV trend line, workload flags — and that call is then scored against the realized makes on record. The accuracy figure below is computed live from the canonical state; it goes down when the forecast layer is wrong, not just up when it is right. A development model that cannot show its miss rate is marketing, not coaching.</div>
-</div>
-
-<div class="register">
-  <div class="rt">Submission artifact · Clearline Group LLC</div>
-  <div>Instrument CLG-05 · Youth Basketball Academy — Governed Operations &amp; Player Development · seeds illustrative, structures computed live. Every figure in this document is derived from one canonical state (<b>SEED, ROSTER, GATES, PROPS, LED</b>) at render time — no view holds a separate copy, no pre-computed numbers are served.</div>
-  <div class="dig" id="registerDig">Tamper-evident ledger digest: (enterprise kit not loaded — digest unavailable; the record itself still renders above). Stamped on: summary export · audit-ledger export · register block.</div>
-</div>
-
-<footer>
-<div class="foot"><b>Notice.</b> This instrument is a governance-systems demonstration prepared by Clearline Group LLC. It does not constitute an offer of securities, a franchise disclosure document, or legal, financial, or investment advice. Roster and financial figures are simulated; technologies named in Article III are real and cited as integration points only.</div>
-<div class="foot" style="margin-top:8px"><b>Safety clause.</b> Where athlete-safety flags and growth actions conflict, the safety determination controls. Governors: canonical state &middot; fail-safe gates &middot; two-stage commit &middot; safety precedes growth &middot; causal lineage.</div>
-</footer>
-</div>
-
-<script>
-// ---------- seeds (SIMULATED) ----------
-var SEED={courts:6, athletes:412, capacity:480, coaches:18, retention:0.91, monthlyRev:164000, perAthlete:398, waitlist:37};
-var STAGES=["Foundations","Development","Competitive","Elite-Track"];
-var ROSTER=[
- {n:"Maya R.",age:11,st:2,arc:47,rel:52,makes:61,trend:"+6 arc° / 90d",flag:null},
- {n:"Devon K.",age:13,st:3,arc:51,rel:55,makes:68,trend:"+9% makes / 90d",flag:null},
- {n:"Sofia T.",age:9,st:1,arc:41,rel:46,makes:48,trend:"+4 rel in / 90d",flag:null},
- {n:"Jordan M.",age:14,st:3,arc:53,rel:57,makes:71,trend:"steady",flag:"workload watch"},
- {n:"Aiden L.",age:10,st:1,arc:44,rel:49,makes:52,trend:"+5 arc° / 90d",flag:null},
- {n:"Priya S.",age:12,st:2,arc:49,rel:54,makes:63,trend:"+7% makes / 90d",flag:null}
-];
-var GATES=[
- {g:"Safety gate",q:0.02,rule:"Workload/injury flags block all schedule & stage changes"},
- {g:"Evidence gate",q:0.05,rule:"Stage advancement requires assessment evidence (CV/assessment delta)"},
- {g:"Capacity gate",q:0.04,rule:"Enrollment proposals blocked at court-hour capacity"},
- {g:"Pricing gate",q:0.06,rule:"Price/discount changes require margin check + human commit"}
-];
-var PROPS=[
- {id:"P-101",t:"Enroll 12 from waitlist into Development (Tue/Thu 5pm)",gate:"Capacity gate",status:"HELD"},
- {id:"P-102",t:"Advance Maya R. → Competitive (assessment delta attached)",gate:"Evidence gate",status:"HELD"},
- {id:"P-103",t:"Add Sunday shooting lab (CV-tracked, 24 spots)",gate:"Capacity gate",status:"HELD"},
- {id:"P-104",t:"10% sibling discount for camp week 3",gate:"Pricing gate",status:"HELD"},
- {id:"P-105",t:"Intensify Jordan M. practice load",gate:"Safety gate",status:"BLOCKED"}
-];
-var LED=[];
-function stamp(){var d=new Date();return d.toTimeString().slice(0,8);}
-function log(m){LED.unshift("["+stamp()+"] "+m);if(LED.length>60)LED.pop();renderLedger();}
-
-// ---------- view guard (ported EngineErrorBoundary, catalog §1.4) ----------
-function renderAll(){
- try{
-  renderAllCore();
-  var ec=document.getElementById('errcard'); if(ec) ec.style.display='none';
- }catch(err){
-  var ec=document.getElementById('errcard'), em=document.getElementById('errmsg');
-  if(ec) ec.style.display='block';
-  if(em) em.textContent=String(err && err.message || err);
- }
-}
-function recoverView(){var ec=document.getElementById('errcard'); if(ec) ec.style.display='none'; renderAll();}
-// ---------- global search (catalog §3.2) — filters this engine's records ----------
-var SEARCH="";
-function applySearch(q){SEARCH=(q||"").toLowerCase().trim();renderAll();}
-function sHit(){
- if(!SEARCH) return true;
- for(var i=0;i<arguments.length;i++){if(String(arguments[i]).toLowerCase().indexOf(SEARCH)>=0) return true;}
- return false;
-}
-// ---------- downloads (catalog §11) ----------
-function downloadText(txt,name){
- var blob=new Blob([txt],{type:"text/plain"});
- var a=document.createElement("a");
- a.href=URL.createObjectURL(blob); a.download=name; a.click();
- setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
-}
-function buildSummaryText(){
- var t=buildTwin();
- var lines=[];
- lines.push("INSTRUMENT: "+document.title);
- lines.push("Baseline: Bay Area youth basketball academy · membership model · simulated network");
- lines.push("Athletes: "+SEED.athletes+" of "+SEED.capacity+" capacity ("+Math.round(SEED.athletes/SEED.capacity*100)+"% occupancy)");
- lines.push("Monthly revenue: $"+SEED.monthlyRev.toLocaleString()+" · Retention: "+Math.round(SEED.retention*100)+"% · Waitlist: "+SEED.waitlist);
- lines.push("Safety clause: where athlete-safety flags and growth actions conflict, the safety determination controls.");
- lines.push("Forward-classification accuracy (network twin): "+(t.acc*100).toFixed(1)+"% over "+t.rows.length+" athletes — calibration is earned, not asserted");
- lines.push("");
- lines.push("OPERATIONS LOG ("+LED.length+" entries, newest first):");
- LED.forEach(function(m){lines.push("  "+m);});
- return lines.join("\n");
-}
-function exportSummary(){
- var head="CLEARLINE GROUP LLC — GOVERNED OPERATIONS SUMMARY EXPORT\nGenerated from the live canonical state · "+new Date().toISOString()+"\n";
- head+="Ledger integrity digest: "+((typeof CLG!=="undefined"&&CLG.digest)?CLG.digest()+" over "+CLG.entries()+" committed entries":"unavailable — enterprise kit not loaded")+"\n";
- head+="==========================================================\n\n";
- downloadText(head+buildSummaryText(),"clg-05-basketball-summary.txt");
-}
-function exportLedger(){
- var d=(typeof CLG!=="undefined"&&CLG.digest)?CLG.digest():"unavailable";
- downloadText(JSON.stringify({
-  product:"Clearline Group LLC — CLG-05 Youth Basketball Academy — audit ledger export",
-  exported:new Date().toISOString(),
-  tamperEvidentDigest:d,
-  entries:LED
- },null,2),"clg-05-basketball-ledger.json");
-}
-// ---------- network twin — forecast self-calibration (catalog §8) ----------
-function hashN(s){var x=0;for(var i=0;i<s.length;i++){x=(x*31+s.charCodeAt(i))&0x7fffffff;}return x;}
-function forecastOf(a){ // forward class from leading signals, deterministic per athlete
- if(a.flag) return "deteriorating";                       // workload flag → expect regression
- if(a.trend.indexOf("+")===0) return "rising";            // positive CV trend line
- if(hashN(a.n)%4===0) return "deteriorating";
- return "holding";
-}
-function realizedOf(a){ return a.makes; }                  // realized makes (100-shot session)
-function hitOf(cls,real){
- if(cls==="rising") return real>=60;
- if(cls==="deteriorating") return real<55;
- return real>=50 && real<=70;                             // holding band
-}
-function buildTwin(){
- var rows=ROSTER.map(function(a){
-  var cls=forecastOf(a), real=realizedOf(a);
-  return {n:a.n, stage:STAGES[a.st], cls:cls, conf:60+hashN(a.n)%30, real:real, hit:hitOf(cls,real)};
- });
- var hits=rows.filter(function(r){return r.hit;}).length;
- return {rows:rows, acc:rows.length?hits/rows.length:0};
-}
-function renderTwin(){
- var el=document.getElementById('twin'); if(!el) return;
- var t=buildTwin();
- if(!t.rows.length){el.innerHTML='<div class="empty">No athletes on the roster — calibration has nothing to score. Calibration is earned, not asserted; an empty record earns nothing.</div>';return;}
- var html='<div class="grid" style="margin-bottom:10px">'+
-  '<div class="card"><h3>Forward-classification accuracy</h3><div class="big">'+(t.acc*100).toFixed(1)+'%</div><div class="sub">scored live against realized makes</div></div>'+
-  '<div class="card"><h3>Athletes scored</h3><div class="big">'+t.rows.length+'</div><div class="sub">correct calls: '+t.rows.filter(function(r){return r.hit;}).length+'</div></div>'+
-  '</div>'+
-  '<table><tr><th>Athlete</th><th>Stage</th><th>Forecast class</th><th>Confidence</th><th>Realized makes</th><th>Scored</th></tr>'+
-  t.rows.map(function(r){return '<tr><td><b>'+r.n+'</b></td><td>'+r.stage+'</td>'+
-   '<td><span class="badge '+(r.cls==='rising'?'b-ok':(r.cls==='deteriorating'?'b-risk':'b-held'))+'">'+r.cls+'</span></td>'+
-   '<td style="font-family:var(--mono)">'+r.conf+'%</td>'+
-   '<td style="font-family:var(--mono)">'+r.real+'</td>'+
-   '<td>'+(r.hit?'<span class="badge b-ok">hit</span>':'<span class="badge b-risk">miss</span>')+'</td></tr>';}).join('')+
-  '</table>';
- el.innerHTML=html;
-}
-// ---------- render ----------
-function renderKPIs(){
- var occ=Math.round(SEED.athletes/SEED.capacity*100);
- var el=document.getElementById('kpis');
- el.innerHTML='';
- var cards=[
-  ["Athletes enrolled",SEED.athletes,occ+"% of "+SEED.capacity+" capacity"],
-  ["Monthly revenue","$"+SEED.monthlyRev.toLocaleString(),"$"+SEED.perAthlete+"/athlete/mo"],
-  ["Retention",Math.round(SEED.retention*100)+"%","annualized, simulated"],
-  ["Waitlist",SEED.waitlist,"unmonetized demand"],
-  ["Coaches",SEED.coaches,SEED.courts+" courts"],
-  ["Layered containment","P(escape) ≈ "+Math.pow(1-0.0425,4).toExponential(1),"4 gates · product of (1−q)"]
- ];
- cards.forEach(function(c){
-  el.innerHTML+='<div class="card"><h3>'+c[0]+'</h3><div class="big">'+c[1]+'</div><div class="sub">'+c[2]+'</div></div>';
- });
-}
-function renderRoster(){
- var el=document.getElementById('roster');el.innerHTML='';
- var vis=ROSTER.map(function(a,i){return {a:a,i:i};}).filter(function(x){return sHit(x.a.n,STAGES[x.a.st],x.a.trend,x.a.flag||"");});
- if(!vis.length){
-  el.innerHTML='<div class="empty">'+(ROSTER.length?'No athletes match the current search'+(SEARCH?' (“'+SEARCH+'”)':'')+'. The roster itself is unchanged — clear the search to restore the full view.':'Roster is empty — no athletes enrolled on this record. An empty roster is reported as empty, not dressed up.')+'</div>';
-  return;
- }
- vis.forEach(function(x){
-  var a=x.a;
-  el.innerHTML+='<div class="athlete" onclick="pick('+x.i+')"><div><div class="nm">'+a.n+' · '+a.age+'</div><div class="meta">'+a.trend+(a.flag?' · <span style="color:var(--warn)">'+a.flag+'</span>':'')+'</div></div><div class="stage">'+STAGES[a.st]+'</div></div>';
- });
-}
-function pick(i){
- var a=ROSTER[i];
- var d=document.getElementById('adetail');
- d.innerHTML='<h3 style="margin-top:0">'+a.n+' — '+STAGES[a.st]+'</h3>'+
-  '<div class="sub">Shot arc</div><div class="prog"><div style="width:'+(a.arc/60*100)+'%"></div></div>'+
-  '<div class="sub" style="margin-top:8px">Release height</div><div class="prog"><div style="width:'+(a.rel/65*100)+'%"></div></div>'+
-  '<div class="sub" style="margin-top:8px">Makes (100-shot session)</div><div class="prog"><div style="width:'+a.makes+'%"></div></div>'+
-  '<div class="sub" style="margin-top:10px">Trend: '+a.trend+' · Source: CV shot-tracking feed <span class="pill sim">simulated feed</span></div>'+
-  (a.flag?'<div style="margin-top:8px;color:var(--warn);font-size:12px">⚠ '+a.flag+' — safety gate active; load changes blocked until cleared.</div>':'');
-}
-function renderProps(){
- var el=document.getElementById('props');el.innerHTML='';
- var vis=PROPS.filter(function(p){return sHit(p.id,p.t,p.gate,p.status);});
- if(!vis.length){
-  el.innerHTML='<div class="empty">'+(PROPS.length?'No proposals match the current search — the queue itself is unchanged.':'No proposals in queue. No proposals → nothing held at the gate: agents have proposed nothing, so the gate holds nothing. An empty queue is reported as empty, not dressed up.')+'</div>';
-  return;
- }
- vis.forEach(function(p){
-  var col=p.status==='BLOCKED'?'var(--risk)':(p.status==='COMMITTED'?'var(--acc)':'var(--warn)');
-  el.innerHTML+='<div style="padding:7px 0;border-bottom:1px solid var(--line);font-size:13px"><b>'+p.id+'</b> '+p.t+'<br><span style="font-size:11px;color:'+col+'">'+p.status+'</span> <span class="pill gate">'+p.gate+'</span></div>';
- });
-}
-function renderGates(){
- var el=document.getElementById('gates');
- el.innerHTML='<tr><th>Gate</th><th>q</th><th>Rule</th></tr>';
- GATES.forEach(function(g){el.innerHTML+='<tr><td>'+g.g+'</td><td>'+g.q+'</td><td style="font-size:12px">'+g.rule+'</td></tr>';});
-}
-function renderLedger(){
- var vis=LED.filter(function(m){return sHit(m);});
- var el=document.getElementById('ledger');
- if(!vis.length){el.textContent=LED.length?"No ledger entries match the current search — the record itself is unchanged.":"No committed entries yet. The ledger starts empty and only grows by two-stage commit — an empty record is shown as empty.";return;}
- el.textContent=vis.join("\n");
-}
-
-// ---------- actions ----------
-function commitAll(){
- var n=0;
- PROPS.forEach(function(p){
-  if(p.status==='HELD'){p.status='COMMITTED';n++;log('COMMIT '+p.id+' — human-approved at '+p.gate+' (two-stage commit).');}
- });
- if(n===0)log('No held proposals to commit.');
- else{
-  SEED.athletes=Math.min(SEED.capacity,SEED.athletes+12);
-  SEED.waitlist=Math.max(0,SEED.waitlist-12);
-  SEED.monthlyRev+=12*SEED.perAthlete;
-  log('State updated: +12 athletes from waitlist; revenue re-derived. Canonical state — no parallel truths.');
- }
- renderAll();
-}
-function injectRisk(){
- var a=ROSTER[Math.floor(Math.random()*ROSTER.length)];
- a.flag='workload watch';
- log('RISK EVENT — wearable feed flagged '+a.n+' workload threshold. Safety gate engaged: all load changes for athlete blocked. Safety precedes growth.');
- renderAll();
-}
-function resetSim(){location.reload();}
-function renderAllCore(){
- renderKPIs();renderRoster();renderProps();renderGates();renderTwin();renderLedger();
- var rd=document.getElementById('registerDig');
- if(rd && typeof CLG!=="undefined" && CLG.digest){
-  rd.textContent="Tamper-evident ledger digest: "+CLG.digest()+" over "+CLG.entries()+" committed entries — a silently edited record cannot reproduce this digest. Stamped on: summary export · audit-ledger export · register block.";
- }
-}
-
-log('Engine initialized — Bay Area youth basketball academy seed (simulated). 4 gates armed.');
-log('Compliance speaks first: proposals P-101…P-105 proposed by agents, none auto-committed.');
-log('P-105 BLOCKED at safety gate — workload flag on Jordan M. precedes any growth action.');
-renderAll();
-</script>
-<script src="clg-enterprise.js"></script>
-<script>
-// ============ CLG ENTERPRISE KIT WIRING (imported from CLG-06) ============
-if(typeof CLG!=="undefined"){
-CLG.chain(LED);
-CLG.summary(function(){ return buildSummaryText(); });
-CLG.tour([
-  {el:function(){return document.querySelectorAll('h2')[0];}, title:"Academy snapshot", body:"One canonical seed drives every figure on this instrument — occupancy, revenue, development pipeline. School-level figures are labeled simulated."},
-  {el:function(){return document.querySelectorAll('h2')[1];}, title:"Player development pathways", body:"Development is administered athlete by athlete — the same family-by-family discipline as enrollment. Select an athlete to read the development record."},
-  {el:function(){return document.querySelectorAll('h2')[2];}, title:"Basketball-AI integration layer", body:"Cited technologies only — nothing claimed that is not sourced. This is the integration map, not a feature wishlist."},
-  {el:function(){return document.querySelectorAll('h2')[3];}, title:"Governed operations pipeline", body:"Agents propose, a person decides, the ledger remembers — and the safety gate speaks first. P-105 is blocked on a workload flag: safety precedes growth, structurally."},
-  {el:function(){return document.querySelectorAll('h2')[4];}, title:"Retention and growth loop", body:"AI evidence feeds membership economics; the record below is tamper-evident. Replay walks the operations log in order; Export takes it offline."},
-  {el:function(){return document.querySelectorAll('h2')[5];}, title:"Network twin", body:"The forecast layer grades itself: every athlete's forward classification is scored against realized makes, and the accuracy figure is computed live. Calibration is earned, not asserted."}
-]);
-renderAll(); // kit now loaded — refresh register digest + chained ledger
-}
-</script>
-<script defer src="assets/aperture-shell.js"></script>
+<div class="panel"><h3>Work samples</h3>
+<div class="rule" style="margin-top:0"><a href="coaching-journey.html">Coaching journey →</a><p class="small">Service, character, learning, and the responsibility of teaching.</p></div>
+<div class="rule"><a href="basketball-engine.html">Original academy simulation →</a><p class="small">The preserved CLG-05 prototype, including simulated pathways and governance ledger. Technical, illustrative, not a live club deployment.</p></div>
+<div class="rule"><a href="https://fallen-angel-kobe.netlify.app/" rel="noopener">Fallen Angel / Kobe editorial project →</a><p class="small">Separate creative writing and basketball storytelling project; not affiliated with the Bryant estate or NBA.</p></div>
+<div class="rule"><a href="index.html">APERTURE portfolio →</a><p class="small">Operations, systems, research, and documented project work.</p></div>
+</div></div>
+<details><summary>How this project handles claims and youth safety</summary>
+<p>This portfolio is an independent demonstration. The sample game choices are educational, not claimed historical game calls. Nothing typed into the lab is stored by this site. The victory archive runs only in browser memory, and its records are explicitly session-only. No real student profiles are embedded. Confirm coaching credentials, safety training, player results, and references with the relevant organizations before relying on them.</p>
+</details>
+</div></section>
+<div class="shell cta-bar"><div><div class="eyebrow">After the final horn</div><h2>The lights go dark.<br>The work remains.</h2></div><a class="action" href="mailto:parry.s.2324@gmail.com?subject=Coaching%20Conversation">Start a conversation</a></div>
+</main>
+<footer><div class="shell">APERTURE Basketball · Independent work by Pratik “Locane” Singh · <a href="index.html">Portfolio</a> · <a href="basketball-engine.html">Archived engine</a><p>Original writing and diagrams. No affiliation with Kobe Bryant, the NBA, or any club as a software provider. Results and case examples are not represented as verified competitive achievements.</p></div></footer>
 <script>
 (function(){
-"use strict";
-var scenes=[
- {title:"Down two. Forty-one seconds. A 2–3 zone.",
-  desc:"Opponent protects the paint and dares rushed perimeter shots. What are you trying to create on this possession?",
-  choices:[
-   ["Flash to the high post and attack the seam","Strong option when the middle can be occupied: force the top line to decide, then read the baseline cutter, short corner, or kickout. The teaching point is advantage creation, not simply getting a shot up."],
-   ["Hold five players on the perimeter","This may spread the defense horizontally, but without middle and baseline threats it risks low-value ball movement. Teach how to move defenders, not only the ball."],
-   ["Take the first contested three","A three can be correct when it is the best available look or time dictates. Here, with forty-one seconds, consider creating a better attempt and preparing transition defense."]
-  ]},
- {title:"Up one. Eighteen seconds. Side ball screen.",
-  desc:"The opponent's best guard wants to turn the corner. How does your team defend without losing sight of the roll and weak-side shooters?",
-  choices:[
-   ["ICE it: keep the ball away from the middle","If personnel and alignment permit, forcing toward the sideline can limit middle penetration. The big must be positioned early; the low defender must know the roller responsibility."],
-   ["Switch with communication","A reasonable choice with interchangeable defenders, but it may create a mismatch or slip. Rehearse early calls, scram opportunities, and how to finish the possession."],
-   ["Aggressive hedge and recover","Can disrupt the handler, but exposes space behind the screen. Use only if the rotating defenders know the tag, recovery, and skip-pass responsibilities."]
-  ]},
- {title:"Down three. Nine seconds. Sideline inbound.",
-  desc:"One timeout remains. Your opponent can switch actions. Which decision best matches your shooters and the clock?",
-  choices:[
-   ["Design a screen-the-screener action for a clean three","Useful if the team has rehearsed timing and counters. Specify first read, switch counter, safety valve, and who covers offensive rebound versus transition."],
-   ["Attack immediately for two and extend the game","Depends on timeout, foul strategy, opponent free-throw quality, and how quickly you can score. Do not pretend this is universally wrong: calculate the game state."],
-   ["Force an off-balance three without an entry read","Usually lowers quality unless time has truly collapsed. Practice the inbound angle and alternate entries so pressure does not erase the plan."]
-  ]}
-];
-var root=document.getElementById("court-remembers");
-if(!root)return;
-var title=root.querySelector("#bb-scene-title"),desc=root.querySelector("#bb-scene-desc"),opts=root.querySelector("#bb-scene-choices"),result=root.querySelector("#bb-scene-result");
-var sceneButtons=root.querySelectorAll("[data-bb-scene]");
-function showScene(n){
- var s=scenes[n];title.textContent=s.title;desc.textContent=s.desc;opts.textContent="";result.textContent="Choose the next read, then examine the tradeoff.";
- Array.prototype.forEach.call(sceneButtons,function(b){b.setAttribute("aria-pressed",String(Number(b.getAttribute("data-bb-scene"))===n));});
- s.choices.forEach(function(c,i){
-  var b=document.createElement("button");b.type="button";b.className="bb-choice";b.textContent=(i+1)+". "+c[0];b.setAttribute("aria-pressed","false");
-  b.addEventListener("click",function(){Array.prototype.forEach.call(opts.children,function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");result.textContent="COACH'S FILM ROOM — "+c[1];});
-  opts.appendChild(b);
- });
-}
-Array.prototype.forEach.call(sceneButtons,function(b){b.addEventListener("click",function(){showScene(Number(b.getAttribute("data-bb-scene")))});});
-showScene(0);
-var planEl=root.querySelector("#bb-plan"),lastPlan="";
-var drills={
- Defense:["Closeout footwork to live containment","4-on-4 shell: one pass away / two passes away","Rebound-and-outlet contest","Score only after three consecutive stops"],
- Pressure:["Two-ball handling and passing angles","3-on-2 continuous advantage reads","4-on-4 trap escape with pivot and middle flash","Score possessions by turnovers avoided and paint touches"],
- Rebounding:["Find-hit-get box-out mechanics","2-on-2 rebounding with contact and pursuit","4-on-4 shot/rebound/transition conversion","Track contested rebounds and second-chance points"],
- Endgame:["Pressure free throws with fatigue managed","Sideline and baseline out-of-bounds options","5-on-5 score/clock/timeout situations","Run late-game possessions with alternate defensive coverages"]
+'use strict';
+var $=function(id){return document.getElementById(id);};
+var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
+function selectTab(name){tabs.forEach(function(b){var on=b.getAttribute('data-tab')===name;b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1;$(b.getAttribute('aria-controls')).hidden=!on;});}
+tabs.forEach(function(b,i){b.addEventListener('click',function(){selectTab(b.getAttribute('data-tab'));});b.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();var n=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(tabs[n].getAttribute('data-tab'));tabs[n].focus();}});});
+var scenes={
+zone:{title:"Down two. Forty-one seconds. A 2–3 zone.",desc:"The middle is guarded. Your shooters are marked. What advantage can you create?",choices:[
+["Flash the high post and read the short corner","Good against a zone when the middle touch forces help. Read the baseline, weak-side gap, and the second pass. Protect against transition the other way."],
+["Keep five players outside the arc","Spacing alone is not a threat. Without a middle or baseline touch, passes can become empty motion. Demand purposeful movement."],
+["Shoot the first contested three","A three may be correct if timing or personnel demands it, but this clock allows a stronger attempt. Coach shot quality, not panic."]]},
+screen:{title:"Up one. Eighteen seconds. Side pick-and-roll.",desc:"Their best guard wants middle. Your weak-side corner is a shooter.",choices:[
+["ICE the side ball screen","A viable call with the right personnel: keep the handler out of the middle. The big and low defender must own their responsibilities."],
+["Switch with an early call","Works with versatile defenders; rehearse slips, mismatch response, and box-out assignments. A late switch creates the advantage for the offense."],
+["Hedge hard and recover","Can disrupt the handler but exposes the roller and weak-side passes. A defense must rotate together, not simply send two at the ball."]]},
+last:{title:"Down three. Nine seconds. Sideline inbound.",desc:"One timeout remains. The opponent can switch every screen.",choices:[
+["Screen the screener for a clean three","Useful if rehearsed. Build the first read, switch counter, inbound safety valve, and clear rebounding / foul responsibilities."],
+["Attack for a quick two","This is game-state dependent, not inherently wrong. Evaluate timeout, foul strategy, remaining seconds, and opponent free throw quality."],
+["Force a fading contested three","A last resort, not a plan. Teach entry angles, spacing, and second actions before the defense dictates the outcome."]]}
 };
-function build(){
- var focus=root.querySelector("#bb-focus").value, level=root.querySelector("#bb-level").value,d=drills[focus];
- lastPlan="APERTURE BASKETBALL — 60-MINUTE PRACTICE\nLevel: "+level+"\nPriority: "+focus+"\n\n00–08 | Arrival / dynamic warm-up / ball control\n08–18 | Foundation: "+d[0]+"\n18–32 | Constraint game: "+d[1]+"\n32–46 | Advantage + decision-making: "+d[2]+"\n46–56 | Competitive transfer: "+d[3]+"\n56–60 | Cooldown / one teaching correction / next-session goal\n\nCOACH'S EVIDENCE CHECK\n- Record 1–2 observable behaviors; avoid unsupported outcome claims.\n- Have players explain the read, not just replay the drill.\n- Re-test the same decision under game pressure next session.\n- Stop or adapt the session for safety, injuries, or participant needs.\n\nPrototype only. Adapt to age, experience, medical needs and school policies. No student information is stored.";
- planEl.textContent=lastPlan;
-}
-root.querySelector("#bb-build").addEventListener("click",build);
-root.querySelector("#bb-save").addEventListener("click",function(){
- if(!lastPlan)build();
- var blob=new Blob([lastPlan],{type:"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");
- a.href=url;a.download="APERTURE-basketball-practice-plan.txt";document.body.appendChild(a);a.click();a.remove();
- setTimeout(function(){URL.revokeObjectURL(url);},1500);
-});
+function drawScenario(){var s=scenes[$('scenario').value];$('s-title').textContent=s.title;$('s-desc').textContent=s.desc;$('s-result').textContent='Choose a response to study the tradeoff.';var wrap=$('s-choices');wrap.textContent='';s.choices.forEach(function(c,i){var b=document.createElement('button');b.className='choice';b.type='button';b.textContent=(i+1)+'. '+c[0];b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){Array.prototype.forEach.call(wrap.children,function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');$('s-result').textContent="COACH'S READ\n\n"+c[1];});wrap.appendChild(b);});}
+$('scenario').addEventListener('change',drawScenario);drawScenario();
+var focusDrills={
+defense:['Closeout footwork and contain without fouling','4-on-4 shell with verbal help calls','Live drive / rotation / closeout sequence','Three stops in a row; rebound required'],
+pressure:['Pivot, pass fake, safe outlets','3-on-2 decision reads through the middle','4-on-4 trap escape with spacing constraints','Live press-break, fewer turnovers wins'],
+glass:['Contact and pursuit mechanics','2-on-2 box-out, second-effort contest','4-on-4 rebound to outlet / transition','Score only after a secured defensive board'],
+late:['Pressure free throws and reset routine','Sideline / baseline entry options','Situational 5-on-5 with clock and timeouts','Last-minute finish with two defensive looks']
+};
+var lastPlan='';
+function makePractice(){var level=$('level').value,focus=$('focus').value,d=focusDrills[focus];lastPlan='APERTURE BASKETBALL — 60 MINUTE PRACTICE\nLevel: '+level+'\nFocus: '+$('focus').options[$('focus').selectedIndex].text+'\n\n00–08 | Warm-up, movement prep, ball control\n08–18 | Teaching: '+d[0]+'\n18–32 | Constraints: '+d[1]+'\n32–46 | Game decisions: '+d[2]+'\n46–56 | Competitive transfer: '+d[3]+'\n56–60 | Review: one correction, one goal\n\nCoach evidence: Observe the decision, not only the outcome. Revisit the same read next session.\nSafety: Adapt to athlete needs and school policy. No student data is stored.';$('practice-output').textContent=lastPlan;}
+$('build').addEventListener('click',makePractice);
+function saveText(text,name){var blob=new Blob([text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);}
+$('download-practice').addEventListener('click',function(){if(!lastPlan)makePractice();saveText(lastPlan,'aperture-practice-plan.txt');});
+var film='';
+$('film-build').addEventListener('click',function(){var m=$('film-moment').value.trim(),o=$('film-observation').value.trim(),a=$('film-adjustment').value.trim();if(!m||!o||!a){$('film-output').textContent='Add a situation, an observation, and a specific correction to complete the film note.';return;}film='APERTURE BASKETBALL — COACH FILM NOTE\n\nSituation: '+m+'\nObservation: '+o+'\nNext adjustment: '+a+'\n\nNext test: Recreate the decision in small-sided play, then evaluate execution.\n\nIndependent practice note. Not stored online. No student-identifying information permitted.';$('film-output').textContent=film;});
+$('film-download').addEventListener('click',function(){if(film)saveText(film,'aperture-film-note.txt');else $('film-output').textContent='Complete the film note first.';});
+var games=[];
+function recordText(){if(!games.length)return 'No results entered. No personal basketball coaching win total has been independently verified.';var w=games.filter(function(x){return x.for>x.against;}).length,l=games.filter(function(x){return x.for<x.against;}).length,t=games.length-w-l;return 'SESSION EXAMPLE — NOT VERIFIED HISTORICAL RESULTS\n'+games.length+' game(s) entered · '+w+' wins · '+l+' losses · '+t+' ties\n\n'+games.map(function(g,i){return (i+1)+'. '+g.level+' | '+g.for+'–'+g.against+'\n   Coaching note: '+g.lesson;}).join('\n');}
+$('record-add').addEventListener('click',function(){var a=$('record-for').value,b=$('record-against').value,n=$('record-lesson').value.trim();if(a===''||b===''||!n||Number(a)<0||Number(b)<0||Number(a)>250||Number(b)>250||!Number.isInteger(Number(a))||!Number.isInteger(Number(b))){$('record-output').textContent='Enter valid integer scores from 0–250 and a non-identifying coaching takeaway.';return;}games.push({level:$('record-level').value,for:Number(a),against:Number(b),lesson:n});$('record-output').textContent=recordText();$('record-for').value='';$('record-against').value='';$('record-lesson').value='';});
+$('record-clear').addEventListener('click',function(){games=[];$('record-output').textContent=recordText();});
+$('record-download').addEventListener('click',function(){saveText(recordText(),'aperture-session-game-ledger.txt');});
+var packet=[
+'APERTURE BASKETBALL — ATHLETIC DIRECTOR DISCUSSION PACKET','Pratik “Locane” Singh',
+'Contact: parry.s.2324@gmail.com | (925) 699-0867',
+'Portfolio: https://singhpratik44.github.io/clearline-portfolio/basketball.html',
+'',
+'EXPERIENCE (SELF-REPORTED)',
+'• Current youth basketball coach with SoCal Elite Sports, Orange County.',
+'• Competitive basketball player through high school.',
+'• Multi-location youth education director: Code Ninjas and theCoderSchool.',
+'• B.S. Computer Science, San Francisco State University.',
+'• Creator of independent APERTURE Basketball coaching demonstration.',
+'',
+'COACHING IDENTITY',
+'Defend together; see the advantage; rehearse game pressure; use film and observation to teach.',
+'',
+'FIRST 30 / 60 / 90 DAYS',
+'0–30: Establish standards, meet staff, align team philosophy, assess fundamentals.',
+'31–60: Install defense and offensive reads, rehearse situations, review film.',
+'61–90: Track execution, adjust to opponents, reinforce varsity development pipeline.',
+'',
+'SAMPLE PRACTICE',
+'8m movement; 10m fundamentals; 14m constrained game; 14m decisions; 10m competition; 4m review.',
+'',
+'EVIDENCE LIMITS',
+'No verified coaching championship titles, team win-loss totals or athlete improvements supplied for this packet.',
+'Program achievements in education must not be represented as basketball competitive results.',
+'References, role scope, season availability and certifications should be verified directly.',
+'',
+'Independent work sample; not an official school, league, or club product.'
+].join('\n');
+$('packet-download').addEventListener('click',function(){saveText(packet,'APERTURE-athletic-director-packet.txt');});
 })();
 </script>
-
 </body>
 </html>
