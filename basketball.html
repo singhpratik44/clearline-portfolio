@@ -110,7 +110,7 @@ details p{font-size:13px;color:#c4beb6;line-height:1.75}
 <header class="top"><div class="shell top-in">
 <a class="brand" href="index.html">APERTURE <em>/ BASKETBALL</em></a>
 <nav class="nav" aria-label="Primary">
-<a href="#philosophy">Philosophy</a><a href="#lab">Coach's Lab</a><a href="#pedigree">Pedigree</a><a href="#hiring" class="hire">Hire / Connect</a>
+<a href="#philosophy">Philosophy</a><a href="#lab">Coach OS</a><a href="#pedigree">Pedigree</a><a href="#hiring" class="hire">Hire / Connect</a>
 </nav></div></header>
 <main id="main">
 <section class="hero" aria-labelledby="hero-title">
@@ -120,7 +120,7 @@ details p{font-size:13px;color:#c4beb6;line-height:1.75}
 <h1 id="hero-title">THE WORK <span>OUTLIVES</span> THE BUZZER.</h1>
 <p class="hero-lead">The scoreboard records who won. The film remembers why. The player remembers who taught them.</p>
 <p class="micro">A real basketball mindset. A practical coaching lab. A record that separates experience from achievement—and keeps both accountable to the game.</p>
-<div class="actions"><a class="action" href="#lab">Enter the Coach's Lab</a><a class="action secondary" href="#pedigree">View coaching pedigree</a></div>
+<div class="actions"><a class="action" href="basketball-os.html">Open Courtside OS</a><a class="action secondary" href="#pedigree">View coaching pedigree</a></div>
 </div>
 <svg class="orbit" viewBox="0 0 400 420" role="img" aria-label="Original gold-line basketball half-court illustration">
 <defs><radialGradient id="halo"><stop stop-color="#a76a41" stop-opacity=".4"/><stop offset="1" stop-color="#8a5b3b" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="215" r="192" fill="url(#halo)"/>
@@ -145,63 +145,18 @@ details p{font-size:13px;color:#c4beb6;line-height:1.75}
 <div class="pills"><span class="pill">Discipline</span><span class="pill">Clarity</span><span class="pill">Humility</span><span class="pill">Team before ego</span></div>
 </div></section>
 <section class="block" id="lab"><div class="shell">
-<div class="section-top"><div><div class="eyebrow">02 / Working demonstration</div><h2>The Coach's Lab.</h2><p class="lead">One compact toolkit: make a read, build the practice, review the film, or prepare a season. All examples are original scenarios—not real athlete records or documented game results.</p></div></div>
-<div class="tool-shell">
-<div class="tool-tabs" role="tablist" aria-label="Coaching tools">
-<button class="tab" type="button" role="tab" id="tab-game" aria-controls="page-game" aria-selected="true" data-tab="game">Game room</button>
-<button class="tab" type="button" role="tab" id="tab-practice" aria-controls="page-practice" aria-selected="false" data-tab="practice" tabindex="-1">Practice</button>
-<button class="tab" type="button" role="tab" id="tab-film" aria-controls="page-film" aria-selected="false" data-tab="film" tabindex="-1">Film room</button>
-<button class="tab" type="button" role="tab" id="tab-season" aria-controls="page-season" aria-selected="false" data-tab="season" tabindex="-1">Season plan</button>
-<button class="tab" type="button" role="tab" id="tab-record" aria-controls="page-record" aria-selected="false" data-tab="record" tabindex="-1">Victory archive</button>
-</div>
-<div class="tool-content">
-<section class="tool-page" id="page-game" role="tabpanel" aria-labelledby="tab-game">
-<div class="two"><div><div class="mini-title">Game 01 / Decision theater</div>
-<label for="scenario">Scenario</label><select id="scenario"><option value="zone">Down two against a 2–3 zone</option><option value="screen">Up one, defend the side ball screen</option><option value="last">Down three, nine seconds left</option></select>
-<h3 id="s-title"></h3><p class="desc" id="s-desc"></p><div id="s-choices"></div></div>
-<div><div class="mini-title">Film review / Coaching judgment</div><div class="output" id="s-result" aria-live="polite">Choose a response to study the tradeoff.</div>
-<p class="small" style="margin-top:14px">No pretend certainty: personnel, opponent, game state, and rehearsed execution determine the best call.</p></div></div>
-</section>
-<section class="tool-page" id="page-practice" role="tabpanel" aria-labelledby="tab-practice" hidden>
-<h3>Design the next sixty minutes.</h3><p class="desc">From the problem on film to a measurable change on the floor.</p>
-<div class="two"><div><label for="level">Development stage</label><select id="level"><option>Foundations</option><option>Development</option><option>Competitive</option></select>
-<label for="focus">Team priority</label><select id="focus"><option value="defense">Defensive stops</option><option value="pressure">Beat pressure</option><option value="glass">Rebounding</option><option value="late">Late-game execution</option></select>
-<button class="primary" type="button" id="build">Build practice</button></div>
-<div><div class="mini-title">Session plan / Sample only</div><div id="practice-output" class="output" aria-live="polite">Choose the focus and create the practice.</div><button class="outline" id="download-practice" type="button" style="margin-top:11px">Download plan</button></div></div>
-</section>
-<section class="tool-page" id="page-film" role="tabpanel" aria-labelledby="tab-film" hidden>
-<h3>The film remembers why.</h3><p class="desc">A simple, coach-controlled possession review. Enter only anonymous or fictional notes: do not enter minors' names, video links, or personal information.</p>
-<div class="two">
-<div><label for="film-moment">Possession / game situation</label><input id="film-moment" maxlength="160" placeholder="e.g., 1:12 Q4, weak-side corner help">
-<label for="film-observation">What happened?</label><textarea id="film-observation" maxlength="700" placeholder="Describe the basketball read, not a student's identity."></textarea>
-<label for="film-adjustment">Next coaching correction</label><textarea id="film-adjustment" maxlength="700" placeholder="One actionable change to rehearse."></textarea><button class="primary" type="button" id="film-build">Build film note</button></div>
-<div><div class="mini-title">Coach's observation / Not stored</div><div class="output" id="film-output" aria-live="polite">Your review will appear here. Nothing is sent to a server.</div><button class="outline" id="film-download" type="button" style="margin-top:11px">Download note</button></div>
-</div></section>
-<section class="tool-page" id="page-season" role="tabpanel" aria-labelledby="tab-season" hidden>
-<h3>One team. Ninety days. A standard.</h3><p class="desc">An adaptable head-coach takeover plan: learn the program, install habits, and let competition test what has been taught.</p>
-<div class="timeline">
-<div class="panel"><div class="card-num">DAYS 01–30</div><h3>Listen + assess</h3><p>Meet athletic leadership; understand varsity terminology; evaluate fundamentals; establish safety, family communication, and team standards.</p><div class="tag">Deliverable: baseline assessment</div></div>
-<div class="panel"><div class="card-num">DAYS 31–60</div><h3>Install + repeat</h3><p>Build defensive rules, offensive spacing, transition roles, special situations, and position-appropriate individual development work.</p><div class="tag">Deliverable: practice / film rhythm</div></div>
-<div class="panel"><div class="card-num">DAYS 61–90</div><h3>Compete + adjust</h3><p>Revisit coverage decisions, scout opponent tendencies, track quality of possessions, and align development with next-level expectations.</p><div class="tag">Deliverable: coaching review</div></div>
-</div>
-<div class="rule"><div class="mini-title">The coaching tree / Principles, not claimed mentors</div><p class="small">Learn from game film, experienced staff, high-school fundamentals, youth development, and evidence-led feedback. Specific personal mentors, coaching lineage, and titles will be published only when verified.</p></div>
-</section>
-<section class="tool-page" id="page-record" role="tabpanel" aria-labelledby="tab-record" hidden>
-<h3>A victory archive that earns its numbers.</h3><p class="desc">No fictional championship banners or inflated records. Enter a non-identifying result below to create a session-only example of a game ledger. The site does not save or publish it.</p>
-<div class="two"><div><label for="record-level">Game level</label><select id="record-level"><option>Developmental youth</option><option>JV</option><option>Varsity</option><option>Other</option></select>
-<label for="record-for">Team points</label><input id="record-for" type="number" min="0" max="250" placeholder="0">
-<label for="record-against">Opponent points</label><input id="record-against" type="number" min="0" max="250" placeholder="0">
-<label for="record-lesson">Single coaching takeaway</label><input id="record-lesson" maxlength="150" placeholder="e.g., box-outs decided the final six minutes">
-<button class="primary" type="button" id="record-add">Add result to this session</button></div>
-<div><div class="mini-title">This session only · Not a published win-loss record</div>
-<div class="output" id="record-output" aria-live="polite">No results entered. No personal basketball coaching win total has been independently verified.</div>
-<button class="outline" type="button" id="record-download" style="margin-top:11px">Download session ledger</button>
-<button class="outline" type="button" id="record-clear" style="margin-top:11px">Clear entries</button>
+<div class="section-top"><div>
+<div class="eyebrow">02 / APERTURE Courtside · Interactive studio</div>
+<h2>Less interface.<br><span style="color:var(--gold)">More intention.</span></h2>
+<p class="lead">A basketball coaching operating system built around one simple idea: each practice should answer a problem, produce a measurable observation, and sharpen the next decision.</p>
 </div></div>
-</section>
+<div class="grid">
+<div class="panel"><div class="card-num">01 → 02</div><h3>Observe → Design</h3><p>Pick one basketball problem, record what actually happened, and generate a 60-minute response with a defined transfer test.</p></div>
+<div class="panel"><div class="card-num">03 → 04</div><h3>Execute → Prove</h3><p>Complete core teaching blocks, account for athlete safety, and compare ten matched practice opportunities without inventing outcomes.</p></div>
+<div class="panel"><div class="card-num">05 → ∞</div><h3>Evolve → Repeat</h3><p>Run APERTURE's decision gates, document a coach-approved adjustment, and begin the next version with a local evidence ledger.</p></div>
 </div>
-</div>
-<div class="disclaimer">All tactical examples are illustrative. Player information is not collected. Nothing in this demonstration constitutes a real scouting report, verified game result, or promise of competitive outcomes.</div>
+<div class="actions" style="margin-top:27px"><a class="action" href="basketball-os.html">Open APERTURE Courtside →</a><a class="action secondary" href="basketball-engine.html">Explore the original simulation</a></div>
+<p class="small" style="margin-top:17px">No cloud account required. Local-only demonstration; no athlete profiles, automatic outcome claims, or unverified game statistics. The coach controls all decisions.</p>
 </div></section>
 <section class="block" id="pedigree"><div class="shell">
 <div class="section-top"><div><div class="eyebrow">03 / Pedigree + proof</div><h2>The résumé isn't the record.</h2><p class="lead">Titles without evidence are decoration. Here is the experience behind the work, and the next proof that must be earned.</p></div></div>
@@ -244,76 +199,45 @@ details p{font-size:13px;color:#c4beb6;line-height:1.75}
 <script>
 (function(){
 'use strict';
-var $=function(id){return document.getElementById(id);};
-var tabs=Array.prototype.slice.call(document.querySelectorAll('.tab'));
-function selectTab(name){tabs.forEach(function(b){var on=b.getAttribute('data-tab')===name;b.setAttribute('aria-selected',on?'true':'false');b.tabIndex=on?0:-1;$(b.getAttribute('aria-controls')).hidden=!on;});}
-tabs.forEach(function(b,i){b.addEventListener('click',function(){selectTab(b.getAttribute('data-tab'));});b.addEventListener('keydown',function(e){if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();var n=(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;selectTab(tabs[n].getAttribute('data-tab'));tabs[n].focus();}});});
-var scenes={
-zone:{title:"Down two. Forty-one seconds. A 2–3 zone.",desc:"The middle is guarded. Your shooters are marked. What advantage can you create?",choices:[
-["Flash the high post and read the short corner","Good against a zone when the middle touch forces help. Read the baseline, weak-side gap, and the second pass. Protect against transition the other way."],
-["Keep five players outside the arc","Spacing alone is not a threat. Without a middle or baseline touch, passes can become empty motion. Demand purposeful movement."],
-["Shoot the first contested three","A three may be correct if timing or personnel demands it, but this clock allows a stronger attempt. Coach shot quality, not panic."]]},
-screen:{title:"Up one. Eighteen seconds. Side pick-and-roll.",desc:"Their best guard wants middle. Your weak-side corner is a shooter.",choices:[
-["ICE the side ball screen","A viable call with the right personnel: keep the handler out of the middle. The big and low defender must own their responsibilities."],
-["Switch with an early call","Works with versatile defenders; rehearse slips, mismatch response, and box-out assignments. A late switch creates the advantage for the offense."],
-["Hedge hard and recover","Can disrupt the handler but exposes the roller and weak-side passes. A defense must rotate together, not simply send two at the ball."]]},
-last:{title:"Down three. Nine seconds. Sideline inbound.",desc:"One timeout remains. The opponent can switch every screen.",choices:[
-["Screen the screener for a clean three","Useful if rehearsed. Build the first read, switch counter, inbound safety valve, and clear rebounding / foul responsibilities."],
-["Attack for a quick two","This is game-state dependent, not inherently wrong. Evaluate timeout, foul strategy, remaining seconds, and opponent free throw quality."],
-["Force a fading contested three","A last resort, not a plan. Teach entry angles, spacing, and second actions before the defense dictates the outcome."]]}
-};
-function drawScenario(){var s=scenes[$('scenario').value];$('s-title').textContent=s.title;$('s-desc').textContent=s.desc;$('s-result').textContent='Choose a response to study the tradeoff.';var wrap=$('s-choices');wrap.textContent='';s.choices.forEach(function(c,i){var b=document.createElement('button');b.className='choice';b.type='button';b.textContent=(i+1)+'. '+c[0];b.setAttribute('aria-pressed','false');b.addEventListener('click',function(){Array.prototype.forEach.call(wrap.children,function(x){x.setAttribute('aria-pressed','false')});b.setAttribute('aria-pressed','true');$('s-result').textContent="COACH'S READ\n\n"+c[1];});wrap.appendChild(b);});}
-$('scenario').addEventListener('change',drawScenario);drawScenario();
-var focusDrills={
-defense:['Closeout footwork and contain without fouling','4-on-4 shell with verbal help calls','Live drive / rotation / closeout sequence','Three stops in a row; rebound required'],
-pressure:['Pivot, pass fake, safe outlets','3-on-2 decision reads through the middle','4-on-4 trap escape with spacing constraints','Live press-break, fewer turnovers wins'],
-glass:['Contact and pursuit mechanics','2-on-2 box-out, second-effort contest','4-on-4 rebound to outlet / transition','Score only after a secured defensive board'],
-late:['Pressure free throws and reset routine','Sideline / baseline entry options','Situational 5-on-5 with clock and timeouts','Last-minute finish with two defensive looks']
-};
-var lastPlan='';
-function makePractice(){var level=$('level').value,focus=$('focus').value,d=focusDrills[focus];lastPlan='APERTURE BASKETBALL — 60 MINUTE PRACTICE\nLevel: '+level+'\nFocus: '+$('focus').options[$('focus').selectedIndex].text+'\n\n00–08 | Warm-up, movement prep, ball control\n08–18 | Teaching: '+d[0]+'\n18–32 | Constraints: '+d[1]+'\n32–46 | Game decisions: '+d[2]+'\n46–56 | Competitive transfer: '+d[3]+'\n56–60 | Review: one correction, one goal\n\nCoach evidence: Observe the decision, not only the outcome. Revisit the same read next session.\nSafety: Adapt to athlete needs and school policy. No student data is stored.';$('practice-output').textContent=lastPlan;}
-$('build').addEventListener('click',makePractice);
-function saveText(text,name){var blob=new Blob([text],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url);},1000);}
-$('download-practice').addEventListener('click',function(){if(!lastPlan)makePractice();saveText(lastPlan,'aperture-practice-plan.txt');});
-var film='';
-$('film-build').addEventListener('click',function(){var m=$('film-moment').value.trim(),o=$('film-observation').value.trim(),a=$('film-adjustment').value.trim();if(!m||!o||!a){$('film-output').textContent='Add a situation, an observation, and a specific correction to complete the film note.';return;}film='APERTURE BASKETBALL — COACH FILM NOTE\n\nSituation: '+m+'\nObservation: '+o+'\nNext adjustment: '+a+'\n\nNext test: Recreate the decision in small-sided play, then evaluate execution.\n\nIndependent practice note. Not stored online. No student-identifying information permitted.';$('film-output').textContent=film;});
-$('film-download').addEventListener('click',function(){if(film)saveText(film,'aperture-film-note.txt');else $('film-output').textContent='Complete the film note first.';});
-var games=[];
-function recordText(){if(!games.length)return 'No results entered. No personal basketball coaching win total has been independently verified.';var w=games.filter(function(x){return x.for>x.against;}).length,l=games.filter(function(x){return x.for<x.against;}).length,t=games.length-w-l;return 'SESSION EXAMPLE — NOT VERIFIED HISTORICAL RESULTS\n'+games.length+' game(s) entered · '+w+' wins · '+l+' losses · '+t+' ties\n\n'+games.map(function(g,i){return (i+1)+'. '+g.level+' | '+g.for+'–'+g.against+'\n   Coaching note: '+g.lesson;}).join('\n');}
-$('record-add').addEventListener('click',function(){var a=$('record-for').value,b=$('record-against').value,n=$('record-lesson').value.trim();if(a===''||b===''||!n||Number(a)<0||Number(b)<0||Number(a)>250||Number(b)>250||!Number.isInteger(Number(a))||!Number.isInteger(Number(b))){$('record-output').textContent='Enter valid integer scores from 0–250 and a non-identifying coaching takeaway.';return;}games.push({level:$('record-level').value,for:Number(a),against:Number(b),lesson:n});$('record-output').textContent=recordText();$('record-for').value='';$('record-against').value='';$('record-lesson').value='';});
-$('record-clear').addEventListener('click',function(){games=[];$('record-output').textContent=recordText();});
-$('record-download').addEventListener('click',function(){saveText(recordText(),'aperture-session-game-ledger.txt');});
-var packet=[
-'APERTURE BASKETBALL — ATHLETIC DIRECTOR DISCUSSION PACKET','Pratik “Locane” Singh',
-'Contact: parry.s.2324@gmail.com | (925) 699-0867',
+var btn=document.getElementById('packet-download');
+if(!btn)return;
+btn.addEventListener('click',function(){
+var lines=[
+'APERTURE BASKETBALL — ATHLETIC DIRECTOR DISCUSSION PACKET',
+'Pratik “Locane” Singh | Youth Basketball Coach / SoCal Elite Sports',
+'Contact: (925) 699-0867 | parry.s.2324@gmail.com',
 'Portfolio: https://singhpratik44.github.io/clearline-portfolio/basketball.html',
+'Working coaching studio: https://singhpratik44.github.io/clearline-portfolio/basketball-os.html',
 '',
-'EXPERIENCE (SELF-REPORTED)',
-'• Current youth basketball coach with SoCal Elite Sports, Orange County.',
-'• Competitive basketball player through high school.',
-'• Multi-location youth education director: Code Ninjas and theCoderSchool.',
+'COACHING FOUNDATION (SELF-REPORTED)',
+'• Competitive basketball through high school.',
+'• Current youth coaching with SoCal Elite Sports.',
+'• Multi-site youth education leadership at Code Ninjas and theCoderSchool.',
 '• B.S. Computer Science, San Francisco State University.',
-'• Creator of independent APERTURE Basketball coaching demonstration.',
 '',
-'COACHING IDENTITY',
-'Defend together; see the advantage; rehearse game pressure; use film and observation to teach.',
+'THE BASKETBALL STANDARD',
+'Defense is five players keeping one promise. Teach containment, help, recover, rebound.',
+'Offense is identifying the advantage. Teach spacing, middle touches, and decisions.',
+'Pressure must be rehearsed: score, clock, inbound, counter, transition responsibility.',
 '',
 'FIRST 30 / 60 / 90 DAYS',
-'0–30: Establish standards, meet staff, align team philosophy, assess fundamentals.',
-'31–60: Install defense and offensive reads, rehearse situations, review film.',
-'61–90: Track execution, adjust to opponents, reinforce varsity development pipeline.',
+'01–30: Learn the program and varsity vocabulary; assess fundamentals and standards.',
+'31–60: Install defensive rules and offensive reads; build film and practice rhythm.',
+'61–90: Test under game conditions; refine execution and build a development pipeline.',
 '',
-'SAMPLE PRACTICE',
-'8m movement; 10m fundamentals; 14m constrained game; 14m decisions; 10m competition; 4m review.',
+'EXAMPLE SESSION (60 MIN)',
+'08m preparation / 10m foundation / 14m constrained reads / 14m live transfer / 10m pressure / 04m review.',
 '',
-'EVIDENCE LIMITS',
-'No verified coaching championship titles, team win-loss totals or athlete improvements supplied for this packet.',
-'Program achievements in education must not be represented as basketball competitive results.',
-'References, role scope, season availability and certifications should be verified directly.',
+'APERTURE METHOD',
+'OBSERVE → DESIGN → EXECUTE → PROVE → EVOLVE.',
+'Decision gates: objective, approved plan, safe execution, comparable evidence, coach sign-off.',
+'All coaching numbers are manual, local-only and unverified unless independently documented.',
 '',
-'Independent work sample; not an official school, league, or club product.'
+'No coaching championship titles, personal win-loss totals, or athlete performance results are claimed in this packet.',
+'Independent portfolio. Not an official league or school product.'
 ].join('\n');
-$('packet-download').addEventListener('click',function(){saveText(packet,'APERTURE-athletic-director-packet.txt');});
+var blob=new Blob([lines],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='APERTURE-Basketball-Athletic-Director-Packet.txt';document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(url)},1000);
+});
 })();
 </script>
 </body>
