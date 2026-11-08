@@ -4,7 +4,19 @@
 
 **[Live portfolio](https://singhpratik44.github.io/clearline-portfolio/)** · **[Coaching journey: Faith × APERTURE](./coaching-journey.html)** · **[Sports & Media case study](https://singhpratik44.github.io/clearline-portfolio/sports-media.html)** · **[Interactive Decision Universe (development source)](./interactive-decision-universe.html)** · **[Jason Rules](./jason-rules.html)** · **[Thinkverse work sample](./thinkverse-jason-rules.html)** · **[Architecture and goals](./docs/MASTER_PLAN.md)**
 
-> Status: the interactive prototype is on the development branch, not confirmed deployed. It uses illustrative assumptions, not real employer data. Jason Padgett-inspired reversible representation work is experimental conventional computation, not quantum hardware or a demonstrated quantum advantage.
+> Status: the public APERTURE hub and Civilization Lab prototype are published via GitHub Pages. Core interactions remain local/illustrative; ten AI roles are defined specifications, not running agents. The reversible representation work is classical computation and does not demonstrate quantum advantage.
+
+## Start here (November 2026)
+
+- **[APERTURE homepage](https://singhpratik44.github.io/clearline-portfolio/)** — newly organized index of 19 public projects, search and domain filters.
+- **[Civilization Lab](https://singhpratik44.github.io/clearline-portfolio/civilization-lab.html)** — linked systems, deterministic simulations, evidence, preflight review and local decision exports.
+- **[Basketball academy](https://singhpratik44.github.io/clearline-portfolio/basketball.html)** and **[Sports & Media](https://singhpratik44.github.io/clearline-portfolio/sports-media.html)** — sport-specific operating demonstrations and research.
+- **[Clearline register](https://singhpratik44.github.io/clearline-portfolio/clearline/)** — original portfolio and operating instruments.
+- **[Public source and GitHub Actions](https://github.com/singhpratik44/clearline-portfolio/actions)** — inspect changes and validation results.
+
+Every root and nested HTML showcase loads the shared, keyboard-accessible navigation from `assets/aperture-shell.js` without rewriting its original application logic. The former homepage's missing `app.bundle.js` dependency has been removed. `sitemap.xml` and `404.html` support discovery and recovery. Fast checks run via `node --test tests/site-integrity.test.mjs`; Chromium browser journeys are in `tests/site-browser.mjs` and the existing validation workflow.
+
+**Truth boundary:** A page being publicly hosted does not mean an agent is deployed, a publisher granted permission, private integrations are connected, or a simulated outcome occurred.
 
 ## Coaching journey and scripture-guided basketball (November 2026)
 
