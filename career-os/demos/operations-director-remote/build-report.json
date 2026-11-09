@@ -1,0 +1,18 @@
+{
+  "job_id": "operations-director-remote",
+  "build_version": "7.0.0",
+  "source_json_sha256": "b2aa7e60c953b68e1bedfe73b040bdc5fbfadd8abfa742ee815204fc88a22e49",
+  "site_sha256": "31d70ba45a112358e8f25b89712face880237c5d6a9f57cb8b09c285323dbad6",
+  "role_source": "Reusable operating-role template; no employer or vacancy verified",
+  "vacancy_status": "Generic template \u2014 not a job posting",
+  "rights_status": "Unverified \u2014 no employer system access",
+  "financial_status": "All numerical scenarios hypothetical",
+  "email_status": "DRAFT ONLY, not sent",
+  "verification_checks": [
+    "input_schema",
+    "https_link_policy",
+    "script_escape",
+    "assumption_disclosure"
+  ],
+  "demo_path": "career-os/demos/operations-director-remote/"
+}

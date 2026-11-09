@@ -1,0 +1,55 @@
+{
+  "version": "7.0.0",
+  "count": 4,
+  "jobs": [
+    {
+      "id": "kidworks-program-director",
+      "company": "KidWorks",
+      "title": "K\u201312 Program Director",
+      "status": "Work sample template; verify exact open role",
+      "location": "Santa Ana, CA \u00b7 On-site",
+      "site": "career-os/demos/kidworks-program-director/",
+      "job_link": "https://kidworksoc.org/",
+      "source": "Candidate targeting youth-development leadership; not a verified current listing",
+      "build_sha256": "28b3b1af6c87695778ca10b26205b9c274106b645a5ce845e513d8a95e9e844f",
+      "email_status": "Draft only"
+    },
+    {
+      "id": "operations-director-remote",
+      "company": "Custom Employer \u2014 Template",
+      "title": "Director of Operations / Program Strategy",
+      "status": "Generic template \u2014 not a job posting",
+      "location": "Remote \u00b7 United States",
+      "site": "career-os/demos/operations-director-remote/",
+      "job_link": "",
+      "source": "Reusable operating-role template; no employer or vacancy verified",
+      "build_sha256": "31d70ba45a112358e8f25b89712face880237c5d6a9f57cb8b09c285323dbad6",
+      "email_status": "Draft only"
+    },
+    {
+      "id": "pearson-customer-success",
+      "company": "Pearson",
+      "title": "Customer Success Specialist",
+      "status": "Role example; verify live requisition",
+      "location": "Remote \u00b7 United States",
+      "site": "career-os/demos/pearson-customer-success/",
+      "job_link": "https://www.pearson.com/careers.html",
+      "source": "Customer-success role template, not a confirmed current posting",
+      "build_sha256": "674147c19790379f2a71550b325ba8b2e3a71f73bd9e8fded9c5e2adca1da44e",
+      "email_status": "Draft only"
+    },
+    {
+      "id": "playfly-mater-dei",
+      "company": "Playfly Sports / Mater Dei",
+      "title": "General Manager \u2014 Mater Dei Sports Properties",
+      "status": "Previously listed; confirm vacancy remains active",
+      "location": "Santa Ana, CA \u00b7 On-site",
+      "site": "career-os/demos/playfly-mater-dei/",
+      "job_link": "https://www.playfly.com/careers?gh_jid=4303760009",
+      "source": "Public Playfly/Mater Dei information and prior candidate research; job currently unverified",
+      "build_sha256": "7825e680a4bd619c75fb6b6200c1697171d3ed877b8cb0a9a23820b8e45549b5",
+      "email_status": "Draft only"
+    }
+  ],
+  "assurance": "Demonstrations are built and syntax-tested; actual job status and Pages serving need separate checks."
+}
