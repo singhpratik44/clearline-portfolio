@@ -1,0 +1,33 @@
+{
+  "id": "operations-director-remote",
+  "company": "Custom Employer — Template",
+  "title": "Director of Operations / Program Strategy",
+  "location": "Remote · United States",
+  "link": "",
+  "status": "Generic template — not a job posting",
+  "source": "Reusable operating-role template; no employer or vacancy verified",
+  "thesis": "Establish a transparent system of resource allocation, program dependencies, performance measures and accountable decisions.",
+  "headline": "Decisions visible, execution measurable",
+  "requirements": [
+    "Lead cross-functional strategic execution",
+    "Define KPIs, operating rhythms and process ownership",
+    "Steward financial plans and staffing capacity",
+    "Improve stakeholder communication and delivery",
+    "Implement responsible AI-enabled operations"
+  ],
+  "phases": [
+    [
+      "Map critical workflows, governance and baseline metrics",
+      "Process map, owners and evidence register"
+    ],
+    [
+      "Implement operating cadence and pilot targeted improvements",
+      "KPI dashboard, decision ledger and pilot review"
+    ],
+    [
+      "Review performance and scale validated interventions",
+      "Executive report, improvement backlog and 90-day review"
+    ]
+  ],
+  "references": []
+}
