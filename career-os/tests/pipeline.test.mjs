@@ -1,0 +1,13 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {assess,transition,rankJob,qualityScore,dedupeKey,releaseGate,shouldRetry} from '../engine/pipeline.mjs';
+const evidence={postingUrl:'https://example.org/jobs/1',postingCheckedAt:'2026-11-09',needsSources:['https://example.org/jobs/1'],fitEvidence:'Relevant program operations',sourceCommit:'abc',demoPath:'career-os/demos/a/',testRunUrl:'https://github.com/example/run',testPassed:true,publicUrl:'https://example.org/demo',httpStatus:200,liveCheckedAt:'2026-11-09',liveContentMatched:true,interactionPassed:true,simulationDisclosure:true,draftId:'draft1',recipient:'hr@example.org',draftBodyHash:'hash1',dedupeCheckedAt:'2026-11-09',outreachReviewed:true,approvalId:'approval1',approvedAt:'2026-11-09',approvedRecipient:'hr@example.org',approvedDraftHash:'hash1',gmailSentMessageId:'sent1',sentAt:'2026-11-09',atsReceiptId:'ats1',atsSubmittedAt:'2026-11-09'};
+test('no skipped stages',()=>assert.equal(assess({stage:'DISCOVERED',evidence},'SENT').ok,false));
+test('missing live verification blocks',()=>{const e={...evidence,interactionPassed:false};assert.equal(assess({stage:'TESTED',evidence:e},'LIVE_VERIFIED').ok,false)});
+test('live verification succeeds with complete evidence',()=>assert.equal(transition({stage:'TESTED',evidence},'LIVE_VERIFIED').record.stage,'LIVE_VERIFIED'));
+test('approval binds exact email',()=>assert.equal(assess({stage:'APPROVAL_NEEDED',evidence:{...evidence,approvedDraftHash:'different'}},'APPROVED').ok,false));
+test('no send without receipt',()=>assert.equal(assess({stage:'APPROVED',evidence:{...evidence,gmailSentMessageId:''}},'SENT').ok,false));
+test('no ATS claim without receipt',()=>assert.equal(assess({stage:'SENT',evidence:{...evidence,atsReceiptId:''}},'ATS_APPLIED').ok,false));
+test('no automatic sending',()=>assert.equal(releaseGate({stage:'DRAFTED',evidence}).allowed,false));
+test('ranking bounded',()=>assert.ok(rankJob({fit:5,compensation:5,hiringUrgency:5,remoteCompatibility:5,impact:5,effort:5})<=5));
+test('quality scoring',()=>assert.equal(qualityScore({relevance:5,usability:5,reliability:5,evidence:5,presentation:5}),5));
+test('dedupe canonical',()=>assert.equal(dedupeKey({employer:' A ',requisitionId:'X',title:'T'}),dedupeKey({employer:'a',requisitionId:'x',title:'t'})));
+test('bounded retry',()=>assert.equal(shouldRetry({attempt:3,transient:true}),false));
