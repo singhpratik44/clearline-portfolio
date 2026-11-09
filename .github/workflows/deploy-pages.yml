@@ -60,7 +60,6 @@ jobs:
           test -s _site/career-os/index.html
           test -s _site/career-os/demos/educators-rising-implementation-lab/index.html
           grep -q 'Educators Rising' _site/career-os/demos/educators-rising-implementation-lab/index.html
-          grep -q "aperture-release-sha" _site/career-os/demos/educators-rising-implementation-lab/index.html
           grep -q 'id="resolve"' _site/career-os/demos/educators-rising-implementation-lab/index.html
           python3 - <<'PY'
           from pathlib import Path
@@ -72,6 +71,7 @@ jobs:
           assert html.count('name="aperture-release-sha"') == 1, 'Missing or duplicate release marker'
           assert os.environ['GITHUB_SHA'] in html, 'Release SHA missing from artifact'
           PY
+          grep -q "aperture-release-sha" _site/career-os/demos/educators-rising-implementation-lab/index.html
           test -s _site/career-os/registry.html
           test -s _site/career-os/demos/playfly-mater-dei/index.html
           test -s _site/interactive-decision-universe.html
