@@ -1,6 +1,8 @@
 name: Deploy Clearline Pages
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '45 18 * * *'
   push:
     branches: [main]
   pull_request:
@@ -31,6 +33,11 @@ jobs:
         run: |
           python3 career-os/engine/build.py
           python3 -m unittest discover -s career-os/tests -v
+      - name: Independently verify current ATS postings, employer needs, and public demos
+        run: |
+          python3 career-os/engine/verify.py
+          test -s career-os/verification.json
+          python3 -c "import json; j=json.load(open('career-os/verification.json')); assert j['summary']['roles_checked'] >= 1"
       - name: Stage Pages artifact
         run: |
           mkdir -p _site
@@ -60,12 +67,12 @@ jobs:
         with:
           name: clearline-preview-site
           path: _site
-      - if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+      - if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site
   deploy:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
+    if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
