@@ -4,6 +4,12 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '40 18 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'career-os/engine/verify.py'
+      - 'career-os/tests/test_verify.py'
+      - '.github/workflows/aperture-career-confirm.yml'
 
 permissions:
   contents: write
