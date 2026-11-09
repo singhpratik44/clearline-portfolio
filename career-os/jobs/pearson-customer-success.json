@@ -1,0 +1,39 @@
+{
+  "id": "pearson-customer-success",
+  "company": "Pearson",
+  "title": "Customer Success Specialist",
+  "location": "Remote · United States",
+  "link": "https://www.pearson.com/careers.html",
+  "status": "Role example; verify live requisition",
+  "source": "Customer-success role template, not a confirmed current posting",
+  "thesis": "Build a repeatable customer adoption, learning success, escalation and retention model grounded in measurable account outcomes.",
+  "headline": "Retention begins with demonstrated customer value",
+  "requirements": [
+    "Improve onboarding and early product adoption",
+    "Map account health and renewal risks",
+    "Manage customer education and enablement",
+    "Coordinate cross-functional issue resolution",
+    "Measure retention and customer outcomes",
+    "Deliver executive-level account reviews"
+  ],
+  "phases": [
+    [
+      "Map the onboarding lifecycle and define account signals",
+      "Customer journey and adoption baseline"
+    ],
+    [
+      "Pilot proactive health scoring and enablement",
+      "Risk playbook, feedback collection and adoption review"
+    ],
+    [
+      "Measure retention drivers and scale validated actions",
+      "QBR templates, risk register and improvement roadmap"
+    ]
+  ],
+  "references": [
+    {
+      "label": "Pearson careers",
+      "url": "https://www.pearson.com/careers.html"
+    }
+  ]
+}
