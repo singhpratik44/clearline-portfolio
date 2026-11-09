@@ -103,7 +103,7 @@ jobs:
           EXPECTED_SHA: ${{ github.sha }}
         run: |
           python3 - <<'PY'
-          import os, time, urllib.request
+          import os, time, urllib.request, json, datetime, pathlib
           url = os.environ['DEMO_URL']
           for attempt in range(12):
               try:
@@ -112,6 +112,7 @@ jobs:
                       body = response.read().decode('utf-8', errors='replace')
                       if response.status == 200 and all(token in body for token in ('Educators Rising', 'id="resolve"', 'function render()', 'name="aperture-release-sha" content="'+os.environ['EXPECTED_SHA']+'"')):
                           print('LIVE VERIFIED:', url)
+                          pathlib.Path('release-evidence.json').write_text(json.dumps({'status':'LIVE_VERIFIED','url':url,'commit_sha':os.environ['EXPECTED_SHA'],'http_status':response.status,'checked_at':datetime.datetime.now(datetime.timezone.utc).isoformat(),'checks':['employer identity','resolve control','render function','exact deployed release SHA'],'interaction_tests':'See build job: career-os/tests/educators-rising.test.mjs','browser_interaction_verified':False},indent=2))
                           break
                       print('Published page not ready:', response.status)
               except Exception as exc:
@@ -120,3 +121,11 @@ jobs:
                   raise SystemExit('Published prototype not independently verified after 12 attempts')
               time.sleep(15)
           PY
+
+      - name: Upload verified release receipt
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: educators-rising-release-receipt
+          path: release-evidence.json
+          if-no-files-found: error
