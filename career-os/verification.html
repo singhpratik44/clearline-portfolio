@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Independent, evidence-labeled verification of APERTURE Career OS job postings, published work samples and outreach readiness.">
+<title>APERTURE · Verified Career Pipeline</title>
+<style>
+:root{color-scheme:dark;--bg:#0a1420;--panel:#152738;--muted:#b3c1cd;--line:#31465b;--teal:#77d3ce;--gold:#f2ca86}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#edf5f6;font:14px/1.6 system-ui,-apple-system,Arial,sans-serif}
+main{max-width:1160px;margin:auto;padding:32px 24px 80px}
+header{border-bottom:1px solid var(--line);background:#112334;padding:22px max(24px,calc((100vw - 1110px)/2))}
+nav{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+strong.brand{letter-spacing:.2em;font-size:18px}a{color:var(--teal);text-decoration:none}a:hover{text-decoration:underline}
+.eyebrow{color:var(--teal);text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:.12em}
+h1{font-size:clamp(30px,5vw,54px);letter-spacing:-.05em;line-height:1.1;margin:14px 0}
+h2{font-size:19px}p{color:var(--muted)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px;margin:20px 0}
+.stat,.job{border:1px solid var(--line);border-radius:12px;background:var(--panel);padding:20px}
+.stat b{display:block;font-size:30px;line-height:1.3}.stat span{color:var(--muted);font-size:12px}
+.job{margin:14px 0}.job h2{margin:3px 0}.metadata{display:flex;gap:12px;flex-wrap:wrap;margin:10px 0 20px;color:var(--muted);font-size:12px}
+ul{list-style:none;padding:0;margin:16px 0 4px}li{display:grid;grid-template-columns:18px minmax(130px,170px) 1fr;gap:9px;align-items:start;padding:11px 0;border-top:1px solid var(--line);font-size:12px}
+.state{font-weight:850}.confirmed{color:#8de0ba}.blocked{color:#ffafa6}.review{color:var(--gold)}
+small{color:var(--muted)}.actions{display:flex;gap:16px;flex-wrap:wrap}.banner{border-left:3px solid var(--gold);padding:15px 20px;background:#202c39;color:#e9d4ae;border-radius:2px;max-width:980px}
+footer{padding-top:28px;color:var(--muted);font-size:12px}
+@media(max-width:640px){main{padding:24px 14px 60px}li{grid-template-columns:18px 1fr}li .why{grid-column:2}}
+</style></head><body>
+<header><nav><strong class="brand">APERTURE</strong><div class="actions"><a href="./">Prototype Factory</a><a href="registry.html">Published demos</a><a href="https://github.com/singhpratik44/clearline-portfolio/actions/workflows/aperture-career-confirm.yml" rel="noopener noreferrer" target="_blank">Verification runs</a></div></nav></header>
+<main>
+<div class="eyebrow">Career intelligence / independently checked</div>
+<h1>Evidence before outreach.</h1>
+<p>Every job receives an independent public requisition check, needs-evidence review, checksum check, and live-site confirmation. Green means the particular technical check succeeded—not that an employer accepted an application.</p>
+<div class="banner">No email delivery or ATS application can be independently confirmed here. Gmail Sent, employer acknowledgements, verified hiring contacts, and actual hiring decisions require account-specific checks and human approval.</div>
+<section class="grid" id="summary"><div class="stat"><b>—</b><span>Verification pending</span></div></section>
+<p id="meta" role="status">Loading published verification…</p>
+<div id="jobs"></div>
+<footer>Built by APERTURE Career OS. Research and work samples are independent of the named employers. No private employer information is accessed. The checker cannot prove job availability from a generic HTTP 200 response.</footer>
+</main>
+<script>
+const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const checks=[['posting','Official ATS requisition'],['employer_needs','Sourced employer needs'],['local_build','Build / integrity'],['published_demo','Live published demo'],['deduplication','Duplicate guard'],['outreach','Gmail / ATS confirmation']];
+async function start(){
+try{
+const res=await fetch('verification.json',{cache:'no-store'});
+if(!res.ok)throw new Error('Verification has not published yet');
+const d=await res.json();
+if(!Array.isArray(d.jobs)||!d.generated_at)throw new Error('First independent check is pending');
+const n=d.summary;
+document.querySelector('#summary').innerHTML=[
+[n.roles_checked,'Jobs reviewed'],[n.verified_for_review,'Technically ready for outreach review'],[n.posting_blocked,'Missing or closed ATS entries'],[n.demo_not_confirmed,'Public demos needing checks']
+].map(([value,label])=>'<div class="stat"><b>'+e(value)+'</b><span>'+e(label)+'</span></div>').join('');
+document.querySelector('#meta').textContent='Last observed: '+new Date(d.generated_at).toLocaleString()+' · Public automated check, not a hiring decision';
+document.querySelector('#jobs').innerHTML=d.jobs.map(j=>{
+const url='demos/'+encodeURIComponent(j.id)+'/';
+const stages=checks.map(([key,title])=>{
+const z=j[key]||{state:'review',reason:'Not assessed'};
+const state=['confirmed','blocked','review'].includes(z.state)?z.state:'review';
+return '<li><span class="state '+state+'">'+(state==='confirmed'?'●':state==='blocked'?'◆':'○')+'</span><b>'+e(title)+'</b><span class="why">'+e(z.reason)+(z.url?' · <a href="'+e(z.url)+'" rel="noopener noreferrer" target="_blank">Evidence link</a>':'')+'</span></li>';
+}).join('');
+return '<article class="job"><div class="eyebrow">'+(j.ready_for_human_outreach_review?'<span class="state confirmed">Preflight passed</span>':'<span class="state review">Review required</span>')+'</div><h2>'+e(j.company)+' · '+e(j.title)+'</h2><div class="metadata"><a href="'+e(url)+'">Work sample</a><span>Job ID: '+e(j.id)+'</span><span>Message sent: not independently checked</span></div><ul>'+stages+'</ul></article>';
+}).join('');
+}catch(err){document.querySelector('#meta').textContent=err.message+'. Check the GitHub Actions workflow for the latest run.';}
+}
+start();
+</script></body></html>
