@@ -1,0 +1,68 @@
+name: APERTURE — automatic independent confirmation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '40 18 * * *'
+  workflow_run:
+    workflows: ['Deploy Clearline Pages']
+    types: [completed]
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: aperture-career-confirm
+  cancel-in-progress: false
+
+jobs:
+  confirm:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Unit test builder and automatic verifier
+        run: python3 -m unittest discover -s career-os/tests -v
+      - name: Rebuild deterministic local artifacts for checksum comparison
+        run: python3 career-os/engine/build.py
+      - name: Check ATS requisition, needs freshness, artifact checksums and deployed Pages
+        run: python3 career-os/engine/verify.py
+      - name: Validate public status schema and never imply auto-send
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data = json.loads(Path('career-os/verification.json').read_text())
+          assert data['summary']['roles_checked'] >= 1
+          assert all(x['email_sent'] == 'unverified' for x in data['jobs'])
+          assert all(x['application_submitted'] == 'unverified' for x in data['jobs'])
+          assert all('state' in x['posting'] and 'state' in x['published_demo'] for x in data['jobs'])
+          print('Independent checks recorded; no sending, applying or implicit approvals')
+          PY
+      - name: Commit checked public status only
+        run: |
+          git config user.name "aperture-verifier[bot]"
+          git config user.email "aperture-verifier[bot]@users.noreply.github.com"
+          git add career-os/verification.json
+          if git diff --cached --quiet; then
+            echo 'No status change'
+          else
+            git commit -m "verify(career-os): update observed vacancy and demo state [skip ci]"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
+      - name: Deploy revised status page
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy-pages.yml --ref main
