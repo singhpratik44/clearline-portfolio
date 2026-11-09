@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#081118">
+<meta name="description" content="APERTURE Discovery Intelligence: an evidence-first business intake and operating diagnosis for consulting, fractional operations, and franchise field coaching.">
+<title>APERTURE | Discovery Intelligence</title>
+<style>
+:root{color-scheme:dark;--bg:#080e13;--card:#111c24;--card2:#15232b;--line:#294049;--ink:#f2f6f3;--muted:#a4bbc0;--lime:#cff67f;--blue:#8bc9d7;--amber:#ffd48b;--red:#ffaaa1}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{background:radial-gradient(ellipse at 82% -10%,#163b40 0,transparent 38%),var(--bg);color:var(--ink);margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:15px;line-height:1.55}
+a{color:var(--blue)}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.shell{max-width:1240px;padding:0 26px;margin:auto}
+.top{border-bottom:1px solid var(--line);background:#081118cc;backdrop-filter:blur(14px);position:sticky;top:0;z-index:10}.top .shell{display:flex;justify-content:space-between;align-items:center;min-height:70px;gap:18px}
+.logo{font-size:13px;letter-spacing:.25em;text-decoration:none;color:var(--ink);font-weight:800}.logo span{color:var(--lime)}.nav{display:flex;gap:20px;flex-wrap:wrap}.nav a{text-decoration:none;color:var(--muted);font-size:13px}.nav a:hover{color:var(--ink)}
+.hero{padding:65px 0 38px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:35px;align-items:end}.eyebrow{color:var(--lime);font-size:11px;letter-spacing:.2em;text-transform:uppercase;font-weight:750}
+h1{font-size:clamp(2.6rem,6vw,5.5rem);letter-spacing:-.068em;line-height:1.03;font-weight:580;margin:14px 0 21px;max-width:850px}h1 em{font-style:normal;color:var(--lime)}.lede{font-size:clamp(1rem,1.9vw,1.25rem);color:#bdccd0;max-width:675px;line-height:1.6}
+.hero-note{border-top:1px solid var(--line);padding-top:18px;color:var(--muted);font-size:13px}.hero-note strong{color:var(--ink)}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:10px 0 38px}.stat{border:1px solid var(--line);background:#0d171dcc;padding:17px 18px;border-radius:12px}.stat b{display:block;font-size:21px;font-weight:600;color:var(--ink);letter-spacing:-.04em}.stat span{font-size:12px;color:var(--muted)}
+.section-title{display:flex;gap:16px;align-items:end;justify-content:space-between;margin:35px 0 15px}.section-title h2{font-size:24px;letter-spacing:-.04em;font-weight:600;margin:0}.section-title p{max-width:550px;color:var(--muted);margin:0;font-size:13px}
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.track{background:var(--card);text-align:left;color:var(--ink);border:1px solid var(--line);border-radius:16px;padding:22px;min-height:170px;transition:.16s ease}.track:hover{border-color:#78969c;transform:translateY(-2px)}.track[aria-pressed=true]{border-color:var(--lime);background:linear-gradient(142deg,#1d3431,#121d24)}.track .num{font-size:11px;letter-spacing:.1em;color:var(--lime);font-weight:750}.track strong{display:block;font-size:19px;letter-spacing:-.03em;font-weight:620;margin:13px 0 7px}.track small{color:var(--muted);font-size:13px}
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;align-items:start;margin-top:20px}.panel{background:var(--card);border:1px solid var(--line);border-radius:17px;overflow:hidden}.panel .pad{padding:25px}.panel-head{padding:19px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.panel-head h3{margin:0;font-size:17px;letter-spacing:-.02em;font-weight:650}.sub{font-size:12px;color:var(--muted)}.tag{font-size:11px;border:1px solid #526c70;border-radius:99px;color:#bcdee0;padding:4px 10px;white-space:nowrap}.pill{font-size:11px;border:1px solid #677348;border-radius:99px;color:var(--lime);padding:5px 9px}
+.intro{color:var(--muted);font-size:13px;margin:0 0 20px}.fieldset{border:0;padding:0;margin:0 0 22px}.fieldset legend{color:var(--lime);font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.13em;margin-bottom:11px}.inputs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.f.full{grid-column:1/-1}.f label{font-size:12px;display:block;color:#cfdfdc;margin-bottom:6px;font-weight:600}.f input,.f select,.f textarea{width:100%;background:#0b151b;border:1px solid #38505a;padding:12px 12px;color:var(--ink);border-radius:9px;outline:none;min-height:45px}.f input:focus,.f select:focus,.f textarea:focus{border-color:var(--lime);box-shadow:0 0 0 2px #b4ef8030}.f textarea{resize:vertical;min-height:83px}.f small{color:var(--muted);display:block;margin-top:5px;font-size:11px}
+.buttons{display:flex;gap:9px;flex-wrap:wrap}.btn{border:1px solid #658387;border-radius:9px;padding:11px 14px;background:transparent;color:var(--ink);font-size:13px;font-weight:700}.btn:hover{background:#233c41}.btn.primary{background:var(--lime);color:#101d13;border-color:var(--lime)}.btn.primary:hover{background:#e6ffa9}.btn.warn{color:var(--red);border-color:#87575c}
+.sidebar{display:grid;gap:18px;position:sticky;top:87px}.progress{height:8px;border-radius:20px;background:#30434a;overflow:hidden;margin:14px 0}.progress i{display:block;height:100%;background:var(--lime);width:0;transition:.25s}.bigscore{font-size:48px;letter-spacing:-.07em;font-weight:650;line-height:1}.bigscore span{font-size:17px;color:var(--muted);letter-spacing:0}.metricline{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:12px 0;gap:10px}.metricline:last-child{border:0}.metricline span{font-size:12px;color:var(--muted)}.metricline b{font-size:13px;font-weight:600;text-align:right}
+.next{color:#d9e6e4;font-size:14px;line-height:1.55}.next b{color:var(--lime)}
+.audit{font-size:12px;display:grid;gap:8px}.audit div{display:flex;justify-content:space-between;gap:14px;border-bottom:1px solid var(--line);padding-bottom:8px}.audit span{color:var(--muted)}.audit strong{text-align:right;font-weight:600}.flag{color:var(--amber)}
+.analysis{margin:22px 0 0}.insights{display:grid;grid-template-columns:1fr 1fr;gap:14px}.insight{border:1px solid var(--line);border-radius:14px;background:var(--card);padding:21px}.insight h3{margin:0 0 10px;font-size:16px}.insight p{color:var(--muted);font-size:13px;margin:0}.insight strong{font-size:24px;color:var(--lime);letter-spacing:-.04em}
+.ledger{display:grid;grid-template-columns:1fr 1fr;gap:12px}.evidence{margin-top:15px;display:grid;gap:8px}.evidence-item{background:#0b161c;border:1px solid var(--line);border-radius:9px;padding:11px 13px;display:flex;justify-content:space-between;gap:16px}.evidence-item b{display:block;font-size:13px;overflow-wrap:anywhere}.evidence-item small{font-size:11px;color:var(--muted);overflow-wrap:anywhere}.evidence-item button{background:transparent;color:var(--red);border:0}
+.result{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px;line-height:1.63;color:#d8e6e2;max-height:500px;overflow-y:auto;padding:20px;background:#091219;border:1px solid var(--line);border-radius:12px;margin:17px 0 0}.result:empty{display:none}
+.privacy{padding:26px 0 90px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);margin-top:55px}.privacy b{color:var(--ink)}
+.toast{position:fixed;bottom:22px;right:22px;background:#e2ffa2;color:#0b1c0c;font-size:13px;font-weight:800;padding:12px 17px;border-radius:10px;opacity:0;pointer-events:none;transition:.2s;z-index:50}.toast.show{opacity:1}
+@media(max-width:920px){.workspace{grid-template-columns:1fr}.sidebar{position:static;grid-template-columns:1fr 1fr}.hero{grid-template-columns:1fr}.hero-note{max-width:500px}}
+@media(max-width:620px){.shell{padding:0 16px}.hero{padding:42px 0 22px}.tracks,.strip,.sidebar,.insights,.ledger,.inputs{grid-template-columns:1fr}.track{min-height:0}.panel .pad{padding:19px}.nav{gap:9px}.top .shell{min-height:62px}.section-title{align-items:start;flex-direction:column}.section-title p{max-width:100%}.panel-head{padding:15px 19px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="shell"><a class="logo" href="../">APERTURE<span> /</span> CLEARLINE</a><nav class="nav"><a href="#tracks">Engagements</a><a href="#intake">Discovery</a><a href="#outcomes">Analysis</a><a href="#deliver">Deliverables</a></nav></div></header>
+<main class="shell">
+<section class="hero">
+<div><div class="eyebrow">Discovery intelligence / operating layer 01</div><h1>Stop pitching.<br><em>Start diagnosing.</em></h1><p class="lede">A real information-gathering tool for fractional operators, business advisors, and franchise coaches. Ask the right questions, locate missing evidence, quantify the baseline, and produce a contract-ready next step.</p></div>
+<div class="hero-note"><strong>Built for an actual engagement.</strong><p>Every recommendation is conditional on supplied evidence. Empty inputs remain unknown. No fictional clients, fabricated ROI, or automatic approvals.</p><p>All working data stays in your browser until you choose to copy, export, or open a draft email.</p></div>
+</section>
+<div class="strip"><div class="stat"><b>3</b><span>Role-specific discovery models</span></div><div class="stat"><b>10</b><span>Action levers per engagement</span></div><div class="stat"><b>Human-gated</b><span>Evidence → decision → execution</span></div></div>
+<section id="tracks">
+<div class="section-title"><h2>Choose the business you are trying to improve.</h2><p>Each track changes the data collected, analysis, priorities and written deliverable.</p></div>
+<div class="tracks" id="trackCards">
+<button type="button" class="track" data-track="advisory" aria-pressed="true"><span class="num">01 / BUSINESS ADVISORY</span><strong>Revenue + profitability</strong><small>General Media Consulting · independent business consulting, conversion and margin quality</small></button>
+<button type="button" class="track" data-track="operations" aria-pressed="false"><span class="num">02 / FRACTIONAL OPERATIONS</span><strong>Founder load + process reliability</strong><small>On Call COO · overloaded handoffs, unresolved work, management overhead</small></button>
+<button type="button" class="track" data-track="franchise" aria-pressed="false"><span class="num">03 / FRANCHISE FIELD COACHING</span><strong>Owner action + unit performance</strong><small>AC Inc. / Field Coach Experts · evidence-led execution across franchised units</small></button>
+</div></section>
+<section class="workspace" id="intake">
+<div class="panel">
+<div class="panel-head"><div><h3>Evidence-first discovery intake</h3><div class="sub" id="trackSubtitle">Business advisory · verified inputs only</div></div><span class="tag">NO ACCOUNT REQUIRED</span></div>
+<div class="pad">
+<p class="intro">This is a pre-engagement questionnaire. Please share only information you are authorized to share; aggregate metrics are enough. Do not include personal data or confidential client records.</p>
+<form id="discoveryForm">
+<fieldset class="fieldset"><legend>01 / Business context</legend>
+<div class="inputs">
+<div class="f"><label for="org">Organization / project</label><input id="org" autocomplete="organization" placeholder="Company or client business"></div>
+<div class="f"><label for="url">Public company website</label><input id="url" type="url" placeholder="https://example.com"></div>
+<div class="f full"><label for="problem">Most important operational problem</label><textarea id="problem" placeholder="Where is time, cash, quality, or trust being lost?"></textarea></div>
+<div class="f"><label for="owner">Accountable decision role</label><input id="owner" placeholder="e.g., founder / regional director"></div>
+<div class="f"><label for="deadline">Decision date / business deadline</label><input id="deadline" type="date"></div>
+</div></fieldset>
+<fieldset class="fieldset"><legend>02 / Operating baseline</legend><div id="metrics" class="inputs"></div></fieldset>
+<fieldset class="fieldset"><legend>03 / Authority, economics and safeguards</legend>
+<div class="inputs">
+<div class="f"><label for="budget">Approved budget for diagnostic (USD)</label><input id="budget" type="number" min="0" step="1" placeholder="Unknown until confirmed"></div>
+<div class="f"><label for="constraint">Primary constraint</label><select id="constraint"><option value="">Not selected</option><option>Cash / budget</option><option>Staff capacity</option><option>Data quality</option><option>Trust or compliance</option><option>Leadership attention</option><option>Technology complexity</option></select></div>
+<div class="f full"><label for="evidenceNote">Known evidence and what is still uncertain</label><textarea id="evidenceNote" placeholder="Data source, observed issue, competing explanations, missing measurements…"></textarea></div>
+</div></fieldset>
+<div class="buttons"><button type="button" class="btn primary" id="analyze">Build diagnosis</button><button type="button" class="btn" id="export">Export structured JSON</button><button type="button" class="btn warn" id="reset">Clear inputs</button></div>
+</form>
+</div></div>
+<div class="sidebar">
+<div class="panel"><div class="pad"><div class="eyebrow">Discovery completeness</div><div class="bigscore" id="readiness">0<span>%</span></div><div class="progress"><i id="progressbar"></i></div><div class="sub">Completeness is not proof of accuracy. Every input still requires validation.</div><div class="metricline"><span>Core fields provided</span><b id="fieldcount">0 / 0</b></div><div class="metricline"><span>Evidence records</span><b id="evidencecount">0</b></div><div class="metricline"><span>Deployment gate</span><b class="flag" id="gate">HOLD</b></div></div></div>
+<div class="panel"><div class="pad"><div class="eyebrow">Next best question</div><p class="next" id="nextQuestion">What is the business problem, in observable terms?</p><button class="btn" type="button" id="focusNext">Go to question</button></div></div>
+<div class="panel"><div class="pad"><div class="eyebrow">Representative audit receipt</div><div class="audit"><div><span>Owner</span><strong id="auditOwner">Unassigned</strong></div><div><span>Entry evidence</span><strong id="auditEvidence">Not verified</strong></div><div><span>Budget</span><strong id="auditBudget">Not approved</strong></div><div><span>Timestamp</span><strong>On signed review</strong></div><div><span>Approval</span><strong class="flag">Not recorded</strong></div><div><span>Status</span><strong class="flag">HOLD</strong></div></div><p class="sub">A completed questionnaire is not an approval. The gate stays on HOLD until the owner signs off outside this demo.</p></div></div>
+</div></section>
+<section class="analysis" id="outcomes">
+<div class="section-title"><h2>Evidence, not decoration.</h2><p>The baseline is computed only from the figures entered above. Calculations are descriptive, not guaranteed future results.</p></div>
+<div class="insights" id="insights"><div class="insight"><h3>Operating baseline</h3><p>Enter metrics to calculate a useful starting point.</p></div><div class="insight"><h3>Primary exposure</h3><p>Missing information is explicitly flagged rather than estimated.</p></div></div>
+</section>
+<section style="margin-top:34px" id="ledger">
+<div class="section-title"><h2>Evidence register</h2><p>Keep verified inputs separate from hypotheses. Record the source, claim, classification, and date before any business decision.</p></div>
+<div class="panel"><div class="pad">
+<div class="ledger">
+<div class="f"><label for="eClaim">Metric, observation or hypothesis</label><input id="eClaim" placeholder="e.g., renewal rate 62%"></div>
+<div class="f"><label for="eSource">Source / public URL / document label</label><input id="eSource" placeholder="e.g., CRM export dated 2026-11-09"></div>
+<div class="f"><label for="eType">Evidence class</label><select id="eType"><option value="unverified">Unverified observation</option><option value="verified">Verified by authorized reviewer</option><option value="hypothesis">Hypothesis / assumption</option></select></div>
+<div class="f"><label for="eDate">Observation date</label><input id="eDate" type="date"></div>
+</div>
+<div class="buttons" style="margin-top:14px"><button class="btn" type="button" id="addEvidence">Add to ledger</button></div>
+<div id="evidenceList" class="evidence"><p class="sub">No evidence registered.</p></div>
+</div></div>
+</section>
+<section id="deliver" style="margin-top:36px">
+<div class="section-title"><h2>One intake. Three usable outputs.</h2><p>Receive answers by email, produce an approval-ready operating plan, or prepare a rigorous source-checked AI research request.</p></div>
+<div class="panel"><div class="pad">
+<div class="buttons">
+<button class="btn primary" type="button" id="copyPlan">Copy 90-day operating brief</button>
+<button class="btn" type="button" id="copyPrompt">Copy AI research + diagnosis prompt</button>
+<button class="btn" type="button" id="sendEmail">Email answers to APERTURE</button>
+</div>
+<p class="sub">Email opens a reviewable draft in your own email application; you must press Send. No form data is transmitted by this website. For a full data packet, use the JSON export.</p>
+<div class="result" id="preview" aria-live="polite"></div>
+</div></div>
+</section>
+<footer class="privacy"><b>Privacy & operating boundaries</b><p>This is a static, browser-executed intake and deterministic analysis tool. It does not use a secret AI API, scrape client systems, send data to a server, or store information in a remote database. The AI prompt is designed for deliberate use with an approved AI service; never paste confidential information into a third-party AI service without authorization. Email transmission occurs only through your own email application. If a real hosted submission inbox, secure storage, automated data retrieval, or server-side LLM analysis is needed, those require an authenticated backend and an approved privacy/data-retention policy.</p><p>APERTURE · <a href="../">Portfolio</a> · <a href="METHODOLOGY.md">Methodology & research controls</a> · <a href="../career-os/business-plan.html">Business plans</a></p></footer>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+"use strict";
+var CONFIG={
+ advisory:{title:"Business advisory",who:"General Media Consulting",metric:[
+ ["volume","Monthly qualified leads","count",1],["rate","Lead-to-customer conversion","%",0.1],["value","Revenue per new customer","USD",1],["margin","Gross contribution margin","%",0.1],["cac","Acquisition cost per new customer","USD",1]],
+ questions:{volume:"How many qualified leads arrive per month?",rate:"What percentage of qualified leads become customers?",value:"What is realized revenue per new customer?",margin:"What contribution margin remains after delivery costs?",cac:"What does acquiring a customer actually cost?"},
+ interventions:["Instrument lead-response timing","Separate lead quality from channel volume","Audit quote-to-close friction","Review price and package mix","Map gross contribution by service","Identify repeat-purchase leakage","Recover overdue renewals","Match staff capacity to demand","Set a weekly owner-level cash review","Document the tested intervention as an SOP"]},
+ operations:{title:"Fractional operations",who:"On Call COO",metric:[
+ ["volume","Weekly incoming work items","count",1],["rate","On-time completion rate","%",0.1],["rework","Rework / reopened items","%",0.1],["hours","Founder intervention hours per week","hours",0.5],["cost","Estimated founder-hour value","USD",1]],
+ questions:{volume:"How many requests or commitments enter the process weekly?",rate:"What share finishes on time?",rework:"What share is reopened or reworked?",hours:"How many hours does the founder spend intervening weekly?",cost:"What hourly value should be used for founder time (only as a proxy)?"},
+ interventions:["Create a single intake definition","Assign one owner to every commitment","Add due dates and clear escalation rights","Map founder-only decisions","Clarify client update cadence","Build onboarding acceptance checks","Audit billing and contract handoffs","Measure avoidable rework weekly","Set capacity thresholds and stop conditions","Publish a minimal SOP and owner training"]},
+ franchise:{title:"Franchise field coaching",who:"AC Inc. / Field Coach Experts",metric:[
+ ["volume","Franchise units in proposed scope","count",1],["commitments","Weekly owner commitments","count",1],["rate","Commitment completion rate","%",0.1],["hours","Weekly field-coach hours","hours",0.5],["cost","Fully loaded coach hourly cost","USD",1]],
+ questions:{volume:"How many franchise units would join the engagement?",commitments:"How many weekly commitments do owners make?",rate:"What proportion of owner commitments are actually completed?",hours:"How many coaching hours are required per week?",cost:"What is the actual blended cost of an hour of field coaching?"},
+ interventions:["Observe coaching before prescribing changes","Define a fair unit baseline","Distinguish operator constraints from skill gaps","Use one owner per unit-level commitment","Train coaches on evidence-based questioning","Run small peer-learning cohorts","Require proof of action closure","Escalate stalled commitments ethically","Measure real unit impact separately from activity","Turn validated practices into a reusable field guide"]}
+};
+var current="advisory",values={advisory:{},operations:{},franchise:{}},ledger=[],lastQuestion="problem";
+var $=function(id){return document.getElementById(id)};
+var baseFields=["org","url","problem","owner","deadline","budget","constraint","evidenceNote"];
+function v(id){return ($(id)&&$(id).value||"").trim()}
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function fmt(n,dec){return Number(n).toLocaleString("en-US",{maximumFractionDigits:dec===undefined?1:dec})}
+function money(n){return "$"+fmt(n,0)}
+function num(id){var s=v("m_"+id);return s===""?null:Number(s)}
+function metricObject(){var o={};CONFIG[current].metric.forEach(function(m){o[m[0]]=num(m[0])});return o}
+function data(){var d={track:current,track_name:CONFIG[current].title,recipient_context:CONFIG[current].who,created_at:new Date().toISOString(),business:{},metrics:metricObject(),evidence:ledger.map(function(e){return Object.assign({},e)})};baseFields.forEach(function(k){d.business[k]=v(k)});return d}
+function setTrack(track){
+ if(!CONFIG[track])return;
+ values[current]=metricObject();current=track;
+ document.querySelectorAll("[data-track]").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.track===current))});
+ $("trackSubtitle").textContent=CONFIG[current].title+" · role-specific baseline";
+ var box=$("metrics");box.innerHTML="";
+ CONFIG[current].metric.forEach(function(m){
+  var d=document.createElement("div");d.className="f";
+  var label=document.createElement("label");label.setAttribute("for","m_"+m[0]);label.textContent=m[1];
+  var input=document.createElement("input");input.type="number";input.id="m_"+m[0];input.placeholder="Unknown until measured";input.min="0";input.step=String(m[3]);
+  if(m[2]==="%")input.max="100";
+  if(values[track][m[0]]!==undefined&&values[track][m[0]]!==null)input.value=String(values[track][m[0]]);
+  var small=document.createElement("small");small.textContent=m[2]+". Leave blank if not verified.";
+  d.appendChild(label);d.appendChild(input);d.appendChild(small);box.appendChild(d);
+  input.addEventListener("input",refresh);
+ });
+ refresh();
+}
+function makeQuestion(){
+ var fields=[
+ ["problem","What is the observable business problem and who experiences it?"],
+ ["org","Which organization or client is this diagnostic for?"],
+ ["owner","Who can approve the intervention and its budget?"],
+ ["constraint","What is the dominant constraint on execution?"],
+ ["budget","What is the authorized budget ceiling for a diagnostic?"]
+ ];
+ CONFIG[current].metric.forEach(function(m){fields.push(["m_"+m[0],CONFIG[current].questions[m[0]]])});
+ fields.push(["evidenceNote","Which source supports the baseline, and what competing explanations remain?"]);
+ for(var i=0;i<fields.length;i++){if(!v(fields[i][0])){lastQuestion=fields[i][0];return fields[i][1]}}
+ if(!ledger.length){lastQuestion="eClaim";return "Can you register one dated observation and its source, before recommending action?"}
+ lastQuestion="eClaim";return "What would falsify the current explanation? Add that as a hypothesis in the evidence register.";
+}
+function calc(){
+ var m=metricObject();var result=[];
+ if(current==="advisory"){
+  if(m.volume!==null&&m.rate!==null&&m.value!==null&&m.margin!==null){
+   var customers=m.volume*m.rate/100,contribution=customers*m.value*m.margin/100;
+   result.push({title:"Current baseline (monthly)",main:fmt(customers)+" customers",detail:"Estimated from entered lead volume × conversion. Gross contribution before acquisition: "+money(contribution)+"."});
+   if(m.cac!==null)result.push({title:"Acquisition-adjusted contribution",main:money(contribution-customers*m.cac),detail:"Gross contribution minus entered acquisition costs, before fixed overhead. This is not profit or ROI."});
+   else result.push({title:"Unpriced acquisition exposure",main:"CAC unknown",detail:"Collect actual cost per acquired customer before proposing spend growth."});
+  }else result.push({title:"Revenue quality baseline",main:"Not yet calculable",detail:"Need lead volume, conversion, deal value and contribution margin."});
+  if(m.cac!==null&&m.value!==null&&m.margin!==null)result.push({title:"Unit contribution after CAC",main:money(m.value*m.margin/100-m.cac),detail:"Descriptive current unit economics; not an approved spend ceiling."});
+ }else if(current==="operations"){
+  if(m.volume!==null&&m.rate!==null)result.push({title:"Late work (weekly)",main:fmt(m.volume*(1-m.rate/100))+" items",detail:"Expected count derived from entered on-time completion rate, not audited individual cases."});
+  else result.push({title:"Handoff reliability",main:"Baseline missing",detail:"Enter weekly work volume and on-time completion."});
+  if(m.volume!==null&&m.rework!==null)result.push({title:"Rework exposure (weekly)",main:fmt(m.volume*m.rework/100)+" items",detail:"Approximate reopened work, based on supplied rework rate."});
+  if(m.hours!==null&&m.cost!==null)result.push({title:"Founder time value (weekly)",main:money(m.hours*m.cost),detail:"Opportunity-cost proxy, not a booked financial saving."});
+ }else{
+  if(m.commitments!==null&&m.rate!==null)result.push({title:"Uncompleted actions (weekly)",main:fmt(m.commitments*(1-m.rate/100)),detail:"Estimated from entered commitment completion. Verify with action logs."});
+  else result.push({title:"Owner follow-through",main:"Baseline missing",detail:"Enter total weekly commitments and measured completion."});
+  if(m.hours!==null&&m.cost!==null)result.push({title:"Coaching operating cost (weekly)",main:money(m.hours*m.cost),detail:"Fully loaded coach effort at the entered rate; excludes software and travel."});
+  if(m.volume!==null&&m.commitments!==null)result.push({title:"Commitments per franchise unit",main:m.volume>0?fmt(m.commitments/m.volume):"Not defined",detail:"Activity intensity only; this does not prove improved unit performance."});
+ }
+ return result.slice(0,4);
+}
+function refresh(){
+ var required=["org","problem","owner","budget","constraint","evidenceNote"].concat(CONFIG[current].metric.map(function(m){return "m_"+m[0]}));
+ var filled=required.filter(function(id){return v(id)!==""}).length;
+ var pct=Math.round(filled/required.length*100);
+ $("readiness").innerHTML=pct+'<span>%</span>';
+ $("progressbar").style.width=pct+"%";$("fieldcount").textContent=filled+" / "+required.length;$("evidencecount").textContent=String(ledger.length);
+ $("nextQuestion").textContent=makeQuestion();
+ $("auditOwner").textContent=v("owner")||"Unassigned";
+ $("auditEvidence").textContent=ledger.some(function(e){return e.type==="verified"})?"At least one entry; verify scope":"Not verified";
+ $("auditBudget").textContent=v("budget")?money(Number(v("budget")))+" proposed; not signed":"Not approved";
+ $("gate").textContent="HOLD";
+ var wrap=$("insights");wrap.innerHTML="";
+ var items=calc();while(items.length<2)items.push({title:"Evidence gap",main:"Unconfirmed",detail:"No inference is made for missing values."});
+ items.forEach(function(x){var el=document.createElement("article");el.className="insight";el.innerHTML="<h3>"+esc(x.title)+"</h3><strong>"+esc(x.main)+"</strong><p>"+esc(x.detail)+"</p>";wrap.appendChild(el)});
+}
+function renderLedger(){
+ $("evidenceList").innerHTML="";
+ if(!ledger.length){var p=document.createElement("p");p.className="sub";p.textContent="No evidence registered."; $("evidenceList").appendChild(p);}
+ ledger.forEach(function(e,i){var row=document.createElement("div");row.className="evidence-item";var item=document.createElement("div");var title=document.createElement("b");title.textContent=e.claim;var note=document.createElement("small");note.textContent=e.type+" · "+(e.date||"undated")+" · "+(e.source||"source not recorded");item.appendChild(title);item.appendChild(note);var del=document.createElement("button");del.type="button";del.textContent="Remove";del.setAttribute("aria-label","Remove evidence entry "+(i+1));del.addEventListener("click",function(){ledger.splice(i,1);renderLedger();refresh()});row.appendChild(item);row.appendChild(del);$("evidenceList").appendChild(row)});
+}
+function buildPlan(){
+ var d=data(),cfg=CONFIG[current],c=calc(),verified=ledger.filter(function(e){return e.type==="verified"}),hyp=ledger.filter(function(e){return e.type==="hypothesis"});
+ var b=d.business,lines=[
+ "APERTURE | EVIDENCE-TO-EXECUTION SCOPE",
+ "Track: "+cfg.title+" / "+cfg.who,
+ "Client / project: "+(b.org||"Not identified"),
+ "Public website: "+(b.url||"Not supplied"),
+ "Decision owner role: "+(b.owner||"Unassigned"),
+ "Priority problem: "+(b.problem||"Not yet defined"),
+ "Constraint: "+(b.constraint||"Not selected"),
+ "Diagnostic budget: "+(b.budget?money(Number(b.budget))+" proposed; pending approval":"Not agreed"),
+ "Requested decision date: "+(b.deadline||"Not agreed"),
+ "",
+ "OPERATING BASELINE / FROM CLIENT-SUPPLIED FIGURES"
+ ];
+ cfg.metric.forEach(function(m){lines.push("- "+m[1]+": "+(d.metrics[m[0]]===null?"Unknown":String(d.metrics[m[0]])+" "+m[2]))});
+ c.forEach(function(x){lines.push("- "+x.title+": "+x.main+" — "+x.detail)});
+ lines.push("","TEN WORKSTREAMS (OPTIONS, NOT COMMITMENTS)");
+ cfg.interventions.forEach(function(x,i){lines.push((i+1)+". "+x)});
+ lines.push("","30 / 60 / 90-DAY EXECUTION","Days 1–30 / VERIFY: Secure permission, name accountable owner, validate source records, establish baseline and alternative hypotheses, agree cap and scope.","Days 31–60 / RUN: Implement one signed-off reversible intervention, record actual staff hours / tools / downstream effects, and review exceptions weekly.","Days 61–90 / PROVE: Compare outcomes with baseline and relevant alternative explanations, document failure modes, and present a scale / revise / stop decision.","","AUDIT RECEIPT / SAMPLE (NOT AN APPROVAL)","Entry: owner, accurate baseline, appropriate data authorization, agreed costs and acceptance criteria.","Owner: "+(b.owner||"UNASSIGNED"),"Date: to be recorded at actual decision","Evidence: "+(verified.length?verified.length+" reviewer-classified entry/entries; not independently audited":"NONE CLASSIFIED VERIFIED"),"Budget: "+(b.budget?money(Number(b.budget))+" proposed":"NOT PROVIDED"),"Sign-off: NOT RECORDED","Gate status: HOLD","",
+ "DOWNSIDE / COST TO OPERATE","Account for contractor fees, staff training and weekly administrative effort, software, data access, and opportunity cost. Pause for missing authority, unreliable data, unapproved spend, customer impact or unsupported generalization. A CAC cap or target is not set without documented client unit economics.","",
+ "ECONOMIC EVIDENCE LEDGER","Verified entries: "+verified.length+"; hypotheses: "+hyp.length+"; total: "+ledger.length+".","Cost estimates and future outcomes are not verified ROI. No savings or revenue lift is promised." );
+ ledger.forEach(function(e,i){lines.push((i+1)+". ["+e.type+"] "+e.claim+" | "+(e.source||"No source")+" | "+(e.date||"No date"))});
+ lines.push("","NEXT COMMERCIAL STEP","Approve a bounded, paid diagnostic only after confirming scope, owner, data handling and compensation terms. Any later implementation requires separate approval.","","Prepared from respondent-entered information; APERTURE does not represent the recipient as a client or partner.");
+ return lines.join("\n");
+}
+function buildPrompt(){
+ var d=data(),meta=JSON.stringify(d,null,2);
+ return [
+ "You are an evidence-first operations research analyst supporting a potential independent contractor engagement.",
+ "RULES: Treat supplied company details as unverified respondent assertions. Never invent client facts, study findings, public contracts or ROI. Distinguish observations, assumptions and research hypotheses. Do not fabricate citations. Use no confidential personal data.",
+ "CONTEXT / STRUCTURED INTAKE:",meta,
+ "TASKS:",
+ "1. Identify the five most decision-relevant missing facts; rank by value of information. Write precise respectful questions for the business owner.",
+ "2. Find and validate up to ten recent and genuinely relevant technical or operational studies from the last 30–90 days, where available, spanning arXiv, OpenReview, NeurIPS/ICML, AutoML.org, LangChain Blog, Hugging Face Papers, Papers with Code, MLPapersWeekly and applicable sector research. Never force a quota; prefer fewer verified sources. For each provide title, actual link, publication date, method, study limitation and a safe candidate application.",
+ "3. Identify two alternative explanations for the stated bottleneck and one low-cost falsification test for each.",
+ "4. Recommend an evidence-gated 30/60/90 day operating experiment, accountable owners, baseline metrics, hold/stop conditions, expected labor/tool burden and cost uncertainties.",
+ "5. Output one representative Audit Receipt with all approvals marked PENDING, an Economic Evidence Ledger with source quality, and a reply email proposing a paid diagnostic.",
+ "6. Separate quantitative baseline calculations from unvalidated improvement scenarios. Include confidence limits; do not extrapolate to additional branches or franchise networks.",
+ "7. Do not claim that an AI model is accessing private client systems or automatically carrying out changes.",
+ "Final format: compact executive memo, numbered action register, source register with direct links, and an email draft."
+ ].join("\n\n");
+}
+function toast(s){$("toast").textContent=s;$("toast").classList.add("show");setTimeout(function(){$("toast").classList.remove("show")},2400)}
+function preview(t){$("preview").textContent=t;$("preview").scrollIntoView({behavior:"smooth",block:"nearest"})}
+function copy(s){if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(s).then(function(){toast("Copied to clipboard")}).catch(function(){fallback(s)})}else fallback(s)}
+function fallback(s){var t=document.createElement("textarea");t.value=s;document.body.appendChild(t);t.select();try{document.execCommand("copy");toast("Copied to clipboard")}catch(e){toast("Select and copy from preview")}t.remove()}
+document.querySelectorAll("[data-track]").forEach(function(b){b.addEventListener("click",function(){setTrack(b.dataset.track)})});
+baseFields.forEach(function(id){$(id).addEventListener("input",refresh);$(id).addEventListener("change",refresh)});
+$("analyze").addEventListener("click",function(){preview(buildPlan());toast("Operating brief generated from supplied inputs")});
+$("copyPlan").addEventListener("click",function(){var t=buildPlan();preview(t);copy(t)});
+$("copyPrompt").addEventListener("click",function(){var t=buildPrompt();preview(t);copy(t)});
+$("export").addEventListener("click",function(){
+ var blob=new Blob([JSON.stringify(data(),null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");
+ a.href=url;a.download="aperture-discovery-"+current+"-"+new Date().toISOString().slice(0,10)+".json";a.click();setTimeout(function(){URL.revokeObjectURL(url)},2000);toast("JSON downloaded locally");
+});
+$("sendEmail").addEventListener("click",function(){
+ var d=data();var details=CONFIG[current].metric.map(function(m){return m[1]+": "+(d.metrics[m[0]]===null?"unknown":d.metrics[m[0]])}).join("\n");
+ var body="APERTURE discovery answers\n\nOrganization: "+(d.business.org||"unknown")+"\nWebsite: "+(d.business.url||"unknown")+"\nMain challenge: "+(d.business.problem||"not supplied")+"\nDecision owner: "+(d.business.owner||"unknown")+"\nDeadline: "+(d.business.deadline||"unknown")+"\nBudget: "+(d.business.budget||"unknown")+"\nConstraint: "+(d.business.constraint||"unknown")+"\n\n"+details+"\n\nEvidence notes: "+(d.business.evidenceNote||"none")+"\nRegistered evidence items: "+ledger.length+"\n\nPlease reply with a scoped diagnostic and next steps.";
+ var subject="APERTURE Discovery | "+CONFIG[current].title+" | "+(d.business.org||"New inquiry");
+ window.location.href="mailto:parry.s.2324@gmail.com?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+ toast("Email draft opened; review and send it yourself");
+});
+$("focusNext").addEventListener("click",function(){var t=$(lastQuestion);if(t){t.scrollIntoView({behavior:"smooth",block:"center"});t.focus()}});
+$("addEvidence").addEventListener("click",function(){
+ if(!v("eClaim")){$("eClaim").focus();toast("Add a claim first");return}
+ ledger.push({claim:v("eClaim"),source:v("eSource"),type:v("eType"),date:v("eDate")});
+ ["eClaim","eSource","eDate"].forEach(function(k){$(k).value=""});$("eType").value="unverified";renderLedger();refresh();toast("Evidence added to local register");
+});
+$("reset").addEventListener("click",function(){
+ if(!confirm("Clear all entered intake information and evidence?"))return;
+ $("discoveryForm").reset();values={advisory:{},operations:{},franchise:{}};ledger=[];setTrack(current);renderLedger();$("preview").textContent="";toast("Inputs cleared");
+});
+var param=new URLSearchParams(location.search),preferred=param.get("track")||"advisory";setTrack(CONFIG[preferred]?preferred:"advisory");renderLedger();
+})();
+</script>
+</body>
+</html>
