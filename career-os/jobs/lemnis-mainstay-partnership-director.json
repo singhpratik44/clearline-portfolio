@@ -36,5 +36,36 @@
       "label": "Official Lemnis / Mainstay Partnership Director posting",
       "url": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e"
     }
+  ],
+  "needs_status": "posting-reviewed",
+  "needs_reviewed_on": "2026-11-09",
+  "employer_needs": [
+    {
+      "need": "Protect renewal revenue across a portfolio of institutional partners",
+      "basis": "job-posting",
+      "prototype_feature": "Institutional renewal risk register with stakeholder coverage, renewal calendar and intervention choices",
+      "success_metric": "Gross revenue retention, forecast confidence and at-risk partner resolution",
+      "candidate_fit": "Reported multi-site education operations, recurring enrollment retention and partner relationship experience transfer to portfolio reviews; higher-education renewal ownership still requires validation",
+      "open_question": "Which renewals, data access and partner segments would be in scope for the first quarter?",
+      "source_url": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e"
+    },
+    {
+      "need": "Prove partnership value against individual college and university priorities",
+      "basis": "job-posting",
+      "prototype_feature": "Executive business review module tracing institutional objective to adoption evidence and outcome claim",
+      "success_metric": "Percent of accounts with jointly agreed outcome measures and on-time executive reviews",
+      "candidate_fit": "Experience communicating student outcomes and school-program performance supports structured value reporting; institution-specific product benchmarks not yet known",
+      "open_question": "Which student-success measures do institutional sponsors trust most?",
+      "source_url": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e"
+    },
+    {
+      "need": "Coordinate Sales expansion and coach Partner Operations Managers without losing ownership",
+      "basis": "job-posting",
+      "prototype_feature": "Responsibility matrix and cross-functional escalation/expansion decision ledger",
+      "success_metric": "Handoff completeness, issue-resolution timeliness and qualified expansion opportunities",
+      "candidate_fit": "Reported staff leadership and school partnership experience are relevant; direct Mainstay operations and CRM experience not established",
+      "open_question": "How are ownership and account escalation currently split among POMs, Sales, Implementation and Product?",
+      "source_url": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e"
+    }
   ]
 }
