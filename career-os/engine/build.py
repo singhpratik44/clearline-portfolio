@@ -114,7 +114,15 @@ def safe_script_json(data: dict) -> str:
 def build_html(template: str, job: dict) -> str:
     if template.count("__CONFIG_JSON__") != 1:
         raise RuntimeError("Expected exactly one configuration placeholder")
-    return template.replace("__CONFIG_JSON__", safe_script_json(job))
+    if (template.count("<script>") != 1 or
+        template.count("</script>") != 1 or
+        template.count("</html>") != 1 or
+        not template.rstrip().endswith("</body></html>")):
+        raise RuntimeError("Malformed prototype shell: leaked script or duplicate HTML footer")
+    built = template.replace("__CONFIG_JSON__", safe_script_json(job))
+    if built.count("</script>") != 1 or not built.rstrip().endswith("</body></html>"):
+        raise RuntimeError("Invalid generated HTML structure")
+    return built
 
 def write_outreach(job: dict, relative_url: str) -> str:
     return (
