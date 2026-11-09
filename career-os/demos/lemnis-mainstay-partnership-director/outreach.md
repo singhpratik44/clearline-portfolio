@@ -10,7 +10,7 @@ Dear Hiring Team,
 
 I am interested in the Partnership Director opportunity at Lemnis / Mainstay. I built a working, role-specific operating prototype to demonstrate how I would prioritize the role's key requirements, evaluate tradeoffs, and establish a measurable 90-day execution cadence.
 
-The employer's current priorities have not been independently confirmed. I would validate these before recommending any intervention.
+The published role emphasizes Protect renewal revenue across a portfolio of institutional partners. To address that, the prototype includes Institutional renewal risk register with stakeholder coverage, renewal calendar and intervention choices; the proposed success measure is Gross revenue retention, forecast confidence and at-risk partner resolution. These are candidate proposals, not evidence of results at your organization.
 
 The work sample includes editable scenarios, financial and execution charts, an assumptions register, and a 30–60–90-day plan. All example values are simulated; none are represented as the employer's actual results.
 

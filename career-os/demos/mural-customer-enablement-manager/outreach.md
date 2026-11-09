@@ -10,7 +10,7 @@ Dear Hiring Team,
 
 I am interested in the Customer Enablement Manager opportunity at Mural. I built a working, role-specific operating prototype to demonstrate how I would prioritize the role's key requirements, evaluate tradeoffs, and establish a measurable 90-day execution cadence.
 
-The employer's current priorities have not been independently confirmed. I would validate these before recommending any intervention.
+The published role emphasizes Make customer education scalable across self-guided, live, cohort and peer-led programs. To address that, the prototype includes Persona-based learning pathway planner with self-guided modules, cohort schedule and reusable curriculum blocks; the proposed success measure is Learning activation, completion and time to first productive use case. These are candidate proposals, not evidence of results at your organization.
 
 The work sample includes editable scenarios, financial and execution charts, an assumptions register, and a 30–60–90-day plan. All example values are simulated; none are represented as the employer's actual results.
 

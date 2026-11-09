@@ -7,15 +7,15 @@
       "type": "customer",
       "company": "Instructure",
       "title": "Customer Success Manager, K-12",
-      "status": "Official employer-hosted posting available 2026-11-09; reconfirm before applying",
+      "status": "Reverification required \u2014 direct job URL returned 404 on 2026-11-09; previously indexed job copy available",
       "location": "Remote \u2014 United States",
       "site": "career-os/demos/instructure-k12-customer-success/",
       "job_link": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8",
-      "source": "Instructure/Ashby official employer listing checked 2026-11-09; candidate-created work sample",
-      "build_sha256": "6dd07222c1173f59536de8c79b315dd88d12faae531a641ae8b5cb7437b8bb04",
+      "source": "Prior indexed employer posting reviewed 2026-11-09; current live application route not confirmed",
+      "build_sha256": "8db64076982f67342698e9637a027850c5e3a065697ed7670d12a7948e47e85b",
       "email_status": "Draft only",
-      "needs_status": "not-reviewed",
-      "needs_count": 0
+      "needs_status": "needs-reverification",
+      "needs_count": 2
     },
     {
       "id": "kidworks-program-director",
@@ -42,10 +42,10 @@
       "site": "career-os/demos/lemnis-mainstay-partnership-director/",
       "job_link": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e",
       "source": "Lemnis/Lever employer job listing checked 2026-11-09; candidate-created analytical work sample; no employer data accessed",
-      "build_sha256": "e92118d8bb77f41cb3ae80d51c29059264c59e900f554f40bf59c399849059c7",
+      "build_sha256": "014807336dc2f23b39fec3267ef92efe31ab2f859ae84898723907d855e82c15",
       "email_status": "Draft only",
-      "needs_status": "not-reviewed",
-      "needs_count": 0
+      "needs_status": "posting-reviewed",
+      "needs_count": 3
     },
     {
       "id": "mural-customer-enablement-manager",
@@ -57,10 +57,10 @@
       "site": "career-os/demos/mural-customer-enablement-manager/",
       "job_link": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0",
       "source": "Mural/Ashby employer listing checked 2026-11-09; candidate-created work sample",
-      "build_sha256": "e4806dd1f1fdf9c43827e58188d86c808438ad5667eb2f77203cdd79ac7d5b3c",
+      "build_sha256": "55de120841650050b83bc4f2e6467aa4f230fc3004a19a1c83291500a9838aff",
       "email_status": "Draft only",
-      "needs_status": "not-reviewed",
-      "needs_count": 0
+      "needs_status": "posting-reviewed",
+      "needs_count": 3
     },
     {
       "id": "operations-director-remote",
