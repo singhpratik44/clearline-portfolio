@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js _site/
-          cp -R assets clearline career-os partnerships _site/
+          cp -R assets clearline career-os partnerships aperture _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
@@ -58,6 +58,9 @@ jobs:
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/career-os/index.html
+          test -s _site/aperture/discovery-intake.html
+          grep -q 'id="discoveryForm"' _site/aperture/discovery-intake.html
+          grep -q 'function buildPrompt()' _site/aperture/discovery-intake.html
           test -s _site/partnerships/uspa/index.html
           test -s _site/partnerships/uspa/app.js
           test -s _site/partnerships/uspa/styles.css
