@@ -22,3 +22,9 @@ jobs:
         run: node --check partnerships/uspa/app.js
       - name: Run static smoke checks
         run: node partnerships/uspa/tests/smoke.cjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Exercise desktop and mobile interactions
+        run: node partnerships/uspa/tests/browser.mjs
