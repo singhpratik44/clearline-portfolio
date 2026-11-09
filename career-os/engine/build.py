@@ -57,6 +57,9 @@ def validate(raw: dict, filename: str) -> dict:
     job_id = text_field(raw, "id", False, 64) or slug(company + "-" + title)
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{0,63}", job_id):
         raise InvalidJob(f"{filename}: id must be lowercase kebab-case")
+    kind = text_field(raw, "type", False, 30).lower() or "ops"
+    if kind not in {"partnerships", "education", "customer", "ops"}:
+        raise InvalidJob(f"{filename}: unknown role type {kind}")
     source = text_field(raw, "source", False, 400) or "Candidate-provided role details, unverified"
     status = text_field(raw, "status", False, 200) or "Example — confirm job is active"
     link = link_field(text_field(raw, "link", False, 1200), "link")
@@ -84,6 +87,7 @@ def validate(raw: dict, filename: str) -> dict:
         checked_refs.append({"label": label, "url": url})
     role = {
         "id": job_id,
+        "type": kind,
         "company": company,
         "title": title,
         "location": text_field(raw, "location", False, 150),
@@ -203,7 +207,7 @@ def build_all(root: Path = ROOT) -> dict:
         }
         (demo_dir / "build-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
         records.append({
-            "id": role["id"], "company": role["company"], "title": role["title"],
+            "id": role["id"], "type": role["type"], "company": role["company"], "title": role["title"],
             "status": role["status"], "location": role["location"],
             "site": rel, "job_link": role["link"], "source": role["source"],
             "build_sha256": report["site_sha256"], "email_status": "Draft only",
