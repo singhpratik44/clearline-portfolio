@@ -28,7 +28,7 @@ jobs:
       - name: Run regression suite
         run: node --test tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Test APERTURE evidence-gated application pipeline
-        run: node --test career-os/tests/pipeline.test.mjs
+        run: node --test career-os/tests/pipeline.test.mjs career-os/tests/educators-rising.test.mjs
       - name: Benchmark bounded simulation
         run: node tests/benchmark.mjs
       - name: Build verified career prototypes
