@@ -21,7 +21,7 @@ SHELL = ROOT / "engine" / "prototype_shell.html"
 OUT = ROOT / "demos"
 MANIFEST = ROOT / "manifest.json"
 REGISTRY = ROOT / "registry.html"
-BUILD_VERSION = "7.0.0"
+BUILD_VERSION = "8.1.0"
 
 class InvalidJob(ValueError):
     pass
@@ -85,6 +85,40 @@ def validate(raw: dict, filename: str) -> dict:
         label = text_field(ref, "label", True, 160)
         url = link_field(text_field(ref, "url", True, 1200), "reference URL")
         checked_refs.append({"label": label, "url": url})
+    needs_status = text_field(raw, "needs_status", False, 40) or "not-reviewed"
+    if needs_status not in {"not-reviewed", "posting-reviewed", "needs-reverification"}:
+        raise InvalidJob(f"{filename}: invalid needs_status")
+    needs = raw.get("employer_needs", [])
+    if not isinstance(needs, list) or len(needs) > 6:
+        raise InvalidJob(f"{filename}: employer_needs must have no more than six entries")
+    checked_needs = []
+    for n in needs:
+        if not isinstance(n, dict):
+            raise InvalidJob(f"{filename}: employer_needs items must be objects")
+        basis = text_field(n, "basis", True, 25)
+        if basis not in {"job-posting", "official-site", "hypothesis"}:
+            raise InvalidJob(f"{filename}: invalid need evidence basis")
+        url = link_field(text_field(n, "source_url", False, 1200), "needs source URL")
+        if basis != "hypothesis" and not url:
+            raise InvalidJob(f"{filename}: a source URL is required for source-backed needs")
+        checked_needs.append({
+            "need": text_field(n, "need", True, 280),
+            "basis": basis, "source_url": url,
+            "prototype_feature": text_field(n, "prototype_feature", True, 280),
+            "success_metric": text_field(n, "success_metric", True, 200),
+            "candidate_fit": text_field(n, "candidate_fit", True, 280),
+            "open_question": text_field(n, "open_question", False, 280),
+        })
+    if needs_status == "posting-reviewed" and (
+        len(checked_needs) < 2 or
+        not any(n["basis"] == "job-posting" for n in checked_needs)
+    ):
+        raise InvalidJob(f"{filename}: posting-reviewed needs require at least two needs and a sourced job-posting need")
+    reviewed_on = text_field(raw, "needs_reviewed_on", False, 10)
+    if reviewed_on and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", reviewed_on):
+        raise InvalidJob(f"{filename}: needs_reviewed_on must be YYYY-MM-DD")
+    if needs_status == "posting-reviewed" and not reviewed_on:
+        raise InvalidJob(f"{filename}: needs_reviewed_on required for posting-reviewed status")
     role = {
         "id": job_id,
         "type": kind,
@@ -99,6 +133,9 @@ def validate(raw: dict, filename: str) -> dict:
         "source": source,
         "status": status,
         "references": checked_refs,
+        "needs_status": needs_status,
+        "needs_reviewed_on": reviewed_on,
+        "employer_needs": checked_needs,
         "verification": "Job opening, commercial claims, and role requirements require independent validation.",
     }
     return role
@@ -125,6 +162,20 @@ def build_html(template: str, job: dict) -> str:
     return built
 
 def write_outreach(job: dict, relative_url: str) -> str:
+    sourced = [n for n in job["employer_needs"] if n["basis"] != "hypothesis"]
+    if sourced and job["needs_status"] == "posting-reviewed":
+        need = sourced[0]
+        fit_sentence = (
+            f"The published role emphasizes {need['need']}. "
+            f"To address that, the prototype includes {need['prototype_feature']}; "
+            f"the proposed success measure is {need['success_metric']}. "
+            "These are candidate proposals, not evidence of results at your organization.\n\n"
+        )
+    else:
+        fit_sentence = (
+            "The employer's current priorities have not been independently confirmed. "
+            "I would validate these before recommending any intervention.\n\n"
+        )
     return (
         f"# DRAFT ONLY — {job['company']} | {job['title']}\n\n"
         "**State:** NOT SENT — confirm hiring contact, vacancy, and demo URL before sending.\n\n"
@@ -134,6 +185,7 @@ def write_outreach(job: dict, relative_url: str) -> str:
         f"I am interested in the {job['title']} opportunity at {job['company']}. "
         "I built a working, role-specific operating prototype to demonstrate how I would "
         "prioritize the role's key requirements, evaluate tradeoffs, and establish a measurable 90-day execution cadence.\n\n"
+        + fit_sentence +
         "The work sample includes editable scenarios, financial and execution charts, an "
         "assumptions register, and a 30–60–90-day plan. All example values are simulated; "
         "none are represented as the employer's actual results.\n\n"
@@ -210,7 +262,11 @@ def build_all(root: Path = ROOT) -> dict:
             "rights_status": "Unverified — no employer system access",
             "financial_status": "All numerical scenarios hypothetical",
             "email_status": "DRAFT ONLY, not sent",
-            "verification_checks": ["input_schema", "https_link_policy", "script_escape", "assumption_disclosure"],
+            "employer_needs_status": role["needs_status"],
+            "employer_needs_count": len(role["employer_needs"]),
+            "needs_reviewed_on": role["needs_reviewed_on"],
+            "outreach_gate": "Needs review, vacancy confirmation, URL check, recipient verification, and user approval required",
+            "verification_checks": ["input_schema", "https_link_policy", "script_escape", "assumption_disclosure", "needs_traceability"],
             "demo_path": rel,
         }
         (demo_dir / "build-report.json").write_text(json.dumps(report, indent=2) + "\n", encoding="utf-8")
@@ -219,6 +275,7 @@ def build_all(root: Path = ROOT) -> dict:
             "status": role["status"], "location": role["location"],
             "site": rel, "job_link": role["link"], "source": role["source"],
             "build_sha256": report["site_sha256"], "email_status": "Draft only",
+            "needs_status": role["needs_status"], "needs_count": len(role["employer_needs"]),
         })
     manifest = {"version": BUILD_VERSION, "count": len(records), "jobs": records,
                 "assurance": "Demonstrations are built and syntax-tested; actual job status and Pages serving need separate checks."}
