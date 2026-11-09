@@ -4,6 +4,7 @@
   "jobs": [
     {
       "id": "kidworks-program-director",
+      "type": "ops",
       "company": "KidWorks",
       "title": "K\u201312 Program Director",
       "status": "Work sample template; verify exact open role",
@@ -11,11 +12,12 @@
       "site": "career-os/demos/kidworks-program-director/",
       "job_link": "https://kidworksoc.org/",
       "source": "Candidate targeting youth-development leadership; not a verified current listing",
-      "build_sha256": "28b3b1af6c87695778ca10b26205b9c274106b645a5ce845e513d8a95e9e844f",
+      "build_sha256": "463b73f0c089efa54e66776ecbe9b2f4571ba80ccf05288013bf42f600afc9da",
       "email_status": "Draft only"
     },
     {
       "id": "operations-director-remote",
+      "type": "ops",
       "company": "Custom Employer \u2014 Template",
       "title": "Director of Operations / Program Strategy",
       "status": "Generic template \u2014 not a job posting",
@@ -23,11 +25,12 @@
       "site": "career-os/demos/operations-director-remote/",
       "job_link": "",
       "source": "Reusable operating-role template; no employer or vacancy verified",
-      "build_sha256": "31d70ba45a112358e8f25b89712face880237c5d6a9f57cb8b09c285323dbad6",
+      "build_sha256": "fa5a67922b0f2e3a2a040dffdd73f65f8b19206e26cae181d378d1e1119eed9b",
       "email_status": "Draft only"
     },
     {
       "id": "pearson-customer-success",
+      "type": "ops",
       "company": "Pearson",
       "title": "Customer Success Specialist",
       "status": "Role example; verify live requisition",
@@ -35,11 +38,12 @@
       "site": "career-os/demos/pearson-customer-success/",
       "job_link": "https://www.pearson.com/careers.html",
       "source": "Customer-success role template, not a confirmed current posting",
-      "build_sha256": "674147c19790379f2a71550b325ba8b2e3a71f73bd9e8fded9c5e2adca1da44e",
+      "build_sha256": "a2dfca431dba1a34bee035bfc6967effb61394cebe90563875b736e66ed8e26b",
       "email_status": "Draft only"
     },
     {
       "id": "playfly-mater-dei",
+      "type": "ops",
       "company": "Playfly Sports / Mater Dei",
       "title": "General Manager \u2014 Mater Dei Sports Properties",
       "status": "Previously listed; confirm vacancy remains active",
@@ -47,7 +51,7 @@
       "site": "career-os/demos/playfly-mater-dei/",
       "job_link": "https://www.playfly.com/careers?gh_jid=4303760009",
       "source": "Public Playfly/Mater Dei information and prior candidate research; job currently unverified",
-      "build_sha256": "7825e680a4bd619c75fb6b6200c1697171d3ed877b8cb0a9a23820b8e45549b5",
+      "build_sha256": "b337636e80dd8d2ffc3e393a508fbac8b8cdbecabf0d6839ae775d0acddf6ce3",
       "email_status": "Draft only"
     }
   ],
