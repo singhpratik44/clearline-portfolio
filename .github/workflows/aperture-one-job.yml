@@ -45,6 +45,9 @@ jobs:
               raise SystemExit("Job spec must be a JSON object")
           raw["source"] = "Candidate-provided input; employer job details not independently verified by the build"
           raw["status"] = "Candidate-supplied role; confirm current opening and requirements"
+          # Workflow dispatch is user supplied. A submitted URL is not evidence
+          # the workflow independently checked current employer needs.
+          raw["needs_status"] = "needs-reverification" if raw.get("employer_needs") else "not-reviewed"
           record = module.validate(raw, "workflow input")
           raw["id"] = record["id"]
           path = Path("career-os/jobs") / (record["id"] + ".json")
