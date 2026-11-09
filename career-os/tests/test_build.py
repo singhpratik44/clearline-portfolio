@@ -90,6 +90,36 @@ class BuildTests(unittest.TestCase):
             proc = subprocess.run(["node", "--check"], input=scripts[0], text=True, capture_output=True)
             self.assertEqual(proc.returncode, 0, proc.stderr)
 
+    def test_employer_needs_require_source_and_tailored_traceability(self):
+        record = dict(SAMPLE, needs_status="posting-reviewed", needs_reviewed_on="2026-11-09")
+        with self.assertRaisesRegex(builder.InvalidJob, "at least two"):
+            builder.validate(record, "test.json")
+        need = {
+            "need": "Keep school customers engaged",
+            "basis": "job-posting",
+            "source_url": "https://example.org/jobs/123",
+            "prototype_feature": "Role-specific retention monitor",
+            "success_metric": "Customer retention",
+            "candidate_fit": "STEM program leadership is transferable; direct SaaS ownership unverified",
+            "open_question": "What is the baseline retention rate?"
+        }
+        record["employer_needs"] = [need, dict(need, need="Improve school onboarding", prototype_feature="Onboarding curriculum planner")]
+        valid = builder.validate(record, "test.json")
+        self.assertEqual(valid["needs_status"], "posting-reviewed")
+        self.assertEqual(len(valid["employer_needs"]), 2)
+        email = builder.write_outreach(valid, "career-os/demos/test-director/")
+        self.assertIn("Keep school customers engaged", email)
+        self.assertIn("Role-specific retention monitor", email)
+        record["employer_needs"][0]["source_url"] = "javascript:alert(1)"
+        with self.assertRaises(builder.InvalidJob):
+            builder.validate(record, "test.json")
+
+    def test_unreviewed_needs_do_not_claim_verified_employer_fit(self):
+        job = builder.validate(SAMPLE, "test.json")
+        email = builder.write_outreach(job, "career-os/demos/test-director/")
+        self.assertIn("not been independently confirmed", email)
+        self.assertEqual(job["needs_status"], "not-reviewed")
+
     def test_all_repository_specs_validate(self):
         specs = sorted((SOURCE / "jobs").glob("*.json"))
         self.assertGreaterEqual(len(specs), 2)
