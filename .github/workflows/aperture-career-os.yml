@@ -63,14 +63,28 @@ jobs:
               print("PASS", p)
           PY
 
-      - name: Commit verified demos and public registry to Pages source branch
+      - name: Commit verified demos with bounded refresh-on-conflict
         run: |
           git config user.name "aperture-build[bot]"
           git config user.email "aperture-build[bot]@users.noreply.github.com"
-          git add career-os/demos career-os/manifest.json career-os/registry.html
-          if git diff --cached --quiet; then
-            echo "No generated changes"
-            exit 0
-          fi
-          git commit -m "build(career-os): generate validated job demos [skip ci]"
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            # Other jobs and operator edits may have advanced main during CI.
+            # Rebuild only from the newest commit rather than force-pushing stale work.
+            git fetch origin main
+            git reset --hard origin/main
+            python3 career-os/engine/build.py
+            python3 -m unittest discover -s career-os/tests -v
+            git add career-os/demos career-os/manifest.json career-os/registry.html
+            if git diff --cached --quiet; then
+              echo "Generated demos already current"
+              exit 0
+            fi
+            git commit -m "build(career-os): generate validated job demos [skip ci]"
+            if git push origin HEAD:main; then
+              echo "Generated demos committed"
+              exit 0
+            fi
+            echo "Main advanced during push; retry $attempt"
+          done
+          echo "Unable to commit current demos after three attempts" >&2
+          exit 1
