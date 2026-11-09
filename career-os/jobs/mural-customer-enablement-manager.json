@@ -36,5 +36,36 @@
       "label": "Official Mural Customer Enablement Manager role",
       "url": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0"
     }
+  ],
+  "needs_status": "posting-reviewed",
+  "needs_reviewed_on": "2026-11-09",
+  "employer_needs": [
+    {
+      "need": "Make customer education scalable across self-guided, live, cohort and peer-led programs",
+      "basis": "job-posting",
+      "prototype_feature": "Persona-based learning pathway planner with self-guided modules, cohort schedule and reusable curriculum blocks",
+      "success_metric": "Learning activation, completion and time to first productive use case",
+      "candidate_fit": "Reported STEM curriculum development, instructional program leadership and staff coaching are directly transferable; B2B SaaS enablement leadership needs deeper evidence",
+      "open_question": "Which learner personas and use cases have the largest current education gap?",
+      "source_url": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0"
+    },
+    {
+      "need": "Reduce customer time-to-value and improve adoption of high-priority Mural workflows",
+      "basis": "job-posting",
+      "prototype_feature": "Interactive onboarding scenario showing friction points, intervention choices and modeled time-to-value",
+      "success_metric": "Time to first value, key-feature activation and observed product adoption",
+      "candidate_fit": "Experience tracking learning mastery and customer lifecycle progression suggests useful approach; no real Mural telemetry or customer data is available",
+      "open_question": "Which events define a successful first outcome for new Mural users?",
+      "source_url": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0"
+    },
+    {
+      "need": "Keep educational content, product releases and global Customer Success enablement aligned",
+      "basis": "job-posting",
+      "prototype_feature": "Content gap register linking launch changes to academy assets, internal CS readiness and measured learner proficiency",
+      "success_metric": "Coverage of release-critical training and proficiency checks completed",
+      "candidate_fit": "Reported curriculum management and multi-team operational execution support a launch-to-learning cadence; global product enablement remains a stretch",
+      "open_question": "Which team currently owns versioning and effectiveness measurement for customer-facing education?",
+      "source_url": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0"
+    }
   ]
 }
