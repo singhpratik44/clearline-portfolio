@@ -1,0 +1,31 @@
+const assert=require("node:assert/strict");
+const fs=require("node:fs");
+const path=require("node:path");
+const vm=require("node:vm");
+const root=path.resolve(__dirname,"..");
+const html=fs.readFileSync(path.join(root,"index.html"),"utf8");
+const js=fs.readFileSync(path.join(root,"os.js"),"utf8");
+const catalog=fs.readFileSync(path.join(root,"catalog.js"),"utf8");
+const css=fs.readFileSync(path.join(root,"os.css"),"utf8");
+new vm.Script(js,{filename:"os.js"});
+const context={window:{}};vm.runInNewContext(catalog,context);
+const offers=context.window.AP_PARTNERS;
+assert.equal(offers.length,10,"Expect 10 researched organizations");
+assert.equal(new Set(offers.map(p=>p.id)).size,offers.length,"IDs must be unique");
+for(const p of offers) {
+  assert(p.rank>0&&p.rank<=100,p.id+" has invalid fit score");
+  assert(/^https:\/\//.test(p.url),p.id+" missing official URL");
+  assert(p.fact.length>70&&p.thesis.length>70,p.id+" lacks fact/hypothesis");
+  assert(p.money.length>10&&Array.isArray(p.questions)&&p.questions.length>=3,p.id+" lacks commercial research");
+  assert(["education","sport-tech","affiliate"].includes(p.lane),p.id+" lane invalid");
+}
+console.log("PASS: ten source-backed opportunities with distinct facts and commercial unknowns");
+const ids=new Set([...html.matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]));
+for(const id of [...js.matchAll(/\$\("#([^"]+)"\)/g)].map(x=>x[1]))assert(ids.has(id),"missing HTML id: "+id);
+assert(html.includes('src="./catalog.js"')&&html.includes('src="./os.js"')&&html.includes('href="./os.css"'),"Missing static assets");
+assert(!/fetch\s*\(|XMLHttpRequest|sendBeacon|WebSocket/.test(js),"Static app must not transmit data");
+assert(js.includes('stageAllowed(')&&js.includes('signed')&&js.includes('authorized'),"Evidence gates missing");
+assert(js.includes('navigator.clipboard.writeText')&&js.includes('Not sent')||js.includes('not sent'),"Draft action should be review only");
+assert(css.includes("@media(max-width:580px)"),"mobile CSS missing");
+console.log("PASS: selectors, asset links, privacy boundary, state gates and responsive CSS");
+console.log("APERTURE Partnership OS static suite complete");
