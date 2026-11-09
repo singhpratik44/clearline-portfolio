@@ -162,40 +162,83 @@ def build_html(template: str, job: dict) -> str:
     return built
 
 def write_outreach(job: dict, relative_url: str) -> str:
+    """Produce an email-complete, methodology-backed business plan, NOT a dashboard pitch.
+
+    The optional work-sample link is supplementary. This artifact is DRAFT ONLY;
+    neither the builder nor GitHub Actions send external communications.
+    """
     sourced = [n for n in job["employer_needs"] if n["basis"] != "hypothesis"]
-    if sourced and job["needs_status"] == "posting-reviewed":
-        need = sourced[0]
-        fit_sentence = (
-            f"A priority from the published posting is: {need['need']}. "
-            f"I designed the work sample around {need['prototype_feature']}, "
-            f"with {need['success_metric']} as the proposed measure of success. "
-            "These are candidate proposals, not evidence of results at your organization.\n\n"
+    reviewed = bool(sourced and job["needs_status"] == "posting-reviewed")
+    if reviewed:
+        need_lines = "\\n".join(
+            f"- Published need: {n['need']} (source: {n['source_url']}). "
+            f"Proposed improvement: {n['prototype_feature']}; measure: {n['success_metric']}. "
+            f"Relevant experience or gap: {n['candidate_fit']}."
+            for n in sourced[:4]
         )
     else:
-        fit_sentence = (
+        need_lines = (
             "The employer's current priorities have not been independently confirmed. "
-            "I would validate these before recommending any intervention.\n\n"
+            "I would validate these before recommending any intervention."
         )
+    phase_blocks = []
+    labels = ["Days 1–30 — Validate", "Days 31–60 — Implement", "Days 61–90 — Verify and transfer"]
+    for label, pair in zip(labels, job["phases"]):
+        phase_blocks.append(
+            f"**{label}:** {pair[0]}\\n"
+            f"**Tangible deliverable:** {pair[1]}"
+        )
+    phases = "\\n\\n".join(phase_blocks)
+    measures = "; ".join(
+        dict.fromkeys(n["success_metric"] for n in sourced[:4])
+    ) if reviewed else "baseline to be agreed with the employer; process reliability; on-time delivery"
     return (
-        f"# DRAFT ONLY — {job['company']} | {job['title']}\n\n"
-        "**State:** NOT SENT — confirm hiring contact, vacancy, and demo URL before sending.\n\n"
-        "**To:** [VERIFIED HIRING CONTACT — REQUIRED]\n\n"
-        f"**Subject:** {job['company']} | {job['title']} — Operating Work Sample\n\n"
-        "Dear Hiring Team,\n\n"
-        f"I am interested in the {job['title']} opportunity at {job['company']}. "
-        "I built a working, role-specific operating prototype to demonstrate how I would "
-        "prioritize the role's key requirements, evaluate tradeoffs, and establish a measurable 90-day execution cadence.\n\n"
-        + fit_sentence +
-        "The work sample includes editable scenarios, financial and execution charts, an "
-        "assumptions register, and a 30–60–90-day plan. All example values are simulated; "
-        "none are represented as the employer's actual results.\n\n"
-        f"**Demo (verify link first):** https://singhpratik44.github.io/clearline-portfolio/{relative_url}\n\n"
-        "My background includes multi-location STEM education operations, revenue growth, "
-        "team leadership, and school partnerships. I'd welcome a brief conversation about "
-        "how I could apply these capabilities to your team's priorities.\n\n"
-        "Best regards,\n\nPratik Singh\n\n"
-        "Portfolio: https://singhpratik44.github.io/clearline-portfolio/\n\n"
-        "**Approval gate:** recipient, claims, linked demo, resume, and send action require human review.\n"
+        f"# DRAFT ONLY — {job['company']} | {job['title']}\\n\\n"
+        "**State:** NOT SENT — VERIFY recipient, current opportunity, facts and authorization first.\\n\\n"
+        "**To:** [VERIFIED HIRING CONTACT — REQUIRED]\\n\\n"
+        f"**Subject:** {job['company']} | {job['title']} — Evidence-Backed 90-Day Business Plan\\n\\n"
+        "Dear Hiring Team,\\n\\n"
+        f"I'm interested in the {job['title']} opportunity at {job['company']}. "
+        "I am sending a complete operating proposal in the email itself, not a dashboard "
+        "or a request for a demonstration call. The proposed APERTURE method is "
+        "evidence first, accountable execution, process verification and measured transfer.\\n\\n"
+        "**1. Your mandate and my proposed fit**\\n\\n"
+        + need_lines + "\\n\\n"
+        "My background includes multi-location STEM franchise education operations, "
+        "revenue growth, staff leadership, P&L responsibility and school partnerships. "
+        "This is relevant operational experience, not proof of specialized credentials "
+        "or results inside your business.\\n\\n"
+        "**2. Embedded 30/60/90-day business plan**\\n\\n"
+        + phases + "\\n\\n"
+        "**3. Economics, risk and success definition**\\n\\n"
+        f"Proposed measures: {measures}. First establish a validated baseline using only "
+        "authorized client information. Compare outcomes and avoidable rework to the "
+        "baseline; for a commercial intervention, calculate net incremental contribution "
+        "as incremental revenue × contribution margin minus implementation and "
+        "incremental operating costs. Put owner approvals and rollback conditions in writing. "
+        "No figures are represented as actual employer results.\\n\\n"
+        "**4. Research-based controls**\\n\\n"
+        "BizBench (Oct 2026: https://arxiv.org/abs/2610.20424) motivates checking intermediate "
+        "business-policy validity; CRM-Agent-Bench (Oct 2026: https://arxiv.org/abs/2610.32004) "
+        "motivates explicit action-state checks; Thinkingbox (Aug/Oct 2026: "
+        "https://arxiv.org/abs/2608.19741) motivates repeat reliability tests; DAGent "
+        "(Sep 2026: https://arxiv.org/abs/2609.39154) motivates expanding plans only when "
+        "evidence permits. These are design inspirations to validate in context, not "
+        "claims that a client already uses these research systems. The full ten-study "
+        "method and safeguards are documented at "
+        "https://github.com/singhpratik44/clearline-portfolio/blob/main/aperture/METHODOLOGY.md.\\n\\n"
+        "**5. Working arrangement and next step**\\n\\n"
+        "I can propose a fixed-scope diagnostic or a time-bounded 90-day fractional "
+        "engagement, with weekly deliverables and written agreement on scope, rates, "
+        "confidentiality, IP, approval rights and payment terms. "
+        "Could you share the current contractor structure and who would assess this plan? "
+        "I am happy to respond in writing.\\n\\n"
+        "Kind regards,\\n\\nLocane (Pratik) Singh\\n\\n"
+        "Portfolio: https://singhpratik44.github.io/clearline-portfolio/\\n\\n"
+        f"**Optional supplementary work sample (verify before sharing):** "
+        f"https://singhpratik44.github.io/clearline-portfolio/{relative_url}\\n\\n"
+        "**Approval gate:** This file is draft only; it is not an ATS submission, "
+        "a verified employer relationship, or an email receipt.\\n"
     )
 
 def registry_html(entries: list[dict]) -> str:
