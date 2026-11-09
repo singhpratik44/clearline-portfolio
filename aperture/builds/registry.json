@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0.0",
+  "updated_on": "2026-11-09",
+  "owner": "Pratik Singh",
+  "policy": "Source commit is not proof of live deployment or operational readiness.",
+  "builds": [
+    {
+      "id": "AP-2026-001",
+      "name": "Basketball Futures Executive Strategy",
+      "version": "1.0.0",
+      "status": "implemented",
+      "source_path": "career-os/basketball-futures/index.html",
+      "commit_sha": "0a4f8105a02f64249bbed4a04f59c4e7afacd27c",
+      "public_url": "https://singhpratik44.github.io/clearline-portfolio/career-os/basketball-futures/",
+      "verified_at": null,
+      "acceptance_tests": [],
+      "known_limitations": [
+        "Static presentation only",
+        "Scenario assumptions are hypothetical",
+        "No authenticated backend or partner data",
+        "No independent public URL verification"
+      ],
+      "specification": "aperture/builds/basketball-futures-v1.md"
+    },
+    {
+      "id": "AP-2026-002",
+      "name": "NBA Partnership Strategy",
+      "version": "0.1.0",
+      "status": "implemented",
+      "source_path": "career-os/nba-partnerships/index.html",
+      "commit_sha": "72990e5fc66c815a13f7682f42c7b9e1bac9e62c",
+      "public_url": "https://singhpratik44.github.io/clearline-portfolio/career-os/nba-partnerships/",
+      "verified_at": null,
+      "acceptance_tests": [],
+      "known_limitations": [
+        "Static strategic proposal",
+        "No employer-specific verified data"
+      ]
+    },
+    {
+      "id": "AP-2026-003",
+      "name": "Executive Qualifications",
+      "version": "0.2.0",
+      "status": "implemented",
+      "source_path": "career-os/executive-qualifications/index.html",
+      "commit_sha": "ba9072e65fccbdf9d5cc282ca5b1119aa3aa3048",
+      "public_url": "https://singhpratik44.github.io/clearline-portfolio/career-os/executive-qualifications/",
+      "verified_at": null,
+      "acceptance_tests": [],
+      "known_limitations": [
+        "Candidate-reported metrics require independent verification"
+      ]
+    }
+  ]
+}
