@@ -1,5 +1,5 @@
 {
-  "version": "7.0.0",
+  "version": "8.1.0",
   "count": 7,
   "jobs": [
     {
@@ -12,8 +12,10 @@
       "site": "career-os/demos/instructure-k12-customer-success/",
       "job_link": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8",
       "source": "Instructure/Ashby official employer listing checked 2026-11-09; candidate-created work sample",
-      "build_sha256": "a7c813ae8b9f3e6fceaf850547009731f7601262031b2fbee54f2db99b489117",
-      "email_status": "Draft only"
+      "build_sha256": "8083979ccb614b45ca94442656ee6ece200ba55dbf349e6ee893c2223b54d5fa",
+      "email_status": "Draft only",
+      "needs_status": "not-reviewed",
+      "needs_count": 0
     },
     {
       "id": "kidworks-program-director",
@@ -25,8 +27,10 @@
       "site": "career-os/demos/kidworks-program-director/",
       "job_link": "https://kidworksoc.org/",
       "source": "Candidate targeting youth-development leadership; not a verified current listing",
-      "build_sha256": "7c9751adf28034791b2826201b56ed42428a1008bc7335135a7af82aaa2f56e2",
-      "email_status": "Draft only"
+      "build_sha256": "14b5cde86d8f07f583672e1ec0ac09bd70619cfe3d8daef91e58ac6d761449f5",
+      "email_status": "Draft only",
+      "needs_status": "not-reviewed",
+      "needs_count": 0
     },
     {
       "id": "lemnis-mainstay-partnership-director",
@@ -38,8 +42,10 @@
       "site": "career-os/demos/lemnis-mainstay-partnership-director/",
       "job_link": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e",
       "source": "Lemnis/Lever employer job listing checked 2026-11-09; candidate-created analytical work sample; no employer data accessed",
-      "build_sha256": "e1d2a5406fab3708fe1282b7338b0c9998d15490184fd3b82d2cda2afd389813",
-      "email_status": "Draft only"
+      "build_sha256": "b3fe27996a01af23992e522e341786fd31c13841ff928c9267233a052aea84bc",
+      "email_status": "Draft only",
+      "needs_status": "not-reviewed",
+      "needs_count": 0
     },
     {
       "id": "mural-customer-enablement-manager",
@@ -51,8 +57,10 @@
       "site": "career-os/demos/mural-customer-enablement-manager/",
       "job_link": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0",
       "source": "Mural/Ashby employer listing checked 2026-11-09; candidate-created work sample",
-      "build_sha256": "b03a402b8c096ab256acd56ae67807f8e65a5f12b7cef72ec6c56580a64229e0",
-      "email_status": "Draft only"
+      "build_sha256": "b162401b17ad4865fb3e812e429d2b6a246c0c8b5e357a5b1b6414f3f6e98e3a",
+      "email_status": "Draft only",
+      "needs_status": "not-reviewed",
+      "needs_count": 0
     },
     {
       "id": "operations-director-remote",
@@ -64,8 +72,10 @@
       "site": "career-os/demos/operations-director-remote/",
       "job_link": "",
       "source": "Reusable operating-role template; no employer or vacancy verified",
-      "build_sha256": "bae47b4d12a91d84cdf7f1328a800da0fce42506aed119b61d2b2b5658a5a4d9",
-      "email_status": "Draft only"
+      "build_sha256": "f42d97ce8940d35de5e6524533a7c0bb131170a486812d0ee5b612018022202b",
+      "email_status": "Draft only",
+      "needs_status": "not-reviewed",
+      "needs_count": 0
     },
     {
       "id": "pearson-customer-success",
@@ -77,8 +87,10 @@
       "site": "career-os/demos/pearson-customer-success/",
       "job_link": "https://www.pearson.com/careers.html",
       "source": "Customer-success role template, not a confirmed current posting",
-      "build_sha256": "692d5eddcd63a4ce2890cadc64b0b683e21d470dc3f6b0f58dc8d4d270b95143",
-      "email_status": "Draft only"
+      "build_sha256": "794c1cb6daa1634c8a3de2030f681d52be7ad1347e70066798ae0fa9695fba53",
+      "email_status": "Draft only",
+      "needs_status": "not-reviewed",
+      "needs_count": 0
     },
     {
       "id": "playfly-mater-dei",
@@ -90,8 +102,10 @@
       "site": "career-os/demos/playfly-mater-dei/",
       "job_link": "https://www.playfly.com/careers?gh_jid=4303760009",
       "source": "Public Playfly/Mater Dei information and prior candidate research; job currently unverified",
-      "build_sha256": "7d4ebd3a0c16b10a5860199427d8b622f086bb2ec6da997f87c906e867cb160c",
-      "email_status": "Draft only"
+      "build_sha256": "b84e5ffe8410e74cefb03f505331a9deb317470e3a23e1a9596ffeae5cb5c4e1",
+      "email_status": "Draft only",
+      "needs_status": "not-reviewed",
+      "needs_count": 0
     }
   ],
   "assurance": "Demonstrations are built and syntax-tested; actual job status and Pages serving need separate checks."

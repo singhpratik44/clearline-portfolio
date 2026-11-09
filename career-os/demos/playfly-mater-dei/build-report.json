@@ -1,18 +1,23 @@
 {
   "job_id": "playfly-mater-dei",
-  "build_version": "7.0.0",
+  "build_version": "8.1.0",
   "source_json_sha256": "1e3950bbdb12c89ca648684f8a474b960fb98c019c65d46d19dbc86af3788dfd",
-  "site_sha256": "7d4ebd3a0c16b10a5860199427d8b622f086bb2ec6da997f87c906e867cb160c",
+  "site_sha256": "b84e5ffe8410e74cefb03f505331a9deb317470e3a23e1a9596ffeae5cb5c4e1",
   "role_source": "Public Playfly/Mater Dei information and prior candidate research; job currently unverified",
   "vacancy_status": "Previously listed; confirm vacancy remains active",
   "rights_status": "Unverified \u2014 no employer system access",
   "financial_status": "All numerical scenarios hypothetical",
   "email_status": "DRAFT ONLY, not sent",
+  "employer_needs_status": "not-reviewed",
+  "employer_needs_count": 0,
+  "needs_reviewed_on": "",
+  "outreach_gate": "Needs review, vacancy confirmation, URL check, recipient verification, and user approval required",
   "verification_checks": [
     "input_schema",
     "https_link_policy",
     "script_escape",
-    "assumption_disclosure"
+    "assumption_disclosure",
+    "needs_traceability"
   ],
   "demo_path": "career-os/demos/playfly-mater-dei/"
 }

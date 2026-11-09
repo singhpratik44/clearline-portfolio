@@ -1,18 +1,23 @@
 {
   "job_id": "kidworks-program-director",
-  "build_version": "7.0.0",
+  "build_version": "8.1.0",
   "source_json_sha256": "18179d2bc361daaa2acaac21da31b402211de40a165e7066d708507af75f8b69",
-  "site_sha256": "7c9751adf28034791b2826201b56ed42428a1008bc7335135a7af82aaa2f56e2",
+  "site_sha256": "14b5cde86d8f07f583672e1ec0ac09bd70619cfe3d8daef91e58ac6d761449f5",
   "role_source": "Candidate targeting youth-development leadership; not a verified current listing",
   "vacancy_status": "Work sample template; verify exact open role",
   "rights_status": "Unverified \u2014 no employer system access",
   "financial_status": "All numerical scenarios hypothetical",
   "email_status": "DRAFT ONLY, not sent",
+  "employer_needs_status": "not-reviewed",
+  "employer_needs_count": 0,
+  "needs_reviewed_on": "",
+  "outreach_gate": "Needs review, vacancy confirmation, URL check, recipient verification, and user approval required",
   "verification_checks": [
     "input_schema",
     "https_link_policy",
     "script_escape",
-    "assumption_disclosure"
+    "assumption_disclosure",
+    "needs_traceability"
   ],
   "demo_path": "career-os/demos/kidworks-program-director/"
 }
