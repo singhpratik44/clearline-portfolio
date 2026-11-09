@@ -45,9 +45,17 @@ class AutoConfirmationTests(unittest.TestCase):
 
     def test_lever_confirms_only_matching_id(self):
         ex = dict(EXAMPLE, link="https://jobs.lever.co/example/xyz123")
-        self.assertEqual(verify.live_listing(ex, lambda url: (200, json.dumps({"id": "xyz123"})))["state"], "confirmed")
+        self.assertEqual(verify.live_listing(ex, lambda url: (200, json.dumps({"id": "xyz123", "text": "Customer Success Manager"})))["state"], "confirmed")
         self.assertEqual(verify.live_listing(ex, lambda url: (200, json.dumps({"id": "different"})))["state"], "review")
         self.assertEqual(verify.live_listing(ex, lambda url: (404, ""))["state"], "blocked")
+
+    def test_title_change_is_review_not_verified(self):
+        expected = dict(EXAMPLE)
+        def misleading(url):
+            return 200, json.dumps({"jobs": [{"id": "aa11bb22", "jobUrl": expected["link"], "title": "Senior Accounting Analyst"}]})
+        self.assertEqual(verify.live_listing(expected, misleading)["state"], "review")
+        self.assertTrue(verify.title_consistent("Customer Success Manager, K-12", "K12 Customer Success Manager"))
+        self.assertFalse(verify.title_consistent("Customer Success Manager", "Senior Accounting Analyst"))
 
     def test_unknown_host_is_not_fetched(self):
         ex = dict(EXAMPLE, link="https://private.local/internal")
