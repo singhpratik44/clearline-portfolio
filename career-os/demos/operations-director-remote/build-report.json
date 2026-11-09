@@ -2,7 +2,7 @@
   "job_id": "operations-director-remote",
   "build_version": "8.1.0",
   "source_json_sha256": "cb1dcf8bf8ed4ee3292bbee9511a7a3b30a4053be98f5d48a0d4b2c1ac83e674",
-  "site_sha256": "f42d97ce8940d35de5e6524533a7c0bb131170a486812d0ee5b612018022202b",
+  "site_sha256": "28945a931bc0b44e3442ddccc69e2ee1b15edfdc11cc539e73b0ff2e5d00e38c",
   "role_source": "Reusable operating-role template; no employer or vacancy verified",
   "vacancy_status": "Generic template \u2014 not a job posting",
   "rights_status": "Unverified \u2014 no employer system access",
