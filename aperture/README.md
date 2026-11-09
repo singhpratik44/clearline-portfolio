@@ -2,6 +2,10 @@
 
 APERTURE is a versioned decision and execution framework. Its source of truth is Git, not a landing page or a conversational claim.
 
+## Methodology and business plan
+- [APERTURE Methodology v2.0](METHODOLOGY.md) — PROVE evidence-to-execution framework with ten source-backed research methods, accountability gates, and commercial delivery standards.
+- [Embedded client business plan](../career-os/business-plan.html) — public, audience-specific 90-day operational proposal (no dashboards).
+
 ## Contract
 Every build has a unique ID, owner, problem statement, target users, evidence basis, deliverables, dependencies, risk controls, acceptance tests, status and immutable commit reference. A build is not called deployed merely because a commit exists.
 
