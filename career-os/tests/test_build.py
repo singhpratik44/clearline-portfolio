@@ -30,8 +30,10 @@ class BuildTests(unittest.TestCase):
         record = dict(SAMPLE)
         record["title"] = '</script><script>alert("unsafe")</script>'
         config = builder.validate(record, "test.json")
-        output = builder.build_html('const CONFIG=__CONFIG_JSON__;', config)
-        self.assertNotIn("</script>", output)
+        shell = '<!doctype html><html><body><script>const CONFIG=__CONFIG_JSON__;</script></body></html>'
+        output = builder.build_html(shell, config)
+        self.assertEqual(output.count("</script>"), 1)
+        self.assertNotIn('</script><script>alert("unsafe")</script>', output)
         self.assertIn(r"\u003c/script\u003e", output)
 
     def test_links_are_https_only(self):
