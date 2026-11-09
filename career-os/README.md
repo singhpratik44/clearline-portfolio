@@ -1,9 +1,38 @@
-# APERTURE Career OS — Verified Job-to-Prototype Pipeline (V7)
+# APERTURE Career OS — Verified Job-to-Prototype Pipeline (V9)
 
 **System of record:** [GitHub repo](https://github.com/singhpratik44/clearline-portfolio)  
 **Factory:** https://singhpratik44.github.io/clearline-portfolio/career-os/  
 **Published registry:** https://singhpratik44.github.io/clearline-portfolio/career-os/registry.html  
 **GitHub workflow:** [.github/workflows/aperture-career-os.yml](../../.github/workflows/aperture-career-os.yml)
+
+## Automatic confirmation (V9)
+
+The independent read-only verifier lives in [career-os/engine/verify.py](engine/verify.py), with regression tests in [career-os/tests/test_verify.py](tests/test_verify.py), and is run by [.github/workflows/aperture-career-confirm.yml](../.github/workflows/aperture-career-confirm.yml) daily (18:40 UTC) or from GitHub Actions with **Run workflow**. It writes a public snapshot to [verification.json](verification.json) and renders a human-readable [verification board](verification.html) after the Pages workflow publishes the status artifact.
+
+**Its checks are intentionally conservative:** Lever/Ashby direct requisition IDs are compared against their official public structured ATS APIs. Other ATS providers, temporary blocks, JavaScript-only pages or an HTTP 403 are marked **REVIEW**, not "closed." An authoritative absence/404 from a structured ATS API is **BLOCKED**. A generic HTTP 200 never confirms a live vacancy. The submitted role and employer requirements still need human inspection.
+
+The checker independently verifies: freshness of sourced employer needs (14-day window), traceability of evidence→prototype feature→outcome→candidate fit, local build SHA-256 and draft-only guard, live Pages HTML and exact checksum, duplicate roles or requisition URLs, and communication boundaries. A role is "ready for human outreach review" only when all *public checks* pass. This is **not** consent to send.
+
+**Privacy boundary:** GitHub Actions cannot read the user's Gmail or ATS application account. The published JSON always marks email sent and applications as **unverified**, and holds no private contact data, passwords or API keys. The connected ChatGPT Career Daily automation reconciles this against actual Gmail Sent, Draft and employer confirmation messages; it must not claim an application was submitted just because an email was sent.
+
+**No recursive workflows:** The verifier runs on a daily schedule or manual dispatch, commits its status snapshot, and dispatches one Pages deployment. The builder regenerates on the latest main branch and retries bounded pushes without force-overwriting new job data.
+
+### Ten major hardening improvements
+
+| # | Improvement | Enforcement |
+|---|---|---|
+| 1 | Real ATS requisition identity | Exact Lever/Ashby API ID matching; no false positive from a landing page |
+| 2 | Outage vs closed distinction | 403/429/5xx, unsupported ATS and errors produce REVIEW rather than BLOCKED |
+| 3 | Employer-needs freshness | 14-day limit on evidence before allowing review |
+| 4 | Problem→prototype traceability | Requires sourced need, feature, metric and honest candidate-fit explanation |
+| 5 | End-to-end demo integrity | Generated SHA-256 compared against live published HTML |
+| 6 | Local artifacts guard | Verifies HTML identity, checksum, integrity report and NOT SENT outreach draft |
+| 7 | Duplicate prevention | Flags repeated roles and canonical requisition links |
+| 8 | Human approval boundary | Auto confirmation never sends Gmail or submits applications |
+| 9 | Public verification dashboard | Each role displays exact reason, source and last observed check |
+| 10 | Continuous QA and safe CI | Tests, scheduled verification, status report and race-safe regeneration |
+
+**Pending further work:** reliable additional ATS connectors (Greenhouse/Workday), employer-specific browser interaction tests, recruiter identity proof and actual ATS submission receipts. Claims of an automated send or a submitted application require account-specific evidence.
 
 ## Mandatory new stage — Check their needs → Tailor the proof
 
