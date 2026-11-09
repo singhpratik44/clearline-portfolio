@@ -61,6 +61,14 @@ jobs:
           test -s _site/career-os/demos/educators-rising-implementation-lab/index.html
           grep -q 'Educators Rising' _site/career-os/demos/educators-rising-implementation-lab/index.html
           grep -q 'id="resolve"' _site/career-os/demos/educators-rising-implementation-lab/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          import os
+          p=Path('_site/career-os/demos/educators-rising-implementation-lab/index.html')
+          html=p.read_text()
+          html=html.replace('</head>', '<meta name="aperture-release-sha" content="'+os.environ['GITHUB_SHA']+'"></head>', 1)
+          p.write_text(html)
+          PY
           test -s _site/career-os/registry.html
           test -s _site/career-os/demos/playfly-mater-dei/index.html
           test -s _site/interactive-decision-universe.html
@@ -89,6 +97,7 @@ jobs:
       - name: Verify published Educators Rising demo
         env:
           DEMO_URL: https://singhpratik44.github.io/clearline-portfolio/career-os/demos/educators-rising-implementation-lab/
+          EXPECTED_SHA: ${{ github.sha }}
         run: |
           python3 - <<'PY'
           import os, time, urllib.request
@@ -98,7 +107,7 @@ jobs:
                   req = urllib.request.Request(url, headers={'User-Agent':'APERTURE-Pages-Deployment-Check/1.0'})
                   with urllib.request.urlopen(req, timeout=20) as response:
                       body = response.read().decode('utf-8', errors='replace')
-                      if response.status == 200 and all(token in body for token in ('Educators Rising', 'id="resolve"', 'function render()')):
+                      if response.status == 200 and all(token in body for token in ('Educators Rising', 'id="resolve"', 'function render()', 'name="aperture-release-sha" content="'+os.environ['EXPECTED_SHA']+'"')):
                           print('LIVE VERIFIED:', url)
                           break
                       print('Published page not ready:', response.status)
