@@ -29,7 +29,7 @@ test('APERTURE and basketball links work in both directions', () => {
   assert.match(academy, /href="coaching-journey.html"/);
   assert.match(page, /href="basketball.html"/);
   assert.match(page, /href="aperture-unified-command.html"/);
-  assert.match(page, /aperture-basketball-coaching.kobez2417.chatgpt.site/);
+  assert.match(page, /href="basketball-os.html"/);
 });
 
 test('practice timings add up to selected duration', () => {
