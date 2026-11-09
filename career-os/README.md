@@ -5,6 +5,18 @@
 **Published registry:** https://singhpratik44.github.io/clearline-portfolio/career-os/registry.html  
 **GitHub workflow:** [.github/workflows/aperture-career-os.yml](../../.github/workflows/aperture-career-os.yml)
 
+## V8: Publish from one GitHub Actions form
+
+1. Open the [Prototype Factory](https://singhpratik44.github.io/clearline-portfolio/career-os/) and select a role or enter a custom employer and job description.
+2. Select **Copy spec + open publishing**.
+3. In [APERTURE V8 — Publish role prototype](https://github.com/singhpratik44/clearline-portfolio/actions/workflows/aperture-one-job.yml), click **Run workflow**, paste the job JSON into `job_spec_json`, then run.
+4. The authorized workflow validates input, replaces its provenance with *candidate-supplied/unverified*, generates and tests the work sample, produces an outreach draft, commits output to the portfolio, and explicitly dispatches the Pages workflow.
+5. Review the demo in [Published registry](https://singhpratik44.github.io/clearline-portfolio/career-os/registry.html), check that public links work, independently verify the vacancy and recipient, then approve any outgoing email separately.
+
+This is **not** a one-click anonymous write or autonomous email sender: only a signed-in GitHub account with repository workflow permission can launch publishing. Browser UI has no GitHub token. Built models use hypothetical figures. Avoid putting confidential or personal data into public job specs.
+
+**Pages packaging fix:** The Pages workflow now rebuilds job demonstrations and stages the entire `career-os/` directory. Without that step, factory/registry links could be missing from the deployed site.
+
 ## What runs automatically now
 
 1. A job is captured as a version-controlled JSON file in \`career-os/jobs/<job-id>.json\`. The browser factory can export a compatible file; in ChatGPT the connected GitHub integration can create this file directly.
