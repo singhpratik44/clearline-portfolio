@@ -1,0 +1,39 @@
+name: APERTURE Partnership OS
+on:
+  push:
+    paths:
+      - 'partnerships/index.html'
+      - 'partnerships/os.js'
+      - 'partnerships/os.css'
+      - 'partnerships/catalog.js'
+      - 'partnerships/tests/**'
+      - '.github/workflows/partnership-os.yml'
+  pull_request:
+    paths:
+      - 'partnerships/index.html'
+      - 'partnerships/os.js'
+      - 'partnerships/os.css'
+      - 'partnerships/catalog.js'
+      - 'partnerships/tests/**'
+      - '.github/workflows/partnership-os.yml'
+permissions:
+  contents: read
+jobs:
+  partnership-system:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and source integrity
+        run: |
+          node --check partnerships/os.js
+          node --check partnerships/catalog.js
+          node partnerships/tests/static.cjs
+      - name: Install Chromium
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Exercise market intelligence and pipeline in browser
+        run: node partnerships/tests/browser.mjs
