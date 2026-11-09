@@ -54,6 +54,14 @@ def safe_get(url, opener=urlopen):
         return exc.code, ""
 
 
+def title_consistent(expected, observed):
+    # Allow punctuation and minor reordering; reject clearly unrelated roles.
+    ignore = {"the", "a", "an", "for", "of", "and", "at"}
+    left = set(re.findall(r"[a-z0-9]+", str(expected).lower())) - ignore
+    right = set(re.findall(r"[a-z0-9]+", str(observed).lower())) - ignore
+    return bool(left and right) and len(left & right) >= max(1, (len(left) + 1) // 2)
+
+
 def live_listing(job, fetch=safe_get):
     url = job.get("link", "")
     if not url:
@@ -75,7 +83,9 @@ def live_listing(job, fetch=safe_get):
                 return item("review", f"Lever posting API returned {status}; not treated as closed", url)
             doc = json.loads(body)
             if isinstance(doc, dict) and str(doc.get("id", "")).lower() == job_id.lower():
-                return item("confirmed", "Exact requisition ID found in employer Lever API; eligibility and hiring status still need human review", url)
+                if title_consistent(job.get("title", ""), doc.get("text", doc.get("title", ""))):
+                    return item("confirmed", "Exact requisition ID and compatible job title found in employer Lever API; eligibility still needs review", url)
+                return item("review", "Requisition ID exists but current title does not match saved role", url)
             return item("review", "Lever response did not identify the exact job", url)
 
         if parts.hostname == "jobs.ashbyhq.com":
@@ -95,7 +105,9 @@ def live_listing(job, fetch=safe_get):
                 if any(job_id.lower() in u.lower() for u in urls) or job_id.lower() == str(posting.get("id", "")).lower():
                     matches.append(posting)
             if len(matches) == 1:
-                return item("confirmed", "Exact requisition ID found in current employer Ashby job board API; not proof an application was filed", url)
+                if title_consistent(job.get("title", ""), matches[0].get("title", "")):
+                    return item("confirmed", "Exact requisition ID and compatible job title found in current employer Ashby API; not proof of application", url)
+                return item("review", "Requisition ID exists but current title does not match saved role", url)
             if not matches:
                 return item("blocked", "Exact job requisition ID absent from current employer Ashby jobs list", url)
             return item("review", "Ambiguous duplicate requisition IDs in Ashby board", url)
