@@ -1,6 +1,8 @@
 # APERTURE Career OS — Verified Job-to-Prototype Pipeline (V9)
 
 **System of record:** [GitHub repo](https://github.com/singhpratik44/clearline-portfolio)  
+**Embedded business plan:** [APERTURE 90-day engagement](business-plan.html)  
+**Canonical methodology:** [APERTURE Methodology v2.0](../aperture/METHODOLOGY.md)  
 **Factory:** https://singhpratik44.github.io/clearline-portfolio/career-os/  
 **Published registry:** https://singhpratik44.github.io/clearline-portfolio/career-os/registry.html  
 **GitHub workflow:** [.github/workflows/aperture-career-os.yml](../../.github/workflows/aperture-career-os.yml)
