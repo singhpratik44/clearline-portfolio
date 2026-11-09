@@ -9,6 +9,8 @@ on:
       - 'career-os/tests/**'
       - '.github/workflows/aperture-career-os.yml'
   workflow_dispatch:
+  schedule:
+    - cron: '35 18 * * *'
 
 permissions:
   contents: write
@@ -74,12 +76,14 @@ jobs:
             git reset --hard origin/main
             python3 career-os/engine/build.py
             python3 -m unittest discover -s career-os/tests -v
-            git add career-os/demos career-os/manifest.json career-os/registry.html
+            python3 career-os/engine/verify.py
+            git add career-os/demos career-os/manifest.json career-os/registry.html career-os/verification.json
             if git diff --cached --quiet; then
               echo "Generated demos already current"
               exit 0
             fi
-            git commit -m "build(career-os): generate validated job demos [skip ci]"
+            # Source paths do not include generated outputs, so push triggers Pages only.
+            git commit -m "build(career-os): publish generated demos and verification snapshot"
             if git push origin HEAD:main; then
               echo "Generated demos committed"
               exit 0
