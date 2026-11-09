@@ -166,9 +166,9 @@ def write_outreach(job: dict, relative_url: str) -> str:
     if sourced and job["needs_status"] == "posting-reviewed":
         need = sourced[0]
         fit_sentence = (
-            f"The published role emphasizes {need['need']}. "
-            f"To address that, the prototype includes {need['prototype_feature']}; "
-            f"the proposed success measure is {need['success_metric']}. "
+            f"A priority from the published posting is: {need['need']}. "
+            f"I designed the work sample around {need['prototype_feature']}, "
+            f"with {need['success_metric']} as the proposed measure of success. "
             "These are candidate proposals, not evidence of results at your organization.\n\n"
         )
     else:
