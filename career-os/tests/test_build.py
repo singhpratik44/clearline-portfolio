@@ -53,12 +53,24 @@ class BuildTests(unittest.TestCase):
             self.assertIn("Program Director", site)
             self.assertIn("Illustrative", site)
             self.assertNotIn("__CONFIG_JSON__", site)
+            self.assertEqual(site.count("<script>"), 1)
+            self.assertEqual(site.count("</script>"), 1)
+            self.assertEqual(site.count("</html>"), 1)
+            self.assertTrue(site.rstrip().endswith("</body></html>"))
+            self.assertEqual(site[site.index("</script>") + len("</script>"):], "</body></html>")
             self.assertTrue((root / "demos" / "test-director" / "outreach.md").exists())
             email = (root / "demos" / "test-director" / "outreach.md").read_text()
             self.assertIn("NOT SENT", email)
             self.assertIn("VERIFY", email.upper())
             self.assertIn("test-director", (root / "registry.html").read_text())
             self.assertTrue((root / "manifest.json").exists())
+
+    def test_rejects_raw_script_leak_after_page_footer(self):
+        shell = (SOURCE / "engine" / "prototype_shell.html").read_text()
+        good = builder.validate(SAMPLE, "test.json")
+        malformed = shell + "console.log('should not appear');</script></body></html>"
+        with self.assertRaisesRegex(RuntimeError, "Malformed prototype shell"):
+            builder.build_html(malformed, good)
 
     def test_generated_javascript_parses_if_node_available(self):
         if not shutil.which("node"):
