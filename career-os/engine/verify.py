@@ -146,7 +146,7 @@ def local_artifacts(root, job):
     return item("confirmed", "Local demo checksum, role identity, build report and unsent outreach draft verified")
 
 
-def live_demo(job, fetch=safe_get):
+def live_demo(job, fetch=safe_get, expected_sha=None):
     link = SITE + f"career-os/demos/{job['id']}/"
     try:
         status, body = fetch(link)
@@ -156,7 +156,9 @@ def live_demo(job, fetch=safe_get):
             return item("blocked", "Public page loaded but its job identity, script or configuration was invalid", link)
         if "not employer data" not in body.lower() and "simulated" not in body.lower():
             return item("blocked", "Public demo does not disclose simulated data", link)
-        return item("confirmed", "Public GitHub Pages HTML reachable with correct role identity and simulation disclosure", link)
+        if expected_sha and hashlib.sha256(body.encode("utf-8")).hexdigest() != expected_sha:
+            return item("review", "Live Pages HTML differs from the current locally generated SHA-256; deployment may be stale", link)
+        return item("confirmed", "Public Pages HTML reachable; exact role, simulation disclosure and generated SHA-256 match", link)
     except (ValueError, URLError, TimeoutError, OSError):
         return item("review", "Could not reach public GitHub Pages demo; do not assume deployment success", link)
 
@@ -186,7 +188,12 @@ def verify_all(root=ROOT, fetch=safe_get, today=None):
     for job in jobs:
         job_id = job["id"]
         local = local_artifacts(root, job)
-        live = live_demo(job, fetch=fetch)
+        report_file = root / "demos" / job_id / "build-report.json"
+        try:
+            expected_sha = json.loads(report_file.read_text(encoding="utf-8")).get("site_sha256")
+        except (OSError, ValueError):
+            expected_sha = None
+        live = live_demo(job, fetch=fetch, expected_sha=expected_sha)
         needs = needs_check(job, today=today)
         posting = live_listing(job, fetch=fetch)
         dedupe = item("blocked", "Role or application URL duplicates another local specification") if job_id in duplicates else item("confirmed", "No duplicate job specification found")
