@@ -5,8 +5,8 @@
   "title": "Customer Success Manager, K-12",
   "location": "Remote — United States",
   "link": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8",
-  "status": "Official employer-hosted posting available 2026-11-09; reconfirm before applying",
-  "source": "Instructure/Ashby official employer listing checked 2026-11-09; candidate-created work sample",
+  "status": "Reverification required — direct job URL returned 404 on 2026-11-09; previously indexed job copy available",
+  "source": "Prior indexed employer posting reviewed 2026-11-09; current live application route not confirmed",
   "headline": "From implementation to measurable classroom adoption",
   "thesis": "Build a district-and-school customer success model translating school priorities into observable product outcomes, supporting onboarding, stakeholder engagement, renewal readiness and responsible account expansion.",
   "requirements": [
@@ -35,6 +35,28 @@
     {
       "label": "Official Instructure Customer Success Manager, K-12 role",
       "url": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8"
+    }
+  ],
+  "needs_status": "needs-reverification",
+  "needs_reviewed_on": "2026-11-09",
+  "employer_needs": [
+    {
+      "need": "Retain K–12 districts and grow accounts based on the customer's goals for the Instructure Learning Platform",
+      "basis": "job-posting",
+      "prototype_feature": "District goal-to-adoption map that connects target outcomes with account health and renewal hypotheses",
+      "success_metric": "Customer satisfaction, net revenue retention and goal-based adoption progress",
+      "candidate_fit": "Reported K–12 STEM education leadership and school partnerships provide relevant school context; enterprise SaaS district renewals not established",
+      "open_question": "Is this exact requisition still open? The saved direct job URL returned 404 on 2026-11-09.",
+      "source_url": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8"
+    },
+    {
+      "need": "Coordinate district stakeholders, Sales, Renewals and customer escalations",
+      "basis": "job-posting",
+      "prototype_feature": "School/district stakeholder matrix, escalation decision log and renewal readiness dashboard",
+      "success_metric": "Escalation resolution rate, account stakeholder coverage and renewal readiness",
+      "candidate_fit": "Reported experience coordinating educators, parents and school partner contracts is adjacent; Instructure product specialization still to build",
+      "open_question": "Which Instructure platform adoption issues are the highest-priority for the assigned territory?",
+      "source_url": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8"
     }
   ]
 }
