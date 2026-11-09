@@ -4,9 +4,6 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '40 18 * * *'
-  workflow_run:
-    workflows: ['Deploy Clearline Pages']
-    types: [completed]
 
 permissions:
   contents: write
@@ -18,7 +15,6 @@ concurrency:
 
 jobs:
   confirm:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 12
     steps:
