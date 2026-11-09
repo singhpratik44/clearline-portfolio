@@ -1,7 +1,20 @@
 {
   "version": "7.0.0",
-  "count": 4,
+  "count": 7,
   "jobs": [
+    {
+      "id": "instructure-k12-customer-success",
+      "type": "customer",
+      "company": "Instructure",
+      "title": "Customer Success Manager, K-12",
+      "status": "Official employer-hosted posting available 2026-11-09; reconfirm before applying",
+      "location": "Remote \u2014 United States",
+      "site": "career-os/demos/instructure-k12-customer-success/",
+      "job_link": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8",
+      "source": "Instructure/Ashby official employer listing checked 2026-11-09; candidate-created work sample",
+      "build_sha256": "a7c813ae8b9f3e6fceaf850547009731f7601262031b2fbee54f2db99b489117",
+      "email_status": "Draft only"
+    },
     {
       "id": "kidworks-program-director",
       "type": "education",
@@ -13,6 +26,32 @@
       "job_link": "https://kidworksoc.org/",
       "source": "Candidate targeting youth-development leadership; not a verified current listing",
       "build_sha256": "7c9751adf28034791b2826201b56ed42428a1008bc7335135a7af82aaa2f56e2",
+      "email_status": "Draft only"
+    },
+    {
+      "id": "lemnis-mainstay-partnership-director",
+      "type": "partnerships",
+      "company": "Lemnis / Mainstay",
+      "title": "Partnership Director",
+      "status": "Official employer-hosted posting available 2026-11-09; reconfirm before applying",
+      "location": "Remote \u2014 United States",
+      "site": "career-os/demos/lemnis-mainstay-partnership-director/",
+      "job_link": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e",
+      "source": "Lemnis/Lever employer job listing checked 2026-11-09; candidate-created analytical work sample; no employer data accessed",
+      "build_sha256": "e1d2a5406fab3708fe1282b7338b0c9998d15490184fd3b82d2cda2afd389813",
+      "email_status": "Draft only"
+    },
+    {
+      "id": "mural-customer-enablement-manager",
+      "type": "customer",
+      "company": "Mural",
+      "title": "Customer Enablement Manager",
+      "status": "Official employer-hosted posting available 2026-11-09; reconfirm before applying",
+      "location": "Remote \u2014 United States",
+      "site": "career-os/demos/mural-customer-enablement-manager/",
+      "job_link": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0",
+      "source": "Mural/Ashby employer listing checked 2026-11-09; candidate-created work sample",
+      "build_sha256": "b03a402b8c096ab256acd56ae67807f8e65a5f12b7cef72ec6c56580a64229e0",
       "email_status": "Draft only"
     },
     {

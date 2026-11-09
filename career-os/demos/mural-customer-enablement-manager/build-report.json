@@ -1,0 +1,18 @@
+{
+  "job_id": "mural-customer-enablement-manager",
+  "build_version": "7.0.0",
+  "source_json_sha256": "214caca3b85295a36da9af634a7641c3db289211eac347e8d05f3c77b4b70e99",
+  "site_sha256": "b03a402b8c096ab256acd56ae67807f8e65a5f12b7cef72ec6c56580a64229e0",
+  "role_source": "Mural/Ashby employer listing checked 2026-11-09; candidate-created work sample",
+  "vacancy_status": "Official employer-hosted posting available 2026-11-09; reconfirm before applying",
+  "rights_status": "Unverified \u2014 no employer system access",
+  "financial_status": "All numerical scenarios hypothetical",
+  "email_status": "DRAFT ONLY, not sent",
+  "verification_checks": [
+    "input_schema",
+    "https_link_policy",
+    "script_escape",
+    "assumption_disclosure"
+  ],
+  "demo_path": "career-os/demos/mural-customer-enablement-manager/"
+}
