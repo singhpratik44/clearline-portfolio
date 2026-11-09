@@ -170,7 +170,7 @@ def write_outreach(job: dict, relative_url: str) -> str:
     sourced = [n for n in job["employer_needs"] if n["basis"] != "hypothesis"]
     reviewed = bool(sourced and job["needs_status"] == "posting-reviewed")
     if reviewed:
-        need_lines = "\\n".join(
+        need_lines = "\n".join(
             f"- Published need: {n['need']} (source: {n['source_url']}). "
             f"Proposed improvement: {n['prototype_feature']}; measure: {n['success_metric']}. "
             f"Relevant experience or gap: {n['candidate_fit']}."
@@ -185,39 +185,39 @@ def write_outreach(job: dict, relative_url: str) -> str:
     labels = ["Days 1–30 — Validate", "Days 31–60 — Implement", "Days 61–90 — Verify and transfer"]
     for label, pair in zip(labels, job["phases"]):
         phase_blocks.append(
-            f"**{label}:** {pair[0]}\\n"
+            f"**{label}:** {pair[0]}\n"
             f"**Tangible deliverable:** {pair[1]}"
         )
-    phases = "\\n\\n".join(phase_blocks)
+    phases = "\n\n".join(phase_blocks)
     measures = "; ".join(
         dict.fromkeys(n["success_metric"] for n in sourced[:4])
     ) if reviewed else "baseline to be agreed with the employer; process reliability; on-time delivery"
     return (
-        f"# DRAFT ONLY — {job['company']} | {job['title']}\\n\\n"
-        "**State:** NOT SENT — VERIFY recipient, current opportunity, facts and authorization first.\\n\\n"
-        "**To:** [VERIFIED HIRING CONTACT — REQUIRED]\\n\\n"
-        f"**Subject:** {job['company']} | {job['title']} — Evidence-Backed 90-Day Business Plan\\n\\n"
-        "Dear Hiring Team,\\n\\n"
+        f"# DRAFT ONLY — {job['company']} | {job['title']}\n\n"
+        "**State:** NOT SENT — VERIFY recipient, current opportunity, facts and authorization first.\n\n"
+        "**To:** [VERIFIED HIRING CONTACT — REQUIRED]\n\n"
+        f"**Subject:** {job['company']} | {job['title']} — Evidence-Backed 90-Day Business Plan\n\n"
+        "Dear Hiring Team,\n\n"
         f"I'm interested in the {job['title']} opportunity at {job['company']}. "
         "I am sending a complete operating proposal in the email itself, not a dashboard "
         "or a request for a demonstration call. The proposed APERTURE method is "
-        "evidence first, accountable execution, process verification and measured transfer.\\n\\n"
-        "**1. Your mandate and my proposed fit**\\n\\n"
-        + need_lines + "\\n\\n"
+        "evidence first, accountable execution, process verification and measured transfer.\n\n"
+        "**1. Your mandate and my proposed fit**\n\n"
+        + need_lines + "\n\n"
         "My background includes multi-location STEM franchise education operations, "
         "revenue growth, staff leadership, P&L responsibility and school partnerships. "
         "This is relevant operational experience, not proof of specialized credentials "
-        "or results inside your business.\\n\\n"
-        "**2. Embedded 30/60/90-day business plan**\\n\\n"
-        + phases + "\\n\\n"
-        "**3. Economics, risk and success definition**\\n\\n"
+        "or results inside your business.\n\n"
+        "**2. Embedded 30/60/90-day business plan**\n\n"
+        + phases + "\n\n"
+        "**3. Economics, risk and success definition**\n\n"
         f"Proposed measures: {measures}. First establish a validated baseline using only "
         "authorized client information. Compare outcomes and avoidable rework to the "
         "baseline; for a commercial intervention, calculate net incremental contribution "
         "as incremental revenue × contribution margin minus implementation and "
         "incremental operating costs. Put owner approvals and rollback conditions in writing. "
-        "No figures are represented as actual employer results.\\n\\n"
-        "**4. Research-based controls**\\n\\n"
+        "No figures are represented as actual employer results.\n\n"
+        "**4. Research-based controls**\n\n"
         "BizBench (Oct 2026: https://arxiv.org/abs/2610.20424) motivates checking intermediate "
         "business-policy validity; CRM-Agent-Bench (Oct 2026: https://arxiv.org/abs/2610.32004) "
         "motivates explicit action-state checks; Thinkingbox (Aug/Oct 2026: "
@@ -226,19 +226,19 @@ def write_outreach(job: dict, relative_url: str) -> str:
         "evidence permits. These are design inspirations to validate in context, not "
         "claims that a client already uses these research systems. The full ten-study "
         "method and safeguards are documented at "
-        "https://github.com/singhpratik44/clearline-portfolio/blob/main/aperture/METHODOLOGY.md.\\n\\n"
-        "**5. Working arrangement and next step**\\n\\n"
+        "https://github.com/singhpratik44/clearline-portfolio/blob/main/aperture/METHODOLOGY.md.\n\n"
+        "**5. Working arrangement and next step**\n\n"
         "I can propose a fixed-scope diagnostic or a time-bounded 90-day fractional "
         "engagement, with weekly deliverables and written agreement on scope, rates, "
         "confidentiality, IP, approval rights and payment terms. "
         "Could you share the current contractor structure and who would assess this plan? "
-        "I am happy to respond in writing.\\n\\n"
-        "Kind regards,\\n\\nLocane (Pratik) Singh\\n\\n"
-        "Portfolio: https://singhpratik44.github.io/clearline-portfolio/\\n\\n"
+        "I am happy to respond in writing.\n\n"
+        "Kind regards,\n\nLocane (Pratik) Singh\n\n"
+        "Portfolio: https://singhpratik44.github.io/clearline-portfolio/\n\n"
         f"**Optional supplementary work sample (verify before sharing):** "
-        f"https://singhpratik44.github.io/clearline-portfolio/{relative_url}\\n\\n"
+        f"https://singhpratik44.github.io/clearline-portfolio/{relative_url}\n\n"
         "**Approval gate:** This file is draft only; it is not an ATS submission, "
-        "a verified employer relationship, or an email receipt.\\n"
+        "a verified employer relationship, or an email receipt.\n"
     )
 
 def registry_html(entries: list[dict]) -> str:
