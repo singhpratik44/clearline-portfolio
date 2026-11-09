@@ -228,7 +228,8 @@ def registry_html(entries: list[dict]) -> str:
         'a:hover{text-decoration:underline}.notice{font-size:12px;color:#647988;max-width:850px}'
         '</style></head><body><header><div>APERTURE / CAREER OS</div><h1>Published operating work samples.</h1>'
         '<p>Auto-built from versioned job specifications. No employer access or sponsorship implied.</p>'
-        '<a style="color:#a8e8e9" href="./">Open Prototype Factory</a></header><main>'
+        '<a style="color:#a8e8e9" href="./">Open Prototype Factory</a> · '
+        '<a style="color:#a8e8e9" href="verification.html">Live verification board</a></header><main>'
         '<p class="notice">All metrics are simulations, not employer financials. Application availability and job descriptions require independent validation. Draft outreach is never automatically sent.</p>'
         '<div class="grid">' + "".join(cards) + '</div></main></body></html>'
     )
