@@ -1,1 +1,50 @@
-# DRAFT ONLY — Custom Employer — Template | Director of Operations / Program Strategy\n\n**State:** NOT SENT — VERIFY recipient, current opportunity, facts and authorization first.\n\n**To:** [VERIFIED HIRING CONTACT — REQUIRED]\n\n**Subject:** Custom Employer — Template | Director of Operations / Program Strategy — Evidence-Backed 90-Day Business Plan\n\nDear Hiring Team,\n\nI'm interested in the Director of Operations / Program Strategy opportunity at Custom Employer — Template. I am sending a complete operating proposal in the email itself, not a dashboard or a request for a demonstration call. The proposed APERTURE method is evidence first, accountable execution, process verification and measured transfer.\n\n**1. Your mandate and my proposed fit**\n\nThe employer's current priorities have not been independently confirmed. I would validate these before recommending any intervention.\n\nMy background includes multi-location STEM franchise education operations, revenue growth, staff leadership, P&L responsibility and school partnerships. This is relevant operational experience, not proof of specialized credentials or results inside your business.\n\n**2. Embedded 30/60/90-day business plan**\n\n**Days 1–30 — Validate:** Map critical workflows, governance and baseline metrics\n**Tangible deliverable:** Process map, owners and evidence register\n\n**Days 31–60 — Implement:** Implement operating cadence and pilot targeted improvements\n**Tangible deliverable:** KPI dashboard, decision ledger and pilot review\n\n**Days 61–90 — Verify and transfer:** Review performance and scale validated interventions\n**Tangible deliverable:** Executive report, improvement backlog and 90-day review\n\n**3. Economics, risk and success definition**\n\nProposed measures: baseline to be agreed with the employer; process reliability; on-time delivery. First establish a validated baseline using only authorized client information. Compare outcomes and avoidable rework to the baseline; for a commercial intervention, calculate net incremental contribution as incremental revenue × contribution margin minus implementation and incremental operating costs. Put owner approvals and rollback conditions in writing. No figures are represented as actual employer results.\n\n**4. Research-based controls**\n\nBizBench (Oct 2026: https://arxiv.org/abs/2610.20424) motivates checking intermediate business-policy validity; CRM-Agent-Bench (Oct 2026: https://arxiv.org/abs/2610.32004) motivates explicit action-state checks; Thinkingbox (Aug/Oct 2026: https://arxiv.org/abs/2608.19741) motivates repeat reliability tests; DAGent (Sep 2026: https://arxiv.org/abs/2609.39154) motivates expanding plans only when evidence permits. These are design inspirations to validate in context, not claims that a client already uses these research systems. The full ten-study method and safeguards are documented at https://github.com/singhpratik44/clearline-portfolio/blob/main/aperture/METHODOLOGY.md.\n\n**5. Working arrangement and next step**\n\nI can propose a fixed-scope diagnostic or a time-bounded 90-day fractional engagement, with weekly deliverables and written agreement on scope, rates, confidentiality, IP, approval rights and payment terms. Could you share the current contractor structure and who would assess this plan? I am happy to respond in writing.\n\nKind regards,\n\nLocane (Pratik) Singh\n\nPortfolio: https://singhpratik44.github.io/clearline-portfolio/\n\n**Optional supplementary work sample (verify before sharing):** https://singhpratik44.github.io/clearline-portfolio/career-os/demos/operations-director-remote/\n\n**Approval gate:** This file is draft only; it is not an ATS submission, a verified employer relationship, or an email receipt.\n
+# DRAFT ONLY — Custom Employer — Template | Director of Operations / Program Strategy
+
+**State:** NOT SENT — VERIFY recipient, current opportunity, facts and authorization first.
+
+**To:** [VERIFIED HIRING CONTACT — REQUIRED]
+
+**Subject:** Custom Employer — Template | Director of Operations / Program Strategy — Evidence-Backed 90-Day Business Plan
+
+Dear Hiring Team,
+
+I'm interested in the Director of Operations / Program Strategy opportunity at Custom Employer — Template. I am sending a complete operating proposal in the email itself, not a dashboard or a request for a demonstration call. The proposed APERTURE method is evidence first, accountable execution, process verification and measured transfer.
+
+**1. Your mandate and my proposed fit**
+
+The employer's current priorities have not been independently confirmed. I would validate these before recommending any intervention.
+
+My background includes multi-location STEM franchise education operations, revenue growth, staff leadership, P&L responsibility and school partnerships. This is relevant operational experience, not proof of specialized credentials or results inside your business.
+
+**2. Embedded 30/60/90-day business plan**
+
+**Days 1–30 — Validate:** Map critical workflows, governance and baseline metrics
+**Tangible deliverable:** Process map, owners and evidence register
+
+**Days 31–60 — Implement:** Implement operating cadence and pilot targeted improvements
+**Tangible deliverable:** KPI dashboard, decision ledger and pilot review
+
+**Days 61–90 — Verify and transfer:** Review performance and scale validated interventions
+**Tangible deliverable:** Executive report, improvement backlog and 90-day review
+
+**3. Economics, risk and success definition**
+
+Proposed measures: baseline to be agreed with the employer; process reliability; on-time delivery. First establish a validated baseline using only authorized client information. Compare outcomes and avoidable rework to the baseline; for a commercial intervention, calculate net incremental contribution as incremental revenue × contribution margin minus implementation and incremental operating costs. Put owner approvals and rollback conditions in writing. No figures are represented as actual employer results.
+
+**4. Research-based controls**
+
+BizBench (Oct 2026: https://arxiv.org/abs/2610.20424) motivates checking intermediate business-policy validity; CRM-Agent-Bench (Oct 2026: https://arxiv.org/abs/2610.32004) motivates explicit action-state checks; Thinkingbox (Aug/Oct 2026: https://arxiv.org/abs/2608.19741) motivates repeat reliability tests; DAGent (Sep 2026: https://arxiv.org/abs/2609.39154) motivates expanding plans only when evidence permits. These are design inspirations to validate in context, not claims that a client already uses these research systems. The full ten-study method and safeguards are documented at https://github.com/singhpratik44/clearline-portfolio/blob/main/aperture/METHODOLOGY.md.
+
+**5. Working arrangement and next step**
+
+I can propose a fixed-scope diagnostic or a time-bounded 90-day fractional engagement, with weekly deliverables and written agreement on scope, rates, confidentiality, IP, approval rights and payment terms. Could you share the current contractor structure and who would assess this plan? I am happy to respond in writing.
+
+Kind regards,
+
+Locane (Pratik) Singh
+
+Portfolio: https://singhpratik44.github.io/clearline-portfolio/
+
+**Optional supplementary work sample (verify before sharing):** https://singhpratik44.github.io/clearline-portfolio/career-os/demos/operations-director-remote/
+
+**Approval gate:** This file is draft only; it is not an ATS submission, a verified employer relationship, or an email receipt.
