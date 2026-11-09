@@ -1,0 +1,40 @@
+{
+  "id": "mural-customer-enablement-manager",
+  "type": "customer",
+  "company": "Mural",
+  "title": "Customer Enablement Manager",
+  "location": "Remote — United States",
+  "link": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0",
+  "status": "Official employer-hosted posting available 2026-11-09; reconfirm before applying",
+  "source": "Mural/Ashby employer listing checked 2026-11-09; candidate-created work sample",
+  "headline": "Customer learning that accelerates time to value",
+  "thesis": "Design a scaled customer learning system with evidence-linked onboarding, modular learning paths, scenario-based labs, adoption signals and targeted interventions for customers with low proficiency or delayed activation.",
+  "requirements": [
+    "Execute self-guided live cohort-based and peer-led customer education",
+    "Build adaptive learning journeys by role, product use case and milestone",
+    "Produce courses guides videos templates and interactive simulations",
+    "Collaborate with Product Marketing and Customer Success on launches",
+    "Measure learner engagement proficiency and product adoption",
+    "Enable Customer Success colleagues using reusable materials"
+  ],
+  "phases": [
+    [
+      "Map primary customer personas, onboarding friction and existing content inventory",
+      "Role and use-case learning map, baseline adoption measurement plan"
+    ],
+    [
+      "Build a small interactive education lab and reusable learning library",
+      "Modular sample academy, cohort session and success metrics dashboard"
+    ],
+    [
+      "Run a measured enablement pilot and iterate based on adoption signals",
+      "Pilot retrospective, intervention playbook, 90-day customer education roadmap"
+    ]
+  ],
+  "references": [
+    {
+      "label": "Official Mural Customer Enablement Manager role",
+      "url": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0"
+    }
+  ]
+}
