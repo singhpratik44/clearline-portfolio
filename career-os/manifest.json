@@ -4,7 +4,7 @@
   "jobs": [
     {
       "id": "kidworks-program-director",
-      "type": "ops",
+      "type": "education",
       "company": "KidWorks",
       "title": "K\u201312 Program Director",
       "status": "Work sample template; verify exact open role",
@@ -12,7 +12,7 @@
       "site": "career-os/demos/kidworks-program-director/",
       "job_link": "https://kidworksoc.org/",
       "source": "Candidate targeting youth-development leadership; not a verified current listing",
-      "build_sha256": "463b73f0c089efa54e66776ecbe9b2f4571ba80ccf05288013bf42f600afc9da",
+      "build_sha256": "52a4ee145de106a9f3ec99e74706aa1a02a3e726c8fdfe460175f239d768e63a",
       "email_status": "Draft only"
     },
     {
@@ -25,12 +25,12 @@
       "site": "career-os/demos/operations-director-remote/",
       "job_link": "",
       "source": "Reusable operating-role template; no employer or vacancy verified",
-      "build_sha256": "fa5a67922b0f2e3a2a040dffdd73f65f8b19206e26cae181d378d1e1119eed9b",
+      "build_sha256": "5f69bb43eda82b8c56c9cc13d6684ec0aed103755d2ea6df9cb692e106ca54df",
       "email_status": "Draft only"
     },
     {
       "id": "pearson-customer-success",
-      "type": "ops",
+      "type": "customer",
       "company": "Pearson",
       "title": "Customer Success Specialist",
       "status": "Role example; verify live requisition",
@@ -38,12 +38,12 @@
       "site": "career-os/demos/pearson-customer-success/",
       "job_link": "https://www.pearson.com/careers.html",
       "source": "Customer-success role template, not a confirmed current posting",
-      "build_sha256": "a2dfca431dba1a34bee035bfc6967effb61394cebe90563875b736e66ed8e26b",
+      "build_sha256": "472411e67600912a93e274be5b94745b4e8fc29274a92b3f05392d8316ce43e0",
       "email_status": "Draft only"
     },
     {
       "id": "playfly-mater-dei",
-      "type": "ops",
+      "type": "partnerships",
       "company": "Playfly Sports / Mater Dei",
       "title": "General Manager \u2014 Mater Dei Sports Properties",
       "status": "Previously listed; confirm vacancy remains active",
@@ -51,7 +51,7 @@
       "site": "career-os/demos/playfly-mater-dei/",
       "job_link": "https://www.playfly.com/careers?gh_jid=4303760009",
       "source": "Public Playfly/Mater Dei information and prior candidate research; job currently unverified",
-      "build_sha256": "b337636e80dd8d2ffc3e393a508fbac8b8cdbecabf0d6839ae775d0acddf6ce3",
+      "build_sha256": "bf77e53feff45e2ab5f58df10bb3a8be9d00eabf052a01cd01b71b891e16c944",
       "email_status": "Draft only"
     }
   ],

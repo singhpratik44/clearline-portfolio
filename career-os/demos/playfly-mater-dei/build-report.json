@@ -1,8 +1,8 @@
 {
   "job_id": "playfly-mater-dei",
   "build_version": "7.0.0",
-  "source_json_sha256": "bb8594e2416bb03f768261830fb4945675957aceee97f74c6cf3e8e5c80a3f63",
-  "site_sha256": "b337636e80dd8d2ffc3e393a508fbac8b8cdbecabf0d6839ae775d0acddf6ce3",
+  "source_json_sha256": "1e3950bbdb12c89ca648684f8a474b960fb98c019c65d46d19dbc86af3788dfd",
+  "site_sha256": "bf77e53feff45e2ab5f58df10bb3a8be9d00eabf052a01cd01b71b891e16c944",
   "role_source": "Public Playfly/Mater Dei information and prior candidate research; job currently unverified",
   "vacancy_status": "Previously listed; confirm vacancy remains active",
   "rights_status": "Unverified \u2014 no employer system access",
