@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-11-09T18:27:07Z",
+  "method": "Initial conservative audit from current GitHub build manifest and previously checked public links; independent scheduled verification pending",
+  "automation": "Read-only public snapshot; no sending, applying, or auto-approvals",
+  "summary": {
+    "roles_checked": 7,
+    "verified_for_review": 0,
+    "posting_blocked": 0,
+    "needs_review": 7,
+    "demo_not_confirmed": 7
+  },
+  "jobs": [
+    {
+      "id": "instructure-k12-customer-success",
+      "company": "Instructure",
+      "title": "Customer Success Manager, K-12",
+      "posting": {
+        "state": "review",
+        "reason": "Previously saved official Ashby URL returned HTTP 404 on 2026-11-09; exact current requisition needs check",
+        "url": "https://jobs.ashbyhq.com/instructure/b6afa2ac-988c-45ab-98a4-616b217a9de8"
+      },
+      "employer_needs": {
+        "state": "review",
+        "reason": "Employer-needs research missing or requires reconfirmation"
+      },
+      "local_build": {
+        "state": "review",
+        "reason": "Prior build artifact present; current checksum comparison pending scheduled verifier"
+      },
+      "published_demo": {
+        "state": "review",
+        "reason": "Live GitHub Pages content not independently fetched",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/career-os/demos/instructure-k12-customer-success/"
+      },
+      "deduplication": {
+        "state": "confirmed",
+        "reason": "No matching company and role duplicated within current manifest"
+      },
+      "outreach": {
+        "state": "review",
+        "reason": "Gmail and ATS delivery records are not part of this public status snapshot"
+      },
+      "ready_for_human_outreach_review": false,
+      "email_sent": "unverified",
+      "application_submitted": "unverified"
+    },
+    {
+      "id": "kidworks-program-director",
+      "company": "KidWorks",
+      "title": "K–12 Program Director",
+      "posting": {
+        "state": "review",
+        "reason": "Current ATS identity and vacancy not independently reconfirmed in this snapshot",
+        "url": "https://kidworksoc.org/"
+      },
+      "employer_needs": {
+        "state": "review",
+        "reason": "Employer-needs research missing or requires reconfirmation"
+      },
+      "local_build": {
+        "state": "review",
+        "reason": "Prior build artifact present; current checksum comparison pending scheduled verifier"
+      },
+      "published_demo": {
+        "state": "review",
+        "reason": "Live GitHub Pages content not independently fetched",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/career-os/demos/kidworks-program-director/"
+      },
+      "deduplication": {
+        "state": "confirmed",
+        "reason": "No matching company and role duplicated within current manifest"
+      },
+      "outreach": {
+        "state": "review",
+        "reason": "Gmail and ATS delivery records are not part of this public status snapshot"
+      },
+      "ready_for_human_outreach_review": false,
+      "email_sent": "unverified",
+      "application_submitted": "unverified"
+    },
+    {
+      "id": "lemnis-mainstay-partnership-director",
+      "company": "Lemnis / Mainstay",
+      "title": "Partnership Director",
+      "posting": {
+        "state": "review",
+        "reason": "Current ATS identity and vacancy not independently reconfirmed in this snapshot",
+        "url": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e"
+      },
+      "employer_needs": {
+        "state": "review",
+        "reason": "3 sourced needs recorded, but live employer wording not independently reconfirmed"
+      },
+      "local_build": {
+        "state": "review",
+        "reason": "Prior build artifact present; current checksum comparison pending scheduled verifier"
+      },
+      "published_demo": {
+        "state": "review",
+        "reason": "Live GitHub Pages content not independently fetched",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/career-os/demos/lemnis-mainstay-partnership-director/"
+      },
+      "deduplication": {
+        "state": "confirmed",
+        "reason": "No matching company and role duplicated within current manifest"
+      },
+      "outreach": {
+        "state": "review",
+        "reason": "Gmail and ATS delivery records are not part of this public status snapshot"
+      },
+      "ready_for_human_outreach_review": false,
+      "email_sent": "unverified",
+      "application_submitted": "unverified"
+    },
+    {
+      "id": "mural-customer-enablement-manager",
+      "company": "Mural",
+      "title": "Customer Enablement Manager",
+      "posting": {
+        "state": "review",
+        "reason": "Current ATS identity and vacancy not independently reconfirmed in this snapshot",
+        "url": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0"
+      },
+      "employer_needs": {
+        "state": "review",
+        "reason": "3 sourced needs recorded, but live employer wording not independently reconfirmed"
+      },
+      "local_build": {
+        "state": "review",
+        "reason": "Prior build artifact present; current checksum comparison pending scheduled verifier"
+      },
+      "published_demo": {
+        "state": "review",
+        "reason": "Live GitHub Pages content not independently fetched",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/career-os/demos/mural-customer-enablement-manager/"
+      },
+      "deduplication": {
+        "state": "confirmed",
+        "reason": "No matching company and role duplicated within current manifest"
+      },
+      "outreach": {
+        "state": "review",
+        "reason": "Gmail and ATS delivery records are not part of this public status snapshot"
+      },
+      "ready_for_human_outreach_review": false,
+      "email_sent": "unverified",
+      "application_submitted": "unverified"
+    },
+    {
+      "id": "operations-director-remote",
+      "company": "Custom Employer — Template",
+      "title": "Director of Operations / Program Strategy",
+      "posting": {
+        "state": "review",
+        "reason": "No exact official ATS job URL",
+        "url": ""
+      },
+      "employer_needs": {
+        "state": "review",
+        "reason": "Employer-needs research missing or requires reconfirmation"
+      },
+      "local_build": {
+        "state": "review",
+        "reason": "Prior build artifact present; current checksum comparison pending scheduled verifier"
+      },
+      "published_demo": {
+        "state": "review",
+        "reason": "Live GitHub Pages content not independently fetched",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/career-os/demos/operations-director-remote/"
+      },
+      "deduplication": {
+        "state": "confirmed",
+        "reason": "No matching company and role duplicated within current manifest"
+      },
+      "outreach": {
+        "state": "review",
+        "reason": "Gmail and ATS delivery records are not part of this public status snapshot"
+      },
+      "ready_for_human_outreach_review": false,
+      "email_sent": "unverified",
+      "application_submitted": "unverified"
+    },
+    {
+      "id": "pearson-customer-success",
+      "company": "Pearson",
+      "title": "Customer Success Specialist",
+      "posting": {
+        "state": "review",
+        "reason": "Current ATS identity and vacancy not independently reconfirmed in this snapshot",
+        "url": "https://www.pearson.com/careers.html"
+      },
+      "employer_needs": {
+        "state": "review",
+        "reason": "Employer-needs research missing or requires reconfirmation"
+      },
+      "local_build": {
+        "state": "review",
+        "reason": "Prior build artifact present; current checksum comparison pending scheduled verifier"
+      },
+      "published_demo": {
+        "state": "review",
+        "reason": "Live GitHub Pages content not independently fetched",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/career-os/demos/pearson-customer-success/"
+      },
+      "deduplication": {
+        "state": "confirmed",
+        "reason": "No matching company and role duplicated within current manifest"
+      },
+      "outreach": {
+        "state": "review",
+        "reason": "Gmail and ATS delivery records are not part of this public status snapshot"
+      },
+      "ready_for_human_outreach_review": false,
+      "email_sent": "unverified",
+      "application_submitted": "unverified"
+    },
+    {
+      "id": "playfly-mater-dei",
+      "company": "Playfly Sports / Mater Dei",
+      "title": "General Manager — Mater Dei Sports Properties",
+      "posting": {
+        "state": "review",
+        "reason": "Current ATS identity and vacancy not independently reconfirmed in this snapshot",
+        "url": "https://www.playfly.com/careers?gh_jid=4303760009"
+      },
+      "employer_needs": {
+        "state": "review",
+        "reason": "Employer-needs research missing or requires reconfirmation"
+      },
+      "local_build": {
+        "state": "review",
+        "reason": "Prior build artifact present; current checksum comparison pending scheduled verifier"
+      },
+      "published_demo": {
+        "state": "review",
+        "reason": "Live GitHub Pages content not independently fetched",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/career-os/demos/playfly-mater-dei/"
+      },
+      "deduplication": {
+        "state": "confirmed",
+        "reason": "No matching company and role duplicated within current manifest"
+      },
+      "outreach": {
+        "state": "review",
+        "reason": "Gmail and ATS delivery records are not part of this public status snapshot"
+      },
+      "ready_for_human_outreach_review": false,
+      "email_sent": "unverified",
+      "application_submitted": "unverified"
+    }
+  ]
+}
