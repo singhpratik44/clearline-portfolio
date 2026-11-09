@@ -1,0 +1,85 @@
+name: APERTURE V8 — Publish role prototype
+
+on:
+  workflow_dispatch:
+    inputs:
+      job_spec_json:
+        description: "Paste JSON from the APERTURE factory; never include personal secrets"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: aperture-career-os-build
+  cancel-in-progress: false
+
+jobs:
+  build-role:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate input, label provenance, and save job
+        env:
+          JOB_SPEC_JSON: ${{ inputs.job_spec_json }}
+        run: |
+          python3 - <<'PY'
+          import importlib.util, json, os
+          from pathlib import Path
+          spec = importlib.util.spec_from_file_location("builder", "career-os/engine/build.py")
+          module = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(module)
+          raw = json.loads(os.environ["JOB_SPEC_JSON"])
+          if not isinstance(raw, dict):
+              raise SystemExit("Job spec must be a JSON object")
+          raw["source"] = "Candidate-provided input; employer job details not independently verified by the build"
+          raw["status"] = "Candidate-supplied role; confirm current opening and requirements"
+          record = module.validate(raw, "workflow input")
+          raw["id"] = record["id"]
+          path = Path("career-os/jobs") / (record["id"] + ".json")
+          path.write_text(json.dumps(raw, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+          print("Validated", record["id"], "— all outcomes remain hypothetical")
+          PY
+      - name: Generate standalone site, draft, registry, and checksums
+        run: python3 career-os/engine/build.py
+      - name: Run Python integrity tests
+        run: python3 -m unittest discover -s career-os/tests -v
+      - name: Parse every built demo JavaScript
+        run: |
+          python3 - <<'PY'
+          import re, subprocess
+          from pathlib import Path
+          for f in Path("career-os/demos").glob("*/index.html"):
+              html = f.read_text(encoding="utf-8")
+              scripts = re.findall(r"<script>([\s\S]*?)</script>", html)
+              assert len(scripts) == 1, f"Unexpected script count: {f}"
+              result = subprocess.run(["node", "--check"], input=scripts[0], text=True, capture_output=True)
+              assert result.returncode == 0, f"{f}: {result.stderr}"
+              print("PASS", f)
+          PY
+      - name: Commit validated site and drafts
+        run: |
+          git config user.name "aperture-build[bot]"
+          git config user.email "aperture-build[bot]@users.noreply.github.com"
+          git add career-os/jobs career-os/demos career-os/manifest.json career-os/registry.html
+          if git diff --cached --quiet; then
+            echo "No changes needed"
+          else
+            git commit -m "build(career-os): publish user-approved job work sample [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Trigger GitHub Pages deployment
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy-pages.yml --ref main
