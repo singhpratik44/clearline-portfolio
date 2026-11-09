@@ -5,6 +5,37 @@
 **Published registry:** https://singhpratik44.github.io/clearline-portfolio/career-os/registry.html  
 **GitHub workflow:** [.github/workflows/aperture-career-os.yml](../../.github/workflows/aperture-career-os.yml)
 
+## Mandatory new stage — Check their needs → Tailor the proof
+
+This stage runs **between job discovery and prototype generation**, as part of the connected research agent (and the APERTURE Career Daily automation), not inside the offline static HTML builder.
+
+1. **Verify**: open the employer's current ATS listing, job ID, location, compensation, required qualifications and posting freshness. Recheck dead links; never interpret a past cached page as a live vacancy.
+2. **Understand**: extract the 2–5 most important *stated* employer needs, stakeholders, delivery constraints, business outcomes and desired metrics. Supplement with the employer's own product/mission pages and dated public announcements. Mark unsupported assumptions as hypotheses.
+3. **Match honestly**: for each need, explain relevant candidate-provided experience and identify genuine gaps. Never claim employment, certifications, client results, or product-system access not documented by the candidate.
+4. **Tailor the prototype**: define one functional interactive module per high-priority need, its expected metric, a 30/60/90-day pilot, and a concrete question to ask the employer. Avoid generic charts that do not measure the actual role.
+5. **Trace and gate**: save \`needs_status\`, \`needs_reviewed_on\`, and \`employer_needs[]\` in the job JSON. Each item must include \`need\`, \`basis\` (\`job-posting\`, \`official-site\`, or \`hypothesis\`), \`source_url\` where sourced, \`prototype_feature\`, \`success_metric\`, \`candidate_fit\`, and optionally \`open_question\`. The builder checks fields and URLs, injects the needs into the Evidence & Controls panel, writes an evidence-specific outreach draft, and records needs status/count in the build report.
+6. **Send gate**: no outreach is sent if the role is closed/unverified, the needs register is missing or speculative, the contact is unverified, the deployed demo fails, or user approval is absent. The generated \`outreach.md\` is a draft only.
+
+The browser form can create **draft** prototypes but does not browse employer websites or verify facts. Direct browser submissions are labeled \`not-reviewed\` or \`needs-reverification\`, even if their author supplies a link. A GitHub build success validates formatting and JavaScript, *not* the truth or currency of the cited job posting.
+
+Example entry:
+
+\`\`\`json
+{
+  "needs_status": "posting-reviewed",
+  "needs_reviewed_on": "2026-11-09",
+  "employer_needs": [{
+    "need": "Improve customer onboarding and account renewal readiness",
+    "basis": "job-posting",
+    "source_url": "https://example.org/careers/role-id",
+    "prototype_feature": "Onboarding intervention and renewal-risk simulator",
+    "success_metric": "Time-to-value and gross revenue retention",
+    "candidate_fit": "Prior education-program retention experience is relevant; direct SaaS ownership is not yet proven",
+    "open_question": "Which account segments have the highest churn risk?"
+  }]
+}
+\`\`\`
+
 ## V8: Publish from one GitHub Actions form
 
 1. Open the [Prototype Factory](https://singhpratik44.github.io/clearline-portfolio/career-os/) and select a role or enter a custom employer and job description.
