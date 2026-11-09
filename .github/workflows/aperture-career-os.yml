@@ -1,0 +1,76 @@
+name: APERTURE Career OS — build, verify, publish demos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'career-os/jobs/**'
+      - 'career-os/engine/**'
+      - 'career-os/tests/**'
+      - '.github/workflows/aperture-career-os.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aperture-career-os-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node.js for JavaScript syntax tests
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Generate all job-specific demos and outreach drafts
+        run: python3 career-os/engine/build.py
+
+      - name: Run validation, sanitization and JavaScript checks
+        run: python3 -m unittest discover -s career-os/tests -v
+
+      - name: Verify every generated demo has one parseable script
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          import subprocess
+          paths = sorted(Path("career-os/demos").glob("*/index.html"))
+          assert len(paths) >= 2, "At least two job demos are required"
+          for p in paths:
+              html = p.read_text(encoding="utf-8")
+              assert "__CONFIG_JSON__" not in html
+              assert "not employer data" in html.lower() or "simulated" in html.lower()
+              scripts = re.findall(r"<script>([\s\S]*?)</script>", html)
+              assert len(scripts) == 1, f"{p}: expected one inline script"
+              result = subprocess.run(["node", "--check"], input=scripts[0], text=True, capture_output=True)
+              assert result.returncode == 0, f"{p}: {result.stderr}"
+              print("PASS", p)
+          PY
+
+      - name: Commit verified demos and public registry to Pages source branch
+        run: |
+          git config user.name "aperture-build[bot]"
+          git config user.email "aperture-build[bot]@users.noreply.github.com"
+          git add career-os/demos career-os/manifest.json career-os/registry.html
+          if git diff --cached --quiet; then
+            echo "No generated changes"
+            exit 0
+          fi
+          git commit -m "build(career-os): generate validated job demos [skip ci]"
+          git push origin HEAD:main
