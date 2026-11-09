@@ -44,6 +44,8 @@ try{
   console.log("PASS source-bound detail and pipeline add");
 
   await page.locator("#record-stage").selectOption("replied");
+  await page.locator("#record-evidence").fill("");
+  await page.locator("#record-notes").fill("");
   await page.locator("#pipeline-form button[type=submit]").click();
   assert.match(await page.locator("#form-warning").textContent(),/evidence reference/i);
   assert.equal(await page.locator("#metric-sent").textContent(),"0");
