@@ -56,6 +56,9 @@ jobs:
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/career-os/index.html
+          test -s _site/career-os/demos/educators-rising-implementation-lab/index.html
+          grep -q 'Educators Rising' _site/career-os/demos/educators-rising-implementation-lab/index.html
+          grep -q 'id="resolve"' _site/career-os/demos/educators-rising-implementation-lab/index.html
           test -s _site/career-os/registry.html
           test -s _site/career-os/demos/playfly-mater-dei/index.html
           test -s _site/interactive-decision-universe.html
