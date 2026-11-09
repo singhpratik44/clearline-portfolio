@@ -12,7 +12,7 @@
       "site": "career-os/demos/kidworks-program-director/",
       "job_link": "https://kidworksoc.org/",
       "source": "Candidate targeting youth-development leadership; not a verified current listing",
-      "build_sha256": "52a4ee145de106a9f3ec99e74706aa1a02a3e726c8fdfe460175f239d768e63a",
+      "build_sha256": "7c9751adf28034791b2826201b56ed42428a1008bc7335135a7af82aaa2f56e2",
       "email_status": "Draft only"
     },
     {
@@ -25,7 +25,7 @@
       "site": "career-os/demos/operations-director-remote/",
       "job_link": "",
       "source": "Reusable operating-role template; no employer or vacancy verified",
-      "build_sha256": "5f69bb43eda82b8c56c9cc13d6684ec0aed103755d2ea6df9cb692e106ca54df",
+      "build_sha256": "bae47b4d12a91d84cdf7f1328a800da0fce42506aed119b61d2b2b5658a5a4d9",
       "email_status": "Draft only"
     },
     {
@@ -38,7 +38,7 @@
       "site": "career-os/demos/pearson-customer-success/",
       "job_link": "https://www.pearson.com/careers.html",
       "source": "Customer-success role template, not a confirmed current posting",
-      "build_sha256": "472411e67600912a93e274be5b94745b4e8fc29274a92b3f05392d8316ce43e0",
+      "build_sha256": "692d5eddcd63a4ce2890cadc64b0b683e21d470dc3f6b0f58dc8d4d270b95143",
       "email_status": "Draft only"
     },
     {
@@ -51,7 +51,7 @@
       "site": "career-os/demos/playfly-mater-dei/",
       "job_link": "https://www.playfly.com/careers?gh_jid=4303760009",
       "source": "Public Playfly/Mater Dei information and prior candidate research; job currently unverified",
-      "build_sha256": "bf77e53feff45e2ab5f58df10bb3a8be9d00eabf052a01cd01b71b891e16c944",
+      "build_sha256": "7d4ebd3a0c16b10a5860199427d8b622f086bb2ec6da997f87c906e867cb160c",
       "email_status": "Draft only"
     }
   ],
