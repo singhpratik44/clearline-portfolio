@@ -59,6 +59,16 @@ try{
     await page.locator("#monthSlider").evaluate(el=>{el.value="119";el.dispatchEvent(new Event("input",{bubbles:true}));});
     assert.match(await page.locator("#monthIndex").innerText(),/119 \/ 120/);
     assert.match(await page.locator("#visualYear").innerText(),/YEAR 10/);
+    // Daily experience runs entirely in the local browser without recording anything.
+    assert.match(await page.locator("#dailyHeading").innerText(),/Day 1 of/);
+    await page.locator('[data-daily-step="1"]').click();
+    assert.equal(await page.locator("#dailySource").isVisible(),true);
+    assert.match(await page.locator("#dailyStepDescription").innerText(),/Gurbani/);
+    await page.locator('[data-daily-step="4"]').click();
+    assert.equal(await page.locator("#dailyRecord").isVisible(),true);
+    await page.locator("#dailyRecord").click();
+    assert.match(await page.locator("#dailyStatus").innerText(),/unlock or create/i);
+    assert.equal(await page.evaluate(key=>localStorage.getItem(key),KEY),null,"Daily preview must not persist plaintext or check-ins");
     const overflowEnd=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(overflowEnd<=1,"10-year horizontal overflow at "+viewport.width+": "+overflowEnd);
     if(viewport.width<700)assert.equal(await page.locator(".mobile-nav").isVisible(),true);
@@ -71,6 +81,11 @@ try{
   await page.locator("#vaultPassword").fill(PASS);
   await page.locator("#vaultOpen").click();
   await page.waitForFunction(()=>document.querySelector("#vaultState").textContent.includes("Unlocked"));
+  await page.locator('[data-daily-step="4"]').click();
+  await page.locator("#dailyRecord").click();
+  await page.waitForFunction(()=>document.querySelector("#dailyStatus").textContent.includes("encrypted and recorded"));
+  assert.match(await page.locator("#dailyRecordedCount").innerText(),/1 day of practice recorded/);
+  assert.equal(await page.locator("#practiceDone").isChecked(),true,"Completed daily practice is reflected in journal");
   await page.locator("#journalText").fill(NOTE);
   await page.locator("#practiceDone").check();
   await page.locator("#saveEntry").click();
