@@ -1,0 +1,164 @@
+{
+  "title": "APERTURE Commercial 4D — research evidence register",
+  "as_of": "2026-11-09",
+  "selection_window": "2026-06-01 to 2026-11-09",
+  "disclaimer": "Research-derived design hypotheses; do not treat benchmark results as verified commercial performance. No live company data is included.",
+  "studies": [
+    {
+      "id": "s01",
+      "title": "Can LLMs Be CEOs? Benchmarking Strategic Resource Reallocation with Multi-Role Agent Simulation",
+      "date": "2026-06-16",
+      "source": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2606.17459",
+      "theme": "Executive resource allocation",
+      "finding": "Competing CFO, CTO, COO and CMO advice in multi-round resource allocation exposes strategic calibration failures despite structurally valid plans.",
+      "aperture": "Compare business-unit allocations while retaining conflicting assumptions and history; require human executive approval."
+    },
+    {
+      "id": "s02",
+      "title": "Agentic ERP: Multi-Agent Large Language Model Architecture for Autonomous Enterprise Resource Planning",
+      "date": "2026-07-19",
+      "source": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2607.17331",
+      "theme": "Enterprise operating state",
+      "finding": "A graph-orchestrated role-aligned approach with risk-tiered human oversight was evaluated against ERP operations baselines, including a simulated operating year.",
+      "aperture": "Maintain typed enterprise state and explicit owner, action and approval edges; do not imply production integrations."
+    },
+    {
+      "id": "s03",
+      "title": "TodoEvolve: Learning to Architect Agent Planning Systems",
+      "date": "2026-07-06",
+      "source": "ICML 2026 / PMLR",
+      "url": "https://proceedings.mlr.press/v306/liu26fz.html",
+      "theme": "Adaptive planning architecture",
+      "finding": "Task-specific planning structures can be revised dynamically rather than fixed to one hand-crafted process.",
+      "aperture": "Choose a constraint-appropriate planning strategy per engagement rather than a single universal agent chain."
+    },
+    {
+      "id": "s04",
+      "title": "CoPE: A Framework for Optimizing Coordination between Planning and Execution in LLM-based Agents",
+      "date": "2026-07-06",
+      "source": "ICML 2026 / PMLR",
+      "url": "https://proceedings.mlr.press/v306/liu26az.html",
+      "theme": "Plan versus execution",
+      "finding": "Plan-deviated trajectories can undermine long-horizon outcomes; the paper studies tighter plan-execution coordination.",
+      "aperture": "Record expected and observed states, compare deviations, and re-plan only on validated triggers."
+    },
+    {
+      "id": "s05",
+      "title": "Plan-and-Patch: Diffusion Language Models for Agentic Planning",
+      "date": "2026-10-07",
+      "source": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2610.10786",
+      "theme": "Local plan repair",
+      "finding": "Repairing affected plan regions while preserving unaffected steps can improve re-planning; results are benchmark- and model-specific.",
+      "aperture": "Patch the affected tasks and preserve approved commitments when new constraints invalidate part of a plan."
+    },
+    {
+      "id": "s06",
+      "title": "EAIR: Interaction Risks in Enterprise LLM Multi-Agent Systems",
+      "date": "2026-10-10",
+      "source": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2610.14800",
+      "theme": "Enterprise-wide invariants",
+      "finding": "Individually permitted agent actions can collectively violate enterprise constraints; executable micro-worlds support diagnosis and retest.",
+      "aperture": "Enforce shared company-level caps for cash, capacity, authority and commitments across business lines."
+    },
+    {
+      "id": "s07",
+      "title": "Responsibility Boundaries for Agentic Systems: A Comparative Evaluation of Probabilistic Agentic Programming",
+      "date": "2026-10-23",
+      "source": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2610.33312",
+      "theme": "Authority boundaries",
+      "finding": "An explicit mediation kernel can bind actions to authority, limits, approval and evidence under stated assumptions.",
+      "aperture": "Keep proposals separate from external execution and require action-specific approval and a logged decision."
+    },
+    {
+      "id": "s08",
+      "title": "FACTS-MAS: A Multi-Agent Architecture for Adaptive Forecasting from Heterogeneous Evidence",
+      "date": "2026-10-28",
+      "source": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2610.38225",
+      "theme": "Forecast ensembles",
+      "finding": "Forecast evidence channels should be backtested and selectively weighted; a simpler exponential-smoothing method can remain competitive.",
+      "aperture": "Always benchmark against a simple baseline and track evidence usefulness before adding specialist models."
+    },
+    {
+      "id": "s09",
+      "title": "Benchmarking Forecasting Agents on Yesterday's Tomorrows",
+      "date": "2026-10-29",
+      "source": "arXiv preprint",
+      "url": "https://arxiv.org/abs/2610.40940",
+      "theme": "Temporal backtesting",
+      "finding": "Historical event archives can assess forecasts without using information unavailable at prediction time.",
+      "aperture": "Use as-of data snapshots, prospective forecasts, and leakage-safe historical comparisons."
+    },
+    {
+      "id": "s10",
+      "title": "Towards Elastic Least Privilege for Agent Planning",
+      "date": "2026-10-29",
+      "source": "arXiv preprint / research proposal",
+      "url": "https://arxiv.org/abs/2610.40981",
+      "theme": "Risk-priced authority",
+      "finding": "Proposes limited, time-bound authority leases and planner-visible costs; operational effectiveness remains an open question.",
+      "aperture": "Give each commercial agent the least access required; escalate through user approval instead of broad privileges."
+    }
+  ],
+  "discovery_sources": [
+    {
+      "name": "arXiv",
+      "url": "https://arxiv.org/",
+      "mode": "API/abstract/version/date metadata",
+      "status": "Discovery adapter planned"
+    },
+    {
+      "name": "OpenReview",
+      "url": "https://openreview.net/",
+      "mode": "Public submission, review and decision metadata",
+      "status": "Discovery adapter planned"
+    },
+    {
+      "name": "NeurIPS",
+      "url": "https://neurips.cc/",
+      "mode": "Official accepted-paper lists; distinguish conference from preprint",
+      "status": "Discovery adapter planned"
+    },
+    {
+      "name": "ICML / PMLR",
+      "url": "https://proceedings.mlr.press/",
+      "mode": "Published proceedings and linked review pages",
+      "status": "In evidence register"
+    },
+    {
+      "name": "AutoML Conference",
+      "url": "https://2026.automl.cc/",
+      "mode": "Conference proceedings and OpenReview; automl.org closed in Aug 2026",
+      "status": "Discovery adapter planned"
+    },
+    {
+      "name": "LangChain Blog",
+      "url": "https://www.langchain.com/blog/common-questions-about-agent-evals",
+      "mode": "Operational evaluation guidance; not peer-reviewed research",
+      "status": "Supplementary practices"
+    },
+    {
+      "name": "Hugging Face Papers",
+      "url": "https://huggingface.co/papers",
+      "mode": "Paper discovery and code/model links",
+      "status": "Discovery adapter planned"
+    },
+    {
+      "name": "Papers with Code",
+      "url": "https://paperswithcode.co",
+      "mode": "Current community-maintained revival; verify code/benchmark links",
+      "status": "Discovery adapter planned"
+    },
+    {
+      "name": "MLPapersWeekly",
+      "url": "https://mlpapersweekly.com/",
+      "mode": "Newsletter archive and discovery only; verify each primary citation",
+      "status": "Discovery adapter planned"
+    }
+  ]
+}
