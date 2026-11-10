@@ -31,6 +31,6 @@ jobs:
       - name: Install headless browser
         run: |
           npm install --no-save --no-package-lock playwright
-          npx playwright install --with-deps chromium
+          npx playwright install chromium
       - name: Verify mobile and desktop planning, research, vault and review gates
         run: node tests/commercial-planner.browser.mjs
