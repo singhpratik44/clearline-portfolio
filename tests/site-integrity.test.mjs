@@ -17,7 +17,8 @@ test('homepage is a complete navigable index, not a missing bundle mount',()=>{
   const home=content('index.html');
   assert.doesNotMatch(home,/app\.bundle\.js/);
   const projectCards=[...home.matchAll(/<article class="project"[^>]*>/g)];
-  assert.equal(projectCards.length,19);
+  assert.ok(projectCards.length >= 20, 'Sports Career OS must be listed in the project index');
+  assert.match(home,/href="sports-os\//);
   const links=[...home.matchAll(/href="([^"]+)"/g)].map(x=>x[1]).filter(x=>!x.startsWith('#')&&!/^https?:|^mailto:/.test(x));
   for(const link of links){const normalized=decodeURIComponent(link.split(/[?#]/)[0]);const dest=normalized.endsWith('/')?normalized+'index.html':normalized;assert.ok(fs.existsSync(path.join(root,dest)),'Missing homepage link: '+link)}
 });
