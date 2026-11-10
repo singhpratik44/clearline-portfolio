@@ -4,6 +4,7 @@ services:
   - type: web
     name: aperture-gift-delivery
     runtime: node
+    plan: free
     buildCommand: node --test tests/gift-fulfillment.test.mjs
     startCommand: node gifts/fulfillment/server.mjs
     autoDeployTrigger: "off"
@@ -12,6 +13,4 @@ services:
       - key: NODE_ENV
         value: production
       - key: STRIPE_SECRET_KEY
-        sync: false
-      - key: GIFT_PRIVATE_CONTENT_DIR
         sync: false
