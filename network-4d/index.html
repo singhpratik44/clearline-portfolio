@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070e18">
+<meta name="description" content="APERTURE UNITED: an interactive 4D exploration of education, sport, mentorship, opportunity and community across time.">
+<meta property="og:title" content="APERTURE UNITED | A Living 4D Network">
+<meta property="og:description" content="Explore how one connection changes a journey over three years. An interactive conceptual prototype.">
+<title>APERTURE UNITED — A Living 4D Network</title>
+<style>
+:root{color-scheme:dark;--bg:#080d16;--surface:#101b29;--stroke:#344552;--text:#f4f7f7;--muted:#afc2c7;--mint:#bafe77;--cyan:#73e0e5;--warm:#f8bb7a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% 4%,#182d3c 0,transparent 34%),radial-gradient(circle at 3% 74%,#112c26 0,transparent 32%),var(--bg);color:var(--text);font:16px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--mint);outline-offset:3px}
+.wrap{width:min(1390px,calc(100% - 64px));margin:0 auto}.topbar{padding:22px 0;display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:1px solid #ffffff1c}.brand{text-decoration:none;display:flex;align-items:center;gap:12px;font-weight:900;letter-spacing:-.04em}.glyph{background:var(--mint);width:34px;height:34px;border-radius:11px;color:#07101b;display:grid;place-content:center;font-weight:950;box-shadow:0 0 40px #bafe7740}.minor{color:var(--muted);font-size:12px}.top-links{display:flex;align-items:center;gap:20px;font-size:13px;color:#cbdadd}.top-links a{text-decoration:none}.top-links a:hover{color:var(--mint)}.chip{border:1px solid #9ed3c74a;border-radius:50px;padding:4px 10px;color:#b6e7c9;font:700 10px/1.4 ui-monospace,monospace;letter-spacing:.12em;text-transform:uppercase}
+.intro{padding:44px 0 22px;display:flex;justify-content:space-between;gap:24px;align-items:end}.eyebrow{color:var(--mint);font:700 11px/1.5 ui-monospace,monospace;letter-spacing:.2em;text-transform:uppercase}.intro h1{font-size:clamp(56px,8vw,116px);letter-spacing:-.095em;line-height:.85;margin:14px 0 25px;max-width:960px;text-transform:uppercase;font-weight:900}.intro h1 em{color:var(--mint);font-style:normal}.intro p{color:#b6cbd1;max-width:650px;font-size:clamp(15px,1.5vw,19px);line-height:1.6;margin:0}.time-pill{white-space:nowrap;color:#bdebd3;border:1px solid #406759;border-radius:100px;padding:12px 16px;background:#142a26;font:700 12px ui-monospace,monospace}
+.stage{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.72fr);border:1px solid #36505e;border-radius:22px;overflow:hidden;background:linear-gradient(130deg,#091826,#101b28 64%,#0c171f);box-shadow:0 35px 90px #0007}.galaxy{min-width:0;position:relative;min-height:570px;isolation:isolate;background:radial-gradient(circle at 50% 50%,#173e45 0%,#0e2735 34%,#081521 74%);overflow:hidden}.galaxy:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 49.9%,#8ce0c510 50%,transparent 50.1%),linear-gradient(transparent 49.9%,#8ce0c510 50%,transparent 50.1%);background-size:78px 78px;pointer-events:none}.galaxy canvas{display:block;width:100%;height:100%;position:absolute;inset:0;touch-action:pan-y;cursor:grab}.galaxy canvas:active{cursor:grabbing}.galaxy-top{position:absolute;top:21px;left:24px;right:24px;display:flex;justify-content:space-between;gap:10px;pointer-events:none;align-items:center}.galaxy-note{font:700 10px ui-monospace,monospace;letter-spacing:.09em;color:#bdd4dc}.orbit-caption{position:absolute;bottom:19px;left:24px;right:24px;display:flex;justify-content:space-between;gap:12px;pointer-events:none;color:#acc5ca;font:600 11px ui-monospace,monospace}.side{border-left:1px solid #36505e;padding:27px;display:flex;flex-direction:column;gap:25px;background:linear-gradient(160deg,#142535,#0b1521)}.caption{color:#9baebd;text-transform:uppercase;letter-spacing:.15em;font:700 10px ui-monospace,monospace}.side h2{font-size:clamp(30px,3.3vw,48px);letter-spacing:-.07em;line-height:1.05;margin:9px 0 12px}.side p{color:#b4c8d0;margin:0}.path-buttons{display:grid;gap:8px}.path{border:1px solid #46616b;border-radius:11px;color:#c0d7db;text-align:left;padding:12px 15px;background:#132633;font-weight:750;transition:background .18s ease,border-color .18s ease}.path:hover{border-color:#91c4b6}.path[aria-pressed=true]{background:var(--mint);border-color:var(--mint);color:#0c1b1c}.path span{display:block;font-weight:500;font-size:11px;opacity:.82}.phase-box{padding:17px;border:1px solid #46626b;background:#112734;border-radius:12px}.phase-box b{color:var(--mint);font:800 11px ui-monospace,monospace;letter-spacing:.08em}.phase-box h3{font-size:24px;letter-spacing:-.045em;margin:7px 0}.phase-box p{font-size:14px;line-height:1.6}.readout{display:flex;align-items:end;gap:12px}.readout strong{font-size:clamp(42px,6vw,65px);line-height:1;letter-spacing:-.09em;color:var(--mint)}.readout span{font-size:12px;color:#afc4ca;padding-bottom:7px}.node-detail{margin-top:auto;border-top:1px solid #37505c;padding-top:17px}.node-detail b{font-size:16px}.node-detail p{font-size:13px;margin-top:5px}.timeline{border:1px solid #36505e;border-radius:17px;background:#0e1b27;padding:23px 27px;margin-top:13px}.timeline-head{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}.timeline-head b{font-size:14px}.timeline-head span{font-size:12px;color:#b9cbd0}.controls{display:flex;align-items:center;gap:12px;margin-top:12px}.play{background:var(--mint);border:1px solid var(--mint);border-radius:9px;color:#0b1b17;padding:11px 18px;min-width:88px;font-weight:850}.slider{width:100%;accent-color:var(--mint);cursor:pointer;height:7px}.ticks{display:flex;justify-content:space-between;margin:9px 0 0 102px;color:#a4bbc1;font:700 10px ui-monospace,monospace}.pill-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:23px}.node-button{color:#bdced7;background:#142533;border:1px solid #3c5864;border-radius:100px;padding:9px 13px;font-size:12px;font-weight:700}.node-button[aria-pressed=true]{color:#081520;background:#85e2e4;border-color:#85e2e4}.node-button:hover{border-color:#8fcbbe}.below{display:grid;grid-template-columns:1fr 1fr 1fr;gap:13px;margin:42px 0 45px}.feature{border:1px solid #354b58;border-radius:14px;padding:23px;background:#101d29}.feature b{display:block;font-size:18px;letter-spacing:-.035em}.feature p{font-size:13px;color:#b4c6cc;margin:9px 0 0}.index{display:block;color:#aeff80;font:750 11px ui-monospace,monospace;letter-spacing:.12em;margin-bottom:18px}.final{border-top:1px solid #2f4756;padding:25px 0 55px;display:flex;flex-wrap:wrap;gap:20px;justify-content:space-between;align-items:center;color:#a8bec4;font-size:12px}.final a{color:#c7f3a9;text-decoration:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1020px){.stage{grid-template-columns:1fr}.galaxy{min-height:490px}.side{border-left:0;border-top:1px solid #36505e;display:grid;grid-template-columns:1fr 1fr;gap:20px}.node-detail{margin:0}.intro{display:block}.time-pill{display:inline-block;margin-top:19px}}
+@media(max-width:700px){.wrap{width:calc(100% - 32px)}.top-links{gap:11px}.top-links .optional{display:none}.intro{padding-top:34px}.intro h1{font-size:clamp(48px,13.5vw,76px);margin-bottom:22px}.galaxy{min-height:380px}.galaxy-top{top:15px;left:13px;right:13px}.orbit-caption{left:14px;right:14px;font-size:9px}.stage{border-radius:15px}.side{display:flex;padding:20px}.side h2{font-size:36px}.path-buttons{grid-template-columns:repeat(3,minmax(0,1fr))}.path{font-size:12px;padding:10px 8px}.path span{font-size:10px}.timeline{padding:17px}.controls{gap:8px}.play{min-width:73px;padding:10px}.ticks{margin-left:82px}.below{grid-template-columns:1fr}.feature{padding:18px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="wrap topbar"><a class="brand" href="../index.html"><span class="glyph">A/</span><span>APERTURE <span class="minor">/ UNITED</span></span></a><nav class="top-links" aria-label="Main"><a href="../index.html">Portfolio</a><a href="../partnerships/" class="optional">Partnership OS</a><span class="chip">4D concept / v1</span></nav></header>
+<main class="wrap">
+<section class="intro"><div><div class="eyebrow">A living network / 03 spatial axes + 01 time axis</div><h1>CONNECTION<br>CHANGES <em>EVERYTHING.</em></h1><p>People do not grow in straight lines. Explore a connected universe of sport, learning, mentorship, opportunity, purpose and service—and watch one journey unfold across three years.</p></div><span class="time-pill">X · Y · Z · TIME</span></section>
+<section class="stage" aria-label="Interactive 4D network explorer">
+<div class="galaxy"><canvas id="universe" role="img" aria-label="Interactive 3D perspective network. Drag to rotate, or choose categories below. The timeline changes how the network is highlighted over time.">An animated conceptual network connecting opportunities through time.</canvas><div class="galaxy-top"><span class="galaxy-note">INTERACTIVE / DRAG TO ORBIT</span><span class="chip">ILLUSTRATIVE MODEL</span></div><div class="orbit-caption"><span>HUMAN POTENTIAL / CONNECTED</span><span id="orbit-status" aria-live="polite">YEAR 0.0 / BEGINNING</span></div></div>
+<aside class="side">
+<div><div class="caption">01 / Choose a journey</div><h2>ONE PERSON.<br>INFINITE PATHS.</h2><p>Every decision opens relationships across organizations and communities.</p></div>
+<div class="path-buttons" role="group" aria-label="Example journey"><button class="path" data-path="learner" aria-pressed="true">The Learner<span>Basketball + code</span></button><button class="path" data-path="athlete" aria-pressed="false">The Athlete<span>Sport + academics</span></button><button class="path" data-path="builder" aria-pressed="false">The Builder<span>Problem + impact</span></button></div>
+<div class="phase-box" aria-live="polite"><b id="phase-tag">CHAPTER 00 / THE SPARK</b><h3 id="phase-title">Find your spark</h3><p id="phase-description">A student loves basketball and starts exploring the connection between movement, numbers and technology.</p></div>
+<div class="readout"><strong id="year-number">0.0</strong><span>years into<br>the journey</span></div>
+<div class="node-detail" aria-live="polite"><div class="caption">02 / Selected constellation</div><b id="node-title">Sport</b><p id="node-text">An entry point for practice, teamwork, confidence and belonging.</p></div>
+</aside>
+</section>
+<section class="timeline" aria-label="Time controls"><div class="timeline-head"><b>TIME IS THE FOURTH DIMENSION.</b><span>Scrub the timeline to watch the network evolve, or play the journey.</span></div><div class="controls"><button class="play" id="play" aria-pressed="false" aria-label="Play journey">▶ Play</button><label for="time" class="sr-only">Years into journey, zero to three</label><input class="slider" id="time" type="range" min="0" max="3" step=".01" value="0" aria-valuetext="Year 0"></div><div class="ticks"><span>THE SPARK</span><span>YEAR 1</span><span>YEAR 2</span><span>YEAR 3</span></div></section>
+<div class="pill-row" role="group" aria-label="Explore nodes"><span class="sr-only">Select a node to inspect its role</span><button class="node-button" data-node="sport" aria-pressed="true">Sport</button><button class="node-button" data-node="learning" aria-pressed="false">Learning</button><button class="node-button" data-node="mentors" aria-pressed="false">Mentors</button><button class="node-button" data-node="projects" aria-pressed="false">Projects</button><button class="node-button" data-node="opportunity" aria-pressed="false">Opportunity</button><button class="node-button" data-node="community" aria-pressed="false">Community</button><button class="node-button" data-node="purpose" aria-pressed="false">Purpose</button></div>
+<section class="below" aria-label="Product principles"><article class="feature"><span class="index">01 / EXPERIENCE</span><b>Spatial + temporal</b><p>Drag to explore depth; scrub through time. Paths reveal how skills, relationships and opportunities reinforce one another.</p></article><article class="feature"><span class="index">02 / PERSONALIZATION</span><b>One system. Different lives.</b><p>See three illustrative journeys. A future consent-based product can personalize pathways without reducing people to scores.</p></article><article class="feature"><span class="index">03 / REALITY CHECK</span><b>Evidence before promises.</b><p>This scene is a functioning visualization using example data—not a live partner integration, enrolled student record, or guaranteed outcome.</p></article></section>
+</main>
+<footer class="wrap final"><span>APERTURE UNITED / A FOUR-DIMENSIONAL EXPERIENCE CONCEPT. 3D PERSPECTIVE + PASSAGE OF TIME.</span><a href="../index.html">Return to APERTURE portfolio ↗</a></footer>
+<script>
+(function(){
+"use strict";
+const canvas=document.getElementById("universe"),ctx=canvas.getContext("2d",{alpha:false});
+const timeInput=document.getElementById("time"),playBtn=document.getElementById("play");
+const reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const nodes=[
+{id:"sport",label:"SPORT",color:"#baff83",x:-165,y:-70,z:65,text:"An entry point for practice, teamwork, confidence and belonging."},
+{id:"learning",label:"LEARNING",color:"#77e2e5",x:122,y:-116,z:-36,text:"Skills grow through live instruction, individualized progression and meaningful feedback."},
+{id:"mentors",label:"MENTORS",color:"#f8bf82",x:218,y:0,z:64,text:"Trusted coaches and instructors create opportunities that software alone cannot."},
+{id:"projects",label:"PROJECTS",color:"#8eadff",x:88,y:135,z:103,text:"Real work turns curiosity into visible capability and transferable evidence."},
+{id:"opportunity",label:"OPPORTUNITY",color:"#fb90c8",x:-126,y:133,z:-61,text:"Education pathways, teams, projects and paid work become easier to discover."},
+{id:"community",label:"COMMUNITY",color:"#e4d68c",x:-220,y:12,z:-100,text:"Families, schools, organizations and sponsors contribute to local progress."},
+{id:"purpose",label:"PURPOSE",color:"#d1b8ff",x:5,y:-188,z:-94,text:"Personal meaning and self-directed commitments make long-term progress sustainable."}
+];
+const paths={
+learner:{name:"THE LEARNER",route:["sport","learning","mentors","projects","community"],chapters:[
+["THE SPARK","Find your spark","A student loves basketball and starts exploring the connection between movement, numbers and technology."],
+["THE FIRST BUILD","Build with guidance","With a vetted instructor, the student writes a first simple shot-tracking program and learns through practice."],
+["THE PROJECT","Prove a skill","A working project and reflective feedback make growth visible. New opportunities become easier to understand."],
+["THE RETURN","Help another learner","The student shares what worked, helps a beginner and discovers that learning becomes stronger when shared."]]},
+athlete:{name:"THE ATHLETE",route:["sport","mentors","learning","opportunity","community"],chapters:[
+["THE COURT","Discover the game","A young athlete develops fundamentals, receives coaching and learns to love practice."],
+["THE BALANCE","Make room to grow","Coaches and family coordinate sport and learning while protecting time, health and agency."],
+["THE OPENING","Explore next steps","An approved academic or athletic pathway becomes a possibility. A qualified human helps evaluate fit."],
+["THE EXAMPLE","Lead with care","The athlete supports the next generation through mentorship, not just personal achievement."]]},
+builder:{name:"THE BUILDER",route:["purpose","community","mentors","projects","opportunity"],chapters:[
+["THE QUESTION","See a real need","A community organizer identifies a concrete problem and listens before proposing technology."],
+["THE PEOPLE","Find collaborators","A school, coach and volunteer agree on a small, responsible experiment with clear boundaries."],
+["THE PILOT","Build and measure","A scoped program runs. Evidence, feedback and ownership determine what to improve."],
+["THE SYSTEM","Make it repeatable","A validated playbook can help another community adapt the approach without exaggerating impact."]]}
+};
+let selectedPath="learner",selectedNode="sport",time=0,playing=false,yaw=.25,pitch=-.11,dragging=false,moved=false,lastX=0,lastY=0,lastFrame=0,lastW=0,lastH=0,hitAreas=[],framePending=false;
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function updateUI(){
+const p=paths[selectedPath],chapter=Math.min(3,Math.floor(time+0.000001));
+document.getElementById("phase-tag").textContent="CHAPTER 0"+chapter+" / "+p.chapters[chapter][0];
+document.getElementById("phase-title").textContent=p.chapters[chapter][1];
+document.getElementById("phase-description").textContent=p.chapters[chapter][2];
+document.getElementById("year-number").textContent=time.toFixed(1);
+document.getElementById("orbit-status").textContent="YEAR "+time.toFixed(1)+" / "+p.name;
+const node=nodes.find(n=>n.id===selectedNode)||nodes[0];
+document.getElementById("node-title").textContent=node.label.charAt(0)+node.label.slice(1).toLowerCase();
+document.getElementById("node-text").textContent=node.text;
+for(const b of document.querySelectorAll("[data-path]"))b.setAttribute("aria-pressed",String(b.dataset.path===selectedPath));
+for(const b of document.querySelectorAll("[data-node]"))b.setAttribute("aria-pressed",String(b.dataset.node===selectedNode));
+timeInput.value=String(time);timeInput.setAttribute("aria-valuetext","Year "+time.toFixed(1)+" of 3");
+playBtn.textContent=playing?"Ⅱ Pause":"▶ Play";playBtn.setAttribute("aria-pressed",String(playing));playBtn.setAttribute("aria-label",playing?"Pause journey":"Play journey");
+requestRender();
+}
+function setTime(t){time=clamp(t,0,3);updateUI();}
+function stop(){playing=false;updateUI();}
+document.querySelectorAll("[data-path]").forEach(b=>b.addEventListener("click",()=>{selectedPath=b.dataset.path;selectedNode=paths[selectedPath].route[0];stop();setTime(0);}));
+document.querySelectorAll("[data-node]").forEach(b=>b.addEventListener("click",()=>{selectedNode=b.dataset.node;updateUI();}));
+timeInput.addEventListener("input",()=>{playing=false;setTime(Number(timeInput.value));});
+playBtn.addEventListener("click",()=>{if(playing){stop();return;}if(time>=2.999)time=0;playing=true;updateUI();if(reduced)requestRender();});
+function resize(){let r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;const dpr=Math.min(window.devicePixelRatio||1,2);const w=Math.round(r.width*dpr),h=Math.round(r.height*dpr);if(w!==canvas.width||h!==canvas.height){canvas.width=w;canvas.height=h;}lastW=r.width;lastH=r.height;ctx.setTransform(dpr,0,0,dpr,0,0);requestRender();}
+function project(p,w,h){
+const cos=Math.cos(yaw),sin=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+let xx=p.x*cos-p.z*sin,zz=p.x*sin+p.z*cos,yy=p.y*cp-zz*sp;
+zz=p.y*sp+zz*cp;
+let scale=(Math.min(w/650,h/530)*1.24)*540/(540+zz+120);
+return {x:w*.5+xx*scale,y:h*.51+yy*scale,z:zz,s:scale};
+}
+function draw(ts){
+framePending=false;const w=lastW,h=lastH;if(!w||!h)return;
+ctx.fillStyle="#0a1826";ctx.fillRect(0,0,w,h);
+let halo=ctx.createRadialGradient(w*.5,h*.5,10,w*.5,h*.5,w*.58);halo.addColorStop(0,"#24525b");halo.addColorStop(.42,"#143043");halo.addColorStop(1,"#091523");ctx.fillStyle=halo;ctx.fillRect(0,0,w,h);
+const center={x:w*.5,y:h*.51};
+ctx.save();ctx.strokeStyle="#ffffff0c";ctx.lineWidth=1;
+for(let rad of [85,165,250]){ctx.beginPath();ctx.ellipse(center.x,center.y,rad*Math.min(w/640,1.25),rad*Math.min(w/800,.8),0,0,Math.PI*2);ctx.stroke();}
+ctx.restore();
+const phase=clamp(time,0,3),route=paths[selectedPath].route;
+const projected=nodes.map((n,i)=>({...n,...project(n,w,h),i}));
+const byId=Object.fromEntries(projected.map(n=>[n.id,n]));const connections=[
+["sport","learning"],["sport","mentors"],["sport","community"],["sport","purpose"],["learning","mentors"],["learning","projects"],["learning","opportunity"],["mentors","projects"],["mentors","opportunity"],["mentors","community"],["projects","opportunity"],["projects","community"],["community","purpose"],["opportunity","purpose"]];
+ctx.lineCap="round";
+for(let [a,b] of connections){
+const n=byId[a],m=byId[b],ai=route.indexOf(a),bi=route.indexOf(b);
+const active=Math.abs(ai-bi)===1&&Math.min(ai,bi)>=0&&phase>=Math.min(ai,bi)*.75-.05;
+ctx.beginPath();ctx.moveTo(n.x,n.y);ctx.lineTo(m.x,m.y);ctx.strokeStyle=active?"#b7ff8ab0":"#79c4d240";ctx.lineWidth=active?2.6:1;ctx.stroke();
+}
+for(let i=0;i<route.length-1;i++){const amount=clamp((phase-(i*.75))/.75,0,1);if(amount<=0)continue;
+const a=byId[route[i]],b=byId[route[i+1]],px=a.x+(b.x-a.x)*amount,py=a.y+(b.y-a.y)*amount;
+const glow=ctx.createRadialGradient(px,py,0,px,py,19);glow.addColorStop(0,"#d4ffb6bd");glow.addColorStop(1,"#d4ffb600");ctx.fillStyle=glow;ctx.beginPath();ctx.arc(px,py,19,0,Math.PI*2);ctx.fill();
+ctx.fillStyle="#e8ffca";ctx.beginPath();ctx.arc(px,py,3.5,0,Math.PI*2);ctx.fill();
+}
+const coreR=clamp(Math.min(w,h)*.092,31,57);
+const coreglow=ctx.createRadialGradient(center.x,center.y,5,center.x,center.y,coreR*2.7);coreglow.addColorStop(0,"#98dfaf55");coreglow.addColorStop(1,"#98dfaf00");ctx.fillStyle=coreglow;ctx.beginPath();ctx.arc(center.x,center.y,coreR*2.7,0,Math.PI*2);ctx.fill();
+ctx.beginPath();ctx.arc(center.x,center.y,coreR,0,Math.PI*2);ctx.fillStyle="#baff83";ctx.fill();ctx.strokeStyle="#f1ffcc";ctx.lineWidth=1.8;ctx.stroke();
+ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillStyle="#081724";ctx.font="900 "+Math.round(coreR*.4)+"px system-ui";ctx.fillText("A/",center.x,center.y-5);ctx.font="800 "+Math.round(coreR*.17)+"px monospace";ctx.fillText("UNITED",center.x,center.y+coreR*.38);
+hitAreas=[];
+for(let n of projected.sort((a,b)=>b.z-a.z)){
+const chosen=n.id===selectedNode,idx=route.indexOf(n.id),reached=idx>=0&&phase>=Math.max(0,(idx-1)*.75),radius=clamp(11.5*n.s,9,21)*(chosen?1.23:1);
+ctx.beginPath();ctx.arc(n.x,n.y,radius+6,0,Math.PI*2);ctx.fillStyle=chosen?"#a8fff33f":"#b5f6ee11";ctx.fill();
+ctx.beginPath();ctx.arc(n.x,n.y,radius,0,Math.PI*2);ctx.fillStyle=n.color;ctx.globalAlpha=reached||chosen?1:.66;ctx.fill();ctx.globalAlpha=1;
+ctx.strokeStyle=chosen?"#ffffff":"#ffffff99";ctx.lineWidth=chosen?2.5:1;ctx.stroke();
+ctx.font=(chosen?"800 ":"700 ")+(w<480?10:11)+"px ui-monospace,monospace";ctx.fillStyle=chosen?"#eeffee":"#d9e8eb";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText(n.label,n.x,n.y+radius+17);
+hitAreas.push({x:n.x,y:n.y,r:Math.max(radius+8,23),id:n.id,z:n.z});
+}
+ctx.font="700 10px ui-monospace,monospace";ctx.fillStyle="#9cbac555";ctx.textAlign="center";ctx.fillText("Z / DEPTH",center.x,Math.max(36,h*.1));
+}
+function requestRender(){if(framePending)return;framePending=true;requestAnimationFrame(draw);}
+function tick(ts){
+if(!lastFrame)lastFrame=ts;const dt=Math.min((ts-lastFrame)/1000,.12);lastFrame=ts;
+if(!dragging&&!reduced)yaw+=dt*.045;
+if(playing){if(reduced){time=Math.min(3,time+.25);playing=false;}else time=Math.min(3,time+dt*.23);if(time>=3)playing=false;updateUI();}
+if(!reduced||playing)requestRender();
+requestAnimationFrame(tick);
+}
+function point(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top};}
+canvas.addEventListener("pointerdown",e=>{if(e.button!==0)return;dragging=true;moved=false;lastX=e.clientX;lastY=e.clientY;canvas.setPointerCapture(e.pointerId);});
+canvas.addEventListener("pointermove",e=>{if(!dragging)return;const dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2)moved=true;yaw+=dx*.008;pitch=clamp(pitch+dy*.006,-.85,.85);lastX=e.clientX;lastY=e.clientY;requestRender();});
+canvas.addEventListener("pointerup",e=>{if(!dragging)return;dragging=false;if(moved)return;const p=point(e);const match=hitAreas.filter(n=>Math.hypot(n.x-p.x,n.y-p.y)<n.r).sort((a,b)=>a.z-b.z)[0];if(match){selectedNode=match.id;updateUI();}});
+canvas.addEventListener("pointercancel",()=>dragging=false);
+window.addEventListener("resize",resize,{passive:true});
+if(typeof ResizeObserver!=="undefined")new ResizeObserver(resize).observe(canvas);
+updateUI();resize();requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
