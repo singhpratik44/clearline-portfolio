@@ -8,7 +8,7 @@
     {sku:'family',name:'Family Logic Game Night',price:1500,category:'Games',emoji:'🧩',color:'#e9e6c1',age:'Ages 7+ with family',description:'Ten logic puzzles, hints and a full answer key for family play.',activityCount:10,kind:'kit'},
     {sku:'bundle',name:'Ultimate Kids Creator Gift Bundle',price:2900,category:'Bundles',emoji:'🎁',color:'#d5f7cc',age:'4 original workbooks',description:'The four original games, birthday, space and family puzzle workbooks.',activityCount:34,kind:'bundle'}
   ];
-  const added=[...(window.APERTURE_GIFT_LAB_V2?.products||[]),...(window.APERTURE_GIFT_LAB_SPORTS?.products||[]),...(window.APERTURE_GIFT_LAB_BASKETBALL?.products||[])];
+  const added=[...(window.APERTURE_GIFT_LAB_V2?.products||[]),...(window.APERTURE_GIFT_LAB_SPORTS?.products||[]),...(window.APERTURE_GIFT_LAB_BASKETBALL?.products||[]),...(window.APERTURE_GIFT_LAB_BASKETBALL_EXTRA?.products||[])];
   const links=window.APERTURE_GIFT_CHECKOUT||{};
   const products=[...original,...added].filter(p=>typeof links[p.sku]==='string'&&links[p.sku].startsWith('https://buy.stripe.com/'));
   const featured=['basketball-coach-ops','basketball-tactics-library','basketball-gifts-collection','defensive-iq','coach-season','basketball-iq','all-sports-bundle','coach-practice','basketball-ultimate','athlete-mindset-kids','team-captain','coach-appreciation','all-vault','confidence-kids','sikh-seva','birthday-story','coding-pathway','birthday','game','growth-bundle','faith-bundle','pathways-bundle','classroom-party','achievement-awards'];
