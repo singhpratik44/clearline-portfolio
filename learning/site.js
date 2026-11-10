@@ -1,6 +1,8 @@
 (() => {
 "use strict";
-const tracks=window.AP_SUBJECTS||[];
+// Public launch: coding and game development only. Broader research paths remain archived / exploratory.
+const codingIds=new Set(["scratch-stories","roblox-worlds","minecraft-makers","3d-game-design","python-adventures","web-creators","mobile-prototypes","music-media-code"]);
+const tracks=(window.AP_SUBJECTS||[]).filter(t=>codingIds.has(t.id));
 const grid=document.getElementById("program-grid");
 const search=document.getElementById("program-search");
 const counter=document.getElementById("program-count");
@@ -10,7 +12,7 @@ let family="all";
 let expanded=false;
 const expand=document.getElementById("show-all-subjects");
 const expandHint=document.getElementById("subject-expand-hint");
-const featured=["scratch-stories","roblox-worlds","minecraft-makers","python-adventures","ai-literacy","sports-analytics"];
+const featured=["scratch-stories","roblox-worlds","minecraft-makers","python-adventures","web-creators","3d-game-design"];
 
 const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;};
 function render(){
@@ -37,11 +39,11 @@ function render(){
   book.setAttribute("aria-label","Review lesson availability and Stripe checkout for "+t.title);
   footer.append(learn,book);card.append(head,title,description,footer);grid.append(card);
  });
- counter.textContent=display.length+" shown of "+tracks.length+" specialization pathways"+(discoverMode&&!expanded?" · Featured starting interests":"");
+ counter.textContent=display.length+" shown of "+tracks.length+" coding pathways"+(discoverMode&&!expanded?" · Featured starting interests":"");
  if(expand){
    expand.hidden=!discoverMode;
    expand.setAttribute("aria-expanded",String(expanded));
-   expand.textContent=expanded?"Show six featured pathways ↑":"Browse all "+tracks.length+" specializations ↓";
+   expand.textContent=expanded?"Show six featured pathways ↑":"Browse all "+tracks.length+" coding pathways ↓";
    if(expandHint)expandHint.textContent=expanded?"Select any specialization for the full pathway and subject-specific lesson options.":"Choose a featured path, search by interest, or expand the entire catalog.";
  }
  noMatches.hidden=matching.length>0;
