@@ -79,7 +79,7 @@ function render(){
  add(c,"span",course.language+" · about "+course.lessons[state.lesson].minutes+" min","pill");
  add(c,"h2",course.lessons[state.lesson].title);
  const a=course.lessons[state.lesson];
- add(c,"p",a.goal);add(c,"h3","Why this matters");add(c,"p",a.explain);
+ add(c,"p",a.goal);createMissionBrief(c,course,state.lesson);add(c,"h3","Why this matters");add(c,"p",a.explain);
  add(c,"h3","Build it, step by step");const ol=add(c,"ol");a.steps.forEach(s=>add(ol,"li",s,"step"));
  if(a.code){add(c,"h3","Starter code / reference");add(c,"p","Read the code, make a prediction, then try it in your real editor.","note");add(c,"pre",undefined,"code").append(node("code",a.code));const copy=add(c,"button","Copy starter code","secondary");copy.type="button";copy.onclick=async()=>{try{await navigator.clipboard.writeText(a.code);copy.textContent="✓ Copied starter code"}catch{copy.textContent="Select the code above to copy"}}}
  add(c,"h3","Your challenge");add(c,"p",a.challenge);add(c,"h3","Check the result");add(c,"p",a.test);
@@ -94,6 +94,26 @@ function render(){
  const print=add(controls,"button","Print lesson","secondary");print.onclick=()=>window.print();
 }
 
+
+const ROBLOX_MISSIONS=[
+{title:"Mission 1 · Color pad",place:"Workspace → ColorPad (Anchored Part) → Script",build:"Create one anchored Part called ColorPad. Paste the lesson's Touched event Script inside it. Run Play, not Edit. Touch the pad with your avatar and change its cooldown to see how debouncing prevents repeated events.",criteria:["Pad changes color when a player touches it","Non-character parts do not cause an error","The cooldown stops rapid repeated activation"],mistake:"A Script under ServerScriptService makes script.Parent refer to the wrong object. Put this particular Script directly under ColorPad.",stretch:"Make two pads with different cooldown times and record which feels more responsive."},
+{title:"Mission 2 · Fair hazard",place:"Workspace → Lava (red anchored Part) → Script",build:"Create a red hazard called Lava between two safe platforms. The Touched handler should find the character's Humanoid before setting its Health to zero. Leave space to jump so failure is understandable rather than arbitrary.",criteria:["Touching Lava triggers a respawn","Player can navigate around Lava using controls","A non-player Part doesn't crash the handler"],mistake:"Lava often appears broken when CanTouch is disabled or when testing in Edit mode. Check Properties and the Output pane.",stretch:"Create a second hazard and ask a friend whether it is clear which surfaces are safe."},
+{title:"Mission 3 · Checkpoint",place:"Workspace → Checkpoint1 (SpawnLocation) → Script",build:"Add a real SpawnLocation named Checkpoint1 midway through the level. Touching it should assign Player.RespawnLocation to that SpawnLocation; dying later should bring you back there. A plain Part will not work as a respawn location.",criteria:["Checkpoint is a SpawnLocation object","Player touches checkpoint before dying","After death, avatar respawns at checkpoint"],mistake:"Using a normal Part instead of a SpawnLocation is the most common issue. Confirm the object type and Neutral/Enabled settings.",stretch:"Add Checkpoint2 after the hardest obstacle; verify the latest checkpoint wins."},
+{title:"Mission 4 · Three coins",place:"ServerScriptService → ScoreSetup; Workspace → each Coin → pickup Script",build:"Create a leaderstats Folder with an IntValue called Coins for each Player. Add three anchored yellow Coin Parts. Their Scripts should verify a Player, increment Coins exactly once, and hide the collected Part. Save the design limitation: this starter version removes a coin for the entire server.",criteria:["Leaderboard contains Coins starting at zero","Each coin awards exactly one point","Repeated touches don't increment the same coin again"],mistake:"Do not paste the ScoreSetup and pickup Scripts into a single Script. They belong in separate locations.",stretch:"Explain how you would change shared coins so every player can collect their own copy."},
+{title:"Mission 5 · Moving platform",place:"Workspace → MovingPlatform (Anchored Part) → Script",build:"Tween an anchored platform between two CFrame positions. Set a three-second duration, repeat indefinitely, and reverse the animation. Add a safe landing zone on each end. Test slow and fast speeds to see how animation changes difficulty.",criteria:["Platform stays anchored","Platform moves smoothly and returns","A player can safely cross during a playtest"],mistake:"TweenService changes CFrame on the anchored Part. If it falls or doesn't move, verify it is anchored and the Script is running.",stretch:"Create a second moving platform that uses a different duration or axis."},
+{title:"Mission 6 · Playable course",place:"Workspace → StartPad and FinishPad; ServerScriptService → GameRules",build:"Connect your color pad, hazards, checkpoints, three coins, and moving platform into one route. Use a server-side start timestamp and a finish gate that requires three coins. Print elapsed time in the Output pane; a polished on-screen UI is an optional future improvement.",criteria:["New player can follow a clear start-to-finish route","Hazards, checkpoints, coins and platform all work","Finish requires three coins and reports a completion time","You record one bug, its cause, and the fix"],mistake:"The final script depends on exact names StartPad and FinishPad, plus the Coins value from Mission 4. Open Output to check errors.",stretch:"Add a visible victory UI via a RemoteEvent and a LocalScript, then invite someone to playtest."}
+];
+function createMissionBrief(container,course,lessonIndex){
+ if(course.id!=="roblox")return;
+ const m=ROBLOX_MISSIONS[lessonIndex];if(!m)return;
+ const wrap=add(container,"section",undefined,"mission-box");
+ add(wrap,"span","MISSION BRIEF · "+String(lessonIndex+1).padStart(2,"0")+"/06","pill");
+ add(wrap,"h3",m.title);add(wrap,"p",m.build);
+ add(wrap,"h4","Exact object placement");add(wrap,"p",m.place);
+ add(wrap,"h4","Definition of done");const ul=add(wrap,"ul");m.criteria.forEach(x=>add(ul,"li",x));
+ const tip=add(wrap,"details");add(tip,"summary","Common mistake to avoid");add(tip,"p",m.mistake);
+ const extra=add(wrap,"details");add(extra,"summary","Stretch challenge");add(extra,"p",m.stretch);
+}
 function createSkillLab(container,course,lessonIndex){
  const lab=add(container,"section",undefined,"skill-lab");
  const head=add(lab,"div",undefined,"skill-head");add(head,"h3","🎮 Interactive concept lab");add(head,"span","Browser simulation · not Roblox/Minecraft/Godot","small");
