@@ -51,15 +51,16 @@ function bytes(s){s=s.replace(/-/g,"+").replace(/_/g,"/");s+="=".repeat((4-s.len
 function node(tag,text,klass){let n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(klass)n.className=klass;return n}
 function add(parent,tag,text,klass){let n=node(tag,text,klass);parent.append(n);return n}
 async function openPack(id,key){
- const response=await fetch("../packs/"+id+".json",{cache:"no-store"});
+ const packPath=id==="roblox"?"roblox-v2":id;
+ const response=await fetch("../packs/"+packPath+".json",{cache:"no-store"});
  if(!response.ok)throw Error("Unable to load lesson pack");
  const pack=await response.json();
  if(pack.schema!=="clearline-course-v1"||pack.alg!=="AES-256-GCM")throw Error("Unrecognized course format");
  const k=await crypto.subtle.importKey("raw",bytes(key),{name:"AES-GCM"},false,["decrypt"]);
  const decoded=await crypto.subtle.decrypt({name:"AES-GCM",iv:bytes(pack.nonce),additionalData:new TextEncoder().encode(id)},k,bytes(pack.ciphertext));
  if(!("DecompressionStream" in window))throw Error("Your browser does not support this course format. Try a recent Safari, Chrome, or Firefox.");
- const decompressed=new Blob([decoded]).stream().pipeThrough(new DecompressionStream("gzip"));
- const text=await new Response(decompressed).text();const course=JSON.parse(text);
+ const decompressed=pack.codec==="identity"?null:new Blob([decoded]).stream().pipeThrough(new DecompressionStream("gzip"));
+ const text=decompressed?await new Response(decompressed).text():new TextDecoder().decode(decoded);const course=JSON.parse(text);
  if(course.id!==id||!Array.isArray(course.lessons))throw Error("Unexpected course data");
  return course;
 }
