@@ -124,6 +124,8 @@ function hydrateSettings(v){
   $("minutes").value=String(state.minutes);$("startDate").value=state.start;
 $("spiralMode").addEventListener("click",()=>setWorld("spiral"));
 $("treeMode").addEventListener("click",()=>setWorld("tree"));
+$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
+$("treeMode").addEventListener("click",()=>setWorld("tree"));
   setMonth(Math.min(state.month,state.months));
 }
 function secureAvailable(){return !!(window.isSecureContext && window.crypto && crypto.subtle && crypto.getRandomValues);}
@@ -344,20 +346,22 @@ function createScene(){
   const loc=gl.getAttribLocation(program,"aT");gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,1,gl.FLOAT,false,0,0);
   const uni=name=>gl.getUniformLocation(program,name);
   const uRotation=uni("uRotation"),uProgress=uni("uProgress"),uAspect=uni("uAspect"),uStars=uni("uStars"),uPoints=uni("uPoints"),uTime=uni("uTime");
-  let rotation=0.5,dragging=false,lastX=0,frame=0,last=0,dirty=true,stop=false;
+  let rotation=0.5,dragging=false,lastX=0,frame=0,last=0,dirty=true,stop=false,visible=false,observer=null;
   const reduceMotion=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function resize(){
-    const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,1.5);
+    const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,window.innerWidth<700?1:1.5);
     const width=Math.max(1,Math.round(rect.width*dpr)),height=Math.max(1,Math.round(rect.height*dpr));
     if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;gl.viewport(0,0,width,height);dirty=true;}
   }
+  function schedule(){
+    if(!frame&&!stop&&visible&&!document.hidden&&state.world==="spiral")frame=requestAnimationFrame(draw);
+  }
   function draw(now){
-    if(stop||document.hidden)return;
-    frame=requestAnimationFrame(draw);
-    if(!dirty && (reduceMotion || now-last<33))return;
-    if(!reduceMotion && now-last<33)return;
-    last=now;dirty=false;
-    resize();
+    frame=0;
+    if(stop||document.hidden||!visible||state.world!=="spiral")return;
+    if(!reduceMotion&&now-last<33){schedule();return;}
+    if(reduceMotion&&!dirty)return;
+    last=now;dirty=false;resize();
     if(!reduceMotion&&!dragging)rotation+=0.0014;
     gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
     gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
@@ -367,18 +371,25 @@ function createScene(){
     gl.uniform1f(uStars,1);gl.uniform1f(uPoints,1);gl.drawArrays(gl.POINTS,0,count);
     gl.uniform1f(uStars,0);gl.uniform1f(uPoints,0);gl.drawArrays(gl.LINE_STRIP,0,count);
     gl.uniform1f(uPoints,1);gl.drawArrays(gl.POINTS,0,count);
+    if(!reduceMotion)schedule();
   }
-  sceneDraw=()=>{dirty=true;if(document.hidden||stop)return;if(reduceMotion)draw(performance.now());};
-  sceneStop=()=>{stop=true;cancelAnimationFrame(frame);};
+  sceneDraw=()=>{
+    dirty=true;
+    if(state.world!=="spiral"){cancelAnimationFrame(frame);frame=0;return;}
+    schedule();
+  };
+  sceneStop=()=>{stop=true;cancelAnimationFrame(frame);frame=0;if(observer)observer.disconnect();};
   canvas.addEventListener("pointerdown",e=>{dragging=true;lastX=e.clientX;canvas.setPointerCapture(e.pointerId);});
   canvas.addEventListener("pointermove",e=>{if(!dragging)return;rotation+=(e.clientX-lastX)*0.007;lastX=e.clientX;dirty=true;});
   canvas.addEventListener("pointerup",()=>dragging=false);
   canvas.addEventListener("pointercancel",()=>dragging=false);
   if("ResizeObserver" in window)new ResizeObserver(()=>{resize();sceneDraw();}).observe(canvas);
   else window.addEventListener("resize",()=>{resize();sceneDraw();});
-  document.addEventListener("visibilitychange",()=>{if(!document.hidden){dirty=true;cancelAnimationFrame(frame);frame=requestAnimationFrame(draw);}else cancelAnimationFrame(frame);});
-  canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();stop=true;canvas.style.display="none";document.querySelector(".live-tag").textContent="TIMELINE AVAILABLE · 3D PAUSED";});
-  resize();frame=requestAnimationFrame(draw);
+  document.addEventListener("visibilitychange",()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else{dirty=true;schedule();}});
+  canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();stop=true;cancelAnimationFrame(frame);frame=0;canvas.style.display="none";$("spiralMode").disabled=true;document.querySelector(".live-tag").textContent="LIVING TREE · 3D PAUSED";setWorld("tree");});
+  if("IntersectionObserver" in window){observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){dirty=true;schedule();}else{cancelAnimationFrame(frame);frame=0;}},{threshold:.05});observer.observe(canvas);}
+  else visible=true;
+  resize();schedule();
 }
 $("startDate").value=state.start;
 $("apply").addEventListener("click",applySettings);
