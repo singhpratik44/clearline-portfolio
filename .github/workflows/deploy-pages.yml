@@ -55,6 +55,18 @@ jobs:
           cp lab/index.html _site/lab/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
           touch _site/.nojekyll
+      - name: Stamp commercial opportunity workspace release
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          path=Path('_site/commercial-4d/opportunities/index.html')
+          html=path.read_text()
+          marker='<meta name="aperture-commercial-release-sha" content="'+os.environ['GITHUB_SHA']+'">'
+          assert html.count('</head>')==1
+          path.write_text(html.replace('</head>',marker+'</head>',1))
+          assert marker in path.read_text()
+          PY
       - name: Validate packaged site
         run: |
           test -s _site/app.bundle.js
@@ -191,3 +203,35 @@ jobs:
           name: educators-rising-release-receipt
           path: release-evidence.json
           if-no-files-found: error
+      - name: Verify published commercial opportunity workspace
+        env:
+          COMMERCIAL_URL: https://singhpratik44.github.io/clearline-portfolio/commercial-4d/opportunities/
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import os,time,urllib.request
+          root=os.environ['COMMERCIAL_URL']
+          expected=os.environ['EXPECTED_SHA']
+          expected_marker='name="aperture-commercial-release-sha" content="'+expected+'"'
+          paths={'':(expected_marker,'Import private opportunities JSON','id="connect-google"','id="save-vault"','src="./secure-ui.js"'),
+                 'engine.js':('AP4DOpportunity','terms_confirmed'),
+                 'gmail-core.js':('AP4DGmailCore','message_ids'),
+                 'gmail-oauth.js':('AP4DGmail','gmail.readonly'),
+                 'vault.js':('AP4DVault','AES-GCM'),
+                 'audit.js':('AP4DAudit','proposal_reviewed'),
+                 'secure-ui.js':('AP4DSecureUI','saveEncrypted')}
+          for attempt in range(12):
+              try:
+                  for suffix,tokens in paths.items():
+                      request=urllib.request.Request(root+suffix,headers={'User-Agent':'APERTURE-Pages-Commercial-Release/1.0'})
+                      with urllib.request.urlopen(request,timeout=15) as response:
+                          text=response.read().decode('utf-8')
+                          assert response.status==200,(suffix,response.status)
+                          assert all(t in text for t in tokens),(suffix,'missing marker')
+                  print('LIVE VERIFIED commercial 4D private workspace:',root,'SHA:',expected)
+                  break
+              except Exception as exc:
+                  print('Not fully published yet:',attempt+1,type(exc).__name__,str(exc))
+                  if attempt==11:raise
+                  time.sleep(12)
+          PY
