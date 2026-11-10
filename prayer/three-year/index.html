@@ -14,7 +14,7 @@
 <a class="skip" href="#begin">Skip to your journey</a>
 <header class="topbar">
   <a class="brand" href="../" aria-label="A Quiet Journey home"><span class="brand-mark" aria-hidden="true">✺</span><span>A QUIET JOURNEY</span></a>
-  <nav aria-label="Primary"><a href="#experience">Experience</a><a href="#begin">Your path</a><a href="#journal">Private journal</a><a href="#principles">Our promise</a></nav>
+  <nav aria-label="Primary"><a href="#experience">Experience</a><a href="#begin">Your path</a><a href="#daily">Daily practice</a><a href="#journal">Private journal</a><a href="#principles">Our promise</a></nav>
   <a class="small-cta" href="#begin">Begin <span aria-hidden="true">↗</span></a>
 </header>
 <main>
@@ -24,7 +24,7 @@
     <p class="eyebrow"><span class="eyebrow-line"></span> THREE YEARS, ONE MOMENT AT A TIME</p>
     <h1>Time passes.<br><em>Presence remains.</em></h1>
     <p class="hero-deck">A living space for prayer, truth, gratitude and responsible action. Thirty-six chapters. Countless moments to begin again.</p>
-    <div class="hero-actions"><a class="btn btn-primary" href="#begin">Begin your journey <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#timeline">Explore time <span aria-hidden="true">↓</span></a></div>
+    <div class="hero-actions"><a class="btn btn-primary" href="#daily">Enter today’s practice <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#begin">Shape your journey <span aria-hidden="true">↓</span></a></div>
     <p class="hero-caption">Prayer is always free. No account required. Your reflections stay yours.</p>
   </div>
   <div class="hero-symbol" aria-hidden="true"><div class="sunring sunring-a"></div><div class="sunring sunring-b"></div><div class="sunring sunring-c"></div><div class="symbol-core">✺</div><span class="orbit-label orbit-one">NOTICE</span><span class="orbit-label orbit-two">PRACTICE</span><span class="orbit-label orbit-three">INTEGRATE</span></div>
@@ -62,6 +62,59 @@
   </div>
   <div class="chapter-grid"><article class="chapter-copy"><p class="eyebrow">THIS CHAPTER'S INVITATION</p><h3 id="reflectionTitle">Begin where you are.</h3><p id="reflectionPrompt">What deserves your attention today?</p><p class="action-line"><span aria-hidden="true">✳</span> <span id="chapterAction">Take five minutes to name a truthful intention.</span></p></article><article class="chapter-side"><span class="eyebrow">AN OPEN PATH</span><p>Your archive tells a story of real choices, not an algorithm's prediction. Future chapters remain open until you live them.</p><a href="#journal">Reflect on this chapter <span aria-hidden="true">↗</span></a></article></div>
 </section>
+<section class="daily-section" id="daily">
+  <div class="section-heading">
+    <div><p class="eyebrow">THE DAILY PRACTICE</p><h2>A little time.<br><em>A lifetime of returning.</em></h2></div>
+    <p>Not 1,095 invented readings. Thirty-six grounded monthly themes, revisited through small original daily reflections. No scores, no broken streaks, no purchase required.</p>
+  </div>
+  <div class="daily-frame">
+    <div class="daily-header">
+      <div>
+        <p class="eyebrow">YOUR DAY IN THE JOURNEY</p>
+        <h3 id="dailyHeading">Day 1</h3>
+        <p class="daily-meta" id="dailyMeta">An open beginning</p>
+      </div>
+      <div class="daily-arch" aria-hidden="true"><span>✦</span><span class="daily-arch-label" id="dailyArchLabel">NOTICE</span></div>
+    </div>
+    <div class="daily-steps" role="group" aria-label="Choose a daily practice step">
+      <button class="daily-step is-current" data-daily-step="0" type="button" aria-pressed="true"><span>01</span>Arrive</button>
+      <button class="daily-step" data-daily-step="1" type="button" aria-pressed="false"><span>02</span>Read</button>
+      <button class="daily-step" data-daily-step="2" type="button" aria-pressed="false"><span>03</span>Reflect</button>
+      <button class="daily-step" data-daily-step="3" type="button" aria-pressed="false"><span>04</span>Live</button>
+      <button class="daily-step" data-daily-step="4" type="button" aria-pressed="false"><span>05</span>Release</button>
+    </div>
+    <div class="daily-body">
+      <div class="daily-focus">
+        <p class="eyebrow" id="dailyStepOverline">01 / ARRIVE</p>
+        <h3 id="dailyStepTitle">Be here, as you are.</h3>
+        <p id="dailyStepDescription">Return to the present without pressure to achieve anything.</p>
+        <p class="daily-invitation" id="dailyStepDetail">Choose how much time you have today.</p>
+        <div class="scripture-access" id="dailySource" hidden>
+          <p class="eyebrow">AUTHENTIC SOURCE · EXTERNAL READER</p>
+          <a href="https://www.sikhitothemax.org/" target="_blank" rel="noopener noreferrer">Read Sri Guru Granth Sahib Ji at SikhiToTheMax <span aria-hidden="true">↗</span></a>
+          <a href="https://readsggs.com/" target="_blank" rel="noopener noreferrer">Alternative SGGS reading interface <span aria-hidden="true">↗</span></a>
+          <p>These are independent third-party scripture readers. A Quiet Journey does not reproduce their texts, translations or audio, and does not claim to choose a Hukamnama for you.</p>
+        </div>
+      </div>
+      <div class="daily-side">
+        <div class="day-ornament" aria-hidden="true"><span>✺</span></div>
+        <p class="eyebrow">ONE MOMENT AT A TIME</p>
+        <p class="daily-side-copy" id="dailySideCopy">A new practice is not a demand to become someone else.</p>
+        <p class="daily-vault-summary" id="dailyVaultSummary" aria-live="polite">Your practice is private. Nothing is saved without an unlocked encrypted vault.</p>
+      </div>
+    </div>
+    <div class="daily-actions">
+      <button id="dailyPrev" class="btn btn-ghost" type="button" disabled>← Previous</button>
+      <button id="dailyNext" class="btn btn-primary" type="button">Continue →</button>
+      <button id="dailyRecord" class="btn btn-primary" type="button" hidden>Record today’s practice ↗</button>
+    </div>
+    <p id="dailyStatus" class="daily-status" role="status">Begin with whatever time is available.</p>
+  </div>
+  <div class="daily-after">
+    <div><p class="eyebrow">A PRIVATE HISTORY</p><p id="dailyRecordedCount">Your recorded practice days appear here after you unlock your vault.</p></div>
+    <button id="dailyFindMonth" type="button">Explore this month in the 4D timeline <span aria-hidden="true">↗</span></button>
+  </div>
+</section>
 <section class="journal-section" id="journal">
   <div class="section-heading"><div><p class="eyebrow">A PLACE FOR WHAT MATTERS</p><h2>Your words.<br><em>Only yours.</em></h2></div><p>A private, encrypted journal stored in this browser. No tracking scripts, remote database or accounts. Export an encrypted backup for another device.</p></div>
   <div class="journal-layout">
@@ -97,7 +150,7 @@
 </section>
 <section class="principles-section" id="principles"><p class="eyebrow">OUR PROMISE</p><h2>Nothing sacred<br><em>is for sale.</em></h2><div class="principles-grid"><div><span>01</span><h3>Free to begin</h3><p>Prayer, reflective prompts, the timeline and your encrypted journal are free. There are no paid spiritual rankings.</p></div><div><span>02</span><h3>Respect the source</h3><p>These prompts are original. We will not invent Gurbani, attribute our words to scripture or claim AI speaks for God.</p></div><div><span>03</span><h3>A living practice</h3><p>No guilt for missed days. No claim that a digital check-in measures faith. Return whenever you can.</p></div></div></section>
 </main>
-<nav class="mobile-nav" aria-label="Quick navigation"><a href="#begin"><span aria-hidden="true">✦</span> Begin</a><a href="#timeline"><span aria-hidden="true">◎</span> Timeline</a><a href="#journal"><span aria-hidden="true">◇</span> Journal</a></nav>
+<nav class="mobile-nav" aria-label="Quick navigation"><a href="#begin"><span aria-hidden="true">✦</span> Begin</a><a href="#timeline"><span aria-hidden="true">◎</span> Timeline</a><a href="#daily"><span aria-hidden="true">☼</span> Practice</a><a href="#journal"><span aria-hidden="true">◇</span> Journal</a></nav>
 <footer><span>A QUIET JOURNEY · AN APERTURE EXPERIENCE</span><span>TRUTH · HUMILITY · SERVICE</span><a href="../">Return to the original prayer journey ↗</a></footer>
 </body>
 </html>
