@@ -34,6 +34,11 @@ test('server refuses to operate without a Stripe server-side credential',async()
   const r=await verifyGiftPurchase(validId,{secret:'',fetchFn:responder(mockSession())});
   assert.equal(r.status,503);
 });
+test('wrong total never grants a different product',async()=>{
+  const r=await verifyGiftPurchase(validId,{secret,fetchFn:responder(mockSession({amount_total:900}))});
+  assert.equal(r.status,403);
+  assert.equal(r.code,'payment_not_authorized');
+});
 test('unpaid, incomplete, or testmode sessions are denied',async()=>{
   for(const field of [{payment_status:'unpaid'},{status:'open'},{livemode:false},{amount_total:0},{currency:'eur'},{mode:'subscription'}]) {
     const r=await verifyGiftPurchase(validId,{secret,fetchFn:responder(mockSession(field))});
