@@ -1,5 +1,5 @@
-/** Allowed workbook SKUs per paid bundle; never trust a requested SKU without validating its payment link. */
-export const BUNDLE_BOOKS=Object.freeze({
+/** Digital products included in each authorized bundle. These are checked server-side. */
+export const BUNDLE_BOOKS = Object.freeze({
   "bundle": [
     "game",
     "birthday",
@@ -53,7 +53,40 @@ export const BUNDLE_BOOKS=Object.freeze({
     "interfaith-kindness",
     "family-heritage",
     "mindful-moments",
-    "adult-purpose"
+    "adult-purpose",
+    "basketball-iq",
+    "basketball-playbook",
+    "athlete-mindset-kids",
+    "athlete-mindset-teens",
+    "coach-practice",
+    "captain-leadership",
+    "basketball-party",
+    "family-sports-night",
+    "soccer-creator",
+    "multi-sport",
+    "sports-film",
+    "season-keepsake",
+    "coach-appreciation",
+    "point-guard-lab",
+    "defense-chalkboard",
+    "practice-progress",
+    "basketball-numbers",
+    "coach-session-cards",
+    "offense-design",
+    "basketball-family",
+    "basketball-dreambook",
+    "defensive-iq",
+    "three-on-three",
+    "rookie-hoop",
+    "basketball-scorekeeper",
+    "basketball-recovery-habits",
+    "hoop-gift-cards",
+    "coach-season",
+    "basketball-camp",
+    "girl-hoopers",
+    "pickup-hoops",
+    "scout-observation",
+    "team-culture"
   ],
   "basketball-ultimate": [
     "basketball-iq",
@@ -91,7 +124,42 @@ export const BUNDLE_BOOKS=Object.freeze({
     "multi-sport",
     "sports-film",
     "season-keepsake",
-    "coach-appreciation"
+    "coach-appreciation",
+    "point-guard-lab",
+    "defense-chalkboard",
+    "practice-progress",
+    "basketball-numbers",
+    "coach-session-cards",
+    "offense-design",
+    "basketball-family",
+    "basketball-dreambook",
+    "defensive-iq",
+    "three-on-three",
+    "rookie-hoop",
+    "basketball-scorekeeper",
+    "basketball-recovery-habits",
+    "hoop-gift-cards",
+    "coach-season",
+    "basketball-camp",
+    "girl-hoopers",
+    "pickup-hoops",
+    "scout-observation",
+    "team-culture"
+  ],
+  "basketball-starter-collection": [
+    "basketball-iq",
+    "point-guard-lab",
+    "defense-chalkboard",
+    "practice-progress",
+    "basketball-family"
+  ],
+  "basketball-coach-studio": [
+    "coach-practice",
+    "coach-session-cards",
+    "basketball-playbook",
+    "offense-design",
+    "sports-film",
+    "basketball-numbers"
   ],
   "basketball-gifts-collection": [
     "rookie-hoop",
