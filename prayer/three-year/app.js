@@ -122,6 +122,8 @@ function hydrateSettings(v){
   state.months=Number(v.months);state.focus=v.focus;state.minutes=Number(v.minutes);state.start=v.start;
   $("duration").value=String(state.months);$("focus").value=state.focus;
   $("minutes").value=String(state.minutes);$("startDate").value=state.start;
+$("treeMode").addEventListener("click",()=>setWorld("tree"));
+$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
 $("spiralMode").addEventListener("click",()=>setWorld("spiral"));
 $("treeMode").addEventListener("click",()=>setWorld("tree"));
 $("spiralMode").addEventListener("click",()=>setWorld("spiral"));
