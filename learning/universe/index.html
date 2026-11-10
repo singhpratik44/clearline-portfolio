@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#091b29">
+<meta name="description" content="Explore APERTURE Learning in four dimensions: a spatial map of 20 coding specializations with an interactive learning timeline. Discover, build, understand and create.">
+<meta property="og:title" content="APERTURE Learning Universe | A 4D Journey">
+<meta property="og:description" content="Twenty connected coding and AI specializations. A spatial, interactive universe that evolves through four learning chapters.">
+<title>4D Learning Universe | APERTURE Learning</title>
+<link rel="canonical" href="https://singhpratik44.github.io/clearline-portfolio/learning/universe/">
+<link rel="stylesheet" href="./universe.css">
+<script src="./universe.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#explore">Skip to learning universe</a>
+<header class="header"><nav class="shell nav" aria-label="Primary">
+<a class="brand" href="../"><span class="brand-mark">A</span><span>APERTURE <small>LEARNING / THE UNIVERSE</small></span></a>
+<div class="nav-links"><a href="../catalog/">All specializations</a><a href="../studio/">Interactive studio</a><a href="../#pricing" class="nav-cta">Book a lesson ↗</a></div>
+</nav></header>
+<main>
+<section class="hero"><div class="shell hero-grid"><div class="hero-copy">
+<div class="eyebrow"><span class="pulse" aria-hidden="true"></span> A new way to explore learning</div>
+<h1>See where curiosity <em>can go.</em></h1>
+<p>Twenty connected worlds of coding, art, engineering and AI. Turn through space to explore the specializations. Move through time to see how an idea can grow into something a child builds and explains.</p>
+<div class="hero-actions"><a class="primary" href="#explore">Enter the 4D Universe <span aria-hidden="true">↘</span></a><a href="../catalog/" class="secondary">Browse the catalog</a></div>
+<div class="hero-notes"><span>3D spatial exploration</span><span>+</span><span>Time as the fourth dimension</span></div>
+</div><div class="hero-orbit" aria-hidden="true"><div class="orbital o1"></div><div class="orbital o2"></div><div class="orbital o3"></div><div class="orbital-core"><strong>20</strong><span>possibilities</span></div><div class="orbital-pin pin1">IMAGINE</div><div class="orbital-pin pin2">BUILD</div><div class="orbital-pin pin3">UNDERSTAND</div><div class="orbital-pin pin4">CREATE</div></div></div></section>
+<section class="universe-section" id="explore"><div class="shell">
+<div class="section-intro"><div><div class="eyebrow light">01 / EXPLORE</div><h2>One universe. Many futures.</h2><p>Each point is a possible specialization. Colored families connect related interests, while the timeline changes the developmental chapter. Drag to orbit, select a point, and watch the learning story evolve.</p></div><div class="scene-legend"><span><i class="swatch creative"></i> Creative</span><span><i class="swatch code"></i> Code</span><span><i class="swatch ai"></i> AI</span><span><i class="swatch engineering"></i> Engineering</span><span><i class="swatch impact"></i> Real-world</span></div></div>
+<div class="scene-layout">
+<div class="scene-wrap"><div class="scene-toolbar"><div class="scene-heading"><span class="pulse" aria-hidden="true"></span><span>LIVE LEARNING MAP</span></div><div class="toolbar-buttons"><button type="button" id="orbit-left" aria-label="Rotate view left">↶</button><button type="button" id="orbit-right" aria-label="Rotate view right">↷</button><button type="button" id="zoom-in" aria-label="Zoom in">+</button><button type="button" id="zoom-out" aria-label="Zoom out">−</button><button type="button" id="reset-camera">Reset</button></div></div>
+<div class="scene-canvas"><canvas id="universe-canvas" aria-hidden="true"></canvas><div class="scene-overlay top"><span id="scene-stage">CHAPTER 01 · DISCOVER</span><span>20 SPECIALIZATIONS</span></div><div class="scene-overlay bottom"><span id="scene-hint">Drag or swipe to orbit · tap a star to explore</span><span>3D SPACE + TIME</span></div></div>
+<div class="scene-guide">For keyboard and screen-reader access, select any specialization in the searchable list below. Motion is paused by default.</div>
+<div class="timeline"><div class="timeline-head"><div class="eyebrow light">THE FOURTH DIMENSION</div><div id="timeline-caption" aria-live="polite">01 / Discover: follow the spark</div></div>
+<div class="time-control"><button type="button" id="previous-chapter" aria-label="Previous learning chapter">‹</button><input id="chapter-slider" type="range" min="0" max="3" step="1" value="0" aria-label="Learning progression chapter"><button type="button" id="next-chapter" aria-label="Next learning chapter">›</button></div>
+<div class="timeline-chapters"><button type="button" data-chapter="0" aria-current="step"><span>01</span> Discover</button><button type="button" data-chapter="1"><span>02</span> Build</button><button type="button" data-chapter="2"><span>03</span> Understand</button><button type="button" data-chapter="3"><span>04</span> Create</button></div>
+<div class="timeline-footer"><button type="button" id="play-story" class="play-button"><span id="play-icon" aria-hidden="true">▶</span> <span id="play-label">Play the story</span></button><span>Illustrative progression, not a fixed timeline or promised outcome.</span></div></div></div>
+<aside class="insight-panel" aria-live="polite" aria-atomic="true"><div class="eyebrow light" id="detail-family">CREATIVE WORLDS</div><div class="detail-symbol" id="detail-symbol" aria-hidden="true">🎮</div><h3 id="detail-title">Game Design &amp; 3D Art</h3><p id="detail-description">What if a young creator could make a world that responds to their imagination?</p>
+<div class="detail-stats"><div><span>WORLD</span><strong id="detail-world">Creative Worlds</strong></div><div><span>STARTING POINT</span><strong id="detail-start">Suggested ages 11+</strong></div></div>
+<div class="detail-chapter"><span id="detail-chapter-label">CHAPTER 01 · DISCOVER</span><h4 id="detail-chapter-title">Begin with curiosity.</h4><p id="detail-chapter-description">Imagine a player experience and sketch a first challenge.</p></div>
+<div class="detail-future"><div class="eyebrow light">POSSIBLE CAPSTONE</div><p id="detail-capstone">An original, playable game that the student can demonstrate and explain.</p></div>
+<div class="detail-actions"><a class="primary" id="view-pathway" href="../catalog/?track=3d-game-design#pathway">Explore full pathway ↗</a><a class="secondary" id="view-demo" href="../projects/#arcade">Try a project demo ↗</a></div>
+<p class="fine-print">Pathways are examples, adapted to each student and instructor. Advanced tools may have age restrictions. No guaranteed project, academic result or completion time.</p>
+</aside>
+</div>
+<div class="browse-block"><div class="browse-head"><div><div class="eyebrow light">DIRECT EXPLORATION</div><h3>Choose a constellation.</h3></div><div class="browse-fields"><label for="world-filter">Learning world<select id="world-filter"><option value="all">All five worlds</option><option value="0">Creative Worlds</option><option value="1">Code Builders</option><option value="2">AI Frontiers</option><option value="3">Engineering &amp; Systems</option><option value="4">Real-World Creators</option></select></label><label for="track-search">Find an interest<input type="search" id="track-search" placeholder="Roblox, Python, basketball…" maxlength="60"></label></div></div>
+<div id="track-list" class="track-list" aria-label="Browse specialization map points"></div><p id="track-count" class="track-count" role="status"></p></div>
+</div></section>
+<section class="connection-section"><div class="shell">
+<div class="eyebrow">02 / CONNECT</div><h2>The same journey, from dream to proof.</h2><div class="story-grid">
+<article><div class="step-num">01 <span>DISCOVER</span></div><h3>They find a world they love.</h3><p>Roblox, Python, music, engineering, basketball or AI: curiosity chooses the first direction.</p></article>
+<article><div class="step-num">02 <span>BUILD</span></div><h3>They work with a real coach.</h3><p>Live mentoring turns that interest into a small, manageable feature or prototype.</p></article>
+<article><div class="step-num">03 <span>UNDERSTAND</span></div><h3>They explain the thinking.</h3><p>Debugging, testing, reflection and the ability to show what they learned matter more than a flashy result.</p></article>
+<article><div class="step-num">04 <span>CREATE</span></div><h3>They own the next chapter.</h3><p>A project can grow into a portfolio, a new specialization, a school presentation or a bigger question.</p></article>
+</div><div class="story-cta"><a class="primary dark" href="../studio/">Try the interactive coding lab ↗</a><a class="secondary dark-outline" href="../catalog/">Explore all 20 pathways ↗</a></div>
+</div></section>
+<section class="enroll-section"><div class="shell enroll-grid"><div><div class="eyebrow">03 / BEGIN</div><h2>One guided hour can begin the story.</h2><p>The current live checkout is <strong>$65 for one private, 60-minute online coding lesson</strong>. If enabled at checkout, purchasing a larger quantity buys additional lessons. Weekly recurring lessons are available by inquiry while scheduling and separate subscription terms are finalized.</p><p class="enroll-note">No payment is required to explore this universe. Coaching availability, age-appropriate instruction, scheduling, cancellation and refunds must be confirmed before enrollment.</p></div><div class="enroll-card"><div class="eyebrow">FIRST SESSION</div><div class="price">$65 <small>/ 60 minutes</small></div><p>Live coaching · A personalized project milestone · Parent progress feedback</p><a class="primary dark" href="../#pricing">View lesson checkout ↗</a><a class="secondary card-link" href="../#weekly-coding">Ask about weekly lessons ↗</a></div></div></section>
+</main>
+<footer><div class="shell footer-row"><span>APERTURE Learning · Independent project-based coding education</span><div><a href="../">Main site</a><a href="../catalog/">Specializations</a><a href="../studio/">Studio</a><a href="../#partners">School partnerships</a></div></div></footer>
+</body></html>
