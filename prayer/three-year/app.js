@@ -122,12 +122,6 @@ function hydrateSettings(v){
   state.months=Number(v.months);state.focus=v.focus;state.minutes=Number(v.minutes);state.start=v.start;
   $("duration").value=String(state.months);$("focus").value=state.focus;
   $("minutes").value=String(state.minutes);$("startDate").value=state.start;
-$("treeMode").addEventListener("click",()=>setWorld("tree"));
-$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
-$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
-$("treeMode").addEventListener("click",()=>setWorld("tree"));
-$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
-$("treeMode").addEventListener("click",()=>setWorld("tree"));
   setMonth(Math.min(state.month,state.months));
 }
 function secureAvailable(){return !!(window.isSecureContext && window.crypto && crypto.subtle && crypto.getRandomValues);}
@@ -436,6 +430,8 @@ function createScene(){
   resize();schedule();
 }
 $("startDate").value=state.start;
+$("treeMode").addEventListener("click",()=>setWorld("tree"));
+$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
 $("apply").addEventListener("click",applySettings);
 $("monthSlider").addEventListener("input",e=>setMonth(Number(e.target.value)));
 $("prevMonth").addEventListener("click",()=>setMonth(state.month-1));
