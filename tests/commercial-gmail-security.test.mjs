@@ -101,7 +101,7 @@ test("OAuth, private UI and opportunity scripts are syntactically valid",()=>{
   assert.doesNotThrow(()=>new vm.Script(code,{filename:file}));
  }
  const html=fs.readFileSync(new URL("commercial-4d/opportunities/index.html",root),"utf8");
- const inline=[...html.matchAll(/<script(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(m=>m[1]).filter(Boolean);
+ const inline=html.split("<script>").slice(1).map(x=>x.split("</script>")[0]).filter(Boolean);
  assert.ok(inline.length>0);
  for(const code of inline)assert.doesNotThrow(()=>new vm.Script(code));
 });
