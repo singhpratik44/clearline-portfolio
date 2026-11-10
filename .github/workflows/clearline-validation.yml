@@ -9,6 +9,8 @@ on:
       - 'assets/aperture-shell.js'
       - 'tests/site-integrity.test.mjs'
       - 'tests/site-browser.mjs'
+      - 'tests/gift-fulfillment.test.mjs'
+      - 'gifts/**'
       - 'tests/civilization-browser.mjs'
       - '.github/workflows/clearline-validation.yml'
   pull_request:
@@ -20,6 +22,8 @@ on:
       - 'assets/aperture-shell.js'
       - 'tests/site-integrity.test.mjs'
       - 'tests/site-browser.mjs'
+      - 'tests/gift-fulfillment.test.mjs'
+      - 'gifts/**'
       - 'tests/civilization-browser.mjs'
       - '.github/workflows/clearline-validation.yml'
 jobs:
@@ -32,6 +36,8 @@ jobs:
           node-version: '22'
       - name: Verify deterministic representation invariants
         run: node --test research/representation.test.mjs
+      - name: Verify paid digital-gift access gates
+        run: node --test tests/gift-fulfillment.test.mjs
       - name: Verify touch and keyboard undo support
         run: |
           grep -q "addEventListener('pointerdown',save)" interactive-decision-universe.html
