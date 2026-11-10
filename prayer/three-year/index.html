@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; form-action 'none'; object-src 'none'; base-uri 'none'; upgrade-insecure-requests">
 <title>A Quiet Journey — Three Years of Intention</title>
 <link rel="stylesheet" href="./styles.css">
-<script src="./app.js" defer></script>
+<script type="module" src="./app.js"></script>
 </head>
 <body>
 <a class="skip" href="#begin">Skip to your journey</a>
@@ -53,16 +53,17 @@
   </div>
 </section>
 <section class="timeline-section" id="timeline">
-  <div class="section-heading timeline-heading"><div><p class="eyebrow">THE FOURTH DIMENSION</p><h2>See your life<br><em>unfold through time.</em></h2></div><p>Drag to turn the three-dimensional path. Move the timeline to explore months and future possibilities.</p></div>
+  <div class="section-heading timeline-heading"><div><p class="eyebrow">THE FOURTH DIMENSION</p><h2>See your life<br><em>unfold through time.</em></h2></div><p>Drag to turn the three-dimensional spiral, or enter the living tree sanctuary. Explore months and future possibilities through time.</p></div>
   <div class="universe-panel">
-    <div class="universe-top"><div><span class="kicker">TEMPORAL SANCTUARY</span><h3 id="chapterTitle">The art of arriving</h3></div><span class="live-tag"><span aria-hidden="true">●</span> INTERACTIVE 3D + TIME</span></div>
-    <div class="visual" id="visual"><canvas id="universe" aria-label="Animated three-dimensional helix with a path that changes as you choose a month. Use the month slider below to navigate time." role="img"></canvas><div class="visual-vignette" aria-hidden="true"></div><div class="visual-annotation annotation-left"><span>PAST</span><strong>What shaped you</strong></div><div class="visual-annotation annotation-right"><span>FUTURE</span><strong>What you may practice</strong></div><div class="visual-center"><span id="visualYear">YEAR ONE</span><strong id="visualMonth">MONTH 01</strong><span id="visualSubtitle">NOTICE</span></div></div>
+    <div class="universe-top"><div><span class="kicker">TEMPORAL SANCTUARY</span><h3 id="chapterTitle">The art of arriving</h3></div><span class="live-tag"><span aria-hidden="true">●</span> LIVING TIME</span></div>
+    <div class="scene-switch" role="group" aria-label="Choose your visual sanctuary"><button type="button" id="spiralMode" aria-pressed="true">Time spiral</button><button type="button" id="treeMode" aria-pressed="false">Living tree</button><span id="sceneHint">Explore the same timeline in two different living worlds.</span></div>
+    <div class="visual" id="visual"><svg id="livingTree" class="living-tree" viewBox="0 0 900 500" role="img" aria-label="A living tree whose branches and seasonal light change as you explore time"></svg><canvas id="universe" aria-label="Animated three-dimensional helix with a path that changes as you choose a month. Use the month slider below to navigate time." role="img"></canvas><div class="visual-vignette" aria-hidden="true"></div><div class="visual-annotation annotation-left"><span>PAST</span><strong>What shaped you</strong></div><div class="visual-annotation annotation-right"><span>FUTURE</span><strong>What you may practice</strong></div><div class="visual-center"><span id="visualYear">YEAR ONE</span><strong id="visualMonth">MONTH 01</strong><span id="visualSubtitle">NOTICE</span></div></div>
     <div class="timeline-controls"><div class="year-controls" role="group" aria-label="Jump to year"><button class="year-tab is-active" type="button" data-year="0">01 / NOTICE</button><button class="year-tab" type="button" data-year="1">02 / PRACTICE</button><button class="year-tab" type="button" data-year="2">03 / INTEGRATE</button></div><div class="scrub-row"><button type="button" class="icon-button" id="prevMonth" aria-label="Previous month">←</button><label for="monthSlider" class="sr-only">Explore month of your journey</label><input id="monthSlider" type="range" min="1" max="36" value="1" step="1"><button type="button" class="icon-button" id="nextMonth" aria-label="Next month">→</button></div><div class="timeline-meta"><span id="monthIndex">MONTH 1 / 36</span><span id="chapterDate">YOUR FIRST CHAPTER</span></div></div>
   </div>
   <div class="chapter-grid"><article class="chapter-copy"><p class="eyebrow">THIS CHAPTER'S INVITATION</p><h3 id="reflectionTitle">Begin where you are.</h3><p id="reflectionPrompt">What deserves your attention today?</p><p class="action-line"><span aria-hidden="true">✳</span> <span id="chapterAction">Take five minutes to name a truthful intention.</span></p></article><article class="chapter-side"><span class="eyebrow">AN OPEN PATH</span><p>Your archive tells a story of real choices, not an algorithm's prediction. Future chapters remain open until you live them.</p><a href="#journal">Reflect on this chapter <span aria-hidden="true">↗</span></a></article></div>
 </section>
 <section class="journal-section" id="journal">
-  <div class="section-heading"><div><p class="eyebrow">A PLACE FOR WHAT MATTERS</p><h2>Your words.<br><em>Only yours.</em></h2></div><p>A private, encrypted journal stored in this browser. No tracking scripts, remote database or accounts.</p></div>
+  <div class="section-heading"><div><p class="eyebrow">A PLACE FOR WHAT MATTERS</p><h2>Your words.<br><em>Only yours.</em></h2></div><p>A private, encrypted journal stored in this browser. No tracking scripts, remote database or accounts. Export an encrypted backup for another device.</p></div>
   <div class="journal-layout">
     <article class="panel vault-panel">
       <div class="vault-header"><span class="vault-icon" aria-hidden="true">◇</span><div><h3>Private vault</h3><p id="vaultState" role="status">Locked · Nothing is stored until you choose a passphrase.</p></div></div>
@@ -71,7 +72,7 @@
       <p class="microcopy" id="vaultHint">Your passphrase is never saved. Losing it means your encrypted journal cannot be recovered. On shared devices, lock the vault when finished.</p>
       <div class="vault-divider"></div>
       <p class="eyebrow">YOUR DATA, YOUR CHOICE</p><div class="vault-tools"><button id="exportVault" type="button" disabled>Export encrypted backup ↗</button><label class="import-link" for="importVault">Import encrypted backup ↗</label><input id="importVault" type="file" accept=".json,application/json" class="sr-only"><button id="eraseVault" type="button" class="danger">Erase this device's vault</button></div>
-      <p class="microcopy">Privacy limits: browser storage can be cleared; a compromised device or malicious browser extension can still access content while unlocked. This is not cloud backup.</p>
+      <p class="microcopy">Privacy limits: browser storage can be cleared; a compromised device or malicious browser extension can still access content while unlocked. This is not cloud backup. Test your encrypted backup before relying on it; keep your passphrase separately and safely.</p>
     </article>
     <article class="panel journal-panel">
       <div class="journal-top"><span class="eyebrow">TODAY'S REFLECTION</span><span id="journalDay">PERSONAL PRACTICE</span></div>
@@ -84,6 +85,7 @@
 </section>
 <section class="principles-section" id="principles"><p class="eyebrow">OUR PROMISE</p><h2>Nothing sacred<br><em>is for sale.</em></h2><div class="principles-grid"><div><span>01</span><h3>Free to begin</h3><p>Prayer, reflective prompts, the timeline and your encrypted journal are free. There are no paid spiritual rankings.</p></div><div><span>02</span><h3>Respect the source</h3><p>These prompts are original. We will not invent Gurbani, attribute our words to scripture or claim AI speaks for God.</p></div><div><span>03</span><h3>A living practice</h3><p>No guilt for missed days. No claim that a digital check-in measures faith. Return whenever you can.</p></div></div></section>
 </main>
+<nav class="mobile-nav" aria-label="Quick navigation"><a href="#begin"><span aria-hidden="true">✦</span> Begin</a><a href="#timeline"><span aria-hidden="true">◎</span> Timeline</a><a href="#journal"><span aria-hidden="true">◇</span> Journal</a></nav>
 <footer><span>A QUIET JOURNEY · AN APERTURE EXPERIENCE</span><span>TRUTH · HUMILITY · SERVICE</span><a href="../">Return to the original prayer journey ↗</a></footer>
 </body>
 </html>
