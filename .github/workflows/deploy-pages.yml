@@ -43,7 +43,7 @@ jobs:
       - name: Stage Pages artifact
         run: |
           mkdir -p _site
-          cp *.html *.js _site/
+          cp *.html *.js sitemap.xml _site/
           cp -R assets clearline career-os partnerships aperture learning prayer _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
@@ -58,6 +58,11 @@ jobs:
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/learning/index.html
+          test -s _site/learning/catalog/index.html
+          test -s _site/learning/catalog/catalog.js
+          test -s _site/learning/catalog/catalog.css
+          grep -q 'id="catalog"' _site/learning/catalog/index.html
+          grep -q 'learning/catalog/' _site/sitemap.xml
           test -s _site/learning/studio/index.html
           test -s _site/learning/studio/studio.js
           test -s _site/learning/studio/studio.css
