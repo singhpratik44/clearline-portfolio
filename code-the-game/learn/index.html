@@ -37,13 +37,44 @@ main{max-width:1250px}.layout{grid-template-columns:minmax(260px,310px) minmax(0
 @media(max-width:800px){.layout{grid-template-columns:1fr}.panel{padding:17px}.learning-stripe{gap:5px}.arena{gap:2px}.tile{border-radius:4px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 @media print{.skill-lab,.mission-box .secondary,.note-area,.quick-check{display:none}}
+
+/* Studio 3: purpose-built learning surfaces */
+:root{--mint:#a5f2d6;--line:#36506c}
+body{background:radial-gradient(ellipse at 90% -10%,#29415d,transparent 46%),#0a101e}
+header{background:#0b1422d9;position:sticky;top:0;z-index:10;backdrop-filter:blur(16px)}
+main>h1{font-size:clamp(36px,5.3vw,65px);letter-spacing:-.055em}
+.panel{border-radius:22px;background:#121d30;box-shadow:0 16px 64px #0003}
+#courseButtons{display:flex;gap:8px;flex-wrap:wrap}.navbutton{font-weight:550}
+#content{min-width:0}#content>h2{font-size:clamp(28px,4vw,45px);letter-spacing:-.045em;line-height:1.13}
+#content>p{max-width:70ch}
+.mission-box{background:linear-gradient(145deg,#19433b,#172d48);border:1px solid #41786e}
+.mission-box h3{font-size:23px!important}.mission-box li{margin:8px 0}
+.s3-root{background:#0c1629;border:1px solid #49617b;border-radius:20px;padding:24px;margin:27px 0;box-shadow:0 12px 40px #0003}
+.s3-root h3{font-size:27px!important;letter-spacing:-.025em;margin:6px 0!important}
+.s3-root h4{font-size:16px;margin:0 0 12px}
+.s3-eyebrow{font-size:11px;color:#a5f2d6;letter-spacing:.15em;font-weight:800}
+.s3-intro{margin-top:0}.s3-flow{background:#1e3b43;border:1px solid #496e72;color:#b5f7e3;padding:12px 15px;border-radius:12px;font-weight:650}
+.s3-section{margin:22px 0 0;padding-top:20px;border-top:1px solid #344860}
+.s3-answers{display:grid;grid-template-columns:1fr;gap:8px}
+.s3-answer,.s3-control{cursor:pointer;border:1px solid #456078;border-radius:11px;color:#e6f3ff;background:#1d2f48;padding:12px 14px;font:inherit}
+.s3-answer{text-align:left}.s3-answer:hover,.s3-control:hover{border-color:#96ead4}
+.s3-answer.s3-chosen{border-color:#a5f2d6;background:#23504d}
+.s3-answer:focus-visible,.s3-control:focus-visible{outline:3px solid #b4a3ff;outline-offset:2px}
+.s3-feedback{min-height:25px;font-weight:600;color:#dfecf8!important;font-size:14px!important}
+.s3-feedback[data-correct=true]{color:#a5f2d6!important}.s3-metrics{display:flex;flex-wrap:wrap}
+.s3-stat{border:1px solid #41777d;background:#1d3d4a;border-radius:14px;padding:15px 22px;color:#c8fdec;font-size:20px;font-weight:700;margin:6px 0 14px}
+.s3-actions{display:flex;gap:8px;flex-wrap:wrap}.s3-control{font-size:14px;font-weight:700}
+.s3-label{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:12px 0;color:#dbe7f4}
+.s3-label input{accent-color:#a5f2d6}.s3-check{display:flex;gap:12px;align-items:center;font-weight:650;color:#e9f5f8}
+.s3-check input{width:20px;height:20px;accent-color:#a5f2d6}.s3-disclaimer{font-size:12px!important;color:#a7b8ce!important}
+@media(max-width:820px){.layout{grid-template-columns:1fr}.s3-root{padding:17px}.panel{padding:18px}header{position:static}}
 </style></head><body>
 <header><span class="brand">CLEARLINE CODE / LEARNING</span><a href="../">Back to pathways</a></header>
 <main><span class="pill">Self-paced · No live classes</span><h1>Your game-building workspace</h1><p>Open your course, follow the projects, track progress on this device, and keep your access URL bookmarked. Course links are reusable bearer links: anyone with your link can access the same materials.</p>
 <div id="status" class="helper" role="status">Loading your courses…</div><div id="courseButtons" class="actions"></div>
 <div class="layout"><aside class="panel"><h2 id="courseTitle">My lessons</h2><p id="progressText" class="small"></p><div class="progress"><div id="progressBar"></div></div><div id="lessonMenu"></div></aside><article class="panel"><div id="content" class="empty"><h2>Choose a pathway</h2><p>Select an unlocked course to begin.</p></div></article></div>
 <p class="small">Progress is saved only in this browser. No student account, classes, coaching or completion certificate are included. Need help with a purchase or lost access link? Contact the merchant using the support details shown on your Stripe receipt.</p>
-</main><script>
+</main><script src="studio-v3.js"></script><script>
 "use strict";
 const ALLOWED=["roblox","minecraft","indie"];const state={courses:{},active:null,lesson:0};
 const el=id=>document.getElementById(id);
@@ -85,7 +116,7 @@ function render(){
  add(c,"h3","Your challenge");add(c,"p",a.challenge);add(c,"h3","Check the result");add(c,"p",a.test);
  const d=add(c,"details");add(d,"summary","Troubleshooting tip");add(d,"p",a.debug);
  const review=add(c,"details");add(review,"summary","Reflect");add(review,"p",a.review);
- createSkillLab(c,course,state.lesson);
+ if(!window.ClearlineStudioV3?.render(c,course,state.lesson)){createSkillLab(c,course,state.lesson)}
  const controls=add(c,"div",undefined,"actions");const check=add(controls,"label",undefined,"check");
  const box=add(check,"input");box.type="checkbox";box.checked=!!completed[state.lesson];add(check,"span","I completed this lesson");box.onchange=()=>{const p=doneFor(course.id);p[state.lesson]=box.checked;localStorage.setItem(keyFor(course.id),JSON.stringify(p));render()};
  const next=add(controls,"button",state.lesson<total-1?"Next lesson →":"Course overview","secondary");
