@@ -71,7 +71,19 @@
       <div class="vault-actions"><button type="button" class="btn btn-primary" id="vaultOpen">Create private vault</button><button type="button" class="btn btn-ghost" id="vaultLock" disabled>Lock</button></div>
       <p class="microcopy" id="vaultHint">Your passphrase is never saved. Losing it means your encrypted journal cannot be recovered. On shared devices, lock the vault when finished.</p>
       <div class="vault-divider"></div>
-      <p class="eyebrow">YOUR DATA, YOUR CHOICE</p><div class="vault-tools"><button id="exportVault" type="button" disabled>Export encrypted backup ↗</button><label class="import-link" for="importVault">Import encrypted backup ↗</label><p class="microcopy restore-help">To restore: lock your vault, enter the original backup passphrase above, then select the backup file. The file is decrypted and checked before replacing anything.</p><input id="importVault" type="file" accept=".json,application/json" class="sr-only"><button id="eraseVault" type="button" class="danger">Erase this device's vault</button></div>
+      <p class="eyebrow">YOUR DATA, YOUR CHOICE</p><div class="vault-tools">
+  <button id="exportVault" type="button" disabled>Export encrypted backup ↗</button>
+  <label class="import-link" for="importVault">Import encrypted backup ↗</label>
+  <p class="microcopy restore-help">To restore: lock your vault, enter the original backup passphrase above, then select the encrypted backup file. We verify it before changing anything.</p>
+  <label class="recovery-checkbox"><input id="replaceVault" type="checkbox"><span>I have backed up this device's vault and authorize replacing it with a verified import.</span></label>
+  <input id="importVault" type="file" accept=".json,application/json" class="sr-only">
+  <button id="eraseVault" type="button" class="danger">Erase this device's vault</button>
+  <div id="eraseConfirm" class="erase-confirm" hidden role="group" aria-label="Confirm permanent vault deletion">
+    <p><strong>Delete this device's vault permanently?</strong> Your encrypted journal and settings will be lost unless you have a backup.</p>
+    <label class="recovery-checkbox"><input id="eraseAcknowledge" type="checkbox"><span>I understand this cannot be undone without a separate encrypted backup.</span></label>
+    <div class="erase-actions"><button id="eraseApprove" class="danger" type="button" disabled>Yes, permanently erase</button><button id="eraseCancel" type="button">Cancel</button></div>
+  </div>
+</div>
       <p class="microcopy">Privacy limits: browser storage can be cleared; a compromised device or malicious browser extension can still access content while unlocked. This is not cloud backup. Test your encrypted backup before relying on it; keep your passphrase separately and safely.</p>
     </article>
     <article class="panel journal-panel">
