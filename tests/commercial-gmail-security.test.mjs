@@ -45,6 +45,11 @@ test("read-only thread reconciliation does not multiply the six-source ledger",(
  const b=core.merge(a.opportunities,{id:TID,messages:[outbound,received]});
  assert.equal(b.opportunities.length,1);assert.equal(b.new_messages,0);assert.equal(b.unchanged,1);
 });
+test("private import rejects same Gmail thread presented as multiple accounts",()=>{
+ const first={...initial[0],id:"account-1"};
+ const second={...initial[0],id:"account-2"};
+ assert.throws(()=>engine.normalizeBundle({opportunities:[first,second]}),/Duplicate Gmail thread/);
+});
 test("auto-replies and delivery failures never count as human commercial responses",()=>{
  const auto=MSG(B,"2026-11-09T20:00:00Z",["INBOX"],"Automatic reply: inquiry","We received your message.","noreply@example.test");
  const bounce=MSG(B,"2026-11-09T20:00:00Z",["INBOX"],"Delivery Status Notification (Failure)","The message was not delivered.","mailer-daemon@example.test");
