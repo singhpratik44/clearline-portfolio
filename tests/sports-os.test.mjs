@@ -65,7 +65,7 @@ test('role and time controls change the graph, milestone and 90-day plan',()=>{
   const {elements:e,buttons}=init();
   assert.equal(e['stage-name'].textContent,'Youth / assistant coach');
   assert.equal(e['plan-grid'].children.length,3);
-  assert.equal(e['career-graph'].children.length,15); // title + four edges + five nodes + five labels + five year labels? 20
+  assert.equal(e['career-graph'].children.length,20); // title + four edges + five nodes + five labels + five year labels
   e.time.value='3';e.time.fire('input');
   assert.equal(e['stage-name'].textContent,'Director of coaching');
   assert.equal(e['time-output'].textContent,'YEARS 4–6+');
