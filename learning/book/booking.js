@@ -4,7 +4,7 @@
 const codingIds=new Set(["scratch-stories","roblox-worlds","minecraft-makers","3d-game-design","python-adventures","web-creators","mobile-prototypes","music-media-code"]);
 const tracks=(window.AP_SUBJECTS||[]).filter(t=>codingIds.has(t.id));
 const $=id=>document.getElementById(id);
-const select=$("subject-select"),age=$("age-band"),ack=$("checkout-ack"),stripe=$("stripe-panel"),notice=$("payment-status");
+const select=$("subject-select"),age=$("age-band"),day=$("request-day"),zone=$("request-zone"),ack=$("checkout-ack"),stripe=$("stripe-panel"),notice=$("payment-status");
 const param=new URLSearchParams(location.search).get("track");
 const valid=tracks.some(t=>t.id===param)?param:"scratch-stories";
 tracks.forEach(t=>{
@@ -24,12 +24,14 @@ function update(){
  "",
  "I would like to confirm a private lesson for the subject: "+t.title+".",
  "Preferred age band (no name): "+(band||"Not specified"),
+ "Preferred day/time: "+(day.value||"Flexible / to be discussed"),
+ "Time zone: "+zone.value,
  "Please confirm a qualified available instructor, lesson goals, scheduling options, written cancellation/refund terms, and whether the current $65 general Stripe lesson matches this subject.",
  "",
  "Please do not charge me or assign a session until we agree on the scope."
  ];
  $("availability-link").href="mailto:parry.s.2324@gmail.com?subject="+encodeURIComponent("APERTURE subject and coach availability: "+t.title)+"&body="+encodeURIComponent(lines.join("\n"));
- $("weekly-link").href="mailto:parry.s.2324@gmail.com?subject="+encodeURIComponent("APERTURE weekly request: "+t.title)+"&body="+encodeURIComponent("Hello,\n\nPlease confirm availability for weekly private lessons in "+t.title+"; age band: "+(band||"not specified")+". Please also confirm the specific recurring Stripe subscription link, full schedule, cancellation and rescheduling policy.\n");
+ $("weekly-link").href="mailto:parry.s.2324@gmail.com?subject="+encodeURIComponent("APERTURE weekly request: "+t.title)+"&body="+encodeURIComponent("Hello,\n\nPlease confirm availability for weekly private lessons in "+t.title+"; age band: "+(band||"not specified")+"; preferred timing: "+(day.value||"flexible")+"; time zone: "+zone.value+". Please also confirm the specific recurring Stripe subscription link, full schedule, cancellation and rescheduling policy.\n");
  const isYoung=band==="4-6";
  const low=(band==="7-10"?7:band==="11-13"?11:band==="14-17"?14:0);
  const high=(band==="7-10"?10:band==="11-13"?13:band==="14-17"?17:0);
@@ -67,6 +69,8 @@ function update(){
 }
 select.addEventListener("change",()=>{ack.checked=false;update();});
 age.addEventListener("change",()=>{ack.checked=false;update();});
+day.addEventListener("change",update);
+zone.addEventListener("change",update);
 ack.addEventListener("change",update);
 update();
 })();
