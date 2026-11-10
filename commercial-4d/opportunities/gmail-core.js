@@ -46,6 +46,9 @@ function classify(messages,existingStage){
  const recent=human[human.length-1],subject=header(recent.payload?.headers,"Subject");
  const snippet=text(recent.snippet,500);const context=(subject+" "+snippet).toLowerCase();
  let stage="responded",reason="A human responded, but commercial terms are not verified.";
+ if(/(?:cancel(?:led|ed|ation)?|reschedul|postpon|no longer (?:available|hiring|interested)|withdr(?:aw|ewn)|unable to (?:attend|meet))/i.test(context)){
+  return {stage:"responded",reason:"Potential cancellation or changed terms detected; prior confirmation needs human re-verification.",confidence:"inferred",needs_review:true};
+ }
  if(/(?:confirmed (?:for|at)|i.ll (?:give you a )?call|works for me|appointment confirmed|interview confirmed|screening confirmed)/i.test(context)){
   stage="screening_confirmed";reason="A screening or meeting confirmation appears in the response; verify precise details.";
  }else if(/(?:let.s meet|meet on friday|calendar invite|schedule (?:a |the )?(?:meeting|call)|can meet|book a (?:time|meeting)|meet briefly|availability next week)/i.test(context)){
