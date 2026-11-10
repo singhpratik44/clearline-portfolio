@@ -1,5 +1,20 @@
-/* Active live-mode Stripe payment links verified in Clearline Code. */
+/* Verified live Stripe checkout URLs; digital licenses only. */
 window.APERTURE_GIFT_CHECKOUT={
+  "basketball-tactics-library": "https://buy.stripe.com/eVq3cx1O67s82ZCeAp6kg11",
+  "basketball-coach-ops": "https://buy.stripe.com/4gMfZj50i9AggQs2RH6kg10",
+  "basketball-gifts-collection": "https://buy.stripe.com/6oU00ldwO6o4fModwl6kg0Z",
+  "team-culture": "https://buy.stripe.com/28E6oJboG7s8as48c16kg0Y",
+  "scout-observation": "https://buy.stripe.com/00w9AV2Sa13K8jWeAp6kg0X",
+  "pickup-hoops": "https://buy.stripe.com/fZuaEZ1O69Ag43Gbod6kg0W",
+  "girl-hoopers": "https://buy.stripe.com/6oU5kF64m3bS6bO77X6kg0V",
+  "basketball-camp": "https://buy.stripe.com/7sYdRbeAS7s86bOfEt6kg0U",
+  "coach-season": "https://buy.stripe.com/9B628teAS5k08jWbod6kg0T",
+  "hoop-gift-cards": "https://buy.stripe.com/eVq4gBdwObIoeIk4ZP6kg0S",
+  "basketball-recovery-habits": "https://buy.stripe.com/eVq6oJ3We27O9o0gIx6kg0R",
+  "basketball-scorekeeper": "https://buy.stripe.com/eVqfZjeAS27O7fS2RH6kg0Q",
+  "rookie-hoop": "https://buy.stripe.com/aFaaEZfEW6o40Ru3VL6kg0P",
+  "three-on-three": "https://buy.stripe.com/7sYcN7akC27O9o0eAp6kg0O",
+  "defensive-iq": "https://buy.stripe.com/8x28wRakC7s81Vy63T6kg0N",
   "all-sports-bundle": "https://buy.stripe.com/aFa9AVboG4fWbw8dwl6kg0L",
   "coach-team-bundle": "https://buy.stripe.com/3cIeVf9gydQwfMofEt6kg0K",
   "young-athlete-bundle": "https://buy.stripe.com/00waEZ8cubIobw8dwl6kg0J",
