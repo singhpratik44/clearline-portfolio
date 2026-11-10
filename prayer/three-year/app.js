@@ -1,10 +1,10 @@
+import {MAX_BACKUP_BYTES,fromB64,derive,encryptVault,decryptVault,randomSalt,parseBackup} from "./vault-crypto.mjs";
 /* A Quiet Journey — private, offline-first three-year sanctuary.
    No network requests, cookies, analytics, remote authentication or third-party libraries. */
 (function () {
 "use strict";
 const $ = id => document.getElementById(id);
 const KEY = "aqj-local-encrypted-vault-v1";
-const ITERATIONS = 250000;
 const TODAY = () => { const d = new Date(); return [d.getFullYear(), String(d.getMonth()+1).padStart(2,"0"), String(d.getDate()).padStart(2,"0")].join("-"); };
 const YEARS = ["NOTICE","PRACTICE","INTEGRATE"];
 const FOCUSES = {
@@ -54,7 +54,7 @@ const CHAPTERS = [
   ["An open horizon","Leave space for becoming.","Which values should guide the next chapter of your life?","Write a letter to your future self, without predictions."],
   ["Three years, many beginnings","The journey remains open.","What would you keep, release, or begin anew?","Honor what was real. Choose your next simple practice."]
 ];
-const state = { months:36, month:1, focus:"truth", minutes:10, start:TODAY(), vaultKey:null, vaultData:null, entryDay:TODAY() };
+const state = { months:36, month:1, focus:"truth", minutes:10, start:TODAY(), vaultKey:null, vaultData:null, entryDay:TODAY(), world:"spiral" };
 let sceneDraw = () => {};
 let sceneStop = () => {};
 const dateValid = s => /^\d{4}-\d\d-\d\d$/.test(s) && !Number.isNaN(new Date(s+"T12:00:00").getTime());
@@ -127,26 +127,7 @@ function hydrateSettings(v){
 function secureAvailable(){return !!(window.isSecureContext && window.crypto && crypto.subtle && crypto.getRandomValues);}
 function readStored(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
 function writeStored(value){localStorage.setItem(KEY,value);}
-function b64(bytes){let str="";for(let i=0;i<bytes.length;i+=16384){str+=String.fromCharCode.apply(null,bytes.subarray(i,i+16384));}return btoa(str);}
-function fromB64(s){if(typeof s!=="string"||s.length>6000000||!/^[\w+/]*={0,2}$/.test(s))throw new Error("Invalid backup encoding");const raw=atob(s);return Uint8Array.from(raw,c=>c.charCodeAt(0));}
-async function derive(password,salt) {
-  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(password),"PBKDF2",false,["deriveKey"]);
-  return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:ITERATIONS,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);
-}
-function validVault(v){return !!(v&&v.version===1&&v.kdf==="PBKDF2-SHA256"&&v.iterations===ITERATIONS&&typeof v.salt==="string"&&typeof v.iv==="string"&&typeof v.ciphertext==="string"&&v.salt.length<128&&v.iv.length<128&&v.ciphertext.length<6000000);}
-function vaultObject(){try{const raw=readStored();if(!raw)return null;const v=JSON.parse(raw);return validVault(v)?v:null;}catch(e){return null;}}
-async function encryptVault(key,data,salt){
-  const iv=crypto.getRandomValues(new Uint8Array(12));
-  const encoded=new TextEncoder().encode(JSON.stringify(data));
-  const encrypted=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,encoded);
-  return {version:1,kdf:"PBKDF2-SHA256",iterations:ITERATIONS,salt:b64(salt),iv:b64(iv),ciphertext:b64(new Uint8Array(encrypted))};
-}
-async function decryptVault(key,v){
-  const raw=await crypto.subtle.decrypt({name:"AES-GCM",iv:fromB64(v.iv)},key,fromB64(v.ciphertext));
-  const data=JSON.parse(new TextDecoder().decode(raw));
-  if(!data || typeof data!=="object" || !data.entries || typeof data.entries!=="object" || !data.settings)throw new Error("Invalid vault data");
-  return data;
-}
+function vaultObject(){try{const raw=readStored();return raw?parseBackup(raw):null;}catch(e){return null;}}
 async function persistVault() {
   if(!state.vaultKey || !state.vaultData)throw new Error("Vault locked");
   state.vaultData.settings=settings();
@@ -183,7 +164,7 @@ async function openVault(){
       state.vaultKey=key;state.vaultData=data;hydrateSettings(data.settings);
     }else{
       if(readStored()){throw new Error("An existing vault is invalid. Export it before taking action.");}
-      const salt=crypto.getRandomValues(new Uint8Array(16));
+      const salt=randomSalt();
       const key=await derive(password,salt);
       const data={settings:settings(),entries:{}};
       writeStored(JSON.stringify(await encryptVault(key,data,salt)));
@@ -254,9 +235,8 @@ function exportVault(){
 async function importVault(file){
   if(!file)return;
   try{
-    if(file.size>3000000)throw new Error("Backup too large");
-    const data=JSON.parse(await file.text());
-    if(!validVault(data))throw new Error("Invalid backup");
+    if(file.size>MAX_BACKUP_BYTES)throw new Error("Backup too large");
+    const data=parseBackup(await file.text());
     if(readStored()!==null&&!confirm("Replace the encrypted vault on this device? Export a backup first. This cannot be undone."))return;
     writeStored(JSON.stringify(data));lockVault();showStatus("vaultState","Encrypted backup imported. Enter its original passphrase to unlock.");
   }catch(e){showStatus("vaultState","Import failed. Choose a valid encrypted A Quiet Journey backup (under 3 MB).");}
