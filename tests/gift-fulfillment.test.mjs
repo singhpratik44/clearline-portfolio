@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {verifyGiftPurchase} from '../gifts/fulfillment/verify.mjs';
+import {loadBooks,renderBook} from '../gifts/fulfillment/renderer.mjs';
 import {BUNDLE_BOOKS} from '../gifts/fulfillment/bundles.mjs';
 import {PURCHASE_LINK_SKU} from '../gifts/fulfillment/payment-links.mjs';
 
@@ -20,6 +21,15 @@ test('all 69 Stripe payment links mapped to an entitlement',()=>{
   assert.equal(Object.keys(PURCHASE_LINK_SKU).length,69);
   assert.equal(BUNDLE_BOOKS['all-sports-bundle'].length,33);
   assert.equal(BUNDLE_BOOKS['all-vault'].length,54);
+});
+test('server-side activity renderer covers all 54 original printable workbooks',async()=>{
+  const books=await loadBooks();
+  assert.equal(Object.keys(books).length,54);
+  assert.equal(books['point-guard-lab'].quests.length,8);
+  assert.equal(books['basketball-dreambook'].quests.length,8);
+  assert.equal(books['basketball-iq'].quests.length,8);
+  assert.ok(renderBook(books['defensive-iq']).includes('Print / Save PDF'));
+  assert.ok(BUNDLE_BOOKS['basketball-coach-studio'].every(sku=>books[sku]));
 });
 test('a completed live paid session grants its exact purchased SKU',async()=>{
   const r=await verifyGiftPurchase(validId,{secret,fetchFn:responder(mockSession())});
