@@ -7,7 +7,7 @@
 const P=root.AP4DPlan,E=root.AP4DOpportunity,W=root.AP4DWorkspace;
 if(!P||!E||!W)throw Error("APERTURE planner requires the local-only opportunity modules.");
 const el=id=>document.getElementById(id);
-let assumptions={},studies=[],shownId="",current=null;
+let assumptions=Object.create(null),studies=[],shownId="",current=null;
 const value=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
 const formatNum=n=>typeof n==="number"?new Intl.NumberFormat("en-US",{maximumFractionDigits:1}).format(n):"—";
 const names={
@@ -33,7 +33,7 @@ const empty=()=>({...P.DEFAULT});
 const dataFor=id=>P.normalize(assumptions[id]||empty());
 function setInputs(next){
  if(!next||typeof next!=="object"||Array.isArray(next))throw Error("Invalid private plan data.");
- const out={};
+ const out=Object.create(null);
  const ids=new Set(W.getRecords().map(r=>r.id));
  for(const [id,a] of Object.entries(next).slice(0,150)){
   if(!ids.has(id))continue;
