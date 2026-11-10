@@ -34,7 +34,12 @@ function normalize(raw,i){
   contract_value:hasValue?value:null,terms_confirmed:verifiedTerms,
   scenario_probability:hasProb?proposedProb:null,
   decision_owner:clean(raw.decision_owner,120),
-  planned_days:raw.planned_days===null?null:Number.isFinite(Number(raw.planned_days))?Math.max(0,Math.min(365,Math.floor(Number(raw.planned_days)))):null
+  planned_days:raw.planned_days===null?null:Number.isFinite(Number(raw.planned_days))?Math.max(0,Math.min(365,Math.floor(Number(raw.planned_days)))):null,
+  gmail_thread_id:clean(raw.gmail_thread_id,48),
+  message_ids:Array.isArray(raw.message_ids)?Array.from(new Set(raw.message_ids.filter(v=>typeof v==="string"&&/^[0-9a-f]{12,32}$/i.test(v)))).slice(0,200):[],
+  last_synced_at:stamp(raw.last_synced_at),
+  sync_reason:clean(raw.sync_reason,350),
+  gmail_latest_excerpt:clean(raw.gmail_latest_excerpt,480)
  };
 }
 function normalizeBundle(input){
