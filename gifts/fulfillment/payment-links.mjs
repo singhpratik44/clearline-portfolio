@@ -1,5 +1,20 @@
-/** Stripe Payment Link IDs are public identifiers, not credentials. Do not put secret keys in Git. */
-export const PURCHASE_LINK_SKU = Object.freeze({
+/** Public Stripe payment-link identifiers; server-side validation only. */
+export const PURCHASE_LINK_SKU=Object.freeze({
+  "plink_1UaOFrRuy3ohymOHgutxDqXK": "basketball-tactics-library",
+  "plink_1UaOFpRuy3ohymOHh3BCUsdJ": "basketball-coach-ops",
+  "plink_1UaOFnRuy3ohymOHCUktCwGN": "basketball-gifts-collection",
+  "plink_1UaOFlRuy3ohymOHyYhrI5kF": "team-culture",
+  "plink_1UaOFjRuy3ohymOHq3T448Fb": "scout-observation",
+  "plink_1UaOFiRuy3ohymOHC387gqD1": "pickup-hoops",
+  "plink_1UaOFgRuy3ohymOH8BEwWaSW": "girl-hoopers",
+  "plink_1UaOFORuy3ohymOHxOQUHrQi": "basketball-camp",
+  "plink_1UaOFMRuy3ohymOHZe8i8lN6": "coach-season",
+  "plink_1UaOFKRuy3ohymOHy4Gwz9Py": "hoop-gift-cards",
+  "plink_1UaOFIRuy3ohymOHEevtGNyL": "basketball-recovery-habits",
+  "plink_1UaOFGRuy3ohymOHjGM7Fz8Y": "basketball-scorekeeper",
+  "plink_1UaOFFRuy3ohymOH9ZehUqcc": "rookie-hoop",
+  "plink_1UaOFDRuy3ohymOHIWT0Clww": "three-on-three",
+  "plink_1UaOFARuy3ohymOH2Tv867Tp": "defensive-iq",
   "plink_1UaNjJRuy3ohymOHwx2s7Rm3": "all-sports-bundle",
   "plink_1UaNjIRuy3ohymOH34qKX3zl": "coach-team-bundle",
   "plink_1UaNjGRuy3ohymOH723IHj6I": "young-athlete-bundle",
