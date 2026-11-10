@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "checked_at": "2026-11-10",
+  "role_id": "ashby-smb-customer-success-americas",
+  "employer": "Ashby",
+  "title": "SMB Customer Success Manager - Americas",
+  "official_requisition": "dd3601fc-3a21-467b-aaff-43fceb65864b",
+  "official_url": "https://jobs.ashbyhq.com/ashby/dd3601fc-3a21-467b-aaff-43fceb65864b/",
+  "location": "Remote - US or Canada",
+  "compensation": "US average $80,000-$120,000 plus equity; SF/NYC $92,000-$138,000",
+  "status": "research_only_not_application_ready",
+  "posting_observation": "Employer-hosted ATS page indexed/crawled within six days; independent live ATS API requisition confirmation still required",
+  "employer_needs": {
+    "explicit": [
+      {
+        "need": "Scale programmatic onboarding for early-stage customers",
+        "source": "official requisition",
+        "stakeholders": [
+          "SMB customers",
+          "Customer Success"
+        ],
+        "proposed_component": "interactive onboarding journey and adoption checkpoint simulator",
+        "proposed_kpi": "onboarding completion and time to first successful workflow"
+      },
+      {
+        "need": "Create documentation and e-webinars that enable self-service",
+        "source": "official requisition",
+        "stakeholders": [
+          "customers",
+          "CSM"
+        ],
+        "proposed_component": "knowledge and webinar-to-action tracker",
+        "proposed_kpi": "self-service completion and repeat support inquiries"
+      },
+      {
+        "need": "Own customer book, shared inbox and calls against SLAs",
+        "source": "official requisition",
+        "stakeholders": [
+          "SMB customers",
+          "CS operations"
+        ],
+        "proposed_component": "SLA queue triage with human approval",
+        "proposed_kpi": "first response SLA attainment and unresolved queue age"
+      }
+    ],
+    "hypotheses": [
+      "Use onboarding cohort segments to prioritize help content; not an employer-stated requirement"
+    ],
+    "hard_requirements": [
+      "At least two years full-time SMB Customer Success Manager, Account Manager or Program Manager experience; must verify candidate's qualifying tenure"
+    ],
+    "candidate_fit": "Multi-site education operations, family communications, onboarding and independent APERTURE workflows are transferable; SaaS CSM book ownership and two-year full-time qualifying tenure unverified",
+    "open_questions": [
+      "Does candidate's prior program-manager employment meet minimum two years full-time?",
+      "Are California applicants eligible under location-specific restrictions?",
+      "Is exact requisition still active in ATS API?"
+    ]
+  },
+  "prototype": {
+    "state": "not_built",
+    "proposed_interactions": [
+      "choose onboarding cohort",
+      "triage simulated SLA tickets",
+      "review adoption KPIs"
+    ],
+    "synthetic_data_only": true,
+    "days_30_60_90": [
+      "Audit onboarding and support signals with CS leads",
+      "Pilot one self-service journey and SLA queue with agreed metrics",
+      "Evaluate cohort outcomes and propose scaling decision"
+    ]
+  },
+  "delivery": {
+    "draft": "blocked_until_live_demo_verified",
+    "sent": false,
+    "applied": false,
+    "approval": "required"
+  }
+}
