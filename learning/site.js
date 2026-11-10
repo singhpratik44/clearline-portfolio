@@ -49,7 +49,7 @@ function render(){
 }
 expand?.addEventListener("click",()=>{
  expanded=!expanded;render();
- if(!expanded)document.getElementById("programs")?.scrollIntoView({behavior:"instant",block:"start"});
+ if(!expanded)document.getElementById("programs")?.scrollIntoView({behavior:"auto",block:"start"});
 });
 search?.addEventListener("input",render);
 filterButtons.forEach(b=>b.addEventListener("click",()=>{family=b.dataset.family;render();}));
