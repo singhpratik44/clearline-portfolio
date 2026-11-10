@@ -40,7 +40,30 @@ const tracks = [
 ];
 const canvas = $("universe-canvas"), context = canvas.getContext("2d",{alpha:true});
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const state = {rotation:.58, tilt:-.13, zoom:1, stage:0, visualStage:0, selected:tracks[3].id, world:"all", query:"", points:[], w:0,h:0, dpr:1, pointer:null,playTimer:null, tween:null, refreshQueued:false};
+const state = {rotation:.58, tilt:-.13, zoom:1, stage:0, visualStage:0, selected:tracks[3].id, world:"all", query:"", foundations:false, points:[], w:0,h:0, dpr:1, pointer:null,playTimer:null, tween:null, refreshQueued:false};
+// Human-readable, non-prescriptive curricular relationships. They are not inferred from student data.
+const foundations = {
+  "scratch-stories": [],
+  "roblox-worlds": ["scratch-stories"],
+  "minecraft-makers": ["scratch-stories"],
+  "3d-game-design": ["scratch-stories", "roblox-worlds"],
+  "python-adventures": [],
+  "web-creators": ["python-adventures"],
+  "mobile-prototypes": ["web-creators"],
+  "data-detectives": ["python-adventures"],
+  "ai-literacy": ["data-detectives"],
+  "machine-learning": ["python-adventures","data-detectives","ai-literacy"],
+  "ai-agents": ["python-adventures","ai-literacy"],
+  "computer-vision": ["python-adventures","machine-learning"],
+  "robotics": ["scratch-stories","python-adventures"],
+  "electronics": ["robotics"],
+  "cyber-citizenship": [],
+  "math-simulations": ["python-adventures"],
+  "sports-analytics": ["data-detectives"],
+  "climate-tech": ["data-detectives"],
+  "music-media-code": ["scratch-stories"],
+  "startup-builders": ["web-creators","mobile-prototypes"]
+};
 const trackById = new Map(tracks.map(t=>[t.id,t]));
 const sanitizeId = id=>trackById.has(id)?id:tracks[3].id;
 const sceneScale = () => Math.max(.65,Math.min(state.w/680,state.h/480))*state.zoom;
@@ -100,7 +123,20 @@ function render(){
     const group=points.filter(p=>p.track.family===family);
     for(let i=0;i<group.length;i++)
       for(let j=i+1;j<group.length;j++)
-        drawConnection(group[i],group[j],families[family].color,.12,.7);
+        drawConnection(group[i],group[j],families[family].color,state.foundations?.038:.12,.7);
+  }
+  // Foundations mode highlights the proposed dependencies for the selected track.
+  // These relationships do not represent measured mastery or a required syllabus.
+  if(state.foundations){
+    const to=points.find(p=>p.track.id===state.selected);
+    if(to)for(const id of foundations[state.selected]||[]){
+      const from=points.find(p=>p.track.id===id);
+      if(from){
+        drawConnection(from,to,"#d5e8c6",.96,2.5);
+        context.beginPath();context.arc(from.x,from.y,10,0,Math.PI*2);
+        context.strokeStyle="rgba(224,242,213,.9)";context.lineWidth=2;context.stroke();
+      }
+    }
   }
   // The fourth dimension becomes visible as a ghosted four-stage trajectory.
   const chosen=trackById.get(state.selected);
@@ -160,6 +196,27 @@ function updateSelection(){
   $("detail-chapter-title").textContent=c.title+".";
   $("detail-chapter-description").textContent=t.steps[state.stage];
   $("detail-capstone").textContent=t.capstone;
+  const root=$("dependency-links");root.replaceChildren();
+  const prerequisites=foundations[t.id]||[];
+  if(!prerequisites.length){
+    const label=document.createElement("span");label.textContent="No prior specialization required for this suggested entry point.";
+    label.className="dependency-empty";root.append(label);
+  } else {
+    prerequisites.forEach(id=>{
+      const f=trackById.get(id);if(!f)return;
+      const button=document.createElement("button");button.type="button";
+      button.textContent=f.name+" ↗";button.setAttribute("aria-label","Explore suggested foundation: "+f.name);
+      button.addEventListener("click",()=>{
+        state.world="all";state.query="";
+        $("world-filter").value="all";$("track-search").value="";
+        filterList();select(id);
+      });root.append(button);
+    });
+  }
+  $("dependency-title").textContent=prerequisites.length?"Possible starting points ("+prerequisites.length+")":"Open-entry specialization";
+  $("dependency-context").textContent=prerequisites.length?
+    "These are suggested conceptual foundations. A verified instructor determines the right starting point, based on the learner's experience.":
+    "No prior listed track is assumed. A coach can adapt the introduction to the learner's age and current skills.";
   $("view-pathway").href="../catalog/?track="+encodeURIComponent(t.id)+"#pathway";
   $("view-demo").href="../projects/#"+t.demo;
   $("scene-stage").textContent="CHAPTER 0"+(state.stage+1)+" · "+c.label;
@@ -201,6 +258,15 @@ function startStory(){
   },2300);
 }
 const setRotation=delta=>{state.rotation+=delta;requestRender();};
+$("toggle-dependencies").addEventListener("click",()=>{
+  state.foundations=!state.foundations;
+  $("toggle-dependencies").setAttribute("aria-pressed",String(state.foundations));
+  $("toggle-dependencies").textContent=state.foundations?"Foundations on":"Foundations";
+  $("scene-hint").textContent=state.foundations?
+    "Suggested foundations highlighted · not a learner assessment":
+    "Drag or swipe to orbit · select a track to inspect";
+  requestRender();
+});
 $("orbit-left").addEventListener("click",()=>setRotation(-.29));
 $("orbit-right").addEventListener("click",()=>setRotation(.29));
 $("zoom-in").addEventListener("click",()=>{state.zoom=Math.min(1.8,state.zoom*1.14);requestRender();});
