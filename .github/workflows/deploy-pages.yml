@@ -55,6 +55,27 @@ jobs:
           cp lab/index.html _site/lab/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
           touch _site/.nojekyll
+      - name: Stamp and gate Educators Rising Implementation Lab release
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          page = Path('_site/career-os/demos/educators-rising-implementation-lab/index.html')
+          assert page.is_file(), 'Educators Rising page missing from Pages artifact'
+          html = page.read_text(encoding='utf-8')
+          assert html.count('</head>') == 1, 'Ambiguous head element'
+          assert html.count('id="project"') == 1
+          assert html.count('id="resolve"') == 1
+          assert html.count('id="reset"') == 1
+          assert 'Synthetic sample data' in html and 'Not affiliated with Educators Rising' in html
+          sha = os.environ['GITHUB_SHA']
+          assert len(sha) == 40 and all(c in '0123456789abcdef' for c in sha)
+          marker = '<meta name="aperture-educators-release-sha" content="' + sha + '">'
+          assert 'aperture-educators-release-sha' not in html, 'Unexpected preexisting release stamp'
+          page.write_text(html.replace('</head>', marker + '</head>', 1), encoding='utf-8')
+          assert marker in page.read_text(encoding='utf-8')
+          print('PASS: Educators Rising packaged release stamped at', sha)
+          PY
       - name: Stamp commercial opportunity workspace release
         run: |
           python3 - <<'PY'
