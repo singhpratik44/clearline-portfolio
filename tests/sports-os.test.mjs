@@ -100,7 +100,7 @@ test('session evidence remains unverified and rejects insecure links',()=>{
 
 test('Sports V2 job discovery, profile and services pages exist with clear authority boundaries',()=>{
   for(const [page,markers] of [
-    ['sports-os/opportunities.html',['Opportunity Intelligence','id="job-list"','opportunities.js','Review required']],
+    ['sports-os/opportunities.html',['Opportunity Intelligence','id="job-list"','opportunities.js','Needs review']],
     ['sports-os/profile.html',['Professional Portfolio Builder','id="profile-form"','Self-reported']],
     ['sports-os/marketplace.html',['Services Studio','id="scope-form"','not a live marketplace']],
   ]){
