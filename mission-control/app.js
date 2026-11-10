@@ -21,7 +21,7 @@ function toast(msg,bad=false){
 function notify(){
  root.dispatchEvent(new CustomEvent("aperture:mission-changed"));
 }
-function select(kind,id){selected={kind,id};renderInspector();notify();}
+function select(kind,id){selected={kind,id};inspector();meetingList();taskList();proposalList();notify();}
 function dirty(msg){
  $("privacy-state").textContent=(state.sample?"SYNTHETIC DEMO WITH CHANGES":"PRIVATE IN MEMORY")+" · UNSAVED";
  toast(msg||"Local change recorded. Encrypted save is optional.");
