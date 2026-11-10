@@ -1,7 +1,9 @@
 (function(){
 "use strict";
-const tracks=window.AP_SUBJECTS||[];
-const families=["All worlds","Creative Worlds","Code Builders","AI Frontiers","Engineering & Systems","Real-World Creators"];
+// Public sales catalog is coding-only. Keep the 20-track canonical data for legacy explorations.
+const codingIds=new Set(["scratch-stories","roblox-worlds","minecraft-makers","3d-game-design","python-adventures","web-creators","mobile-prototypes","music-media-code"]);
+const tracks=(window.AP_SUBJECTS||[]).filter(t=>codingIds.has(t.id));
+const families=["All worlds","Creative Worlds","Code Builders","Real-World Creators"];
 const $=id=>document.getElementById(id);
 let family="All worlds",selected=null;
 const ageLimit={"4-6":4,"7-10":7,"11-13":11,"14-17":14};
