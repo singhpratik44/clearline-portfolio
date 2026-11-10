@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>My Coding Pathways | Clearline Code</title><style>
+:root{color-scheme:dark;--bg:#080c18;--surface:#121b2e;--line:#2a3855;--ink:#f5f9ff;--muted:#bac7db;--mint:#a8f1d4;--violet:#ab9aff}*{box-sizing:border-box}body{background:radial-gradient(circle at top right,#1d2352 0,transparent 38%),var(--bg);color:var(--ink);font:16px/1.6 system-ui,sans-serif;margin:0}button,a{font:inherit}a{color:var(--mint)}button{cursor:pointer}header{padding:22px max(20px,calc((100vw - 1160px)/2));display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}main{max-width:1160px;margin:auto;padding:32px 20px 80px}.brand{font-weight:900;letter-spacing:.14em;font-size:13px;color:var(--mint)}h1{font-size:clamp(30px,5vw,55px);line-height:1.1;letter-spacing:-.04em}h2{font-size:24px}p,li{color:var(--muted)}.pill{font-size:13px;border:1px solid #476e76;color:var(--mint);border-radius:99px;padding:5px 12px;display:inline-block}.layout{display:grid;grid-template-columns:290px 1fr;gap:20px;align-items:start}.panel{border:1px solid var(--line);background:rgba(18,27,46,.95);border-radius:18px;padding:23px}.navbutton{display:block;width:100%;padding:12px 14px;text-align:left;color:#e5ecf8;border:1px solid var(--line);border-radius:10px;background:#1b2940;margin-top:8px}.navbutton[aria-current=true]{background:#345344;border-color:var(--mint)}.primary{border:0;background:var(--mint);color:#0b1b1c;padding:11px 16px;border-radius:10px;font-weight:800}.secondary{border:1px solid var(--line);background:#243049;color:white;padding:10px 14px;border-radius:10px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0}.lesson{padding:17px 0;border-top:1px solid var(--line)}.step{margin:9px 0}.code{white-space:pre-wrap;word-break:break-word;background:#050b13;color:#dcffe6;border:1px solid #2a4e51;border-radius:10px;padding:18px;overflow:auto;line-height:1.5;font-size:13px}summary{cursor:pointer;color:var(--mint);font-weight:750}details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}.helper{background:#2e2730;border-left:3px solid #e9b37d;padding:12px 15px;border-radius:4px;color:#ffe9d0}.progress{background:#283448;height:9px;border-radius:20px;overflow:hidden}.progress>div{background:linear-gradient(90deg,var(--mint),var(--violet));height:100%;width:0}.check{display:flex;gap:9px;align-items:center;color:#e9f2fb}.check input{accent-color:#93eecf;width:18px;height:18px}.empty{padding:45px 16px;text-align:center}.small{font-size:13px;color:#a6b7cd}#courseButtons{margin:24px 0}pre{overflow:auto}section>h3{font-size:18px}.hidden{display:none}@media(max-width:800px){.layout{grid-template-columns:1fr}header{padding:18px 20px}#lessonMenu{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:5px}}@media print{body{background:white;color:#111}.layout{display:block}.panel{background:white;border:0}header,.actions,#lessonMenu,aside,.progress{display:none}p,li{color:#333}.code{color:#111;background:#f3f3f3}.lesson{break-inside:avoid}}
+</style></head><body>
+<header><span class="brand">CLEARLINE CODE / LEARNING</span><a href="../">Back to pathways</a></header>
+<main><span class="pill">Self-paced · No live classes</span><h1>Your game-building workspace</h1><p>Open your course, follow the projects, track progress on this device, and keep your access URL bookmarked. Course links are reusable bearer links: anyone with your link can access the same materials.</p>
+<div id="status" class="helper" role="status">Loading your courses…</div><div id="courseButtons" class="actions"></div>
+<div class="layout"><aside class="panel"><h2 id="courseTitle">My lessons</h2><p id="progressText" class="small"></p><div class="progress"><div id="progressBar"></div></div><div id="lessonMenu"></div></aside><article class="panel"><div id="content" class="empty"><h2>Choose a pathway</h2><p>Select an unlocked course to begin.</p></div></article></div>
+<p class="small">Progress is saved only in this browser. No student account, classes, coaching or completion certificate are included. Need help with a purchase or lost access link? Contact the merchant using the support details shown on your Stripe receipt.</p>
+</main><script>
+"use strict";
+const ALLOWED=["roblox","minecraft","indie"];const state={courses:{},active:null,lesson:0};
+const el=id=>document.getElementById(id);
+function bytes(s){s=s.replace(/-/g,"+").replace(/_/g,"/");s+="=".repeat((4-s.length%4)%4);return Uint8Array.from(atob(s),c=>c.charCodeAt(0))}
+function node(tag,text,klass){let n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(klass)n.className=klass;return n}
+function add(parent,tag,text,klass){let n=node(tag,text,klass);parent.append(n);return n}
+async function openPack(id,key){
+ const response=await fetch("../packs/"+id+".json",{cache:"no-store"});
+ if(!response.ok)throw Error("Unable to load lesson pack");
+ const pack=await response.json();
+ if(pack.schema!=="clearline-course-v1"||pack.alg!=="AES-256-GCM")throw Error("Unrecognized course format");
+ const k=await crypto.subtle.importKey("raw",bytes(key),{name:"AES-GCM"},false,["decrypt"]);
+ const decoded=await crypto.subtle.decrypt({name:"AES-GCM",iv:bytes(pack.nonce),additionalData:new TextEncoder().encode(id)},k,bytes(pack.ciphertext));
+ if(!("DecompressionStream" in window))throw Error("Your browser does not support this course format. Try a recent Safari, Chrome, or Firefox.");
+ const decompressed=new Blob([decoded]).stream().pipeThrough(new DecompressionStream("gzip"));
+ const text=await new Response(decompressed).text();const course=JSON.parse(text);
+ if(course.id!==id||!Array.isArray(course.lessons))throw Error("Unexpected course data");
+ return course;
+}
+function keyFor(id){return "clearline-progress-v1-"+id}
+function doneFor(id){try{return JSON.parse(localStorage.getItem(keyFor(id))||"{}")}catch{return {}}}
+function selectCourse(id){state.active=id;state.lesson=0;render()}
+function lessonSelect(i){state.lesson=i;render();window.scrollTo({top:0,behavior:"smooth"})}
+function render(){
+ const course=state.courses[state.active];if(!course)return;
+ el("courseTitle").textContent=course.title;
+ const completed=doneFor(course.id),done=Object.values(completed).filter(Boolean).length,total=course.lessons.length;
+ el("progressText").textContent=done+" of "+total+" lessons complete";
+ el("progressBar").style.width=(100*done/total)+"%";
+ const menu=el("lessonMenu");menu.replaceChildren();course.lessons.forEach((lesson,i)=>{const b=add(menu,"button",(completed[i]?"✓ ":"")+(i+1)+". "+lesson.title.replace(/^\d+\.\s*/,""),"navbutton");b.setAttribute("aria-current",String(i===state.lesson));b.onclick=()=>lessonSelect(i)});
+ const c=el("content");c.replaceChildren();
+ add(c,"span",course.language+" · about "+course.lessons[state.lesson].minutes+" min","pill");
+ add(c,"h2",course.lessons[state.lesson].title);
+ const a=course.lessons[state.lesson];
+ add(c,"p",a.goal);add(c,"h3","Why this matters");add(c,"p",a.explain);
+ add(c,"h3","Build it, step by step");const ol=add(c,"ol");a.steps.forEach(s=>add(ol,"li",s,"step"));
+ if(a.code){add(c,"h3","Starter code / reference");add(c,"pre",undefined,"code").append(node("code",a.code))}
+ add(c,"h3","Your challenge");add(c,"p",a.challenge);add(c,"h3","Check the result");add(c,"p",a.test);
+ const d=add(c,"details");add(d,"summary","Troubleshooting tip");add(d,"p",a.debug);
+ const review=add(c,"details");add(review,"summary","Reflect");add(review,"p",a.review);
+ const controls=add(c,"div",undefined,"actions");const check=add(controls,"label",undefined,"check");
+ const box=add(check,"input");box.type="checkbox";box.checked=!!completed[state.lesson];add(check,"span","I completed this lesson");box.onchange=()=>{const p=doneFor(course.id);p[state.lesson]=box.checked;localStorage.setItem(keyFor(course.id),JSON.stringify(p));render()};
+ const next=add(controls,"button",state.lesson<total-1?"Next lesson →":"Course overview","secondary");
+ next.onclick=()=>{if(state.lesson<total-1)lessonSelect(state.lesson+1);else showOverview(course)};
+ const full=add(controls,"button","Download course JSON","secondary");full.onclick=()=>{const blob=new Blob([JSON.stringify(course,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=course.id+"-learning-pathway.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),60000)};
+ const print=add(controls,"button","Print lesson","secondary");print.onclick=()=>window.print();
+}
+function showOverview(course){const c=el("content");c.replaceChildren();add(c,"h2",course.title);add(c,"p",course.tagline);add(c,"h3","Required software");add(c,"p",course.tool);add(c,"h3","Getting started");const ol=add(c,"ol");course.setup.forEach(s=>add(ol,"li",s));add(c,"h3","Final project");add(c,"p",course.outcome);add(c,"h3","Completion checklist");const ul=add(c,"ul");course.rubric.forEach(s=>add(ul,"li",s));add(c,"h3","Reference docs");course.references.forEach(url=>{const link=add(c,"p");const a=add(link,"a",url);a.href=url;a.rel="noopener noreferrer";a.target="_blank"});add(c,"p",course.legal,"small");const b=add(c,"button","Start lesson 1","primary");b.onclick=()=>lessonSelect(0)}
+async function boot(){
+ const params=new URLSearchParams(location.hash.slice(1));const matched=ALLOWED.filter(id=>params.get(id));
+ if(!matched.length){el("status").textContent="No access key found. Open the link provided after your successful Stripe checkout. If you lost it, contact Clearline Code via the support details on your receipt.";return}
+ let ok=0;for(const id of matched){try{const course=await openPack(id,params.get(id));state.courses[id]=course;ok++;const b=add(el("courseButtons"),"button",course.title,"primary");b.onclick=()=>{selectCourse(id);showOverview(course)}}catch(e){console.error("Course unlock failed for",id,e)}}
+ el("status").textContent=ok?"Unlocked "+ok+" pathway"+(ok>1?"s":"")+". Bookmark this full URL now; it is your access link.":"Could not unlock the course. Confirm the full checkout link is intact, and use a recent browser. For billing help, see your Stripe receipt.";
+ if(ok){el("status").className="small";selectCourse(Object.keys(state.courses)[0]);showOverview(state.courses[state.active])}
+}
+boot();
+</script></body></html>
