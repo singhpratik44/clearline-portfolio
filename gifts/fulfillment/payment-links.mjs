@@ -1,5 +1,15 @@
-/** Public Stripe payment-link identifiers; server-side validation only. */
-export const PURCHASE_LINK_SKU=Object.freeze({
+/** Stripe payment-link IDs verified in active Clearline Code account. IDs are not secrets. */
+export const PURCHASE_LINK_SKU = Object.freeze({
+  "plink_1UaOHRRuy3ohymOHX9V0jdAW": "basketball-coach-studio",
+  "plink_1UaOHPRuy3ohymOHiWbgYgEi": "basketball-starter-collection",
+  "plink_1UaOHNRuy3ohymOHValHlygp": "basketball-dreambook",
+  "plink_1UaOHLRuy3ohymOHxy20mAXB": "basketball-family",
+  "plink_1UaOHJRuy3ohymOHdDqYZ5L2": "offense-design",
+  "plink_1UaOHHRuy3ohymOHxkxnAKjQ": "coach-session-cards",
+  "plink_1UaOHGRuy3ohymOHoD07VFsm": "basketball-numbers",
+  "plink_1UaOHERuy3ohymOHAhvVPHk1": "practice-progress",
+  "plink_1UaOHCRuy3ohymOHJZWp3DJC": "defense-chalkboard",
+  "plink_1UaOHARuy3ohymOHpIUuXX9D": "point-guard-lab",
   "plink_1UaOFrRuy3ohymOHgutxDqXK": "basketball-tactics-library",
   "plink_1UaOFpRuy3ohymOHh3BCUsdJ": "basketball-coach-ops",
   "plink_1UaOFnRuy3ohymOHCUktCwGN": "basketball-gifts-collection",
