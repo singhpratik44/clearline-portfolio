@@ -1,0 +1,96 @@
+/** What a paid bundle grants; never infer permissions from a query-string SKU. */
+export const BUNDLE_BOOKS = Object.freeze({
+  "bundle": [
+    "game",
+    "birthday",
+    "space",
+    "family"
+  ],
+  "party-bundle": [
+    "birthday",
+    "birthday-story",
+    "classroom-party",
+    "achievement-awards"
+  ],
+  "growth-bundle": [
+    "confidence-kids",
+    "confidence-teens",
+    "motivation-kids",
+    "dream-90",
+    "mindful-moments",
+    "adult-purpose"
+  ],
+  "faith-bundle": [
+    "sikh-seva",
+    "christian-courage",
+    "interfaith-kindness",
+    "family-heritage"
+  ],
+  "pathways-bundle": [
+    "coding-pathway",
+    "basketball-pathway",
+    "stem-pathway",
+    "arts-pathway"
+  ],
+  "all-vault": [
+    "game",
+    "birthday",
+    "space",
+    "family",
+    "birthday-story",
+    "classroom-party",
+    "achievement-awards",
+    "confidence-kids",
+    "confidence-teens",
+    "motivation-kids",
+    "dream-90",
+    "coding-pathway",
+    "basketball-pathway",
+    "stem-pathway",
+    "arts-pathway",
+    "sikh-seva",
+    "christian-courage",
+    "interfaith-kindness",
+    "family-heritage",
+    "mindful-moments",
+    "adult-purpose"
+  ],
+  "basketball-ultimate": [
+    "basketball-iq",
+    "basketball-playbook",
+    "athlete-mindset-kids",
+    "athlete-mindset-teens",
+    "basketball-party",
+    "sports-film",
+    "season-keepsake"
+  ],
+  "young-athlete-bundle": [
+    "athlete-mindset-kids",
+    "athlete-mindset-teens",
+    "captain-leadership",
+    "multi-sport",
+    "season-keepsake"
+  ],
+  "coach-team-bundle": [
+    "coach-practice",
+    "basketball-playbook",
+    "captain-leadership",
+    "sports-film",
+    "coach-appreciation"
+  ],
+  "all-sports-bundle": [
+    "basketball-iq",
+    "basketball-playbook",
+    "athlete-mindset-kids",
+    "athlete-mindset-teens",
+    "coach-practice",
+    "captain-leadership",
+    "basketball-party",
+    "family-sports-night",
+    "soccer-creator",
+    "multi-sport",
+    "sports-film",
+    "season-keepsake",
+    "coach-appreciation"
+  ]
+});
