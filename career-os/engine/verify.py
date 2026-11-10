@@ -194,7 +194,13 @@ def duplicate_keys(jobs):
 
 def verify_all(root=ROOT, fetch=safe_get, today=None):
     job_files = sorted((root / "jobs").glob("*.json"))
-    jobs = [json.loads(p.read_text(encoding="utf-8")) for p in job_files]
+    jobs = []
+    for path in job_files:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+        # Research-only prospects are not publishable prototypes or verified applications.
+        if isinstance(raw, dict) and raw.get("status") == "research_only_not_application_ready" and raw.get("schema_version") == 1:
+            continue
+        jobs.append(raw)
     duplicates = duplicate_keys(jobs)
     entries = []
     for job in jobs:
