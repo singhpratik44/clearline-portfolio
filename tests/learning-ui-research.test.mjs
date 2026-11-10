@@ -87,3 +87,18 @@ test('secure portal remains fail-closed; examples remain labelled fictional',()=
  assert.match(portal,/No actual student work/);
  assert.doesNotThrow(()=>new Function(pJs));
 });
+
+test('marketing launch kit has five honest campaigns and working, explicit UI controls',()=>{
+ const page=read('learning/marketing/index.html');
+ const script=read('learning/marketing/post-kit.js');
+ const options=[...script.matchAll(/\{id:"([^"]+)",label:"/g)].map(m=>m[1]);
+ assert.deepEqual(options,['nextdoor','activityhero','pta','coach','school']);
+ const ids=[...page.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
+ assert.equal(ids.length,new Set(ids).size,'marketing page duplicate ID');
+ for(const [,id] of script.matchAll(/getElementById\("([^"]+)"\)/g))
+   assert.ok(ids.includes(id),'marketing page missing control '+id);
+ assert.match(page,/copyable|Copy this draft/i);
+ assert.match(script,/nothing is published or sent automatically/i);
+ assert.match(script,/book\/\?track=/);
+ assert.doesNotThrow(()=>new Function(script));
+});
