@@ -14,8 +14,8 @@ try {
     page.on('pageerror', error => errors.push(error.message));
     const response = await page.goto('http://127.0.0.1:8765/', { waitUntil: 'networkidle', timeout: 30000 });
     assert.equal(response.status(), 200);
-    await page.locator('#root').waitFor({ state: 'visible', timeout: 15000 });
-    assert.ok((await page.locator('#root').innerText()).trim().length > 100, 'React root did not render meaningful content');
+    await page.locator('main').first().waitFor({ state: 'visible', timeout: 15000 });
+    assert.ok((await page.locator('main').first().innerText()).trim().length > 100, 'Portfolio homepage did not render meaningful content');
     assert.deepEqual(errors, [], 'Browser JavaScript exceptions');
     const labResponse = await page.goto('http://127.0.0.1:8765/lab/', { waitUntil: 'networkidle', timeout: 30000 });
     assert.equal(labResponse.status(), 200);

@@ -124,7 +124,11 @@ class BuildTests(unittest.TestCase):
         specs = sorted((SOURCE / "jobs").glob("*.json"))
         self.assertGreaterEqual(len(specs), 2)
         for path in specs:
-            builder.validate(json.loads(path.read_text()), path.name)
+            raw = json.loads(path.read_text())
+            if raw.get("schema_version") == 1 and raw.get("status") == "research_only_not_application_ready":
+                self.assertEqual(raw["prototype"]["state"], "not_built")
+                continue
+            builder.validate(raw, path.name)
 
 if __name__ == "__main__":
     unittest.main()

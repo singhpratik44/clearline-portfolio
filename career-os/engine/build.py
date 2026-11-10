@@ -288,7 +288,12 @@ def build_all(root: Path = ROOT) -> dict:
     records = []
     for path in inputs:
         raw_bytes = path.read_bytes()
-        role = validate(json.loads(raw_bytes), path.name)
+        raw = json.loads(raw_bytes)
+        # Separate research-only lead records from publishable role specifications.
+        # Do not silently skip malformed build specs: only explicitly tagged research records.
+        if isinstance(raw, dict) and raw.get('status') == 'research_only_not_application_ready' and raw.get('schema_version') == 1:
+            continue
+        role = validate(raw, path.name)
         if role["id"] in seen:
             raise InvalidJob(f"Duplicate job id {role['id']}")
         seen.add(role["id"])
