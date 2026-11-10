@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#06161b">
+<meta name="description" content="A Quiet Journey: a private, free, three-year reflective practice with a living timeline and encrypted journal on your device.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; form-action 'none'; object-src 'none'; base-uri 'none'; upgrade-insecure-requests">
+<title>A Quiet Journey — Three Years of Intention</title>
+<link rel="stylesheet" href="./styles.css">
+<script src="./app.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#begin">Skip to your journey</a>
+<header class="topbar">
+  <a class="brand" href="../" aria-label="A Quiet Journey home"><span class="brand-mark" aria-hidden="true">✺</span><span>A QUIET JOURNEY</span></a>
+  <nav aria-label="Primary"><a href="#experience">Experience</a><a href="#begin">Your path</a><a href="#journal">Private journal</a><a href="#principles">Our promise</a></nav>
+  <a class="small-cta" href="#begin">Begin <span aria-hidden="true">↗</span></a>
+</header>
+<main>
+<section class="hero" id="experience">
+  <div class="hero-glow" aria-hidden="true"></div>
+  <div class="hero-content">
+    <p class="eyebrow"><span class="eyebrow-line"></span> THREE YEARS, ONE MOMENT AT A TIME</p>
+    <h1>Time passes.<br><em>Presence remains.</em></h1>
+    <p class="hero-deck">A living space for prayer, truth, gratitude and responsible action. Thirty-six chapters. Countless moments to begin again.</p>
+    <div class="hero-actions"><a class="btn btn-primary" href="#begin">Begin your journey <span aria-hidden="true">↗</span></a><a class="btn btn-ghost" href="#timeline">Explore time <span aria-hidden="true">↓</span></a></div>
+    <p class="hero-caption">Prayer is always free. No account required. Your reflections stay yours.</p>
+  </div>
+  <div class="hero-symbol" aria-hidden="true"><div class="sunring sunring-a"></div><div class="sunring sunring-b"></div><div class="sunring sunring-c"></div><div class="symbol-core">✺</div><span class="orbit-label orbit-one">NOTICE</span><span class="orbit-label orbit-two">PRACTICE</span><span class="orbit-label orbit-three">INTEGRATE</span></div>
+  <div class="hero-bottom"><span>01 / BEGINNING</span><span>SCROLL TO EXPLORE <span aria-hidden="true">↓</span></span></div>
+</section>
+<section class="manifesto">
+  <p class="eyebrow">THE QUIET PRINCIPLE</p>
+  <blockquote>“Truth is already true. Hukam is already operating. The work is removing Haumai interference.”</blockquote>
+  <p>This experience is informed by Sikh ideas of humility, Hukam and service. Its daily reflections are original prompts, <strong>not quotations from Sri Guru Granth Sahib Ji</strong> or a substitute for spiritual teaching.</p>
+</section>
+<section class="studio-section" id="begin">
+  <div class="section-heading"><div><p class="eyebrow">YOUR OWN RHYTHM</p><h2>A journey shaped<br><em>around your life.</em></h2></div><p>Choose a focus and a few minutes a day. Everything can be changed. There are no broken streaks here.</p></div>
+  <div class="onboard-grid">
+    <div class="panel setup-panel">
+      <h3>Begin with intention</h3>
+      <p class="panel-lead">Your choices stay in this tab until you create or unlock your encrypted private vault.</p>
+      <div class="field-grid">
+        <label class="field"><span>What matters right now?</span><select id="focus"><option value="truth">Truth &amp; clarity</option><option value="gratitude">Gratitude</option><option value="seva">Seva &amp; compassion</option><option value="courage">Courage &amp; humility</option><option value="stewardship">Purpose &amp; stewardship</option><option value="stillness">Stillness &amp; attention</option></select></label>
+        <label class="field"><span>Time each day</span><select id="minutes"><option value="5">5 minutes</option><option value="10" selected>10 minutes</option><option value="20">20 minutes</option><option value="40">40 minutes</option></select></label>
+        <label class="field"><span>Journey begins</span><input id="startDate" type="date"></label>
+        <label class="field"><span>Journey length</span><select id="duration"><option value="12">1 year</option><option value="36" selected>3 years · featured</option><option value="60">5 years</option><option value="120">10 years</option></select></label>
+      </div>
+      <button class="btn btn-primary" id="apply" type="button">Shape my journey <span aria-hidden="true">↗</span></button><p class="microcopy" id="applyStatus" role="status"></p>
+    </div>
+    <div class="panel structure-panel"><p class="eyebrow">THE THREE-YEAR ARC</p><div class="arc-year"><span class="arc-number">01</span><div><strong>Notice</strong><p>Look closely. Name what is true.</p></div><span>12 MONTHS</span></div><div class="arc-year"><span class="arc-number">02</span><div><strong>Practice</strong><p>Make care visible in action.</p></div><span>12 MONTHS</span></div><div class="arc-year"><span class="arc-number">03</span><div><strong>Integrate</strong><p>Live with intention through change.</p></div><span>12 MONTHS</span></div><p class="structure-foot">Time is not a score. The path is an invitation, not a prediction or spiritual ranking.</p></div>
+  </div>
+</section>
+<section class="timeline-section" id="timeline">
+  <div class="section-heading timeline-heading"><div><p class="eyebrow">THE FOURTH DIMENSION</p><h2>See your life<br><em>unfold through time.</em></h2></div><p>Drag to turn the three-dimensional path. Move the timeline to explore months and future possibilities.</p></div>
+  <div class="universe-panel">
+    <div class="universe-top"><div><span class="kicker">TEMPORAL SANCTUARY</span><h3 id="chapterTitle">The art of arriving</h3></div><span class="live-tag"><span aria-hidden="true">●</span> INTERACTIVE 3D + TIME</span></div>
+    <div class="visual" id="visual"><canvas id="universe" aria-label="Animated three-dimensional helix with a path that changes as you choose a month. Use the month slider below to navigate time." role="img"></canvas><div class="visual-vignette" aria-hidden="true"></div><div class="visual-annotation annotation-left"><span>PAST</span><strong>What shaped you</strong></div><div class="visual-annotation annotation-right"><span>FUTURE</span><strong>What you may practice</strong></div><div class="visual-center"><span id="visualYear">YEAR ONE</span><strong id="visualMonth">MONTH 01</strong><span id="visualSubtitle">NOTICE</span></div></div>
+    <div class="timeline-controls"><div class="year-controls" role="group" aria-label="Jump to year"><button class="year-tab is-active" type="button" data-year="0">01 / NOTICE</button><button class="year-tab" type="button" data-year="1">02 / PRACTICE</button><button class="year-tab" type="button" data-year="2">03 / INTEGRATE</button></div><div class="scrub-row"><button type="button" class="icon-button" id="prevMonth" aria-label="Previous month">←</button><label for="monthSlider" class="sr-only">Explore month of your journey</label><input id="monthSlider" type="range" min="1" max="36" value="1" step="1"><button type="button" class="icon-button" id="nextMonth" aria-label="Next month">→</button></div><div class="timeline-meta"><span id="monthIndex">MONTH 1 / 36</span><span id="chapterDate">YOUR FIRST CHAPTER</span></div></div>
+  </div>
+  <div class="chapter-grid"><article class="chapter-copy"><p class="eyebrow">THIS CHAPTER'S INVITATION</p><h3 id="reflectionTitle">Begin where you are.</h3><p id="reflectionPrompt">What deserves your attention today?</p><p class="action-line"><span aria-hidden="true">✳</span> <span id="chapterAction">Take five minutes to name a truthful intention.</span></p></article><article class="chapter-side"><span class="eyebrow">AN OPEN PATH</span><p>Your archive tells a story of real choices, not an algorithm's prediction. Future chapters remain open until you live them.</p><a href="#journal">Reflect on this chapter <span aria-hidden="true">↗</span></a></article></div>
+</section>
+<section class="journal-section" id="journal">
+  <div class="section-heading"><div><p class="eyebrow">A PLACE FOR WHAT MATTERS</p><h2>Your words.<br><em>Only yours.</em></h2></div><p>A private, encrypted journal stored in this browser. No tracking scripts, remote database or accounts.</p></div>
+  <div class="journal-layout">
+    <article class="panel vault-panel">
+      <div class="vault-header"><span class="vault-icon" aria-hidden="true">◇</span><div><h3>Private vault</h3><p id="vaultState" role="status">Locked · Nothing is stored until you choose a passphrase.</p></div></div>
+      <label class="field"><span>Vault passphrase</span><input id="vaultPassword" type="password" minlength="12" maxlength="200" autocomplete="new-password" placeholder="12+ characters; never sent anywhere"></label>
+      <div class="vault-actions"><button type="button" class="btn btn-primary" id="vaultOpen">Create private vault</button><button type="button" class="btn btn-ghost" id="vaultLock" disabled>Lock</button></div>
+      <p class="microcopy" id="vaultHint">Your passphrase is never saved. Losing it means your encrypted journal cannot be recovered. On shared devices, lock the vault when finished.</p>
+      <div class="vault-divider"></div>
+      <p class="eyebrow">YOUR DATA, YOUR CHOICE</p><div class="vault-tools"><button id="exportVault" type="button" disabled>Export encrypted backup ↗</button><label class="import-link" for="importVault">Import encrypted backup ↗</label><input id="importVault" type="file" accept=".json,application/json" class="sr-only"><button id="eraseVault" type="button" class="danger">Erase this device's vault</button></div>
+      <p class="microcopy">Privacy limits: browser storage can be cleared; a compromised device or malicious browser extension can still access content while unlocked. This is not cloud backup.</p>
+    </article>
+    <article class="panel journal-panel">
+      <div class="journal-top"><span class="eyebrow">TODAY'S REFLECTION</span><span id="journalDay">PERSONAL PRACTICE</span></div>
+      <label class="field"><span>What is true for you today?</span><textarea id="journalText" rows="8" maxlength="5000" placeholder="A moment of gratitude. A difficult truth. Something you are ready to practice..." disabled></textarea></label>
+      <label class="check-line"><input id="practiceDone" type="checkbox" disabled><span>I took time to reflect today.</span></label>
+      <div class="journal-footer"><button id="saveEntry" class="btn btn-primary" disabled type="button">Save encrypted reflection <span aria-hidden="true">↗</span></button><span id="journalStatus" role="status" aria-live="polite">Unlock your vault to write.</span></div>
+      <div class="entry-list" id="entryList"><p class="microcopy">Your recent entries appear here after you unlock your vault.</p></div>
+    </article>
+  </div>
+</section>
+<section class="principles-section" id="principles"><p class="eyebrow">OUR PROMISE</p><h2>Nothing sacred<br><em>is for sale.</em></h2><div class="principles-grid"><div><span>01</span><h3>Free to begin</h3><p>Prayer, reflective prompts, the timeline and your encrypted journal are free. There are no paid spiritual rankings.</p></div><div><span>02</span><h3>Respect the source</h3><p>These prompts are original. We will not invent Gurbani, attribute our words to scripture or claim AI speaks for God.</p></div><div><span>03</span><h3>A living practice</h3><p>No guilt for missed days. No claim that a digital check-in measures faith. Return whenever you can.</p></div></div></section>
+</main>
+<footer><span>A QUIET JOURNEY · AN APERTURE EXPERIENCE</span><span>TRUTH · HUMILITY · SERVICE</span><a href="../">Return to the original prayer journey ↗</a></footer>
+</body>
+</html>
