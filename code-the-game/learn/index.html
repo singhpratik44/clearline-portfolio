@@ -51,7 +51,7 @@ function bytes(s){s=s.replace(/-/g,"+").replace(/_/g,"/");s+="=".repeat((4-s.len
 function node(tag,text,klass){let n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(klass)n.className=klass;return n}
 function add(parent,tag,text,klass){let n=node(tag,text,klass);parent.append(n);return n}
 async function openPack(id,key){
- const packPath=id==="roblox"?"roblox-v2":id;
+ const packPath=id;
  const response=await fetch("../packs/"+packPath+".json",{cache:"no-store"});
  if(!response.ok)throw Error("Unable to load lesson pack");
  const pack=await response.json();
