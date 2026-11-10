@@ -1,0 +1,64 @@
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a2230"><meta name="robots" content="noindex,nofollow,noarchive">
+<title>Private Portfolio | APERTURE Learning</title>
+<meta name="description" content="Private, guardian-controlled learning portfolio. Only verified, assigned instructors can review work.">
+<link rel="stylesheet" href="./portal.css">
+<script src="./config.js" defer></script><script src="./portal.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<header class="header"><nav class="shell nav"><a class="brand" href="../"><span class="logo">A</span> APERTURE <small>PRIVATE LEARNING PORTFOLIO</small></a><div class="nav-links"><a href="../universe/">4D Universe</a><a href="../catalog/">Specializations</a><a href="../studio/">Project Studio</a><a href="../">Main site</a></div></nav></header>
+<main id="main" class="shell">
+<section class="hero"><div class="eyebrow">Your child's work belongs to your family</div><h1>Make progress <em>visible.</em><br>Keep student work private.</h1>
+<p>Follow a coding project from the first idea through testing, revision, and a meaningful showcase. Parents control their learner's portfolio. Only an assigned, verified coach can review a submitted milestone.</p>
+<div class="trust-strip"><span>Guardian accounts</span><span>Private portfolios</span><span>Coach-verified evidence</span><span>No public student profiles</span></div></section>
+<div id="system-status" class="system-status" role="status" aria-live="polite">Checking secure portal configuration…</div>
+<section id="setup-panel" class="setup-panel" hidden>
+<div class="eyebrow">Protected launch gate</div><h2>The private database is not connected.</h2>
+<p>The portfolio interface and database security schema are in GitHub, but private student accounts are deliberately disabled until authentication, row-level security, and permission tests have been configured and verified. No learner information is being stored by this website.</p>
+<div class="actions"><a class="button" href="#example">Explore an example portfolio ↓</a><a class="button secondary" href="https://github.com/singhpratik44/clearline-portfolio/blob/main/learning/portal/SETUP.md" target="_blank" rel="noopener noreferrer">Administrator setup guide ↗</a></div>
+</section>
+<section id="auth-panel" class="panel sign-in" hidden>
+<div><div class="eyebrow">Adults only · Email sign-in</div><h2>Sign in to your private portfolio.</h2><p>Parents and verified instructors use a secure email link. Children do not need accounts or passwords, and their information must not be placed in public webpages.</p></div>
+<form id="auth-form"><label for="login-email">Your adult email address</label><input id="login-email" type="email" name="email" autocomplete="email" placeholder="parent@example.com" required maxlength="254"><button class="button" type="submit">Email me a secure sign-in link ↗</button><p class="micro">Use your own private email account. Session credentials stay in this browser tab and are cleared when you sign out.</p></form></section>
+<section id="dashboard" hidden>
+<div class="dashboard-head"><div><div class="eyebrow">Private authenticated workspace</div><h2>Your learning records</h2><p id="user-label"></p></div><button type="button" class="button secondary" id="sign-out">Sign out</button></div>
+<div class="dashboard-grid">
+<div class="main-column">
+<section id="guardian-controls" class="panel" hidden><div class="section-header"><div><div class="eyebrow">01 / Start privately</div><h3>Add a learner alias</h3></div></div>
+<p class="subtext">Use a nickname or pseudonym, not a child's full legal name. Only age range is required; no date of birth or address.</p>
+<form id="learner-form" class="field-grid"><label>Display alias<input name="alias" type="text" maxlength="40" minlength="2" placeholder="e.g. Space Explorer" required autocomplete="off"></label><label>Age range<select name="age_band" required><option value="7-10">7–10</option><option value="11-13">11–13</option><option value="14-17">14–17</option><option value="4-6">4–6 (ask about suitability)</option></select></label><div class="full"><button class="button" type="submit">Create private learner profile</button></div></form>
+</section>
+<section id="project-editor" class="panel" hidden><div class="eyebrow">02 / Build the portfolio</div><h3>Create a private project</h3>
+<p class="subtext">Choose one of 20 connected specializations. Project titles and goals stay visible only to authorized adults.</p>
+<form id="project-form" class="field-grid"><label>Learner<select name="learner_id" id="project-learner" required></select></label><label>Specialization<select name="track_id" id="project-track" required></select></label><label class="full">Project title<input name="title" required minlength="3" maxlength="100" placeholder="e.g. My first basketball shot chart" autocomplete="off"></label><label class="full">Learning goal<textarea name="project_goal" maxlength="1200" rows="3" placeholder="What do they hope to build or understand?"></textarea></label><div class="full"><button class="button" type="submit">Create project ↗</button></div></form>
+</section>
+<section id="evidence-editor" class="panel" hidden><div class="eyebrow">03 / Record real work</div><h3>Submit a milestone for coach review</h3>
+<p class="subtext">Submit a description of actual project work. Evidence is append-only and cannot be edited after submission; corrections use a new entry. Only a properly assigned coach can mark it verified.</p>
+<form id="evidence-form" class="field-grid">
+<label>Project<select name="project_id" id="evidence-project" required></select></label>
+<label>Chapter<select name="chapter" required><option value="1">01 · Discover</option><option value="2">02 · Build</option><option value="3">03 · Understand</option><option value="4">04 · Create</option></select></label>
+<label class="full">What did the student demonstrate?<textarea name="evidence_note" minlength="15" maxlength="3000" rows="5" required placeholder="Describe the code, debugging, tests or explanation you actually observed. Do not include names, photos of faces, addresses, or health information."></textarea></label>
+<label class="full">Optional private project artifact (PDF, TXT, PNG · max 5 MB)<input id="artifact-file" name="artifact" type="file" accept=".pdf,.txt,.png,application/pdf,text/plain,image/png"></label>
+<label class="check full"><input name="consent" type="checkbox" required><span>I am the responsible adult, have reviewed this submission and any attachment, have permission to upload it, and confirm it contains no unnecessary personal information about a child.</span></label>
+<div class="full"><button class="button" type="submit">Submit immutable evidence ↗</button></div>
+</form></section>
+<section class="panel portfolio-panel" id="portfolios"><div class="section-header"><div><div class="eyebrow">Private portfolio library</div><h3>My learners and projects</h3></div><button class="button secondary small" id="refresh" type="button">Refresh</button></div>
+<div id="portfolio-list" class="portfolio-list"><p class="subtext">Sign in to view your private records.</p></div></section>
+</div>
+<aside class="side-column">
+<section class="panel coach-panel" id="coach-panel" hidden><div class="eyebrow">Assigned and verified instructors only</div><h3>Review submitted work</h3><p class="subtext">You can verify or request revision only for a learner you have been explicitly assigned by the operator after guardian consent and coach identity verification.</p>
+<form id="review-form"><label>Awaiting review<select id="review-submission" name="submission_id" required></select></label><label>Decision<select name="verdict" required><option value="verified">Verified · milestone demonstrated</option><option value="revise">Needs more work · revise and resubmit</option></select></label><label>Evidence-based feedback<textarea name="feedback" required minlength="15" maxlength="2000" rows="5" placeholder="Describe what you actually checked and what the next improvement should be."></textarea></label><button class="button" type="submit">Record coach review ↗</button></form><p class="micro">Coach reviews are signed by the authenticated account and cannot be altered from this portal.</p></section>
+<section class="panel privacy-panel"><div class="eyebrow">Privacy first</div><h3>Your records stay yours.</h3><p class="subtext">No public student profiles, birthdays, attendance tracking, advertising trackers or public gallery uploads. Signed-in adults only. Actual files belong in a private storage bucket.</p><p class="micro">Student data is never stored in the GitHub repository. The public 4D Universe receives only the track identifier—not the student’s name or progress.</p>
+<form id="data-form" hidden><label>Data request<select name="request_type"><option value="export">Request my learner data</option><option value="correct">Request a correction</option><option value="delete">Request deletion of my learner data</option></select></label><label>Learner<select name="learner_id" id="data-learner" required></select></label><label>Optional details<textarea name="request_note" maxlength="500" rows="2" placeholder="No sensitive details needed."></textarea></label><button type="submit" class="button secondary">Submit privacy request</button></form>
+<p class="micro">Operator contact: <a href="mailto:parry.s.2324@gmail.com?subject=APERTURE%20Learning%20privacy%20question">Ask about privacy or deletion ↗</a></p></section>
+</aside></div></section>
+<section id="example" class="example-section"><div class="eyebrow">Illustrative example only · No real student information</div><h2>Watch a learning story become evidence.</h2><p>This fictional example demonstrates the intended experience. It is not a student success story, testimonial or real learner progress report.</p>
+<div class="example-card"><div class="example-head"><div><span class="eyebrow">DEMO CREATOR · AGES 11–13</span><h3>Basketball Shot Chart</h3><p>A data and coding project turning fictional shots into a visual dashboard.</p></div><a class="button secondary" href="../universe/?track=sports-analytics#explore">See this 4D pathway ↗</a></div>
+<div class="sample-progress"><div class="sample-step complete"><span>01</span><strong>Discover</strong><small>Goal defined</small></div><div class="sample-step complete"><span>02</span><strong>Build</strong><small>Chart programmed</small></div><div class="sample-step active"><span>03</span><strong>Understand</strong><small>Testing in progress</small></div><div class="sample-step"><span>04</span><strong>Create</strong><small>Capstone ahead</small></div></div>
+<div class="example-proof"><div><span class="status-verified">SAMPLE ONLY · COACH-VERIFIED EXAMPLE</span><h4>Milestone: Interactive chart</h4><p>The fictional learner created a chart that updates when shot data changes and explained how the percentages are calculated.</p></div><div class="proof-future"><strong>Next milestone</strong><p>Test the chart with new input and explain limitations before presentation.</p></div></div></div>
+</section>
+</main>
+<footer><div class="shell footer"><span>APERTURE Learning · Private-by-design learning portfolio</span><span><a href="../">Learning</a> · <a href="../universe/">4D Universe</a> · <a href="../#pricing">Tuition</a></span></div></footer>
+</body></html>
