@@ -45,7 +45,8 @@ test('verified milestones are based on reviewer data, not checkboxes',()=>{
 test('all portal specialization IDs match the existing 4D universe',()=>{
  const ids=(x)=>new Set([...x.matchAll(/\{id:"([a-z0-9-]+)"/g)].map(m=>m[1]));
  const universeIds=ids(universe),atlasIds=ids(atlas);
- const portalTracks=new Set([...portalJs.matchAll(/\["([a-z0-9-]+)","/g)].map(m=>m[1]));
+ const declaration=portalJs.slice(portalJs.indexOf("const tracks=["),portalJs.indexOf("];",portalJs.indexOf("const tracks=["))+2);
+ const portalTracks=new Set([...declaration.matchAll(/\["([a-z0-9-]+)","/g)].map(m=>m[1]));
  assert.equal(universeIds.size,20);
  assert.deepEqual(universeIds,atlasIds);
  assert.deepEqual(portalTracks,universeIds);
