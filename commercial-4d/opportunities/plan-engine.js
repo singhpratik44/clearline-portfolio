@@ -176,7 +176,7 @@ function plan(row,raw,studies=[]){
   intent:type.intent,buyer_need:a.scope||null,success_metric:a.metric||null,
   assumptions:a,steps,hard_requirements:type.hard.slice(),gates:g,open_gates:g.filter(x=>!x.ok).map(x=>x.key),
   studies:studyList,economics,review_ready:g.filter(x=>["evidence","need","measurement","reviewer"].includes(x.key)).every(x=>x.ok),
-  execution_authorized:false,executed_actions:0,verified_revenue:row.terms_confirmed&&row.stage==="contracted"?row.contract_value:null,
+  execution_authorized:false,executed_actions:0,realized_revenue:null,evidence_marked_contract_value:row.terms_confirmed&&row.stage==="contracted"?row.contract_value:null,
   caution:"This is planning analysis only. Studies suggest methods, not verified customer outcomes. Simulation estimates are assumptions. No proposal review authorizes any external action."
  };
 }
@@ -187,8 +187,8 @@ function portfolio(rows,inputs){
   seen.add(row.id);
   plans.push(plan(row,inputs?.[row.id]||{},[]));
  }
- const contractCapacity=plans.filter(p=>p.stage==="contracted"&&p.assumptions.deliveryHours!==null).reduce((t,p)=>t+p.assumptions.deliveryHours,0);
- const pipelineDemand=plans.filter(p=>p.stage!=="contracted"&&p.assumptions.deliveryHours!==null).reduce((t,p)=>t+p.assumptions.deliveryHours,0);
+ const contractCapacity=plans.filter(p=>p.stage==="contracted"&&p.evidence_marked_contract_value!==null&&p.assumptions.deliveryHours!==null).reduce((t,p)=>t+p.assumptions.deliveryHours,0);
+ const pipelineDemand=plans.filter(p=>!(p.stage==="contracted"&&p.evidence_marked_contract_value!==null)&&p.assumptions.deliveryHours!==null).reduce((t,p)=>t+p.assumptions.deliveryHours,0);
  const approvedCapacity=plans.map(p=>p.assumptions.capacityHours).filter(n=>n!==null);
  const cap=approvedCapacity.length?Math.min(...approvedCapacity):null;
  return {count:plans.length,contract_capacity_hours:contractCapacity,
