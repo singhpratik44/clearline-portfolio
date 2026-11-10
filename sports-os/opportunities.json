@@ -1,0 +1,198 @@
+{
+  "schema_version": 2,
+  "generated_at": "2026-11-10T21:00:00+00:00",
+  "method": "Curated official-source starting snapshot; not independently live verified",
+  "notice": "Application status requires official-source review. Scheduled GitHub Pages build attempts exact structured ATS checks.",
+  "summary": {
+    "total": 6,
+    "confirmed_active": 0,
+    "needs_review": 6,
+    "not_found": 0
+  },
+  "listings": [
+    {
+      "id": "monumental-youth-coach",
+      "title": "Youth Basketball Coach (Part-Time/Seasonal)",
+      "employer": "Monumental Sports & Entertainment / Washington Wizards",
+      "category": "Coaching",
+      "sport": "Basketball",
+      "location": "Washington, DC",
+      "work_mode": "On-site",
+      "type": "Part-time / seasonal",
+      "pay": "$18.40–$20.00 per hour (employer listed)",
+      "requirements": [
+        "Youth basketball mentorship experience",
+        "USA Basketball Gold Licensure or willingness to obtain",
+        "First aid / CPR / AED or willingness to obtain"
+      ],
+      "skill_tags": [
+        "coaching",
+        "youth",
+        "mentoring",
+        "basketball",
+        "practice"
+      ],
+      "official_url": "https://job-boards.greenhouse.io/monumentalsports/jobs/5287421007",
+      "source_type": "greenhouse",
+      "board": "monumentalsports",
+      "job_id": 5287421007,
+      "observed_on": "2026-11-10",
+      "status": "review-required",
+      "checked_at": null,
+      "verified_at": null,
+      "verification_note": "Initial public snapshot; exact employer ATS identity awaits automated verification."
+    },
+    {
+      "id": "goldenstate-partnership-director",
+      "title": "Director, Global Partnership Development",
+      "employer": "Golden State Warriors",
+      "category": "Operations",
+      "sport": "Basketball",
+      "location": "San Francisco, CA",
+      "work_mode": "On-site",
+      "type": "Full-time",
+      "pay": "$135,000 base + bonus (employer listed)",
+      "requirements": [
+        "7+ years corporate partnerships / account management",
+        "2+ years people management",
+        "2+ years sales experience"
+      ],
+      "skill_tags": [
+        "operations",
+        "partnerships",
+        "leadership",
+        "business",
+        "sales"
+      ],
+      "official_url": "https://job-boards.greenhouse.io/goldenstate/jobs/8357257",
+      "source_type": "greenhouse",
+      "board": "goldenstate",
+      "job_id": 8357257,
+      "observed_on": "2026-11-10",
+      "status": "review-required",
+      "checked_at": null,
+      "verified_at": null,
+      "verification_note": "Initial public snapshot; exact employer ATS identity awaits automated verification."
+    },
+    {
+      "id": "floridapanthers-partnership-director",
+      "title": "Director of Partnership Development",
+      "employer": "Florida Panthers",
+      "category": "Operations",
+      "sport": "Hockey",
+      "location": "Sunrise, FL",
+      "work_mode": "On-site",
+      "type": "Full-time",
+      "pay": "Not verified",
+      "requirements": [
+        "7+ years corporate sponsorship sales",
+        "2+ years direct team management",
+        "C-suite partnership negotiation"
+      ],
+      "skill_tags": [
+        "operations",
+        "partnerships",
+        "business",
+        "leadership",
+        "sales"
+      ],
+      "official_url": "https://job-boards.greenhouse.io/thefloridapanthers/jobs/4718263006",
+      "source_type": "greenhouse",
+      "board": "thefloridapanthers",
+      "job_id": 4718263006,
+      "observed_on": "2026-11-10",
+      "status": "review-required",
+      "checked_at": null,
+      "verified_at": null,
+      "verification_note": "Initial public snapshot; exact employer ATS identity awaits automated verification."
+    },
+    {
+      "id": "lakers-vp-data",
+      "title": "Vice President, Data Systems",
+      "employer": "Los Angeles Lakers",
+      "category": "Analysis",
+      "sport": "Basketball",
+      "location": "El Segundo, CA",
+      "work_mode": "On-site",
+      "type": "Full-time",
+      "pay": "$275,000–$300,000 per year (employer listed)",
+      "requirements": [
+        "10+ years relevant experience",
+        "5+ years technical management",
+        "Data engineering, cloud platforms, security and governance"
+      ],
+      "skill_tags": [
+        "analysis",
+        "data",
+        "operations",
+        "leadership",
+        "engineering"
+      ],
+      "official_url": "https://workforcenow.adp.com/mascsr/default/mdf/recruitment/recruitment.html?ccId=19000101_000001&cid=6d8ac0f9-00f1-493c-9dfd-ac48860eb438&client=lasports&jobId=600030&lang=en_US",
+      "source_type": "manual",
+      "observed_on": "2026-11-10",
+      "status": "review-required",
+      "checked_at": null,
+      "verified_at": null,
+      "verification_note": "Initial public snapshot; exact employer ATS identity awaits automated verification."
+    },
+    {
+      "id": "wnba-dallas-director",
+      "title": "Data & Business Intelligence Director",
+      "employer": "Dallas Wings",
+      "category": "Analysis",
+      "sport": "Basketball",
+      "location": "Arlington, TX",
+      "work_mode": "Hybrid",
+      "type": "Full-time",
+      "pay": "Not listed in observed posting",
+      "requirements": [
+        "Master’s or qualifying advanced degree",
+        "5+ years analytics/BI",
+        "Strong SQL, Snowflake, Power BI"
+      ],
+      "skill_tags": [
+        "analysis",
+        "data",
+        "operations",
+        "strategy",
+        "business"
+      ],
+      "official_url": "https://www.teamworkonline.com/basketball-jobs/nbateamjobs/nba-league-office",
+      "source_type": "directory",
+      "observed_on": "2026-11-10",
+      "status": "review-required",
+      "checked_at": null,
+      "verified_at": null,
+      "verification_note": "Initial public snapshot; exact employer ATS identity awaits automated verification."
+    },
+    {
+      "id": "nba-league-careers",
+      "title": "Explore NBA League Office and Team Opportunities",
+      "employer": "National Basketball Association",
+      "category": "Multiple",
+      "sport": "Basketball",
+      "location": "United States / global",
+      "work_mode": "Varies",
+      "type": "Careers portal — not an individual opening",
+      "pay": "Varies",
+      "requirements": [
+        "Refer to the specific official requisition"
+      ],
+      "skill_tags": [
+        "coaching",
+        "analysis",
+        "operations",
+        "scouting",
+        "performance"
+      ],
+      "official_url": "https://careers.nba.com/teams/",
+      "source_type": "directory",
+      "observed_on": "2026-11-10",
+      "status": "review-required",
+      "checked_at": null,
+      "verified_at": null,
+      "verification_note": "Initial public snapshot; exact employer ATS identity awaits automated verification."
+    }
+  ]
+}

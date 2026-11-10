@@ -45,7 +45,40 @@ try {
    assert.equal(await page.locator('.ledger-row').count(),1);
    assert.deepEqual(errors,[],'Sports Career OS JavaScript errors');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Sports Career OS horizontal overflow');
+   await page.goto('http://127.0.0.1:8767/sports-os/opportunities.html');
+   await page.locator('#job-list .card').first().waitFor();
+   assert.ok((await page.locator('#job-list .card').count())>=4);
+   await page.locator('#lane').selectOption('Coaching');
+   assert.equal(await page.locator('#job-list .card').count(),1);
+   await page.locator('#job-list button').first().click();
+   assert.equal(await page.locator('#metric-saved').textContent(),'1');
+   await page.locator('#lane').selectOption('all');
+   assert.deepEqual(errors,[],'Sports opportunity UI JavaScript errors');
+
+   await page.goto('http://127.0.0.1:8767/sports-os/profile.html');
+   await page.locator('#name').fill('Sample Coach');
+   await page.locator('#bio').fill('Youth practice systems with verified, consent-aware evidence.');
+   await page.locator('#skills').fill('Practice design, Coaching');
+   await page.locator('#ack').check();
+   await page.locator('#preview-btn').click();
+   assert.match(await page.locator('#profile-preview').innerText(),/Sample Coach/);
+   assert.equal(await page.locator('#export-html').isEnabled(),true);
+   await page.locator('#clear').click();
+   assert.equal(await page.locator('#export-html').isDisabled(),true);
+   assert.deepEqual(errors,[],'Sports profile builder JavaScript errors');
+
+   await page.goto('http://127.0.0.1:8767/sports-os/marketplace.html');
+   await page.locator('[data-select="club"]').click();
+   await page.locator('#client').fill('Sample Community Sports Club');
+   await page.locator('#objective').fill('Improve staffing capacity and coach retention.');
+   await page.locator('#metric').fill('Coach retention rate');
+   await page.locator('#scope-confirm').check();
+   await page.locator('#scope-form button[type="submit"]').click();
+   assert.match(await page.locator('#scope-preview').innerText(),/DRAFT ONLY/);
+   assert.equal(await page.locator('#download').isEnabled(),true);
+   assert.deepEqual(errors,[],'Sports services studio JavaScript errors');
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Sports V2 horizontal overflow');
    await page.close();
  }
- console.log('PASS: APERTURE navigation and Sports Career OS mobile/desktop journeys');
+ console.log('PASS: APERTURE Sports V2 mobile/desktop careers, profiles and services');
 }finally{if(browser)await browser.close();server.kill()}

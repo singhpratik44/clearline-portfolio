@@ -33,6 +33,8 @@ jobs:
         run: node --test career-os/tests/pipeline.test.mjs career-os/tests/educators-rising.test.mjs
       - name: Validate public research metadata adapters offline
         run: python3 -m unittest discover -s tests -p test_research_discovery.py -v
+      - name: Validate APERTURE Sports ATS source safety and fail-closed logic
+        run: python3 -m unittest discover -s sports-os -p test_refresh_opportunities.py -v
       - name: Benchmark bounded simulation
         run: node tests/benchmark.mjs
       - name: Build verified career prototypes
@@ -55,6 +57,18 @@ jobs:
           cp lab/index.html _site/lab/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
           touch _site/.nojekyll
+      - name: Refresh and stage APERTURE Sports employer opportunities
+        run: |
+          python3 sports-os/refresh_opportunities.py --output _site/sports-os/opportunities.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          feed=json.loads(Path("_site/sports-os/opportunities.json").read_text())
+          assert feed["schema_version"] == 2
+          assert len(feed["listings"]) >= 4
+          assert all(j["status"] in ("confirmed-active", "not-found", "review-required") for j in feed["listings"])
+          print("Sports source states:", feed["summary"])
+          PY
       - name: Stamp and gate Educators Rising Implementation Lab release
         run: |
           python3 - <<'PY'
@@ -244,7 +258,14 @@ jobs:
           base = "https://singhpratik44.github.io/clearline-portfolio/sports-os/"
           checks = {
               "index.html": ("APERTURE SPORTS", "id=\"career-graph\"", 'src="app.js"', "PUBLIC SANDBOX"),
-              "app.js": ("roleData", "renderEvidence", "buildPractice", "renderCapacity")
+              "app.js": ("roleData", "renderEvidence", "buildPractice", "renderCapacity"),
+              "opportunities.html": ("Opportunity Intelligence", "id=\"job-list\"", "opportunities.js"),
+              "opportunities.js": ("confirmed-active", "render", "official_url"),
+              "profile.html": ("Professional Portfolio Builder", "id=\"profile-form\"", "profile.js"),
+              "profile.js": ("self-reported-unverified", "htmlExport", "secureLink"),
+              "marketplace.html": ("Services Studio", "id=\"scope-form\"", "marketplace.js"),
+              "marketplace.js": ("PROPOSED STATEMENT OF WORK", "No outreach", "services"),
+              "opportunities.json": ('"schema_version": 2', '"listings":', '"status":')
           }
           for attempt in range(10):
               try:

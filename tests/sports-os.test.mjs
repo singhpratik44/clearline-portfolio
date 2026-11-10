@@ -97,3 +97,41 @@ test('session evidence remains unverified and rejects insecure links',()=>{
   assert.equal(e['evidence-list'].children.length,1);
   assert.equal(alerts.length,1);
 });
+
+test('Sports V2 job discovery, profile and services pages exist with clear authority boundaries',()=>{
+  for(const [page,markers] of [
+    ['sports-os/opportunities.html',['Opportunity Intelligence','id="job-list"','opportunities.js','Needs review']],
+    ['sports-os/profile.html',['Professional Portfolio Builder','id="profile-form"','Self-reported']],
+    ['sports-os/marketplace.html',['Services Studio','id="scope-form"','not a live marketplace']],
+  ]){
+    const source=readFileSync(page,'utf8');
+    for(const mark of markers)assert.ok(source.includes(mark),page+' missing '+mark);
+    assert.match(source,/<meta name="viewport"/);
+    assert.doesNotMatch(source,/https?:\/\/(js\.stripe\.com|checkout\.stripe\.com)/);
+  }
+  assert.match(html,/href="opportunities\.html"/);
+  assert.match(html,/href="profile\.html"/);
+  assert.match(html,/href="marketplace\.html"/);
+});
+test('all Sports V2 scripts parse and prohibit silently storing private profiles or sending outreach',()=>{
+  for(const name of ['sports-os/opportunities.js','sports-os/profile.js','sports-os/marketplace.js']){
+    const source=readFileSync(name,'utf8');
+    assert.doesNotThrow(()=>new vm.Script(source),name);
+    assert.doesNotMatch(source,/\b(localStorage|sessionStorage|indexedDB|XMLHttpRequest|WebSocket)\b/);
+    assert.doesNotMatch(source,/\.innerHTML\s*=/);
+  }
+  assert.doesNotMatch(readFileSync('sports-os/profile.js','utf8'),/\bfetch\s*\(/);
+  assert.doesNotMatch(readFileSync('sports-os/marketplace.js','utf8'),/\bfetch\s*\(/);
+});
+test('Sports opportunity feed has grounded unique IDs, allowed URLs and non-verified startup states',()=>{
+  const data=JSON.parse(readFileSync('sports-os/opportunities.json','utf8'));
+  assert.equal(data.schema_version,2);
+  assert.ok(data.listings.length>=4);
+  assert.equal(new Set(data.listings.map(j=>j.id)).size,data.listings.length);
+  assert.ok(data.listings.every(j=>j.status==='review-required'&&j.verified_at===null));
+  for(const j of data.listings){
+    const u=new URL(j.official_url);
+    assert.equal(u.protocol,'https:');
+    assert.ok(['job-boards.greenhouse.io','www.teamworkonline.com','workforcenow.adp.com','careers.nba.com'].includes(u.hostname));
+  }
+});
