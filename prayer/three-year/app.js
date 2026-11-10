@@ -101,7 +101,7 @@ function renderMonth() {
   $("monthSlider").style.setProperty("--fill",String((state.month-1)/Math.max(state.months-1,1)*100)+"%");
   $("prevMonth").disabled=state.month===1;
   $("nextMonth").disabled=state.month===state.months;
-  updateYears();sceneDraw();
+  updateYears();updateTree();sceneDraw();
 }
 function setMonth(m){state.month=Math.max(1,Math.min(state.months,Number(m)||1));renderMonth();}
 function showStatus(node,text){$(node).textContent=text;}
@@ -122,6 +122,8 @@ function hydrateSettings(v){
   state.months=Number(v.months);state.focus=v.focus;state.minutes=Number(v.minutes);state.start=v.start;
   $("duration").value=String(state.months);$("focus").value=state.focus;
   $("minutes").value=String(state.minutes);$("startDate").value=state.start;
+$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
+$("treeMode").addEventListener("click",()=>setWorld("tree"));
   setMonth(Math.min(state.month,state.months));
 }
 function secureAvailable(){return !!(window.isSecureContext && window.crypto && crypto.subtle && crypto.getRandomValues);}
@@ -248,10 +250,63 @@ function eraseVault(){
   try{localStorage.removeItem(KEY);lockVault();showStatus("vaultState","This device's encrypted vault has been erased.");}
   catch(e){showStatus("vaultState","Browser storage could not be cleared.");}
 }
+
+/* Living tree: time becomes branches. This is never a measure of spiritual merit. */
+const SVG_NS="http://www.w3.org/2000/svg";
+const treeMarks=[];
+let treeReady=false;
+function buildTree(){
+  const svg=$("livingTree");if(!svg)return;
+  const make=(type,attrs)=>{const el=document.createElementNS(SVG_NS,type);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));return el;};
+  svg.append(make("circle",{cx:450,cy:265,r:180,class:"tree-halo"}));
+  svg.append(make("ellipse",{cx:450,cy:455,rx:150,ry:12,class:"tree-ground"}));
+  const group=make("g",{"stroke-linecap":"round",fill:"none"});svg.append(group);
+  let seed=0;
+  const rand=()=>{seed++;return ((Math.sin(seed*91.47)*7381.27)%1+1)%1;};
+  function branch(x,y,length,angle,depth,stage){
+    const a=angle+(rand()-.5)*.13;
+    const x2=x+Math.sin(a)*length,y2=y-Math.cos(a)*length;
+    const birth=Math.max(1,Math.min(36,stage));
+    const path=make("path",{d:"M "+x.toFixed(1)+" "+y.toFixed(1)+" Q "+((x+x2)/2+Math.sin(a)*6).toFixed(1)+" "+((y+y2)/2).toFixed(1)+" "+x2.toFixed(1)+" "+y2.toFixed(1),class:"tree-branch","stroke-width":Math.max(1.2,depth*2)});
+    group.append(path);treeMarks.push({el:path,birth});
+    if(depth<=0){
+      const leaf=make("circle",{cx:x2.toFixed(1),cy:y2.toFixed(1),r:(2+rand()*3).toFixed(1),class:"tree-leaf"});
+      svg.append(leaf);treeMarks.push({el:leaf,birth});return;
+    }
+    const factor=.76+rand()*.045;
+    branch(x2,y2,length*factor,a-(.29+rand()*.16),depth-1,stage+Math.round(4.5+rand()*1.8));
+    branch(x2,y2,length*factor,a+(.29+rand()*.16),depth-1,stage+Math.round(4.5+rand()*1.8));
+    if(depth>=3)branch(x2,y2,length*.53,a+(rand()-.5)*.28,depth-2,stage+Math.round(5+rand()*2));
+  }
+  branch(450,452,87,0,5,1);
+  treeReady=true;
+}
+function updateTree(){
+  if(!treeReady)return;
+  const displayed=Math.min(36,Math.max(1,Math.round(state.month/state.months*36)));
+  const season=(state.month-1)%12;
+  const palette=season<3?"#a5d3ba":season<6?"#dfca95":season<9?"#dca783":"#a4c5e0";
+  $("visual").style.setProperty("--tree-color",palette);
+  for(const mark of treeMarks){
+    mark.el.classList.toggle("tree-future",mark.birth>displayed);
+    mark.el.classList.toggle("tree-present",mark.birth<=displayed);
+  }
+  $("livingTree").setAttribute("aria-label","Living tree illustrating month "+state.month+" of "+state.months+"; branches appear as time advances, not as a measure of spirituality");
+}
+function setWorld(mode){
+  state.world=mode==="tree"?"tree":"spiral";
+  const tree=state.world==="tree";
+  $("visual").classList.toggle("tree-view",tree);
+  $("treeMode").setAttribute("aria-pressed",String(tree));
+  $("spiralMode").setAttribute("aria-pressed",String(!tree));
+  $("sceneHint").textContent=tree?"Branches show time passing, not spiritual rank.":"Drag the 3D path; use the slider to travel through time.";
+  sceneDraw();
+}
+
 function createScene(){
   const canvas=$("universe");
   let gl;try{gl=canvas.getContext("webgl",{alpha:true,antialias:false,powerPreference:"low-power",preserveDrawingBuffer:false});}catch(e){gl=null;}
-  if(!gl){canvas.style.display="none";document.querySelector(".live-tag").textContent="INTERACTIVE TIMELINE · 3D UNAVAILABLE";return;}
+  if(!gl){canvas.style.display="none";document.querySelector(".live-tag").textContent="LIVING TREE · 3D UNAVAILABLE";$("spiralMode").disabled=true;setWorld("tree");return;}
   const vertex=[
     "attribute float aT;","uniform float uRotation;","uniform float uProgress;","uniform float uAspect;","uniform float uStars;","uniform float uTime;",
     "varying float vGlow;","varying float vStar;",
@@ -282,7 +337,7 @@ function createScene(){
   function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
   let program;
   try{program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error("Shader link failed");}
-  catch(e){canvas.style.display="none";document.querySelector(".live-tag").textContent="INTERACTIVE TIMELINE · 3D UNAVAILABLE";return;}
+  catch(e){canvas.style.display="none";document.querySelector(".live-tag").textContent="LIVING TREE · 3D UNAVAILABLE";$("spiralMode").disabled=true;setWorld("tree");return;}
   gl.useProgram(program);
   const count=721,values=new Float32Array(count);for(let i=0;i<count;i++)values[i]=i/(count-1);
   const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,values,gl.STATIC_DRAW);
@@ -338,5 +393,5 @@ $("exportVault").addEventListener("click",exportVault);
 $("importVault").addEventListener("change",e=>importVault(e.target.files[0]));
 $("eraseVault").addEventListener("click",eraseVault);
 window.addEventListener("pagehide",()=>{lockVault();sceneStop();});
-setVaultUI();renderMonth();createScene();
+buildTree();setVaultUI();renderMonth();createScene();
 })();
