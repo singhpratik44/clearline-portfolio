@@ -44,7 +44,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js sitemap.xml _site/
-          cp -R assets clearline career-os partnerships aperture learning prayer _site/
+          cp -R assets clearline career-os partnerships aperture learning prayer network-4d _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
@@ -78,6 +78,8 @@ jobs:
           test -s _site/aperture/discovery-intake.html
           grep -q 'id="discoveryForm"' _site/aperture/discovery-intake.html
           grep -q 'function buildPrompt()' _site/aperture/discovery-intake.html
+          test -s _site/network-4d/index.html
+          grep -q 'TIME IS THE FOURTH DIMENSION' _site/network-4d/index.html
           test -s _site/partnerships/uspa/index.html
           test -s _site/partnerships/uspa/app.js
           test -s _site/partnerships/uspa/styles.css
