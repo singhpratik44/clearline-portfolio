@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#091b29">
+<meta name="description" content="Try three real, interactive project examples from APERTURE Learning: arcade game logic, a branching Python story concept, and a tiny AI classifier.">
+<title>Interactive Project Studio | APERTURE Learning</title>
+<style>
+:root{--ink:#0b2130;--teal:#225e61;--mint:#cdf3a4;--cream:#f7faf5;--muted:#61727a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{width:min(1080px,calc(100% - 36px));margin:auto}a{color:inherit}header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 0;border-bottom:1px solid #d7e4dd}
+.brand{text-decoration:none;font-weight:950;letter-spacing:.1em}.brand span{color:var(--teal)}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:999px;background:var(--ink);color:white;text-decoration:none;font-weight:780;cursor:pointer;padding:12px 20px;font:inherit}
+.btn.secondary{background:#e0eae5;color:var(--ink)}.btn:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #6399ff;outline-offset:3px}
+.hero{background:#0b2130;color:white;padding:65px 0 52px}.eyebrow{font-size:12px;letter-spacing:.18em;font-weight:850;text-transform:uppercase;color:#3c867e}.hero .eyebrow{color:var(--mint)}h1{font-size:clamp(44px,7vw,80px);line-height:1.03;letter-spacing:-.065em;margin:16px 0}h2{font-size:clamp(28px,4vw,44px);letter-spacing:-.045em;line-height:1.1}h3{letter-spacing:-.025em}.hero p{max-width:760px;color:#cfdbdb;font-size:18px}.hero-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+main .panel{padding:65px 0;border-bottom:1px solid #d1dfd8}.panel-head{max-width:750px}.panel-head p{color:var(--muted)}
+.demo{background:white;border-radius:24px;border:1px solid #d5e4dc;padding:24px;box-shadow:0 12px 45px #16392c0a;margin-top:26px}.demo p{color:#506770}
+.game-board{height:290px;position:relative;overflow:hidden;background:radial-gradient(circle at 45% 20%,#214b62,#0b2638 65%);border-radius:18px;border:1px solid #275563;margin:19px 0}.star{position:absolute;top:45%;left:42%;width:74px;height:74px;background:#c8f594;color:#172c31;font-size:43px;border:none;cursor:pointer;border-radius:18px;box-shadow:0 4px 24px #baf3a88c;transition:left .15s,top .15s}.demo-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}.counter{font-size:22px;font-weight:900}.status{min-height:25px;font-size:14px;color:#2a7169;font-weight:750}
+.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:20px 0}.choice{border:1px solid #8eb6a9;background:#f0f8f1;padding:15px;border-radius:12px;font:inherit;cursor:pointer;text-align:left;font-weight:700}.choice:hover{background:#dff0d9}.result{padding:17px;background:#e7f3ed;border-left:4px solid #2b8278;border-radius:8px;min-height:75px}
+code,pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}pre{padding:19px;white-space:pre-wrap;overflow-wrap:anywhere;background:#091c29;color:#d8f5db;border-radius:13px;font-size:12px}
+.sliders{display:grid;grid-template-columns:1fr 1fr;gap:25px;margin:18px 0}.sliders label{font-weight:750;display:block}.sliders input{width:100%;accent-color:#27746e}.value{font-weight:900;color:#2d7067}
+.note{font-size:13px!important;color:#627477!important;margin-top:15px}.end{padding:65px 0;text-align:center;background:#dceae3}.end h2{max-width:650px;margin:10px auto 20px}footer{background:#0b2130;color:#c0d4d1;padding:29px 0;font-size:13px}
+@media(max-width:650px){.choices,.sliders{grid-template-columns:1fr}.hero{padding:48px 0}.demo{padding:17px}.btn{font-size:14px}.game-board{height:260px}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.star{transition:none}}
+</style>
+</head>
+<body>
+<header class="wrap"><a class="brand" href="../">APERTURE <span>LEARNING</span></a><a class="btn secondary" href="../#pricing">Book a lesson · $65</a></header>
+<div class="hero"><div class="wrap"><div class="eyebrow">Project Studio · Live examples</div><h1>Don't just hear about it.<br>Try building it.</h1><p>These are interactive browser demonstrations of learning concepts, built to show the kinds of projects students can explore. They are <strong>not actual student submissions</strong> or promises of what every learner completes in one session.</p><div class="hero-links"><a class="btn" href="#arcade" style="background:var(--mint);color:#0b2130">Try the arcade game ↓</a><a class="btn secondary" href="#ai">Explore a mini AI model ↓</a></div></div></div>
+<main>
+<section class="panel" id="arcade"><div class="wrap"><div class="panel-head"><div class="eyebrow">01 / Game design · Events &amp; variables</div><h2>Build an arcade game that responds to you.</h2><p>Click the star to collect points. Students can extend this project using variables, scoring, conditions, sprites and timed challenges in Scratch or another beginner-friendly environment.</p></div>
+<div class="demo"><div class="demo-bar"><strong class="counter" id="score">Score: 0 / 5</strong><button type="button" class="btn secondary" id="restart">Restart game</button></div><div class="game-board" id="board"><button type="button" class="star" id="star" aria-label="Collect the star">★</button></div><div class="status" id="game-status" role="status">Tap the star five times to complete the challenge.</div><p class="note">Try extending it: What happens when you add a timer, random movement or two-player scoring?</p></div><p><a href="../#pathways">Find a game-development learning pathway ↗</a> · <a href="../#pricing">Book a private lesson ↗</a></p></div></section>
+<section class="panel" id="story"><div class="wrap"><div class="panel-head"><div class="eyebrow">02 / Python thinking · Branching logic</div><h2>Make a story change with each decision.</h2><p>Explore an interactive story powered by conditions. In a live lesson, a learner can build a similar idea in Python, then add variables, inventories, loops and more complex choices.</p></div>
+<div class="demo"><strong>You're inventing a new world. Where do you begin?</strong><div class="choices"><button class="choice" data-story="forest">🌲 Explore the forest</button><button class="choice" data-story="lab">🔬 Enter the science lab</button><button class="choice" data-story="arena">🏀 Visit the sports arena</button></div><div class="result" id="story-result" role="status">Choose a path to see how branching logic changes your story.</div><details><summary>See the Python idea behind the interaction</summary><pre>choice = input("Where will you explore? ")
+if choice == "forest":
+    print("You find a hidden map!")
+elif choice == "lab":
+    print("You activate a robot!")
+else:
+    print("You invent a new game!")</pre></details><p class="note">This on-page demo uses JavaScript; the code above shows how the same decision structure can be implemented in Python.</p></div><p><a href="../#pathways">Explore Python pathway ↗</a> · <a href="../#pricing">Learn with a coach ↗</a></p></div></section>
+<section class="panel" id="ai"><div class="wrap"><div class="panel-head"><div class="eyebrow">03 / AI literacy · Data &amp; model behavior</div><h2>Teach a tiny classifier. Then question its predictions.</h2><p>A simple 3-nearest-neighbors demonstration classifies a fictional snack from two measurements. Try changing the values to see how examples influence the prediction—and why real AI needs good data, testing and human judgment.</p></div>
+<div class="demo"><div class="sliders"><div><label for="sweetness">Sweetness: <span class="value" id="sweet-value">7</span>/10</label><input type="range" id="sweetness" min="0" max="10" value="7"></div><div><label for="crunch">Crunch: <span class="value" id="crunch-value">8</span>/10</label><input type="range" id="crunch" min="0" max="10" value="8"></div></div><button class="btn" type="button" id="predict">Predict category</button><div class="result" id="ai-result" role="status" style="margin-top:17px">Change the sliders and press Predict category.</div><details style="margin-top:18px"><summary>What examples does this model use?</summary><p>Three training examples labeled “crunchy” and three labeled “soft.” It measures the distances to the three closest examples, then takes their majority label. This is a small teaching demonstration, not a production-grade AI system.</p><pre>Training examples (sweetness, crunch)
+Crunchy: (7,9), (8,8), (5,9)
+Soft:    (9,2), (8,1), (6,3)
+Prediction: majority label of 3 nearest points</pre></details><p class="note">No personal data is entered or sent to a server. Real-world AI projects also require data privacy, evaluation, fairness and appropriate adult supervision.</p></div><p><a href="../#ai-lab">How we teach responsible AI ↗</a> · <a href="../#pricing">Start with a private session ↗</a></p></div></section>
+</main>
+<section class="end"><div class="wrap"><div class="eyebrow">From interactive demo to original project</div><h2>Your child's next project can start with one guided session.</h2><p>60-minute live private coding lesson · $65 · Scheduling coordinated after payment</p><a class="btn" href="../#pricing">Book a private lesson · $65 ↗</a><p class="note">Projects are illustrative and adapted to each student's age, readiness and interests. No specific result is guaranteed after one session.</p></div></section>
+<footer><div class="wrap">© APERTURE Learning · Independent STEM education · <a href="../">Back to learning programs</a></div></footer>
+<script>
+(function(){
+"use strict";
+const score=document.getElementById("score"),star=document.getElementById("star"),status=document.getElementById("game-status");
+let points=0;
+function place(){const x=8+Math.floor(Math.random()*75),y=8+Math.floor(Math.random()*65);star.style.left=x+"%";star.style.top=y+"%";}
+function reset(){points=0;score.textContent="Score: 0 / 5";star.disabled=false;star.hidden=false;status.textContent="Tap the star five times to complete the challenge.";place();}
+star.addEventListener("click",()=>{if(points>=5)return;points++;score.textContent="Score: "+points+" / 5";if(points>=5){star.hidden=true;status.textContent="You did it! You've completed the event-and-scoring challenge.";return;}status.textContent="Great! The variable increased. Find the next star.";place();});
+document.getElementById("restart").addEventListener("click",reset);
+document.querySelectorAll("[data-story]").forEach(b=>b.addEventListener("click",()=>{
+const messages={forest:"You discover a hidden map. Add an inventory variable and a second choice to continue the adventure.",lab:"A robot needs instructions. Add conditional logic to check its battery before starting a mission.",arena:"The scoreboard is blank. Use variables and an if-statement to track points and declare the winner."};
+document.getElementById("story-result").textContent=messages[b.dataset.story];}));
+const samples=[{s:7,c:9,label:"Crunchy"},{s:8,c:8,label:"Crunchy"},{s:5,c:9,label:"Crunchy"},{s:9,c:2,label:"Soft"},{s:8,c:1,label:"Soft"},{s:6,c:3,label:"Soft"}];
+const sweet=document.getElementById("sweetness"),crunch=document.getElementById("crunch");
+function numbers(){document.getElementById("sweet-value").textContent=sweet.value;document.getElementById("crunch-value").textContent=crunch.value;}
+[sweet,crunch].forEach(e=>e.addEventListener("input",numbers));
+document.getElementById("predict").addEventListener("click",()=>{
+const s=Number(sweet.value),c=Number(crunch.value),closest=samples.map(t=>({...t,d:Math.hypot(t.s-s,t.c-c)})).sort((a,b)=>a.d-b.d).slice(0,3);
+const vote=closest.filter(t=>t.label==="Crunchy").length>=2?"Crunchy":"Soft";
+document.getElementById("ai-result").textContent="Predicted: "+vote+" snack. Of the 3 nearest training examples, "+closest.filter(t=>t.label===vote).length+" agree. Why might the prediction change if we added different training data?";
+});
+reset();
+})();
+</script></body></html>
