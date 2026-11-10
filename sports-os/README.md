@@ -40,3 +40,32 @@ node --test tests/sports-os.test.mjs
 The existing Pages workflow must stage the entire \`sports-os/\` directory and run this test. Updates preserve existing APERTURE modules and all other directories.
 
 Source of truth: this repository. This module does not depend on an external service to render.
+
+## V2 — Opportunity Intelligence + Professional Portfolio + Services Studio
+
+**Navigation / public routes**
+- \`/sports-os/opportunities.html\` — filter official-source sports opportunities by role type, arrangement and source verification; export a session-only shortlist.
+- \`/sports-os/profile.html\` — create a private self-reported professional summary; download a locally generated HTML portfolio or JSON. Claims are never marked verified.
+- \`/sports-os/marketplace.html\` — select a proposed APERTURE service concept and build a scoped request for review; download or copy the brief, without submitting or accepting an offer.
+
+**Source of truth and ATS refresh**
+- \`sports-os/sources.json\` contains a narrowly curated set of official employer links, exact Greenhouse board names and requisition IDs where applicable, and the date each posting was manually observed.
+- \`sports-os/refresh_opportunities.py\` checks only approved public Greenhouse API URLs, with timeouts and bounded response sizes. It requires an exact requisition ID and title and approved Greenhouse ATS hostname before marking \`confirmed-active\`. 404 results are marked \`not-found\`; transient failures and unsupported sources are \`review-required\`.
+- The GitHub Pages build creates \`_site/sports-os/opportunities.json\` from that read-only verifier on every Pages release (including the scheduled daily workflow). The checked timestamp and verdict travel with each record, and front-end \`confirmed-active\` status expires after seven days. Nothing silently contacts employers.
+- Research-only directory links are not represented as verified active individual vacancies.
+- The app never downloads CVs, accesses user email, applies, sends outreach or runs a credentialing decision.
+
+**Status and commercial limits**
+- V2 is a **functional public research and drafting tool**. No real authenticated user accounts, server-side profiles, licensed-professional onboarding, payments, Stripe checkout, availability calendar, signed contracts, clinical services or marketplace matching are in production.
+- Marketplace products are proposal templates with no price or service fulfillment promise. Explicit provider authorization, terms, pricing, secure payment handling, user consent, qualification verification and child safeguarding checks must precede paid launches.
+- The portfolio editor stores data in JavaScript memory only. User-initiated downloads persist wherever the user saves them. Do not input sensitive athlete, patient, financial or minor-identifying data.
+
+**QA**
+
+\`\`\`bash
+node --test tests/sports-os.test.mjs
+python3 -m unittest discover -s sports-os -p test_refresh_opportunities.py -v
+python3 sports-os/refresh_opportunities.py --offline --output /tmp/aperture-sports-preview.json
+\`\`\`
+
+CI additionally exercises real Chromium mobile and desktop journeys in \`tests/site-browser.mjs\` and verifies the published HTML, JS and status feed after Pages deploy. The live data gate must report \`review-required\` rather than claiming active if the ATS cannot be queried.
