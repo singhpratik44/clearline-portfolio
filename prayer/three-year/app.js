@@ -1,4 +1,5 @@
 import {MAX_BACKUP_BYTES,fromB64,derive,encryptVault,decryptVault,randomSalt,parseBackup} from "./vault-crypto.mjs";
+import {initDailyPractice} from "./daily-ui.mjs";
 /* A Quiet Journey — private, offline-first three-year sanctuary.
    No network requests, cookies, analytics, remote authentication or third-party libraries. */
 (function () {
@@ -113,6 +114,7 @@ function applySettings() {
   state.minutes=Number($("minutes").value);
   state.start=nextDate;
   setMonth(Math.min(state.month,state.months));
+  dailyUI.select(0);
   if(state.vaultKey){state.vaultData.settings=settings();persistVault().then(()=>showStatus("applyStatus","Updated and encrypted in your private vault.")).catch(()=>showStatus("applyStatus","Changed in this tab, but could not save securely."));}
   else showStatus("applyStatus","Journey shaped. Unlock or create your private vault to save your choices.");
 }
@@ -123,6 +125,7 @@ function hydrateSettings(v){
   $("duration").value=String(state.months);$("focus").value=state.focus;
   $("minutes").value=String(state.minutes);$("startDate").value=state.start;
   setMonth(Math.min(state.month,state.months));
+  dailyUI.render();
 }
 function secureAvailable(){return !!(window.isSecureContext && window.crypto && crypto.subtle && crypto.getRandomValues);}
 function readStored(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
@@ -173,7 +176,7 @@ async function openVault(){
     }
     $("vaultPassword").value="";
     state.entryDay=TODAY();
-    setVaultUI();loadEntry();renderEntries();
+    setVaultUI();loadEntry();renderEntries();dailyUI.render();
     showStatus("vaultState","Unlocked · Only encrypted data is stored in this browser.");
   }catch(e){showStatus("vaultState","Could not open vault. Check your passphrase, browser storage or backup.");}
   finally{if(!state.vaultKey)$("vaultOpen").disabled=false;}
@@ -181,7 +184,7 @@ async function openVault(){
 function lockVault() {
   state.vaultKey=null;state.vaultData=null;
   $("vaultPassword").value="";
-  setVaultUI();
+  setVaultUI();dailyUI.render();
 }
 function niceDay(day){const date=new Date(day+"T12:00:00");return dateValid(day)?date.toLocaleDateString(undefined,{year:"numeric",month:"short",day:"numeric"}):day;}
 function loadEntry(){
@@ -219,7 +222,7 @@ async function saveEntry(){
   const previous=state.vaultData.entries[state.entryDay];
   state.vaultData.entries[state.entryDay]={text:body,done,updated:new Date().toISOString()};
   $("saveEntry").disabled=true;
-  try{await persistVault();showStatus("journalStatus","Encrypted and saved on this device.");renderEntries();}
+  try{await persistVault();showStatus("journalStatus","Encrypted and saved on this device.");renderEntries();dailyUI.render();}
   catch(e){
     if(previous)state.vaultData.entries[state.entryDay]=previous;else delete state.vaultData.entries[state.entryDay];
     showStatus("journalStatus","Save failed. Storage may be full or blocked. Export an encrypted backup.");
@@ -261,7 +264,7 @@ async function importVault(file){
     state.entryDay=TODAY();$("vaultPassword").value="";
     $("replaceVault").checked=false;
     closeEraseConfirmation();
-    setVaultUI();loadEntry();renderEntries();
+    setVaultUI();loadEntry();renderEntries();dailyUI.render();
     showStatus("vaultState","Backup decrypted, verified and restored. Your vault is unlocked.");
   }catch(e){showStatus("vaultState","Restore failed. Check your original passphrase, backup integrity and browser storage. No existing vault was replaced.");}
   finally{$("importVault").value="";}
@@ -448,5 +451,6 @@ $("eraseCancel").addEventListener("click",()=>{closeEraseConfirmation();setVault
 $("eraseApprove").addEventListener("click",approveErase);
 window.addEventListener("pagehide",()=>lockVault());
 window.addEventListener("pageshow",e=>{if(e.persisted)sceneDraw();});
-buildTree();setVaultUI();renderMonth();createScene();
+const dailyUI=initDailyPractice({state,today:TODAY,persistVault,setMonth,chapters:CHAPTERS,loadEntry,renderEntries});
+buildTree();setVaultUI();renderMonth();dailyUI.render();createScene();
 })();
