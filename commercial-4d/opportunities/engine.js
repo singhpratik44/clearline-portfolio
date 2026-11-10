@@ -47,7 +47,12 @@ function normalizeBundle(input){
  if(!value||!Array.isArray(value.opportunities))throw Error("Expected an object with an opportunities array.");
  if(value.opportunities.length>LIMIT)throw Error("Limit "+LIMIT+" records per import.");
  const list=value.opportunities.map(normalize);
- const ids=new Set();for(const row of list){if(ids.has(row.id))throw Error("Duplicate opportunity ID: "+row.id);ids.add(row.id);}
+ const ids=new Set(),threads=new Set();for(const row of list){
+  if(ids.has(row.id))throw Error("Duplicate opportunity ID: "+row.id);
+  ids.add(row.id);
+  const linked=row.gmail_thread_id||((row.source_url||"").match(/#(?:all|inbox|sent)\/([0-9a-f]{12,32})(?:[/?#]|$)/i)||[])[1]||"";
+  if(linked){const normalized=linked.toLowerCase();if(threads.has(normalized))throw Error("Duplicate Gmail thread in private bundle; merge or remove duplicate rows.");threads.add(normalized);}
+ }
  return {schema:"aperture-commercial-private-v1",imported_at:new Date().toISOString(),opportunities:list};
 }
 function countByStage(list){return STAGES.reduce((a,s)=>{a[s]=list.filter(r=>r.stage===s).length;return a;},{});}
