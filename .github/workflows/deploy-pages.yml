@@ -74,6 +74,15 @@ jobs:
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/learning/index.html
+          test -s _site/learning/site.css
+          test -s _site/learning/site.js
+          test -s _site/learning/subject-catalog.js
+          test -s _site/learning/book/index.html
+          test -s _site/learning/book/booking.js
+          test -s _site/learning/book/booking.css
+          test -s _site/learning/marketing/index.html
+          grep -q 'id="program-grid"' _site/learning/index.html
+          grep -q 'buy_btn_1Ua6avRo2jpgx3bldwAjYy0p' _site/learning/book/index.html
           test -s _site/learning/product-ui.css
           test -s _site/learning/research/index.html
           test -s _site/learning/research/TEN_STUDIES_2026.md
