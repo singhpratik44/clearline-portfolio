@@ -156,7 +156,7 @@ async function persistVault() {
   writeStored(JSON.stringify(v));
 }
 function setVaultUI() {
-  const existing=!!vaultObject(),unlocked=!!state.vaultKey;
+  const existing=readStored()!==null,unlocked=!!state.vaultKey;
   $("vaultOpen").textContent=existing?"Unlock private vault":"Create private vault";
   $("vaultOpen").disabled=unlocked || !secureAvailable();
   $("vaultLock").disabled=!unlocked;
@@ -257,20 +257,20 @@ async function importVault(file){
     if(file.size>3000000)throw new Error("Backup too large");
     const data=JSON.parse(await file.text());
     if(!validVault(data))throw new Error("Invalid backup");
-    if(vaultObject()&&!confirm("Replace the encrypted vault on this device? Export a backup first. This cannot be undone."))return;
+    if(readStored()!==null&&!confirm("Replace the encrypted vault on this device? Export a backup first. This cannot be undone."))return;
     writeStored(JSON.stringify(data));lockVault();showStatus("vaultState","Encrypted backup imported. Enter its original passphrase to unlock.");
   }catch(e){showStatus("vaultState","Import failed. Choose a valid encrypted A Quiet Journey backup (under 3 MB).");}
   finally{$("importVault").value="";}
 }
 function eraseVault(){
-  if(!vaultObject())return;
+  if(readStored()===null)return;
   if(!confirm("Permanently erase this device's encrypted vault? This cannot be undone unless you have an encrypted backup."))return;
   try{localStorage.removeItem(KEY);lockVault();showStatus("vaultState","This device's encrypted vault has been erased.");}
   catch(e){showStatus("vaultState","Browser storage could not be cleared.");}
 }
 function createScene(){
   const canvas=$("universe");
-  const gl=canvas.getContext("webgl",{alpha:true,antialias:false,powerPreference:"low-power",preserveDrawingBuffer:false});
+  let gl;try{gl=canvas.getContext("webgl",{alpha:true,antialias:false,powerPreference:"low-power",preserveDrawingBuffer:false});}catch(e){gl=null;}
   if(!gl){canvas.style.display="none";document.querySelector(".live-tag").textContent="INTERACTIVE TIMELINE · 3D UNAVAILABLE";return;}
   const vertex=[
     "attribute float aT;","uniform float uRotation;","uniform float uProgress;","uniform float uAspect;","uniform float uStars;","uniform float uTime;",
