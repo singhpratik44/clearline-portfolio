@@ -1,5 +1,4 @@
-import {readFile} from 'node:fs/promises';
-import {join,resolve} from 'node:path';
+import {loadBooks,renderBook} from '../renderer.mjs';
 import {verifyGiftPurchase} from '../verify.mjs';
 import {BUNDLE_BOOKS} from '../bundles.mjs';
 
@@ -10,7 +9,7 @@ function headers(res) {
   res.setHeader('X-Content-Type-Options','nosniff');
   res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');
   res.setHeader('Cross-Origin-Resource-Policy','same-origin');
-  res.setHeader('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'");
+  res.setHeader('Content-Security-Policy',"default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'; frame-ancestors 'none'");
 }
 function fail(res,status,code) {
   res.statusCode=status;
@@ -45,16 +44,15 @@ export default async function handler(req,res) {
     res.setHeader('Content-Type','text/html; charset=utf-8');
     return res.end(bundlePage(sessionId,selection.entitled));
   }
-  // Private files must be packaged at deploy time; do NOT check copyrighted content into public GitHub.
-  const root=resolve(process.env.GIFT_PRIVATE_CONTENT_DIR||join(process.cwd(),'private-content'));
-  const filepath=join(root,selection.book+'.html');
-  // Names are allowlisted SKUs; never accept an unvalidated path.
+  // The server loads published original source text internally, but does not return
+  // a workbook to unauthenticated requests. Historical public URLs remain public
+  // until the storefront migration; this endpoint is not a DRM guarantee.
   if(!selection.entitled.includes(selection.book)||!/^[-a-z0-9]+$/.test(selection.book))return fail(res,403,'book_not_allowed');
-  let content;
-  try {content=await readFile(filepath,'utf8');} catch(_err) {
-    return fail(res,503,'private_workbook_not_deployed');
-  }
+  let books;
+  try {books=await loadBooks()}catch(_error){return fail(res,503,'workbook_catalog_unavailable')}
+  if(!Object.hasOwn(books,selection.book))return fail(res,503,'workbook_not_available');
+  const html=renderBook(books[selection.book]);
   res.statusCode=200;
   res.setHeader('Content-Type','text/html; charset=utf-8');
-  return res.end(content);
+  return res.end(html);
 }
