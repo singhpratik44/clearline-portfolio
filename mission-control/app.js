@@ -143,10 +143,21 @@ function inspector(){
   $("inspector-next").textContent="Add a meeting or task and connect dependencies.";jumpTo="project-module";
  }
 }
+function activity(){
+ const list=$("activity-log");list.replaceChildren();
+ const events=state.events.slice(-14).reverse();
+ if(!events.length){list.append(node("div","empty","The local activity trail will appear as meetings, tasks and reviews change."));return;}
+ for(const e of events){
+  const card=node("div","logitem"),dot=node("span","dot"),detail=node("div");
+  detail.append(node("b",null,e.kind.replace(/_/g," ").toUpperCase()),
+   node("p",null,e.detail),node("small",null,dateTime(e.at)+" / "+e.actor));
+  card.append(dot,detail);list.append(card);
+ }
+}
 function render(){
  state=C.normalize(state);
  if(selected&&!selectedRow())selected=null;
- controls();stats();meetingList();taskList();proposalList();inspector();notify();
+ controls();stats();inspector();meetingList();taskList();proposalList();activity();notify();
 }
 function download(name,body,mime){
  const blob=new Blob([body],{type:mime||"text/plain;charset=utf-8"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=name;a.click();
