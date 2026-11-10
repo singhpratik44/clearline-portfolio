@@ -1,5 +1,5 @@
-/** What a paid bundle grants; never infer permissions from a query-string SKU. */
-export const BUNDLE_BOOKS = Object.freeze({
+/** Allowed workbook SKUs per paid bundle; never trust a requested SKU without validating its payment link. */
+export const BUNDLE_BOOKS=Object.freeze({
   "bundle": [
     "game",
     "birthday",
@@ -92,5 +92,26 @@ export const BUNDLE_BOOKS = Object.freeze({
     "sports-film",
     "season-keepsake",
     "coach-appreciation"
+  ],
+  "basketball-gifts-collection": [
+    "rookie-hoop",
+    "girl-hoopers",
+    "hoop-gift-cards",
+    "basketball-recovery-habits",
+    "team-culture"
+  ],
+  "basketball-coach-ops": [
+    "coach-season",
+    "basketball-camp",
+    "scout-observation",
+    "basketball-scorekeeper",
+    "defensive-iq"
+  ],
+  "basketball-tactics-library": [
+    "defensive-iq",
+    "three-on-three",
+    "basketball-scorekeeper",
+    "pickup-hoops",
+    "scout-observation"
   ]
 });
