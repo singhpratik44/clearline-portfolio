@@ -21,7 +21,7 @@ async function derive(pass,salt,iterations,usage){
 async function seal(value,passphrase){
  if(!available())throw Error("Encrypted browser storage is unavailable here. Use HTTPS in a supported browser.");
  const payload=new TextEncoder().encode(JSON.stringify(value));
- if(payload.byteLength>MAX_RECORD_BYTES)throw Error("The private bundle exceeds the 5 MB limit.");
+ if(payload.byteLength>MAX_RECORD_BYTES)throw Error("The private bundle exceeds the 4 MB limit.");
  const salt=root.crypto.getRandomValues(new Uint8Array(16)),iv=root.crypto.getRandomValues(new Uint8Array(12));
  const key=await derive(passphrase,salt,ITER,"encrypt");
  const ciphertext=await root.crypto.subtle.encrypt({name:"AES-GCM",iv,additionalData:new TextEncoder().encode("APERTURE-MISSION-VAULT-v1"),tagLength:128},key,payload);
@@ -34,7 +34,7 @@ async function open(envelope,passphrase){
  if(salt.length!==16||iv.length!==12||data.length>MAX_RECORD_BYTES+256)throw Error("Corrupt encrypted vault.");
  const key=await derive(passphrase,salt,ITER,"decrypt");
  let plaintext;
- try{plaintext=await root.crypto.subtle.decrypt({name:"AES-GCM",iv,additionalData:new TextEncoder().encode("APERTURE-4D-VAULT-v1"),tagLength:128},key,data);}
+ try{plaintext=await root.crypto.subtle.decrypt({name:"AES-GCM",iv,additionalData:new TextEncoder().encode("APERTURE-MISSION-VAULT-v1"),tagLength:128},key,data);}
  catch{throw Error("Wrong passphrase or corrupted vault; nothing has been changed.");}
  return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(plaintext));
 }
