@@ -80,7 +80,8 @@ function summarize(thread,prior){
   title:text(prior?.title,160)||subject,kind:prior?.kind||"other",
   stage,source_url:String(prior?.source_url||("https://mail.google.com/mail/u/0/#all/"+thread.id)),
   last_evidence_at:lastEvidence||prior?.last_evidence_at||"",
-  evidence:newIds.length||!prior?.evidence?rawEvidence:String(prior.evidence),
+  evidence:prior?.evidence?String(prior.evidence):rawEvidence,
+  gmail_latest_excerpt:rawEvidence,
   terms:prior?.terms||"",blockers:prior?.blockers||"",proposed_next:prior?.proposed_next||"",
   status_confidence:prior?.status_confidence==="confirmed"&&stage===prior?.stage?"confirmed":c.confidence,
   contract_value:prior?.contract_value??null,terms_confirmed:Boolean(prior?.terms_confirmed),
@@ -94,8 +95,6 @@ function merge(existing,thread){
  const rows=Array.isArray(existing)?existing:[];
  const id=threadId(thread?.id);
  if(!id)throw Error("Invalid provider thread ID");
- const ix=rows.findIndex(r=>threadId(r?.gmail_thread_id)||threadId(r?.source_url)===id);
- // Avoid precedence bug: use explicit comparison.
  const index=rows.findIndex(r=>(threadId(r?.gmail_thread_id)||threadId(r?.source_url))===id);
  const previous=index>=0?rows[index]:null;
  const updated=summarize(thread,previous);
