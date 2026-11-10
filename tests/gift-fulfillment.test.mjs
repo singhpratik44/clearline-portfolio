@@ -16,10 +16,10 @@ function responder(session,status=200) {
     return {ok:status>=200&&status<300,status,json:async()=>session};
   };
 }
-test('all 44 Stripe payment links mapped to an entitlement',()=>{
-  assert.equal(Object.keys(PURCHASE_LINK_SKU).length,59);
-  assert.equal(BUNDLE_BOOKS['all-sports-bundle'].length,13);
-  assert.equal(BUNDLE_BOOKS['all-vault'].length,21);
+test('all 69 Stripe payment links mapped to an entitlement',()=>{
+  assert.equal(Object.keys(PURCHASE_LINK_SKU).length,69);
+  assert.equal(BUNDLE_BOOKS['all-sports-bundle'].length,33);
+  assert.equal(BUNDLE_BOOKS['all-vault'].length,54);
 });
 test('a completed live paid session grants its exact purchased SKU',async()=>{
   const r=await verifyGiftPurchase(validId,{secret,fetchFn:responder(mockSession())});
