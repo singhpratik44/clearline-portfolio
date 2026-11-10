@@ -130,5 +130,15 @@ document.querySelectorAll("[data-format]").forEach(b=>b.setAttribute("aria-press
 document.querySelectorAll("[data-format]").forEach(b=>b.addEventListener("click",()=>{state.format=b.dataset.format;renderPrice();}));
 $("pack-count").addEventListener("input",e=>{state.qty=Number(e.target.value);$("pack-count-output").value=String(state.qty);renderPrice();});
 $("copy-quote").addEventListener("click",()=>copy("APERTURE Learning tuition illustration\nFormat: "+(state.format==="weekly"?"Weekly recurring lesson request":state.format==="pack"?"Prepaid lesson pack":"One private lesson")+"\nLessons: "+(state.format==="pack"?state.qty:1)+"\nPrice per 60-minute lesson: $65\nAmount: $"+(state.format==="pack"?65*state.qty:65)+(state.format==="weekly"?" per week (subscription not yet active)":" one-time")+"\nScheduling and cancellation terms must be confirmed separately. Website: https://singhpratik44.github.io/clearline-portfolio/learning/","purchase-status"));
+const catalogChoices={games:"roblox-worlds",apps:"python-adventures",ai:"ai-literacy",robotics:"robotics",creative:"scratch-stories"};
+const params=new URLSearchParams(window.location.search);
+const requested=params.get("interest");
+if(requested&&Object.hasOwn(catalogChoices,requested))$("interest").value=requested;
+const from=params.get("from");
+const selectedCatalogId=from&&/^[a-z0-9-]{1,50}$/.test(from)?from:catalogChoices[$("interest").value];
+$("catalog-link").href="../catalog/?track="+encodeURIComponent(selectedCatalogId)+"#pathway";
+$("interest").addEventListener("change",()=>{
+$("catalog-link").href="../catalog/?track="+encodeURIComponent(catalogChoices[$("interest").value])+"#pathway";
+});
 plan();resetGame();renderPrice();
 })();
