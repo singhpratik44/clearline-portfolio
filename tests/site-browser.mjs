@@ -12,7 +12,7 @@ try {
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto('http://127.0.0.1:8767/');
    await page.locator('#aperture-site-navigation').waitFor();
-   assert.equal(await page.locator('.project').count(),20);
+   assert.equal(await page.locator('.project').count(),21);
    assert.match(await page.title(),/APERTURE/);
    await page.getByRole('button',{name:'Sports',exact:true}).click();
    assert.equal(await page.locator('.project:visible').count(),4);
@@ -78,7 +78,18 @@ try {
    assert.equal(await page.locator('#download').isEnabled(),true);
    assert.deepEqual(errors,[],'Sports services studio JavaScript errors');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Sports V2 horizontal overflow');
+   await page.goto('http://127.0.0.1:8767/gifts/');
+   assert.equal(await page.locator('.gift-card').count(),5,'Gift Lab five purchasable products');
+   assert.equal(await page.locator('.gift-card a.buy[href^="https://buy.stripe.com/"]').count(),5,'All gift products have Stripe checkout');
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Gift storefront horizontal overflow');
+   await page.goto('http://127.0.0.1:8767/gifts/print.html?kit=game');
+   assert.equal(await page.locator('.quest').count(),8,'Game kit contains eight activity pages');
+   await page.goto('http://127.0.0.1:8767/gifts/print.html?kit=bundle');
+   assert.equal(await page.locator('.picker button').count(),4,'Bundle has all four workbooks');
+   await page.getByRole('button',{name:/Family Logic Game Night/}).click();
+   assert.equal(await page.locator('.quest').count(),10,'Family kit contains ten activities');
+   assert.deepEqual(errors,[],'Gift Lab JavaScript errors');
    await page.close();
  }
- console.log('PASS: APERTURE Sports V2 mobile/desktop careers, profiles and services');
+ console.log('PASS: APERTURE Sports V2 and Gift Lab mobile/desktop journeys');
 }finally{if(browser)await browser.close();server.kill()}
