@@ -10,7 +10,7 @@
       "source": "arXiv",
       "url": "https://arxiv.org/abs/2611.09349",
       "status": "preprint",
-      "version": "see source",
+      "version": "v1 — checked against primary arXiv page on 2026-11-10",
       "meeting_impact": "Separate retrieval, evidence selection, and query-focused summaries; do not synthesize ungrounded commitments.",
       "caveat": "Reported benchmark results do not validate APERTURE's implementation."
     },
@@ -21,7 +21,7 @@
       "source": "arXiv",
       "url": "https://arxiv.org/abs/2608.17694",
       "status": "preprint",
-      "version": "see source",
+      "version": "v1 — checked against primary arXiv page on 2026-11-10",
       "meeting_impact": "Treat decisions as evidence-linked drafts requiring an accountable person, source excerpt, and review.",
       "caveat": "Feasibility study used a limited set of transcripts; decisions can be implicit and ambiguous."
     },
@@ -32,7 +32,7 @@
       "source": "arXiv",
       "url": "https://arxiv.org/abs/2609.25028",
       "status": "preprint",
-      "version": "see source",
+      "version": "v1 — checked against primary arXiv page on 2026-11-10",
       "meeting_impact": "Prefer source retrieval and concise context selection over full transcript dumping; flag unknowns.",
       "caveat": "Automatic overlap scores are not a factuality guarantee."
     },
@@ -76,7 +76,7 @@
       "source": "arXiv",
       "url": "https://arxiv.org/abs/2610.14800",
       "status": "preprint",
-      "version": "see source",
+      "version": "v1 — checked against primary arXiv page on 2026-11-10",
       "meeting_impact": "Enforce organization-level invariants when several teams change shared resources or deadlines.",
       "caveat": "Risk detection design hypothesis, not audited protection against all failures."
     },
@@ -87,7 +87,7 @@
       "source": "arXiv",
       "url": "https://arxiv.org/abs/2610.33312",
       "status": "preprint",
-      "version": "see source",
+      "version": "v1 — checked against primary arXiv page on 2026-11-10",
       "meeting_impact": "Explicitly separate suggested actions, meeting approval, and permission to execute side effects.",
       "caveat": "Conditional proof assumptions and limited evaluation do not guarantee safety in other implementations."
     },
@@ -98,7 +98,7 @@
       "source": "arXiv",
       "url": "https://arxiv.org/abs/2610.40940",
       "status": "preprint",
-      "version": "see source",
+      "version": "v1 — checked against primary arXiv page on 2026-11-10",
       "meeting_impact": "Evaluate predictions only against information known at decision time; keep forecasts separate from observed outcomes.",
       "caveat": "Forecast benchmarks are not calibrated to local task estimates."
     },
@@ -109,7 +109,7 @@
       "source": "arXiv",
       "url": "https://arxiv.org/abs/2610.10786",
       "status": "preprint",
-      "version": "see source",
+      "version": "v1 — checked against primary arXiv page on 2026-11-10",
       "meeting_impact": "Patch changed project dependencies selectively while preserving past decisions and approvals.",
       "caveat": "Algorithmic results should not be misrepresented as a deployed feature."
     }
@@ -170,5 +170,6 @@
       "homepage": "https://mlpapersweekly.com/",
       "status": "registered; not ingested"
     }
-  ]
+  ],
+  "version_check_date": "2026-11-10"
 }
