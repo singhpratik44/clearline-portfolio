@@ -61,7 +61,7 @@ const path=new URL("../studio/",location.href);path.searchParams.set("interest",
 path.searchParams.set("from",t.id);
 $("studio-link").href=path.href;
 $("universe-link").href="../universe/?track="+encodeURIComponent(t.id)+"#explore";
-$("lesson-link").href="../#pricing";
+$("lesson-link").href="../book/?track="+encodeURIComponent(t.id);
 const subj="APERTURE Learning specialization: "+t.title;
 const body="Hello APERTURE Learning,\n\nI'm interested in the "+t.title+" specialization and would like to discuss a customized learning pathway.\n\nPlease share the appropriate prerequisites, instructor availability and how lessons are scheduled.\n";
 $("coach-link").href="mailto:parry.s.2324@gmail.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body);
