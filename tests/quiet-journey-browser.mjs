@@ -11,11 +11,19 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 const server=spawn("python3",["-m","http.server",String(PORT),"--bind","127.0.0.1"],{stdio:"ignore"});
 let browser;
 async function load(page){
-  const errors=[];
+  const errors=[],consoleErrors=[],resourceFailures=[];
   page.on("pageerror",e=>errors.push(e.message));
+  page.on("console",m=>{if(m.type()==="error")consoleErrors.push(m.text());});
+  page.on("requestfailed",req=>resourceFailures.push(req.url()+": "+(req.failure()?.errorText||"failed")));
+  page.on("response",res=>{if(res.status()>=400)resourceFailures.push(res.status()+" "+res.url());});
   const res=await page.goto(BASE+"/prayer/three-year/",{waitUntil:"networkidle",timeout:30000});
   assert.equal(res.status(),200);
   await page.locator("#treeMode").waitFor({state:"visible"});
+  const startValue=await page.locator("#startDate").inputValue();
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(startValue)){
+    console.log("DIAGNOSTICS: app initialization not observed",JSON.stringify({startValue,consoleErrors,resourceFailures,errors}));
+  }
+  assert.match(startValue,/^\d{4}-\d{2}-\d{2}$/,"App module must initialize form and register event handlers");
   assert.deepEqual(errors,[],"No browser JavaScript exceptions on load");
   return errors;
 }
