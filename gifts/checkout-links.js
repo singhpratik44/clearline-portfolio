@@ -1,5 +1,15 @@
-/* Verified live Stripe checkout URLs; digital licenses only. */
+/* Stripe-hosted live checkout links. These grant limited licenses, not exclusive access to publicly hosted material. */
 window.APERTURE_GIFT_CHECKOUT={
+  "basketball-coach-studio": "https://buy.stripe.com/14A9AV50i8wcfMo0Jz6kg1b",
+  "basketball-starter-collection": "https://buy.stripe.com/8x2dRb8cuh2IcAc9g56kg1a",
+  "basketball-dreambook": "https://buy.stripe.com/5kQ8wRfEWdQw43GgIx6kg19",
+  "basketball-family": "https://buy.stripe.com/8x27sNdwO5k08jWgIx6kg18",
+  "offense-design": "https://buy.stripe.com/28E28t8cueUAfMo77X6kg17",
+  "coach-session-cards": "https://buy.stripe.com/9B64gBfEW6o4eIkdwl6kg16",
+  "basketball-numbers": "https://buy.stripe.com/eVq8wRdwO27OeIk8c16kg15",
+  "practice-progress": "https://buy.stripe.com/7sY7sNakC13K0Ru2RH6kg14",
+  "defense-chalkboard": "https://buy.stripe.com/3cIcN70K2bIoas4gIx6kg13",
+  "point-guard-lab": "https://buy.stripe.com/14AdRbcsKeUAdEg3VL6kg12",
   "basketball-tactics-library": "https://buy.stripe.com/eVq3cx1O67s82ZCeAp6kg11",
   "basketball-coach-ops": "https://buy.stripe.com/4gMfZj50i9AggQs2RH6kg10",
   "basketball-gifts-collection": "https://buy.stripe.com/6oU00ldwO6o4fModwl6kg0Z",
