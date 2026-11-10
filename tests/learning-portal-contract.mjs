@@ -7,7 +7,7 @@ const portalHtml=text('learning/portal/index.html');
 const portalJs=text('learning/portal/portal.js');
 const config=text('learning/portal/config.js');
 const schema=text('learning/portal/001_secure_schema.sql');
-const atlas=text('learning/catalog/catalog.js');
+const atlas=text('learning/subject-catalog.js');
 const universe=text('learning/universe/universe.js');
 
 test('portal is fail-closed and no credentials are committed',()=>{
