@@ -7,7 +7,7 @@ const js=readFileSync(new URL("../prayer/three-year/app.js",import.meta.url),"ut
 const css=readFileSync(new URL("../prayer/three-year/styles.css",import.meta.url),"utf8");
 const crypto=readFileSync(new URL("../prayer/three-year/vault-crypto.mjs",import.meta.url),"utf8");
 const original=readFileSync(new URL("../prayer/index.html",import.meta.url),"utf8");
-test("standalone journey scripts parse",()=>{ assert.doesNotThrow(()=>new Script(js.replace(/^import [^\n]+\n/,""),{filename:"prayer/three-year/app.js"})); });
+test("standalone journey scripts parse",()=>{ assert.doesNotThrow(()=>new Script(js.replace(/^import [^\n]+\n/gm,""),{filename:"prayer/three-year/app.js"})); });
 test("three-year journey has accessible timeline and all core controls",()=>{
   for(const token of ['id="universe"','id="monthSlider"','id="duration"','value="36" selected','id="focus"','id="startDate"','id="vaultOpen"','id="journalText"','id="exportVault"','id="importVault"','id="eraseVault"','id="saveEntry"','id="treeMode"','id="spiralMode"','id="livingTree"']) assert.ok(html.includes(token),"Missing "+token);
   assert.equal((js.match(/\["/g)||[]).length>36,true);
@@ -39,4 +39,8 @@ test("responsive and reduced-motion accommodations present",()=>{
   assert.match(js,/visibilitychange/);
   assert.match(html,/type="module" src="\.\/app\.js"/);
   assert.match(js,/import .*vault-crypto\.mjs/);
+  assert.match(js,/import .*daily-ui\.mjs/);
+  assert.match(html,/id="daily"/);
+  assert.match(html,/id="dailyRecord"/);
+  assert.match(html,/id="dailySource"/);
 });
