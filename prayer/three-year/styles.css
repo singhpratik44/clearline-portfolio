@@ -56,3 +56,17 @@
   .vault-tools button,.vault-tools label{min-height:36px;display:flex;align-items:center}
 }
 @media(prefers-reduced-motion:reduce){.tree-branch,.tree-leaf{transition:none!important}.mobile-nav{backdrop-filter:none}}
+
+/* Private-vault informed consent, accessible on touch devices and without popup dialogs */
+.vault-tools .recovery-checkbox{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid #536b70;background:#0b2831;color:#dce6df;font-size:12px;line-height:1.5;cursor:pointer}
+.vault-tools .recovery-checkbox input{margin:2px 0 0;min-width:20px;width:20px;height:20px;accent-color:#d5bf91;cursor:pointer;flex-shrink:0}
+.vault-tools .recovery-checkbox span{flex:1}
+.vault-tools .erase-confirm{border:1px solid #dcaaa0;background:#302729;border-radius:10px;padding:18px;display:grid;gap:14px;color:#f1e8e3}
+.vault-tools .erase-confirm[hidden]{display:none!important}
+.vault-tools .erase-confirm p{font-size:13px;color:#e8d3cd;line-height:1.65;margin:0}
+.vault-tools .erase-confirm p strong{color:#ffe8e2}
+.vault-tools .erase-actions{display:flex;gap:10px;flex-wrap:wrap}
+.vault-tools .erase-actions button{min-height:44px;border:1px solid #a6aaaa;padding:9px 15px;display:inline-flex;justify-content:center;align-items:center;border-radius:4px}
+.vault-tools .erase-actions .danger{background:#f0b7ad;border-color:#f0b7ad;color:#331515;font-weight:800}
+.vault-tools .erase-actions button:not(.danger){color:#f2e8dc;border-color:#58787c}
+.vault-tools button:focus-visible,.vault-tools .recovery-checkbox:focus-within{outline:3px solid #cfc392;outline-offset:3px}
