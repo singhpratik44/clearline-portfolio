@@ -1,0 +1,174 @@
+{
+  "title": "APERTURE — Causal Loom: evidence register for meetings and project management",
+  "as_of": "2026-11-10",
+  "evidence_policy": "Ten primary recent studies curated and linked; not automatically pulled from every discovery source. All commercial methods are hypotheses until locally evaluated.",
+  "studies": [
+    {
+      "id": "m01",
+      "title": "ReSUM: Reasoning-Driven Multi-Agent Framework for Query-Focused Summarization",
+      "date": "2026-11-06",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2611.09349",
+      "status": "preprint",
+      "version": "see source",
+      "meeting_impact": "Separate retrieval, evidence selection, and query-focused summaries; do not synthesize ungrounded commitments.",
+      "caveat": "Reported benchmark results do not validate APERTURE's implementation."
+    },
+    {
+      "id": "m02",
+      "title": "GADR: Gathering Architecture Decision Records from Meeting Transcriptions",
+      "date": "2026-08-18",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2608.17694",
+      "status": "preprint",
+      "version": "see source",
+      "meeting_impact": "Treat decisions as evidence-linked drafts requiring an accountable person, source excerpt, and review.",
+      "caveat": "Feasibility study used a limited set of transcripts; decisions can be implicit and ambiguous."
+    },
+    {
+      "id": "m03",
+      "title": "Retrieved-Span Training for Efficient Query-Focused Meeting Summarization on QMSum",
+      "date": "2026-08-18",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2609.25028",
+      "status": "preprint",
+      "version": "see source",
+      "meeting_impact": "Prefer source retrieval and concise context selection over full transcript dumping; flag unknowns.",
+      "caveat": "Automatic overlap scores are not a factuality guarantee."
+    },
+    {
+      "id": "m04",
+      "title": "CoPE: A Framework for Optimizing Coordination between Planning and Execution in LLM-based Agents",
+      "date": "2026-07-06",
+      "source": "ICML 2026 / PMLR",
+      "url": "https://proceedings.mlr.press/v306/liu26az.html",
+      "status": "conference_proceeding",
+      "version": "PMLR 306",
+      "meeting_impact": "Compare meeting plans with task execution, record deviations and repair affected branches.",
+      "caveat": "Benchmark improvements do not establish commercial productivity gains."
+    },
+    {
+      "id": "m05",
+      "title": "TodoEvolve: Learning to Architect Agent Planning Systems",
+      "date": "2026-07-06",
+      "source": "ICML 2026 / PMLR",
+      "url": "https://proceedings.mlr.press/v306/liu26fz.html",
+      "status": "conference_proceeding",
+      "version": "PMLR 306",
+      "meeting_impact": "Adapt task planning structures to dependency complexity; do not force every project into one workflow.",
+      "caveat": "Research uses agent planning benchmarks, not APERTURE production projects."
+    },
+    {
+      "id": "m06",
+      "title": "A large language model-based agent system for interactive large-scale project scheduling",
+      "date": "2026-09-14",
+      "source": "Journal of Computational Design and Engineering",
+      "url": "https://academic.oup.com/jcde/article/13/9/183/8793612",
+      "status": "journal_article",
+      "version": "Volume 13 issue 9",
+      "meeting_impact": "Make schedule analysis responsive to dependency changes and allow analytical feedback instead of static Gantt plans.",
+      "caveat": "Industrial scheduling environment differs from small-business workflows."
+    },
+    {
+      "id": "m07",
+      "title": "EAIR: Interaction Risks in Enterprise LLM Multi-Agent Systems",
+      "date": "2026-10-10",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2610.14800",
+      "status": "preprint",
+      "version": "see source",
+      "meeting_impact": "Enforce organization-level invariants when several teams change shared resources or deadlines.",
+      "caveat": "Risk detection design hypothesis, not audited protection against all failures."
+    },
+    {
+      "id": "m08",
+      "title": "Responsibility Boundaries for Agentic Systems: A Comparative Evaluation of Probabilistic Agentic Programming",
+      "date": "2026-10-23",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2610.33312",
+      "status": "preprint",
+      "version": "see source",
+      "meeting_impact": "Explicitly separate suggested actions, meeting approval, and permission to execute side effects.",
+      "caveat": "Conditional proof assumptions and limited evaluation do not guarantee safety in other implementations."
+    },
+    {
+      "id": "m09",
+      "title": "Benchmarking Forecasting Agents on Yesterday's Tomorrows",
+      "date": "2026-10-29",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2610.40940",
+      "status": "preprint",
+      "version": "see source",
+      "meeting_impact": "Evaluate predictions only against information known at decision time; keep forecasts separate from observed outcomes.",
+      "caveat": "Forecast benchmarks are not calibrated to local task estimates."
+    },
+    {
+      "id": "m10",
+      "title": "Plan-and-Patch: Diffusion Language Models for Agentic Planning",
+      "date": "2026-10-07",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2610.10786",
+      "status": "preprint",
+      "version": "see source",
+      "meeting_impact": "Patch changed project dependencies selectively while preserving past decisions and approvals.",
+      "caveat": "Algorithmic results should not be misrepresented as a deployed feature."
+    }
+  ],
+  "discovery_sources": [
+    {
+      "name": "arXiv",
+      "kind": "API",
+      "homepage": "https://export.arxiv.org/api/query",
+      "status": "registered; manual curation in this release",
+      "fields": "abstract,date,versions"
+    },
+    {
+      "name": "OpenReview",
+      "kind": "Public submissions and decisions",
+      "homepage": "https://openreview.net/",
+      "status": "registered; individual reviews not ingested"
+    },
+    {
+      "name": "NeurIPS",
+      "kind": "Official paper lists",
+      "homepage": "https://neurips.cc/",
+      "status": "registered; not ingested"
+    },
+    {
+      "name": "ICML",
+      "kind": "PMLR proceedings",
+      "homepage": "https://proceedings.mlr.press/",
+      "status": "2 verified proceedings curated"
+    },
+    {
+      "name": "AutoML.org",
+      "kind": "Proceedings/PDFs",
+      "homepage": "https://www.automl.org/",
+      "status": "registered; not ingested"
+    },
+    {
+      "name": "LangChain Blog",
+      "kind": "Blog and RSS",
+      "homepage": "https://www.langchain.com/blog",
+      "status": "engineering context, not peer-reviewed evidence"
+    },
+    {
+      "name": "Hugging Face Papers",
+      "kind": "Discovery and code links",
+      "homepage": "https://huggingface.co/papers",
+      "status": "registered; not ingested"
+    },
+    {
+      "name": "Papers with Code",
+      "kind": "Benchmarks and code",
+      "homepage": "https://paperswithcode.com/",
+      "status": "registered; not ingested"
+    },
+    {
+      "name": "MLPapersWeekly",
+      "kind": "Newsletter archive",
+      "homepage": "https://mlpapersweekly.com/",
+      "status": "registered; not ingested"
+    }
+  ]
+}
