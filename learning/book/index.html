@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0e2934">
+<meta name="robots" content="index,follow">
+<title>Book a Coding Lesson | APERTURE Learning</title>
+<meta name="description" content="Choose a coding specialization, request instructor availability, and review the secure Stripe checkout for a $65 private 60-minute coding lesson.">
+<link rel="canonical" href="https://singhpratik44.github.io/clearline-portfolio/learning/book/">
+<link rel="stylesheet" href="../site.css"><link rel="stylesheet" href="./booking.css">
+<script src="../subject-catalog.js" defer></script><script src="./booking.js" defer></script>
+<script src="https://js.stripe.com/v3/buy-button.js" async></script>
+</head><body>
+<a href="#main" class="skip">Skip to booking information</a>
+<header class="site-header"><div class="container header-inner"><a href="../" class="identity"><span class="identity-mark">A</span><span>APERTURE <small>LEARNING</small></span></a><nav class="nav" aria-label="Booking navigation"><a href="../#programs">All subjects</a><a href="../#pricing">Pricing</a><a href="../#faq">FAQ</a></nav><a href="../" class="nav-action">Return to learning ↗</a></div></header>
+<main id="main">
+<section class="booking-hero"><div class="container"><div class="eyebrow">APERTURE / SUBJECT-BASED LESSON REQUEST</div><h1>Choose the subject.<br><em>Plan the first creation.</em></h1><p>Each of our 20 possible specializations has its own APERTURE booking link. The current Stripe payment option is one <strong>general private coding and game-development lesson</strong>, not twenty independently priced courses.</p></div></section>
+<div class="container booking-grid">
+<section class="booking-panel"><div class="eyebrow">01 / YOUR LEARNING DIRECTION</div><h2 id="subject-heading">Private coding lesson</h2><p id="subject-summary">Choose a subject below to see its proposed project direction.</p>
+<div class="booking-fields">
+<label for="subject-select">Preferred specialization<select id="subject-select"></select></label>
+<label for="age-band">Learner's age range (no name required)<select id="age-band"><option value="">Choose an age range</option><option value="4-6">4–6 — inquiry only</option><option value="7-10">7–10</option><option value="11-13">11–13</option><option value="14-17">14–17</option></select></label>
+</div>
+<div class="booking-capstone"><div class="eyebrow">POSSIBLE FIRST PROJECT DIRECTION</div><h3 id="project-heading">An original project to explore</h3><p id="subject-outcome"></p><p class="micro-note">This is an illustrative direction, not a promise that a complete project can be finished in one session. A qualified available coach must confirm scope.</p></div>
+<div id="age-status" role="status" class="age-status">Select an age range to check whether an inquiry is recommended before payment.</div>
+<div class="booking-actions"><a id="availability-link" class="button primary" href="mailto:parry.s.2324@gmail.com?subject=APERTURE%20Lesson%20Availability">Check subject and coach availability ↗</a><a id="roadmap-link" class="button outline" href="../catalog/">See the four-chapter roadmap ↗</a></div>
+<p class="booking-detail">This email opens in your own email app. Do not include a child's full name, birth date, school or other private information.</p>
+</section>
+<aside class="payment-panel" id="secure-checkout"><div class="eyebrow">02 / SECURE STRIPE CHECKOUT</div><h2>One private lesson.</h2><div class="booking-price">$65 <span>/ 60 minutes</span></div>
+<p>The payment item currently offered by Stripe is:</p><div class="stripe-product"><strong>Private Coding & Game Development Lesson</strong><span>One-time purchase, not a subscription.</span></div>
+<p>The selected subject is a <strong>request for the instructor</strong>, not a separate Stripe line item. Confirm that this general coding lesson fits your chosen specialization before paying.</p>
+<div class="safety-steps"><strong>Before checkout</strong><ol><li>Confirm a suitable instructor and lesson time are available.</li><li>Agree on the lesson scope, scheduling and refund/rescheduling terms.</li><li>Then use this secure Stripe button for the agreed general lesson.</li></ol></div>
+<label class="checkout-consent" for="checkout-ack"><input id="checkout-ack" type="checkbox"><span>I am the parent/guardian or authorized adult purchaser. I have confirmed instructor availability and the terms, and I understand this is the general $65 coding lesson—not a guaranteed complete subject pathway.</span></label>
+<div id="stripe-panel" hidden><div class="eyebrow">STRIPE / ONE-TIME PURCHASE</div><stripe-buy-button buy-button-id="buy_btn_1Ua6avRo2jpgx3bldwAjYy0p" publishable-key="pk_live_51Ua4UxRo2jpgx3blOX8nQJeakWVGHbJk8VNz9tHFkT7vt16pEB3dOwhroFQQgJadwVGTQS0swsGuTM80GlkKaRaO00BPKXep7W"></stripe-buy-button><p class="micro-note">If Stripe lets you adjust quantity, each extra unit is another $65 lesson. Subject choice is not automatically delivered to Stripe. Confirm your preference by email.</p></div>
+<p id="payment-status" class="payment-status" role="status">Checkout is hidden until availability and terms are acknowledged.</p>
+<div class="booking-weekly"><strong>Want recurring weekly sessions?</strong><p>Weekly billing is not active. Ask for a confirmed schedule and a separate recurring Stripe checkout.</p><a id="weekly-link" href="mailto:parry.s.2324@gmail.com?subject=APERTURE%20Weekly%20Coding%20Request">Request weekly enrollment ↗</a></div>
+</aside>
+</div>
+<section class="booking-next"><div class="container"><div class="eyebrow">03 / WHAT HAPPENS NEXT</div><h2>Know what you are buying.</h2><div class="booking-next-grid"><article><span>01</span><h3>Request an instructor</h3><p>Subject choice and age range help determine whether a suitable instructor is available.</p></article><article><span>02</span><h3>Confirm the lesson</h3><p>Agree on format, time, what the learner will build, and cancellation/refund terms.</p></article><article><span>03</span><h3>Pay securely</h3><p>Use the existing one-time Stripe Buy Button for a confirmed general coding lesson.</p></article><article><span>04</span><h3>Build and reflect</h3><p>Work on the agreed milestone with live coaching and receive appropriate feedback.</p></article></div></div></section>
+</main>
+<footer><div class="container footer"><div><strong>APERTURE LEARNING</strong><p>Independent project-based coding education · Online</p></div><div><a href="../">Main page</a><a href="../catalog/">Specializations</a><a href="../studio/">Coding lab</a></div><div><a href="mailto:parry.s.2324@gmail.com">Contact</a><a href="../#faq">Parent FAQ</a></div></div><div class="container legal">The current payment item is one general private coding and game-development lesson. APERTURE subject links do not create separate Stripe products, prices or subscriptions. No child data is transmitted by selecting a subject on this page.</div></footer>
+</body></html>
