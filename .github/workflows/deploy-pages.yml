@@ -31,6 +31,8 @@ jobs:
         run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs
       - name: Test APERTURE evidence-gated application pipeline
         run: node --test career-os/tests/pipeline.test.mjs career-os/tests/educators-rising.test.mjs
+      - name: Validate public research metadata adapters offline
+        run: python3 -m unittest discover -s tests -p test_research_discovery.py -v
       - name: Benchmark bounded simulation
         run: node tests/benchmark.mjs
       - name: Build verified career prototypes
