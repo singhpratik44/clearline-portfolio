@@ -1,10 +1,10 @@
+import {MAX_BACKUP_BYTES,fromB64,derive,encryptVault,decryptVault,randomSalt,parseBackup} from "./vault-crypto.mjs";
 /* A Quiet Journey — private, offline-first three-year sanctuary.
    No network requests, cookies, analytics, remote authentication or third-party libraries. */
 (function () {
 "use strict";
 const $ = id => document.getElementById(id);
 const KEY = "aqj-local-encrypted-vault-v1";
-const ITERATIONS = 250000;
 const TODAY = () => { const d = new Date(); return [d.getFullYear(), String(d.getMonth()+1).padStart(2,"0"), String(d.getDate()).padStart(2,"0")].join("-"); };
 const YEARS = ["NOTICE","PRACTICE","INTEGRATE"];
 const FOCUSES = {
@@ -54,7 +54,7 @@ const CHAPTERS = [
   ["An open horizon","Leave space for becoming.","Which values should guide the next chapter of your life?","Write a letter to your future self, without predictions."],
   ["Three years, many beginnings","The journey remains open.","What would you keep, release, or begin anew?","Honor what was real. Choose your next simple practice."]
 ];
-const state = { months:36, month:1, focus:"truth", minutes:10, start:TODAY(), vaultKey:null, vaultData:null, entryDay:TODAY() };
+const state = { months:36, month:1, focus:"truth", minutes:10, start:TODAY(), vaultKey:null, vaultData:null, entryDay:TODAY(), world:"spiral" };
 let sceneDraw = () => {};
 let sceneStop = () => {};
 const dateValid = s => /^\d{4}-\d\d-\d\d$/.test(s) && !Number.isNaN(new Date(s+"T12:00:00").getTime());
@@ -101,7 +101,7 @@ function renderMonth() {
   $("monthSlider").style.setProperty("--fill",String((state.month-1)/Math.max(state.months-1,1)*100)+"%");
   $("prevMonth").disabled=state.month===1;
   $("nextMonth").disabled=state.month===state.months;
-  updateYears();sceneDraw();
+  updateYears();updateTree();sceneDraw();
 }
 function setMonth(m){state.month=Math.max(1,Math.min(state.months,Number(m)||1));renderMonth();}
 function showStatus(node,text){$(node).textContent=text;}
@@ -122,31 +122,16 @@ function hydrateSettings(v){
   state.months=Number(v.months);state.focus=v.focus;state.minutes=Number(v.minutes);state.start=v.start;
   $("duration").value=String(state.months);$("focus").value=state.focus;
   $("minutes").value=String(state.minutes);$("startDate").value=state.start;
+$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
+$("treeMode").addEventListener("click",()=>setWorld("tree"));
+$("spiralMode").addEventListener("click",()=>setWorld("spiral"));
+$("treeMode").addEventListener("click",()=>setWorld("tree"));
   setMonth(Math.min(state.month,state.months));
 }
 function secureAvailable(){return !!(window.isSecureContext && window.crypto && crypto.subtle && crypto.getRandomValues);}
 function readStored(){try{return localStorage.getItem(KEY);}catch(e){return null;}}
 function writeStored(value){localStorage.setItem(KEY,value);}
-function b64(bytes){let str="";for(let i=0;i<bytes.length;i+=16384){str+=String.fromCharCode.apply(null,bytes.subarray(i,i+16384));}return btoa(str);}
-function fromB64(s){if(typeof s!=="string"||s.length>6000000||!/^[\w+/]*={0,2}$/.test(s))throw new Error("Invalid backup encoding");const raw=atob(s);return Uint8Array.from(raw,c=>c.charCodeAt(0));}
-async function derive(password,salt) {
-  const base=await crypto.subtle.importKey("raw",new TextEncoder().encode(password),"PBKDF2",false,["deriveKey"]);
-  return crypto.subtle.deriveKey({name:"PBKDF2",salt,iterations:ITERATIONS,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]);
-}
-function validVault(v){return !!(v&&v.version===1&&v.kdf==="PBKDF2-SHA256"&&v.iterations===ITERATIONS&&typeof v.salt==="string"&&typeof v.iv==="string"&&typeof v.ciphertext==="string"&&v.salt.length<128&&v.iv.length<128&&v.ciphertext.length<6000000);}
-function vaultObject(){try{const raw=readStored();if(!raw)return null;const v=JSON.parse(raw);return validVault(v)?v:null;}catch(e){return null;}}
-async function encryptVault(key,data,salt){
-  const iv=crypto.getRandomValues(new Uint8Array(12));
-  const encoded=new TextEncoder().encode(JSON.stringify(data));
-  const encrypted=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,encoded);
-  return {version:1,kdf:"PBKDF2-SHA256",iterations:ITERATIONS,salt:b64(salt),iv:b64(iv),ciphertext:b64(new Uint8Array(encrypted))};
-}
-async function decryptVault(key,v){
-  const raw=await crypto.subtle.decrypt({name:"AES-GCM",iv:fromB64(v.iv)},key,fromB64(v.ciphertext));
-  const data=JSON.parse(new TextDecoder().decode(raw));
-  if(!data || typeof data!=="object" || !data.entries || typeof data.entries!=="object" || !data.settings)throw new Error("Invalid vault data");
-  return data;
-}
+function vaultObject(){try{const raw=readStored();return raw?parseBackup(raw):null;}catch(e){return null;}}
 async function persistVault() {
   if(!state.vaultKey || !state.vaultData)throw new Error("Vault locked");
   state.vaultData.settings=settings();
@@ -183,7 +168,7 @@ async function openVault(){
       state.vaultKey=key;state.vaultData=data;hydrateSettings(data.settings);
     }else{
       if(readStored()){throw new Error("An existing vault is invalid. Export it before taking action.");}
-      const salt=crypto.getRandomValues(new Uint8Array(16));
+      const salt=randomSalt();
       const key=await derive(password,salt);
       const data={settings:settings(),entries:{}};
       writeStored(JSON.stringify(await encryptVault(key,data,salt)));
@@ -254,12 +239,21 @@ function exportVault(){
 async function importVault(file){
   if(!file)return;
   try{
-    if(file.size>3000000)throw new Error("Backup too large");
-    const data=JSON.parse(await file.text());
-    if(!validVault(data))throw new Error("Invalid backup");
-    if(readStored()!==null&&!confirm("Replace the encrypted vault on this device? Export a backup first. This cannot be undone."))return;
-    writeStored(JSON.stringify(data));lockVault();showStatus("vaultState","Encrypted backup imported. Enter its original passphrase to unlock.");
-  }catch(e){showStatus("vaultState","Import failed. Choose a valid encrypted A Quiet Journey backup (under 3 MB).");}
+    if(state.vaultKey){showStatus("vaultState","Lock your current vault before restoring a backup.");return;}
+    if(!secureAvailable())throw new Error("Secure browser cryptography unavailable");
+    if(file.size>MAX_BACKUP_BYTES)throw new Error("Backup too large");
+    const data=parseBackup(await file.text());
+    const password=$("vaultPassword").value;
+    if(password.length<12){showStatus("vaultState","Enter the original backup passphrase above before choosing a backup file.");return;}
+    const key=await derive(password,fromB64(data.salt));
+    const content=await decryptVault(key,data);
+    if(readStored()!==null&&!confirm("This verified backup will replace the encrypted vault on this device. Export your current vault first. Continue?"))return;
+    writeStored(JSON.stringify(data));
+    state.vaultKey=key;state.vaultData=content;hydrateSettings(content.settings);
+    state.entryDay=TODAY();$("vaultPassword").value="";
+    setVaultUI();loadEntry();renderEntries();
+    showStatus("vaultState","Backup decrypted, verified and restored. Your vault is unlocked.");
+  }catch(e){showStatus("vaultState","Restore failed. Check your original passphrase, backup integrity and browser storage. No existing vault was replaced.");}
   finally{$("importVault").value="";}
 }
 function eraseVault(){
@@ -268,10 +262,63 @@ function eraseVault(){
   try{localStorage.removeItem(KEY);lockVault();showStatus("vaultState","This device's encrypted vault has been erased.");}
   catch(e){showStatus("vaultState","Browser storage could not be cleared.");}
 }
+
+/* Living tree: time becomes branches. This is never a measure of spiritual merit. */
+const SVG_NS="http://www.w3.org/2000/svg";
+const treeMarks=[];
+let treeReady=false;
+function buildTree(){
+  const svg=$("livingTree");if(!svg)return;
+  const make=(type,attrs)=>{const el=document.createElementNS(SVG_NS,type);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));return el;};
+  svg.append(make("circle",{cx:450,cy:265,r:180,class:"tree-halo"}));
+  svg.append(make("ellipse",{cx:450,cy:455,rx:150,ry:12,class:"tree-ground"}));
+  const group=make("g",{"stroke-linecap":"round",fill:"none"});svg.append(group);
+  let seed=0;
+  const rand=()=>{seed++;return ((Math.sin(seed*91.47)*7381.27)%1+1)%1;};
+  function branch(x,y,length,angle,depth,stage){
+    const a=angle+(rand()-.5)*.13;
+    const x2=x+Math.sin(a)*length,y2=y-Math.cos(a)*length;
+    const birth=Math.max(1,Math.min(36,stage));
+    const path=make("path",{d:"M "+x.toFixed(1)+" "+y.toFixed(1)+" Q "+((x+x2)/2+Math.sin(a)*6).toFixed(1)+" "+((y+y2)/2).toFixed(1)+" "+x2.toFixed(1)+" "+y2.toFixed(1),class:"tree-branch","stroke-width":Math.max(1.2,depth*2)});
+    group.append(path);treeMarks.push({el:path,birth});
+    if(depth<=0){
+      const leaf=make("circle",{cx:x2.toFixed(1),cy:y2.toFixed(1),r:(2+rand()*3).toFixed(1),class:"tree-leaf"});
+      svg.append(leaf);treeMarks.push({el:leaf,birth});return;
+    }
+    const factor=.76+rand()*.045;
+    branch(x2,y2,length*factor,a-(.29+rand()*.16),depth-1,stage+Math.round(4.5+rand()*1.8));
+    branch(x2,y2,length*factor,a+(.29+rand()*.16),depth-1,stage+Math.round(4.5+rand()*1.8));
+    if(depth>=3)branch(x2,y2,length*.53,a+(rand()-.5)*.28,depth-2,stage+Math.round(5+rand()*2));
+  }
+  branch(450,452,87,0,5,1);
+  treeReady=true;
+}
+function updateTree(){
+  if(!treeReady)return;
+  const displayed=Math.min(36,Math.max(1,Math.round(state.month/state.months*36)));
+  const season=(state.month-1)%12;
+  const palette=season<3?"#a5d3ba":season<6?"#dfca95":season<9?"#dca783":"#a4c5e0";
+  $("visual").style.setProperty("--tree-color",palette);
+  for(const mark of treeMarks){
+    mark.el.classList.toggle("tree-future",mark.birth>displayed);
+    mark.el.classList.toggle("tree-present",mark.birth<=displayed);
+  }
+  $("livingTree").setAttribute("aria-label","Living tree illustrating month "+state.month+" of "+state.months+"; branches appear as time advances, not as a measure of spirituality");
+}
+function setWorld(mode){
+  state.world=mode==="tree"?"tree":"spiral";
+  const tree=state.world==="tree";
+  $("visual").classList.toggle("tree-view",tree);
+  $("treeMode").setAttribute("aria-pressed",String(tree));
+  $("spiralMode").setAttribute("aria-pressed",String(!tree));
+  $("sceneHint").textContent=tree?"Branches show time passing, not spiritual rank.":"Drag the 3D path; use the slider to travel through time.";
+  sceneDraw();
+}
+
 function createScene(){
   const canvas=$("universe");
   let gl;try{gl=canvas.getContext("webgl",{alpha:true,antialias:false,powerPreference:"low-power",preserveDrawingBuffer:false});}catch(e){gl=null;}
-  if(!gl){canvas.style.display="none";document.querySelector(".live-tag").textContent="INTERACTIVE TIMELINE · 3D UNAVAILABLE";return;}
+  if(!gl){canvas.style.display="none";document.querySelector(".live-tag").textContent="LIVING TREE · 3D UNAVAILABLE";$("spiralMode").disabled=true;setWorld("tree");return;}
   const vertex=[
     "attribute float aT;","uniform float uRotation;","uniform float uProgress;","uniform float uAspect;","uniform float uStars;","uniform float uTime;",
     "varying float vGlow;","varying float vStar;",
@@ -302,27 +349,29 @@ function createScene(){
   function shader(type,source){const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
   let program;
   try{program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,vertex));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw new Error("Shader link failed");}
-  catch(e){canvas.style.display="none";document.querySelector(".live-tag").textContent="INTERACTIVE TIMELINE · 3D UNAVAILABLE";return;}
+  catch(e){canvas.style.display="none";document.querySelector(".live-tag").textContent="LIVING TREE · 3D UNAVAILABLE";$("spiralMode").disabled=true;setWorld("tree");return;}
   gl.useProgram(program);
   const count=721,values=new Float32Array(count);for(let i=0;i<count;i++)values[i]=i/(count-1);
   const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,values,gl.STATIC_DRAW);
   const loc=gl.getAttribLocation(program,"aT");gl.enableVertexAttribArray(loc);gl.vertexAttribPointer(loc,1,gl.FLOAT,false,0,0);
   const uni=name=>gl.getUniformLocation(program,name);
   const uRotation=uni("uRotation"),uProgress=uni("uProgress"),uAspect=uni("uAspect"),uStars=uni("uStars"),uPoints=uni("uPoints"),uTime=uni("uTime");
-  let rotation=0.5,dragging=false,lastX=0,frame=0,last=0,dirty=true,stop=false;
+  let rotation=0.5,dragging=false,lastX=0,frame=0,last=0,dirty=true,stop=false,visible=false,observer=null;
   const reduceMotion=window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function resize(){
-    const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,1.5);
+    const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,window.innerWidth<700?1:1.5);
     const width=Math.max(1,Math.round(rect.width*dpr)),height=Math.max(1,Math.round(rect.height*dpr));
     if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height;gl.viewport(0,0,width,height);dirty=true;}
   }
+  function schedule(){
+    if(!frame&&!stop&&visible&&!document.hidden&&state.world==="spiral")frame=requestAnimationFrame(draw);
+  }
   function draw(now){
-    if(stop||document.hidden)return;
-    frame=requestAnimationFrame(draw);
-    if(!dirty && (reduceMotion || now-last<33))return;
-    if(!reduceMotion && now-last<33)return;
-    last=now;dirty=false;
-    resize();
+    frame=0;
+    if(stop||document.hidden||!visible||state.world!=="spiral")return;
+    if(!reduceMotion&&now-last<33){schedule();return;}
+    if(reduceMotion&&!dirty)return;
+    last=now;dirty=false;resize();
     if(!reduceMotion&&!dragging)rotation+=0.0014;
     gl.clearColor(0,0,0,0);gl.clear(gl.COLOR_BUFFER_BIT);
     gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE);
@@ -332,18 +381,25 @@ function createScene(){
     gl.uniform1f(uStars,1);gl.uniform1f(uPoints,1);gl.drawArrays(gl.POINTS,0,count);
     gl.uniform1f(uStars,0);gl.uniform1f(uPoints,0);gl.drawArrays(gl.LINE_STRIP,0,count);
     gl.uniform1f(uPoints,1);gl.drawArrays(gl.POINTS,0,count);
+    if(!reduceMotion)schedule();
   }
-  sceneDraw=()=>{dirty=true;if(document.hidden||stop)return;if(reduceMotion)draw(performance.now());};
-  sceneStop=()=>{stop=true;cancelAnimationFrame(frame);};
+  sceneDraw=()=>{
+    dirty=true;
+    if(state.world!=="spiral"){cancelAnimationFrame(frame);frame=0;return;}
+    schedule();
+  };
+  sceneStop=()=>{stop=true;cancelAnimationFrame(frame);frame=0;if(observer)observer.disconnect();};
   canvas.addEventListener("pointerdown",e=>{dragging=true;lastX=e.clientX;canvas.setPointerCapture(e.pointerId);});
   canvas.addEventListener("pointermove",e=>{if(!dragging)return;rotation+=(e.clientX-lastX)*0.007;lastX=e.clientX;dirty=true;});
   canvas.addEventListener("pointerup",()=>dragging=false);
   canvas.addEventListener("pointercancel",()=>dragging=false);
   if("ResizeObserver" in window)new ResizeObserver(()=>{resize();sceneDraw();}).observe(canvas);
   else window.addEventListener("resize",()=>{resize();sceneDraw();});
-  document.addEventListener("visibilitychange",()=>{if(!document.hidden){dirty=true;cancelAnimationFrame(frame);frame=requestAnimationFrame(draw);}else cancelAnimationFrame(frame);});
-  canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();stop=true;canvas.style.display="none";document.querySelector(".live-tag").textContent="TIMELINE AVAILABLE · 3D PAUSED";});
-  resize();frame=requestAnimationFrame(draw);
+  document.addEventListener("visibilitychange",()=>{if(document.hidden){cancelAnimationFrame(frame);frame=0;}else{dirty=true;schedule();}});
+  canvas.addEventListener("webglcontextlost",e=>{e.preventDefault();stop=true;cancelAnimationFrame(frame);frame=0;canvas.style.display="none";$("spiralMode").disabled=true;document.querySelector(".live-tag").textContent="LIVING TREE · 3D PAUSED";setWorld("tree");});
+  if("IntersectionObserver" in window){observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible){dirty=true;schedule();}else{cancelAnimationFrame(frame);frame=0;}},{threshold:.05});observer.observe(canvas);}
+  else visible=true;
+  resize();schedule();
 }
 $("startDate").value=state.start;
 $("apply").addEventListener("click",applySettings);
@@ -357,6 +413,7 @@ $("saveEntry").addEventListener("click",saveEntry);
 $("exportVault").addEventListener("click",exportVault);
 $("importVault").addEventListener("change",e=>importVault(e.target.files[0]));
 $("eraseVault").addEventListener("click",eraseVault);
-window.addEventListener("pagehide",()=>{lockVault();sceneStop();});
-setVaultUI();renderMonth();createScene();
+window.addEventListener("pagehide",()=>lockVault());
+window.addEventListener("pageshow",e=>{if(e.persisted)sceneDraw();});
+buildTree();setVaultUI();renderMonth();createScene();
 })();

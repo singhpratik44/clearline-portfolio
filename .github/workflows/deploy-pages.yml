@@ -28,7 +28,7 @@ jobs:
       - name: Run regression suite
         run: node --test tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Verify A Quiet Journey privacy, timeline and responsive experience
-        run: node --test tests/quiet-journey.test.mjs
+        run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs
       - name: Test APERTURE evidence-gated application pipeline
         run: node --test career-os/tests/pipeline.test.mjs career-os/tests/educators-rising.test.mjs
       - name: Benchmark bounded simulation
@@ -82,6 +82,8 @@ jobs:
           test -s _site/prayer/journey.css
           test -s _site/prayer/three-year/index.html
           test -s _site/prayer/three-year/app.js
+          test -s _site/prayer/three-year/vault-crypto.mjs
+          grep -q 'type="module" src="./app.js"' _site/prayer/three-year/index.html
           test -s _site/prayer/three-year/styles.css
           grep -q 'id="monthSlider"' _site/prayer/three-year/index.html
           grep -q 'buy_btn_1Ua6avRo2jpgx3bldwAjYy0p' _site/learning/index.html
