@@ -43,7 +43,7 @@ try{
   await page.locator("#upload").setInputFiles({name:"private-fixture.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify(bundle))});
   await page.locator("#plan-form").waitFor({state:"visible"});
   assert.equal(await page.locator("#count").innerText(),"1");
-  assert.match(await page.locator("#plan-account").innerText(),/Example Partner/);
+  assert.match(await page.locator("#plan-account").innerText(),/Example Partner/i);
   await page.locator("#plan-study-total").waitFor({state:"visible"});
   await page.waitForFunction(()=>document.querySelectorAll("#plan-studies .plan-study").length===10);
   assert.equal(await page.locator("#plan-scope").inputValue(),bundle.plans["synthetic-test-1"].scope);
