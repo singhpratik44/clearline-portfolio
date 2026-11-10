@@ -1,10 +1,10 @@
 # APERTURE Learning — Execution Register
-Updated November 10, 2026 · Owner review required before external outreach
+Updated November 10, 2026 · Coding-only pilot · Owner approval required before external outreach
 
 ## What is working in source
 
-- Homepage `/learning/`: one focused parent story, featured subject explorer, optional expand-to-all 20, real projects, founder pedigree, honest tuition and FAQs
-- Shared definitions: `/learning/subject-catalog.js` contains 20 canonical specialization IDs
+- Homepage `/learning/`: one focused parent story, featured subject explorer, optional expand-to-all eight coding subjects, real projects, founder pedigree, honest tuition and FAQs
+- Shared definitions: `/learning/subject-catalog.js` contains 20 research-path IDs, with only eight public coding-only enrollment tracks
 - Subject-specific landing pattern: `/learning/book/?track=python-adventures` etc. No student information in query strings
 - Existing Stripe Buy Button: `buy_btn_1Ua6avRo2jpgx3bldwAjYy0p`, public live-mode publishable key. **One $65 / 60-minute general private coding lesson**, *not* separate Stripe products for each subject
 - Subject-specific checkout is behind an adult purchaser acknowledgement and request to confirm instructor, session availability, cancellation and refund terms. Weekly is inquiry-only
@@ -104,3 +104,35 @@ Subject: STEM enrichment vendor requirements / project-based coding
 5. If needed, connect Supabase **after** creating the project; keep private student records disabled until security reviewed.
 
 **No outreach was sent, no activity marketplace listing was created, and no subscription or unique Stripe subject SKU is claimed by this file.**
+
+## Verified 2026 acquisition and instructor-readiness update
+
+**First offer:** Introductory private online coding only (Scratch, Roblox Studio, Python, Minecraft, beginner game design and web programming). Public site lists **eight coding pathways**, not 20 separate purchasable products. The $65 Stripe lesson is a general coding/game-development one-time item, not a completed course or guaranteed reservation.
+
+### Coach recruitment
+
+Two individual professional recruitment drafts have been prepared privately in Gmail (not sent). Existing unsent group and family-marketing drafts remain in Gmail and should not be confused with delivered correspondence. No resumes, parent billing spreadsheets, former employer roster exports, or child data are stored in this public repository. A private reply tracker should record: contact channel, permission to communicate, subject qualification, available slots, compensation discussion, safeguarding/identity status, written agreement, and decision. Do not advertise named instructors before verification.
+
+### Channel qualification and order
+
+| Channel | Verified operational requirement | Current action |
+|---|---|---|
+| ActivityHero | Free directory listing; $49/mo Starter option; 15% registration fee plus processing on MarketingHero, per official published pricing; supports live online 1:1 classes | Prepare accurate free profile first; do not list fixed classes without a coach |
+| Nextdoor Business | Business Page and posts available free; business ownership/representation and verification rules apply | Draft one helpful adult-facing Scratch/Roblox demonstration; create page only with authorized account |
+| Outschool | May accept independent teachers and organizations; 30% teacher fee, platform billing only and background checks | Apply only when actual instructor and class schedule are ready; never direct marketplace parents to separate Stripe |
+| Legacy Center OC | Host for independent homeschool enrichment vendors; official public contact and vendor page | Private draft asks whether online-only coding provider is eligible; no contact sent |
+| iLEAD Exploration | Family/educational facilitator must sponsor new provider; insurance, W-9, business license if applicable and DOJ LiveScan for online teachers | Do not apply without a requesting family; prepare requirements ahead of time |
+| Cabrillo Point Academy | Family/teacher request required for prospective education-service vendor; mandated-reporter training and vendor approval | Future school-funded growth route after safety, insurance and staffing |
+| Fourth District PTA | Official noncommercial policy prohibits promoting commercial purchases or implied endorsement | Seek permission for purely educational workshop only; no paid promotional blast to member lists |
+
+**Sources (read before action):** [ActivityHero pricing](https://business.activityhero.com/pricing/) · [Nextdoor business pages](https://business.nextdoor.com/en-us/getting-started/business-page) · [Outschool official rules](https://outschool.com/policy/teachers) · [Legacy vendor model](https://www.legacycenteroc.com/about-vendors) · [iLEAD provider requirements](https://ileadexploration.org/community-providers/become-a-provider/) · [Cabrillo Point vendor criteria](https://cabrillopointacademy.org/enrichment/educational-vendors) · [Fourth District PTA sponsorship restrictions](https://fourthdistrictpta.org/sponsorship-guidelines/).
+
+### First 14-day execution ledger
+
+- **Days 1–3:** Review two individualized recruitment drafts, determine whether to send, and confirm at least one coach with real schedule availability. Do not reuse historical applicant data or former employer family lists as new promotional audiences.
+- **Days 4–5:** Publish two original coded project walkthroughs (Scratch and Python), a clear instructor interest page, and subject-specific availability inquiry. Confirm 60-minute lesson scope and written billing, rescheduling and refund conditions.
+- **Days 6–8:** Prepare truthful ActivityHero free listing and Nextdoor page. Obtain account owner approval before publishing or sharing.
+- **Days 9–11:** If coaching capacity is verified, schedule one complimentary parent-facing demonstration through an authorized group. Confirm eligibility for any local homeschool program.
+- **Days 12–14:** Assess real adult inquiries, actual available coach slots, paid sessions, fulfilled sessions and permissioned feedback. Decide whether to expand from 1–2 coding tracks.
+
+**Owner decisions still required:** who to invite, instructor compensation, exact booking and refund policy, publication of business-directory profiles, authorization for outreach. No outgoing messages are sent automatically by this plan.
