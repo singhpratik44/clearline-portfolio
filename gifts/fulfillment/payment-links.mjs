@@ -1,4 +1,4 @@
-/** Stripe payment-link IDs verified in active Clearline Code account. IDs are not secrets. */
+/** Authoritative Stripe payment link allowlist; never contains keys. */
 export const PURCHASE_LINK_SKU = Object.freeze({
   "plink_1UaOHRRuy3ohymOHX9V0jdAW": "basketball-coach-studio",
   "plink_1UaOHPRuy3ohymOHiWbgYgEi": "basketball-starter-collection",
