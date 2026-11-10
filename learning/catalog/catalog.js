@@ -81,6 +81,7 @@ $("detail-note").textContent=(t.min>=14?"This is an advanced direction that may 
 const path=new URL("../studio/",location.href);path.searchParams.set("interest",t.studio);
 path.searchParams.set("from",t.id);
 $("studio-link").href=path.href;
+$("universe-link").href="../universe/?track="+encodeURIComponent(t.id)+"#explore";
 $("lesson-link").href="../#pricing";
 const subj="APERTURE Learning specialization: "+t.title;
 const body="Hello APERTURE Learning,\n\nI'm interested in the "+t.title+" specialization and would like to discuss a customized learning pathway.\n\nPlease share the appropriate prerequisites, instructor availability and how lessons are scheduled.\n";
