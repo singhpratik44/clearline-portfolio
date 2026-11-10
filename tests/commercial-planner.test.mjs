@@ -58,7 +58,8 @@ test("zero is valid but negatives and impossible probabilities are rejected",()=
 test("contracted value is never implied by a meeting or by research",()=>{
  const data={...row,terms_confirmed:true,contract_value:20000};
  const p=P.plan(data,{scope:"Pilot",metric:"Accepted referrals",reviewer:"Human"},research);
- assert.equal(p.verified_revenue,null);
+ assert.equal(p.realized_revenue,null);
+ assert.equal(p.evidence_marked_contract_value,null);
  assert.ok(p.open_gates.includes("agreement"));
  const signed=P.plan({...data,stage:"contracted"}, {scope:"Pilot",metric:"Accepted referrals",reviewer:"Human"},research);
  assert.equal(signed.evidence_marked_contract_value,20000);
