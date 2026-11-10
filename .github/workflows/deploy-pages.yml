@@ -26,7 +26,7 @@ jobs:
           npm install --no-save --no-package-lock react@18 react-dom@18 esbuild@0.25
           npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
       - name: Run regression suite
-        run: node --test tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
+        run: node --test tests/mission-control.test.mjs tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Verify A Quiet Journey privacy, timeline and responsive experience
         run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs tests/quiet-journey-commerce.test.mjs
       - name: Test APERTURE evidence-gated application pipeline
@@ -48,7 +48,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js sitemap.xml _site/
-          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d _site/
+          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
@@ -63,6 +63,18 @@ jobs:
           path=Path('_site/commercial-4d/opportunities/index.html')
           html=path.read_text()
           marker='<meta name="aperture-commercial-release-sha" content="'+os.environ['GITHUB_SHA']+'">'
+          assert html.count('</head>')==1
+          path.write_text(html.replace('</head>',marker+'</head>',1))
+          assert marker in path.read_text()
+          PY
+      - name: Stamp Causal Loom release
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          path=Path('_site/mission-control/index.html')
+          html=path.read_text()
+          marker='<meta name="aperture-mission-release-sha" content="'+os.environ['GITHUB_SHA']+'">'
           assert html.count('</head>')==1
           path.write_text(html.replace('</head>',marker+'</head>',1))
           assert marker in path.read_text()
@@ -145,6 +157,12 @@ jobs:
           test -s _site/commercial-4d/opportunities/index.html
           test -s _site/commercial-4d/opportunities/engine.js
           test -s _site/commercial-4d/opportunities/gmail-core.js
+          test -s _site/mission-control/index.html
+          test -s _site/mission-control/core.js
+          test -s _site/mission-control/app.js
+          test -s _site/mission-control/loom.js
+          test -s _site/mission-control/vault.js
+          test -s _site/mission-control/research.json
           test -s _site/commercial-4d/opportunities/gmail-oauth.js
           test -s _site/commercial-4d/opportunities/vault.js
           test -s _site/commercial-4d/opportunities/audit.js
@@ -261,6 +279,38 @@ jobs:
                   break
               except Exception as exc:
                   print('Not fully published yet:',attempt+1,type(exc).__name__,str(exc))
+                  if attempt==11:raise
+                  time.sleep(12)
+          PY
+      - name: Verify live Causal Loom release and source integrity
+        env:
+          MISSION_URL: https://singhpratik44.github.io/clearline-portfolio/mission-control/
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import os,time,urllib.request
+          root=os.environ['MISSION_URL']
+          sha=os.environ['EXPECTED_SHA']
+          files={
+            '':('name="aperture-mission-release-sha" content="'+sha+'"','id="loom"','id="meeting-form"','id="proposal-form"','src="./loom.js"','PRIVATE'),
+            'core.js':('ApertureMission','Dependency cycle detected','action_approved'),
+            'app.js':('ApertureMissionUI','vault-save','proposal-form'),
+            'loom.js':('CausalLoomView','research.json'),
+            'vault.js':('ApertureMissionVault','AES-GCM'),
+            'research.json':('ReSUM','CoPE','GADR')
+          }
+          for attempt in range(12):
+              try:
+                  for suffix,tokens in files.items():
+                      req=urllib.request.Request(root+suffix,headers={'User-Agent':'APERTURE-Mission-Release/1.0'})
+                      with urllib.request.urlopen(req,timeout=16) as response:
+                          body=response.read().decode('utf-8')
+                          assert response.status==200,(suffix,response.status)
+                          assert all(t in body for t in tokens),(suffix,'missing release marker')
+                  print('LIVE VERIFIED APERTURE CAUSAL LOOM',sha,root)
+                  break
+              except Exception as exc:
+                  print('Publish verification attempt',attempt+1,repr(exc))
                   if attempt==11:raise
                   time.sleep(12)
           PY
