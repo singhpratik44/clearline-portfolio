@@ -76,6 +76,13 @@ jobs:
           test -s _site/learning/studio/index.html
           test -s _site/learning/studio/studio.js
           test -s _site/learning/studio/studio.css
+          test -s _site/learning/portal/index.html
+          test -s _site/learning/portal/portal.js
+          test -s _site/learning/portal/portal.css
+          test -s _site/learning/portal/config.js
+          grep -q 'enabled: false' _site/learning/portal/config.js
+          grep -q 'id="system-status"' _site/learning/portal/index.html
+          node --test tests/learning-portal-contract.mjs
           test -s _site/learning/projects/index.html
           test -s _site/learning/experience.js
           test -s _site/learning/experience.css
