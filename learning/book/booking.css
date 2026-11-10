@@ -34,3 +34,9 @@
 @media(max-width:960px){.booking-grid{grid-template-columns:1fr}.booking-panel,.payment-panel{padding:26px}}
 @media(max-width:720px){.booking-next-grid{grid-template-columns:repeat(2,1fr)}.booking-hero{padding:45px 0 65px}.booking-grid{margin-top:-25px}}
 @media(max-width:540px){.booking-fields{grid-template-columns:1fr}.booking-panel,.payment-panel{padding:21px}.booking-next-grid{grid-template-columns:1fr}.booking-hero h1{font-size:47px}.booking-hero p{font-size:14px}.booking-price{font-size:48px}.booking-actions .button{width:100%}}
+
+/* Non-identifying scheduling preference UI; never suggests a time is booked. */
+.booking-availability{border:1px solid #d0dfd3;border-radius:8px;padding:16px 19px 12px;margin:25px 0 10px;background:#f8fbf8}
+.booking-availability legend{font-size:13px;font-weight:850;color:#245c50;padding:0 5px}
+.booking-availability .booking-fields{margin:8px 0 10px}
+.booking-availability .micro-note{margin:0 0 8px;color:#5d7870}
