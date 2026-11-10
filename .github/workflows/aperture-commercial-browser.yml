@@ -1,0 +1,36 @@
+name: APERTURE Commercial 4D Browser Verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'commercial-4d/opportunities/**'
+      - 'commercial-4d/research.json'
+      - 'tests/commercial-planner.browser.mjs'
+      - '.github/workflows/aperture-commercial-browser.yml'
+  pull_request:
+    paths:
+      - 'commercial-4d/opportunities/**'
+      - 'commercial-4d/research.json'
+      - 'tests/commercial-planner.browser.mjs'
+      - '.github/workflows/aperture-commercial-browser.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: commercial-browser-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install headless browser
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Verify mobile and desktop planning, research, vault and review gates
+        run: node tests/commercial-planner.browser.mjs
