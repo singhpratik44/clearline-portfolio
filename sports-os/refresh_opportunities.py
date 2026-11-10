@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent
 TRUSTED_BOARDS = {"monumentalsports", "goldenstate", "thefloridapanthers"}
@@ -108,7 +109,8 @@ def classify(record: dict, *, offline=False, transport=fetch_greenhouse, now=Non
         response.get("id") == item["job_id"]
         and normalized_title(str(response.get("title", ""))) == normalized_title(item["title"])
         and isinstance(response.get("absolute_url"), str)
-        and "greenhouse.io" in response["absolute_url"]
+        and urlsplit(response["absolute_url"]).scheme == "https"
+        and urlsplit(response["absolute_url"]).hostname in {"job-boards.greenhouse.io", "boards.greenhouse.io"}
     ):
         item["status"] = "confirmed-active"
         item["verified_at"] = now
