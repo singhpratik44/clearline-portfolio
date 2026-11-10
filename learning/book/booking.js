@@ -1,6 +1,8 @@
 (() => {
 "use strict";
-const tracks=window.AP_SUBJECTS||[];
+// Public booking accepts coding / game-development lessons only. Other research tracks remain informational.
+const codingIds=new Set(["scratch-stories","roblox-worlds","minecraft-makers","3d-game-design","python-adventures","web-creators","mobile-prototypes","music-media-code"]);
+const tracks=(window.AP_SUBJECTS||[]).filter(t=>codingIds.has(t.id));
 const $=id=>document.getElementById(id);
 const select=$("subject-select"),age=$("age-band"),ack=$("checkout-ack"),stripe=$("stripe-panel"),notice=$("payment-status");
 const param=new URLSearchParams(location.search).get("track");
