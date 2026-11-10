@@ -54,7 +54,17 @@ try{
   await page.locator("#stat-meetings").waitFor();
   await page.locator("#vault-pass").fill("a strong test-only passphrase 2026");
   await page.locator("#vault-open").click();
-  await page.waitForFunction(()=>document.querySelector("#task-list")?.textContent?.includes("Verify lead handoff status"));
+  await page.waitForTimeout(800);
+  const vaultCheck=await page.evaluate(()=>({
+   state:window.ApertureMissionUI?.getState?.(),
+   status:document.querySelector("#privacy-state")?.textContent,
+   toast:document.querySelector("#toast")?.textContent,
+   errors:[],
+   taskText:document.querySelector("#task-list")?.textContent?.slice(0,700)
+  }));
+  console.log("VAULT DEBUG",JSON.stringify({status:vaultCheck.status,toast:vaultCheck.toast,
+   taskText:vaultCheck.taskText,stateCount:vaultCheck.state?.tasks?.length,projectCount:vaultCheck.state?.projects?.length,errors}));
+  await page.waitForFunction(()=>document.querySelector("#task-list")?.textContent?.includes("Verify lead handoff status"),null,{timeout:10000});
   assert.equal(await page.locator("#task-list .item").count(),before+1);
   assert.equal(await page.locator("#stat-proposals").innerText(),"1");
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+3),false,"No horizontal overflow");
