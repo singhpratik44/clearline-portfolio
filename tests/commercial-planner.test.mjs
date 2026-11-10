@@ -22,7 +22,7 @@ test("per-opportunity plans are deterministic, sourced, versioned and never acti
  assert.equal(p.schema,"aperture-commercial-plan-v2");
  assert.equal(p.steps.length,3);assert.equal(p.review_ready,true);
  assert.equal(p.execution_authorized,false);assert.equal(p.executed_actions,0);
- assert.equal(p.verified_revenue,null);
+ assert.equal(p.realized_revenue,null);
  assert.ok(p.hard_requirements.some(x=>/approval/i.test(x)));
  assert.equal(p.studies.length,10);
  assert.deepEqual(p,P.plan(row,input,research));
@@ -61,7 +61,8 @@ test("contracted value is never implied by a meeting or by research",()=>{
  assert.equal(p.verified_revenue,null);
  assert.ok(p.open_gates.includes("agreement"));
  const signed=P.plan({...data,stage:"contracted"}, {scope:"Pilot",metric:"Accepted referrals",reviewer:"Human"},research);
- assert.equal(signed.verified_revenue,20000);
+ assert.equal(signed.evidence_marked_contract_value,20000);
+ assert.equal(signed.realized_revenue,null);
  assert.ok(!signed.open_gates.includes("agreement"));
  assert.equal(signed.execution_authorized,false);
 });
