@@ -40,7 +40,6 @@ const CHAPTERS = [
   ["Learning through correction","Welcome a better understanding.","Which feedback would help you act more wisely?","Ask for constructive feedback and consider it carefully."],
   ["Stewardship in practice","Make responsibility visible.","What promise needs better follow-through?","Write down and honor a specific commitment."],
   ["A courageous kindness","Protect without hardening.","How can you practice courage without losing tenderness?","Do something helpful that requires a little courage."],
-  ["The quiet repetition","Return to what matters.","What supports your practice when motivation fades?","Practice simply, whether or not it feels exceptional."],
   ["A year of practicing","Notice what your actions teach.","Which habits have been valuable and which need a new shape?","Reflect on actions, not streaks or external scores."],
   ["Living the question","Do not hurry the answer.","Which important question can remain open for now?","Spend time considering rather than resolving it."],
   ["A generous perspective","See beyond yourself.","Whose view have you not yet seriously considered?","Ask a person what they wish you understood."],
