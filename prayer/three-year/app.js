@@ -239,11 +239,21 @@ function exportVault(){
 async function importVault(file){
   if(!file)return;
   try{
+    if(state.vaultKey){showStatus("vaultState","Lock your current vault before restoring a backup.");return;}
+    if(!secureAvailable())throw new Error("Secure browser cryptography unavailable");
     if(file.size>MAX_BACKUP_BYTES)throw new Error("Backup too large");
     const data=parseBackup(await file.text());
-    if(readStored()!==null&&!confirm("Replace the encrypted vault on this device? Export a backup first. This cannot be undone."))return;
-    writeStored(JSON.stringify(data));lockVault();showStatus("vaultState","Encrypted backup imported. Enter its original passphrase to unlock.");
-  }catch(e){showStatus("vaultState","Import failed. Choose a valid encrypted A Quiet Journey backup (under 3 MB).");}
+    const password=$("vaultPassword").value;
+    if(password.length<12){showStatus("vaultState","Enter the original backup passphrase above before choosing a backup file.");return;}
+    const key=await derive(password,fromB64(data.salt));
+    const content=await decryptVault(key,data);
+    if(readStored()!==null&&!confirm("This verified backup will replace the encrypted vault on this device. Export your current vault first. Continue?"))return;
+    writeStored(JSON.stringify(data));
+    state.vaultKey=key;state.vaultData=content;hydrateSettings(content.settings);
+    state.entryDay=TODAY();$("vaultPassword").value="";
+    setVaultUI();loadEntry();renderEntries();
+    showStatus("vaultState","Backup decrypted, verified and restored. Your vault is unlocked.");
+  }catch(e){showStatus("vaultState","Restore failed. Check your original passphrase, backup integrity and browser storage. No existing vault was replaced.");}
   finally{$("importVault").value="";}
 }
 function eraseVault(){
