@@ -151,6 +151,7 @@ function setVaultUI() {
   $("saveEntry").disabled=!unlocked;
   $("exportVault").disabled=!existing;
   $("eraseVault").disabled=!existing;
+  if(!existing)closeEraseConfirmation();
   $("vaultState").textContent=unlocked?"Unlocked · Encrypted on this device":existing?"Locked · Your encrypted vault is on this device":"No vault yet · Nothing is stored";
   $("vaultHint").textContent=!secureAvailable()?"Encryption requires a secure HTTPS browser with Web Crypto support. Journaling is unavailable here.":existing?"Enter your passphrase to unlock. Lost passphrases cannot be recovered.":"Choose a passphrase of at least 12 characters. You must remember it: we cannot reset it.";
   if(!unlocked){$("journalText").value="";$("practiceDone").checked=false;showStatus("journalStatus","Unlock your vault to write.");$("entryList").replaceChildren();}
@@ -229,12 +230,20 @@ async function saveEntry(){
   }finally{$("saveEntry").disabled=false;}
 }
 function exportVault(){
-  const raw=readStored();if(!raw){showStatus("vaultState","No encrypted backup is available.");return;}
-  const blob=new Blob([raw],{type:"application/json"});
-  const url=URL.createObjectURL(blob),a=document.createElement("a");
-  a.href=url;a.download="a-quiet-journey-encrypted-"+TODAY()+".json";document.body.append(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-  showStatus("vaultState","Encrypted backup prepared. Store it safely with your passphrase.");
+  const raw=readStored();
+  if(!raw){showStatus("vaultState","No encrypted backup is available.");return;}
+  try {
+    parseBackup(raw);
+    const blob=new Blob([raw],{type:"application/json;charset=utf-8"});
+    const url=URL.createObjectURL(blob),a=document.createElement("a");
+    a.href=url;
+    a.download="a-quiet-journey-encrypted-"+TODAY()+".json";
+    document.body.append(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),30000);
+    showStatus("vaultState","Encrypted backup download requested. Check your browser's Downloads or Files and keep your passphrase separately.");
+  }catch(e){
+    showStatus("vaultState","Could not prepare backup. Your device's vault was not changed.");
+  }
 }
 async function importVault(file){
   if(!file)return;
@@ -247,20 +256,43 @@ async function importVault(file){
     if(password.length<12){showStatus("vaultState","Enter the original backup passphrase above before choosing a backup file.");return;}
     const key=await derive(password,fromB64(data.salt));
     const content=await decryptVault(key,data);
-    if(readStored()!==null&&!confirm("This verified backup will replace the encrypted vault on this device. Export your current vault first. Continue?"))return;
+    if(readStored()!==null&&!$("replaceVault").checked){
+      showStatus("vaultState","Existing vault preserved. Tick the explicit replacement checkbox before importing.");
+      return;
+    }
     writeStored(JSON.stringify(data));
     state.vaultKey=key;state.vaultData=content;hydrateSettings(content.settings);
     state.entryDay=TODAY();$("vaultPassword").value="";
+    $("replaceVault").checked=false;
+    closeEraseConfirmation();
     setVaultUI();loadEntry();renderEntries();
     showStatus("vaultState","Backup decrypted, verified and restored. Your vault is unlocked.");
   }catch(e){showStatus("vaultState","Restore failed. Check your original passphrase, backup integrity and browser storage. No existing vault was replaced.");}
   finally{$("importVault").value="";}
 }
+function closeEraseConfirmation(){
+  $("eraseConfirm").hidden=true;
+  $("eraseAcknowledge").checked=false;
+  $("eraseApprove").disabled=true;
+}
 function eraseVault(){
   if(readStored()===null)return;
-  if(!confirm("Permanently erase this device's encrypted vault? This cannot be undone unless you have an encrypted backup."))return;
-  try{localStorage.removeItem(KEY);lockVault();showStatus("vaultState","This device's encrypted vault has been erased.");}
-  catch(e){showStatus("vaultState","Browser storage could not be cleared.");}
+  $("eraseAcknowledge").checked=false;
+  $("eraseApprove").disabled=true;
+  $("eraseConfirm").hidden=false;
+  showStatus("vaultState","Deletion is not yet complete. Review and confirm below, or cancel.");
+  $("eraseAcknowledge").focus();
+}
+function approveErase(){
+  if(!$("eraseAcknowledge").checked||readStored()===null)return;
+  try{
+    localStorage.removeItem(KEY);
+    if(readStored()!==null)throw new Error("Vault remains in storage");
+    closeEraseConfirmation();
+    $("replaceVault").checked=false;
+    lockVault();
+    showStatus("vaultState","This device's encrypted vault has been erased. Imported backups stored elsewhere are not affected.");
+  }catch(e){showStatus("vaultState","Could not erase vault from browser storage. Your data remains encrypted; try again.");}
 }
 
 /* Living tree: time becomes branches. This is never a measure of spiritual merit. */
@@ -413,6 +445,9 @@ $("saveEntry").addEventListener("click",saveEntry);
 $("exportVault").addEventListener("click",exportVault);
 $("importVault").addEventListener("change",e=>importVault(e.target.files[0]));
 $("eraseVault").addEventListener("click",eraseVault);
+$("eraseAcknowledge").addEventListener("change",e=>{$("eraseApprove").disabled=!e.target.checked;});
+$("eraseCancel").addEventListener("click",()=>{closeEraseConfirmation();setVaultUI();});
+$("eraseApprove").addEventListener("click",approveErase);
 window.addEventListener("pagehide",()=>lockVault());
 window.addEventListener("pageshow",e=>{if(e.persisted)sceneDraw();});
 buildTree();setVaultUI();renderMonth();createScene();
