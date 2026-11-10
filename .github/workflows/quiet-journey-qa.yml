@@ -28,6 +28,6 @@ jobs:
       - name: Install isolated browser testing runtime
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
-          npx playwright install --with-deps chromium
+          npx playwright install chromium --only-shell
       - name: Chromium mobile and desktop journey acceptance
         run: node tests/quiet-journey-browser.mjs
