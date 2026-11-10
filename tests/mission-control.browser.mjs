@@ -48,7 +48,7 @@ try{
   await page.locator("#vault-pass").fill("a strong test-only passphrase 2026");
   await page.locator("#vault-repeat").fill("a strong test-only passphrase 2026");
   await page.locator("#vault-save").click();
-  await page.waitForFunction(()=>document.querySelector("#privacy-state")?.textContent?.includes("SAVED"));
+  await page.waitForFunction(()=>document.querySelector("#privacy-state")?.textContent?.includes("SAVED IN LOCAL ENCRYPTED VAULT"));
   assert.equal(await page.evaluate(()=>localStorage.length),0);
   await page.reload();
   await page.locator("#stat-meetings").waitFor();
