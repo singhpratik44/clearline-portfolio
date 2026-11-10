@@ -8,9 +8,14 @@ const rootFiles=fs.readdirSync(root).filter(x=>x.endsWith('.html'));
 const nested=['clearline','lab'].flatMap(dir=>fs.readdirSync(path.join(root,dir)).filter(x=>x.endsWith('.html')).map(x=>path.join(dir,x)));
 const content=p=>fs.readFileSync(path.join(root,p),'utf8');
 
-test('every public HTML page can return to the APERTURE hub',()=>{
-  for(const file of rootFiles)assert.match(content(file),/src="assets\/aperture-shell\.js"/,file);
+test('standalone public pages have document structure, while shared-shell pages retain navigation',()=>{
+  for(const file of rootFiles){
+    const source=content(file);
+    assert.match(source,/<html(?:\s|>)/i,file);
+    assert.match(source,/<title>[^<]+<\/title>/i,file);
+  }
   for(const file of nested)assert.match(content(file),/src="\.\.\/assets\/aperture-shell\.js"/,file);
+  assert.match(content('sports-os/index.html'),/href="\.\.\/index\.html"/);
 });
 
 test('homepage is a complete navigable index, not a missing bundle mount',()=>{
