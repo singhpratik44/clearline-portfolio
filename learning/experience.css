@@ -1,0 +1,74 @@
+
+/* APERTURE Learning: authentic pathway and evidence-led experience */
+.pathways{background:#eaf2eb}
+.experience-head{max-width:785px;margin-bottom:30px}
+.experience-head p{color:#647680;font-size:18px}
+.pathway-form{background:#fff;border:1px solid #c5d9cc;border-radius:20px;padding:25px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+.pathway-form label{display:block;font-size:12px;font-weight:850;letter-spacing:.025em;color:#335961;margin-bottom:7px}
+.pathway-form select{display:block;width:100%;min-height:51px;background:#fff;border:1px solid #b4cbbf;color:#193742;border-radius:10px;padding:10px;font:inherit}
+.pathway-form button{grid-column:1/-1;justify-self:start}
+.pathway-result{border:1px solid #a8c9b1;background:#fff;border-radius:20px;margin:18px 0 0;padding:28px}
+.pathway-result[hidden]{display:none}
+.pathway-result h3{font-size:27px;margin:11px 0}
+.pathway-result p{color:#5b727b}
+.pathway-stages{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:21px 0}
+.pathway-stages article{background:#f1f7f0;border:1px solid #d8e7d8;border-radius:12px;padding:20px;font-size:14px}
+.pathway-stages article strong{display:block;color:#327a70;font-size:12px;margin-bottom:8px}
+.pathway-stages article h4{font-size:17px;margin:0 0 8px}
+.pathway-stages article p{font-size:13px;margin:0}
+.pathway-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:19px}
+.experience-note{color:#637982;font-size:12px;margin-top:13px}
+.pathways .inline-links{display:flex;flex-wrap:wrap;gap:22px;margin-top:24px}
+.pathways .inline-links a{font-weight:780;color:#236962}
+.progression{background:#102b39;color:#fff}
+.progression .experience-head p,.progression .experience-note{color:#b6cacf}
+.level-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.level{background:#1b3b49;border:1px solid #496570;border-radius:17px;padding:23px;display:flex;flex-direction:column}
+.level small{color:#d4f6aa;letter-spacing:.13em;font-size:11px;font-weight:850}
+.level h3{color:white;font-size:23px;margin:13px 0}
+.level p{color:#bdd0d8;font-size:14px;flex:1}
+.level strong{color:#c6edb0;font-size:12px}
+.milestones{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin:22px 0}
+.milestones article{border-top:2px solid #bceaa2;padding:18px 6px 10px;font-size:14px;color:#c4d6d9}
+.milestones article strong{display:block;color:#fff;font-size:16px}
+.progression .btn{background:#cef4a8;color:#12333b}
+.studio-section{background:#f7faf5}
+.studio-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.studio-card{background:#fff;border:1px solid #d4e2d9;border-radius:17px;padding:24px;display:flex;flex-direction:column}
+.studio-card h3{font-size:22px}
+.studio-card p{font-size:14px;color:#61777e;flex:1}
+.studio-card a{font-size:14px;font-weight:850;color:#246d64;margin-top:17px}
+.ai-section{background:#e4efea}
+.ai-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.ai-card{background:white;border:1px solid #c9ded4;border-radius:17px;padding:24px}
+.ai-card h3{font-size:22px}
+.ai-card p{color:#62757d;font-size:14px}
+.ai-card a{font-size:14px;font-weight:800;color:#256b63}
+.ai-resource{background:#d8e7df;border-left:4px solid #469a80;border-radius:0 14px 14px 0;padding:20px;margin-top:26px;font-size:13px}
+.ai-resource a{font-weight:700}
+.pedigree{background:white}
+.pedigree-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:45px}
+.pedigree-grid p{color:#657b80;font-size:17px}
+.pedigree-list{list-style:none;margin:20px 0;padding:0}
+.pedigree-list li{padding:13px 0;border-top:1px solid #d9e4df}
+.pedigree-list li strong{display:block;font-size:15px}
+.pedigree-aside{background:#e9f2eb;border-radius:20px;padding:26px}
+.pedigree-aside h3{font-size:24px;margin:0 0 13px}
+.pedigree-aside p{font-size:14px}
+.partners{background:#dcece4}
+.partner-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.partner-card{background:#fff;border:1px solid #cbded4;border-radius:16px;padding:24px}
+.partner-card h3{font-size:21px}
+.partner-card p{color:#607781;font-size:14px}
+.partner-card a{font-size:13px;font-weight:840}
+.trust{background:#f6f8f4}
+.trust-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.trust-card{background:#fff;border:1px solid #d6e2da;border-radius:15px;padding:24px}
+.trust-card .index{font-size:34px;color:#417f74;font-weight:900}
+.trust-card h3{font-size:20px;margin:10px 0}
+.trust-card p{font-size:14px;color:#617880}
+.testimonial-empty{background:#fff;border:1px dashed #9cbbb1;border-radius:16px;margin-top:23px;padding:22px}
+.testimonial-empty p{font-size:14px;color:#5c757a}
+.featured-link{font-weight:840;color:#256b65;display:inline-block;margin-top:6px}
+@media(max-width:930px){.level-grid{grid-template-columns:repeat(2,1fr)}.pedigree-grid{grid-template-columns:1fr}}
+@media(max-width:720px){.pathway-form,.pathway-stages,.level-grid,.milestones,.studio-grid,.ai-grid,.partner-grid,.trust-grid{grid-template-columns:1fr}.pathway-form button{width:100%;justify-self:stretch}.pathway-form,.pathway-result{padding:19px}.pathway-actions .btn{width:100%}}
