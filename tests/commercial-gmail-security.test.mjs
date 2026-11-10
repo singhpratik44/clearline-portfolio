@@ -112,6 +112,8 @@ test("OAuth, private UI and opportunity scripts are syntactically valid",()=>{
 });
 test("secure browser OAuth uses read-only scope and no mailbox-wide scan or send permission",()=>{
  const oauth=fs.readFileSync(new URL("commercial-4d/opportunities/gmail-oauth.js",root),"utf8");
+ const secureUI=fs.readFileSync(new URL("commercial-4d/opportunities/secure-ui.js",root),"utf8");
+ assert.match(secureUI,/\}\)\(typeof globalThis!==["\x27]undefined["\x27]\?globalThis:this\);/,"Secure UI must receive browser root");
  const page=fs.readFileSync(new URL("commercial-4d/opportunities/index.html",root),"utf8");
  assert.match(oauth,/https:\/\/www\.googleapis\.com\/auth\/gmail\.readonly/);
  assert.match(oauth,/method:"GET"/);
