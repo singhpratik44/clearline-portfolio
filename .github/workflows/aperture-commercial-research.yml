@@ -1,0 +1,37 @@
+name: APERTURE Commercial Research Discovery
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '20 13 * * 1'
+permissions:
+  contents: read
+jobs:
+  public-source-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test research provenance parsers
+        run: python3 -m unittest discover -s tests -p test_research_discovery.py -v
+      - name: Discover public candidates (staging only)
+        run: |
+          python3 commercial-4d/research-discovery.py --window-days 150 --output research-candidates.json
+          python3 - <<'PY'
+          import json
+          d=json.load(open('research-candidates.json'))
+          assert d['schema']=='aperture-research-discovery-v1'
+          assert all(p['needs_human_review'] for p in d['candidates'])
+          assert set(d['sources'])==set(('arxiv','openreview','icml','neurips','automl','langchain','huggingface','paperswithcode','mlpapersweekly'))
+          print('Research discovery status:',d['summary'])
+          PY
+      - name: Upload bounded research candidate report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aperture-commercial-research-candidates
+          path: research-candidates.json
+          retention-days: 14
+          if-no-files-found: warn
