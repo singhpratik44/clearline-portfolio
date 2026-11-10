@@ -160,4 +160,4 @@ root.addEventListener("ap4d:plan-change",()=>markDirty("Commercial planning assu
 root.AP4DSecureUI={getLedger:()=>ledger.slice(),getSyncInfo:()=>lastSync,recordPlanReview};
 if(!V.available())by("vault-state").textContent="WebCrypto or IndexedDB unavailable. Encrypted saving is disabled.";
 renderLedger();
-})();
+})(typeof globalThis!=="undefined"?globalThis:this);
