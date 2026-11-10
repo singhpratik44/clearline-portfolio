@@ -74,6 +74,22 @@ try{
     if(viewport.width<700)assert.equal(await page.locator(".mobile-nav").isVisible(),true);
     assert.deepEqual(errors,[],"JavaScript exceptions at viewport "+viewport.width);
     console.log("PASS responsive",viewport.width,viewport.height,"Living Tree + Year 10");
+    const shopResponse=await page.goto(BASE+"/prayer/three-year/companion/shop.html",{waitUntil:"networkidle",timeout:30000});
+    assert.equal(shopResponse.status(),200);
+    await page.waitForFunction(()=>document.querySelector("#checkoutStatus")?.textContent.includes("No payments are accepted"));
+    assert.equal(await page.locator("#buyCompanion").getAttribute("aria-disabled"),"true","Checkout must be disabled without approved Stripe account");
+    assert.match(await page.locator("#price").innerText(),/\$29/);
+    let commerceWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+    assert.ok(commerceWidth<=1,"Companion shop horizontal overflow at "+viewport.width+": "+commerceWidth);
+    const workbookResponse=await page.goto(BASE+"/prayer/three-year/companion/workbook.html",{waitUntil:"networkidle",timeout:30000});
+    assert.equal(workbookResponse.status(),200);
+    await page.waitForFunction(()=>document.querySelectorAll(".month-sheet").length===36 && document.querySelectorAll(".review-sheet").length===12);
+    assert.equal(await page.locator(".month-sheet").count(),36);
+    assert.equal(await page.locator(".review-sheet").count(),12);
+    commerceWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+    assert.ok(commerceWidth<=1,"Companion workbook overflow at "+viewport.width+": "+commerceWidth);
+    assert.deepEqual(errors,[],"No browser exceptions in companion pages at "+viewport.width);
+    console.log("PASS companion shop fail-closed and printable 36+12 workbook",viewport.width);
     await page.close();
   }
   const page=await browser.newPage({viewport:{width:390,height:844},acceptDownloads:true});

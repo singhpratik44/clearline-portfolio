@@ -133,3 +133,16 @@
  .daily-after button{align-self:flex-start}
  .mobile-nav a{min-width:0;flex:1}
 }
+
+
+/* Companion link never affects the free ritual, scripture or encrypted journal. */
+.companion-teaser{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(240px,.65fr);gap:35px;align-items:center;padding:95px clamp(20px,7vw,112px);background:radial-gradient(ellipse at 78% 55%,#586d5350,transparent 50%),#0b262a;border-top:1px solid #526a62}
+.companion-teaser h2{font:400 clamp(40px,5.5vw,73px)/1.1 Georgia,serif;letter-spacing:-.05em;margin:17px 0 22px}
+.companion-teaser h2 em{color:#d5bf91;font-weight:400}
+.companion-teaser p:not(.eyebrow){font-size:15px;max-width:680px;color:#c2d4cb;line-height:1.85;margin-bottom:26px}
+.companion-teaser .btn{max-width:360px}
+.teaser-ornament{min-height:250px;border:1px solid #8a8d714f;display:flex;align-items:center;justify-content:center;flex-direction:column;background:radial-gradient(ellipse,#77957a28,transparent 65%)}
+.teaser-ornament>span{font:155px/1 Georgia,serif;color:#cfbd91a9;animation:breathing 11s ease-in-out infinite}
+.teaser-ornament p{font:10px/1.4 system-ui,sans-serif!important;letter-spacing:.15em!important;color:#cfbd91!important}
+@media(max-width:700px){.companion-teaser{grid-template-columns:1fr;padding:67px 19px}.companion-teaser h2{font-size:45px}.teaser-ornament{min-height:150px}.teaser-ornament>span{font-size:100px}}
+@media(prefers-reduced-motion:reduce){.teaser-ornament>span{animation:none}}
