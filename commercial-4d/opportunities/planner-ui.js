@@ -162,6 +162,7 @@ function render(){
   el("plan-intent").textContent=current.intent;
   drawCases(current);drawGates(current);drawMilestones(current);drawStudies(current);
   el("plan-study-total").textContent=current.studies.length+" papers matched (review required)";
+  el("plan-export").disabled=false;
   if(!studies.length)note("Primary research register is unavailable. Planning is local and provisional.",true);
   else if(current.economics.complete)note("Scenario calculated deterministically. Hypothetical numbers are not booked revenue.");
   else note("Planning model is ready for grounded input. Nothing is executed or sent.");
@@ -170,7 +171,7 @@ function render(){
 function changed(){
  const row=W.getSelected();if(!row)return;
  try{assumptions[row.id]=readControls();render();root.dispatchEvent(new CustomEvent("ap4d:plan-change",{detail:{id:row.id}}));}
- catch(e){note(e.message,true);}
+ catch(e){current=null;el("plan-record").disabled=true;el("plan-export").disabled=true;note(e.message,true);}
 }
 for(const id of Object.values(controls)){
  const node=el(id);
