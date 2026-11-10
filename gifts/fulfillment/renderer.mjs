@@ -8,6 +8,7 @@ const sources=[
  ['collection-2.js','window.APERTURE_GIFT_LAB_V2='],
  ['sports-collection.js','window.APERTURE_GIFT_LAB_SPORTS='],
  ['basketball-collection.js','window.APERTURE_GIFT_LAB_BASKETBALL='],
+ ['basketball-extra.js','window.APERTURE_GIFT_LAB_BASKETBALL_EXTRA='],
 ];
 const esc=x=>String(x).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 let cached=null;
