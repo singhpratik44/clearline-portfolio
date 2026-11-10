@@ -12,7 +12,7 @@ function status(msg,bad=false){
  const a=by("secure-alert");a.textContent=String(msg).slice(0,550);a.setAttribute("data-error",bad?"true":"false");
 }
 function publicError(e){return String(e?.message||e||"Unknown error").slice(0,500);}
-function snapshot(){return {schema:"aperture-commercial-private-v1",opportunities:W.getRecords(),ledger:ledger.slice(),last_sync:lastSync};}
+function snapshot(){return {schema:"aperture-commercial-private-v1",opportunities:W.getRecords(),ledger:ledger.slice(),last_sync:lastSync,plans:root.AP4DPlannerUI?.getInputs?.()||{}};}
 function renderLedger(){
  const panel=by("audit-records");panel.replaceChildren();
  if(!ledger.length){const p=document.createElement("p");p.className="secure-help";p.textContent="No review decisions recorded. Reviewing a plan does not authorize sending, signing, purchasing or hiring.";panel.append(p);return;}
@@ -48,6 +48,7 @@ async function unlockEncrypted(){
  if(W.getRecords().length&&!root.confirm("Replace your unsaved in-memory opportunities with the encrypted vault?"))return;
  ledger=Array.isArray(value.ledger)?value.ledger.slice():[];lastSync=value.last_sync||null;
  W.replaceRecords(bundle.opportunities);
+ root.AP4DPlannerUI?.setInputs?.(value.plans||{});
  by("vault-passphrase").value="";by("vault-confirm").value="";
  dirty=false;renderLedger();
  by("vault-state").textContent="Encrypted vault unlocked in this browser session. New changes require Save encrypted.";
@@ -71,6 +72,7 @@ async function importEncrypted(file){
  await V.write(envelope);
  ledger=Array.isArray(value.ledger)?value.ledger.slice():[];lastSync=value.last_sync||null;
  W.replaceRecords(parsed.opportunities);
+ root.AP4DPlannerUI?.setInputs?.(value.plans||{});
  dirty=false;renderLedger();
  by("vault-passphrase").value="";by("vault-confirm").value="";
  by("vault-state").textContent="Encrypted backup imported and unlocked.";
@@ -90,6 +92,28 @@ async function review(){
  by("review-evidence").checked=false;by("review-approval").checked=false;
  renderLedger();markDirty("Recorded a local, hash-chained planning review. It authorizes no Gmail send or other commercial action.");
 }
+
+async function recordPlanReview(plan){
+ if(!root.AP4DPlannerUI||!plan||typeof plan!=="object")throw Error("A current commercial plan is required.");
+ const selected=W.getSelected(),actual=root.AP4DPlannerUI.getPlan();
+ if(!selected||!actual||selected.id!==plan.opportunity_id||actual!==plan)throw Error("The selected opportunity or plan changed. Review the current plan again.");
+ if(!plan.review_ready)throw Error("Source, commercial scope, success measure and named reviewer are required.");
+ if(plan.execution_authorized!==false||plan.executed_actions!==0)throw Error("Only unexecuted planning proposals can be reviewed.");
+ const fingerprint=await A.hash(plan);
+ if(ledger.some(entry=>entry.type==="plan_reviewed"&&entry.payload?.plan_digest===fingerprint))throw Error("This identical plan version has already been reviewed.");
+ ledger=await A.append(ledger,"plan_reviewed",{
+  opportunity_id:plan.opportunity_id,organization:selected.organization,plan_digest:fingerprint,
+  source_url:selected.source_url,source_date:selected.last_evidence_at,
+  summary:"Research-linked 90-day planning review; no external action authorized.",
+  study_ids:plan.studies.map(x=>x.id),research_count:plan.studies.length,
+  gate_count:plan.gates.filter(x=>x.ok).length,
+  authorizer:"local_user_self_attestation",authority:"planning_review_only"
+ });
+ renderLedger();
+ markDirty("Versioned plan review recorded. No external action is authorized. Save encrypted vault to retain it.");
+ return {recorded:true,digest:fingerprint};
+}
+
 async function connectGoogle(){
  if(!G.connected()) {
   if(!root.google?.accounts?.oauth2)throw Error("Click Prepare Google sign-in first, then Connect Gmail.");
@@ -132,7 +156,8 @@ action("record-review",review);
 by("import-vault").addEventListener("change",async e=>{const f=e.target.files?.[0];e.target.value="";if(!f)return;try{await importEncrypted(f);}catch(err){status(publicError(err),true);}});
 by("upload").addEventListener("change",()=>{ledger=[];lastSync=null;renderLedger();markDirty("Imported private data is only in memory. Save encrypted to retain it after reload.");});
 root.addEventListener("pagehide",()=>{G.disconnect();});
-root.AP4DSecureUI={getLedger:()=>ledger.slice(),getSyncInfo:()=>lastSync};
+root.addEventListener("ap4d:plan-change",()=>markDirty("Commercial planning assumptions changed in memory. Save encrypted vault before leaving."));
+root.AP4DSecureUI={getLedger:()=>ledger.slice(),getSyncInfo:()=>lastSync,recordPlanReview};
 if(!V.available())by("vault-state").textContent="WebCrypto or IndexedDB unavailable. Encrypted saving is disabled.";
 renderLedger();
 })();
