@@ -1,6 +1,42 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>My Coding Pathways | Clearline Code</title><style>
 :root{color-scheme:dark;--bg:#080c18;--surface:#121b2e;--line:#2a3855;--ink:#f5f9ff;--muted:#bac7db;--mint:#a8f1d4;--violet:#ab9aff}*{box-sizing:border-box}body{background:radial-gradient(circle at top right,#1d2352 0,transparent 38%),var(--bg);color:var(--ink);font:16px/1.6 system-ui,sans-serif;margin:0}button,a{font:inherit}a{color:var(--mint)}button{cursor:pointer}header{padding:22px max(20px,calc((100vw - 1160px)/2));display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}main{max-width:1160px;margin:auto;padding:32px 20px 80px}.brand{font-weight:900;letter-spacing:.14em;font-size:13px;color:var(--mint)}h1{font-size:clamp(30px,5vw,55px);line-height:1.1;letter-spacing:-.04em}h2{font-size:24px}p,li{color:var(--muted)}.pill{font-size:13px;border:1px solid #476e76;color:var(--mint);border-radius:99px;padding:5px 12px;display:inline-block}.layout{display:grid;grid-template-columns:290px 1fr;gap:20px;align-items:start}.panel{border:1px solid var(--line);background:rgba(18,27,46,.95);border-radius:18px;padding:23px}.navbutton{display:block;width:100%;padding:12px 14px;text-align:left;color:#e5ecf8;border:1px solid var(--line);border-radius:10px;background:#1b2940;margin-top:8px}.navbutton[aria-current=true]{background:#345344;border-color:var(--mint)}.primary{border:0;background:var(--mint);color:#0b1b1c;padding:11px 16px;border-radius:10px;font-weight:800}.secondary{border:1px solid var(--line);background:#243049;color:white;padding:10px 14px;border-radius:10px}.actions{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0}.lesson{padding:17px 0;border-top:1px solid var(--line)}.step{margin:9px 0}.code{white-space:pre-wrap;word-break:break-word;background:#050b13;color:#dcffe6;border:1px solid #2a4e51;border-radius:10px;padding:18px;overflow:auto;line-height:1.5;font-size:13px}summary{cursor:pointer;color:var(--mint);font-weight:750}details{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0}.helper{background:#2e2730;border-left:3px solid #e9b37d;padding:12px 15px;border-radius:4px;color:#ffe9d0}.progress{background:#283448;height:9px;border-radius:20px;overflow:hidden}.progress>div{background:linear-gradient(90deg,var(--mint),var(--violet));height:100%;width:0}.check{display:flex;gap:9px;align-items:center;color:#e9f2fb}.check input{accent-color:#93eecf;width:18px;height:18px}.empty{padding:45px 16px;text-align:center}.small{font-size:13px;color:#a6b7cd}#courseButtons{margin:24px 0}pre{overflow:auto}section>h3{font-size:18px}.hidden{display:none}@media(max-width:800px){.layout{grid-template-columns:1fr}header{padding:18px 20px}#lessonMenu{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:5px}}@media print{body{background:white;color:#111}.layout{display:block}.panel{background:white;border:0}header,.actions,#lessonMenu,aside,.progress{display:none}p,li{color:#333}.code{color:#111;background:#f3f3f3}.lesson{break-inside:avoid}}
+
+/* Studio v2: active learning, readable panels, and real progress */
+:root{--surface:#121b2e;--line:#344666;--mint:#a6f5d9;--violet:#b4a3ff}
+body{background:radial-gradient(ellipse at 95% 5%,#27345d 0%,transparent 37%),radial-gradient(ellipse at 5% 70%,#102a31 0%,transparent 36%),#080c18}
+main{max-width:1250px}.layout{grid-template-columns:minmax(260px,310px) minmax(0,1fr)}
+.panel{box-shadow:0 20px 60px #0002}.panel h2{letter-spacing:-.025em}
+#content h2{font-size:clamp(28px,4vw,42px);line-height:1.12;margin:18px 0 12px}
+#content h3{font-size:19px;margin-top:27px}#content p,#content li{font-size:16px;line-height:1.7}
+#content>p:first-of-type{font-size:18px;color:#dae6f2}
+#courseButtons .primary{background:#28394b;color:#dbf8ef;border:1px solid #547c83}
+#courseButtons .primary:focus-visible,.navbutton:focus-visible,.secondary:focus-visible{outline:3px solid white;outline-offset:2px}
+#lessonMenu{margin-top:22px}.navbutton{font-size:14px;margin-bottom:10px;line-height:1.4;transition:background .15s,border-color .15s}
+.navbutton:hover{border-color:#9dffdc}.navbutton[aria-current=true]{border-color:#a6f5d9}
+.learning-stripe{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0}
+.learning-stripe>div{background:#1b3040;padding:10px;border:1px solid #365368;border-radius:12px;font-size:12px;color:#c4d7e7;text-align:center}
+.learning-stripe b{display:block;font-size:16px;color:var(--mint)}
+.mission-box{background:linear-gradient(120deg,#1a4c49,#1c2547);border:1px solid #3c827c;border-radius:16px;padding:20px;margin:22px 0}
+.mission-box p{color:#edfef9!important}.mission-box h3{margin:4px 0 6px!important}
+.skill-lab{margin:30px 0 25px;border:1px solid #456482;border-radius:18px;padding:18px;background:#101c30}
+.skill-lab h3{margin:5px 0 8px!important}.skill-lab .small{font-size:13px!important}
+.skill-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.arena{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:4px;margin:15px auto;max-width:520px;aspect-ratio:8 / 6}
+.tile{border:1px solid #384f6e;border-radius:7px;background:#20314e;display:flex;align-items:center;justify-content:center;min-width:0;min-height:0;font-size:clamp(13px,2vw,26px)}
+.tile.wall{background:repeating-linear-gradient(135deg,#394764,#394764 5px,#32405a 5px,#32405a 10px)}
+.tile.hazard{background:#6b2d49}.tile.gem{background:#244c45}.tile.goal{background:#385538}.tile.player{border:2px solid #b7f6e8;background:#275e6a}
+.gamepad{display:flex;flex-direction:column;align-items:center;gap:7px;margin:12px 0}
+.gamepad-row{display:flex;gap:8px}.gamepad button{min-width:58px;min-height:46px;background:#243b5c;border:1px solid #6a87a7;border-radius:12px;color:white;font-weight:900}
+.gamepad button:hover{background:#305779}.game-status{color:#cbe9f0;font-size:14px;min-height:24px}
+.note-area{display:block;width:100%;background:#091320;border:1px solid #426080;border-radius:10px;color:#ebf6ff;font:15px/1.6 system-ui;padding:13px;min-height:105px;resize:vertical}
+.quick-check{display:flex;flex-direction:column;gap:8px;margin:12px 0}
+.quick-check button{background:#1b3149;color:#e7f1fc;border:1px solid #506987;text-align:left;padding:10px 12px;border-radius:10px;cursor:pointer}
+.quick-check button:hover{border-color:#9df0d6}
+.correct{color:#a0f2c2!important}.retry{color:#ffd19c!important}.note{color:#c0cfdf;font-size:13px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}.panel{padding:17px}.learning-stripe{gap:5px}.arena{gap:2px}.tile{border-radius:4px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+@media print{.skill-lab,.mission-box .secondary,.note-area,.quick-check{display:none}}
 </style></head><body>
 <header><span class="brand">CLEARLINE CODE / LEARNING</span><a href="../">Back to pathways</a></header>
 <main><span class="pill">Self-paced · No live classes</span><h1>Your game-building workspace</h1><p>Open your course, follow the projects, track progress on this device, and keep your access URL bookmarked. Course links are reusable bearer links: anyone with your link can access the same materials.</p>
@@ -44,10 +80,11 @@ function render(){
  const a=course.lessons[state.lesson];
  add(c,"p",a.goal);add(c,"h3","Why this matters");add(c,"p",a.explain);
  add(c,"h3","Build it, step by step");const ol=add(c,"ol");a.steps.forEach(s=>add(ol,"li",s,"step"));
- if(a.code){add(c,"h3","Starter code / reference");add(c,"pre",undefined,"code").append(node("code",a.code))}
+ if(a.code){add(c,"h3","Starter code / reference");add(c,"p","Read the code, make a prediction, then try it in your real editor.","note");add(c,"pre",undefined,"code").append(node("code",a.code));const copy=add(c,"button","Copy starter code","secondary");copy.type="button";copy.onclick=async()=>{try{await navigator.clipboard.writeText(a.code);copy.textContent="✓ Copied starter code"}catch{copy.textContent="Select the code above to copy"}}}
  add(c,"h3","Your challenge");add(c,"p",a.challenge);add(c,"h3","Check the result");add(c,"p",a.test);
  const d=add(c,"details");add(d,"summary","Troubleshooting tip");add(d,"p",a.debug);
  const review=add(c,"details");add(review,"summary","Reflect");add(review,"p",a.review);
+ createSkillLab(c,course,state.lesson);
  const controls=add(c,"div",undefined,"actions");const check=add(controls,"label",undefined,"check");
  const box=add(check,"input");box.type="checkbox";box.checked=!!completed[state.lesson];add(check,"span","I completed this lesson");box.onchange=()=>{const p=doneFor(course.id);p[state.lesson]=box.checked;localStorage.setItem(keyFor(course.id),JSON.stringify(p));render()};
  const next=add(controls,"button",state.lesson<total-1?"Next lesson →":"Course overview","secondary");
@@ -55,6 +92,60 @@ function render(){
  const full=add(controls,"button","Download course JSON","secondary");full.onclick=()=>{const blob=new Blob([JSON.stringify(course,null,2)],{type:"application/json"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=course.id+"-learning-pathway.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),60000)};
  const print=add(controls,"button","Print lesson","secondary");print.onclick=()=>window.print();
 }
+
+function createSkillLab(container,course,lessonIndex){
+ const lab=add(container,"section",undefined,"skill-lab");
+ const head=add(lab,"div",undefined,"skill-head");add(head,"h3","🎮 Interactive concept lab");add(head,"span","Browser simulation · not Roblox/Minecraft/Godot","small");
+ const stage=add(lab,"div",undefined,"learning-stripe");
+ const mode=course.id==="minecraft"?"Agent programming":course.id==="roblox"?"Event-driven games":"Movement & game logic";
+ [[ "01","Predict"],["02","Play"],["03","Build"]].forEach(([n,label])=>{const d=add(stage,"div");add(d,"b",n);add(d,"span",label)});
+ add(lab,"p","Try a tiny "+mode.toLowerCase()+" model, then implement the real lesson in your game engine. This activity illustrates the idea; it does not run course code.");
+ const w=8,h=6,wall=new Set(["2,1","2,2","5,3","5,4"]),hazard=new Set(["3,2","4,4"]),gems=new Set(["1,3","4,1","6,4"]);
+ const taken=new Set(),goal="7,5";let px=0,py=0,steps=0,resetCount=0,won=false;
+ const board=add(lab,"div",undefined,"arena");board.setAttribute("role","img");board.setAttribute("aria-label","Grid game: guide your character toward the green goal while collecting gems and avoiding hazards.");
+ const status=add(lab,"p","","game-status");status.setAttribute("aria-live","polite");
+ function update(message){
+   board.replaceChildren();
+   for(let y=0;y<h;y++)for(let x=0;x<w;x++){const k=x+","+y;const t=add(board,"div",undefined,"tile");
+    if(wall.has(k)){t.classList.add("wall");t.textContent="▥"}
+    else if(hazard.has(k)){t.classList.add("hazard");t.textContent="⚡"}
+    else if(gems.has(k)&&!taken.has(k)){t.classList.add("gem");t.textContent="◆"}
+    else if(k===goal){t.classList.add("goal");t.textContent="★"}
+    if(px===x&&py===y){t.classList.add("player");t.textContent=course.id==="minecraft"?"🤖":course.id==="roblox"?"🧍":"🕹️"}
+   }
+   status.textContent=(message||"Navigate with the buttons. Collect three gems, then reach ★.")+" · Gems "+taken.size+"/3 · Moves "+steps+(resetCount?" · Resets "+resetCount:"");
+ }
+ function move(dx,dy){
+   if(won)return;let nx=px+dx,ny=py+dy,k=nx+","+ny;steps++;
+   if(nx<0||ny<0||nx>=w||ny>=h){update("Boundary: your character cannot leave the map");return}
+   if(wall.has(k)){update("Collision: a wall blocks movement");return}
+   px=nx;py=ny;
+   if(hazard.has(k)){px=0;py=0;resetCount++;taken.clear();update("Hazard event: reset to start");return}
+   if(gems.has(k)&&!taken.has(k)){taken.add(k);update("Pickup event: score increased");return}
+   if(k===goal){if(taken.size===gems.size){won=true;update("Challenge complete! All gems collected and goal reached.")}else update("Goal locked: collect all 3 gems first");return}
+   update("Position changed by an input event");
+ }
+ const pad=add(lab,"div",undefined,"gamepad"),top=add(pad,"div",undefined,"gamepad-row"),middle=add(pad,"div",undefined,"gamepad-row"),bottom=add(pad,"div",undefined,"gamepad-row");
+ for(const [parent,label,dx,dy] of [[top,"↑",0,-1],[middle,"←",-1,0],[middle,"↓",0,1],[middle,"→",1,0]]){const b=add(parent,"button",label);b.type="button";b.setAttribute("aria-label",{"↑":"Move up","←":"Move left","↓":"Move down","→":"Move right"}[label]);b.onclick=()=>move(dx,dy)}
+ const restart=add(bottom,"button","↻ Reset");restart.type="button";restart.onclick=()=>{px=0;py=0;steps=0;resetCount=0;won=false;taken.clear();update("Map reset")};
+ update();
+ add(lab,"h3","Predict before you code");
+ const question=course.id==="roblox"?"What should happen when the character touches a hazard?":course.id==="minecraft"?"Why would a programmed Agent check for obstacles?":"What happens when a collectible is picked up?";
+ const correct=course.id==="roblox"?"A collision event runs reset logic":course.id==="minecraft"?"So its movement can respond to the environment":"The score updates and the item disappears";
+ const wrong1="The computer guesses the next move",wrong2="Nothing changes without restarting the whole app";
+ add(lab,"p",question);
+ const quick=add(lab,"div",undefined,"quick-check"),feedback=add(lab,"p","","small");
+ [wrong1,correct,wrong2].forEach(answer=>{const b=add(quick,"button",answer);b.type="button";b.onclick=()=>{feedback.textContent=answer===correct?"✓ Correct. Now find the matching event or condition in the lesson code.":"Try again: look for the event, condition, and state change.";feedback.className=answer===correct?"correct":"retry"}});
+ add(lab,"h3","Your builder notebook");
+ add(lab,"p","Write what you changed in the actual game editor, what happened when you tested, and one bug you fixed.","note");
+ const note=add(lab,"textarea",undefined,"note-area");note.placeholder="I changed... / When I tested... / I debugged...";
+ const noteKey="clearline-note-v2-"+course.id+"-"+lessonIndex;
+ try{note.value=localStorage.getItem(noteKey)||""}catch{}
+ note.addEventListener("input",()=>{try{localStorage.setItem(noteKey,note.value)}catch{}});
+ const save=add(lab,"div",undefined,"actions");
+ const exportNote=add(save,"button","Download my notes","secondary");exportNote.type="button";exportNote.onclick=()=>{const blob=new Blob([course.title+"\n"+course.lessons[lessonIndex].title+"\n\n"+note.value],{type:"text/plain"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download=course.id+"-lesson-"+(lessonIndex+1)+"-notes.txt";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)};
+}
+
 function showOverview(course){const c=el("content");c.replaceChildren();add(c,"h2",course.title);add(c,"p",course.tagline);add(c,"h3","Required software");add(c,"p",course.tool);add(c,"h3","Getting started");const ol=add(c,"ol");course.setup.forEach(s=>add(ol,"li",s));add(c,"h3","Final project");add(c,"p",course.outcome);add(c,"h3","Completion checklist");const ul=add(c,"ul");course.rubric.forEach(s=>add(ul,"li",s));add(c,"h3","Reference docs");course.references.forEach(url=>{const link=add(c,"p");const a=add(link,"a",url);a.href=url;a.rel="noopener noreferrer";a.target="_blank"});add(c,"p",course.legal,"small");const b=add(c,"button","Start lesson 1","primary");b.onclick=()=>lessonSelect(0)}
 async function boot(){
  const params=new URLSearchParams(location.hash.slice(1));const matched=ALLOWED.filter(id=>params.get(id));
