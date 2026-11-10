@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080f19">
+<meta name="description" content="APERTURE Commercial 4D: a research-informed simulation for cross-business resource allocation, cash, dependencies, risk and time.">
+<meta property="og:title" content="APERTURE | Commercial 4D Planning">
+<title>APERTURE — Commercial 4D Planning</title>
+<style>
+:root{color-scheme:dark;--bg:#070e18;--surface:#111e2b;--panel:#142434;--edge:#344a57;--ink:#f5f8fa;--muted:#aebfcd;--accent:#d8f879;--blue:#8ce2ec;--amber:#f5bb86;--red:#ef9d9a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font:15px/1.56 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:radial-gradient(ellipse at 70% -10%,#244350 0,transparent 40%),#070e18}a{color:inherit}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.wrap{max-width:1440px;margin:auto;padding-left:28px;padding-right:28px}.top{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:14px;border-bottom:1px solid #ffffff1c}.brand{font-weight:900;letter-spacing:-.035em;text-decoration:none;display:flex;align-items:center;gap:12px}.brand-mark{width:36px;height:36px;display:grid;place-content:center;border-radius:11px;background:var(--accent);color:#102118;font-weight:950}.brand small{color:#b6c8cc;font-size:11px;letter-spacing:.11em}.nav{display:flex;align-items:center;gap:16px;font-size:12px;color:#b4c9d2}.nav a{text-decoration:none}.nav a:hover{color:var(--accent)}.tag{display:inline-block;border:1px solid #90ae8966;padding:5px 11px;border-radius:999px;color:#dbf9b4;font:700 10px ui-monospace,monospace;letter-spacing:.07em}.head{padding:52px 0 30px;display:grid;grid-template-columns:1.15fr .6fr;gap:28px;align-items:end}.eyebrow{font:800 11px ui-monospace,monospace;letter-spacing:.16em;color:var(--accent);text-transform:uppercase}.head h1{font-size:clamp(50px,6.7vw,94px);line-height:.91;letter-spacing:-.08em;margin:15px 0 19px;text-transform:uppercase}.head h1 em{color:var(--accent);font-style:normal}.head p{font-size:clamp(15px,1.4vw,18px);color:#bed0d4;max-width:750px;margin:0}.manifesto{border-left:2px solid var(--accent);padding-left:20px;color:#bdd1d3;align-self:end}.manifesto strong{display:block;color:#fff;margin-bottom:7px;font-size:16px}.manifesto p{font-size:13px}
+.board{display:grid;grid-template-columns:315px minmax(0,1fr);border:1px solid var(--edge);border-radius:18px;overflow:hidden;background:#102030;box-shadow:0 30px 100px #0006}.controls{border-right:1px solid var(--edge);padding:24px;background:linear-gradient(170deg,#132635,#101b29)}.module-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.module-head h2{font-size:15px;letter-spacing:.01em;margin:0}.section-tag{font:700 10px ui-monospace,monospace;color:var(--accent);text-transform:uppercase;letter-spacing:.1em}.help{font-size:12px;color:var(--muted);margin:12px 0 22px}.field{margin-bottom:20px}.field-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}.field-top label{font-size:12px;color:#c4d7df;font-weight:700}.output{font:800 13px ui-monospace,monospace;color:var(--accent)}.field input[type=range]{width:100%;accent-color:var(--accent);cursor:pointer}.field select{width:100%;padding:10px 11px;border:1px solid #547181;border-radius:8px;color:#e8f4f7;background:#0b202d}.divider{height:1px;background:#354e5a;margin:21px 0}.note{padding:12px 13px;background:#112f32;border:1px solid #375e55;border-radius:9px;font-size:11px;color:#ccddd5}.reset{margin-top:15px;background:transparent;border:1px solid #54717c;border-radius:8px;color:#e1f0f2;padding:9px 12px;width:100%;font-size:12px;font-weight:800}
+.viewport{min-width:0;position:relative;background:radial-gradient(circle at 48% 43%,#204455 0%,#0d2433 39%,#0b1623 75%);min-height:570px;overflow:hidden}.viewport:before{content:"";pointer-events:none;position:absolute;inset:0;opacity:.28;background-image:linear-gradient(#88e7e514 1px,transparent 1px),linear-gradient(90deg,#88e7e514 1px,transparent 1px);background-size:56px 56px}.viewport canvas{position:absolute;width:100%;height:100%;inset:0;display:block;touch-action:pan-y;cursor:grab}.viewport canvas:active{cursor:grabbing}.view-top{pointer-events:none;position:absolute;top:23px;left:22px;right:22px;display:flex;justify-content:space-between;gap:12px;color:#c4dce1;font:750 10px ui-monospace,monospace;letter-spacing:.11em}.view-bottom{position:absolute;bottom:18px;left:19px;right:19px;display:flex;justify-content:space-between;gap:9px;align-items:end;pointer-events:none}.axis{font:700 10px ui-monospace,monospace;color:#bdd1d5;line-height:1.65}.mini-month{border:1px solid #89bdb777;border-radius:10px;padding:10px 14px;background:#09292baf;text-align:right}.mini-month b{display:block;font:900 23px ui-monospace,monospace;color:var(--accent)}.mini-month span{font-size:10px;color:#cbdee0}
+.strip{margin-top:15px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border:1px solid var(--edge);border-radius:15px;overflow:hidden;background:#283d49;gap:1px}.stat{padding:19px 21px;background:#122130}.stat span{display:block;color:#adbfcb;font:700 11px ui-monospace,monospace;text-transform:uppercase}.stat strong{display:block;font-size:clamp(23px,2.6vw,37px);letter-spacing:-.06em;line-height:1.15;margin:6px 0;color:#f6f9f8}.stat small{font-size:11px;color:#b7d1cb}
+.timeline{margin-top:14px;background:#101c2a;border:1px solid var(--edge);border-radius:15px;padding:19px 21px}.timehead{display:flex;justify-content:space-between;gap:10px;align-items:center}.timehead b{font-size:13px}.timehead span{font-size:12px;color:var(--muted)}.time-controls{margin-top:12px;display:flex;align-items:center;gap:16px}.play{background:var(--accent);color:#081815;border:0;border-radius:8px;padding:10px 17px;font-weight:900;min-width:92px}.time-controls input{width:100%;accent-color:var(--accent)}.times{margin-left:106px;display:flex;justify-content:space-between;color:#a9bfca;font:700 10px ui-monospace,monospace}
+.section{padding:45px 0 0}.section h2{font-size:clamp(28px,3.7vw,43px);line-height:1.05;letter-spacing:-.055em;margin:9px 0 15px}.section>p{color:var(--muted);max-width:780px}.two{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.85fr);gap:14px}.box{background:#101c2a;border:1px solid var(--edge);border-radius:14px;padding:22px;min-width:0}.box h3{margin:0 0 6px;font-size:16px}.sub{font-size:12px;color:var(--muted);margin:0 0 14px}.chart{display:block;width:100%;height:260px;overflow:visible}.legend{display:flex;align-items:center;gap:17px;flex-wrap:wrap;font-size:11px;color:#c2d6da;margin-top:12px}.legend i{display:inline-block;width:12px;height:4px;vertical-align:middle;margin-right:6px;border-radius:6px}.casegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.case{background:#162938;border:1px solid #3c5b6a;border-radius:10px;padding:13px}.case strong{display:block;font-size:19px;letter-spacing:-.04em}.case b{font-size:10px;color:#bad3db;letter-spacing:.07em;text-transform:uppercase}.case small{font-size:10px;color:#a9bfca}.risks{margin-top:20px}.risks div{display:flex;gap:8px;align-items:start;font-size:12px;color:#d1e0e3;margin-top:9px}.risks div:before{content:"•";color:var(--amber);font-weight:900}.action{border-top:1px solid #33505b;padding:14px 0}.action:first-child{border-top:0}.action b{display:block;font-size:14px}.action p{font-size:12px;color:#b9cdd3;margin:6px 0}.badge{font:750 10px ui-monospace,monospace;color:#cff59e;letter-spacing:.08em}.research{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.paper{padding:15px;border:1px solid #36515e;background:#102333;border-radius:11px}.paper .meta{color:#bdcfda;font:750 10px ui-monospace,monospace;letter-spacing:.06em}.paper a{display:block;text-decoration:none;color:#f0fbfe;font-size:14px;font-weight:750;line-height:1.38;margin:7px 0}.paper a:hover{color:var(--accent);text-decoration:underline}.paper p{font-size:12px;color:#aebfc9;margin:7px 0 0}.sources{display:flex;flex-wrap:wrap;gap:7px;margin-top:19px}.sources span{border:1px solid #416170;border-radius:999px;padding:7px 10px;font-size:11px;color:#c8d6db}.foot{margin-top:60px;border-top:1px solid #344d56;padding:26px 0 50px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#b0bfcc;font-size:11px}.foot a{color:var(--accent);text-decoration:none}.download{padding:10px 13px;border:1px solid #7fa4a3;background:#1c3740;color:#e8f9f6;font-size:12px;font-weight:800;border-radius:8px;margin-top:15px}.warning{color:#f6c49c;font-size:12px;margin-top:8px}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+@media(max-width:1050px){.head{grid-template-columns:1fr}.manifesto{max-width:660px}.board{grid-template-columns:260px 1fr}.controls{padding:18px}.two{grid-template-columns:1fr}.viewport{min-height:500px}}
+@media(max-width:720px){.wrap{padding-left:16px;padding-right:16px}.top{min-height:62px}.nav{gap:9px}.nav a:nth-child(2){display:none}.head{padding-top:34px}.head h1{font-size:clamp(48px,13vw,70px)}.board{grid-template-columns:1fr}.controls{border-right:0;border-bottom:1px solid var(--edge);display:grid;grid-template-columns:1fr 1fr;gap:13px}.controls>.module-head,.controls>.help,.controls>.divider,.controls>.note,.controls>.reset{grid-column:1/-1}.controls>.help{margin:0}.controls .field{margin:0}.controls .divider{margin:2px 0}.viewport{min-height:390px}.strip{grid-template-columns:1fr 1fr}.stat{padding:15px}.timehead{align-items:start;flex-direction:column}.times{margin-left:107px}.research{grid-template-columns:1fr}.casegrid{gap:6px}.case{padding:9px}.case strong{font-size:17px}.section{padding-top:38px}.view-bottom .axis{font-size:9px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="top wrap"><a class="brand" href="../"><span class="brand-mark">A/</span>APERTURE <small>/ COMMERCIAL 4D</small></a><nav class="nav"><a href="../">Portfolio</a><a href="#research">Research</a><span class="tag">DETERMINISTIC LAB</span></nav></header>
+<main class="wrap">
+<section class="head"><div><div class="eyebrow">4-dimensional strategic operating intelligence</div><h1>PLAN THE<br><em>BUSINESS</em><br>BEFORE ACTING.</h1><p>See commercial opportunities, dependencies, constrained resources and operating risk in three dimensions—then move forward through time. Evaluate which business line to fund, which contract to pursue, and which change to approve.</p></div><div class="manifesto"><strong>Not another dashboard.</strong><p>An inspectable commercial decision laboratory for partnerships, franchise operations, education contracts and AI delivery. Real company data can be connected in a governed future release; all inputs below are synthetic assumptions.</p></div></section>
+<section class="board" aria-label="Interactive commercial planner">
+<aside class="controls">
+<div class="module-head"><h2>Strategy controls</h2><span class="section-tag">01 / INPUTS</span></div>
+<p class="help">Adjust assumptions. Every output recomputes deterministically across the entire 24-month horizon.</p>
+<div class="field"><div class="field-top"><label for="case">Market condition</label></div><select id="case"><option value="downside">Downside · -28% demand</option><option value="base" selected>Base · illustrative</option><option value="upside">Upside · +21% demand</option></select></div>
+<div class="field"><div class="field-top"><label for="focus">Investment priority</label></div><select id="focus"><option value="balanced">Balanced portfolio</option><option value="sport">Sports partnerships</option><option value="education">Education contracts</option><option value="franchise">Franchise operations</option><option value="ai">AI implementation</option></select></div>
+<div class="field"><div class="field-top"><label for="capacity">Monthly delivery capacity</label><output class="output" id="capacity-output">190 h</output></div><input id="capacity" type="range" min="60" max="420" step="10" value="190"></div>
+<div class="field"><div class="field-top"><label for="investment">Monthly acquisition budget</label><output class="output" id="investment-output">$4,500</output></div><input id="investment" type="range" min="0" max="12000" step="500" value="4500"></div>
+<div class="field"><div class="field-top"><label for="closeLift">Conversion improvement</label><output class="output" id="closeLift-output">0%</output></div><input id="closeLift" type="range" min="0" max="50" step="5" value="0"></div>
+<div class="field"><div class="field-top"><label for="network">Referral contribution</label><output class="output" id="network-output">12%</output></div><input id="network" type="range" min="0" max="60" step="5" value="12"></div>
+<div class="divider"></div><div class="note">HARD BOUNDARIES: All values are examples. No autonomous purchases, outreach, hiring or contract execution. A proposed change requires a human owner and source-backed validation.</div>
+<button class="reset" id="reset">Reset illustrative assumptions</button>
+</aside>
+<div class="viewport">
+<canvas id="universe" aria-label="Interactive perspective visualization of four commercial sectors. Drag to rotate, select a sector to inspect and scrub the time axis."></canvas>
+<div class="view-top"><span>FOUR COMMERCIAL VERTICALS / ONE RESOURCE POOL</span><span>DRAG TO ROTATE · SELECT NODE</span></div>
+<div class="view-bottom"><div class="axis">X → VALUE / CASH<br>Y → RISK / CAPACITY<br>Z → DEPENDENCY / NETWORK<br>T → MONTHS 0–24</div><div class="mini-month"><span>SIMULATED TIME</span><b id="month-chip">M 00</b><span id="current-sector">BALANCED</span></div></div>
+</div>
+</section>
+<section class="strip" aria-label="Simulation output"><div class="stat"><span>Recognized revenue</span><strong id="metric-revenue">$0</strong><small>Selected month · synthetic</small></div><div class="stat"><span>Monthly net contribution</span><strong id="metric-net">$0</strong><small>After assumed fixed + growth costs</small></div><div class="stat"><span>Projected cash</span><strong id="metric-cash">$0</strong><small>Selected month · not actual bank cash</small></div><div class="stat"><span>Utilized delivery hours</span><strong id="metric-util">0%</strong><small>Shared cross-vertical constraint</small></div></section>
+<div class="timeline"><div class="timehead"><b>TIME / FOURTH DIMENSION</b><span id="timeline-text">Month 0 · starting state</span></div><div class="time-controls"><button class="play" id="play" aria-label="Play simulation">▶ Play</button><label for="month" class="sr">Simulation month</label><input id="month" type="range" min="0" max="24" step="1" value="0"></div><div class="times"><span>NOW</span><span>6 MONTHS</span><span>12 MONTHS</span><span>18 MONTHS</span><span>24 MONTHS</span></div></div>
+<section class="section"><div class="eyebrow">02 / DECISION INTELLIGENCE</div><h2>Compare futures, not just targets.</h2><p>The same assumptions are evaluated under downside, base and upside demand. They are stress cases, not calibrated probabilities or guaranteed forecasts.</p><div class="two">
+<div class="box"><h3>Time-evolving operating outcomes</h3><p class="sub">Monthly revenue and available cash, expressed in $ thousands. Select the timeline above to inspect any point.</p><svg class="chart" id="chart" viewBox="0 0 720 270" role="img" aria-label="Projected monthly revenue and cash over time"></svg><div class="legend"><span><i style="background:#d9f978"></i>Revenue</span><span><i style="background:#82d9ea"></i>Cash</span><span><i style="background:#e6af85"></i>Current month</span></div></div>
+<div class="box"><h3>Stress-test outcomes</h3><p class="sub">Ending cash at month 24 for three demand conditions, using the selected strategic controls.</p><div class="casegrid" id="casegrid"></div><div class="risks" id="risks" aria-live="polite"></div><button class="download" id="export">Export assumptions + 24-month plan (.json)</button></div>
+</div></section>
+<section class="section"><div class="eyebrow">03 / APPROVAL-READY OPTIONS</div><h2>Plan → simulate → constrain → approve.</h2><div class="two"><div class="box"><h3>Proposed interventions</h3><p class="sub">Deterministic rule recommendations from the modeled state. They are not executed automatically.</p><div id="actions" aria-live="polite"></div></div><div class="box"><h3 id="segment-title">Commercial portfolio</h3><p class="sub" id="segment-sub">Choose a business node on the interactive map to inspect allocation.</p><div id="segments" aria-live="polite"></div><div class="warning">Readiness gate: evidence, pricing, availability, contracts, permissions and responsible owner must be verified before operational use.</div></div></div></section>
+<section class="section" id="research"><div class="eyebrow">04 / VERIFIED PRIMARY SOURCES</div><h2>Ten recent studies. One inspectable method.</h2><p>Selected 2026 research supports hypotheses about cross-enterprise agent safety, executable plans, counterfactuals, forecasting and authority. Literature is not evidence that this commercial forecast is accurate. Source dates and publication types are preserved.</p><div class="research" id="papers"></div><div class="box" style="margin-top:12px"><h3>Research ingestion roadmap</h3><p class="sub">The next backend release should crawl permitted APIs/RSS, deduplicate records, check dates and versions, identify the full paper and review status, trace benchmarks/code, and require a human-approved method update. These sources are not yet automatically connected.</p><div class="sources" id="sources"></div><p class="sub" style="margin-top:15px">Source-specific notes: automl.org announced closure in August 2026; use AutoML 2026/OpenReview and current conference resources. The original Papers with Code domain was retired; verify the current community-maintained catalog. Treat newsletters as discovery signals, not primary evidence. LangChain blog guidance is implementation practice, not peer-reviewed experimental evidence.</p></div></section>
+</main>
+<footer class="wrap foot"><span>APERTURE COMMERCIAL 4D · INTERACTIVE RESEARCH-INSPIRED PROTOTYPE · NO LIVE CRM / ACCOUNTING / PARTNER DATA</span><a href="../">Return to APERTURE portfolio</a></footer>
+<script src="./model.js"></script>
+<script>
+(()=>{
+"use strict";
+const M=window.AP4DModel;if(!M){document.body.insertAdjacentHTML("afterbegin","<p>Model unavailable: reload the page.</p>");return;}
+const el=id=>document.getElementById(id);
+const fmt=n=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(n);
+const pct=n=>Math.round(n*100)+"%";
+let selected="portfolio",month=0,playing=false,dragging=false,lastX=0,lastY=0,move=false,yaw=.24,pitch=-.12,rendering=false,screenW=0,screenH=0,hit=[],lastTick=0;
+const cfg={...M.DEFAULTS},reduced=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const controls=["capacity","investment","closeLift","network","focus","case"];
+controls.forEach(id=>el(id).addEventListener("input",()=>{
+  if(id==="case")cfg.scenario=el(id).value;
+  else if(id==="focus")cfg.focus=el(id).value;
+  else if(id==="closeLift")cfg.closeLift=Number(el(id).value)/100;
+  else if(id==="network")cfg.network=Number(el(id).value)/100;
+  else cfg[id]=Number(el(id).value);
+  refresh();
+}));
+el("reset").addEventListener("click",()=>{Object.assign(cfg,M.DEFAULTS);el("capacity").value=cfg.capacity;el("investment").value=cfg.investment;el("closeLift").value=0;el("network").value=12;el("focus").value="balanced";el("case").value="base";selected="portfolio";playing=false;month=0;el("month").value=0;refresh();});
+el("month").addEventListener("input",()=>{month=Number(el("month").value);playing=false;refresh();});
+el("play").addEventListener("click",()=>{if(month>=24)month=0;playing=!playing;refresh();});
+el("export").addEventListener("click",()=>{
+const payload={exported_at:new Date().toISOString(),type:"illustrative-commercial-planning-scenario",units:"USD; hours per month; synthetic assumptions",model_version:"v1.0",configuration:M.normalize(cfg),result:M.simulate(cfg),source_registry:"./research.json",caution:"No business claims or actions are authorized by this file."};
+const blob=new Blob([JSON.stringify(payload,null,2)],{type:"application/json"}),url=URL.createObjectURL(blob),a=document.createElement("a");a.href=url;a.download="aperture-commercial-plan.json";a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);
+});
+let sim=M.simulate(cfg),variants=M.variations(cfg);
+function refresh(){
+sim=M.simulate(cfg);variants=M.variations(cfg);
+el("capacity-output").textContent=Math.round(cfg.capacity)+" h";
+el("investment-output").textContent=fmt(cfg.investment);
+el("closeLift-output").textContent=pct(cfg.closeLift);
+el("network-output").textContent=pct(cfg.network);
+month=Math.max(0,Math.min(24,month));el("month").value=String(month);
+const row=sim.history[month];
+el("metric-revenue").textContent=fmt(row.revenue);
+el("metric-net").textContent=fmt(row.net);
+el("metric-cash").textContent=fmt(row.cash);
+el("metric-util").textContent=pct(row.utilization);
+el("month-chip").textContent="M "+String(month).padStart(2,"0");
+el("timeline-text").textContent="Month "+month+" · "+(month===0?"starting state":month<7?"market validation":month<13?"delivery system":month<19?"scale carefully":"mature operations");
+el("current-sector").textContent=selected==="portfolio"?"PORTFOLIO":M.VERTICALS.find(v=>v.id===selected).short;
+el("play").textContent=playing?"Ⅱ Pause":"▶ Play";
+el("play").setAttribute("aria-label",playing?"Pause simulation":"Play simulation");
+el("casegrid").innerHTML=["downside","base","upside"].map(k=>{
+const v=variants[k].summary;
+return '<div class="case"><b>'+k.toUpperCase()+'</b><strong>'+fmt(v.endingCash)+'</strong><small>'+fmt(v.cumulativeRevenue)+' total revenue</small></div>';}).join("");
+el("risks").innerHTML=sim.summary.flags.map(f=>"<div>"+escapeHTML(f)+"</div>").join("");
+el("actions").innerHTML=M.recommendations(sim).map(x=>'<article class="action"><span class="badge">'+escapeHTML(x.priority.toUpperCase())+'</span><b>'+escapeHTML(x.title)+'</b><p>'+escapeHTML(x.reason)+'</p><p>'+escapeHTML(x.action)+'</p></article>').join("");
+const segs=row.segments;
+el("segment-title").textContent=selected==="portfolio"?"Commercial portfolio":M.VERTICALS.find(v=>v.id===selected).name;
+el("segment-sub").textContent=selected==="portfolio"?"Select any node to narrow the business-line readout.":"This vertical competes for a shared pool of delivery hours and capital.";
+el("segments").innerHTML=segs.filter(s=>selected==="portfolio"||selected===s.id).map(s=>'<article class="action"><b>'+escapeHTML(s.name)+'</b><p>Month '+month+' · '+fmt(s.revenue)+' recognized revenue · '+s.hours.toFixed(1)+' delivery hours</p><p>'+s.deals.toFixed(2)+' modeled engagements served / '+s.planned.toFixed(2)+' requested; synthetic risk index '+pct(s.risk)+'.</p></article>').join("");
+chart();
+render();
+}
+function escapeHTML(s){return String(s).replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[x]));}
+function chart(){
+const hist=sim.history,max=Math.max(1000,...hist.flatMap(r=>[r.revenue,Math.max(0,r.cash)])),min=Math.min(0,...hist.map(r=>r.cash));
+const w=720,h=270,l=56,r=15,t=18,b=33,base=h-b,height=h-t-b;
+const x=i=>l+(i/24)*(w-l-r),y=n=>base-(n-min)/(max-min)*height;
+const path=key=>hist.map((row,i)=>(i?"L":"M")+x(i).toFixed(2)+" "+y(row[key]).toFixed(2)).join(" ");
+const grid=[0,.25,.5,.75,1].map(f=>{let val=min+(max-min)*f;return '<line x1="'+l+'" y1="'+y(val)+'" x2="'+(w-r)+'" y2="'+y(val)+'" stroke="#395262" stroke-dasharray="4 5"/><text x="5" y="'+(y(val)+4)+'" font-size="12" fill="#9cb7c5">'+(val/1000).toFixed(0)+'k</text>';}).join("");
+el("chart").innerHTML=grid+'<path d="'+path("revenue")+'" fill="none" stroke="#d8f879" stroke-width="3"/><path d="'+path("cash")+'" fill="none" stroke="#8ce2ec" stroke-width="3"/><line x1="'+x(month)+'" x2="'+x(month)+'" y1="'+t+'" y2="'+base+'" stroke="#f5bb86" stroke-width="1.5" stroke-dasharray="5 4"/><circle cx="'+x(month)+'" cy="'+y(hist[month].cash)+'" r="5" fill="#8ce2ec"/><circle cx="'+x(month)+'" cy="'+y(hist[month].revenue)+'" r="5" fill="#d8f879"/>'+[0,6,12,18,24].map(m=>'<text x="'+x(m)+'" y="'+(h-9)+'" text-anchor="middle" font-size="12" fill="#a9bfca">M'+m+'</text>').join("");
+}
+const c=el("universe"),ctx=c.getContext("2d",{alpha:false});
+const coords=[{id:"sport",x:-165,y:-95,z:110,color:"#d8f879"},{id:"education",x:168,y:-106,z:-85,color:"#7edcf0"},{id:"franchise",x:166,y:108,z:90,color:"#ffbe8a"},{id:"ai",x:-175,y:116,z:-90,color:"#c8b5ff"}];
+const links=[[0,1],[1,2],[2,3],[3,0],[0,2],[1,3]];
+function resize(){
+const box=c.getBoundingClientRect();if(!box.width)return;let dpr=Math.min(2,window.devicePixelRatio||1),w=Math.round(box.width*dpr),h=Math.round(box.height*dpr);
+if(c.width!==w||c.height!==h){c.width=w;c.height=h;}screenW=box.width;screenH=box.height;ctx.setTransform(dpr,0,0,dpr,0,0);render();
+}
+function project(p){
+const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch);
+let xx=p.x*cy-p.z*sy,zz=p.x*sy+p.z*cy,yy=p.y*cp-zz*sp;zz=p.y*sp+zz*cp;
+const scale=Math.min(screenW/620,screenH/530)*1.48*610/(650+zz);
+return {...p,x2:screenW*.50+xx*scale,y2:screenH*.50+yy*scale,s:scale,depth:zz};
+}
+function draw(){
+rendering=false;if(!screenW)return;
+ctx.clearRect(0,0,screenW,screenH);
+ctx.fillStyle="#091a29";ctx.fillRect(0,0,screenW,screenH);
+const glow=ctx.createRadialGradient(screenW*.48,screenH*.49,15,screenW*.48,screenH*.49,Math.max(screenW,screenH)*.65);glow.addColorStop(0,"#24505b");glow.addColorStop(.5,"#102b3b");glow.addColorStop(1,"#081622");ctx.fillStyle=glow;ctx.fillRect(0,0,screenW,screenH);
+ctx.strokeStyle="#7db5c125";ctx.lineWidth=1;
+for(let r=75;r<Math.min(screenW,screenH)*.56;r+=88){ctx.beginPath();ctx.ellipse(screenW*.50,screenH*.50,r,r*.58,.25,0,Math.PI*2);ctx.stroke();}
+const projected=coords.map(project),hist=sim.history[month],maxRev=Math.max(...hist.segments.map(s=>s.revenue),1);
+for(let [a,b] of links){let n=projected[a],m=projected[b];ctx.beginPath();ctx.moveTo(n.x2,n.y2);ctx.lineTo(m.x2,m.y2);ctx.lineWidth=1.2;ctx.strokeStyle="#7dc8d46e";ctx.stroke();}
+const coreR=Math.max(30,Math.min(49,screenW*.07));
+ctx.shadowColor="#d8f879";ctx.shadowBlur=25;ctx.beginPath();ctx.arc(screenW*.5,screenH*.5,coreR,0,2*Math.PI);ctx.fillStyle="#d8f879";ctx.fill();ctx.shadowBlur=0;
+ctx.fillStyle="#0b1919";ctx.textAlign="center";ctx.textBaseline="middle";ctx.font="900 24px system-ui";ctx.fillText("A/",screenW*.5,screenH*.5-7);ctx.font="800 9px ui-monospace,monospace";ctx.fillText("CAPITAL",screenW*.5,screenH*.5+14);
+hit=[];
+for(let n of projected.sort((a,b)=>b.depth-a.depth)){
+const s=hist.segments.find(s=>s.id===n.id),activity=month===0?0:s.revenue/maxRev;
+const active=selected===n.id;const rad=(16+Math.sqrt(Math.max(0,activity))*12)*(active?1.25:1)*Math.max(.74,n.s*.88);
+ctx.shadowColor=n.color;ctx.shadowBlur=active?23:8;ctx.fillStyle=n.color;ctx.globalAlpha=active?1:.8;ctx.beginPath();ctx.arc(n.x2,n.y2,rad,0,Math.PI*2);ctx.fill();ctx.shadowBlur=0;ctx.globalAlpha=1;
+ctx.strokeStyle=active?"#ffffff":"#ffffff6d";ctx.lineWidth=active?2.4:1;ctx.stroke();
+ctx.font="800 "+(screenW<570?10:12)+"px ui-monospace,monospace";ctx.textAlign="center";ctx.fillStyle="#ebf8fa";ctx.fillText(M.VERTICALS.find(v=>v.id===n.id).short,n.x2,n.y2+rad+18);
+ctx.font="650 10px ui-monospace,monospace";ctx.fillStyle="#adcad0";ctx.fillText(month===0?"$0":fmt(s.revenue),n.x2,n.y2+rad+32);
+hit.push({x:n.x2,y:n.y2,r:rad+13,id:n.id,depth:n.depth});
+}
+}
+function render(){if(rendering)return;rendering=true;requestAnimationFrame(draw);}
+function ppoint(e){const box=c.getBoundingClientRect();return{x:e.clientX-box.left,y:e.clientY-box.top};}
+c.addEventListener("pointerdown",e=>{if(e.button!==0)return;dragging=true;move=false;lastX=e.clientX;lastY=e.clientY;c.setPointerCapture(e.pointerId);});
+c.addEventListener("pointermove",e=>{if(!dragging)return;let dx=e.clientX-lastX,dy=e.clientY-lastY;if(Math.abs(dx)+Math.abs(dy)>2)move=true;yaw+=dx*.009;pitch=Math.min(.9,Math.max(-.9,pitch+dy*.008));lastX=e.clientX;lastY=e.clientY;render();});
+c.addEventListener("pointerup",e=>{if(!dragging)return;dragging=false;if(move)return;const p=ppoint(e);const near=hit.filter(n=>Math.hypot(n.x-p.x,n.y-p.y)<Math.max(23,n.r)).sort((a,b)=>a.depth-b.depth)[0];if(near){selected=near.id;refresh();}else if(Math.hypot(p.x-screenW*.5,p.y-screenH*.5)<50){selected="portfolio";refresh();}});
+c.addEventListener("pointercancel",()=>dragging=false);
+function tick(t){if(!lastTick)lastTick=t;const dt=Math.min(.1,(t-lastTick)/1000);lastTick=t;if(!dragging&&!reduced){yaw+=dt*.045;render();}if(playing){const next=Math.min(24,month+dt*1.6);if(!Number.isFinite(window._ap4dSubMonth))window._ap4dSubMonth=month;window._ap4dSubMonth+=dt*1.6;const nextInt=Math.min(24,Math.floor(window._ap4dSubMonth));if(nextInt!==month){month=nextInt;refresh();}if(window._ap4dSubMonth>=24){playing=false;window._ap4dSubMonth=24;refresh();}}else window._ap4dSubMonth=month;requestAnimationFrame(tick);}
+window.addEventListener("resize",resize,{passive:true});if(window.ResizeObserver)new ResizeObserver(resize).observe(c);
+function fallbackPapers(){
+const refs=[
+["2026-06-16","arXiv","Can LLMs Be CEOs?","https://arxiv.org/abs/2606.17459","Compare multi-role strategic capital decisions."],
+["2026-07-19","arXiv","Agentic ERP","https://arxiv.org/abs/2607.17331","Represent business workflows with role-aligned agents and controls."],
+["2026-07","ICML","TodoEvolve","https://proceedings.mlr.press/v306/liu26fz.html","Adapt the planner to the task."],
+["2026-07","ICML","CoPE","https://proceedings.mlr.press/v306/liu26az.html","Measure plan–execution coordination."],
+["2026-10-07","arXiv","Plan-and-Patch","https://arxiv.org/abs/2610.10786","Repair affected plan sections."],
+["2026-10-10","arXiv","EAIR","https://arxiv.org/abs/2610.14800","Test company-wide multi-agent invariants."],
+["2026-10-23","arXiv","Responsibility Boundaries","https://arxiv.org/abs/2610.33312","Enforce action-specific permission and evidence."],
+["2026-10-28","arXiv","FACTS-MAS","https://arxiv.org/abs/2610.38225","Benchmark forecast ensembles against simpler models."],
+["2026-10-29","arXiv","FABench","https://arxiv.org/abs/2610.40940","Test with historically available evidence."],
+["2026-10-29","arXiv","Elastic Least Privilege","https://arxiv.org/abs/2610.40981","Risk-price authority; proposal, not validated deployment."]
+];return refs.map((r,i)=>({id:"s"+String(i+1).padStart(2,"0"),date:r[0],source:r[1],title:r[2],url:r[3],aperture:r[4]}));}
+function displayPapers(studies){el("papers").innerHTML=studies.map((p,i)=>'<article class="paper"><div class="meta">'+String(i+1).padStart(2,"0")+' / '+escapeHTML(p.date)+' · '+escapeHTML(p.source)+'</div><a href="'+escapeHTML(p.url)+'" target="_blank" rel="noopener noreferrer">'+escapeHTML(p.title)+' ↗</a><p>'+escapeHTML(p.aperture)+'</p></article>').join("");}
+displayPapers(fallbackPapers());
+fetch("./research.json",{cache:"no-cache"}).then(r=>{if(!r.ok)throw Error("Research register unavailable");return r.json();}).then(j=>{if(Array.isArray(j.studies)&&j.studies.length===10)displayPapers(j.studies);el("sources").innerHTML=(j.discovery_sources||[]).map(s=>'<span title="'+escapeHTML(s.mode)+'">'+escapeHTML(s.name)+'</span>').join("");}).catch(()=>{el("sources").textContent="Source adapter registry is not loaded; primary-paper links remain available above.";});
+refresh();resize();requestAnimationFrame(tick);
+})();
+</script>
+</body></html>
