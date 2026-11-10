@@ -72,3 +72,21 @@
 .featured-link{font-weight:840;color:#256b65;display:inline-block;margin-top:6px}
 @media(max-width:930px){.level-grid{grid-template-columns:repeat(2,1fr)}.pedigree-grid{grid-template-columns:1fr}}
 @media(max-width:720px){.pathway-form,.pathway-stages,.level-grid,.milestones,.studio-grid,.ai-grid,.partner-grid,.trust-grid{grid-template-columns:1fr}.pathway-form button{width:100%;justify-self:stretch}.pathway-form,.pathway-result{padding:19px}.pathway-actions .btn{width:100%}}
+
+/* Story bridge: from main site to the specialization catalog */
+.specializations{background:linear-gradient(130deg,#102b39,#0d2130);color:#fff}
+.specializations .eyebrow{color:#c9f1a4}
+.specializations-head{max-width:810px;margin-bottom:28px}
+.specializations-head p{font-size:18px;color:#c3d8d7}
+.worlds{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.world{border:1px solid #436470;background:#173847;border-radius:17px;padding:21px;display:flex;flex-direction:column;min-height:250px;text-decoration:none;color:#fff;transition:transform .16s,border-color .16s}
+.world:hover{transform:translateY(-3px);border-color:#c9f1a4}
+.world .emoji{font-size:31px;margin-bottom:12px}.world strong{font-size:18px;line-height:1.2}
+.world p{font-size:13px;color:#bdd1d4;margin-top:12px;flex:1}
+.world span:last-child{font-size:12px;color:#d1f4ae;font-weight:850}
+.specialization-foot{display:flex;gap:13px;align-items:center;flex-wrap:wrap;margin-top:23px}
+.specialization-foot .btn{background:#c9f1a4;border-color:#c9f1a4;color:#14313a}
+.specialization-foot small{color:#b9d0d1;font-size:12px}
+@media(max-width:990px){.worlds{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.worlds{grid-template-columns:repeat(2,minmax(0,1fr))}.world{min-height:215px;padding:16px}.world strong{font-size:16px}.world p{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.world{transition:none}}
