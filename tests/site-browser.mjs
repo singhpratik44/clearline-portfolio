@@ -111,6 +111,14 @@ try {
    assert.equal(await page.locator('.picker button').count(),21,'All-access library has 21 printable workbooks');
    await page.getByRole('button',{name:/Seva & Chardi Kala Family Journey/}).click();
    assert.equal(await page.locator('.quest').count(),8,'Faith variant includes eight original activities');
+   await page.goto('http://127.0.0.1:8767/gifts/sports/');
+   assert.equal(await page.locator('#sports-products .card').count(),17,'Dedicated sports storefront lists 17 products');
+   assert.equal(await page.locator('#sports-products .pay[href^="https://buy.stripe.com/"]').count(),17,'All sports items have Stripe payment links');
+   await page.getByRole('button',{name:/Basketball/,exact:false}).first().click();
+   assert.ok((await page.locator('#sports-products .card').count())>=4,'Basketball filter returns relevant sports gifts');
+   await page.getByRole('button',{name:'All sports gifts'}).click();
+   assert.equal(await page.locator('#sports-products .card').count(),17);
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Sports gifting page horizontal overflow');
    await page.goto('http://127.0.0.1:8767/gifts/print.html?kit=basketball-iq');
    assert.equal(await page.locator('.quest').count(),8,'Basketball IQ deck includes eight activities');
    await page.goto('http://127.0.0.1:8767/gifts/print.html?kit=coach-appreciation');
