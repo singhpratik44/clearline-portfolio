@@ -4,7 +4,7 @@
  */
 (function(root){
 "use strict";
-const TYPES=new Set(["proposal_reviewed","proposal_rejected","evidence_reconciled","sync_completed","vault_loaded"]);
+const TYPES=new Set(["proposal_reviewed","plan_reviewed","proposal_rejected","evidence_reconciled","sync_completed","vault_loaded"]);
 function stable(obj){return JSON.stringify(obj,Object.keys(obj).sort());}
 function b64(bytes){return Array.from(bytes,x=>x.toString(16).padStart(2,"0")).join("");}
 async function hash(payload){
