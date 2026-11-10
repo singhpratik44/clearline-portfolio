@@ -51,6 +51,17 @@ expand?.addEventListener("click",()=>{
  expanded=!expanded;render();
  if(!expanded)document.getElementById("programs")?.scrollIntoView({behavior:"auto",block:"start"});
 });
+const directPayment=document.querySelector(".direct-pay");
+directPayment?.addEventListener("toggle",async()=>{
+ if(!directPayment.open)return;
+ const note=directPayment.querySelector("p");
+ if(note)note.setAttribute("aria-live","polite");
+ try{
+   await window.AP_loadStripeCheckout();
+ }catch(err){
+   if(note)note.textContent="Secure Stripe checkout could not load. Please check your connection and use the subject lesson inquiry instead. No payment has been taken.";
+ }
+});
 search?.addEventListener("input",render);
 filterButtons.forEach(b=>b.addEventListener("click",()=>{family=b.dataset.family;render();}));
 render();
