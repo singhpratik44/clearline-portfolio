@@ -1,4 +1,4 @@
-/** Digital products included in each authorized bundle. These are checked server-side. */
+/** Paid collection-to-workbook entitlement map. */
 export const BUNDLE_BOOKS = Object.freeze({
   "bundle": [
     "game",
@@ -147,7 +147,7 @@ export const BUNDLE_BOOKS = Object.freeze({
     "team-culture"
   ],
   "basketball-starter-collection": [
-    "basketball-iq",
+    "rookie-hoop",
     "point-guard-lab",
     "defense-chalkboard",
     "practice-progress",
@@ -156,10 +156,10 @@ export const BUNDLE_BOOKS = Object.freeze({
   "basketball-coach-studio": [
     "coach-practice",
     "coach-session-cards",
-    "basketball-playbook",
     "offense-design",
+    "basketball-numbers",
     "sports-film",
-    "basketball-numbers"
+    "coach-season"
   ],
   "basketball-gifts-collection": [
     "rookie-hoop",
