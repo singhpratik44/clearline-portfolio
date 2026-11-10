@@ -211,7 +211,10 @@ create policy ap_submission_insert on public.ap_submissions
   for insert to authenticated with check (
     submitted_by=(select auth.uid())
     and app_private.ap_is_guardian(app_private.ap_project_learner(project_id))
-    and (artifact_path is null or app_private.ap_can_upload_file(artifact_path))
+    and (artifact_path is null or (
+      split_part(artifact_path,'/',3)=project_id::text
+      and app_private.ap_can_upload_file(artifact_path)
+    ))
   );
 create policy ap_review_select on public.ap_coach_reviews
   for select to authenticated using (app_private.ap_can_view_submission(submission_id));
