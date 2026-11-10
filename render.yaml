@@ -1,0 +1,18 @@
+# APERTURE Gift Lab private fulfillment backend, NOT a physical-shipping service.
+# Create only after reviewing access and configuring private content securely.
+services:
+  - type: web
+    name: aperture-gift-delivery
+    runtime: node
+    rootDir: gifts/fulfillment
+    buildCommand: node --test ../../tests/gift-fulfillment.test.mjs
+    startCommand: node server.mjs
+    autoDeployTrigger: "off"
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: GIFT_PRIVATE_CONTENT_DIR
+        sync: false
