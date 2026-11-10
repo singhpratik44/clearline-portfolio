@@ -237,6 +237,29 @@ jobs:
     steps:
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify published APERTURE Sports Career OS
+        run: |
+          python3 - <<'PY'
+          import time, urllib.request
+          base = "https://singhpratik44.github.io/clearline-portfolio/sports-os/"
+          checks = {
+              "index.html": ("APERTURE SPORTS", "id=\"career-graph\"", 'src="app.js"', "PUBLIC SANDBOX"),
+              "app.js": ("roleData", "renderEvidence", "buildPractice", "renderCapacity")
+          }
+          for attempt in range(10):
+              try:
+                  for path, markers in checks.items():
+                      req = urllib.request.Request(base + path, headers={'User-Agent':'APERTURE-Sports-Release-Check/1.0'})
+                      with urllib.request.urlopen(req,timeout=16) as response:
+                          body = response.read().decode('utf-8',errors='replace')
+                          assert response.status == 200 and all(marker in body for marker in markers),path
+                  print("LIVE VERIFIED APERTURE SPORTS",base)
+                  break
+              except Exception as exc:
+                  print("Sports release verification",attempt+1,repr(exc))
+                  if attempt == 9:raise
+                  time.sleep(8)
+          PY
       - name: Verify published Educators Rising demo
         env:
           DEMO_URL: https://singhpratik44.github.io/clearline-portfolio/career-os/demos/educators-rising-implementation-lab/
