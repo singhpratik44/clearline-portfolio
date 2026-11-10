@@ -61,7 +61,7 @@ test('all twenty subjects have searchable cards and subject-specific booking rou
  assert.match(booking,/stripe\.hidden=/);
  assert.match(booking,/ack\.checked/);
  assert.match(book,/buy_btn_1Ua6avRo2jpgx3bldwAjYy0p/);
- assert.match(book,/general coding and game-development/);
+ assert.match(book,/general (private )?coding and game-development/);
  assert.match(book,/not a separate Stripe line item/);
  const ids=[...book.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
  const refs=[...booking.matchAll(/\$\("([^"]+)"\)/g)].map(m=>m[1]);
