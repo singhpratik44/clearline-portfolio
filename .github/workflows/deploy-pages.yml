@@ -28,7 +28,7 @@ jobs:
       - name: Run regression suite
         run: node --test tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Verify A Quiet Journey privacy, timeline and responsive experience
-        run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs
+        run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs tests/quiet-journey-commerce.test.mjs
       - name: Test APERTURE evidence-gated application pipeline
         run: node --test career-os/tests/pipeline.test.mjs career-os/tests/educators-rising.test.mjs
       - name: Validate public research metadata adapters offline
@@ -113,6 +113,15 @@ jobs:
           test -s _site/prayer/three-year/vault-crypto.mjs
           test -s _site/prayer/three-year/daily-practice.mjs
           test -s _site/prayer/three-year/daily-ui.mjs
+          test -s _site/prayer/three-year/companion/shop.html
+          test -s _site/prayer/three-year/companion/shop.js
+          test -s _site/prayer/three-year/companion/shop.css
+          test -s _site/prayer/three-year/companion/checkout-config.mjs
+          test -s _site/prayer/three-year/companion/workbook.html
+          test -s _site/prayer/three-year/companion/workbook.js
+          test -s _site/prayer/three-year/companion/workbook.css
+          grep -q 'companion/shop.html' _site/sitemap.xml
+          grep -q 'enabled:false' _site/prayer/three-year/companion/checkout-config.mjs
           grep -q 'id="dailyRecord"' _site/prayer/three-year/index.html
           grep -q 'type="module" src="./app.js"' _site/prayer/three-year/index.html
           test -s _site/prayer/three-year/styles.css
