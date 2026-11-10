@@ -45,7 +45,15 @@ try{
   assert.equal(await page.locator("#count").innerText(),"1");
   assert.match(await page.locator("#plan-account").innerText(),/Example Partner/i);
   await page.locator("#plan-study-total").waitFor({state:"visible"});
-  await page.waitForFunction(()=>document.querySelectorAll("#plan-studies .plan-study").length===10);
+  const researchState=await page.evaluate(()=>({
+    itemCount:document.querySelectorAll("#plan-studies .plan-study").length,
+    studyLabel:document.querySelector("#plan-study-total")?.textContent,
+    status:document.querySelector("#plan-status")?.textContent,
+    planResultsHidden:document.querySelector("#plan-results")?.hidden,
+    researchResponse:performance.getEntriesByType("resource").filter(r=>r.name.includes("research.json")).map(r=>({name:r.name,duration:r.duration}))
+  }));
+  console.log("RESEARCH DEBUG",JSON.stringify(researchState),"PAGE ERRORS",JSON.stringify(errors));
+  await page.waitForFunction(()=>document.querySelectorAll("#plan-studies .plan-study").length===10,{timeout:10000});
   assert.equal(await page.locator("#plan-scope").inputValue(),bundle.plans["synthetic-test-1"].scope);
   assert.equal(await page.locator("#plan-record").isDisabled(),true,"Missing reviewer must block review");
   await page.locator("#plan-reviewer").fill("Test operator");
