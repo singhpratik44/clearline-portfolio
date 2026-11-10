@@ -1,0 +1,5 @@
+# Credentials must never enter this public GitHub Pages repository.
+.env
+.env.*
+*.secret
+service-role-key*
