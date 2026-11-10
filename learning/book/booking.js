@@ -44,8 +44,21 @@ function update(){
  ack.disabled=!allowed;
  if(!allowed)ack.checked=false;
  stripe.hidden=!(allowed&&ack.checked);
- notice.textContent=!allowed?"Stripe checkout unavailable for this age/track combination until further discussion.":
- ack.checked?"Checkout displayed: only the general one-time $65 coding/game-development product. The selected track is not transmitted to Stripe.": "Checkout hidden. Confirm availability, agreed terms and guardian authorization before opening Stripe.";
+ if(!allowed){
+   notice.textContent="Stripe checkout unavailable for this age/track combination until further discussion.";
+ }else if(!ack.checked){
+   notice.textContent="Checkout hidden. Confirm instructor availability, agreed terms and guardian authorization before opening Stripe.";
+ }else{
+   notice.textContent="Loading the official Stripe one-time $65 coding checkout…";
+   window.AP_loadStripeCheckout().then(()=>{
+     if(ack.checked&&!stripe.hidden){
+       notice.textContent="Stripe checkout is ready. This is the general coding/game-development lesson; your subject choice is not automatically sent to Stripe.";
+     }
+   }).catch(()=>{
+     stripe.hidden=true;
+     notice.textContent="Stripe checkout could not load. No payment has been taken; please use the instructor inquiry and try again.";
+   });
+ }
  // Only a public specialization identifier is used in the address; never student data.
  const url=new URL(location.href);url.searchParams.set("track",t.id);
  history.replaceState(null,"",url.pathname+url.search+url.hash);
