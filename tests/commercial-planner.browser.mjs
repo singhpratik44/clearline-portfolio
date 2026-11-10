@@ -34,7 +34,7 @@ try{
   const context=await browser.newContext({viewport,isMobile:viewport.width<500,hasTouch:viewport.width<500});
   const page=await context.newPage();
   const errors=[],external=[];
-  page.on("pageerror",e=>errors.push(e.message));
+  page.on("pageerror",e=>errors.push(e.stack||e.message));
   page.on("request",r=>{if(/(?:accounts.google.com|gmail.googleapis.com)/i.test(r.url()))external.push(r.url());});
   await page.goto(BASE,{waitUntil:"domcontentloaded"});
   await page.locator("#plan-form").waitFor({state:"hidden"});
