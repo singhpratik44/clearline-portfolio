@@ -39,3 +39,21 @@ The Pages deploy workflow bundles engine.js, gmail-core.js, gmail-oauth.js, vaul
 ## Production upgrade path
 
 Deploy on a dedicated independent origin with backend authorization-code OAuth, encrypted server-side per-user data, private secret management, Gmail History API cursor sync, explicit per-action approval receipts, and audit retention policy. Separate pilot findings from production authorization.
+
+## Research-linked 90-day commercial planning studio (v2)
+
+The private workspace now includes a per-opportunity commercial planning studio. It uses the same imported six-thread evidence bundle and **up to ten primary studies** from the public research register. Matching ranks verified paper metadata by relevance to the engagement, not a claim that an AI model independently validated the customer's needs or performed a new 10-paper literature review.
+
+- **Import:** A private bundle may contain an optional `plans` object keyed by opportunity ID. Each proposal keeps buyer needs, metric, owner, value assumptions and manual checks separate from imported Gmail facts.
+- **90 days:** Day 0–30 qualification, days 31–60 commercial design, days 61–90 outcomes review. All are hypothetical stages until verified externally.
+- **Economics:** Fill fee, estimated close probability, direct cost, acquisition cost and delivery hours to see downside/base/upside stress cases. The model uses `p × (fee - direct cost) - acquisition cost`; forecast values never become booked revenue. Empty amounts remain unknown, not $0.
+- **Shared resources:** Shows separate signed-capacity allocation and uncontracted prospective demand, plus missing hour estimates. Records without signed terms are not counted as committed delivery.
+- **Evidence gates:** Eight explicit conditions distinguish source evidence, commercial need, measurable outcome, financial coverage, written terms, authorization, capacity and a named reviewer. A plan is eligible for **planning-only** review with a source, scope, metric and reviewer; all external actions remain unauthorized regardless of the checkboxes.
+- **Review and privacy:** The review is SHA-256 hash-linked to the plan's exact source date, scope, assumptions and research selection and stored only in memory or the opt-in encrypted browser vault. Editing the plan creates a new version. Download as local Markdown for customer-independent review. A reviewed plan never sends Gmail, signs contracts or spends money.
+- **Suggested six-account starter bundle:** Prepared privately in ChatGPT, not included in public GitHub files. It contains carefully labelled *operator-side hypotheses* for US Performance Academy, BOOMIN, Anaheim Family YMCA, Pronix, YMCA of the USA and Nexplore, with empty financial inputs and no named reviewer.
+
+### Validation
+
+`node --test tests/commercial-planner.test.mjs` verifies deterministic financial math, missing data handling, signed-vs-unsigned capacity, paper provenance, plan safety, and evidence linkage. `node tests/commercial-planner.browser.mjs` uses local synthetic data to test both mobile and desktop flows including import, paper matching, economics, planning review, AES vault save and reopen, without Gmail calls or real personal information. A targeted GitHub workflow runs the headless browser test on relevant changes.
+
+**Not yet complete:** Live production Gmail OAuth verification on the user's own Google Cloud credentials, an independently hosted secure backend, automatic research publication from the public candidate discovery workflow, calibrated commercial forecasts, CRM/accounting integrations or automated external execution. These require separate user-controlled infrastructure and testing, not simply a public static site.
