@@ -54,7 +54,7 @@ try{
   await page.locator("#stat-meetings").waitFor();
   await page.locator("#vault-pass").fill("a strong test-only passphrase 2026");
   await page.locator("#vault-open").click();
-  await page.waitForFunction(()=>document.querySelector("#task-list .item")?.textContent?.includes("Verify lead handoff status"));
+  await page.waitForFunction(()=>document.querySelector("#task-list")?.textContent?.includes("Verify lead handoff status"));
   assert.equal(await page.locator("#task-list .item").count(),before+1);
   assert.equal(await page.locator("#stat-proposals").innerText(),"1");
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>window.innerWidth+3),false,"No horizontal overflow");
