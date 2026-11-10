@@ -24,3 +24,30 @@ test('selecting another initiative updates detail and reset restores state',()=>
 test('unblocked initiative disables intervention',()=>{
  const n=harness();n.project.onchange({target:{value:'2'}});assert.equal(n.resolve.disabled,true);
 });
+
+test('release artifact workflow stamps immutable SHA and fails closed on missing page',()=>{
+ const workflow=fs.readFileSync(new URL('../../.github/workflows/deploy-pages.yml',import.meta.url),'utf8');
+ assert.match(workflow,/Stamp and gate Educators Rising Implementation Lab release/);
+ assert.match(workflow,/aperture-educators-release-sha/);
+ assert.match(workflow,/assert page\.is_file\(\)/);
+ assert.match(workflow,/assert html\.count\('id="resolve"'\) == 1/);
+ assert.match(workflow,/assert html\.count\('id="reset"'\) == 1/);
+});
+test('mobile layout and accessible controls are present',()=>{
+ assert.match(html,/name="viewport" content="width=device-width,initial-scale=1"/);
+ assert.match(html,/grid-template-columns:repeat\(auto-fit,minmax\(240px,1fr\)\)/);
+ assert.match(html,/<select id="project" aria-label="Choose initiative">/);
+ assert.match(html,/id="feedback" role="status"/);
+});
+test('switching initiatives does not mutate unrelated initiative state',()=>{
+ const n=harness();
+ n.project.onchange({target:{value:'1'}});
+ n.resolve.onclick();
+ assert.match(n.metrics.innerHTML,/>1<\/h1>/);
+ n.project.onchange({target:{value:'0'}});
+ assert.equal(n.resolve.disabled,false);
+ n.project.onchange({target:{value:'1'}});
+ assert.equal(n.resolve.disabled,true);
+ n.reset.onclick();
+ assert.equal(n.resolve.disabled,false);
+});
