@@ -7,13 +7,22 @@ const counter=document.getElementById("program-count");
 const noMatches=document.getElementById("program-empty");
 const filterButtons=[...document.querySelectorAll("[data-family]")];
 let family="all";
+let expanded=false;
+const expand=document.getElementById("show-all-subjects");
+const expandHint=document.getElementById("subject-expand-hint");
+const featured=["scratch-stories","roblox-worlds","minecraft-makers","python-adventures","ai-literacy","sports-analytics"];
+
 const el=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e;};
 function render(){
  if(!grid)return;
  const q=search.value.trim().toLowerCase();
  const matching=tracks.filter(t=>(family==="all"||t.family===family)&&(!q||[t.title,t.summary,t.family,t.tools,t.output].join(" ").toLowerCase().includes(q)));
+ const discoverMode=family==="all"&&!q;
+ const display=discoverMode&&!expanded
+   ? featured.map(id=>matching.find(t=>t.id===id)).filter(Boolean)
+   : matching;
  grid.replaceChildren();
- matching.forEach(t=>{
+ display.forEach(t=>{
   const card=el("article","subject-card");
   const head=el("div","subject-head");
   head.append(el("span","subject-family",t.family),el("span","subject-age","Suggested "+t.min+"+"));
@@ -28,10 +37,20 @@ function render(){
   book.setAttribute("aria-label","Review lesson availability and Stripe checkout for "+t.title);
   footer.append(learn,book);card.append(head,title,description,footer);grid.append(card);
  });
- counter.textContent=matching.length+" of "+tracks.length+" possible specialization pathways";
+ counter.textContent=display.length+" shown of "+tracks.length+" specialization pathways"+(discoverMode&&!expanded?" · Featured starting interests":"");
+ if(expand){
+   expand.hidden=!discoverMode;
+   expand.setAttribute("aria-expanded",String(expanded));
+   expand.textContent=expanded?"Show six featured pathways ↑":"Browse all "+tracks.length+" specializations ↓";
+   if(expandHint)expandHint.textContent=expanded?"Select any specialization for the full pathway and subject-specific lesson options.":"Choose a featured path, search by interest, or expand the entire catalog.";
+ }
  noMatches.hidden=matching.length>0;
  filterButtons.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.family===family)));
 }
+expand?.addEventListener("click",()=>{
+ expanded=!expanded;render();
+ if(!expanded)document.getElementById("programs")?.scrollIntoView({behavior:"instant",block:"start"});
+});
 search?.addEventListener("input",render);
 filterButtons.forEach(b=>b.addEventListener("click",()=>{family=b.dataset.family;render();}));
 render();
