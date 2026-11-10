@@ -26,7 +26,7 @@ jobs:
           npm install --no-save --no-package-lock react@18 react-dom@18 esbuild@0.25
           npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
       - name: Run regression suite
-        run: node --test tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
+        run: node --test tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Verify A Quiet Journey privacy, timeline and responsive experience
         run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs
       - name: Test APERTURE evidence-gated application pipeline
@@ -124,6 +124,8 @@ jobs:
           test -s _site/commercial-4d/opportunities/vault.js
           test -s _site/commercial-4d/opportunities/audit.js
           test -s _site/commercial-4d/opportunities/secure-ui.js
+          test -s _site/commercial-4d/opportunities/plan-engine.js
+          test -s _site/commercial-4d/opportunities/planner-ui.js
           grep -q 'Nothing you import is uploaded' _site/commercial-4d/opportunities/index.html
           test -s _site/commercial-4d/model.js
           test -s _site/commercial-4d/research.json
@@ -213,13 +215,15 @@ jobs:
           root=os.environ['COMMERCIAL_URL']
           expected=os.environ['EXPECTED_SHA']
           expected_marker='name="aperture-commercial-release-sha" content="'+expected+'"'
-          paths={'':(expected_marker,'Import private opportunities JSON','id="connect-google"','id="save-vault"','src="./secure-ui.js"'),
+          paths={'':(expected_marker,'Import private opportunities JSON','id="connect-google"','id="save-vault"','src="./secure-ui.js"','src="./planner-ui.js"','id="commercial-plan-studio"'),
                  'engine.js':('AP4DOpportunity','terms_confirmed'),
                  'gmail-core.js':('AP4DGmailCore','message_ids'),
                  'gmail-oauth.js':('AP4DGmail','gmail.readonly'),
                  'vault.js':('AP4DVault','AES-GCM'),
                  'audit.js':('AP4DAudit','proposal_reviewed'),
-                 'secure-ui.js':('AP4DSecureUI','saveEncrypted')}
+                 'secure-ui.js':('AP4DSecureUI','saveEncrypted'),
+                 'plan-engine.js':('AP4DPlan','execution_authorized:false'),
+                 'planner-ui.js':('AP4DPlannerUI','plan-studies')}
           for attempt in range(12):
               try:
                   for suffix,tokens in paths.items():
