@@ -26,7 +26,8 @@ test("The optional companion has a tangible printable deliverable",()=>{
   assert.match(page,/id="printWorkbook"/);
   assert.match(page,/noindex,nofollow/);
   assert.match(workbook,/const MONTHS=36/);
-  assert.equal((workbook.match(/^\s+\["/gm)||[]).length,36);
+  const chapters=workbook.split("const CHAPTERS = [")[1].split("\n];")[0];
+  assert.equal((chapters.match(/^\s+\["/gm)||[]).length,36);
   assert.match(workbook,/quarter<=12/);
   assert.doesNotThrow(()=>new Script(workbook));
   assert.match(page,/not a religious authority/i);
