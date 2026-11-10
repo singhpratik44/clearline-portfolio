@@ -60,6 +60,12 @@ jobs:
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/learning/index.html
+          test -s _site/learning/universe/index.html
+          test -s _site/learning/universe/universe.js
+          test -s _site/learning/universe/universe.css
+          grep -q 'id="universe-canvas"' _site/learning/universe/index.html
+          grep -q 'id="chapter-slider"' _site/learning/universe/index.html
+          grep -q 'learning/universe/' _site/sitemap.xml
           test -s _site/learning/catalog/index.html
           test -s _site/learning/catalog/catalog.js
           test -s _site/learning/catalog/catalog.css
