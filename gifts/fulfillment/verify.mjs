@@ -1,4 +1,5 @@
 import { PURCHASE_LINK_SKU } from './payment-links.mjs';
+import { LINK_AMOUNTS } from './amounts.mjs';
 
 /**
  * Verify a checkout session with the Stripe secret key on the SERVER only.
@@ -37,7 +38,8 @@ export async function verifyGiftPurchase(sessionId, {
   const sku=Object.hasOwn(PURCHASE_LINK_SKU,link)?PURCHASE_LINK_SKU[link]:null;
   if(!sku || session.status!=='complete' || session.payment_status!=='paid' ||
       session.livemode!==true || session.mode!=='payment' || session.currency!=='usd' ||
-      !Number.isInteger(session.amount_total) || session.amount_total<=0) {
+      !Number.isInteger(session.amount_total) || session.amount_total<=0 ||
+      !Number.isInteger(LINK_AMOUNTS[link]) || session.amount_total!==LINK_AMOUNTS[link]) {
     return {ok:false,status:403,code:'payment_not_authorized'};
   }
   return {ok:true,status:200,sku};
