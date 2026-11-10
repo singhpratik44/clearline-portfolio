@@ -413,6 +413,7 @@ $("saveEntry").addEventListener("click",saveEntry);
 $("exportVault").addEventListener("click",exportVault);
 $("importVault").addEventListener("change",e=>importVault(e.target.files[0]));
 $("eraseVault").addEventListener("click",eraseVault);
-window.addEventListener("pagehide",()=>{lockVault();sceneStop();});
+window.addEventListener("pagehide",()=>lockVault());
+window.addEventListener("pageshow",e=>{if(e.persisted)sceneDraw();});
 buildTree();setVaultUI();renderMonth();createScene();
 })();
