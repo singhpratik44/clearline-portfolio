@@ -74,9 +74,15 @@ jobs:
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/learning/index.html
+          test -s _site/learning/product-ui.css
+          test -s _site/learning/research/index.html
+          test -s _site/learning/research/TEN_STUDIES_2026.md
+          grep -q 'A product should be' _site/learning/research/index.html
+          node --test tests/learning-ui-research.test.mjs
           test -s _site/learning/universe/index.html
           test -s _site/learning/universe/universe.js
           test -s _site/learning/universe/universe.css
+          test -s _site/learning/universe/product-ui.css
           grep -q 'id="universe-canvas"' _site/learning/universe/index.html
           grep -q 'id="chapter-slider"' _site/learning/universe/index.html
           grep -q 'learning/universe/' _site/sitemap.xml
@@ -91,6 +97,7 @@ jobs:
           test -s _site/learning/portal/index.html
           test -s _site/learning/portal/portal.js
           test -s _site/learning/portal/portal.css
+          test -s _site/learning/portal/product-ui.css
           test -s _site/learning/portal/config.js
           grep -q 'enabled: false' _site/learning/portal/config.js
           grep -q 'id="system-status"' _site/learning/portal/index.html
