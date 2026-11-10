@@ -51,6 +51,12 @@ test("auto-replies and delivery failures never count as human commercial respons
  assert.equal(core.classify([outbound,auto],"outbound").stage,"auto_reply");
  assert.equal(core.classify([outbound,bounce],"outbound").stage,"delivery_failed");
 });
+test("rescheduling conflicts invalidate an older confirmed screening stage",()=>{
+ const changed=MSG(B,"2026-11-09T20:00:00Z",["INBOX"],"Re: Partnership discussion","We need to reschedule the appointment; I cannot attend Friday.","contact@example.test");
+ const verdict=core.classify([outbound,changed],"screening_confirmed");
+ assert.equal(verdict.stage,"responded");
+ assert.equal(verdict.needs_review,true);
+});
 test("Gmail sync never self-approves a commercial contract",()=>{
  const thread={id:TID,messages:[outbound,received]};
  const row=core.merge(initial,thread).opportunities[0];
