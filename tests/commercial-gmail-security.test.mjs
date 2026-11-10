@@ -95,6 +95,16 @@ test("review ledger is hash-linked, verifiable and not external action authority
  const altered=JSON.parse(JSON.stringify(ledger));altered[0].payload.authority="external_email_send";
  assert.equal(await audit.verify(altered),false);
 });
+test("OAuth, private UI and opportunity scripts are syntactically valid",()=>{
+ for(const file of ["commercial-4d/opportunities/gmail-oauth.js","commercial-4d/opportunities/secure-ui.js"]){
+  const code=fs.readFileSync(new URL(file,root),"utf8");
+  assert.doesNotThrow(()=>new vm.Script(code,{filename:file}));
+ }
+ const html=fs.readFileSync(new URL("commercial-4d/opportunities/index.html",root),"utf8");
+ const inline=[...html.matchAll(/<script(?:\\s+[^>]*)?>([\\s\\S]*?)<\\/script>/gi)].map(m=>m[1]).filter(Boolean);
+ assert.ok(inline.length>0);
+ for(const code of inline)assert.doesNotThrow(()=>new vm.Script(code));
+});
 test("secure browser OAuth uses read-only scope and no mailbox-wide scan or send permission",()=>{
  const oauth=fs.readFileSync(new URL("commercial-4d/opportunities/gmail-oauth.js",root),"utf8");
  const page=fs.readFileSync(new URL("commercial-4d/opportunities/index.html",root),"utf8");
