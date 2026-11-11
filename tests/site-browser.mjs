@@ -33,12 +33,12 @@ try {
    assert.equal(await page.locator('#metric-gates').textContent(),'4 / 4');
    assert.match(await page.locator('#mission-status').textContent(),/SIMULATED/);
    await page.locator('[data-track="events"]').click();
-   await page.locator('#budget').fill('20');
+   await page.locator('#budget').evaluate(el=>{el.value='20';el.dispatchEvent(new Event('input',{bubbles:true}));});
    await page.locator('#propose').click();
    await page.locator('#approve').click();
    assert.match(await page.locator('#feedback').textContent(),/APPROVAL BLOCKED/);
    assert.equal(await page.locator('#test').isDisabled(),true,'No execution without prerequisites');
-   await page.locator('#budget').fill('100');
+   await page.locator('#budget').evaluate(el=>{el.value='100';el.dispatchEvent(new Event('input',{bubbles:true}));});
    await page.locator('#propose').click();
    await page.locator('#approve').click();
    await page.locator('#test').click();
