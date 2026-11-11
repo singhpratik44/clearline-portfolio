@@ -41,7 +41,9 @@ async function smokeTestPrivateRoutes(){
     {name:'invalid_session_denied',path:'/api/redeem?session_id=invalid',want:400},
     {name:'missing_session_denied',path:'/api/redeem',want:400},
     {name:'public_book_denied',path:'/api/redeem?book=basketball-iq',want:400},
-    {name:'unsupported_route_denied',path:'/private-content/basketball-iq.html',want:404}
+    {name:'unsupported_route_denied',path:'/private-content/basketball-iq.html',want:404},
+    {name:'quiet_missing_payment_denied',path:'/api/quiet-journal',want:400},
+    {name:'quiet_invalid_payment_denied',path:'/api/quiet-journal?session_id=invalid',want:400}
   ];
   for(const c of checks) {
     try{
