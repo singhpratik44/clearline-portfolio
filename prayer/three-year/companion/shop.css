@@ -29,3 +29,5 @@
 .partner-strip p:not(.eyebrow){max-width:700px;color:#d2e0d6;font-size:15px;line-height:1.9;margin-bottom:30px}
 .partner-strip .secondary{display:inline-block;padding:14px 22px;border:1px solid #ccba95;text-decoration:none;font-size:14px;font-weight:700}
 @media(max-width:600px){.partner-strip{padding:66px 22px}}
+
+.group-license{background:#f2eee2;color:#193b39;padding:85px clamp(22px,9vw,145px)}.group-license h2{font-size:clamp(38px,5vw,65px);line-height:1.12;margin:12px 0 24px}.group-license h2 em{color:#886a38}.group-license>p:not(.eyebrow){max-width:800px;line-height:1.8}.group-offer{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:30px;padding:30px;margin-top:28px;border:1px solid #c8c8b6;background:#fffdf7}.group-offer .price{color:#18393d}.group-offer .price span{color:#526961}.group-offer p:not(.price){font-size:13px;max-width:650px;color:#4c6761}.group-offer .primary{background:#183b3c;color:#fffaf0;text-decoration:none;white-space:nowrap}@media(max-width:780px){.group-offer{grid-template-columns:1fr}.group-license{padding:65px 22px}.group-offer .primary{white-space:normal;text-align:center}}
