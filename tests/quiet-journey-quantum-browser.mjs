@@ -1,0 +1,51 @@
+import {chromium} from "playwright";
+import {spawn} from "node:child_process";
+import assert from "node:assert/strict";
+const PORT=8797,BASE="http://127.0.0.1:"+PORT;
+const server=spawn("python3",["-m","http.server",String(PORT),"--bind","127.0.0.1"],{stdio:"ignore"});
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let browser;
+try{
+ await sleep(1000);
+ browser=await chromium.launch({headless:true});
+ for(const vp of [{width:1280,height:800},{width:390,height:844},{width:320,height:640}]){
+  const page=await browser.newPage({viewport:vp,acceptDownloads:true});
+  const errors=[],bad=[];
+  page.on("pageerror",e=>errors.push(e.message));
+  page.on("response",r=>{if(r.status()>=400)bad.push(r.status()+" "+r.url())});
+  const res=await page.goto(BASE+"/prayer/quantum-happiness/",{waitUntil:"networkidle",timeout:30000});
+  assert.equal(res.status(),200);
+  assert.equal(await page.locator(".orbit-node").count(),10);
+  assert.equal(await page.locator("#states .chip").count(),4);
+  await page.locator('.orbit-node[data-id="gratitude"]').click();
+  assert.equal(await page.locator("#lensName").innerText(),"Gratitude");
+  await page.locator('[data-mood="overwhelmed"]').click();
+  assert.match(await page.locator("#recommendTitle").innerText(),/space/i);
+  await page.locator("#taskInput").fill("One small action");
+  await page.locator("#importance").selectOption("3");
+  await page.locator("#effort").selectOption("5");
+  await page.locator("#taskForm button[type=submit]").click();
+  assert.match(await page.locator("#recommendAction").innerText(),/One small action/);
+  await page.locator("#journalText").fill("A synthetic reflection, not personal data.");
+  await page.locator("#saveJournal").click();
+  assert.match(await page.locator("#journalStatus").innerText(),/Saved locally/);
+  await page.reload({waitUntil:"networkidle"});
+  assert.match(await page.locator("#journalText").inputValue(),/synthetic reflection/);
+  assert.equal(await page.locator('.orbit-node[data-id="gratitude"]').getAttribute("aria-pressed"),"true");
+  await page.locator("#sensory").click();
+  assert.equal(await page.locator("body").evaluate(el=>el.classList.contains("sensory-low")),true);
+  await page.locator("#create").click();
+  assert.match(await page.locator("#creativePair").innerText(),/\+/);
+  await page.locator("#chapter").selectOption("36");
+  assert.match(await page.locator("#chapterPrompt").innerText(),/Year 3/);
+  page.once("dialog",dialog=>dialog.accept());
+  await page.locator("#deleteJournal").click();
+  assert.equal(await page.locator("#journalText").inputValue(),"");
+  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+  assert.ok(overflow<=1,"horizontal overflow "+vp.width+": "+overflow);
+  assert.deepEqual(errors,[],"JavaScript exceptions at "+vp.width);
+  assert.deepEqual(bad,[],"resource failures at "+vp.width);
+  await page.close();
+ }
+ console.log("PASS Quantum Happiness desktop + mobile moments, reflection, navigation and responsive checks");
+}finally{if(browser)await browser.close();server.kill("SIGTERM")}
