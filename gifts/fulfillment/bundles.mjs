@@ -1,5 +1,6 @@
 /** Paid collection-to-workbook entitlement map. */
 export const BUNDLE_BOOKS = Object.freeze({
+  "basketball-team-20": ["basketball-iq", "coach-practice"],
   "bundle": [
     "game",
     "birthday",
