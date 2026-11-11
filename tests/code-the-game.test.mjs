@@ -5,6 +5,8 @@ import vm from "node:vm";
 const read=(path)=>fs.readFileSync(path,"utf8");
 const reader=read("code-the-game/learn/index.html");
 const studio=read("code-the-game/learn/studio-v3.js");
+const other=read("code-the-game/learn/other-labs.js");
+const arcade=read("code-the-game/playground/index.html");
 const store=read("code-the-game/index.html");
 const packs=["roblox","minecraft","indie"].map(id=>({id,data:JSON.parse(read("code-the-game/packs/"+id+".json"))}));
 const scripts=[...reader.matchAll(/<script(?![^>]*src)[^>]*>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).filter(x=>x.trim());
@@ -12,11 +14,14 @@ test("Reader and interactive studio scripts are syntactically valid",()=>{
   assert.ok(scripts.length>0);
   scripts.forEach(s=>new vm.Script(s,{filename:"reader-inline.js"}));
   new vm.Script(studio,{filename:"studio-v3.js"});
+  new vm.Script(other,{filename:"other-labs.js"});
+  for(const script of [...arcade.matchAll(/<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/g)].map(x=>x[1]).filter(Boolean))new vm.Script(script,{filename:"arcade.js"});
 });
 test("All purchased pathways retain encrypted packs and link-based unlock",()=>{
   assert.match(reader,/openPack\(id,params\.get\(id\)\)/);
   assert.match(reader,/crypto\.subtle\.decrypt/);
   assert.match(reader,/studio-v3\.js/);
+  assert.match(reader,/other-labs\.js/);
   assert.match(reader,/createMissionBrief\(c,course,state\.lesson\)/);
   assert.match(reader,/ClearlineStudioV3\?\.render/);
   for(const {id,data} of packs){
@@ -32,6 +37,20 @@ test("Roblox has six distinct missions with explicit engine testing",()=>{
   assert.match(studio,/Verify in Roblox Studio/);
   assert.match(studio,/Self-reported test only/);
   assert.match(reader,/Mission 6/);
+});
+test("All 20 lessons have pathway-specific practice components",()=>{
+  assert.match(other,/ClearlineOtherLabs/);
+  assert.match(other,/Minecraft Education/);
+  assert.match(other,/Godot 4/);
+  assert.match(reader,/ClearlineOtherLabs\?\.render/);
+});
+test("Arcade contains keyboard and touch controls and a verifiably reachable finish",()=>{
+  assert.match(arcade,/data-move="up"/);
+  assert.match(arcade,/ArrowLeft/);
+  assert.match(arcade,/COLLISION/);
+  assert.match(arcade,/CHECKPOINT/);
+  assert.match(arcade,/VICTORY/);
+  assert.match(arcade,/model\.gems\.size===3/);
 });
 test("Storefront explicitly discloses requirements and no live sessions",()=>{
   assert.match(store,/No live coding sessions/);
