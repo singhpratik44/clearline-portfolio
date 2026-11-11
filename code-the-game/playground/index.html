@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080e19"><meta name="description" content="Play a tiny free coding game and discover the programming concepts behind events, variables, collisions, collectibles and win conditions."><title>CODE THE GAME | Playable Coding Lab</title><style>
+:root{color-scheme:dark;--bg:#070d19;--panel:#121f32;--ink:#f3f9ff;--muted:#b0c5d9;--green:#8ff5d2;--purple:#b6a8ff;--border:#294a62}*{box-sizing:border-box}
+body{background:radial-gradient(ellipse at 70% -10%,#30386c,transparent 48%),radial-gradient(ellipse at 1% 99%,#123c3e,transparent 34%),var(--bg);margin:0;color:var(--ink);font:16px/1.55 system-ui,sans-serif}
+header,main,footer{max-width:1280px;margin:auto;padding:20px 24px}header{display:flex;justify-content:space-between;align-items:center;gap:20px}header strong{letter-spacing:.14em;font-size:13px;color:var(--green)}a{color:var(--green)}a:focus-visible,button:focus-visible{outline:3px solid white;outline-offset:3px}
+h1{font-size:clamp(37px,5.5vw,74px);line-height:1.07;letter-spacing:-.065em;margin:10px 0 18px}h2{font-size:clamp(20px,2.6vw,31px);letter-spacing:-.025em;margin:4px 0 13px}
+p{color:var(--muted);max-width:75ch}.chip{border:1px solid #427c73;border-radius:100px;padding:5px 12px;color:var(--green);font-size:12px;font-weight:800;display:inline-block}
+.hero{margin:28px 0 25px}.hero p{font-size:17px}
+.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.85fr);gap:18px}
+.card{background:linear-gradient(156deg,#16263f,#111b2e);border:1px solid var(--border);border-radius:22px;padding:20px;box-shadow:0 24px 70px #0003}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:16px 0}.stat{background:#1b3244;border:1px solid #315468;border-radius:12px;text-align:center;padding:10px 5px;font-size:12px;color:#bacbd9}.stat strong{display:block;font-size:clamp(17px,2.4vw,27px);color:#e9fff8;font-variant-numeric:tabular-nums}
+.board-shell{border:1px solid #46627d;border-radius:18px;padding:14px;background:linear-gradient(150deg,#101d2b,#162840);margin:10px 0}
+#board{--unit: min(6.2vw,57px);display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px;aspect-ratio:10/7;max-width:720px;margin:auto}
+.tile{background:#223d4c;border:1px solid #375365;border-radius:6px;position:relative;display:flex;align-items:center;justify-content:center;font-size:clamp(12px,2.2vw,24px);transition:background .11s}
+.tile.wall{background:repeating-linear-gradient(135deg,#3a4761,#3a4761 7px,#2f3b53 7px,#2f3b53 14px)}
+.tile.hazard{background:#7c3349}.tile.coin{background:#2d584e}.tile.checkpoint{background:#26457e}.tile.goal{background:#4c4b24}
+.tile.player{background:#245b65;border:2px solid var(--green);box-shadow:0 0 0 2px #76d9b634,0 0 16px #51f2cc70;z-index:1}
+.controls{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.pad{display:flex;gap:7px;flex-wrap:wrap}button{border:1px solid #567d92;border-radius:12px;background:#263c59;color:white;padding:11px 16px;font:700 14px system-ui;cursor:pointer}button:hover{background:#32536d}.pad button{font-size:21px;min-width:51px;min-height:50px}
+button.primary{background:var(--green);color:#09211d;border-color:var(--green)}button.primary:hover{background:#b6ffe6}
+#message{min-height:42px;color:#d3ebf6;font-size:14px;margin:12px 0}#message[role=status]{border-left:3px solid #84d8ca;padding-left:11px}
+.legend{display:flex;gap:13px;flex-wrap:wrap;font-size:12px;color:#bdd0df;margin:12px 0}.legend b{font-size:15px;color:var(--green)}
+.event-log{display:flex;flex-direction:column;gap:9px;max-height:250px;overflow:auto}.log{background:#0e192c;border:1px solid #2b425b;border-radius:9px;padding:10px 12px;color:#cfe0ed;font-size:13px}.log code{color:#b6e6dc}
+.code{background:#080f1c;border:1px solid #364d69;border-radius:12px;padding:14px;white-space:pre-wrap;overflow:auto;color:#b4f7d1;font:13px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace}
+details{border:1px solid #36526d;border-radius:13px;padding:13px;margin:13px 0}summary{font-weight:750;cursor:pointer;color:var(--green)}
+footer{border-top:1px solid #2d3f58;margin-top:35px;color:#aec1d4;font-size:13px}
+@media(max-width:850px){.layout{grid-template-columns:1fr}header,main,footer{padding-left:14px;padding-right:14px}.board-shell{padding:7px}#board{gap:2px}.tile{border-radius:4px}.card{padding:15px}.controls{justify-content:center}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style></head><body><header><strong>◈ CLEARLINE CODE / ARCADE LAB</strong><a href="../">All coding pathways</a></header><main><section class="hero"><span class="chip">FREE PLAYABLE PREVIEW · NO SIGN-IN</span><h1>Play the game.<br>Discover the code.</h1><p>Move your character, collect three gems, activate a checkpoint, avoid hazards, and reach the finish. Every action illustrates a real programming concept from the self-paced courses.</p></section>
+<section class="layout"><div class="card"><h2>Arcade: The First Obby</h2><p>Use arrow keys or WASD on a keyboard, or tap the controls below. This is a browser simulation—not a Roblox Studio project.</p><div class="stats"><div class="stat">GEMS<strong id="gems">0 / 3</strong></div><div class="stat">TIME<strong id="time">0.0s</strong></div><div class="stat">MOVES<strong id="moves">0</strong></div><div class="stat">CHECKPOINT<strong id="checkpoint">START</strong></div></div><div class="board-shell"><div id="board" role="img" aria-label="Game board with walls, hazards, gems, checkpoint and finish."></div></div><div id="message" role="status" aria-live="polite">Collect three gems and reach the star ★</div><div class="controls"><div class="pad"><button type="button" data-move="up" aria-label="Move up">↑</button><button type="button" data-move="left" aria-label="Move left">←</button><button type="button" data-move="down" aria-label="Move down">↓</button><button type="button" data-move="right" aria-label="Move right">→</button></div><button id="reset" type="button">↻ Restart</button><button class="primary" id="showLesson" type="button">What did I just code?</button></div><div class="legend"><span><b>◆</b> Gem</span><span><b>⚡</b> Hazard</span><span><b>◇</b> Checkpoint</span><span><b>★</b> Finish</span><span><b>▥</b> Wall</span></div></div>
+<aside class="card"><span class="chip">INSPECT THE ENGINE</span><h2>Every move has a rule.</h2><p>This panel captures the simulated event, its condition, and the state change. It's how a developer thinks about game behavior.</p><div class="event-log" id="log" aria-live="polite"></div><details open><summary>Core game algorithm</summary><pre class="code" id="alg">input → validate bounds
+      → detect wall
+      → detect hazard
+      → collect gem
+      → update checkpoint
+      → test finish</pre></details><details><summary>Where this appears in Roblox Studio</summary><p>Roblox uses <code>BasePart.Touched</code>, player properties such as <code>RespawnLocation</code>, values such as <code>leaderstats</code>, and conditional Luau statements to implement these rules in an actual game.</p></details><details><summary>What should I build next?</summary><p>In Roblox Studio, create one anchored Part. Insert a Script and connect its <code>Touched</code> event. Check for a character <code>Humanoid</code> before changing the Part's color. Build outward into hazards, checkpoints, collectibles, and a finish gate.</p></details><p><a href="../#pathways">Explore the full self-paced coding pathways →</a></p></aside></section></main><footer>Free educational prototype · Original browser simulation · No personal data collected or stored. Independent from Roblox, Mojang/Microsoft, or Godot. No game software included.</footer><script>
+"use strict";
+const WIDTH=10,HEIGHT=7,START=[0,0],GOAL="9,6";
+const walls=new Set(["2,0","2,1","2,2","5,1","5,2","5,3","7,4","7,5","3,5"]),hazards=new Set(["4,2","6,5"]),gemPoints=new Set(["1,3","5,0","8,5"]),checkpoints=new Set(["4,4"]);
+const d=id=>document.getElementById(id), format=(x,y)=>x+","+y;let model,clockTimer=null;
+function fresh(){if(clockTimer)clearInterval(clockTimer);clockTimer=null;model={x:START[0],y:START[1],checkpoint:START.slice(),gems:new Set(),moves:0,elapsed:0,started:false,done:false};d("log").replaceChildren();log("SYSTEM","New run. The finish requires three gems.");draw();d("message").textContent="Collect three gems and reach the star ★"}
+function log(event,detail){const p=document.createElement("div");p.className="log";const a=document.createElement("strong");a.textContent=event+": ";p.append(a,document.createTextNode(detail));d("log").prepend(p);while(d("log").children.length>7)d("log").lastChild.remove()}
+function draw(){const b=d("board");b.replaceChildren();for(let y=0;y<HEIGHT;y++)for(let x=0;x<WIDTH;x++){const k=format(x,y),p=document.createElement("div");p.className="tile";if(walls.has(k)){p.classList.add("wall");p.textContent="▥"}else if(hazards.has(k)){p.classList.add("hazard");p.textContent="⚡"}else if(gemPoints.has(k)&&!model.gems.has(k)){p.classList.add("coin");p.textContent="◆"}else if(checkpoints.has(k)){p.classList.add("checkpoint");p.textContent="◇"}else if(k===GOAL){p.classList.add("goal");p.textContent="★"}if(model.x===x&&model.y===y){p.classList.add("player");p.textContent="●"}b.append(p)}
+d("gems").textContent=model.gems.size+" / 3";d("moves").textContent=model.moves;d("checkpoint").textContent=model.checkpoint[0]===0&&model.checkpoint[1]===0?"START":"SAVED";d("time").textContent=model.elapsed.toFixed(1)+"s"}
+function message(text){d("message").textContent=text}
+function move(dx,dy){
+ if(model.done)return;
+ if(!model.started){model.started=true;clockTimer=setInterval(()=>{if(!model.done){model.elapsed+=0.1;d("time").textContent=model.elapsed.toFixed(1)+"s"}},100)}
+ model.moves++;
+ const x=model.x+dx,y=model.y+dy,k=format(x,y);
+ if(x<0||y<0||x>=WIDTH||y>=HEIGHT){log("BOUNDARY","Move rejected outside the game world.");message("Boundary check: stay inside the grid.");draw();return}
+ if(walls.has(k)){log("COLLISION","A wall rejected movement.");message("Collision rule: walls stop movement.");draw();return}
+ model.x=x;model.y=y;
+ if(hazards.has(k)){model.x=model.checkpoint[0];model.y=model.checkpoint[1];log("HAZARD","Contact event → reset to last checkpoint.");message("Hazard! Returned to your saved checkpoint.");draw();return}
+ if(checkpoints.has(k)){model.checkpoint=[x,y];log("CHECKPOINT","Player respawn state updated.");message("Checkpoint saved. Hazards now return you here.")}
+ if(gemPoints.has(k)&&!model.gems.has(k)){model.gems.add(k);log("PICKUP","Gem collected → score now "+model.gems.size+".");message("Gem collected! "+model.gems.size+" of 3.")}
+ if(k===GOAL){if(model.gems.size===3){model.done=true;if(clockTimer)clearInterval(clockTimer);log("VICTORY","All conditions true → finished in "+model.elapsed.toFixed(1)+" seconds.");message("★ WIN! You completed the course. Can you beat your time?")}else{log("GATE","Finish requires 3 gems; current count "+model.gems.size+".");message("Finish locked. Find the remaining gems!")}}
+ draw();
+}
+const moveMap={up:[0,-1],down:[0,1],left:[-1,0],right:[1,0]};
+document.querySelectorAll("[data-move]").forEach(button=>button.addEventListener("click",()=>move(...moveMap[button.dataset.move])));
+document.addEventListener("keydown",event=>{const keys={ArrowUp:"up",ArrowDown:"down",ArrowLeft:"left",ArrowRight:"right",w:"up",s:"down",a:"left",d:"right"};const direction=keys[event.key];if(direction&&!(event.target instanceof HTMLInputElement)){event.preventDefault();move(...moveMap[direction])}});
+d("reset").onclick=fresh;d("showLesson").onclick=()=>{d("alg").textContent="event: player attempts move\ncondition: inside board?\ncondition: not a wall?\nstate: update (x,y)\ncondition: hazard? → respawn\ncondition: gem? → +1 score\ncondition: checkpoint? → save\ncondition: goal AND score=3? → win";log("CODE INSPECTOR","Trace the event, condition and state change. Then implement them in your editor.")};
+fresh();
+</script></body></html>
