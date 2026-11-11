@@ -90,6 +90,16 @@ try{
     assert.ok(commerceWidth<=1,"Companion workbook overflow at "+viewport.width+": "+commerceWidth);
     assert.deepEqual(errors,[],"No browser exceptions in companion pages at "+viewport.width);
     console.log("PASS companion shop fail-closed and printable 36+12 workbook",viewport.width);
+    const startResponse=await page.goto(BASE+"/prayer/start/",{waitUntil:"networkidle",timeout:30000});
+    assert.equal(startResponse.status(),200);
+    await page.locator("#focus").selectOption("gratitude");
+    await page.locator("#next").click();
+    assert.match(await page.locator("#stepPrayer").innerText(),/given without entitlement/i);
+    await page.locator("#next").click();
+    assert.match(await page.locator("#stepPrayer").innerText(),/Thank one person/i);
+    assert.ok((await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth))<=1,"Starter overflow at "+viewport.width);
+    assert.deepEqual(errors,[],"No JavaScript exceptions on free starter");
+    console.log("PASS five-minute starter practice",viewport.width);
     await page.close();
   }
   const page=await browser.newPage({viewport:{width:390,height:844},acceptDownloads:true});

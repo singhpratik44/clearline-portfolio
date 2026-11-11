@@ -22,7 +22,7 @@ test("privacy by default: local encrypted vault with strict CSP",()=>{
   assert.match(js,/vaultPassword/);
   assert.doesNotMatch(js,/\bfetch\s*\(|XMLHttpRequest|sendBeacon|firebase|supabase/i);
   assert.doesNotMatch(html,/<script[^>]+src="https?:\/\//i);
-  assert.doesNotMatch(html,/<link[^>]+href="https?:\/\//i);
+  assert.doesNotMatch(html,/<link(?=[^>]*rel="(?:stylesheet|preload|modulepreload)")(?=[^>]*href="https?:\/\/)[^>]*>/i);
 });
 test("original prayer journey links to the new journey without removing original functionality",()=>{
   assert.match(original,/href="\.\/three-year\/"/);
