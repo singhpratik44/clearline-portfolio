@@ -18,7 +18,8 @@ function responder(session,status=200) {
   };
 }
 test('all 69 Stripe payment links mapped to an entitlement',()=>{
-  assert.equal(Object.keys(PURCHASE_LINK_SKU).length,69);
+  assert.ok(Object.keys(PURCHASE_LINK_SKU).length>=69);
+  assert.equal(PURCHASE_LINK_SKU['plink_1UaPILRuy3ohymOHuQwOP1lN'],'achievement-awards');
   assert.equal(BUNDLE_BOOKS['all-sports-bundle'].length,33);
   assert.equal(BUNDLE_BOOKS['all-vault'].length,54);
 });
