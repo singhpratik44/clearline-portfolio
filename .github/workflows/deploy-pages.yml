@@ -125,6 +125,9 @@ jobs:
           test -d _site/assets
           test -s _site/code-the-game/index.html
           test -s _site/code-the-game/help/index.html
+          test -s _site/code-the-game/roblox/index.html
+          test -s _site/code-the-game/minecraft/index.html
+          test -s _site/code-the-game/godot/index.html
           test -s _site/code-the-game/start/index.html
           test -s _site/code-the-game/quiz/index.html
           test -s _site/code-the-game/playground/index.html
