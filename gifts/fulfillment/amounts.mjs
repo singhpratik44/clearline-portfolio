@@ -1,5 +1,6 @@
 /** Expected checkout totals in USD cents, incl. isolated $0.50 gift test. */
 export const LINK_AMOUNTS = Object.freeze({
+  "plink_1UaQ8dRuy3ohymOH9kQ6t0ay": 9900,
   "plink_1UaOHRRuy3ohymOHX9V0jdAW": 5900,
   "plink_1UaOHPRuy3ohymOHiWbgYgEi": 3900,
   "plink_1UaOHNRuy3ohymOHValHlygp": 1500,
