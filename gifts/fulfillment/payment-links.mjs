@@ -1,4 +1,4 @@
-/** Authoritative Stripe payment link allowlist; never contains keys. */
+/** Stripe link allowlist including isolated 50-cent paid gift test. */
 export const PURCHASE_LINK_SKU = Object.freeze({
   "plink_1UaOHRRuy3ohymOHX9V0jdAW": "basketball-coach-studio",
   "plink_1UaOHPRuy3ohymOHiWbgYgEi": "basketball-starter-collection",
@@ -68,5 +68,6 @@ export const PURCHASE_LINK_SKU = Object.freeze({
   "plink_1UaN9xRuy3ohymOHekxjvHXf": "family",
   "plink_1UaN9vRuy3ohymOHs83S5c1A": "space",
   "plink_1UaN9tRuy3ohymOHuTlVyHgS": "birthday",
-  "plink_1UaN9rRuy3ohymOHFxSaENmm": "game"
+  "plink_1UaN9rRuy3ohymOHFxSaENmm": "game",
+  "plink_1UaPILRuy3ohymOHuQwOP1lN": "achievement-awards"
 });
