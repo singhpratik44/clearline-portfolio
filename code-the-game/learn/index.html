@@ -74,7 +74,7 @@ main>h1{font-size:clamp(36px,5.3vw,65px);letter-spacing:-.055em}
 <div id="status" class="helper" role="status">Loading your courses…</div><div id="courseButtons" class="actions"></div>
 <div class="layout"><aside class="panel"><h2 id="courseTitle">My lessons</h2><p id="progressText" class="small"></p><div class="progress"><div id="progressBar"></div></div><div id="lessonMenu"></div></aside><article class="panel"><div id="content" class="empty"><h2>Choose a pathway</h2><p>Select an unlocked course to begin.</p></div></article></div>
 <p class="small">Progress and notes stay in this browser. No student account, live sessions, coaching or certificates. Your bookmarked access link can be shared, so keep it private. For purchase or recovery questions, use the support information on your Stripe receipt.</p>
-</main><script src="studio-v3.js"></script><script>
+</main><script src="studio-v3.js"></script><script src="other-labs.js"></script><script>
 "use strict";
 const ALLOWED=["roblox","minecraft","indie"];const state={courses:{},active:null,lesson:0};
 const el=id=>document.getElementById(id);
@@ -116,7 +116,7 @@ function render(){
  add(c,"h3","Your challenge");add(c,"p",a.challenge);add(c,"h3","Check the result");add(c,"p",a.test);
  const d=add(c,"details");add(d,"summary","Troubleshooting tip");add(d,"p",a.debug);
  const review=add(c,"details");add(review,"summary","Reflect");add(review,"p",a.review);
- if(!window.ClearlineStudioV3?.render(c,course,state.lesson)){createSkillLab(c,course,state.lesson)}
+ if(!(window.ClearlineStudioV3?.render(c,course,state.lesson) || window.ClearlineOtherLabs?.render(c,course,state.lesson))){createSkillLab(c,course,state.lesson)}
  const controls=add(c,"div",undefined,"actions");const check=add(controls,"label",undefined,"check");
  const box=add(check,"input");box.type="checkbox";box.checked=!!completed[state.lesson];add(check,"span","I completed this lesson");box.onchange=()=>{const p=doneFor(course.id);p[state.lesson]=box.checked;localStorage.setItem(keyFor(course.id),JSON.stringify(p));render()};
  const next=add(controls,"button",state.lesson<total-1?"Next lesson →":"Course overview","secondary");
