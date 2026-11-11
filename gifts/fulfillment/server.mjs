@@ -32,6 +32,25 @@ async function verifyStripeCredentialAtStartup(){
     process.stdout.write('Stripe read credential status: STRIPE_UNREACHABLE\n');
   }
 }
+
+async function smokeTestPrivateRoutes(){
+  const base='http://127.0.0.1:'+port;
+  const checks=[
+    {name:'health',path:'/healthz',want:200},
+    {name:'invalid_session_denied',path:'/api/redeem?session_id=invalid',want:400},
+    {name:'missing_session_denied',path:'/api/redeem',want:400},
+    {name:'public_book_denied',path:'/api/redeem?book=basketball-iq',want:400},
+    {name:'unsupported_route_denied',path:'/private-content/basketball-iq.html',want:404}
+  ];
+  for(const c of checks) {
+    try{
+      const r=await fetch(base+c.path,{signal:AbortSignal.timeout(6000),redirect:'manual',cache:'no-store'});
+      process.stdout.write('APERTURE private route '+c.name+': '+(r.status===c.want?'PASS':'FAIL')+' (HTTP '+r.status+')\n');
+    }catch(_err){
+      process.stdout.write('APERTURE private route '+c.name+': REQUEST_FAILED\n');
+    }
+  }
+}
 createServer(async(req,res)=>{
   try {
     const url=new URL(req.url||'/', 'http://localhost');
@@ -47,4 +66,4 @@ createServer(async(req,res)=>{
   } catch(_err) {
     return send(res,500,'Unable to process request');
   }
-}).listen(port,'0.0.0.0',()=>{process.stdout.write('APERTURE private gift delivery server listening\n');void verifyStripeCredentialAtStartup()});
+}).listen(port,'0.0.0.0',()=>{process.stdout.write('APERTURE private gift delivery server listening\n');void verifyStripeCredentialAtStartup();void smokeTestPrivateRoutes()});
