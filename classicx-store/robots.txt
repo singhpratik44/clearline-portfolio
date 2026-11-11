@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://classicx-moments-store.onrender.com/sitemap.xml
