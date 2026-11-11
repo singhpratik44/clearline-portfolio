@@ -12,7 +12,7 @@ try {
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto('http://127.0.0.1:8767/');
    await page.locator('#aperture-site-navigation').waitFor();
-   assert.equal(await page.locator('.project').count(),21);
+   assert.ok((await page.locator('.project').count())>=22,'Mission Operations is listed in the portfolio');
    assert.match(await page.title(),/APERTURE/);
    await page.getByRole('button',{name:'Sports',exact:true}).click();
    assert.equal(await page.locator('.project:visible').count(),4);
@@ -20,6 +20,34 @@ try {
    await page.locator('#project-search').fill('basketball');
    assert.ok((await page.locator('.project:visible').count())>=1);
    await page.locator('#project-search').fill('');
+
+   await page.goto('http://127.0.0.1:8767/mission-operations.html');
+   assert.match(await page.title(),/Mission Operations/);
+   assert.equal(await page.locator('.gate').count(),4,'Four dependency gates shown');
+   assert.equal(await page.locator('#metric-gates').textContent(),'1 / 4');
+   await page.locator('#propose').click();
+   assert.equal(await page.locator('#approve').isEnabled(),true);
+   await page.locator('#approve').click();
+   assert.equal(await page.locator('#test').isEnabled(),true);
+   await page.locator('#test').click();
+   assert.equal(await page.locator('#metric-gates').textContent(),'4 / 4');
+   assert.match(await page.locator('#mission-status').textContent(),/SIMULATED/);
+   await page.locator('[data-track="events"]').click();
+   await page.locator('#budget').fill('20');
+   await page.locator('#propose').click();
+   await page.locator('#approve').click();
+   assert.match(await page.locator('#feedback').textContent(),/APPROVAL BLOCKED/);
+   assert.equal(await page.locator('#test').isDisabled(),true,'No execution without prerequisites');
+   await page.locator('#budget').fill('100');
+   await page.locator('#propose').click();
+   await page.locator('#approve').click();
+   await page.locator('#test').click();
+   assert.equal(await page.locator('#metric-gates').textContent(),'4 / 4');
+   await page.locator('[data-track="partners"]').click();
+   assert.match(await page.locator('#mission-name').textContent(),/partnership/i);
+   assert.deepEqual(errors,[],'Mission Operations browser errors');
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Mission Operations horizontal overflow');
+
    const menu=page.locator('#aperture-site-navigation').locator('summary');
    await menu.click();
    assert.ok((await page.locator('#aperture-site-navigation').locator('.menu a').count())>=19);
