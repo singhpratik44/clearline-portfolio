@@ -115,3 +115,11 @@ test("Bundle and privacy pages are published and reachable from catalog",()=>{
  assert.match(privacy,/Stripe-hosted checkout/);
  assert.match(privacy,/private URL fragment/);
 });
+
+test("Reader handles partial bundle failures without logging private decryption errors",()=>{
+ const reader=read("code-the-game/learn/index.html");
+ assert.match(reader,/const failed=\[\]/);
+ assert.match(reader,/failed\.push\(id\)/);
+ assert.match(reader,/Some purchased pathways could not be unlocked/);
+ assert.doesNotMatch(reader,/console\.error\("Course unlock failed for"/);
+});
