@@ -33,3 +33,5 @@ jobs:
           npx playwright install chromium --only-shell
       - name: Chromium mobile and desktop journey acceptance
         run: node tests/quiet-journey-browser.mjs
+      - name: Quantum Happiness mobile journey acceptance
+        run: node tests/quiet-journey-quantum-browser.mjs
