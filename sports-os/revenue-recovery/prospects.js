@@ -1,11 +1,11 @@
 "use strict";
 /* Public-source buyer intelligence. No email/CRM integration and no persistent lead data. */
 (function(root){
- const sourceHosts=new Set(["www.thecoderschool.com","www.codeninjas.com","socalelite.org","www.soccershots.com"]);
- const billingWeight={explicit_recurring:35,monthly_program:25,year_round:12,seasonal_enrollment:8};
+ const sourceHosts=new Set(["www.thecoderschool.com","www.codeninjas.com","socalelite.org","www.soccershots.com","www.swishsolutionsoc.com","breakthrough-sports.org","orange.kidstrong.com","www.i9sports.com"]);
+ const billingWeight={explicit_recurring:35,monthly_program:25,year_round:12,seasonal_enrollment:8,membership_based:20};
  function score(record){
    const b=billingWeight[record.billing_signal]||0;
-   const multi=record.buyer_group==="Tri-Valley theCoderSchool group"||record.buyer_group==="SoCal Elite Sports"||record.buyer_group==="Soccer Shots Orange County";
+   const multi=record.buyer_group==="Tri-Valley theCoderSchool group"||record.buyer_group==="SoCal Elite Sports"||record.buyer_group==="Soccer Shots Orange County"||record.buyer_group==="Breakthrough Sports";
    const region=["San Ramon","Walnut Creek","Pleasanton"].includes(record.city)?0:10;
    return b+(multi?20:0)+(record.business_email?15:0)+Math.min(3,Math.max(0,record.complexity_score||0))*5+region;
  }
@@ -27,7 +27,7 @@
      "",
      "Hello,",
      "",
-     "I work on APERTURE, a small operational diagnostic for youth programs. I saw that "+record.name+" publicly describes "+record.source_fact.charAt(0).toLowerCase()+record.source_fact.slice(1)+".",
+     "I work on APERTURE, a small operational diagnostic for youth programs. I reviewed "+record.name+"\u0027s public program information, which indicates: "+record.source_fact+".",
      "",
      "I'm testing a 14-day review that helps an authorized operator reconcile registration, invoice and renewal exceptions, identify existing software coverage, and create a clear staff decision queue. It doesn't send payment reminders or handle charges.",
      "",
@@ -47,12 +47,13 @@
    try{const u=new URL(value);return u.protocol==="https:"&&sourceHosts.has(u.hostname)?u.href:null}catch{return null}
  }
  function validate(data){
-   if(data.schema_version!==1||!Array.isArray(data.records)||data.records.length!==20)throw Error("Unexpected prospect registry");
-   if(new Set(data.records.map(r=>r.id)).size!==20)throw Error("Duplicate IDs");
+   if(data.schema_version!==1||!Array.isArray(data.records)||data.records.length!==24)throw Error("Unexpected prospect registry");
+   if(new Set(data.records.map(r=>r.id)).size!==24)throw Error("Duplicate IDs");
    for(const r of data.records){
      if(!r.id||!r.name||!r.buyer_group||!r.source_fact||!safeUrl(r.source_url)||!safeUrl(r.contact_url)||r.pain_verified!==false||r.contacted!==false)throw Error("Invalid public-source research record");
      if(r.business_email&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(r.business_email))throw Error("Bad public contact");
    }
+   if(new Set(data.records.map(r=>r.buyer_group)).size!==20)throw Error("Unexpected prospect buyer-group count");
    return data.records;
  }
  const API={score,rank,draft,safeUrl,validate};
