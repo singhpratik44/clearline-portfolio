@@ -28,7 +28,7 @@ jobs:
       - name: Run regression suite
         run: node --test tests/sports-os.test.mjs tests/mission-control.test.mjs tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Verify APERTURE Revenue Recovery calculations and privacy gates
-        run: node --test tests/revenue-recovery.test.mjs
+        run: node --test tests/revenue-recovery.test.mjs tests/revenue-commercial.test.mjs
       - name: Verify CODE THE GAME courses, delivery and public arcade
         run: |
           node --test tests/code-the-game.test.mjs tests/code-the-game-crypto.test.mjs
@@ -199,7 +199,9 @@ jobs:
           test -s _site/prayer/three-year/companion/workbook.js
           test -s _site/prayer/three-year/companion/workbook.css
           grep -q 'companion/shop.html' _site/sitemap.xml
-          grep -q 'enabled:false' _site/prayer/three-year/companion/checkout-config.mjs
+          grep -q 'enabled:true' _site/prayer/three-year/companion/checkout-config.mjs
+          grep -q '9B6dRbdwO3bScAcbod6kg1i' _site/prayer/three-year/companion/checkout-config.mjs
+          grep -q 'https://buy.stripe.com/9B6dRbdwO3bScAcbod6kg1i' _site/prayer/three-year/companion/shop.html
           grep -q 'id="dailyRecord"' _site/prayer/three-year/index.html
           grep -q 'type="module" src="./app.js"' _site/prayer/three-year/index.html
           test -s _site/prayer/three-year/styles.css
@@ -289,7 +291,13 @@ jobs:
               "marketplace.js": ("PROPOSED STATEMENT OF WORK", "No outreach", "services"),
               "opportunities.json": ('"schema_version": 2', '"listings":', '"status":'),
               "revenue-recovery/index.html": ("REVENUE RECOVERY", 'id="signal-rows"', 'src="engine.js"'),
-              "revenue-recovery/engine.js": ("function analyze(", "function proposal(", "function parseCsv(", "executed:false")
+              "revenue-recovery/engine.js": ("function analyze(", "function proposal(", "function parseCsv(", "executed:false"),
+              "revenue-recovery/pilot.html": ("14-Day Revenue Diagnostic", 'id="intake-form"', 'src="pilot.js"'),
+              "revenue-recovery/pilot.js": ("function evaluate(", "function compose(", "No email, payment"),
+              "revenue-recovery/sample-audit.html": ("FICTIONAL SAMPLE DATA", "$1,054", "NOT RECOVERED MONEY"),
+              "revenue-recovery/prospects.html": ("Buyer Intelligence", 'id="top-prospects"', 'src="prospects.js"'),
+              "revenue-recovery/prospects.js": ("function score(", "function rank(", "UNSENT DRAFT"),
+              "revenue-recovery/prospects-2026-11-10.json": ('"schema_version": 1', '"records":', '"pain_verified": false')
           }
           for attempt in range(10):
               try:

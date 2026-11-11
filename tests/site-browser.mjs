@@ -106,6 +106,35 @@ try {
    assert.equal(await page.locator('#download').isEnabled(),true);
    assert.deepEqual(errors,[],'Sports services studio JavaScript errors');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Sports V2 horizontal overflow');
+   await page.goto('http://127.0.0.1:8767/sports-os/revenue-recovery/pilot.html');
+   assert.equal(await page.locator('#scenario-value').textContent(),'$900');
+   await page.locator('#org').fill('Fictional Club');
+   await page.locator('#authority').check();
+   await page.locator('#intake-form button[type="submit"]').click();
+   assert.match(await page.locator('#offer-preview').innerText(),/Fictional Club/);
+   assert.equal(await page.locator('#save-brief').isEnabled(),true);
+   await page.locator('#clear-brief').click();
+   assert.equal(await page.locator('#save-brief').isDisabled(),true);
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Pilot page horizontal overflow');
+
+   await page.goto('http://127.0.0.1:8767/sports-os/revenue-recovery/sample-audit.html');
+   assert.match(await page.title(),/Fictional Sample Audit/);
+   assert.match(await page.locator('main').innerText(),/NOT RECOVERED MONEY/);
+
+   await page.goto('http://127.0.0.1:8767/sports-os/revenue-recovery/prospects.html');
+   await page.waitForFunction(()=>document.querySelector('#count-sites')?.textContent==='24');
+   assert.equal(await page.locator('#count-groups').textContent(),'20');
+   assert.equal(await page.locator('#top-prospects .p-card').count(),5);
+   assert.equal(await page.locator('#prospect-directory .p-card').count(),24);
+   await page.locator('#search').fill('Swish');
+   assert.equal(await page.locator('#prospect-directory .p-card').count(),1);
+   await page.locator('#search').fill('');
+   await page.locator('#top-prospects .p-card button').first().click();
+   assert.match(await page.locator('#draft').innerText(),/UNSENT DRAFT/);
+   assert.equal(await page.locator('#copy-draft').isEnabled(),true);
+   assert.deepEqual(errors,[],'Commercial pilot and prospect JavaScript errors');
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Prospect dashboard horizontal overflow');
+
    await page.goto('http://127.0.0.1:8767/gifts/');
    const totalGifts=await page.locator('.gift-card').count();
    assert.ok(totalGifts>=69,'Gift Lab has at least 69 purchasable editions');
