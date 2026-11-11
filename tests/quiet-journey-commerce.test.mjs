@@ -33,14 +33,22 @@ test("The optional companion has a tangible printable deliverable",()=>{
   assert.match(page,/not a religious authority/i);
 });
 
-test("Stripe checkout fails closed until the account and offer are approved",()=>{
-  assert.match(config,/enabled:false/);
-  assert.match(config,/stripePaymentUrl:""/);
+test("Live Stripe product, price and payment link are explicitly configured without secrets",()=>{
+  assert.match(config,/enabled:true/);
+  assert.match(config,/livemode:true/);
   assert.match(config,/proposedOneTimeUSD:29/);
+  assert.match(config,/stripeProductId:"prod_Vbh7BW3lY2n0rc"/);
+  assert.match(config,/stripePriceId:"price_1UaTjbRuy3ohymOH95dZrGSw"/);
+  assert.match(config,/stripePaymentLinkId:"plink_1UaTkdRuy3ohymOHGJZ9bSGz"/);
+  assert.match(config,/stripePaymentUrl:"https:\/\/buy\.stripe\.com\/9B6dRbdwO3bScAcbod6kg1i"/);
   assert.match(storefront,/u\.hostname===expectedHost/);
   assert.match(storefront,/buy\.stripe\.com/);
-  assert.match(shop,/id="buyCompanion"[^>]*aria-disabled="true"/);
-  assert.match(shop,/not yet active|being prepared|not currently accepted/i);
+  assert.match(storefront,/checkoutConfig\.enabled && validUrl/);
+  assert.match(shop,/id="buyCompanion"[^>]*href="https:\/\/buy\.stripe\.com\/9B6dRbdwO3bScAcbod6kg1i"/);
+  assert.doesNotMatch(shop,/id="buyCompanion"[^>]*aria-disabled="true"/);
+  assert.match(shop,/one-time/i);
+  assert.match(shop,/final total appears on Stripe/i);
+  assert.match(shop,/no file is emailed automatically/i);
   for(const [name,body] of [["shop",shop],["workbook",page],["config",config],["frontend",storefront]]){
     assert.doesNotMatch(body,/(sk_live_|sk_test_|rk_live_|rk_test_)[A-Za-z0-9]+/,"No Stripe secret in "+name);
     assert.doesNotMatch(body,/<script[^>]+src="https?:\/\//i,"No third-party scripts in "+name);
