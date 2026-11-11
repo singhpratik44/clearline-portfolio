@@ -92,3 +92,12 @@ test("Publisher kit is ungated and transparent",()=>{
  assert.match(partners,/No fee is authorised/);
  assert.match(sitemap,/companion\/partners\.html/);
 });
+
+test("Group license checkout and scope are truthful",()=>{
+ assert.match(shop,/\$199/);
+ assert.match(shop,/up to 20 participants/);
+ assert.match(shop,/https:\/\/buy\.stripe\.com\/bJeeVfcsKbIo43GeAp6kg1n/);
+ assert.match(shop,/No custom branding/);
+ assert.match(shop,/publicly shareable URL/);
+ assert.match(shop,/no resale or public redistribution/i);
+});
