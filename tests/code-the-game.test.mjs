@@ -87,3 +87,16 @@ test("Store has working ecommerce affordances and honest fulfillment disclosures
  assert.match(page,/no customer accounts or automatic lost-link recovery/i);
  assert.match(page,/independent engine-version testing is still ongoing/i);
 });
+
+test("Detailed product pages are linked, accurately priced and include fulfillment guidance",()=>{
+ const store=read("code-the-game/index.html");
+ for(const [slug,price,checkout] of [["roblox",19,"14A5kFboG8wc7fSgIx6kg00"],["minecraft",29,"3cIbJ3dwO27O6bObod6kg01"],["godot",39,"dRmeVf0K2aEk0RufEt6kg02"]]){
+  const page=read("code-the-game/"+slug+"/index.html");
+  assert.ok(store.includes('href="'+slug+'/'),slug+" catalog link");
+  assert.ok(page.includes("$"+price),slug+" price");
+  assert.ok(page.includes("https://buy.stripe.com/"+checkout),slug+" checkout");
+  assert.match(page,/Required software:/);
+  assert.match(page,/refund requests are reviewed individually/i);
+  assert.match(page,/independently tested/i);
+ }
+});
