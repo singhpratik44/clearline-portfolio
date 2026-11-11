@@ -61,6 +61,21 @@ async function smokeTestPrivateRoutes(){
 createServer(async(req,res)=>{
   try {
     const url=new URL(req.url||'/', 'http://localhost');
+    if(url.pathname==='/classicx/traffic.gif') {
+      if(req.method!=='GET')return send(res,405,'Method not allowed');
+      const allowedEvents=new Set(['visit','free_sample','shop','checkout','arcade','replay','team_license']);
+      const event=url.searchParams.get('e')||'';
+      const source=(url.searchParams.get('s')||'direct').slice(0,32);
+      if(!allowedEvents.has(event)||!(/^[a-zA-Z0-9_-]{1,32}$/.test(source)))return send(res,400,'Invalid event');
+      // Anonymous aggregate events only: never log IP, URL, cookies, email or checkout IDs.
+      process.stdout.write('CLASSICX_TRAFFIC '+JSON.stringify({event,source})+'\\n');
+      res.statusCode=200;
+      res.setHeader('Content-Type','image/gif');
+      res.setHeader('Cache-Control','no-store, private');
+      res.setHeader('Access-Control-Allow-Origin','https://classicx-moments-store.onrender.com');
+      res.setHeader('X-Content-Type-Options','nosniff');
+      return res.end(Buffer.from('R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=','base64'));
+    }
     if(url.pathname==='/healthz') {
       if(!['GET','HEAD'].includes(req.method))return send(res,405,'Method not allowed');
       return send(res,200,'ok',req.method);
