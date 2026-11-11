@@ -1,3 +1,4 @@
+import '../gifts/fulfillment/classicx.test.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {verifyGiftPurchase} from '../gifts/fulfillment/verify.mjs';
