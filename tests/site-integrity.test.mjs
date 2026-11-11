@@ -39,3 +39,16 @@ test('homepage search and filter script is valid JavaScript',()=>{
   assert.ok(scripts.length);
   for(const script of scripts)new vm.Script(script,{filename:'index-inline.js'});
 });
+
+
+test('mission operations work sample is linked, syntactically valid and explicitly sandboxed',()=>{
+ const page=content('mission-operations.html');
+ const scripts=[...page.matchAll(/<script>([\s\S]*?)<\/script>/g)];
+ assert.equal(scripts.length,1,'One self-contained app script');
+ new vm.Script(scripts[0][1],{filename:'mission-operations.html'});
+ assert.match(page,/Simulation only/);
+ assert.match(page,/URL\.createObjectURL/);
+ assert.match(page,/if\(!feasible\(\)\)/);
+ assert.match(content('index.html'),/href="mission-operations\.html"/);
+ assert.match(content('assets/aperture-shell.js'),/mission-operations\.html/);
+});
