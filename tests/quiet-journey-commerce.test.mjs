@@ -33,14 +33,17 @@ test("The optional companion has a tangible printable deliverable",()=>{
   assert.match(page,/not a religious authority/i);
 });
 
-test("Stripe checkout fails closed until the account and offer are approved",()=>{
-  assert.match(config,/enabled:false/);
-  assert.match(config,/stripePaymentUrl:""/);
+test("Owner-approved one-time $29 Stripe payment link is configured and verified, not embedded",()=>{
+  assert.match(config,/enabled:true/);
+  assert.match(config,/stripePaymentUrl:"https:\/\/buy\.stripe\.com\/[A-Za-z0-9_-]+"/);
   assert.match(config,/proposedOneTimeUSD:29/);
+  assert.match(config,/non-recurring|one-time/);
   assert.match(storefront,/u\.hostname===expectedHost/);
   assert.match(storefront,/buy\.stripe\.com/);
-  assert.match(shop,/id="buyCompanion"[^>]*aria-disabled="true"/);
-  assert.match(shop,/not yet active|being prepared|not currently accepted/i);
+  assert.match(storefront,/validUrl\(checkoutConfig\.stripePaymentUrl\)/);
+  assert.match(shop,/id="buyCompanion"[^>]*aria-disabled="true"/,"HTML starts fail-closed until JS validates config");
+  assert.match(shop,/instant|after a successful payment/i);
+  assert.match(shop,/id="faq"/);
   for(const [name,body] of [["shop",shop],["workbook",page],["config",config],["frontend",storefront]]){
     assert.doesNotMatch(body,/(sk_live_|sk_test_|rk_live_|rk_test_)[A-Za-z0-9]+/,"No Stripe secret in "+name);
     assert.doesNotMatch(body,/<script[^>]+src="https?:\/\//i,"No third-party scripts in "+name);
