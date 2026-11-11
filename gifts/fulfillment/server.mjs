@@ -1,5 +1,6 @@
 import {createServer} from 'node:http';
 import redeem from './api/redeem.mjs';
+import {buildQuietPdf,verifyQuietPurchase} from './quiet-journal.mjs';
 
 const port=Number.parseInt(process.env.PORT||'3000',10);
 if(!Number.isInteger(port)||port<1||port>65535)throw new Error('PORT must be a valid port');
@@ -57,6 +58,24 @@ createServer(async(req,res)=>{
     if(url.pathname==='/healthz') {
       if(!['GET','HEAD'].includes(req.method))return send(res,405,'Method not allowed');
       return send(res,200,'ok',req.method);
+    }
+    if(url.pathname==='/api/quiet-journal') {
+      res.setHeader('Cache-Control','private, no-store, max-age=0');
+      res.setHeader('Referrer-Policy','no-referrer');
+      res.setHeader('X-Content-Type-Options','nosniff');
+      res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');
+      res.setHeader('Content-Security-Policy',"default-src 'none'; frame-ancestors 'none'");
+      if(req.method!=='GET')return send(res,405,'Method not allowed');
+      if(url.search.length>1024)return send(res,414,'Request too long');
+      const sessionId=url.searchParams.get('session_id');
+      const check=await verifyQuietPurchase(sessionId);
+      if(!check.ok)return send(res,check.status,'Journal unavailable: '+check.code+'. For a verified paid order, contact APERTURE Quiet Practice support with your Stripe receipt.');
+      const pdf=buildQuietPdf();
+      res.statusCode=200;
+      res.setHeader('Content-Type','application/pdf');
+      res.setHeader('Content-Disposition','attachment; filename="APERTURE-21-Day-Reflection-Journal.pdf"');
+      res.setHeader('Content-Length',String(pdf.length));
+      return res.end(pdf);
     }
     if(url.pathname==='/redeem'||url.pathname==='/api/redeem') {
       if(url.search.length>2048)return send(res,414,'Request too long');
