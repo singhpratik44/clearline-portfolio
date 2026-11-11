@@ -82,3 +82,28 @@ At a hypothetical **2% visitor-to-buyer conversion rate**, 1,000 buyers would re
 
 ## Open launch gate (not completed)
 (1) real live page check; (2) a low-cost end-to-end Stripe payment/refund test; (3) verify course scripts in Roblox Studio / Minecraft Education / Godot; (4) merchant support and refund policy; (5) social account connection for publishing. Until these pass, promote the **free quiz first** and disclose any course testing limitations.
+
+## Launch wave — November 10, 2026
+
+**What was actually sent:** individualized, permission-respecting educator review requests to Mark (theCoderSchool Irvine), Nishitha, and Mihir. These ask for technical and educational critique, not endorsements. Do not re-email these contacts without new information or a reply.
+
+**Public free campaign destination:** https://singhpratik44.github.io/clearline-portfolio/code-the-game/start/
+
+**Shareable campaign message (LinkedIn / Facebook / educator communities where permitted):**
+
+> 🎮 A gamer can start learning to build the game. I made three free starter projects—one each for Roblox Studio (Luau), Minecraft Education (MakeCode JavaScript), and Godot 4 (GDScript). Each explains the setup, provides copyable code, and includes a small experiment to try. There's also a free browser arcade to see events, collision, checkpoints and win conditions in action. No signup or live classes. Start here: https://singhpratik44.github.io/clearline-portfolio/code-the-game/start/?utm_source=community&utm_medium=organic_social&utm_campaign=game_to_code_launch. Independent educational resource; each editor has its own requirements.
+
+**Short-form video script (20 seconds):**
+- 0–4s: “Can gaming become a first coding project?” Show original browser arcade gameplay.
+- 4–10s: “Events. Variables. Collisions. Win conditions.” Demonstrate collecting gems and reaching a checkpoint.
+- 10–16s: “Then try real starter code for Roblox Studio, Minecraft Education or Godot 4.” Show the three free tutorials.
+- 16–20s: “Free, no signup. Link in bio.” Show the free tutorial URL.
+
+**Distribution controls:**
+- Owned-site links may be published directly.
+- Metricool brand 8019396 has no connected social networks as checked November 10, 2026. Do not claim social posts have been sent until a network is connected and a post is confirmed.
+- Never repurpose former students' or families' email addresses for commercial blasts without permission.
+- No paid advertising until public checkout, encrypted entitlement delivery and software-engine lessons have been tested end to end.
+- Existing Stripe links are active and account can accept charges, but no verified purchase-to-course test is established in this campaign.
+
+**Measure after launch:** GitHub Pages availability, actual Stripe completed charges, opt-in reviewer feedback, source-tagged visits if analytics is later configured, and refund/support tickets. No fabricated views, conversions or sales.
