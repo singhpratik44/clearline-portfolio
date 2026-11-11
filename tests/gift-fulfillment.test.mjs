@@ -68,3 +68,14 @@ test('Stripe network failures do not grant access',async()=>{
   const r=await verifyGiftPurchase(validId,{secret,fetchFn:async()=>{throw new Error('offline')}});
   assert.equal(r.status,502);
 });
+
+test('team checkout is bound to exact $99 amount and two workbooks',async()=>{
+ const link='plink_1UaQ8dRuy3ohymOH9kQ6t0ay';
+ assert.equal(PURCHASE_LINK_SKU[link],'basketball-team-20');
+ assert.deepEqual(BUNDLE_BOOKS['basketball-team-20'],['basketball-iq','coach-practice']);
+ const good=await verifyGiftPurchase(validId,{secret,fetchFn:responder(mockSession({payment_link:link,amount_total:9900}))});
+ assert.deepEqual(good,{ok:true,status:200,sku:'basketball-team-20'});
+ const bad=await verifyGiftPurchase(validId,{secret,fetchFn:responder(mockSession({payment_link:link,amount_total:1500}))});
+ assert.equal(bad.ok,false);
+ assert.equal(bad.status,403);
+});
