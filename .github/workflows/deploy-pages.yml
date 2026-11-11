@@ -198,7 +198,9 @@ jobs:
           test -s _site/prayer/three-year/companion/workbook.js
           test -s _site/prayer/three-year/companion/workbook.css
           grep -q 'companion/shop.html' _site/sitemap.xml
-          grep -q 'enabled:false' _site/prayer/three-year/companion/checkout-config.mjs
+          grep -q 'enabled:true' _site/prayer/three-year/companion/checkout-config.mjs
+          grep -q '9B6dRbdwO3bScAcbod6kg1i' _site/prayer/three-year/companion/checkout-config.mjs
+          grep -q 'https://buy.stripe.com/9B6dRbdwO3bScAcbod6kg1i' _site/prayer/three-year/companion/shop.html
           grep -q 'id="dailyRecord"' _site/prayer/three-year/index.html
           grep -q 'type="module" src="./app.js"' _site/prayer/three-year/index.html
           test -s _site/prayer/three-year/styles.css
