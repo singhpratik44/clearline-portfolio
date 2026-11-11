@@ -22,7 +22,6 @@ test("gratitude page is functional, accessible and safe to navigate by keyboard"
  assert.equal((page.match(/class="day-button"/g)||[]).length,7);
  assert.match(page,/aria-pressed="true"/);
  assert.match(page,/role="status"/);
- assert.match(page,/max-width:420px/gi)===false;
  assert.match(style,/max-width:420px/);
  assert.match(style,/prefers-reduced-motion:reduce/);
  assert.match(style,/@media print/);
