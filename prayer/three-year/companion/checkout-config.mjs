@@ -1,14 +1,17 @@
 /**
- * A Quiet Journey commerce configuration.
- * Safe by default: payment is NOT accepted until the owner chooses a Stripe account,
- * reviews the product and price, creates a legitimate LIVE payment link, and replaces
- * stripePaymentUrl with the exact active Stripe-hosted link.
- * Never put Stripe secret API keys in public GitHub Pages files.
+ * A Quiet Journey — approved LIVE Stripe Payment Link.
+ * Verified 2026-11-10 against Clearline Code's connected LIVE Stripe account:
+ * 1 x $29 USD non-recurring Three-Year Companion Workbook price,
+ * active link, hosted checkout, after-completion redirect to workbook.html.
+ * Checkout is for original printable material only. Prayer and religious
+ * resources remain free. The delivery URL is public and not access-controlled.
+ *
+ * Never add secret/restricted Stripe API keys to this public file.
  */
 export const checkoutConfig=Object.freeze({
-  enabled:false,
+  enabled:true,
   productName:"A Quiet Journey — Three-Year Companion Workbook",
   proposedOneTimeUSD:29,
-  stripePaymentUrl:"",
-  fulfillment:"Stripe hosted payment link redirects to the shareable, printable workbook URL after checkout."
+  stripePaymentUrl:"https://buy.stripe.com/9B6dRbdwO3bScAcbod6kg1i",
+  fulfillment:"Active LIVE Stripe-hosted one-time checkout redirects to the shareable printable workbook HTML page. This static site does not verify payment entitlements."
 });
