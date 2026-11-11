@@ -6,6 +6,10 @@
 
 > Status: the public APERTURE hub and Civilization Lab prototype are published via GitHub Pages. Core interactions remain local/illustrative; ten AI roles are defined specifications, not running agents. The reversible representation work is classical computation and does not demonstrate quantum advantage.
 
+## New: Mission Operations work sample (November 2026)
+
+- **[Launch Mission Operations](https://singhpratik44.github.io/clearline-portfolio/mission-operations.html)** — three interactive simulated exercises covering sports-media delivery, technical partnership integration, and physical-AI event activation. Requires human approval before a sandbox dry run; exports local JSON evidence. All scenarios and metrics are illustrative, not employer deployments.
+
 ## Start here (November 2026)
 
 - **[APERTURE homepage](https://singhpratik44.github.io/clearline-portfolio/)** — newly organized index of 19 public projects, search and domain filters.
