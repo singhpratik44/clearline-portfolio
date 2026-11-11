@@ -1,34 +1,53 @@
-# A Quiet Journey — 3x stronger commerce implementation brief
+# A Quiet Journey — LIVE checkout & ethical sales launch
 
-## Mission
-Build an elegant, ethically purchasable optional digital reflection workbook alongside A Quiet Journey. Preserve the free Gurbani resources, prayer, 4D timeline, personalized long-term journey and private encrypted journaling. Never sell scripture, blessings, religious rank, or spiritual outcomes. Never imply an endorsement by Sikh authorities. Never promise unavailable mentoring or counseling.
+Updated 2026-11-10 (America/Los_Angeles).
 
-## Product and offer
-Proposed product: **A Quiet Journey — Three-Year Companion Workbook** at a suggested **$29 USD one-time**. Buyer receives 36 original monthly reflection worksheets and 12 quarterly review worksheets, available as a printable browser workbook or save-as-PDF file, with an action-based reflection framework. No recurring charge and no required account. Pricing requires seller approval before a live Stripe sale.
+## Verified product, payment, delivery
 
-The workbook link is publicly accessible to anyone with the URL. This initial GitHub Pages model **does not provide copy protection, authenticated paid access, entitlement checks or payment verification**. Disclose that prominently. The optional payment pays for the prepared digital companion resource, not spiritual transformation. The original app remains free.
+- **Seller:** connected Clearline Code Stripe account, LIVE (`acct_1Ua3sURuy3ohymOH`).
+- **Product:** A Quiet Journey — Three-Year Companion Workbook (`prod_Vbh7BW3lY2n0rc`).
+- **Price:** USD **$29 one-time**, no subscription, quantity 1 (`price_1UaTjbRuy3ohymOH95dZrGSw`). Verified with live Stripe read.
+- **Payment link:** https://buy.stripe.com/9B6dRbdwO3bScAcbod6kg1i (active; `plink_1UaTkdRuy3ohymOHGJZ9bSGz`). The link is the same prior owner-approved product, not a duplicate.
+- **After successful payment:** Stripe redirects to https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/companion/workbook.html.
+- **Deliverable:** 36 original monthly guides and 12 seasonal reviews, printable / browser Save as PDF.
+- **Access limitation:** The workbook URL is *public and shareable*, without a payment-verification entitlement system. This is disclosed throughout the shop, Stripe checkout, and free sample.
+- **Tax:** The existing live payment link has `automatic_tax.enabled=false`, consistent with the owner's prior statement they do not currently collect sales tax. This does **not** resolve applicable tax obligations. Seller must review tax requirements with a qualified advisor; do not claim zero tax is legally owed.
+- **Support:** mailto:parry.s.2324@gmail.com?subject=A%20Quiet%20Journey%20Companion. Refund and access requests are handled case by case, without an invented guarantee.
+- **Privacy:** Free prayer, scripture sources, 3D timeline and encrypted local journal remain free. Stripe handles card details. No purchase is needed to pray. No tracking scripts added.
+- **Sales baseline:** Stripe list checkout sessions for the specific payment link showed **0 paid/complete sessions** at the time of activation (one open unpaid session). Do not claim sales from the act of enabling checkout.
 
-## Stronger build specification
-1. **Commercial clarity:** Show what is free vs. paid, full one-time price, delivery format, tangible scope, contact details, and checkout status without tricks.
-2. **Substantive learning:** Every monthly sheet offers original prompts for truth, reflection, concrete care and voluntary action. Add seasonal review without streak penalties or invented religious citations.
-3. **Visual quality:** Premium deep pine, antique-gold, ivory; responsive 320px and 390px layouts; elegant 36-month workbook and consistent accessible print layout; reduced-motion support.
-4. **Security:** Use Stripe-hosted Payment Links, not secret API keys or card forms in static source. Payment CTA is disabled unless a verified Stripe-owned live link is installed. Keep browser journaling local and encrypted as before.
-5. **Fulfillment:** Stripe's post-payment redirect should point to the downloadable workbook URL. This is a shareable delivery link, not proof of payment. A true entitlement system requires a backend and verification.
-6. **Tax, support and consumer disclosures:** Review seller name, applicable taxes, customer-facing terms and how buyers can request delivery help or refunds before enabling checkout. Do not invent a refund guarantee.
-7. **Marketing discipline:** Write useful, opt-in-friendly offer messages for an identified consenting recipient or a chosen authorized public channel. Do not mass-mail unrelated job contacts.
-8. **Engineering integrity:** Automated tests verify 36 month sheets, 12 quarter sheets, no live payment before approval, free app unaffected, usable navigation, privacy constraints, mobile and desktop viewports, and GitHub Pages artifact presence.
-9. **Release evidence:** Branch → PR → tests → merge → deploy → confirm. Do not describe proposed, deployed, paid or emailed states as interchangeable.
+## Live public pages
 
-## Launch gates
-- [x] Prepare optional shop, preview, 36-month print workbook and 12 quarterly reviews.
-- [x] Preserve free prayer and encrypted journal.
-- [x] Disable checkout until an owner-approved Stripe URL exists.
-- [ ] Confirm whether the connected **Clearline Code LIVE Stripe account** is the intended seller and approve the proposed $29 one-time price.
-- [ ] Create Stripe product, price and payment link using the authorized connector. Obtain human approval if Stripe requests it.
-- [ ] Configure Stripe's post-checkout redirect to the shareable workbook and check merchant/tax disclosures.
-- [ ] Update the exact Stripe-hosted checkout URL in the public configuration and re-run automated tests.
-- [ ] Confirm the buyer checkout opens; do not simulate a completed sale or charge a card without permission.
-- [ ] Obtain an intended recipient or marketing channel before sending promotion; only claim sent after a successful send action.
+- Free lead magnet: https://singhpratik44.github.io/clearline-portfolio/prayer/start/
+- Free full print sample: https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/companion/sample.html
+- Conversion page: https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/companion/shop.html
+- Free original practice: https://singhpratik44.github.io/clearline-portfolio/prayer/
+- Free long-term living journey: https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/
 
-## Clear buyer-facing language
-**A Quiet Journey — Three-Year Companion Workbook.** A self-guided printable workbook with 36 monthly worksheets and 12 quarterly reviews. Practice reflection, humility, gratitude and practical care at your own pace. One-time digital purchase. It contains original planning materials, not Gurbani, guided religious services, counseling, or a guarantee of spiritual outcomes. The full A Quiet Journey practice stays free; the workbook link may be shared.
+## Revenue strategy
+
+1. **Offer tangible value:** Sell 48 original printable worksheets, not prayer, faith, divine access or promised outcomes.
+2. **Show before asking:** The free five-minute practice introduces the experience; a free complete sample worksheet demonstrates the format. Sales page transparently explains the purchased format, price and delivery.
+3. **Owned distribution:** Link the free sample from the APERTURE Gift Lab; link the optional companion after the free starter practice and on the living journey page. Keep sales optional.
+4. **Marketing channels:** Use permitted creator showcases, newsletters that explicitly accept pitches, voluntary shares and permission-first community collaboration. Do not send to employer leads, patient communities or inferred religious audiences.
+5. **Attribution:** UTM parameters help label URLs but no site visitor analytics are installed, so do not claim traffic or conversion rates. Real completed Stripe Checkout sessions provide an honest count of sales.
+6. **Next engineering milestone (not yet implemented):** For buyer-only delivery, use verified Stripe event / redeem backend and private files. Current public HTML workbook remains fully accessible to anyone with its URL.
+
+## Quality gates
+
+- [x] Owner previously explicitly chose Clearline Code LIVE account and $29 one-time offer.
+- [x] Existing Stripe product, price and payment link read/validated (no new charge, link or duplicate product).
+- [x] Payment link redirects to the public workbook as described.
+- [x] Free original prayer and encrypted journal preserved.
+- [x] Public shop updated to make the offer, $29 price, sample and limitations clear.
+- [x] Free complete printable sample and SEO/social entry points created.
+- [ ] CI, browser acceptance, GitHub Pages deployment and exact public page verification — complete only on verified successful release.
+- [ ] External distribution to a verified opt-in/authorized channel. Do not claim external posts or sales before they happen.
+
+## Approved launch copy
+
+**Free-first:** Five quiet minutes. One honest next step. Try a free original prayer/reflection exercise. If the structure helps you, print a sample worksheet and explore a longer journey. https://singhpratik44.github.io/clearline-portfolio/prayer/start/
+
+**Commercial (clearly labeled):** OPTIONAL $29 DIGITAL COMPANION. A Quiet Journey's Three-Year Companion Workbook includes 48 original printable pages: 36 monthly reflections and 12 seasonal reviews. Print or Save as PDF after Stripe checkout. The full prayer experience stays free. Workbook delivery uses a shareable public URL, not an exclusive paywall. Preview a full free sample first: https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/companion/sample.html
+
+No fake reviews, invented community endorsements, miracle promises, scarcity counters, unsolicited bulk email or made-up conversion metrics.
