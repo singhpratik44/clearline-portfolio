@@ -23,3 +23,14 @@ Add privacy-conscious, consent-reviewed checkout click instrumentation without c
 
 ## Mandatory release report
 For each run return changed files, commit SHA, test and deployment status, public URLs, independently verified behaviors, blocked checks, and next executable step. Never substitute source-code inspection for payment-delivery evidence.
+
+## Prompt F — Verify the actual Stripe redirect configuration (executed 2026-11-10)
+Using the connected Clearline Code Stripe account in live mode, retrieve the four existing Payment Links **read-only**. Inspect active state, completion type, reader destination path and fragment *parameter names*. Do not print, commit or share fragment values. Check that the bundle has all three pathways. Report separately whether actual post-payment decryption has been tested.
+
+**Evidence:** `STRIPE-READONLY-AUDIT.md` confirms all four links active, redirect type, correct reader path and matching fragment parameter names. Real customer fulfillment remains unverified.
+
+## Prompt G — Secure course reader failure handling
+Inspect `learn/index.html` and encrypted pack format. Build a deterministic browser test using newly generated synthetic AES-GCM encrypted fixtures with no production keys. Validate good key, wrong key, missing key, bundle and corrupted pack behavior. Ensure error messages are accessible and do not reveal secrets. Do not claim production fulfillment based on fixture tests.
+
+## Prompt H — Production conversion and accessibility audit
+Inspect actual storefront DOM and browser interactions. Verify product filter/search, keyboard focus trap, escape to close, drawer semantics, link safety, mobile layout and contrast. Fix defects, add regression tests and verify deployment. Never send checkout fragments or personal data to analytics.
