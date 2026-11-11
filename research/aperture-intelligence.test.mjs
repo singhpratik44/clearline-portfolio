@@ -1,0 +1,12 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {researchSources,canonicalResearchId,deduplicateResearch,routeDecision,transition} from "./aperture-intelligence.mjs";
+test("research register has ten unique entries",()=>{assert.equal(researchSources.length,10);assert.equal(deduplicateResearch(researchSources).length,10)});
+test("arxiv versions deduplicate",()=>{assert.equal(canonicalResearchId("https://arxiv.org/abs/2610.28679v2"),canonicalResearchId("https://arxiv.org/abs/2610.28679v1"))});
+test("deterministic routing minimizes model calls",()=>assert.equal(routeDecision({hasDeterministicRule:true,uncertainty:0.1}).mode,"deterministic"));
+test("high risk requires approval",()=>assert.equal(routeDecision({risk:0.9}).mode,"human-approval"));
+test("invalid risk fails closed",()=>assert.throws(()=>routeDecision({risk:2}),RangeError));
+test("outreach authorization fails closed",()=>assert.throws(()=>transition("pending-approval","authorize"),/approval/));
+test("introduction requires consent",()=>assert.throws(()=>transition("conversation","introduce"),/Consent/));
+test("approved transitions succeed",()=>{assert.equal(transition("pending-approval","authorize",{approved:true}),"authorized");assert.equal(transition("conversation","introduce",{consent:true}),"introduction")});
+test("cannot bypass pipeline stages",()=>assert.throws(()=>transition("researched","handoff"),/Invalid/));
