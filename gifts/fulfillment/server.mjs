@@ -1,6 +1,7 @@
 import {createServer} from 'node:http';
 import redeem from './api/redeem.mjs';
 import {buildQuietPdf,verifyQuietPurchase} from './quiet-journal.mjs';
+import {handleClassicx,handleClassicxWebhook} from './classicx.mjs';
 
 const port=Number.parseInt(process.env.PORT||'3000',10);
 if(!Number.isInteger(port)||port<1||port>65535)throw new Error('PORT must be a valid port');
@@ -43,7 +44,10 @@ async function smokeTestPrivateRoutes(){
     {name:'public_book_denied',path:'/api/redeem?book=basketball-iq',want:400},
     {name:'unsupported_route_denied',path:'/private-content/basketball-iq.html',want:404},
     {name:'quiet_missing_payment_denied',path:'/api/quiet-journal',want:400},
-    {name:'quiet_invalid_payment_denied',path:'/api/quiet-journal?session_id=invalid',want:400}
+    {name:'quiet_invalid_payment_denied',path:'/api/quiet-journal?session_id=invalid',want:400},
+    {name:'classicx_missing_payment_denied',path:'/classicx/redeem',want:400},
+    {name:'classicx_invalid_payment_denied',path:'/classicx/download?session_id=invalid',want:400},
+    {name:'classicx_encrypted_assets_denied',path:'/classicx-vault/one.b64',want:404}
   ];
   for(const c of checks) {
     try{
@@ -60,6 +64,11 @@ createServer(async(req,res)=>{
     if(url.pathname==='/healthz') {
       if(!['GET','HEAD'].includes(req.method))return send(res,405,'Method not allowed');
       return send(res,200,'ok',req.method);
+    }
+    if(url.pathname==='/classicx/webhook')return await handleClassicxWebhook(req,res);
+    if(url.pathname==='/classicx/redeem'||url.pathname==='/classicx/download'){
+      if(url.search.length>1024)return send(res,414,'Request too long');
+      return await handleClassicx(req,res,url);
     }
     if(url.pathname==='/api/quiet-journal') {
       res.setHeader('Cache-Control','private, no-store, max-age=0');
