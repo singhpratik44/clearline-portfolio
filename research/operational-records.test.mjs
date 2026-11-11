@@ -1,0 +1,10 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {validateOperationalRecord,evaluateOperationalRecord} from "./operational-records.mjs";
+const career={id:"job-1",title:"Analyst",organization:"Example Org",source_url:"https://example.org/jobs/1",verified_at:"2026-11-10",compensation_min:60000,compensation_max:90000,fit_score:.8};
+const partner={id:"partner-1",organization:"Example School",source_url:"https://example.org/partners",verified_at:"2026-11-10",stage:"qualified",consent_confirmed:false,agreement_confirmed:false};
+test("valid career record accepted for local review only",()=>{const r=evaluateOperationalRecord("career",career,{now:new Date("2026-11-11")});assert.equal(r.report.status,"BLOCKED");assert.equal(r.executed,false)});
+test("partnership missing consent and agreement remains blocked",()=>{const r=evaluateOperationalRecord("partnership",partner,{now:new Date("2026-11-11")});assert.ok(r.report.blockers.includes("prerequisite:school_consent"));assert.ok(r.report.blockers.includes("prerequisite:partner_agreement"))});
+test("sensitive or unknown fields are rejected",()=>assert.equal(validateOperationalRecord("partnership",{...partner,student_name:"A"}).valid,false));
+test("unverified record rejected",()=>assert.equal(validateOperationalRecord("career",{...career,source_url:"http://bad"}).valid,false));
+test("inverted compensation range rejected",()=>assert.equal(validateOperationalRecord("career",{...career,compensation_min:100000}).valid,false));
