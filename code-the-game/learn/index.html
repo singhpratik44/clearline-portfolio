@@ -202,8 +202,8 @@ function showOverview(course){const c=el("content");c.replaceChildren();add(c,"h
 async function boot(){
  const params=new URLSearchParams(location.hash.slice(1));const matched=ALLOWED.filter(id=>params.get(id));
  if(!matched.length){el("status").textContent="No access key found. Open the link provided after your successful Stripe checkout. If you lost it, contact Clearline Code via the support details on your receipt.";return}
- let ok=0;for(const id of matched){try{const course=await openPack(id,params.get(id));state.courses[id]=course;ok++;const b=add(el("courseButtons"),"button",course.title,"primary");b.onclick=()=>{selectCourse(id);showOverview(course)}}catch(e){console.error("Course unlock failed for",id,e)}}
- el("status").textContent=ok?"Unlocked "+ok+" pathway"+(ok>1?"s":"")+". Bookmark this full URL now; it is your access link.":"Could not unlock the course. Confirm the full checkout link is intact, and use a recent browser. For billing help, see your Stripe receipt.";
+ let ok=0;const failed=[];for(const id of matched){try{const course=await openPack(id,params.get(id));state.courses[id]=course;ok++;const b=add(el("courseButtons"),"button",course.title,"primary");b.onclick=()=>{selectCourse(id);showOverview(course)}}catch(e){failed.push(id)}}
+ el("status").textContent=ok?"Unlocked "+ok+" pathway"+(ok>1?"s":"")+". "+(failed.length?"Some purchased pathways could not be unlocked; please contact purchase support. ":"")+"Bookmark this full URL now; it is your access link.":"Could not unlock the course. Confirm the full checkout link is intact, and use a recent browser. For billing help, see your Stripe receipt.";
  if(ok){el("status").className="small";selectCourse(Object.keys(state.courses)[0]);showOverview(state.courses[state.active])}
 }
 boot();
