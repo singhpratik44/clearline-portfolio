@@ -27,6 +27,8 @@ jobs:
           npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
       - name: Run regression suite
         run: node --test tests/sports-os.test.mjs tests/mission-control.test.mjs tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
+      - name: Verify APERTURE Revenue Recovery calculations and privacy gates
+        run: node --test tests/revenue-recovery.test.mjs
       - name: Verify CODE THE GAME courses, delivery and public arcade
         run: |
           node --test tests/code-the-game.test.mjs tests/code-the-game-crypto.test.mjs
@@ -284,7 +286,9 @@ jobs:
               "profile.js": ("self-reported-unverified", "htmlExport", "secureLink"),
               "marketplace.html": ("Services Studio", "id=\"scope-form\"", "marketplace.js"),
               "marketplace.js": ("PROPOSED STATEMENT OF WORK", "No outreach", "services"),
-              "opportunities.json": ('"schema_version": 2', '"listings":', '"status":')
+              "opportunities.json": ('"schema_version": 2', '"listings":', '"status":'),
+              "revenue-recovery/index.html": ("REVENUE RECOVERY", 'id="signal-rows"', 'src="engine.js"'),
+              "revenue-recovery/engine.js": ("function analyze(", "function proposal(", "function parseCsv(", "executed:false")
           }
           for attempt in range(10):
               try:
