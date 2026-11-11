@@ -1,4 +1,4 @@
-/** Trusted expected Stripe checkout totals, USD cents; source: live product default prices. */
+/** Expected checkout totals in USD cents, incl. isolated $0.50 gift test. */
 export const LINK_AMOUNTS = Object.freeze({
   "plink_1UaOHRRuy3ohymOHX9V0jdAW": 5900,
   "plink_1UaOHPRuy3ohymOHiWbgYgEi": 3900,
@@ -68,5 +68,6 @@ export const LINK_AMOUNTS = Object.freeze({
   "plink_1UaN9xRuy3ohymOHekxjvHXf": 1500,
   "plink_1UaN9vRuy3ohymOHs83S5c1A": 1200,
   "plink_1UaN9tRuy3ohymOHuTlVyHgS": 1200,
-  "plink_1UaN9rRuy3ohymOHFxSaENmm": 900
+  "plink_1UaN9rRuy3ohymOHFxSaENmm": 900,
+  "plink_1UaPILRuy3ohymOHuQwOP1lN": 50
 });
