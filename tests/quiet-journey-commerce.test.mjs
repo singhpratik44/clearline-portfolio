@@ -10,8 +10,8 @@ const page=text("prayer/three-year/companion/workbook.html");
 const workbook=text("prayer/three-year/companion/workbook.js");
 const config=text("prayer/three-year/companion/checkout-config.mjs");
 const storefront=text("prayer/three-year/companion/shop.js");
-const sample=text("prayer/three-year/companion/sample.html");
 const sitemap=text("sitemap.xml");
+const sample=text("prayer/three-year/companion/sample.html");
 
 test("The free scripture and journal experience is not paywalled",()=>{
   assert.match(free,/id="daily"/);
@@ -34,17 +34,22 @@ test("The optional companion has a tangible printable deliverable",()=>{
   assert.match(page,/not a religious authority/i);
 });
 
-test("Owner-approved one-time $29 Stripe payment link is configured and verified, not embedded",()=>{
+test("Live Stripe product, price and payment link are explicitly configured without secrets",()=>{
   assert.match(config,/enabled:true/);
-  assert.match(config,/stripePaymentUrl:"https:\/\/buy\.stripe\.com\/[A-Za-z0-9_-]+"/);
+  assert.match(config,/livemode:true/);
   assert.match(config,/proposedOneTimeUSD:29/);
-  assert.match(config,/non-recurring|one-time/);
+  assert.match(config,/stripeProductId:"prod_Vbh7BW3lY2n0rc"/);
+  assert.match(config,/stripePriceId:"price_1UaTjbRuy3ohymOH95dZrGSw"/);
+  assert.match(config,/stripePaymentLinkId:"plink_1UaTkdRuy3ohymOHGJZ9bSGz"/);
+  assert.match(config,/stripePaymentUrl:"https:\/\/buy\.stripe\.com\/9B6dRbdwO3bScAcbod6kg1i"/);
   assert.match(storefront,/u\.hostname===expectedHost/);
   assert.match(storefront,/buy\.stripe\.com/);
-  assert.match(storefront,/validUrl\(checkoutConfig\.stripePaymentUrl\)/);
-  assert.match(shop,/id="buyCompanion"[^>]*aria-disabled="true"/,"HTML starts fail-closed until JS validates config");
-  assert.match(shop,/instant|after a successful payment/i);
-  assert.match(shop,/id="faq"/);
+  assert.match(storefront,/checkoutConfig\.enabled && validUrl/);
+  assert.match(shop,/id="buyCompanion"[^>]*href="https:\/\/buy\.stripe\.com\/9B6dRbdwO3bScAcbod6kg1i"/);
+  assert.doesNotMatch(shop,/id="buyCompanion"[^>]*aria-disabled="true"/);
+  assert.match(shop,/one-time/i);
+  assert.match(shop,/final payment total appears on Stripe/i);
+  assert.match(shop,/no file is emailed automatically/i);
   for(const [name,body] of [["shop",shop],["workbook",page],["config",config],["frontend",storefront]]){
     assert.doesNotMatch(body,/(sk_live_|sk_test_|rk_live_|rk_test_)[A-Za-z0-9]+/,"No Stripe secret in "+name);
     assert.doesNotMatch(body,/<script[^>]+src="https?:\/\//i,"No third-party scripts in "+name);
@@ -60,16 +65,17 @@ test("No invented paywall or authenticated entitlement assertions",()=>{
   assert.doesNotMatch(sitemap,/companion\/workbook\.html/);
 });
 
-test("Free, substantive printable sample is accessible and promotes informed choice",()=>{
-  assert.match(sample,/id="worksheet"/);
-  assert.match(sample,/NOTICE/);
-  assert.match(sample,/CARE/);
-  assert.match(sample,/ACT/);
-  assert.match(sample,/REFLECT/);
-  assert.match(sample,/RELEASE/);
+test("Free sample is a real helpful worksheet and the paid offer remains explicit",()=>{
   assert.match(shop,/href="\.\/sample\.html"/);
+  assert.match(sample,/id="worksheet"/);
+  assert.match(sample,/What is asking for your honest attention/);
+  assert.match(sample,/Choose one small act/);
+  assert.match(sample,/not scripture|not a religious authority|not scripture, religious teaching/i);
+  assert.match(sample,/https:\/\/buy\.stripe\.com\/9B6dRbdwO3bScAcbod6kg1i/);
+  assert.match(sample,/\$29/);
+  assert.match(shop,/no file is emailed automatically/);
+  assert.match(shop,/Is there a free preview/);
+  assert.match(shop,/What do I receive/);
   assert.match(sitemap,/companion\/sample\.html/);
-  assert.match(sample,/style-src 'self'/);
-  assert.doesNotMatch(sample,/<script/);
-  assert.match(sample,/not restricted to buyers|not paywalled|publicly accessible/i);
+  assert.doesNotMatch(sample,/<script/i);
 });

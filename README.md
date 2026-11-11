@@ -4,6 +4,8 @@
 
 **[Live portfolio](https://singhpratik44.github.io/clearline-portfolio/)** · **[Coaching journey: Faith × APERTURE](./coaching-journey.html)** · **[Sports & Media case study](https://singhpratik44.github.io/clearline-portfolio/sports-media.html)** · **[Interactive Decision Universe (development source)](./interactive-decision-universe.html)** · **[Jason Rules](./jason-rules.html)** · **[Thinkverse work sample](./thinkverse-jason-rules.html)** · **[Architecture and goals](./docs/MASTER_PLAN.md)**
 
+**A Quiet Journey — guided three-year reflection**: [Explore the free living journey](https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/) · [Try a printable sample month (free)](https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/companion/sample.html) · [36-month Companion Workbook ($29 one-time)](https://singhpratik44.github.io/clearline-portfolio/prayer/three-year/companion/shop.html). Personal planning materials only; not a substitute for religious guidance, counseling, or spiritual authority. The core journey and Gurbani links remain free.
+
 > Status: the public APERTURE hub and Civilization Lab prototype are published via GitHub Pages. Core interactions remain local/illustrative; ten AI roles are defined specifications, not running agents. The reversible representation work is classical computation and does not demonstrate quantum advantage.
 
 ## New: Mission Operations work sample (November 2026)
