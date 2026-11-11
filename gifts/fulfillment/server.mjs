@@ -12,6 +12,26 @@ const send=(res,status,body,method='GET')=>{
   return res.end(body);
 };
 
+async function verifyStripeCredentialAtStartup(){
+  const key=process.env.STRIPE_SECRET_KEY;
+  if(typeof key!=='string'||!/^((sk|rk)_live_)/.test(key)){
+    process.stdout.write('Stripe read credential status: MISSING_OR_INCORRECT_MODE\\n');
+    return;
+  }
+  try{
+    // A nonexistent session ID should return 404 when the Stripe credential
+    // can authenticate and is permitted to read Checkout Sessions.
+    const r=await fetch('https://api.stripe.com/v1/checkout/sessions/cs_live_APERTURE_credentials_check_not_a_real_session',{
+      headers:{Authorization:'Bearer '+key,Accept:'application/json'},
+      signal:AbortSignal.timeout(8000),cache:'no-store'
+    });
+    // Print only the non-sensitive diagnostic category, never key or Stripe body.
+    const status=r.status===404?'STRIPE_READ_AUTHENTICATED':r.status===401?'STRIPE_AUTH_FAILED':r.status===403?'STRIPE_PERMISSION_DENIED':'UNEXPECTED_STATUS_'+r.status;
+    process.stdout.write('Stripe read credential status: '+status+'\\n');
+  }catch(_err){
+    process.stdout.write('Stripe read credential status: STRIPE_UNREACHABLE\\n');
+  }
+}
 createServer(async(req,res)=>{
   try {
     const url=new URL(req.url||'/', 'http://localhost');
@@ -27,4 +47,4 @@ createServer(async(req,res)=>{
   } catch(_err) {
     return send(res,500,'Unable to process request');
   }
-}).listen(port,'0.0.0.0',()=>{process.stdout.write('APERTURE private gift delivery server listening\n')});
+}).listen(port,'0.0.0.0',()=>{process.stdout.write('APERTURE private gift delivery server listening\n');void verifyStripeCredentialAtStartup()});
