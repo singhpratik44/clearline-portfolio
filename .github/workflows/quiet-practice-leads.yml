@@ -26,5 +26,5 @@ jobs:
           python-version: '3.11'
       - name: Scan public program signals and annotate review issue
         env:
-          GITHUB_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/quiet_practice_lead_scan.py
