@@ -1,0 +1,10 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import {parseArxivAtom,validateArxivIds,fetchArxiv} from "./ingest-arxiv.mjs";
+const atom=`<?xml version="1.0"?><feed xmlns="http://www.w3.org/2005/Atom"><entry><id>https://arxiv.org/abs/2610.28679v2</id><title>Example &amp; Study</title><summary>Tests verification.</summary><published>2026-10-12T00:00:00Z</published><updated>2026-10-15T00:00:00Z</updated></entry></feed>`;
+test("parses version, dates, abstract and canonical identifier",()=>{const [p]=parseArxivAtom(atom);assert.equal(p.id,"arxiv:2610.28679");assert.equal(p.version,"v2");assert.equal(p.title,"Example & Study");assert.equal(p.published_at,"2026-10-12T00:00:00Z")});
+test("rejects invalid identifiers",()=>assert.throws(()=>validateArxivIds(["2610.28679","https://evil.test"]),/valid/));
+test("deduplicates requested identifiers",()=>assert.deepEqual(validateArxivIds(["2610.28679","2610.28679"]),["2610.28679"]));
+test("records retrieval time only for successful fetch",async()=>{const p=await fetchArxiv(["2610.28679"],{fetchImpl:async()=>({ok:true,text:async()=>atom}),now:()=>"2026-11-11T00:00:00Z"});assert.equal(p[0].retrieved_at,"2026-11-11T00:00:00Z")});
+test("fails closed on HTTP errors",async()=>assert.rejects(fetchArxiv(["2610.28679"],{fetchImpl:async()=>({ok:false,status:503})}),/503/));
+test("rejects unrelated records",async()=>assert.rejects(fetchArxiv(["2606.04874"],{fetchImpl:async()=>({ok:true,text:async()=>atom})}),/Unexpected/));
