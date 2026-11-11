@@ -36,6 +36,8 @@ jobs:
           node-version: '22'
       - name: Verify deterministic representation invariants
         run: node --test research/representation.test.mjs
+      - name: Verify APERTURE research and authorization invariants
+        run: node --test research/aperture-intelligence.test.mjs
       - name: Verify paid digital-gift access gates
         run: node --test tests/gift-fulfillment.test.mjs
       - name: Verify touch and keyboard undo support
