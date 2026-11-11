@@ -12,6 +12,7 @@ const config=text("prayer/three-year/companion/checkout-config.mjs");
 const storefront=text("prayer/three-year/companion/shop.js");
 const sitemap=text("sitemap.xml");
 const sample=text("prayer/three-year/companion/sample.html");
+const partners=text("prayer/three-year/companion/partners.html");
 
 test("The free scripture and journal experience is not paywalled",()=>{
   assert.match(free,/id="daily"/);
@@ -78,4 +79,16 @@ test("Free sample is a real helpful worksheet and the paid offer remains explici
   assert.match(shop,/What do I receive/);
   assert.match(sitemap,/companion\/sample\.html/);
   assert.doesNotMatch(sample,/<script/i);
+});
+
+test("Publisher kit is ungated and transparent",()=>{
+ assert.match(shop,/href="\.\/partners\.html"/);
+ assert.match(free,/href="\.\/companion\/partners\.html"/);
+ assert.match(partners,/36 monthly worksheets/);
+ assert.match(partners,/12 quarterly reviews/);
+ assert.match(partners,/\$29/);
+ assert.match(partners,/href="\.\/sample\.html"/);
+ assert.match(partners,/href="\.\/shop\.html"/);
+ assert.match(partners,/No fee is authorised/);
+ assert.match(sitemap,/companion\/partners\.html/);
 });
