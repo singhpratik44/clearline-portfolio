@@ -123,3 +123,15 @@ test("Reader handles partial bundle failures without logging private decryption 
  assert.match(reader,/Some purchased pathways could not be unlocked/);
  assert.doesNotMatch(reader,/console\.error\("Course unlock failed for"/);
 });
+
+test("Organic acquisition funnel connects free arcade, lessons, and paid Roblox without leaking secrets",()=>{
+ const arcade=read("code-the-game/playground/index.html");
+ const landing=read("code-the-game/marketing/index.html");
+ assert.match(arcade,/href="\.\.\/start\/\?utm_source=arcade/);
+ assert.match(arcade,/href="\.\.\/roblox\/\?utm_source=arcade/);
+ assert.match(landing,/href="\.\.\/playground\/\?utm_source=family_resource/);
+ assert.match(landing,/href="\.\.\/start\/\?utm_source=family_resource/);
+ assert.match(landing,/Roblox Creator is \$19/);
+ assert.match(landing,/Minecraft Education with Code Builder/);
+ for(const page of [arcade,landing])assert.doesNotMatch(page,/utm_[^"\s]*#(?:roblox|minecraft|indie)=/);
+});
