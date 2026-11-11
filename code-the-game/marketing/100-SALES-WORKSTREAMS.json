@@ -1,0 +1,705 @@
+{
+  "created": "2026-11-10",
+  "rows": [
+    {
+      "id": 1,
+      "channel": "Parent audiences",
+      "task": "Homeschool newsletter pitch",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 2,
+      "channel": "Parent audiences",
+      "task": "Parent newsletter pitch",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 3,
+      "channel": "Parent audiences",
+      "task": "Parent resource roundup",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 4,
+      "channel": "Parent audiences",
+      "task": "Family STEM blog",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 5,
+      "channel": "Parent audiences",
+      "task": "Parenting podcast",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 6,
+      "channel": "Parent audiences",
+      "task": "Parent Facebook rules check",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 7,
+      "channel": "Parent audiences",
+      "task": "Homeschool co-op coordinator",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 8,
+      "channel": "Parent audiences",
+      "task": "State homeschool association",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 9,
+      "channel": "Parent audiences",
+      "task": "Homeschool resource directory",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 10,
+      "channel": "Parent audiences",
+      "task": "Parent gift guide",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 11,
+      "channel": "Education partners",
+      "task": "Library makerspace",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 12,
+      "channel": "Education partners",
+      "task": "Library teen program",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 13,
+      "channel": "Education partners",
+      "task": "Youth coding club",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 14,
+      "channel": "Education partners",
+      "task": "YMCA program",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 15,
+      "channel": "Education partners",
+      "task": "Boys and Girls Club",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 16,
+      "channel": "Education partners",
+      "task": "PTA newsletter",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 17,
+      "channel": "Education partners",
+      "task": "After-school director",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 18,
+      "channel": "Education partners",
+      "task": "STEM nonprofit",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 19,
+      "channel": "Education partners",
+      "task": "Homeschool teacher",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 20,
+      "channel": "Education partners",
+      "task": "Community center",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 21,
+      "channel": "Creators",
+      "task": "Roblox creator list",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 22,
+      "channel": "Creators",
+      "task": "Minecraft Education creator list",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 23,
+      "channel": "Creators",
+      "task": "Godot creator list",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 24,
+      "channel": "Creators",
+      "task": "Creator sample review",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 25,
+      "channel": "Creators",
+      "task": "Affiliate agreement",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 26,
+      "channel": "Creators",
+      "task": "Disclosure policy",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 27,
+      "channel": "Creators",
+      "task": "Creator demo script",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 28,
+      "channel": "Creators",
+      "task": "Partner link rules",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 29,
+      "channel": "Creators",
+      "task": "Affiliate payout plan",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 30,
+      "channel": "Creators",
+      "task": "Creator follow-up sequence",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 31,
+      "channel": "SEO",
+      "task": "Roblox Luau touch events",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 32,
+      "channel": "SEO",
+      "task": "Roblox checkpoints",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 33,
+      "channel": "SEO",
+      "task": "Roblox collectibles",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 34,
+      "channel": "SEO",
+      "task": "Minecraft Education chat commands",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 35,
+      "channel": "SEO",
+      "task": "Minecraft Education requirements",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 36,
+      "channel": "SEO",
+      "task": "Godot 4 movement",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 37,
+      "channel": "SEO",
+      "task": "Godot 4 collisions",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 38,
+      "channel": "SEO",
+      "task": "Game coding comparison",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 39,
+      "channel": "SEO",
+      "task": "Beginner coding projects",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 40,
+      "channel": "SEO",
+      "task": "Homeschool game coding",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 41,
+      "channel": "Short video",
+      "task": "Arcade demo",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 42,
+      "channel": "Short video",
+      "task": "Roblox intro",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 43,
+      "channel": "Short video",
+      "task": "Minecraft intro",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 44,
+      "channel": "Short video",
+      "task": "Godot intro",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 45,
+      "channel": "Short video",
+      "task": "Parent explainer",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 46,
+      "channel": "Short video",
+      "task": "Video caption set",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 47,
+      "channel": "Short video",
+      "task": "YouTube descriptions",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 48,
+      "channel": "Short video",
+      "task": "Pinterest pins",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 49,
+      "channel": "Short video",
+      "task": "Thumbnail brief",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 50,
+      "channel": "Short video",
+      "task": "Publishing checklist",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 51,
+      "channel": "Marketplaces",
+      "task": "itch.io eligibility",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 52,
+      "channel": "Marketplaces",
+      "task": "itch.io pack",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 53,
+      "channel": "Marketplaces",
+      "task": "itch.io listing draft",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 54,
+      "channel": "Marketplaces",
+      "task": "Gumroad eligibility",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 55,
+      "channel": "Marketplaces",
+      "task": "Gumroad pack",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 56,
+      "channel": "Marketplaces",
+      "task": "TPT fee and rules",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 57,
+      "channel": "Marketplaces",
+      "task": "Printable worksheet",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 58,
+      "channel": "Marketplaces",
+      "task": "Marketplace pricing",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 59,
+      "channel": "Marketplaces",
+      "task": "Delivery checklist",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 60,
+      "channel": "Marketplaces",
+      "task": "Refund alignment",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 61,
+      "channel": "Conversion",
+      "task": "Arcade CTA",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 62,
+      "channel": "Conversion",
+      "task": "Starter CTA",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 63,
+      "channel": "Conversion",
+      "task": "Product CTA",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 64,
+      "channel": "Conversion",
+      "task": "Mobile audit",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 65,
+      "channel": "Conversion",
+      "task": "Price clarity",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 66,
+      "channel": "Conversion",
+      "task": "Software requirements",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 67,
+      "channel": "Conversion",
+      "task": "Refund clarity",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 68,
+      "channel": "Conversion",
+      "task": "Course access QA",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 69,
+      "channel": "Conversion",
+      "task": "Gift access QA",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 70,
+      "channel": "Conversion",
+      "task": "A/B messaging",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 71,
+      "channel": "Partnerships",
+      "task": "Group license offer",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 72,
+      "channel": "Partnerships",
+      "task": "Coding club pilot",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 73,
+      "channel": "Partnerships",
+      "task": "Tutor referral",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 74,
+      "channel": "Partnerships",
+      "task": "Youth sports newsletter",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 75,
+      "channel": "Partnerships",
+      "task": "Summer camp resource",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 76,
+      "channel": "Partnerships",
+      "task": "STEM club activity",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 77,
+      "channel": "Partnerships",
+      "task": "Independent educator review",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 78,
+      "channel": "Partnerships",
+      "task": "Nonprofit pilot",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 79,
+      "channel": "Partnerships",
+      "task": "Parent ambassador",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 80,
+      "channel": "Partnerships",
+      "task": "Partner consent policy",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 81,
+      "channel": "Distribution",
+      "task": "Free resource directory A",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 82,
+      "channel": "Distribution",
+      "task": "Free resource directory B",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 83,
+      "channel": "Distribution",
+      "task": "Free curriculum directory",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 84,
+      "channel": "Distribution",
+      "task": "Homeschool newsletter A",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 85,
+      "channel": "Distribution",
+      "task": "Homeschool newsletter B",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 86,
+      "channel": "Distribution",
+      "task": "Parent newsletter A",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 87,
+      "channel": "Distribution",
+      "task": "Parent newsletter B",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 88,
+      "channel": "Distribution",
+      "task": "Library listing A",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 89,
+      "channel": "Distribution",
+      "task": "Library listing B",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 90,
+      "channel": "Distribution",
+      "task": "Creator referral A",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 91,
+      "channel": "Revenue",
+      "task": "Stripe baseline",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 92,
+      "channel": "Revenue",
+      "task": "Paid order ledger",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 93,
+      "channel": "Revenue",
+      "task": "Channel attribution",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 94,
+      "channel": "Revenue",
+      "task": "UTM convention",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 95,
+      "channel": "Revenue",
+      "task": "Partner referral tags",
+      "status": "queued",
+      "external_approval_required": true
+    },
+    {
+      "id": 96,
+      "channel": "Revenue",
+      "task": "Refund reconciliation",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 97,
+      "channel": "Revenue",
+      "task": "First sale tracker",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 98,
+      "channel": "Revenue",
+      "task": "10-sale tracker",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 99,
+      "channel": "Revenue",
+      "task": "100-sale tracker",
+      "status": "queued",
+      "external_approval_required": false
+    },
+    {
+      "id": 100,
+      "channel": "Revenue",
+      "task": "Channel ROI review",
+      "status": "queued",
+      "external_approval_required": true
+    }
+  ]
+}
