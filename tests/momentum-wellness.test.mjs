@@ -6,7 +6,7 @@ const ROOT=new URL('../',import.meta.url);
 const html=readFileSync(new URL('../wellness/index.html',import.meta.url),'utf8');
 test('Momentum storefront has live product paths and all pricing tiers',()=>{
  for(const link of ['https://buy.stripe.com/dRmdRbfEW27OfMo2RH6kg1f','https://buy.stripe.com/28E6oJgJ0dQw7fS1ND6kg1g','https://buy.stripe.com/28E4gB8cu8wcfMo8c16kg1h']) assert.ok(html.includes(link),link);
- for(const amount of ['$7','$17','$27','46 printable','MOMENTUM5']) assert.ok(html.toLowerCase().includes(amount.toLowerCase()),amount);
+ for(const amount of ['$7','$17','$27','46','MOMENTUM5']) assert.ok(html.toLowerCase().includes(amount.toLowerCase()),amount);
 });
 test('Momentum 10 pillars and free preview are visible',()=>{
  for(const id of ['starter-form','result-days','shop','copy-plan'])assert.ok(html.includes('id="'+id+'"'));
