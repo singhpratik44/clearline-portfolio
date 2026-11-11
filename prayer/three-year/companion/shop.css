@@ -21,3 +21,11 @@
 .faq-grid a{color:#f0cb90;text-underline-offset:4px}
 @media(max-width:850px){.faq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.faq-grid{grid-template-columns:1fr}.buyer-faq{padding:70px 22px}.preview-cta{align-items:flex-start;flex-direction:column;gap:6px}}
+
+/* A reader-first route for publishers, distinct from the paid checkout */
+.partner-strip{padding:90px clamp(22px,9vw,145px);background:#18393d;color:#f1eddf;border-top:1px solid #5f8173}
+.partner-strip h2{font-size:clamp(42px,5.6vw,73px);line-height:1.12;margin:15px 0 24px}
+.partner-strip h2 em{color:var(--gold);font-weight:400}
+.partner-strip p:not(.eyebrow){max-width:700px;color:#d2e0d6;font-size:15px;line-height:1.9;margin-bottom:30px}
+.partner-strip .secondary{display:inline-block;padding:14px 22px;border:1px solid #ccba95;text-decoration:none;font-size:14px;font-weight:700}
+@media(max-width:600px){.partner-strip{padding:66px 22px}}
