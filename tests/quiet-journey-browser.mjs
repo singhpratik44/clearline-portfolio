@@ -76,8 +76,11 @@ try{
     console.log("PASS responsive",viewport.width,viewport.height,"Living Tree + Year 10");
     const shopResponse=await page.goto(BASE+"/prayer/three-year/companion/shop.html",{waitUntil:"networkidle",timeout:30000});
     assert.equal(shopResponse.status(),200);
-    await page.waitForFunction(()=>document.querySelector("#checkoutStatus")?.textContent.includes("No payments are accepted"));
-    assert.equal(await page.locator("#buyCompanion").getAttribute("aria-disabled"),"true","Checkout must be disabled without approved Stripe account");
+    await page.waitForFunction(()=>document.querySelector("#checkoutStatus")?.textContent.includes("Secure card processing"));
+    assert.equal(await page.locator("#buyCompanion").getAttribute("aria-disabled"),null,"Live checkout must be enabled");
+    assert.equal(await page.locator("#buyCompanion").getAttribute("href"),"https://buy.stripe.com/9B6dRbdwO3bScAcbod6kg1i","Link must be exact verified Stripe URL");
+    assert.match(await page.locator("#buyCompanion").innerText(),/Purchase companion.*Stripe checkout/i);
+    // This is deliberately link-only validation: NEVER click or run a real checkout in QA.
     assert.match(await page.locator("#price").innerText(),/\$29/);
     let commerceWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(commerceWidth<=1,"Companion shop horizontal overflow at "+viewport.width+": "+commerceWidth);
@@ -89,7 +92,7 @@ try{
     commerceWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(commerceWidth<=1,"Companion workbook overflow at "+viewport.width+": "+commerceWidth);
     assert.deepEqual(errors,[],"No browser exceptions in companion pages at "+viewport.width);
-    console.log("PASS companion shop fail-closed and printable 36+12 workbook",viewport.width);
+    console.log("PASS companion live $29 Stripe link and printable 36+12 workbook",viewport.width);
     await page.close();
   }
   const page=await browser.newPage({viewport:{width:390,height:844},acceptDownloads:true});
