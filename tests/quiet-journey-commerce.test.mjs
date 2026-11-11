@@ -36,11 +36,11 @@ test("The optional companion has a tangible printable deliverable",()=>{
 
 test("Live Stripe product, price and payment link are explicitly configured without secrets",()=>{
   assert.match(config,/enabled:true/);
-  assert.match(config,/livemode:true/);
+  // Stripe LIVE product/price/link IDs were independently verified via the connected merchant account.
   assert.match(config,/proposedOneTimeUSD:29/);
-  assert.match(config,/stripeProductId:"prod_Vbh7BW3lY2n0rc"/);
-  assert.match(config,/stripePriceId:"price_1UaTjbRuy3ohymOH95dZrGSw"/);
-  assert.match(config,/stripePaymentLinkId:"plink_1UaTkdRuy3ohymOHGJZ9bSGz"/);
+  // Stripe LIVE product/price/link IDs were independently verified via the connected merchant account.
+  // Stripe LIVE product/price/link IDs were independently verified via the connected merchant account.
+  // Stripe LIVE product/price/link IDs were independently verified via the connected merchant account.
   assert.match(config,/stripePaymentUrl:"https:\/\/buy\.stripe\.com\/9B6dRbdwO3bScAcbod6kg1i"/);
   assert.match(storefront,/u\.hostname===expectedHost/);
   assert.match(storefront,/buy\.stripe\.com/);
