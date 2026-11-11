@@ -47,7 +47,7 @@ test("Live Stripe product, price and payment link are explicitly configured with
   assert.match(shop,/id="buyCompanion"[^>]*href="https:\/\/buy\.stripe\.com\/9B6dRbdwO3bScAcbod6kg1i"/);
   assert.doesNotMatch(shop,/id="buyCompanion"[^>]*aria-disabled="true"/);
   assert.match(shop,/one-time/i);
-  assert.match(shop,/final total appears on Stripe/i);
+  assert.match(shop,/final payment total appears on Stripe/i);
   assert.match(shop,/no file is emailed automatically/i);
   for(const [name,body] of [["shop",shop],["workbook",page],["config",config],["frontend",storefront]]){
     assert.doesNotMatch(body,/(sk_live_|sk_test_|rk_live_|rk_test_)[A-Za-z0-9]+/,"No Stripe secret in "+name);
