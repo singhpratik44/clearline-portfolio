@@ -100,3 +100,18 @@ test("Detailed product pages are linked, accurately priced and include fulfillme
   assert.match(page,/independently tested/i);
  }
 });
+
+test("Bundle and privacy pages are published and reachable from catalog",()=>{
+ const bundle=read("code-the-game/bundle/index.html");
+ const privacy=read("code-the-game/privacy/index.html");
+ const shop=read("code-the-game/index.html");
+ assert.match(shop,/href="bundle\//);
+ assert.match(shop,/href="privacy\//);
+ assert.match(bundle,/\$59/);
+ assert.match(bundle,/20 WRITTEN LESSONS/);
+ assert.match(bundle,/https:\/\/buy\.stripe\.com\/cNi8wR78q27OcAc9g56kg03/);
+ assert.match(bundle,/Minecraft Education with Code Builder/);
+ assert.match(privacy,/local storage/);
+ assert.match(privacy,/Stripe-hosted checkout/);
+ assert.match(privacy,/private URL fragment/);
+});
