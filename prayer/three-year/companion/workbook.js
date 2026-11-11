@@ -37,13 +37,53 @@ const CHAPTERS = [
   ["Three years, many beginnings","The journey remains open.","What would you keep, release, or begin anew?","Honor what was real. Choose your next simple practice."]
 ];
 const MONTHS=36;
-const steps=[
-  ["Attention","What is verifiably true about this month's experience? Write facts before interpretations."],
-  ["Humility","Where might pride, avoidance, or impatience obscure what needs care?"],
-  ["Practice","Name one voluntary, concrete, reversible action that expresses your intention."],
-  ["Service","Who or what could benefit from your time or practical help? Respect others' boundaries."],
-  ["Release","What outcome can you stop forcing while still acting responsibly?"]
+// Distinct prompts by chapter: thankfulness without forced positivity or spiritual scoring.
+const GRATITUDE_PROMPTS=[
+ "Which ordinary comfort helped you begin again, even briefly?",
+ "Who helped you notice something more clearly?",
+ "Whose honest correction or patient listening served you?",
+ "What small gift did you almost overlook this month?",
+ "Who made it safer for you to ask a question?",
+ "What moment of rest or quiet attention supported you?",
+ "When did someone respond gently under pressure?",
+ "What boundary or limit has protected your wellbeing?",
+ "Who encouraged a step you were ready to take?",
+ "Whose work supports resources you sometimes take for granted?",
+ "What help did you receive that you could acknowledge freely?",
+ "What sustained you during this year, without denying what was hard?",
+ "Who has quietly modeled integrity in ordinary work?",
+ "Who made room to hear you without rushing to advise?",
+ "When did kindness and honesty arrive together?",
+ "Whose undivided attention has meant something to you?",
+ "Is there a repair or boundary you can appreciate without forcing reconciliation?",
+ "What manageable rhythm helped you care for yourself or others?",
+ "Who offered steadiness when circumstances felt uncertain?",
+ "Whose unseen contribution supports the place you share?",
+ "Who helped you learn from correction without humiliation?",
+ "What resource or opportunity came with someone else's trust?",
+ "When did someone choose courage and kindness together?",
+ "What did you learn from another person's generous example?",
+ "Who allowed an important question to remain open?",
+ "Whose perspective widened your understanding?",
+ "What principle or person steadied you during change?",
+ "Which specific kindness deserves a real thank-you?",
+ "Who can disagree with you while still offering respect?",
+ "What ordinary support helped you carry unfinished work?",
+ "Whose needs have opened your eyes beyond yourself?",
+ "Who has honored a small promise that mattered to you?",
+ "What lasting service has helped your community?",
+ "Who welcomed you back after an absence or a difficult season?",
+ "What support might help your future self, without predicting outcomes?",
+ "What gifts or relationships would you like to keep honoring beyond this workbook?"
 ];
+const steps=[
+  ["Attention","What is verifiably true about this month's experience? Separate facts from interpretations."],
+  ["Thankfulness",null],
+  ["Practice","What voluntary, concrete action could express your intention this month?"],
+  ["Service","Who might benefit from your practical care? Respect their boundaries and choices."],
+  ["Release","Which outcome can you stop forcing while still taking responsibility?"]
+];
+
 function node(tag,klass,text){const el=document.createElement(tag);if(klass)el.className=klass;if(text!==undefined)el.textContent=text;return el;}
 function blankLines(parent,count){for(let i=0;i<count;i++)parent.append(node("div","write-line"));}
 const list=document.getElementById("months");
@@ -57,7 +97,10 @@ for(let i=0;i<MONTHS;i++){
  blankLines(section,3);
  const actions=node("div","practice-grid");
  for(const [heading,prompt] of steps){
-    const card=node("div","practice-cell");card.append(node("h3","",heading));card.append(node("p","",prompt));blankLines(card,2);actions.append(card);
+    const card=node("div","practice-cell");
+    card.append(node("h3","",heading));
+    card.append(node("p","",heading==="Thankfulness"?GRATITUDE_PROMPTS[i]:prompt));
+    blankLines(card,2);actions.append(card);
  }
  section.append(actions);
  const note=node("div","month-action");note.append(node("h3","","A small invitation"));note.append(node("p","",item[3]));blankLines(note,2);
@@ -72,9 +115,9 @@ for(let quarter=1;quarter<=12;quarter++){
  s.append(node("h2","","A season of returning"));
  s.append(node("p","chapter-lead","There are no streak penalties, predictions or required confessions."));
  for(const [heading,question] of [
-   ["What I noticed","What was true in these three months?"],
-   ["Where I practiced","Which concrete actions supported care or responsibility?"],
-   ["What needs repair","Is there a truthful, safe and respectful next step?"],
+   ["What I noticed","What was true in these three months, including what was difficult?"],
+   ["Specific gratitude","Which person or contribution deserves a sincere, specific acknowledgment?"],
+   ["Where I practiced","Which action supported care and responsibility without demanding a reward?"],
    ["What I can release","What outcome is not mine to control?"],
    ["The next season","What manageable intention will I carry forward?"]]){
    const div=node("div","review-prompt");div.append(node("h3","",heading));div.append(node("p","",question));blankLines(div,3);s.append(div);
