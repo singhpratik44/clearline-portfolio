@@ -128,6 +128,8 @@ jobs:
           test -s _site/code-the-game/roblox/index.html
           test -s _site/code-the-game/minecraft/index.html
           test -s _site/code-the-game/godot/index.html
+          test -s _site/code-the-game/bundle/index.html
+          test -s _site/code-the-game/privacy/index.html
           test -s _site/code-the-game/start/index.html
           test -s _site/code-the-game/quiz/index.html
           test -s _site/code-the-game/playground/index.html
