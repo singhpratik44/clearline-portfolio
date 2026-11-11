@@ -55,7 +55,7 @@ export function routeMoment({state="steady",context="quiet",tasks=[]}={}){
 export function creativePair(seed=0){
   const ideas=["a basketball court","a garden","a library","a sunrise","a poem","a bridge","a compass","a constellation","a conversation","a classroom"];
   const n=Math.abs(Math.trunc(Number(seed)||0));
-  const a=n%ideas.length,b=(Math.floor(n/ideas.length)+a+3)%ideas.length;
+  const a=n%ideas.length,b=(a+3+(Math.floor(n/ideas.length)%6))%ideas.length;
   return [ideas[a],ideas[b]];
 }
 export function serializeJournal(entry){
