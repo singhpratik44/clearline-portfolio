@@ -29,7 +29,7 @@ jobs:
         run: node --test tests/sports-os.test.mjs tests/mission-control.test.mjs tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Verify CODE THE GAME courses, delivery and public arcade
         run: |
-          node --test tests/code-the-game.test.mjs
+          node --test tests/code-the-game.test.mjs tests/code-the-game-crypto.test.mjs
       - name: Verify A Quiet Journey privacy, timeline and responsive experience
         run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs tests/quiet-journey-commerce.test.mjs
       - name: Test APERTURE evidence-gated application pipeline
