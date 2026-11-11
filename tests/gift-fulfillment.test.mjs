@@ -79,3 +79,43 @@ test('team checkout is bound to exact $99 amount and two workbooks',async()=>{
  assert.equal(bad.ok,false);
  assert.equal(bad.status,403);
 });
+
+import {verifyQuietPurchase,buildQuietPdf,DAYS} from '../gifts/fulfillment/quiet-journal.mjs';
+const journalSession='cs_live_'+'b'.repeat(48);
+const quietOk={status:'complete',payment_status:'paid',payment_link:'plink_1UaTfeRuy3ohymOHLkzMJK3n',livemode:true,mode:'payment',currency:'usd',amount_total:1900};
+test('Quiet Practice generates exactly 25 printable pages with journal content',()=>{
+  assert.equal(DAYS.length,21);
+  const pdf=buildQuietPdf();
+  assert.ok(pdf.subarray(0,8).toString('ascii').startsWith('%PDF-1.4'));
+  const t=pdf.toString('ascii');
+  assert.equal((t.match(/\/Type \/Page \/Parent /g)||[]).length,25);
+  assert.ok(t.includes('Make room'));
+  assert.ok(t.includes('Keep going, gently'));
+  assert.ok(t.includes('startxref'));
+});
+test('Quiet Practice only grants the exact live $19 Stripe product',async()=>{
+  const r=await verifyQuietPurchase(journalSession,{secret,fetchFn:responder(quietOk)});
+  assert.deepEqual(r,{ok:true,status:200});
+  for(const wrong of [
+    {payment_link:'plink_1UaNRBRuy3ohymOHZqchj3I2'},
+    {amount_total:2000},{amount_total:0},{status:'open'},
+    {payment_status:'unpaid'},{livemode:false},{mode:'subscription'},{currency:'cad'},
+  ]) {
+    const bad=await verifyQuietPurchase(journalSession,{secret,fetchFn:responder({...quietOk,...wrong})});
+    assert.equal(bad.ok,false,JSON.stringify(wrong));
+    assert.equal(bad.status,403);
+  }
+});
+test('Quiet Practice denies missing, forged and unverifiable session IDs',async()=>{
+  for(const id of ['',undefined,'cs_test_fake','fake']) {
+    const r=await verifyQuietPurchase(id,{secret,fetchFn:responder(quietOk)});
+    assert.equal(r.ok,false);
+    assert.equal(r.status,400);
+  }
+  const missingKey=await verifyQuietPurchase(journalSession,{secret:'',fetchFn:responder(quietOk)});
+  assert.equal(missingKey.status,503);
+  const stripeDenied=await verifyQuietPurchase(journalSession,{secret,fetchFn:responder({},404)});
+  assert.equal(stripeDenied.status,403);
+  const networkDown=await verifyQuietPurchase(journalSession,{secret,fetchFn:async()=>{throw new Error('down')}});
+  assert.equal(networkDown.status,502);
+});
