@@ -78,3 +78,12 @@ test("Buyers can find purchase help, software prerequisites and free examples",(
   assert.match(start,/Godot 4/);
   assert.match(store,/href="start\//);
 });
+
+test("Store has working ecommerce affordances and honest fulfillment disclosures",()=>{
+ const page=read("code-the-game/index.html");
+ for(const id of ['id="search"','id="sort"','id="products"','id="cartBtn"','id="drawer"','data-filter="roblox"','data-filter="minecraft"','data-filter="godot"','data-filter="bundle"','data-save="roblox"','data-save="bundle"'])assert.ok(page.includes(id),id);
+ for(const amount of ["$19","$29","$39","$59"])assert.ok(page.includes(amount),amount);
+ assert.match(page,/Stripe-hosted checkout/);
+ assert.match(page,/no customer accounts or automatic lost-link recovery/i);
+ assert.match(page,/independent engine-version testing is still ongoing/i);
+});
