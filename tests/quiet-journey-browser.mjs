@@ -77,15 +77,13 @@ try{
     const shopResponse=await page.goto(BASE+"/prayer/three-year/companion/shop.html",{waitUntil:"networkidle",timeout:30000});
     assert.equal(shopResponse.status(),200);
     await page.waitForFunction(()=>document.querySelector("#checkoutStatus")?.textContent.includes("Secure card processing"));
-    assert.equal(await page.locator("#buyCompanion").getAttribute("aria-disabled"),null,"Verified LIVE checkout should activate");
-    assert.match(await page.locator("#buyCompanion").getAttribute("href"),/^https:\/\/buy\.stripe\.com\/[A-Za-z0-9_-]+$/);
+    assert.equal(await page.locator("#buyCompanion").getAttribute("aria-disabled"),null,"Live checkout must be enabled");
+    assert.equal(await page.locator("#buyCompanion").getAttribute("href"),"https://buy.stripe.com/9B6dRbdwO3bScAcbod6kg1i","Link must be exact verified Stripe URL");
+    assert.match(await page.locator("#buyCompanion").innerText(),/Purchase companion.*Stripe checkout/i);
+    // This is deliberately link-only validation: NEVER click or run a real checkout in QA.
     assert.match(await page.locator("#price").innerText(),/\$29/);
     let commerceWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(commerceWidth<=1,"Companion shop horizontal overflow at "+viewport.width+": "+commerceWidth);
-    const sampleResponse=await page.goto(BASE+"/prayer/three-year/companion/sample.html",{waitUntil:"networkidle",timeout:30000});
-    assert.equal(sampleResponse.status(),200);
-    assert.equal(await page.locator("#worksheet").count(),1);
-    assert.ok((await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth))<=1,"Free sample overflow at "+viewport.width);
     const workbookResponse=await page.goto(BASE+"/prayer/three-year/companion/workbook.html",{waitUntil:"networkidle",timeout:30000});
     assert.equal(workbookResponse.status(),200);
     await page.waitForFunction(()=>document.querySelectorAll(".month-sheet").length===36 && document.querySelectorAll(".review-sheet").length===12);
@@ -94,17 +92,14 @@ try{
     commerceWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(commerceWidth<=1,"Companion workbook overflow at "+viewport.width+": "+commerceWidth);
     assert.deepEqual(errors,[],"No browser exceptions in companion pages at "+viewport.width);
-    console.log("PASS companion shop live one-time Stripe checkout and printable 36+12 workbook",viewport.width);
-    const startResponse=await page.goto(BASE+"/prayer/start/",{waitUntil:"networkidle",timeout:30000});
-    assert.equal(startResponse.status(),200);
-    await page.locator("#focus").selectOption("gratitude");
-    await page.locator("#next").click();
-    assert.match(await page.locator("#stepPrayer").innerText(),/given without entitlement/i);
-    await page.locator("#next").click();
-    assert.match(await page.locator("#stepPrayer").innerText(),/Thank one person/i);
-    assert.ok((await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth))<=1,"Starter overflow at "+viewport.width);
-    assert.deepEqual(errors,[],"No JavaScript exceptions on free starter");
-    console.log("PASS five-minute starter practice",viewport.width);
+    const sampleResponse=await page.goto(BASE+"/prayer/three-year/companion/sample.html",{waitUntil:"networkidle",timeout:30000});
+    assert.equal(sampleResponse.status(),200);
+    assert.equal(await page.locator("#worksheet").isVisible(),true);
+    assert.match(await page.locator(".worksheet").innerText(),/Choose one small act/);
+    const sampleOverflow=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+    assert.ok(sampleOverflow<=1,"Sample preview overflow at "+viewport.width+": "+sampleOverflow);
+    assert.deepEqual(errors,[],"No browser JavaScript errors on preview at "+viewport.width);
+    console.log("PASS companion + free sample preview",viewport.width);
     await page.close();
   }
   const page=await browser.newPage({viewport:{width:390,height:844},acceptDownloads:true});

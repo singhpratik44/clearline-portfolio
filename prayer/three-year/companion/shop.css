@@ -7,18 +7,17 @@
 @media(max-width:650px){.nav{height:65px;padding:0 19px}.brand{font-size:16px}.brand span{font-size:9px}.navlink{font-size:10px}.hero{padding:70px 22px 52px;min-height:0;gap:0}.hero h1{font-size:clamp(44px,12vw,68px)}.checkout{align-items:flex-start;flex-direction:column;gap:17px}.primary{width:100%;justify-content:space-between}.book-wrap{height:280px}.contents,.sample,.final{padding:70px 22px}.grid{grid-template-columns:1fr}.sample-paper{padding:30px;transform:none}.sample-paper h3{font-size:35px}.boundaries{padding:73px 22px}.contents h2,.sample h2,.boundaries h2,.final h2{font-size:44px}footer{padding:27px 22px}.book-shadow{bottom:0}}@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 
 
-/* Sales clarity without countdowns, fake reviews, or payment pressure. */
-.offer-facts{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0 0}
-.offer-facts span{border:1px solid #768778;border-radius:50px;padding:8px 13px;color:#f0e9d6;font-size:12px;line-height:1.35}
-.delivery-note{font-size:13px;line-height:1.65;color:#d4dfd5;max-width:650px;margin:17px 0}
-.delivery-note strong{color:#f5e3b5}
-.faq{padding:clamp(60px,7vw,110px) clamp(22px,8vw,130px);background:#0e2a30;border-top:1px solid #4f706b}
-.faq-inner{max-width:1130px;margin:auto}
-.faq h2{font-size:clamp(37px,5.5vw,68px);margin:16px 0 38px}
-.faq-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.faq-grid>div{border:1px solid #526e69;border-radius:16px;background:#17363d;padding:25px;min-width:0}
-.faq-grid h3{font:400 clamp(23px,2.6vw,29px)/1.18 Georgia,serif;margin:0 0 12px}
-.faq-grid p,.faq-after{font-size:14px;color:#d0ddd5;line-height:1.75;margin:0}
-.faq-grid a{color:#f0d59e}
-.faq-after{max-width:750px;margin:24px 0}
-@media(max-width:680px){.faq-grid{grid-template-columns:1fr}.faq-grid>div{padding:22px}.offer-facts{gap:7px}.offer-facts span{font-size:11px;padding:8px 10px}}
+/* First-buyer trust: an ungated sample, clear FAQ, and truthful checkout details */
+.preview-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:24px;padding:18px 0;border-top:1px solid #637b7188}
+.preview-cta span{color:#cad4c5;font-size:12px}
+.preview-cta>a{font-size:13px;font-weight:750;color:#f3d59b;text-underline-offset:5px;line-height:1.65}
+.buyer-faq{padding:100px clamp(22px,9vw,145px);background:#0e292f;border-top:1px solid #56766e44}
+.buyer-faq h2{font-size:clamp(42px,5.6vw,73px);margin:16px 0 46px}
+.buyer-faq h2 em{color:var(--gold);font-weight:400}
+.faq-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px 33px}
+.faq-grid>div{border-top:1px solid #6a8075;padding-top:20px}
+.faq-grid h3{font-size:24px;line-height:1.2;margin:5px 0 13px}
+.faq-grid p{color:#c4d1c8;font-size:13px;line-height:1.8}
+.faq-grid a{color:#f0cb90;text-underline-offset:4px}
+@media(max-width:850px){.faq-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.faq-grid{grid-template-columns:1fr}.buyer-faq{padding:70px 22px}.preview-cta{align-items:flex-start;flex-direction:column;gap:6px}}
