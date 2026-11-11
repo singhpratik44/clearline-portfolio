@@ -194,6 +194,8 @@ jobs:
           test -s _site/prayer/three-year/companion/shop.html
           test -s _site/prayer/three-year/companion/sample.html
           test -s _site/prayer/three-year/companion/sample.css
+          test -s _site/prayer/three-year/companion/partners.html
+          test -s _site/prayer/three-year/companion/partner.css
           grep -q 'href="./sample.html"' _site/prayer/three-year/companion/shop.html
           test -s _site/prayer/three-year/companion/shop.js
           test -s _site/prayer/three-year/companion/shop.css
