@@ -10,6 +10,7 @@ const page=text("prayer/three-year/companion/workbook.html");
 const workbook=text("prayer/three-year/companion/workbook.js");
 const config=text("prayer/three-year/companion/checkout-config.mjs");
 const storefront=text("prayer/three-year/companion/shop.js");
+const sample=text("prayer/three-year/companion/sample.html");
 const sitemap=text("sitemap.xml");
 
 test("The free scripture and journal experience is not paywalled",()=>{
@@ -57,4 +58,18 @@ test("No invented paywall or authenticated entitlement assertions",()=>{
   assert.match(shop,/one-time/i);
   assert.match(sitemap,/prayer\/three-year\/companion\/shop\.html/);
   assert.doesNotMatch(sitemap,/companion\/workbook\.html/);
+});
+
+test("Free, substantive printable sample is accessible and promotes informed choice",()=>{
+  assert.match(sample,/id="worksheet"/);
+  assert.match(sample,/NOTICE/);
+  assert.match(sample,/CARE/);
+  assert.match(sample,/ACT/);
+  assert.match(sample,/REFLECT/);
+  assert.match(sample,/RELEASE/);
+  assert.match(shop,/href="\.\/sample\.html"/);
+  assert.match(sitemap,/companion\/sample\.html/);
+  assert.match(sample,/style-src 'self'/);
+  assert.doesNotMatch(sample,/<script/);
+  assert.match(sample,/not restricted to buyers|not paywalled|publicly accessible/i);
 });
