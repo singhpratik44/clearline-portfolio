@@ -58,7 +58,7 @@ function initialize(){
   const sources=["states","recommendAction","lensName"];
   for(const id of sources){
     const node=$(id);
-    if(node)new MutationObserver(syncReadouts).observe(node,{childList:true,subtree:true,attributes:id==="states",attributeFilter:id==="states"?["aria-pressed"]:[]});
+    if(node)new MutationObserver(syncReadouts).observe(node,id==="states"?{childList:true,subtree:true,attributes:true,attributeFilter:["aria-pressed"]}:{childList:true,subtree:true});
   }
   document.querySelectorAll("[data-lens-jump]").forEach(button=>{
     button.addEventListener("click",()=>{
