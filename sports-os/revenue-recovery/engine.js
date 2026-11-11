@@ -35,7 +35,7 @@ function parseCsv(src){
 function cleanRow(raw){
  const id=String(raw.member_id||"").trim(),invoice=String(raw.invoice_id||"").trim();
  if(!/^[A-Za-z0-9_-]{2,40}$/.test(id)||!/^[A-Za-z0-9_-]{2,40}$/.test(invoice))throw Error("Only opaque member/invoice identifiers (2–40 letters, numbers, hyphen or underscore) are allowed");
- const amount=String(raw.balance_cents||"").trim();if(!/^(?:0|[1-9]\d{0,8})$/.test(amount))throw Error("Balance must be a whole number of cents from 0 to 999999999");
+ const amount=String(raw.balance_cents??"").trim();if(!/^(?:0|[1-9]\d{0,8})$/.test(amount))throw Error("Balance must be a whole number of cents from 0 to 999999999");
  const status=String(raw.payment_status||"").trim().toLowerCase();
  if(!allowedStatuses.has(status))throw Error("Invalid payment_status: "+status);
  const consent=String(raw.consent_status||"unknown").trim().toLowerCase();
@@ -78,9 +78,9 @@ function analyze(input,now){
    const days=Math.floor((today-dateOnly(r.due_date))/DAY);
    const renewIn=r.renewal_date?Math.floor((dateOnly(r.renewal_date)-today)/DAY):null;
    const unresolved=r.balance_cents>0&&!["paid","void","refunded"].includes(r.payment_status);
-   const blocked=r.payment_status==="disputed"||r.consent_status==="denied";
+   const blocked=r.payment_status==="disputed"||r.consent_status!=="granted";
    if(unresolved&&days>0)pastDue+=r.balance_cents;
-   const base={member_id:r.member_id,invoice_id:r.invoice_id,amount_cents:r.balance_cents,consent_status:r.consent_status,payment_status:r.payment_status,blocked,reason:blocked?(r.payment_status==="disputed"?"Disputed invoice requires reconciliation; no payment request":"Contact permission denied; no outreach"):"Review balance and communications authority before outreach",evidence:{invoice_id:r.invoice_id,due_date:r.due_date,payment_status:r.payment_status,renewal_date:r.renewal_date,balance_cents:r.balance_cents}};
+   const base={member_id:r.member_id,invoice_id:r.invoice_id,amount_cents:r.balance_cents,consent_status:r.consent_status,payment_status:r.payment_status,blocked,reason:blocked?(r.payment_status==="disputed"?"Disputed invoice requires reconciliation; no payment request":r.consent_status==="denied"?"Contact permission denied; no outreach":"Contact permission unverified; no outreach"):"Review balance and communications authority before outreach",evidence:{invoice_id:r.invoice_id,due_date:r.due_date,payment_status:r.payment_status,renewal_date:r.renewal_date,balance_cents:r.balance_cents}};
    const add=(kind,daysLabel,amount)=>{const key=r.invoice_id+":"+kind;if(evidence.has(key))return;evidence.add(key);signals.push({...base,id:key,kind,age_days:daysLabel,amount_cents:amount})};
    if(unresolved&&r.payment_status==="failed"){failedMembers.add(r.member_id);add("failed",days,r.balance_cents)}
    if(unresolved&&days>0){add("past_due",days,r.balance_cents)}
