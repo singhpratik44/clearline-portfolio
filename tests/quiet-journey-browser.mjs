@@ -82,6 +82,10 @@ try{
     assert.match(await page.locator("#price").innerText(),/\$29/);
     let commerceWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
     assert.ok(commerceWidth<=1,"Companion shop horizontal overflow at "+viewport.width+": "+commerceWidth);
+    const sampleResponse=await page.goto(BASE+"/prayer/three-year/companion/sample.html",{waitUntil:"networkidle",timeout:30000});
+    assert.equal(sampleResponse.status(),200);
+    assert.equal(await page.locator("#worksheet").count(),1);
+    assert.ok((await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth))<=1,"Free sample overflow at "+viewport.width);
     const workbookResponse=await page.goto(BASE+"/prayer/three-year/companion/workbook.html",{waitUntil:"networkidle",timeout:30000});
     assert.equal(workbookResponse.status(),200);
     await page.waitForFunction(()=>document.querySelectorAll(".month-sheet").length===36 && document.querySelectorAll(".review-sheet").length===12);
