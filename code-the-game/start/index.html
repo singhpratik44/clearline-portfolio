@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Learn Game Coding: Roblox, Minecraft Education & Godot Starter Projects | Clearline Code</title>
+<meta name="description" content="Three free beginner game-coding activities with runnable starter code: Roblox Studio Luau touch event, Minecraft Education MakeCode JavaScript chat command, and Godot 4 GDScript movement.">
+<link rel="canonical" href="https://singhpratik44.github.io/clearline-portfolio/code-the-game/start/">
+<meta property="og:type" content="article"><meta property="og:title" content="From Gaming to Coding: Three Free Starter Projects"><meta property="og:description" content="Free beginner-friendly Roblox, Minecraft Education and Godot coding examples. No sign-up, no live lessons, no hidden software claims.">
+<meta property="og:url" content="https://singhpratik44.github.io/clearline-portfolio/code-the-game/start/">
+<meta name="theme-color" content="#0c1426"><style>
+:root{color-scheme:dark;--bg:#0b1220;--card:#142238;--border:#344962;--mint:#9bf3d5;--ink:#f1f7fe;--muted:#b6c9dd}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 75% 0,#27375a,transparent 40%),var(--bg);color:var(--ink);font:16px/1.7 system-ui,sans-serif}
+header,main,footer{max-width:1080px;margin:auto;padding:24px}header{display:flex;align-items:center;gap:18px;justify-content:space-between;flex-wrap:wrap}
+.brand{font-weight:900;color:var(--mint);letter-spacing:.12em;font-size:13px}a{color:var(--mint)}h1{font-size:clamp(38px,6vw,72px);line-height:1.08;letter-spacing:-.055em}
+h2{font-size:clamp(25px,3vw,38px);line-height:1.16;letter-spacing:-.025em}h3{font-size:21px}p,li{color:var(--muted)}code{color:#c2f7e7}
+.intro{max-width:790px;padding:54px 0 22px}.label{border:1px solid #4c857c;border-radius:99px;padding:6px 13px;font-size:13px;color:var(--mint)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--border);border-radius:19px;padding:22px}
+.card p{min-height:48px}.link{display:inline-block;padding:12px 18px;color:#071b19;background:var(--mint);border-radius:11px;font-weight:850;text-decoration:none}
+section.lesson{margin:36px 0;padding:30px;border:1px solid var(--border);border-radius:22px;background:#111d30}
+pre{background:#080e19;border:1px solid #39506b;border-radius:13px;white-space:pre-wrap;overflow-wrap:anywhere;padding:18px;line-height:1.5;color:#c5f6dc;font-size:13px}
+details{border:1px solid #38516b;border-radius:13px;padding:14px 17px;margin:13px 0}summary{cursor:pointer;font-weight:800;color:var(--mint)}
+.callout{border-left:3px solid #e4bd78;padding:12px 15px;background:#332d2d;border-radius:6px;color:#f6e5c6}
+.small{font-size:13px}footer{border-top:1px solid var(--border);color:#9daec6;font-size:13px}
+@media(max-width:640px){header,main,footer{padding:17px}section.lesson{padding:19px}}
+</style></head><body><header><span class="brand">CLEARLINE CODE / FREE PROJECTS</span><a href="../">Coding pathways</a></header><main>
+<section class="intro"><span class="label">FREE, PRACTICAL, NO SIGN-UP</span><h1>Turn gaming time into a first programming project.</h1><p>Choose the engine you can access, copy the starter code, predict what happens, then test it. These are independent educational activities—not official Roblox, Minecraft or Godot courses.</p></section>
+<div class="grid"><article class="card"><h3>Roblox Studio</h3><p>Start with a touch event that changes a platform's color.</p><a href="#roblox">Start with Luau →</a></article>
+<article class="card"><h3>Minecraft Education</h3><p>Use a chat command to place blocks programmatically.</p><a href="#minecraft">Start with MakeCode →</a></article>
+<article class="card"><h3>Godot 4</h3><p>Move a simple 2D character with keyboard input.</p><a href="#godot">Start with GDScript →</a></article></div>
+<section class="lesson" id="roblox"><span class="label">01 · ROBLOX STUDIO · LUAU</span><h2>Build a color-changing touch pad</h2>
+<p><strong>Goal:</strong> Walk onto a platform and watch its color change. Learn how an event triggers a conditional action.</p>
+<ol><li>Open Roblox Studio on a Windows or Mac computer. Create a Baseplate experience.</li><li>In Workspace, add a Part named <code>ColorPad</code>, set Anchored to true and CanTouch to true.</li><li>Add a server Script <em>inside</em> that Part, and paste the code below.</li><li>Press Play and walk onto the pad. Open View → Output if there is an error.</li></ol>
+<pre><code>local pad = script.Parent
+local coolingDown = false
+
+pad.Touched:Connect(function(hit)
+    local character = hit:FindFirstAncestorOfClass("Model")
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    if not humanoid or coolingDown then return end
+    coolingDown = true
+    pad.BrickColor = BrickColor.Random()
+    task.wait(1)
+    coolingDown = false
+end)</code></pre>
+<p><strong>Challenge:</strong> Change <code>task.wait(1)</code> to <code>task.wait(0.2)</code>. Predict whether touching repeatedly will change colors faster, then test.</p>
+<details><summary>Why does the debounce matter?</summary><p>Touch events can fire repeatedly when several character body parts contact the pad. The <code>coolingDown</code> boolean prevents the handler from changing color more than once during its cooldown interval.</p></details>
+<p class="small">References: <a href="https://create.roblox.com/docs/scripting/events">Roblox event scripting</a>. This activity requires Roblox Studio, which is separate from this website.</p></section>
+<section class="lesson" id="minecraft"><span class="label">02 · MINECRAFT EDUCATION · MAKECODE JAVASCRIPT</span><h2>Build with a chat command</h2>
+<div class="callout"><strong>Software requirement:</strong> Minecraft <em>Education</em> with Code Builder is required. Consumer Minecraft Java and Bedrock editions do not provide the same MakeCode environment. A separate license or eligible account may be needed.</div>
+<p><strong>Goal:</strong> Type a word in Minecraft Education chat and have code place a block in front of you.</p>
+<ol><li>Open Minecraft Education and an editable world where Code Builder is available.</li><li>Open Code Builder and create a MakeCode project. Switch to JavaScript mode.</li><li>Paste the script below; return to your world.</li><li>Type <code>stone</code> in chat and test whether a block appears near your position.</li></ol>
+<pre><code>player.onChat("stone", function () {
+    blocks.place(STONE, pos(0, 0, 1))
+})</code></pre>
+<p><strong>Challenge:</strong> Change the position offset from <code>pos(0, 0, 1)</code> to <code>pos(0, 0, 2)</code>. Explain what the last number changes in the placement location.</p>
+<details><summary>How does this teach coding?</summary><p>The chat command is an event. The callback contains instructions. The position is a parameter. Changing the parameter changes the result you expect to see, and playtesting checks the hypothesis.</p></details>
+<p class="small">References: <a href="https://minecraft.makecode.com/reference/player/on-chat-command">MakeCode chat commands</a> and <a href="https://minecraft.makecode.com/reference/blocks/place">block placement</a>.</p></section>
+<section class="lesson" id="godot"><span class="label">03 · GODOT 4 · GDSCRIPT</span><h2>Move a character around a 2D world</h2>
+<p><strong>Goal:</strong> Connect arrow-key input to movement velocity and collision-aware physics.</p>
+<ol><li>Install Godot 4.x desktop editor and start a new 2D project.</li><li>Create a CharacterBody2D named Player and add a visual Sprite2D and CollisionShape2D with a suitable shape.</li><li>Attach the following script to Player. Godot's default Input Map includes the <code>ui_*</code> direction actions.</li><li>Run your scene. Use arrow keys, then adjust <code>speed</code> to see how movement changes.</li></ol>
+<pre><code>extends CharacterBody2D
+
+@export var speed := 220.0
+
+func _physics_process(_delta):
+    var direction = Input.get_vector(
+        "ui_left", "ui_right", "ui_up", "ui_down"
+    )
+    velocity = direction * speed
+    move_and_slide()</code></pre>
+<p><strong>Challenge:</strong> Add a StaticBody2D wall and CollisionShape2D, run into it and observe what happens. If the character passes through, check the wall and character collision layers, masks and shapes.</p>
+<details><summary>What does move_and_slide do?</summary><p>It applies movement in Godot's physics system and handles many collision responses automatically for a CharacterBody2D. The script calculates a desired velocity from player input, then asks the engine to move the body.</p></details>
+<p class="small">Reference: <a href="https://docs.godotengine.org/en/stable/tutorials/2d/2d_movement.html">Godot 2D movement tutorial</a>.</p></section>
+<section class="lesson"><h2>Prefer learning by playing first?</h2><p>Our free browser arcade illustrates collisions, collectibles, checkpoints and finish conditions. It isn't a game engine and doesn't replace the projects above.</p><p><a class="link" href="../playground/?utm_source=free_tutorial&utm_medium=owned&utm_campaign=game_to_code">Play the free coding arcade</a></p><p>When you are ready for a longer self-paced pathway, compare the <a href="../#pathways">three written course options</a>. The paid course materials remain separate from these free tutorials. No live lessons are included.</p></section>
+</main><footer>© 2026 Clearline Code. Independent game-coding education. No registration or personal information is required for these three free projects. Trademarks belong to their respective owners.</footer></body></html>
