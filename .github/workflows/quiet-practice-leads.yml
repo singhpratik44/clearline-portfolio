@@ -1,5 +1,10 @@
 name: Quiet Practice public opportunity scan
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/quiet-practice-leads.yml'
+      - 'scripts/quiet_practice_lead_scan.py'
   schedule:
     - cron: '27 17 * * 2'
   workflow_dispatch:
