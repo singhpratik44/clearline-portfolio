@@ -100,6 +100,36 @@ try{
     assert.ok(sampleOverflow<=1,"Sample preview overflow at "+viewport.width+": "+sampleOverflow);
     assert.deepEqual(errors,[],"No browser JavaScript errors on preview at "+viewport.width);
     console.log("PASS companion + free sample preview",viewport.width);
+    // New gratitude path: seven chapters, respectful language selection and private note output.
+    const gratitudeResponse=await page.goto(BASE+"/prayer/gratitude/",{waitUntil:"networkidle",timeout:30000});
+    assert.equal(gratitudeResponse.status(),200);
+    assert.equal(await page.locator("[data-day]").count(),7);
+    await page.locator('[data-day="3"]').click();
+    assert.match(await page.locator("#dayTitle").innerText(),/hard days/i);
+    assert.equal(await page.locator('[data-day="3"]').getAttribute("aria-pressed"),"true");
+    await page.locator("#prayerLanguage").selectOption("quiet");
+    assert.match(await page.locator("#prayerText").innerText(),/do not need to be grateful for harm/i);
+    await page.locator("#person").fill("Friend");
+    await page.locator("#specific").fill("listened to me.");
+    await page.locator("#impact").fill("I felt heard.");
+    await page.locator("#hard").fill("PRIVATE_DO_NOT_COPY");
+    await page.locator("#makeNote").click();
+    const preview=await page.locator("#notePreview").innerText();
+    assert.match(preview,/Friend/);
+    assert.match(preview,/listened to me/);
+    assert.doesNotMatch(preview,/PRIVATE_DO_NOT_COPY/);
+    assert.equal(await page.locator("#noteWrap").isVisible(),true);
+    assert.equal(await page.evaluate(()=>localStorage.length),0,"No gratitude note stored in localStorage");
+    await page.locator("#specific").fill("offered help");
+    assert.equal(await page.locator("#noteWrap").isVisible(),false,"Editing invalidates an outdated preview");
+    await page.locator("#clearNote").click();
+    assert.equal(await page.locator("#hard").inputValue(),"","Private notes cleared");
+    assert.equal(await page.locator("#person").inputValue(),"");
+    assert.equal(await page.locator("#noteWrap").isVisible(),false);
+    const gratitudeWidth=await page.evaluate(()=>document.documentElement.scrollWidth-window.innerWidth);
+    assert.ok(gratitudeWidth<=1,"Gratitude page horizontal overflow at "+viewport.width+": "+gratitudeWidth);
+    assert.deepEqual(errors,[],"No JavaScript exceptions on gratitude page at "+viewport.width);
+    console.log("PASS seven-day gratitude, truthful hard-day copy, private note safety",viewport.width);
     await page.close();
   }
   const page=await browser.newPage({viewport:{width:390,height:844},acceptDownloads:true});
