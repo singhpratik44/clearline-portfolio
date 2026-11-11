@@ -27,6 +27,9 @@ jobs:
           npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
       - name: Run regression suite
         run: node --test tests/sports-os.test.mjs tests/mission-control.test.mjs tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
+      - name: Verify CODE THE GAME courses, delivery and public arcade
+        run: |
+          node --test tests/code-the-game.test.mjs
       - name: Verify A Quiet Journey privacy, timeline and responsive experience
         run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs tests/quiet-journey-commerce.test.mjs
       - name: Test APERTURE evidence-gated application pipeline
@@ -50,7 +53,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js sitemap.xml _site/
-          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os _site/
+          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
@@ -120,6 +123,15 @@ jobs:
           test -s _site/index.html
           test -s _site/clearline/index.html
           test -d _site/assets
+          test -s _site/code-the-game/index.html
+          test -s _site/code-the-game/start/index.html
+          test -s _site/code-the-game/quiz/index.html
+          test -s _site/code-the-game/playground/index.html
+          test -s _site/code-the-game/learn/index.html
+          test -s _site/code-the-game/learn/studio-v3.js
+          test -s _site/code-the-game/learn/other-labs.js
+          for p in roblox minecraft indie; do test -s "_site/code-the-game/packs/$p.json"; done
+          grep -q 'code-the-game/start/' _site/sitemap.xml
           test -s _site/learning/index.html
           test -s _site/learning/site.css
           test -s _site/learning/site.js
