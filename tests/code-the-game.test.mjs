@@ -8,6 +8,8 @@ const studio=read("code-the-game/learn/studio-v3.js");
 const other=read("code-the-game/learn/other-labs.js");
 const arcade=read("code-the-game/playground/index.html");
 const store=read("code-the-game/index.html");
+const support=read("code-the-game/help/index.html");
+const start=read("code-the-game/start/index.html");
 const packs=["roblox","minecraft","indie"].map(id=>({id,data:JSON.parse(read("code-the-game/packs/"+id+".json"))}));
 const scripts=[...reader.matchAll(/<script(?![^>]*src)[^>]*>([\s\S]*?)<\/script>/gi)].map(m=>m[1]).filter(x=>x.trim());
 test("Reader and interactive studio scripts are syntactically valid",()=>{
@@ -62,4 +64,17 @@ test("Paid access keys are not embedded in public source",()=>{
   for(const key of ["aXYpgTcTiNCI8RFvlPoSj8ZXvqGNs0eTwR0zF_tF-3Q","uJIsSZ8WBq4_NXg93boGrXm24avJl87ASLpAyu9CxOg"]){
     assert.ok(!reader.includes(key)&&!studio.includes(key));
   }
+});
+
+test("Every advertised paid course has its exact live checkout destination",()=>{
+  for(const u of ["14A5kFboG8wc7fSgIx6kg00","3cIbJ3dwO27O6bObod6kg01","dRmeVf0K2aEk0RufEt6kg02","cNi8wR78q27OcAc9g56kg03"]){assert.ok(store.includes("https://buy.stripe.com/"+u),u)}
+});
+test("Buyers can find purchase help, software prerequisites and free examples",()=>{
+  assert.match(store,/href="help\//);
+  assert.match(support,/lost the link/i);
+  assert.match(support,/refund requests/i);
+  assert.match(support,/Minecraft Education with Code Builder/i);
+  assert.match(start,/Roblox Studio/);
+  assert.match(start,/Godot 4/);
+  assert.match(store,/href="start\//);
 });
