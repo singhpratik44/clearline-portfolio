@@ -51,7 +51,11 @@ export default async function handler(req,res) {
   let books;
   try {books=await loadBooks()}catch(_error){return fail(res,503,'workbook_catalog_unavailable')}
   if(!Object.hasOwn(books,selection.book))return fail(res,503,'workbook_not_available');
-  const html=renderBook(books[selection.book]);
+  let html=renderBook(books[selection.book]);
+  if(result.sku==='basketball-team-20') {
+    const notice='<aside style="padding:18px;background:#eaf6e8;border:2px solid #246642;font:16px/1.5 system-ui"><strong>PAID TEAM LICENSE — ONE TEAM / UP TO 20 PLAYERS</strong><p>Basketball IQ Challenge Deck and Coach Practice Architect may be printed once per player plus reasonable coach working copies for one team at one site. No resale, sharing with other teams, public uploads or sublicensing. Save your receipt as proof of license. This session URL is private: do not forward it.</p></aside>';
+    html=html.replace('<main>', '<main>'+notice).replace('Personal-use digital license. No physical shipment','One-team digital license (up to 20 players). No physical shipment');
+  }
   res.statusCode=200;
   res.setHeader('Content-Type','text/html; charset=utf-8');
   return res.end(html);
