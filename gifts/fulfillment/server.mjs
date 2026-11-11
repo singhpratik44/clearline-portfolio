@@ -15,7 +15,7 @@ const send=(res,status,body,method='GET')=>{
 async function verifyStripeCredentialAtStartup(){
   const key=process.env.STRIPE_SECRET_KEY;
   if(typeof key!=='string'||!/^((sk|rk)_live_)/.test(key)){
-    process.stdout.write('Stripe read credential status: MISSING_OR_INCORRECT_MODE\\n');
+    process.stdout.write('Stripe read credential status: MISSING_OR_INCORRECT_MODE\n');
     return;
   }
   try{
@@ -27,9 +27,9 @@ async function verifyStripeCredentialAtStartup(){
     });
     // Print only the non-sensitive diagnostic category, never key or Stripe body.
     const status=r.status===404?'STRIPE_READ_AUTHENTICATED':r.status===401?'STRIPE_AUTH_FAILED':r.status===403?'STRIPE_PERMISSION_DENIED':'UNEXPECTED_STATUS_'+r.status;
-    process.stdout.write('Stripe read credential status: '+status+'\\n');
+    process.stdout.write('Stripe read credential status: '+status+'\n');
   }catch(_err){
-    process.stdout.write('Stripe read credential status: STRIPE_UNREACHABLE\\n');
+    process.stdout.write('Stripe read credential status: STRIPE_UNREACHABLE\n');
   }
 }
 createServer(async(req,res)=>{
