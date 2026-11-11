@@ -2,13 +2,15 @@ name: Quiet Journey acceptance
 on:
   pull_request:
     paths:
-      - 'prayer/three-year/**'
+      - 'prayer/**'
+      - 'sitemap.xml'
       - 'tests/quiet-journey*.mjs'
       - '.github/workflows/quiet-journey-qa.yml'
   push:
     branches: [main]
     paths:
-      - 'prayer/three-year/**'
+      - 'prayer/**'
+      - 'sitemap.xml'
       - 'tests/quiet-journey*.mjs'
       - '.github/workflows/quiet-journey-qa.yml'
   workflow_dispatch:
@@ -24,7 +26,7 @@ jobs:
         with:
           node-version: '22'
       - name: Cryptography and site invariants
-        run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs tests/quiet-journey-commerce.test.mjs
+        run: node --test tests/quiet-journey.test.mjs tests/quiet-journey-crypto.test.mjs tests/quiet-journey-daily.test.mjs tests/quiet-journey-commerce.test.mjs tests/quiet-journey-launch.test.mjs
       - name: Install isolated browser testing runtime
         run: |
           npm install --no-save --no-package-lock playwright@1.56.1
