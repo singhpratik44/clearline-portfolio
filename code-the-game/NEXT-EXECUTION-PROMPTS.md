@@ -34,3 +34,11 @@ Inspect `learn/index.html` and encrypted pack format. Build a deterministic brow
 
 ## Prompt H — Production conversion and accessibility audit
 Inspect actual storefront DOM and browser interactions. Verify product filter/search, keyboard focus trap, escape to close, drawer semantics, link safety, mobile layout and contrast. Fix defects, add regression tests and verify deployment. Never send checkout fragments or personal data to analytics.
+
+## Prompt I — Synthetic encryption regression gate (executed)
+Create nonproduction AES-256-GCM course fixtures with random ephemeral keys and the same pathway-bound additional authenticated data, gzip codec and JSON schema as the production reader. Test all three pathways, three-course bundle, wrong key, wrong pathway, corrupted ciphertext and invalid course data. Add tests to deployment CI. **Never use live customer access keys.**
+
+**Implementation:** `tests/code-the-game-crypto.test.mjs` and `.github/workflows/deploy-pages.yml`. These tests validate the algorithm and reader invariants, not actual production Stripe-delivered keys.
+
+## Prompt J — Accessibility and conversion without surveillance (next)
+Run real mobile/desktop browser tests for product filtering, saved drawer focus containment, focus restoration, 200% zoom and keyboard-only operation. Improve accessibility defects and add safe checkout click tracking only after a documented privacy and consent review. Do not collect URL fragments, payment identifiers or minors' information.
