@@ -15,18 +15,72 @@ main{width:min(1120px,calc(100% - 36px));margin:auto}.hero{text-align:center;pad
 .orbit-node:nth-child(1){top:10%;left:50%}.orbit-node:nth-child(2){top:19%;left:77%}.orbit-node:nth-child(3){top:43%;left:92%}.orbit-node:nth-child(4){top:75%;left:82%}.orbit-node:nth-child(5){top:89%;left:62%}.orbit-node:nth-child(6){top:89%;left:34%}.orbit-node:nth-child(7){top:74%;left:12%}.orbit-node:nth-child(8){top:42%;left:8%}.orbit-node:nth-child(9){top:19%;left:23%}.orbit-node:nth-child(10){top:52%;left:50%;transform:translate(-50%,120px)}
 .section{padding:55px 0;border-top:1px solid #ffffff25}.sectionhead{max-width:780px;margin-bottom:24px}.panel{background:#14243cec;border:1px solid #566781;border-radius:22px;padding:clamp(18px,3vw,30px)}.panel.light{background:#1b2d43}.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}.three{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.field{display:grid;gap:6px;margin:0 0 15px}.field label{font-size:13px;color:var(--jade);font-weight:700}.field input,.field textarea,.field select{width:100%;min-height:44px;border:1px solid #778ba1;border-radius:12px;background:#0b192f;color:var(--text);padding:11px}.field textarea{min-height:130px;resize:vertical}.chips{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 20px}.chip{color:var(--text);border:1px solid #728098;border-radius:40px;padding:9px 14px;background:#1c2d46;font-size:13px}.chip[aria-pressed="true"]{color:#162341;border-color:var(--gold);background:var(--gold);font-weight:750}.result{border-left:3px solid var(--gold);background:#12253e;padding:15px 20px;border-radius:0 15px 15px 0}.result h3{color:var(--gold)}.subhead{color:var(--jade);font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:750}.card{border-radius:18px;border:1px solid #53637d;background:#142840;padding:20px}.card p{color:var(--muted);margin:7px 0}.taskrow{border-bottom:1px solid #52607880;padding:11px 0;display:flex;align-items:center;gap:10px}.taskrow .name{flex:1;overflow-wrap:anywhere}.taskrow button{border:1px solid #72839b;border-radius:10px;padding:5px 9px;background:transparent;color:var(--text)}.taskrow.done .name{text-decoration:line-through;color:#a0b5ba}.taskform{display:grid;grid-template-columns:minmax(0,1fr) 130px 130px auto;gap:8px}.taskform input,.taskform select{min-width:0;min-height:45px;background:#0b192f;color:var(--text);border:1px solid #73829a;border-radius:11px;padding:8px}.journal-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}.step{border-left:2px solid var(--gold);padding:0 0 0 17px}.step strong{color:var(--gold)}.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.year{border:1px solid #75839a;border-radius:15px;padding:19px;background:#142840}.year strong{color:var(--gold)}.monthbox{margin-top:18px;padding:16px;border-radius:15px;background:#21364d}.breathing{display:grid;place-items:center;text-align:center;gap:15px;min-height:240px}.breath-orb{width:100px;height:100px;border-radius:100%;background:radial-gradient(circle,#f2d89e,#a68ca5 55%,#1b354f);box-shadow:0 0 40px #a5cadf65;transition:transform 4s ease-in-out}.breath-orb.inhale{transform:scale(1.18)}.footer{text-align:center;padding:35px 15px 55px;border-top:1px solid #ffffff35;color:var(--muted)}.status{min-height:18px;font-size:13px;color:var(--jade)}.hide{display:none!important}.sensory-low{background:#101923!important}.sensory-low .orbit-wrap:before,.sensory-low .orbit-wrap:after{display:none}.sensory-low .core{box-shadow:none;animation:none;background:#2c3d52}.sensory-low .result{background:#19283b} @keyframes float{50%{filter:brightness(1.28);transform:scale(1.035)}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}@media(max-width:700px){.orbit-node:nth-child(3){left:80%}.orbit-node:nth-child(8){left:20%}.orbit-node:nth-child(4){left:78%}.orbit-node:nth-child(7){left:22%}.nav a{display:none}.hero{padding-top:47px}.two,.three,.timeline{grid-template-columns:1fr}.taskform{grid-template-columns:1fr 1fr}.taskform input{grid-column:1/-1}.taskform button{grid-column:1/-1}.orbit-wrap{aspect-ratio:1/1.12}.orbit-node{min-width:0;font-size:10px;padding:7px}.orbit-node:nth-child(10){transform:translate(-50%,90px)}.core{width:110px}.orbit-wrap:before,.orbit-wrap:after{width:56%;height:80%}}@media print{header,.nav,.buttonline,.orbit-wrap,.taskform,.journal-actions,.breathing,.chips{display:none!important}body{background:white;color:black}.section{break-inside:avoid}.panel{border:1px solid #999;background:white;color:black}}
 </style>
+<link rel="stylesheet" href="./futuristic.css">
 <script type="module" src="./app.mjs"></script>
+<script type="module" src="./futuristic.mjs"></script>
 </head>
 <body>
 <a class="skip" href="#moment">Skip to your moment</a>
 <header><div class="top"><a href="../" class="brand">A QUIET JOURNEY <span> / APERTURE</span></a><nav class="nav" aria-label="Main"><a href="#moment">Moment</a><a href="#orbit">Possibilities</a><a href="#actions">One step</a><a href="#journal">Journal</a><button class="toggle" id="sensory" aria-pressed="false" type="button">Quiet visuals</button></nav></div></header>
 <main>
-<section class="hero" aria-labelledby="hero-title">
-<p class="eyebrow">The art of arriving · Interactive edition</p>
-<h1 id="hero-title">Quantum<br><em>Happiness.</em></h1>
-<p class="lead">A world of possibilities. One moment to inhabit. Choose gratitude, persistence, focus, creativity, love—or the freedom to rest.</p>
-<p class="fine">“Quantum” is a metaphor for possibility, not a scientific claim about manifestation or control of events.</p>
-<div class="buttonline"><a class="btn primary" href="#moment">Begin with this moment ↓</a><a class="btn" href="../three-year/">Enter the three-year journey ↗</a><a class="btn" href="./worksheet.html">Free printable worksheet ↗</a></div>
+<section class="f-hero" aria-labelledby="hero-title">
+  <div class="f-hero-content">
+    <p class="f-kicker"><span class="live-dot" aria-hidden="true"></span> A QUIET JOURNEY / APERTURE EXPERIENCE</p>
+    <h1 id="hero-title">Quantum<br><em>Happiness.</em></h1>
+    <p class="lead">A universe of possibilities. One moment to inhabit. Find your center, follow what matters, and let the rest wait.</p>
+    <p class="fine">An immersive space for gratitude, presence, love, wonder, focus, creativity, persistence, and recovery. “Quantum” describes possibilities metaphorically—not a scientific power over reality.</p>
+    <div class="buttonline">
+      <a class="btn primary" href="#moment">Enter your moment <span aria-hidden="true">↗</span></a>
+      <a class="btn" href="#control">Try the 60-second reset <span aria-hidden="true">↓</span></a>
+      <a class="btn" href="./worksheet.html">Free printable worksheet <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="f-hero-ribbon" aria-label="Product promises"><span>NO LOGIN</span><i></i><span>NO AI METER</span><i></i><span>YOUR CHOICE</span><i></i><span>REST IS VALID</span></div>
+  </div>
+  <div class="f-visual" aria-label="Illustrative glowing orbital scene representing the present surrounded by possibilities">
+    <div class="f-visual-label">PRESENCE / POSSIBILITY FIELD</div>
+    <div class="f-visual-index">EXPERIENCE 02.0</div>
+    <div class="f-cosmos" aria-hidden="true">
+      <div class="f-grid"></div><div class="f-halo"></div>
+      <div class="f-ring r1"></div><div class="f-ring r2"></div><div class="f-ring r3"></div>
+      <div class="f-orb"></div><div class="f-orb-word">NOW</div>
+      <div class="f-dot d1"></div><div class="f-dot d2"></div><div class="f-dot d3"></div>
+    </div>
+    <div class="f-readout"><div><small>YOUR SELECTED INTENTION</small><strong id="heroIntention">Presence</strong></div><div class="f-scan" aria-hidden="true"></div></div>
+  </div>
+</section>
+<div class="f-metrics" aria-label="Experience principles">
+ <div class="f-metric"><strong>10<em> ✦</em></strong><span>Ways of seeing</span></div>
+ <div class="f-metric"><strong>01<em> →</em></strong><span>Next meaningful choice</span></div>
+ <div class="f-metric"><strong>∞</strong><span>Permission to begin again</span></div>
+</div>
+<section class="f-console" id="control" aria-label="Your presence control deck">
+  <div class="f-console-card">
+    <p class="f-console-label">01 / THE RESET PROTOCOL</p>
+    <h3>Find a little space.</h3>
+    <p>A minute of gentle guidance, with room to stop early. No scores and no judgment.</p>
+    <div class="f-console-actions">
+      <button type="button" class="btn primary" id="protocolStart">Begin 60-second reset <span aria-hidden="true">↗</span></button>
+      <button type="button" class="btn hide" id="protocolStop">Stop and return</button>
+    </div>
+    <progress id="protocolProgress" class="f-progress" max="60" value="0" aria-label="Reset guide elapsed time"></progress>
+    <div class="f-protocol-display">
+      <p id="protocolInstruction" aria-live="polite">Ready whenever you are. A quiet pause counts.</p>
+      <span class="f-count" id="protocolClock" aria-label="60 seconds remaining">01:00</span>
+    </div>
+  </div>
+  <div class="f-console-card">
+    <p class="f-console-label">02 / MOMENT CONSOLE</p>
+    <h3>Choose your channel.</h3>
+    <p>Nothing here measures your mind. The console reflects the state you select below.</p>
+    <div class="f-channel" id="signalStatus">HERE &amp; STEADY</div>
+    <span class="f-context-label">YOUR NEXT INVITATION</span>
+    <p class="f-context-message" id="signalAction">Notice what is already here.</p>
+    <div class="f-shortcuts" role="group" aria-label="Explore a doorway">
+      <button type="button" data-lens-jump="presence">◉ Presence</button>
+      <button type="button" data-lens-jump="creativity">✧ Create</button>
+      <button type="button" data-lens-jump="recovery">☾ Restore</button>
+    </div>
+  </div>
 </section>
 <section id="orbit" class="section" aria-labelledby="orbit-title">
 <div class="sectionhead"><p class="eyebrow">Ten doorways, never ten obligations</p><h2 id="orbit-title">What calls to you?</h2><p class="muted">Select any quality. You can return to the center at any time.</p></div>
