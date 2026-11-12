@@ -139,11 +139,15 @@ jobs:
           marker='<meta name="aperture-home-release-sha" content="'+os.environ['GITHUB_SHA']+'">'
           path.write_text(html.replace('</head>',marker+'</head>',1),encoding='utf-8')
           assert 'assets/aperture-v5.css' in path.read_text(encoding='utf-8')
+          assert 'assets/aperture-p2.css' in path.read_text(encoding='utf-8')
+          assert 'assets/aperture-p2.js' in path.read_text(encoding='utf-8')
           PY
       - name: Validate packaged site
         run: |
           test -s _site/app.bundle.js
           test -s _site/index.html
+          test -s _site/assets/aperture-p2.css
+          test -s _site/assets/aperture-p2.js
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/wellness/index.html
@@ -476,7 +480,7 @@ jobs:
           import os,time,urllib.request
           base='https://singhpratik44.github.io/clearline-portfolio/'
           sha=os.environ['EXPECTED_SHA']
-          expected=('name="aperture-home-release-sha" content="'+sha+'"','id="missionTitle"','id="workbench"','id="project-grid"','assets/aperture-v5.css')
+          expected=('name="aperture-home-release-sha" content="'+sha+'"','id="missionTitle"','id="workbench"','id="project-grid"','id="p2"','assets/aperture-p2.js','assets/aperture-p2.css','assets/aperture-v5.css')
           for attempt in range(16):
               try:
                   req=urllib.request.Request(base,headers={'User-Agent':'APERTURE-v5-Release-Check/1.0','Cache-Control':'no-cache'})
@@ -486,7 +490,11 @@ jobs:
                   with urllib.request.urlopen(base+'assets/aperture-v5.css',timeout=15) as response:
                       css=response.read().decode('utf-8',errors='replace')
                       assert response.status==200 and '.mission-intro' in css
-                  print('LIVE APERTURE v5 VERIFIED',sha,base)
+                  for asset,marker in [('assets/aperture-p2.js','ApertureP2'),('assets/aperture-p2.css','.p2-tabs')]:
+                      with urllib.request.urlopen(base+asset,timeout=15) as response:
+                          content=response.read().decode('utf-8',errors='replace')
+                          assert response.status==200 and marker in content,asset
+                  print('LIVE APERTURE v5 P2 VERIFIED',sha,base)
                   break
               except Exception as exc:
                   print('Verification attempt',attempt+1,repr(exc))
