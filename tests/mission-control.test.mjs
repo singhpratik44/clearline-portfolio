@@ -137,6 +137,28 @@ test("private calendar bridge parses UTC events, unfolds notes, excludes unsafe 
  assert.equal(B.preview([...parsed.events,...parsed.events],[])[1].duplicate,true);
  assert.throws(()=>B.parse("bad"),/Not an iCalendar/);
 });
+test("Google Calendar integration is readonly, metadata-minimal, bounded and deduplicates",()=>{
+ const ctx={globalThis:{}};
+ vm.runInNewContext(fs.readFileSync(new URL("mission-control/google-calendar.js",root),"utf8"),ctx);
+ const G=ctx.globalThis.ApertureGoogleCalendar;
+ assert.equal(G.scope,"https://www.googleapis.com/auth/calendar.readonly");
+ assert.equal(G.validId("12345-abcdef.apps.googleusercontent.com"),true);
+ assert.equal(G.validId("malicious"),false);
+ const event={id:"abc",summary:"Planning",status:"confirmed",start:{dateTime:"2026-11-16T10:00:00-08:00"},attendees:[{email:"private@example.com"}],description:"private body"};
+ const clean=G.normalizeEvent(event,"primary");
+ assert.equal(clean.title,"Planning");
+ assert.equal(clean.startsAt,"2026-11-16T18:00:00.000Z");
+ assert.doesNotMatch(JSON.stringify(clean),/private@example|private body/);
+ assert.equal(G.normalizeEvent({...event,recurringEventId:"series"},"primary"),null);
+ assert.equal(G.normalizeEvent({...event,start:{date:"2026-11-16"}},"primary"),null);
+ assert.equal(G.normalizeEvent({...event,status:"cancelled"},"primary"),null);
+ assert.equal(G.dedup([clean,clean],[])[1].duplicate,true);
+ assert.equal(G.dedup([clean],[{title:clean.title,startsAt:clean.startsAt}])[0].duplicate,true);
+ const source=fs.readFileSync(new URL("mission-control/google-calendar.js",root),"utf8");
+ assert.match(source,/method:"GET"/);
+ assert.doesNotMatch(source,/calendar\.events\.insert|method:"POST"|localStorage|sessionStorage|indexedDB/);
+ assert.match(source,/fields:"items\(id,summary,status,start\(dateTime\)/);
+});
 test("static UI wires every referenced field and has no private user data",()=>{
  const html=fs.readFileSync(new URL("mission-control/index.html",root),"utf8");
  const app=fs.readFileSync(new URL("mission-control/app.js",root),"utf8");
@@ -154,6 +176,9 @@ test("static UI wires every referenced field and has no private user data",()=>{
  assert.match(html,/src="\.\/calendar-bridge\.js"/);
  assert.match(html,/id="calendar-preview"/);
  assert.match(html,/id="calendar-commit"/);
+ assert.match(html,/src="\.\/google-calendar\.js"/);
+ assert.match(html,/id="google-connect"/);
+ assert.match(html,/id="google-import"/);
  assert.match(html,/id="meeting-form"/);
  assert.match(html,/id="proposal-form"/);
  assert.match(html,/id="dep-form"/);
