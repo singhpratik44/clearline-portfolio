@@ -200,6 +200,284 @@
         "Run 20 evidence-based decisions",
         "Select authorized actions and test before claiming outcomes"
       ]
+    },
+    {
+      "cycle_id": "001-launch",
+      "date": "2026-11-12",
+      "status": "in-progress-validation",
+      "baseline": {
+        "checkout_sessions": 19,
+        "paid_sessions": 2,
+        "paid_full_price_sessions": 0,
+        "paid_amount_cents": 100,
+        "editorial_replies_recent": 0
+      },
+      "decisions": [
+        {
+          "id": "D01",
+          "answer": "First verified full-price purchase with successful course access",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "No full-price paid checkout in 19 sessions"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D02",
+          "answer": "19 live sessions, 2 paid $0.50 each, 0 full-price paid",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "Stripe GetCheckoutSessions live read"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D03",
+          "answer": "Customer acquisition and untested end-to-end fulfillment",
+          "status": "review",
+          "confidence": null,
+          "evidence": [
+            "No paid full-price purchase-to-delivery evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D04",
+          "answer": "Avoid adding another large feature before customer validation",
+          "status": "evaluated",
+          "confidence": null,
+          "evidence": [
+            "Existing storefront, free lessons and marketing pages"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D05",
+          "answer": "Improve buyer confidence at checkout",
+          "status": "implemented",
+          "confidence": null,
+          "evidence": [
+            "Storefront prerequisite and access disclosure commit 6862be17"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D06",
+          "answer": "Single transparent checklist before product grid",
+          "status": "implemented",
+          "confidence": null,
+          "evidence": [
+            "code-the-game/index.html"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D07",
+          "answer": "Automate link and disclosure regressions",
+          "status": "implemented",
+          "confidence": null,
+          "evidence": [
+            "tests/code-the-game.test.mjs commit cf6e1dee"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D08",
+          "answer": "Reuse existing marketing page and free project funnel",
+          "status": "evaluated",
+          "confidence": null,
+          "evidence": [
+            "code-the-game/marketing/index.html"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D09",
+          "answer": "Full-price buyer redirect and decrypted lesson access remain untested",
+          "status": "blocked",
+          "confidence": null,
+          "evidence": [
+            "No real purchase authorized"
+          ],
+          "approval_gate": "G2",
+          "subactions": []
+        },
+        {
+          "id": "D10",
+          "answer": "Link fragments are bearer credentials; avoid exposing them",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "Stripe redirects inspected without printing key values"
+          ],
+          "approval_gate": "G2",
+          "subactions": []
+        },
+        {
+          "id": "D11",
+          "answer": "Make editor requirements explicit before purchase",
+          "status": "implemented",
+          "confidence": null,
+          "evidence": [
+            "code-the-game/index.html"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D12",
+          "answer": "Mobile responsive CSS present; live device QA not verified",
+          "status": "review",
+          "confidence": null,
+          "evidence": [
+            "Source inspection only"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D13",
+          "answer": "Measure verified full-price purchases rather than checkout opens",
+          "status": "evaluated",
+          "confidence": null,
+          "evidence": [
+            "Stripe live sessions"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D14",
+          "answer": "No new spending or real checkout",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "User authorization boundary"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D15",
+          "answer": "Qualified parent editorial channel; 5 messages previously sent",
+          "status": "review",
+          "confidence": null,
+          "evidence": [
+            "Gmail search found no replies in past 7 days"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D16",
+          "answer": "Scale only after validated access delivery and offer",
+          "status": "evaluated",
+          "confidence": null,
+          "evidence": [
+            "Delivery remains unverified"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D17",
+          "answer": "Watch next 24h for deployment and buyer replies",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "GitHub CI not yet rechecked after commits"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D18",
+          "answer": "Test channel conversion and buyer support within 30 days",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "No measured campaign conversion"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D19",
+          "answer": "Explore repeatable opt-in resource partnerships in 90 days",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "No signed partnerships"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D20",
+          "answer": "Next: validate CI, public rendering, then qualified opt-in outreach",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "Pending post-commit verification"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        }
+      ],
+      "completed_subactions": [
+        {
+          "action": "Read live Stripe checkout sessions",
+          "result": "19 total; two paid $0.50; zero full-price"
+        },
+        {
+          "action": "Retrieve four live product links and line items",
+          "result": "4/4 active, expected prices 1900/2900/3900/5900 cents"
+        },
+        {
+          "action": "Inspect redirect destinations without exposing fragment values",
+          "result": "4/4 configured to /learn/ with expected pathway names"
+        },
+        {
+          "action": "Inspect storefront and learning reader",
+          "result": "AES-GCM course packs and link-based reader present; end-to-end purchase unverified"
+        },
+        {
+          "action": "Inspect latest prior GitHub CI and Pages",
+          "result": "Prior commit cec6010a passed"
+        },
+        {
+          "action": "Search existing editorial outreach replies",
+          "result": "No replies found in last 7 days"
+        },
+        {
+          "action": "Commit prerequisite and delivery disclosure",
+          "result": "6862be17"
+        },
+        {
+          "action": "Commit regression tests",
+          "result": "cf6e1dee"
+        }
+      ],
+      "next_actions": [
+        "Confirm CI and Pages deployment for latest launch commits",
+        "Run public mobile/browser purchase-path checks without making a purchase",
+        "Advance verified, opt-in parent editorial placements without duplicates"
+      ],
+      "limitations": [
+        "No authorized real purchase; payment-to-decryption flow unverified",
+        "No new qualified external recipients validated in this cycle",
+        "CI status of latest commits pending"
+      ]
     }
   ]
 }
