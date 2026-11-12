@@ -26,6 +26,12 @@ try{
   assert.equal(await page.locator('[data-mode="meetings"]').getAttribute("aria-pressed"),"true");
   await page.locator("#meeting-list .title-button").first().click();
   assert.equal(await page.locator("#meeting-editor").isEnabled(),true);
+  const [prepDownload]=await Promise.all([
+   page.waitForEvent("download"),
+   page.locator("#prep-meeting").click()
+  ]);
+  assert.match(prepDownload.suggestedFilename(),/meeting-intelligence\.md$/);
+
   await page.locator("#meeting-editor").fill("This is a synthetic meeting note for QA.");
   await page.locator("#save-notes").click();
   await page.waitForFunction(()=>document.querySelector("#inspector-body")?.textContent?.includes("synthetic meeting note for QA"));
