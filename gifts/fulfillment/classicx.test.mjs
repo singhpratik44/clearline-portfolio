@@ -10,7 +10,7 @@ function request(json, status=200){return async()=>({ok:status===200,status,json
 function good(link,item){return {id,status:'complete',payment_status:'paid',livemode:true,mode:'payment',currency:'usd',amount_subtotal:item.cents,amount_total:item.cents,payment_link:link};}
 for(const [link,item] of links){
   test('paid purchased SKU verified '+item.sku,async()=>{const v=await verifyClassicxPurchase(id,{secret,fetchFn:request(good(link,item))});assert.equal(v.ok,true);assert.equal(v.sku,item.sku);});
-  test('ZIP decrypts and verifies '+item.sku,async()=>{const v=await decryptClassicxZip(item.sku);assert.equal(v.item.sku,item.sku);assert.ok(v.zip.length>3000);});
+  test('ZIP decrypts and verifies '+item.sku,{skip:!process.env.CLASSICX_VAULT_KEY?'Requires CLASSICX_VAULT_KEY (private vault integration)':false},async()=>{const v=await decryptClassicxZip(item.sku);assert.equal(v.item.sku,item.sku);assert.ok(v.zip.length>3000);});
 }
 test('missing and malformed session denied',async()=>{assert.equal((await verifyClassicxPurchase('fake',{secret})).status,400);});
 test('no secret denies',async()=>{assert.equal((await verifyClassicxPurchase(id,{secret:''})).status,503);});
