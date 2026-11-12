@@ -39,7 +39,7 @@ function install(){
 }
 async function authorize(clientId){
  if(!validId(clientId))throw Error("Enter a valid Google OAuth Web Client ID.");
- await install();
+ if(!root.google?.accounts?.oauth2){await install();throw Error("Google sign-in library is ready. Click Authorize again to open the consent popup.");}
  return new Promise((resolve,reject)=>{
   let settled=false;const done=(fn,val)=>{if(settled)return;settled=true;fn(val);};
   try{
