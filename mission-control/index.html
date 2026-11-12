@@ -130,6 +130,10 @@ a{color:inherit}button,input,textarea,select{font:inherit}button{cursor:pointer}
       <div class="field"><label for="proposal-owner">Responsible owner</label><input id="proposal-owner" maxlength="90" required></div><div class="field"><label for="proposal-due">Target due date</label><input id="proposal-due" type="date"></div>
     </div><div class="form-foot"><button class="primary" type="submit">Place in review queue</button></div></form></details>
   </div><div class="module-body"><div class="small-row"><strong>Evidence and status trail</strong><span class="micro">RECENT LOCAL EVENTS</span></div><div class="activity-list" id="activity-log"></div></div></section>
+ <section class="sectionband" id="intelligence-module"><div class="module-head"><div><div class="micro">04 / Evidence before escalation</div><h2>Intelligence Engine v7</h2><p>Twenty transparent decision summaries, actual local metrics, alternative paths, internal computation trace, and four future scenarios. No AI calls or external actions.</p></div><span class="module-count" id="cycle-count">NO CYCLE</span></div>
+ <div class="module-body"><div class="form-foot"><button class="primary" id="run-cycle" type="button">Run 20-decision cycle</button><button class="secondary" id="export-cycle" type="button" disabled>Export cycle JSON</button><label class="file-button">Compare previous cycle<input id="prior-cycle" type="file" accept=".json,application/json"></label></div>
+ <p class="micro" id="cycle-status">Not evaluated. Cycles are local and are not saved automatically.</p><div id="cycle-summary" class="activity-list"></div><div id="cycle-decisions" class="activity-list"></div><div id="cycle-futures" class="activity-list"></div>
+ </div></section>
  <section class="sectionband" id="vault-module"><div class="module-head"><div><div class="micro">04 / Your data, under your control</div><h2>Private Archive</h2><p>Working state stays in this browser. Explicit export/import or an opt-in encrypted local vault—no account required and no analytics uploads.</p></div></div>
   <div class="module-body secure"><div class="data-actions">
     <button class="secondary" id="export-json" type="button">Export private JSON</button>
@@ -151,4 +155,4 @@ a{color:inherit}button,input,textarea,select{font:inherit}button{cursor:pointer}
 </main>
 <footer class="footer"><span>APERTURE / CAUSAL LOOM · PRIVATE-FIRST MEETINGS + PROJECTS · NO AUTONOMOUS SIDE EFFECTS</span><span><a href="../">APERTURE PORTFOLIO</a> · <a href="../commercial-4d/">COMMERCIAL 4D</a> · <a href="MASTER_PROMPT.md">BUILD SPECIFICATION</a></span></footer>
 <div class="toast" id="toast" aria-live="polite" role="status"></div>
-<script src="./core.js"></script><script src="./vault.js"></script><script src="./meeting-intelligence.js"></script><script src="./calendar-bridge.js"></script><script src="./google-calendar.js"></script><script src="./app.js"></script><script src="./loom.js"></script></body></html>
+<script src="./core.js"></script><script src="./vault.js"></script><script src="./meeting-intelligence.js"></script><script src="./calendar-bridge.js"></script><script src="./google-calendar.js"></script><script src="./decision-cycle.js"></script><script src="./app.js"></script><script src="./loom.js"></script></body></html>
