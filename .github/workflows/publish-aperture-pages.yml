@@ -2,11 +2,6 @@ name: Publish APERTURE GitHub Pages
 on:
   push:
     branches: [main]
-    paths:
-      - 'love-in-action-30/**'
-      - 'pathways/**'
-      - 'one-moment/**'
-      - '.github/workflows/publish-aperture-pages.yml'
   workflow_dispatch:
 permissions:
   contents: read
@@ -23,9 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify APERTURE routes exist
+      - name: Verify public APERTURE routes
         run: |
           test -s index.html
+          test -s design/index.html
+          test -s beauty/index.html
+          test -s future/index.html
+          test -s assets/aperture-human-experience.js
           test -s love-in-action-30/index.html
           test -s pathways/index.html
           test -s one-moment/index.html
