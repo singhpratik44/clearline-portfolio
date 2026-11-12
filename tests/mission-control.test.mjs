@@ -159,6 +159,24 @@ test("Google Calendar integration is readonly, metadata-minimal, bounded and ded
  assert.doesNotMatch(source,/calendar\.events\.insert|method:"POST"|localStorage|sessionStorage|indexedDB/);
  assert.match(source,/fields:"items\(id,summary,status,start\(dateTime\)/);
 });
+test("APERTURE v7 runs 20 evidence-status decisions and records a verifiable cycle delta",()=>{
+ const ctx={globalThis:{ApertureMission:C}};
+ vm.runInNewContext(fs.readFileSync(new URL("mission-control/decision-cycle.js",root),"utf8"),ctx);
+ const E=ctx.globalThis.ApertureDecisionCycle;
+ const first=E.evaluate(demo(),null,new Date("2026-11-12T18:00:00Z"));
+ assert.equal(first.decisions.length,20);
+ assert.equal(first.delta,null);
+ assert.equal(first.alternatives.length,3);
+ assert.equal(first.futureHorizons.length,4);
+ assert.equal(first.sample,true);
+ assert.equal(first.subactions.at(-1).status,"not authorized");
+ assert.ok(first.decisions.every(d=>d.answer&&d.evidenceStatus&&d.confidence));
+ const second=E.evaluate(C.status(demo(),"t-lead","done","Owner"),first,new Date("2026-11-12T19:00:00Z"));
+ assert.equal(second.delta.done,1);
+ assert.equal(second.metrics.done,first.metrics.done+1);
+ assert.equal(E.validate(first).schema,"aperture-decision-cycle-v1");
+ assert.throws(()=>E.validate({schema:"aperture-decision-cycle-v1",decisions:[]}),/Invalid/);
+});
 test("static UI wires every referenced field and has no private user data",()=>{
  const html=fs.readFileSync(new URL("mission-control/index.html",root),"utf8");
  const app=fs.readFileSync(new URL("mission-control/app.js",root),"utf8");
@@ -179,6 +197,10 @@ test("static UI wires every referenced field and has no private user data",()=>{
  assert.match(html,/src="\.\/google-calendar\.js"/);
  assert.match(html,/id="google-connect"/);
  assert.match(html,/id="google-import"/);
+ assert.match(html,/src="\.\/decision-cycle\.js"/);
+ assert.match(html,/src="\.\/decision-ui\.js"/);
+ assert.match(html,/id="run-cycle"/);
+ assert.match(html,/id="cycle-decisions"/);
  assert.match(html,/id="meeting-form"/);
  assert.match(html,/id="proposal-form"/);
  assert.match(html,/id="dep-form"/);
