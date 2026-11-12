@@ -250,6 +250,7 @@ jobs:
           test -s _site/mission-control/core.js
           test -s _site/mission-control/app.js
           test -s _site/mission-control/loom.js
+          test -s _site/mission-control/google-calendar.js
           test -s _site/mission-control/vault.js
           test -s _site/mission-control/research.json
           test -s _site/commercial-4d/opportunities/gmail-oauth.js
@@ -449,10 +450,11 @@ jobs:
           root=os.environ['MISSION_URL']
           sha=os.environ['EXPECTED_SHA']
           files={
-            '':('name="aperture-mission-release-sha" content="'+sha+'"','id="loom"','id="meeting-form"','id="proposal-form"','src="./loom.js"','PRIVATE'),
+            '':('name="aperture-mission-release-sha" content="'+sha+'"','id="loom"','id="meeting-form"','id="proposal-form"','src="./loom.js"','id="google-connect"','src="./google-calendar.js"','PRIVATE'),
             'core.js':('ApertureMission','Dependency cycle detected','action_approved'),
             'app.js':('ApertureMissionUI','vault-save','proposal-form'),
             'loom.js':('CausalLoomView','research.json'),
+            'google-calendar.js':('ApertureGoogleCalendar','calendar.readonly','method:"GET"'),
             'vault.js':('ApertureMissionVault','AES-GCM'),
             'research.json':('ReSUM','CoPE','GADR')
           }
