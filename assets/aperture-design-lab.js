@@ -1,0 +1,39 @@
+(()=>{"use strict";
+if(document.getElementById("aperture-design-lab"))return;
+const host=document.createElement("section");host.id="aperture-design-lab";
+host.innerHTML=`<style>
+#aperture-design-lab{margin:20px auto;max-width:1380px;padding:20px;background:#162c35;color:#f1faf7;border:1px solid #53746d;border-radius:18px;font:15px/1.5 system-ui}
+#aperture-design-lab *{box-sizing:border-box}#aperture-design-lab h2{margin:0 0 8px;font-size:26px;color:#f4fff9}#aperture-design-lab p{color:#cde4dc}
+#aperture-design-lab .al-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}#aperture-design-lab .al-card{padding:14px;background:#203c45;border:1px solid #516b70;border-radius:12px}
+#aperture-design-lab label{display:block;margin:10px 0 5px;color:#eafff3;font-weight:600}#aperture-design-lab input,#aperture-design-lab select,#aperture-design-lab textarea{width:100%;padding:10px;background:#0a202a;color:white;border:1px solid #79999a;border-radius:8px;font:14px system-ui}#aperture-design-lab button{background:#b4f1cf;color:#14332a;padding:10px 14px;border:0;border-radius:9px;font-weight:750;cursor:pointer;margin:7px 0}#aperture-design-lab button:focus-visible{outline:3px solid #fff2aa}#aperture-design-lab .al-result{white-space:pre-wrap;line-height:1.6;background:#0b222b;padding:13px;border-radius:9px;margin:10px 0}#aperture-design-lab .al-small{font-size:12px;color:#c6d9d5}
+</style>
+<h2>Create → Check → Refine → Export</h2><p>Three editable concept proposals, built from your requirements using transparent on-device layout rules. No AI service, billing, personal profile, or hidden external action is involved.</p>
+<div class="al-grid">
+<div class="al-card"><label for="al-room">Space</label><select id="al-room"><option>Living room</option><option>Bedroom</option><option>Workspace</option><option>Community room</option></select><label for="al-purpose">What matters most?</label><select id="al-purpose"><option value="calm">Calm and comfort</option><option value="social">Connection and gathering</option><option value="access">Clear movement paths</option><option value="focus">Focus and study</option></select><label for="al-width">Width in feet</label><input type="number" min="8" max="60" value="20" id="al-width"><label for="al-depth">Depth in feet</label><input type="number" min="8" max="60" value="16" id="al-depth"><button id="al-generate">Create 3 proposals — free</button></div>
+<div class="al-card"><h3>Design proposals</h3><div id="al-options" aria-live="polite">Choose your priorities to begin.</div><button id="al-export" disabled>Export selected JSON — free</button><button id="al-brief" disabled>Save printable brief — free</button></div>
+<div class="al-card"><h3>Design checkpoints</h3><div id="al-check">No design generated yet.</div><p class="al-small">Geometry: rectangular furniture footprints; 0.5-ft boundary margin; 1-ft separation between items. This is not an egress, structural, accessibility, or building-code review.</p><p>Values built into the workflow: dignity, care, truthfulness, stewardship, constructive optimism and service.</p></div></div>
+<h3>Optional upgrades — launch roadmap</h3><div class="al-grid">
+<div class="al-card"><b>Free creation</b><p>3 concepts, geometry verification, editing in 2D/3D studio, JSON export.</p></div>
+<div class="al-card"><b>Design Pack • proposed $9</b><p>Styled moodboard, printable room brief, shopping shortlist and revisions. Not yet for sale.</p></div>
+<div class="al-card"><b>Premium Visuals • proposed $29</b><p>Higher-quality 3D assets, materials and render exports after completion and testing. Not yet for sale.</p></div>
+<div class="al-card"><b>Collaborative Review • proposed $79</b><p>Human review and recommendations, subject to availability and written scope. Not yet for sale.</p></div></div><p class="al-small">No payment buttons are enabled. Customer billing will require finished deliverables, verified checkout and secure fulfillment. Concept tool only; never use as construction-ready plans.</p>`;
+const anchor=document.querySelector(".workspace");if(anchor)anchor.insertAdjacentElement("afterend",host);else(document.querySelector("main")||document.body).append(host);
+const $=id=>host.querySelector("#"+id);let proposals=[],selected=-1;
+const furniture={sofa:[6,3],bed:[6,6.5],desk:[4,2],table:[4,3],chair:[2,2],storage:[4,1.6],plant:[1.5,1.5]};
+const round=x=>Math.round(x*2)/2;
+function valid(o,existing,w,d){let [a,b]=furniture[o.type];if(o.r%2)[a,b]=[b,a];if(Math.abs(o.x)+a/2>w/2-.5||Math.abs(o.z)+b/2>d/2-.5)return false;
+return existing.every(p=>{let [c,e]=furniture[p.type];if(p.r%2)[c,e]=[e,c];return Math.abs(p.x-o.x)>=(a+c)/2+1||Math.abs(p.z-o.z)>=(b+e)/2+1})}
+function create(w,d,mode,purpose){let kinds=mode==="Bedroom"?["bed","storage","chair","plant"]:mode==="Workspace"?["desk","chair","storage","plant"]:mode==="Community room"?["table","chair","sofa","plant"]:["sofa","table","chair","plant"];if(purpose==="focus"&&mode!=="Workspace")kinds=["desk","chair","storage","plant"];if(purpose==="social")kinds=["sofa","table","chair","plant"];
+const variants=[["Edge-focused",-.35,-.25],["Centered",0,0],["Garden-side",.3,.25]];
+return variants.map(([name,shiftX,shiftZ],index)=>{const o=[];for(const type of kinds){let [a,b]=furniture[type],placed=false;
+let positions=[];for(let z=-d/2+b/2+.5;z<=d/2-b/2-.5;z+=1)for(let x=-w/2+a/2+.5;x<=w/2-a/2-.5;x+=1)positions.push({x:round(x),z:round(z)});
+positions.sort((p,q)=>{let sx=shiftX*w/2,sz=shiftZ*d/2;let score=r=>Math.hypot(r.x-sx,r.z-sz)+(index===1?Math.abs(r.x)*.12:0);return score(p)-score(q)});
+for(const p of positions){const candidate={id:"proposal-"+index+"-"+type,type,x:p.x,z:p.z,r:0};if(valid(candidate,o,w,d)){o.push(candidate);placed=true;break}}
+if(!placed)continue}return {name,room:{w,d},objects:o,quality:o.length+"/"+kinds.length+" non-overlapping items placed",purpose,mode,limitation:"Illustrative geometry only. No verified accessibility, structure or cost estimation."}})}
+function display(){const options=$("al-options");options.replaceChildren();proposals.forEach((p,i)=>{const div=document.createElement("div");div.style.margin="8px 0";const b=document.createElement("button");b.textContent=(selected===i?"✓ ":"")+p.name+" — "+p.quality;b.onclick=()=>{selected=i;display()};div.append(b);options.append(div)});
+const p=proposals[selected];$("al-export").disabled=$("al-brief").disabled=!p;$("al-check").textContent=p?"Selected: "+p.name+". "+p.quality+". Objects respect simplified footprint spacing and boundaries. Missing items, if any, are excluded rather than overlapping.": "Select a layout."}
+$("al-generate").onclick=()=>{const w=+$("al-width").value,d=+$("al-depth").value;if(!Number.isFinite(w)||!Number.isFinite(d)||w<8||d<8||w>60||d>60){$("al-check").textContent="Please enter room dimensions between 8 and 60 feet.";return}proposals=create(w,d,$("al-room").value,$("al-purpose").value);selected=0;display()};
+function download(name,type,value){let u=URL.createObjectURL(new Blob([value],{type})),a=document.createElement("a");a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+$("al-export").onclick=()=>{if(selected<0)return;download("aperture-layout-proposal.json","application/json",JSON.stringify({format:"aperture-design-v2",...proposals[selected],finish:"sand",studio:"room",budget:0},null,2))};
+$("al-brief").onclick=()=>{if(selected<0)return;const p=proposals[selected];download("aperture-design-brief.txt","text/plain","APERTURE DESIGN CONCEPT\n"+p.mode+" — "+p.name+"\nPurpose: "+p.purpose+"\nRoom: "+p.room.w+" × "+p.room.d+" feet\n"+p.quality+"\n\nObjects:\n"+p.objects.map(o=>o.type+": "+o.x+", "+o.z+" ft").join("\n")+"\n\n"+p.limitation+"\nFocus on dignity, comfort, stewardship and care.")};
+})();
