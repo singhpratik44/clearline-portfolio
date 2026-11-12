@@ -756,6 +756,278 @@
         "No form submission or new email sent; channel eligibility and site access need confirmation",
         "Latest browser CI has not completed"
       ]
+    },
+    {
+      "cycle_id": "002-verification-followup",
+      "date": "2026-11-12",
+      "status": "browser-ci-passed-submission-blocked",
+      "baseline": {
+        "browser_ci_run": 43249324182,
+        "browser_ci_result": "success",
+        "pages_deploy_run": 43249324496,
+        "pages_deploy_result": "success",
+        "latest_branch_ci": "in_progress",
+        "public_marketing_page": "not independently accessible",
+        "listing_submission": "not submitted"
+      },
+      "decisions": [
+        {
+          "id": "D01",
+          "answer": "First full-price purchase remains primary outcome",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D02",
+          "answer": "Cycle 001 CI and Pages passed at 47b2c166",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D03",
+          "answer": "Live browser inspection unavailable; new local Playwright gate added",
+          "status": "review",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D04",
+          "answer": "Avoid paid directories and unqualified outreach",
+          "status": "evaluated",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D05",
+          "answer": "Prioritize free-to-paid mobile journey and editor clarity",
+          "status": "implemented",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D06",
+          "answer": "Reuse existing storefront and marketing pages",
+          "status": "implemented",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D07",
+          "answer": "Browser job succeeded on run 43249324182",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "https://github.com/singhpratik44/clearline-portfolio/actions/runs/43249324182"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D08",
+          "answer": "Reuse existing CI Chromium setup",
+          "status": "evaluated",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D09",
+          "answer": "Paid checkout-to-course unlock remains unverified",
+          "status": "blocked",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G2",
+          "subactions": []
+        },
+        {
+          "id": "D10",
+          "answer": "No checkout initiated; bearer fragments not logged",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G2",
+          "subactions": []
+        },
+        {
+          "id": "D11",
+          "answer": "Free starter pathway included in browser test",
+          "status": "implemented",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D12",
+          "answer": "390px and 1280px local Chromium browser test succeeded on GitHub Actions",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "https://github.com/singhpratik44/clearline-portfolio/actions/runs/43249324182"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D13",
+          "answer": "No verified new paid customer in this cycle",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D14",
+          "answer": "Exclude $1 review fee directory",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D15",
+          "answer": "The Homeschool Source listing is eligible in principle, but JavaScript form submission requires a browser action; no zero-cost writable browser available under no-spend constraint",
+          "status": "blocked",
+          "confidence": null,
+          "evidence": [
+            "https://thehomeschoolsource.com/submit"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D16",
+          "answer": "Avoid unsuitable Freedom Homeschooling listing",
+          "status": "evaluated",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D17",
+          "answer": "Cycle 001 CI and Pages success confirmed",
+          "status": "verified",
+          "confidence": null,
+          "evidence": [
+            "GitHub Actions runs 43249029918 and 43249028375"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D18",
+          "answer": "Await latest CI browser test results",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D19",
+          "answer": "Seek qualified opt-in parent traffic after QA",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        },
+        {
+          "id": "D20",
+          "answer": "Verify latest browser CI and submit suitable free listing",
+          "status": "pending",
+          "confidence": null,
+          "evidence": [
+            "Cycle 002 repo and channel evidence"
+          ],
+          "approval_gate": "G1",
+          "subactions": []
+        }
+      ],
+      "completed_subactions": [
+        {
+          "action": "Check browser CI jobs",
+          "result": "representation, browser, site-integrity all success on run 43249324182"
+        },
+        {
+          "action": "Check Pages deployment",
+          "result": "Deploy Clearline Pages success on run 43249324496"
+        },
+        {
+          "action": "Inspect Homeschool Source official submission page",
+          "result": "Curriculum category offered; editorial review 2–5 business days; neutral accurate copy required"
+        },
+        {
+          "action": "Inspect public marketing page via web",
+          "result": "Web fetch failed; no independent live render claim"
+        },
+        {
+          "action": "Assess form submission within zero-spend tools",
+          "result": "No writable browser without potentially billed automation; did not submit"
+        },
+        {
+          "action": "Check current branch run",
+          "result": "Other concurrent commits present; latest CI still in progress"
+        }
+      ],
+      "next_actions": [
+        "Submit prepared Curriculum listing via a no-cost interactive browser session with exact neutral copy",
+        "Verify listing confirmation receipt and update this ledger",
+        "Check latest branch CI and Pages when completed"
+      ],
+      "limitations": [
+        "No submission performed; cannot claim editorial acceptance",
+        "Browser CI tests repository-served pages, not independently rendered live production",
+        "No spending or real purchases"
+      ]
     }
   ]
 }
