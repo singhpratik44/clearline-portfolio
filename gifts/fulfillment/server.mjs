@@ -2,6 +2,7 @@ import {createServer} from 'node:http';
 import redeem from './api/redeem.mjs';
 import {buildQuietPdf,verifyQuietPurchase} from './quiet-journal.mjs';
 import {handleClassicx,handleClassicxWebhook} from './classicx.mjs';
+import {verifyPathwayPurchase,buildPathwayPdf} from './love-pathway.mjs';
 
 const port=Number.parseInt(process.env.PORT||'3000',10);
 if(!Number.isInteger(port)||port<1||port>65535)throw new Error('PORT must be a valid port');
@@ -43,6 +44,8 @@ async function smokeTestPrivateRoutes(){
     {name:'missing_session_denied',path:'/api/redeem',want:400},
     {name:'public_book_denied',path:'/api/redeem?book=basketball-iq',want:400},
     {name:'unsupported_route_denied',path:'/private-content/basketball-iq.html',want:404},
+    {name:'pathway_missing_payment_denied',path:'/api/love-pathway',want:400},
+    {name:'pathway_invalid_payment_denied',path:'/api/love-pathway?session_id=invalid',want:400},
     {name:'quiet_missing_payment_denied',path:'/api/quiet-journal',want:400},
     {name:'quiet_invalid_payment_denied',path:'/api/quiet-journal?session_id=invalid',want:400},
     {name:'classicx_missing_payment_denied',path:'/classicx/redeem',want:400},
@@ -84,6 +87,23 @@ createServer(async(req,res)=>{
     if(url.pathname==='/classicx/redeem'||url.pathname==='/classicx/download'){
       if(url.search.length>1024)return send(res,414,'Request too long');
       return await handleClassicx(req,res,url);
+    }
+    if(url.pathname==='/api/love-pathway') {
+      res.setHeader('Cache-Control','private, no-store');
+      res.setHeader('Referrer-Policy','no-referrer');
+      res.setHeader('X-Content-Type-Options','nosniff');
+      res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');
+      res.setHeader('Content-Security-Policy',"default-src 'none'; frame-ancestors 'none'");
+      if(req.method!=='GET')return send(res,405,'Method not allowed');
+      if(url.search.length>1024)return send(res,414,'Request too long');
+      const check=await verifyPathwayPurchase(url.searchParams.get('session_id'));
+      if(!check.ok)return send(res,check.status,'Download unavailable. Verify your Stripe receipt or contact support.');
+      const pdf=buildPathwayPdf();
+      res.statusCode=200;
+      res.setHeader('Content-Type','application/pdf');
+      res.setHeader('Content-Disposition','attachment; filename="APERTURE-30-Days-Love-in-Action.pdf"');
+      res.setHeader('Content-Length',String(pdf.length));
+      return res.end(pdf);
     }
     if(url.pathname==='/api/quiet-journal') {
       res.setHeader('Cache-Control','private, no-store, max-age=0');
