@@ -135,3 +135,34 @@ test("Organic acquisition funnel connects free arcade, lessons, and paid Roblox 
  assert.match(landing,/Minecraft Education with Code Builder/);
  for(const page of [arcade,landing])assert.doesNotMatch(page,/utm_[^"\s]*#(?:roblox|minecraft|indie)=/);
 });
+
+
+test("Every course checkout maps to a single advertised price and intended pathway",()=>{
+ const courses=[
+  ["roblox",19,"14A5kFboG8wc7fSgIx6kg00"],
+  ["minecraft",29,"3cIbJ3dwO27O6bObod6kg01"],
+  ["godot",39,"dRmeVf0K2aEk0RufEt6kg02"],
+  ["bundle",59,"cNi8wR78q27OcAc9g56kg03"]
+ ];
+ for(const [slug,price,token] of courses){
+  const page=read("code-the-game/"+slug+"/index.html");
+  assert.ok(page.includes("$"+price),slug+" advertised price");
+  assert.ok(page.includes("https://buy.stripe.com/"+token),slug+" payment link");
+  assert.ok(store.includes("https://buy.stripe.com/"+token),slug+" storefront payment link");
+ }
+});
+test("Paid reader is not indexable and requires URL-fragment key material",()=>{
+ assert.match(reader,/<meta name="robots" content="noindex,nofollow">/);
+ assert.match(reader,/location\.hash|window\.location\.hash/);
+ assert.match(reader,/crypto\.subtle\.decrypt/);
+ for(const data of packs.map(x=>x.data))assert.doesNotMatch(reader,new RegExp(data.ciphertext.slice(0,28)));
+});
+test("Mobile storefront and acquisition pages have responsive viewport and navigation",()=>{
+ const landing=read("code-the-game/marketing/index.html");
+ for(const page of [store,landing,reader]){
+  assert.match(page,/<meta name="viewport"/);
+  assert.match(page,/@media\s*\(max-width:/);
+ }
+ assert.match(store,/href="playground\//);
+ assert.match(landing,/href="\.\.\/help\//);
+});
