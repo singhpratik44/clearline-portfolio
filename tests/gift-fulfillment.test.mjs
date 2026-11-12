@@ -120,3 +120,23 @@ test('Quiet Practice denies missing, forged and unverifiable session IDs',async(
   const networkDown=await verifyQuietPurchase(journalSession,{secret,fetchFn:async()=>{throw new Error('down')}});
   assert.equal(networkDown.status,502);
 });
+
+
+import {verifyPathwayPurchase,buildPathwayPdf,PATHWAY_DAYS} from '../gifts/fulfillment/love-pathway.mjs';
+test('30-day pathway renders a valid 32-page PDF',()=>{
+ assert.equal(PATHWAY_DAYS.length,30);
+ const pdf=buildPathwayPdf().toString('ascii');
+ assert.ok(pdf.startsWith('%PDF-1.4'));
+ assert.equal((pdf.match(/\/Type \/Page \/Parent /g)||[]).length,32);
+ assert.ok(pdf.includes('Day 30: Continue'));
+});
+test('pathway denies unverified or wrong payments',async()=>{
+ const id='cs_live_'+'a'.repeat(48);
+ const session={status:'complete',payment_status:'paid',livemode:true,mode:'payment',currency:'usd',amount_total:1500};
+ const line={data:[{price:{id:'price_1Ub4YPRuy3ohymOHysXuG74X',product:'prod_VcJAptNHEsLgva'},quantity:1}],has_more:false};
+ const fetchFn=async url=>({ok:true,status:200,json:async()=>url.includes('line_items')?line:session});
+ assert.equal((await verifyPathwayPurchase(id,{secret,fetchFn})).ok,true);
+ assert.equal((await verifyPathwayPurchase(id,{secret,fetchFn:async url=>({ok:true,status:200,json:async()=>url.includes('line_items')?line:{...session,payment_status:'unpaid'}})})).status,403);
+ assert.equal((await verifyPathwayPurchase(id,{secret,fetchFn:async url=>({ok:true,status:200,json:async()=>url.includes('line_items')?{...line,data:[{price:{id:'wrong',product:'prod_VcJAptNHEsLgva'},quantity:1}]}:session})})).status,403);
+ assert.equal((await verifyPathwayPurchase('invalid',{secret,fetchFn})).status,400);
+});
