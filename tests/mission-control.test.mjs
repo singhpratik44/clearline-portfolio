@@ -108,6 +108,21 @@ test("research contains ten recent dated primary references with honest source s
  assert.equal(r.discovery_sources.length,9);
  assert.ok(r.discovery_sources.some(x=>x.name==="OpenReview"&&x.status.includes("not ingested")));
 });
+test("meeting intelligence is deterministic, evidence-scoped and flags real DAG blockers",()=>{
+ const ctx={globalThis:{ApertureMission:C}};
+ vm.runInNewContext(fs.readFileSync(new URL("mission-control/meeting-intelligence.js",root),"utf8"),ctx);
+ const I=ctx.globalThis.ApertureMeetingIntelligence;
+ const a=I.prepare(demo(),"m-orbit",new Date("2026-11-20T12:00:00Z"));
+ const b=I.prepare(demo(),"m-orbit",new Date("2026-11-20T12:00:00Z"));
+ assert.equal(a.markdown,b.markdown);
+ assert.ok(a.blocked.includes("t-contract"));
+ assert.ok(a.overdue.includes("t-permission"));
+ assert.ok(a.pending.includes("q-permissions"));
+ assert.match(a.markdown,/SYNTHETIC DEMONSTRATION/);
+ assert.match(a.markdown,/What should explicitly remain unapproved/);
+ assert.match(a.markdown,/No invitation, email, or task was sent/);
+ assert.throws(()=>I.prepare(demo(),"not-a-meeting"),/Unknown meeting/);
+});
 test("static UI wires every referenced field and has no private user data",()=>{
  const html=fs.readFileSync(new URL("mission-control/index.html",root),"utf8");
  const app=fs.readFileSync(new URL("mission-control/app.js",root),"utf8");
@@ -120,6 +135,8 @@ test("static UI wires every referenced field and has no private user data",()=>{
  }
  assert.match(html,/CAUSAL LOOM/);
  assert.match(html,/src="\.\/loom\.js"/);
+ assert.match(html,/src="\.\/meeting-intelligence\.js"/);
+ assert.match(html,/id="prep-meeting"/);
  assert.match(html,/id="meeting-form"/);
  assert.match(html,/id="proposal-form"/);
  assert.match(html,/id="dep-form"/);
