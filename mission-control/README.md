@@ -29,6 +29,19 @@ A meeting note is a **user-entered source**, not an authenticated transcript. A 
 
 This personal pilot is not a production collaboration SaaS: it has no shared server, per-organization identity, Google Calendar/Meet or Zoom authorization, recording/transcription, concurrent editing, push sync, server-signed audit trail, external actions, or continuous research ingestion.
 
+## Google Calendar read-only connection (explicit opt-in)
+
+The live workspace now includes a **Connect Google Calendar** section. This is a browser-only OAuth pilot; it does **not** inherit ChatGPT's connected Calendar permissions.
+
+1. In Google Cloud Console create/select a project, enable **Google Calendar API**, configure the OAuth consent screen and authorized test users (if in testing mode).
+2. Create an **OAuth client ID → Web application**. Set **Authorized JavaScript origins** to `https://singhpratik44.github.io` (origin only; no repository path). The browser token flow does not require a redirect URI.
+3. Open the live Causal Loom and paste the public **Web Client ID**. Click **Authorize Google Calendar**. On first use, the first click loads Google's identity library; click again to open the consent popup. Google may require verification for public distribution.
+4. Consent to **Google Calendar read-only**. Click **Preview next 30 days**. The app fetches a bounded metadata-only sample from the primary calendar: event ID, title, start time, status and recurrence markers. No descriptions, attendee lists, email addresses or attachments are requested.
+5. **Clear synthetic demo**, create a private project, choose that project, inspect the event preview and explicitly check the import approval box. Click **Import reviewed meetings locally**. The workspace creates local meeting portals only; it does not modify your Google Calendar.
+6. Save the encrypted local vault if you want to retain imported meetings after refreshing. **Disconnect** revokes the temporary token when Google supports revocation and discards local credentials and the preview. No refresh token or Google access token is saved.
+
+Limitations: primary calendar only, next 30 days, maximum 100 entries; no pagination, recurring series expansion, all-day events or calendar write permissions. A truncated result disables import to avoid mistaken completeness. Deduplication uses normalized title + exact start time; it does not yet persist Google provider event IDs in the mission schema. This is a personal local-first pilot, not a multi-user calendar backend. The app never initiates a sync without the user's click. Browser extensions or scripts on the same origin may affect confidentiality; use a dedicated isolated origin before commercial production.
+
 ## Research
 
 `research.json` contains ten individually dated recent sources. Sources such as arXiv (abstracts, dates, versions), OpenReview (submissions/reviews), NeurIPS and ICML official lists, AutoML, LangChain Blog, Hugging Face Papers, Papers with Code and MLPapersWeekly form a discovery plan. Merely listing them is **not** a claim that each feed or review status has been automatically checked.
