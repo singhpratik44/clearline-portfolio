@@ -16,6 +16,13 @@ try{
   await page.goto(BASE,{waitUntil:"domcontentloaded"});
   await page.waitForFunction(()=>document.querySelectorAll("#papers .paper").length===10,{timeout:15000});
   assert.equal(await page.locator("#stat-meetings").innerText(),"4");
+  await page.locator("#run-cycle").click();
+  assert.equal(await page.locator("#cycle-decisions .logitem").count(),20);
+  assert.equal(await page.locator("#cycle-futures .logitem").count(),4);
+  assert.match(await page.locator("#cycle-summary").innerText(),/SYNTHETIC DEMO/);
+  const [cycleDownload]=await Promise.all([page.waitForEvent("download"),page.locator("#export-cycle").click()]);
+  assert.match(cycleDownload.suggestedFilename(),/aperture-local-.*\.json$/);
+
   assert.equal(await page.locator("#stat-proposals").innerText(),"1");
   assert.ok(await page.locator("#loom").isVisible());
   assert.equal(await page.locator("#meeting-list .item").count(),4);
