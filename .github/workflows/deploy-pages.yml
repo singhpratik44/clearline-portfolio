@@ -23,10 +23,19 @@ jobs:
           node-version: '22'
       - name: Compile interactive franchise engine
         run: |
-          npm install --no-save --no-package-lock react@18 react-dom@18 esbuild@0.25
+          npm install --no-save --no-package-lock react@18 react-dom@18 esbuild@0.25 playwright-core@1.55.0
           npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
       - name: Run regression suite
         run: node --test tests/momentum-wellness.test.mjs tests/sports-os.test.mjs tests/mission-control.test.mjs tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
+      - name: Verify APERTURE v5 mobile and desktop browser layout
+        run: node --test tests/aperture-home-mobile.test.mjs
+      - name: Upload APERTURE v5 browser QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aperture-v5-browser-qa
+          path: _artifacts/aperture-v5-*.png
+          if-no-files-found: warn
       - name: Verify APERTURE Revenue Recovery calculations and privacy gates
         run: node --test tests/revenue-recovery.test.mjs tests/revenue-commercial.test.mjs
       - name: Verify CODE THE GAME courses, delivery and public arcade
@@ -118,6 +127,18 @@ jobs:
           assert html.count('</head>')==1
           path.write_text(html.replace('</head>',marker+'</head>',1))
           assert marker in path.read_text()
+          PY
+      - name: Stamp APERTURE v5 homepage release
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          path=Path('_site/index.html')
+          html=path.read_text(encoding='utf-8')
+          assert html.count('</head>')==1 and 'aperture-home-release-sha' not in html
+          marker='<meta name="aperture-home-release-sha" content="'+os.environ['GITHUB_SHA']+'">'
+          path.write_text(html.replace('</head>',marker+'</head>',1),encoding='utf-8')
+          assert 'assets/aperture-v5.css' in path.read_text(encoding='utf-8')
           PY
       - name: Validate packaged site
         run: |
@@ -274,12 +295,42 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event_name == 'schedule' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_retry_2.outputs.page_url || steps.deployment_retry_3.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
       - id: deployment
+        name: Deploy Pages (first attempt)
         uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Wait for overlapping Pages deployment
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 50
+      - id: deployment_retry_2
+        name: Retry Pages deployment
+        if: steps.deployment.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Wait before final Pages attempt
+        if: steps.deployment.outcome == 'failure' && steps.deployment_retry_2.outcome == 'failure'
+        run: sleep 90
+      - id: deployment_retry_3
+        name: Final Pages deployment attempt
+        if: steps.deployment.outcome == 'failure' && steps.deployment_retry_2.outcome == 'failure'
+        uses: actions/deploy-pages@v4
+        continue-on-error: true
+      - name: Require successful Pages deployment
+        if: always()
+        env:
+          A: ${{ steps.deployment.outcome }}
+          B: ${{ steps.deployment_retry_2.outcome }}
+          C: ${{ steps.deployment_retry_3.outcome }}
+        run: |
+          if [[ "$A" != "success" && "$B" != "success" && "$C" != "success" ]]; then
+            echo "All Pages deployment attempts failed"
+            exit 1
+          fi
+          echo "Pages deployment accepted"
       - name: Verify published APERTURE Sports Career OS
         run: |
           python3 - <<'PY'
@@ -414,5 +465,31 @@ jobs:
               except Exception as exc:
                   print('Publish verification attempt',attempt+1,repr(exc))
                   if attempt==11:raise
+                  time.sleep(12)
+          PY
+
+      - name: Verify live APERTURE v5 homepage exact release SHA
+        env:
+          EXPECTED_SHA: ${{ github.sha }}
+        run: |
+          python3 - <<'PY'
+          import os,time,urllib.request
+          base='https://singhpratik44.github.io/clearline-portfolio/'
+          sha=os.environ['EXPECTED_SHA']
+          expected=('name="aperture-home-release-sha" content="'+sha+'"','id="missionTitle"','id="workbench"','id="project-grid"','assets/aperture-v5.css')
+          for attempt in range(16):
+              try:
+                  req=urllib.request.Request(base,headers={'User-Agent':'APERTURE-v5-Release-Check/1.0','Cache-Control':'no-cache'})
+                  with urllib.request.urlopen(req,timeout=15) as response:
+                      body=response.read().decode('utf-8',errors='replace')
+                      assert response.status==200 and all(x in body for x in expected),'Homepage release not current'
+                  with urllib.request.urlopen(base+'assets/aperture-v5.css',timeout=15) as response:
+                      css=response.read().decode('utf-8',errors='replace')
+                      assert response.status==200 and '.mission-intro' in css
+                  print('LIVE APERTURE v5 VERIFIED',sha,base)
+                  break
+              except Exception as exc:
+                  print('Verification attempt',attempt+1,repr(exc))
+                  if attempt==15:raise
                   time.sleep(12)
           PY
