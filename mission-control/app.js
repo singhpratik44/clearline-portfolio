@@ -74,7 +74,7 @@ function meetingList(){
  for(const m of ms)parent.append(item("meeting",m,m.title,(pby(m.projectId)?.name||"")+" / "+dateTime(m.startsAt)));
  const active=selected?.kind==="meeting"?selectedRow():null;
  $("meeting-editor").disabled=!active;$("save-notes").disabled=!active;
- $("download-brief").disabled=!active;$("download-ics").disabled=!active;
+ $("download-brief").disabled=!active;$("download-ics").disabled=!active;$("prep-meeting").disabled=!active;
  $("meeting-editor").value=active?.notes||"";
 }
 function taskList(){
@@ -221,6 +221,15 @@ function forms(){
  $("download-brief").addEventListener("click",()=>{
   const m=selected?.kind==="meeting"?selectedRow():null;if(!m){toast("Select a meeting first.",true);return;}
   download("aperture-"+m.id+"-brief.txt",C.meetingBrief(state,m.id));toast("Private meeting brief downloaded.");
+ });
+ $("prep-meeting").addEventListener("click",()=>{
+  const m=selected?.kind==="meeting"?selectedRow():null;
+  if(!m){toast("Select a meeting to prepare.",true);return;}
+  try{
+   const report=root.ApertureMeetingIntelligence.prepare(state,m.id);
+   download("aperture-"+m.id+"-meeting-intelligence.md",report.markdown,"text/markdown");
+   toast("Private, source-aware meeting preparation generated locally. No external service contacted.");
+  }catch(err){toast(err.message||String(err),true);}
  });
  $("download-ics").addEventListener("click",()=>{
   const m=selected?.kind==="meeting"?selectedRow():null;if(!m){toast("Select a meeting first.",true);return;}
