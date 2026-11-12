@@ -272,6 +272,7 @@ function interactions(){
  });
  $("calendar-commit").addEventListener("click",()=>{
   const projectId=$("calendar-project").value;
+  if(state.sample){toast("Clear the synthetic demo and create a private project before importing real calendar events.",true);return;}
   if(!$("calendar-confirm").checked){toast("Review and confirm the calendar preview first.",true);return;}
   if(!state.projects.some(p=>p.id===projectId)){toast("Choose a valid project.",true);return;}
   const eligible=root.ApertureCalendarBridge.preview(calendarDraft,state.meetings).filter(e=>!e.duplicate);
