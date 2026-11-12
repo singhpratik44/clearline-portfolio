@@ -86,4 +86,4 @@ $('resetCamera').onclick=()=>{camera.position.set(21,23,25);controls.target.set(
 $('top').onclick=()=>{camera.position.set(.01,35,.01);controls.target.set(0,0,0);controls.update()};
 $('orbit').onclick=()=>{$('resetCamera').click();tell('Orbit enabled: drag empty space to rotate view.')};
 try{init()}catch(error){$('fallback').style.display='flex';tell('3D initialization failed: '+error.message,true)}
-</script></body></html>
+</script><script defer src="../assets/aperture-human-experience.js"></script></body></html>
