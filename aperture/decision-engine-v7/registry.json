@@ -1,0 +1,219 @@
+{
+  "schema": "aperture-decision-engine-v7/1",
+  "updated_on": "2026-11-12",
+  "source": "Repository tree and canonical APERTURE documentation; status requires project-specific verification",
+  "projects": [
+    {
+      "id": "code-the-game",
+      "path": "code-the-game/",
+      "domain": "commerce",
+      "measure": "Stripe price/delivery, conversion, real paid orders",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/code-the-game.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "career-os",
+      "path": "career-os/",
+      "domain": "career",
+      "measure": "verified requisitions, job-specific prototypes, approved applications",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/career-os.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "basketball-sports",
+      "path": "sports-os/",
+      "domain": "sports",
+      "measure": "coach workflow, partner validation, participant safeguards",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/basketball-sports.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "learning-coding",
+      "path": "learning/",
+      "domain": "education",
+      "measure": "lesson quality, prerequisites, safeguarding, revenue",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/learning-coding.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "partnerships",
+      "path": "partnerships/",
+      "domain": "commercial",
+      "measure": "written approvals, scopes, consent, pilot evidence",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/partnerships.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "commercial-operations",
+      "path": "commercial/",
+      "domain": "commercial",
+      "measure": "real prospect needs, verified ROI, scoped offers",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/commercial-operations.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "civilization-research",
+      "path": "research/",
+      "domain": "research",
+      "measure": "reproducibility, citations, benchmarks, scientific limits",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/civilization-research.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "decision-universe",
+      "path": "interactive-decision-universe.html",
+      "domain": "governance",
+      "measure": "reversibility, replay, provenance, simulation disclaimers",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/decision-universe.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "mission-operations",
+      "path": "mission-operations.html",
+      "domain": "mission",
+      "measure": "dependency gates, simulation vs reality, permissions",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/mission-operations.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "quiet-journey",
+      "path": "prayer/",
+      "domain": "experience",
+      "measure": "privacy, reflection access, nonclinical framing",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/quiet-journey.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "wellbeing",
+      "path": "wellbeing/",
+      "domain": "experience",
+      "measure": "wellbeing safety, accessible experience, consent",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/wellbeing.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "gifts-classicx",
+      "path": "gifts/",
+      "domain": "commerce",
+      "measure": "Stripe entitlement, private vault, fulfillment",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/gifts-classicx.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    },
+    {
+      "id": "unified-command",
+      "path": "aperture-unified-command.html",
+      "domain": "platform",
+      "measure": "shared navigation, evidence, mobile experience",
+      "status": "inventoried-not-audited",
+      "ledger": "aperture/decision-engine-v7/ledgers/unified-command.json",
+      "owner": "human",
+      "approval_policy": "See POLICY.md"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D01",
+      "question": "Objective and beneficiary"
+    },
+    {
+      "id": "D02",
+      "question": "Verified baseline"
+    },
+    {
+      "id": "D03",
+      "question": "Current constraint"
+    },
+    {
+      "id": "D04",
+      "question": "Missing evidence"
+    },
+    {
+      "id": "D05",
+      "question": "Highest leverage"
+    },
+    {
+      "id": "D06",
+      "question": "Unnecessary complexity"
+    },
+    {
+      "id": "D07",
+      "question": "Safe immediate action"
+    },
+    {
+      "id": "D08",
+      "question": "Automation candidate"
+    },
+    {
+      "id": "D09",
+      "question": "Security and privacy"
+    },
+    {
+      "id": "D10",
+      "question": "End-to-end user experience"
+    },
+    {
+      "id": "D11",
+      "question": "Accessibility and mobile"
+    },
+    {
+      "id": "D12",
+      "question": "Quality and regression"
+    },
+    {
+      "id": "D13",
+      "question": "Revenue or mission outcome"
+    },
+    {
+      "id": "D14",
+      "question": "Partnership dependencies"
+    },
+    {
+      "id": "D15",
+      "question": "Reuse across projects"
+    },
+    {
+      "id": "D16",
+      "question": "Scaling constraints"
+    },
+    {
+      "id": "D17",
+      "question": "Next 7 days"
+    },
+    {
+      "id": "D18",
+      "question": "Next 90 days"
+    },
+    {
+      "id": "D19",
+      "question": "One-year disruption or opportunity"
+    },
+    {
+      "id": "D20",
+      "question": "Learning and next best action"
+    }
+  ]
+}
