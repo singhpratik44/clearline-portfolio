@@ -123,6 +123,20 @@ test("meeting intelligence is deterministic, evidence-scoped and flags real DAG 
  assert.match(a.markdown,/No invitation, email, or task was sent/);
  assert.throws(()=>I.prepare(demo(),"not-a-meeting"),/Unknown meeting/);
 });
+test("private calendar bridge parses UTC events, unfolds notes, excludes unsafe recurrences and deduplicates",()=>{
+ const ctx={globalThis:{}};
+ vm.runInNewContext(fs.readFileSync(new URL("mission-control/calendar-bridge.js",root),"utf8"),ctx);
+ const B=ctx.globalThis.ApertureCalendarBridge;
+ const ics=["BEGIN:VCALENDAR","VERSION:2.0","BEGIN:VEVENT","UID:abc","SUMMARY:Partner scope review","DTSTART:20261113T210000Z","DESCRIPTION:First line\\nSecond line","END:VEVENT","BEGIN:VEVENT","SUMMARY:Weekly recurrence","DTSTART:20261114T210000Z","RRULE:FREQ=WEEKLY","END:VEVENT","BEGIN:VEVENT","SUMMARY:Unsupported timezone","DTSTART;TZID=America/Los_Angeles:20261115T090000","END:VEVENT","END:VCALENDAR"].join("\r\n");
+ const parsed=B.parse(ics);
+ assert.equal(parsed.seen,3);assert.equal(parsed.skipped,2);
+ assert.equal(parsed.events.length,1);
+ assert.equal(parsed.events[0].startsAt,"2026-11-13T21:00:00.000Z");
+ assert.match(parsed.events[0].agenda,/Second line/);
+ assert.equal(B.preview(parsed.events,parsed.events)[0].duplicate,true);
+ assert.equal(B.preview([...parsed.events,...parsed.events],[])[1].duplicate,true);
+ assert.throws(()=>B.parse("bad"),/Not an iCalendar/);
+});
 test("static UI wires every referenced field and has no private user data",()=>{
  const html=fs.readFileSync(new URL("mission-control/index.html",root),"utf8");
  const app=fs.readFileSync(new URL("mission-control/app.js",root),"utf8");
@@ -137,6 +151,9 @@ test("static UI wires every referenced field and has no private user data",()=>{
  assert.match(html,/src="\.\/loom\.js"/);
  assert.match(html,/src="\.\/meeting-intelligence\.js"/);
  assert.match(html,/id="prep-meeting"/);
+ assert.match(html,/src="\.\/calendar-bridge\.js"/);
+ assert.match(html,/id="calendar-preview"/);
+ assert.match(html,/id="calendar-commit"/);
  assert.match(html,/id="meeting-form"/);
  assert.match(html,/id="proposal-form"/);
  assert.match(html,/id="dep-form"/);
