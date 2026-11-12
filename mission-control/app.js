@@ -41,7 +41,7 @@ function controls(){
  options("filter-project",state.projects,p=>p.name);
  const el=$("filter-project"),all=node("option",null,"ALL PROJECTS");all.value="all";el.insertBefore(all,el.firstChild);
  if(scope!=="all"&&!state.projects.some(p=>p.id===scope))scope="all";el.value=scope;
- for(const id of ["meeting-project","task-project","calendar-project"])options(id,state.projects,p=>p.name,"Choose project");
+ for(const id of ["meeting-project","task-project","calendar-project","google-project"])options(id,state.projects,p=>p.name,"Choose project");
  options("proposal-meeting",state.meetings,m=>m.title+" / "+(pby(m.projectId)?.name||""),"Choose source meeting");
  for(const id of ["dep-task","dep-blocker"])options(id,state.tasks,t=>t.title,"Choose task");
 }
@@ -250,6 +250,62 @@ function interactions(){
  $("undo").addEventListener("click",()=>{if(!history.length)return;state=history.pop();scope="all";selected=null;render();dirty("Local change reversed. Re-save vault if needed.");});
  $("export-json").addEventListener("click",()=>{download("aperture-private-mission.json",JSON.stringify(state,null,2),"application/json");toast("Private snapshot downloaded. Never commit it to public GitHub.");});
  $("export-report").addEventListener("click",()=>{download("aperture-weekly-brief.md",brief(),"text/markdown");toast("Brief generated locally; not sent.");});
+ let googleDraft=[];
+ const google=root.ApertureGoogleCalendar;
+ function clearGooglePreview(msg){
+  googleDraft=[];$("google-review").checked=false;$("google-import").disabled=true;
+  $("google-events").replaceChildren();$("google-status").textContent=msg;
+ }
+ $("google-connect").addEventListener("click",async()=>{
+  try{
+   const clientId=$("google-client-id").value.trim();
+   // Google popup must be initiated by an explicit button click.
+   const connected=await google.authorize(clientId);
+   $("google-preview").disabled=false;clearGooglePreview("Read-only Google Calendar connected for this tab. Authorization expires automatically.");
+   toast("Calendar read-only access authorized. Choose Preview to read events.");
+  }catch(e){clearGooglePreview(e.message||String(e));toast(e.message||String(e),true);}
+ });
+ $("google-disconnect").addEventListener("click",()=>{
+  google.disconnect();$("google-preview").disabled=true;clearGooglePreview("Disconnected. Session credentials discarded.");
+  toast("Google Calendar disconnected. Already imported local meetings remain in your private workspace.");
+ });
+ $("google-preview").addEventListener("click",async()=>{
+  clearGooglePreview("Reading a bounded list of calendar event titles and times...");
+  try{
+   const result=await google.readEvents({days:30});
+   if(!google.isConnected())throw Error("Google Calendar session ended.");
+   googleDraft=google.dedup(result.events,state.meetings);
+   const eligible=googleDraft.filter(x=>!x.duplicate);
+   const view=$("google-events");view.replaceChildren();
+   for(const event of googleDraft){
+    const card=node("div","item");
+    card.append(node("span","title",(event.duplicate?"ALREADY PRESENT · ":"REVIEW · ")+event.title),
+     node("span","subline",dateTime(event.startsAt)));
+    view.append(card);
+   }
+   $("google-status").textContent=eligible.length+" new · "+(googleDraft.length-eligible.length)+" duplicates · "+result.skipped+" skipped. "+(result.truncated?"More than 100 events exist; narrow your calendar before relying on this preview. ":"")+result.note;
+   $("google-import").disabled=!eligible.length||result.truncated;
+  }catch(e){clearGooglePreview(e.message||String(e));toast(e.message||String(e),true);}
+ });
+ $("google-import").addEventListener("click",()=>{
+  if(state.sample){toast("Clear synthetic demo and create a private project before importing real calendar data.",true);return;}
+  if(!google.isConnected()){clearGooglePreview("Reconnect Google Calendar before import.");return;}
+  if(!$("google-review").checked){toast("Explicitly review and approve the displayed events first.",true);return;}
+  const projectId=$("google-project").value;
+  if(!state.projects.some(p=>p.id===projectId)){toast("Choose a project before import.",true);return;}
+  const eligible=google.dedup(googleDraft,state.meetings).filter(x=>!x.duplicate);
+  if(!eligible.length){clearGooglePreview("No new meetings to import.");return;}
+  const before=state;
+  try{
+   let next=state;
+   for(const e of eligible){
+    next=C.addMeeting(next,{title:e.title,projectId,startsAt:e.startsAt,agenda:e.agenda,owner:e.owner});
+   }
+   state=C.normalize(next);history.push(before);if(history.length>15)history.shift();
+   render();clearGooglePreview(eligible.length+" meetings imported privately. Save encrypted vault to retain them.");
+   dirty(eligible.length+" calendar meetings imported locally. No calendar events were modified.");
+  }catch(e){state=before;toast(e.message||String(e),true);}
+ });
  let calendarDraft=[];
  $("calendar-file").addEventListener("change",async e=>{
   const file=e.target.files?.[0];calendarDraft=[];$("calendar-confirm").checked=false;$("calendar-commit").disabled=true;
