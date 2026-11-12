@@ -42,6 +42,14 @@ The live workspace now includes a **Connect Google Calendar** section. This is a
 
 Limitations: primary calendar only, next 30 days, maximum 100 entries; no pagination, recurring series expansion, all-day events or calendar write permissions. A truncated result disables import to avoid mistaken completeness. Deduplication uses normalized title + exact start time; it does not yet persist Google provider event IDs in the mission schema. This is a personal local-first pilot, not a multi-user calendar backend. The app never initiates a sync without the user's click. Browser extensions or scripts on the same origin may affect confidentiality; use a dedicated isolated origin before commercial production.
 
+## APERTURE Intelligence Engine v7 / Cycle 001
+
+Select **Run 20-decision cycle** in the Command Center. The new engine deterministically evaluates all twenty documented decision gates against the currently loaded local workspace, displays evidence status and confidence labels, compares three architectural alternatives, reports actual local computation subactions, and outlines four future scenarios.
+
+**Cycle 001 is a baseline, not proof of learning.** Download its JSON snapshot. Later, choose **Compare previous cycle**, select the saved file, and run another cycle after updating your actual project data. The tool shows metric deltas without asserting causation. The browser does not persist cycle history automatically. Export a snapshot to retain it. Imported snapshots are not independently authenticated.
+
+Read [Cycle 001 decisions and execution trace](./CYCLE_001.md) for all twenty decisions, selected alternative, tests, limitations and next experiment. The engine makes no external API calls and cannot approve or execute provider actions.
+
 ## Research
 
 `research.json` contains ten individually dated recent sources. Sources such as arXiv (abstracts, dates, versions), OpenReview (submissions/reviews), NeurIPS and ICML official lists, AutoML, LangChain Blog, Hugging Face Papers, Papers with Code and MLPapersWeekly form a discovery plan. Merely listing them is **not** a claim that each feed or review status has been automatically checked.
