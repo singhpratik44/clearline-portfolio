@@ -14,9 +14,9 @@ try {
    await page.locator('#aperture-site-navigation').waitFor();
    assert.ok((await page.locator('.project').count())>=22,'Mission Operations is listed in the portfolio');
    assert.match(await page.title(),/APERTURE/);
-   await page.getByRole('button',{name:'Sports',exact:true}).click();
+   await page.getByRole('group',{name:'Filter public projects'}).getByRole('button',{name:'Sports',exact:true}).click();
    assert.equal(await page.locator('.project:visible').count(),4);
-   await page.getByRole('button',{name:'All',exact:true}).click();
+   await page.getByRole('group',{name:'Filter public projects'}).getByRole('button',{name:'All',exact:true}).click();
    await page.locator('#project-search').fill('basketball');
    assert.ok((await page.locator('.project:visible').count())>=1);
    await page.locator('#project-search').fill('');
