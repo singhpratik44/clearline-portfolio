@@ -74,7 +74,7 @@ a{color:inherit}button,input,textarea,select{font:inherit}button{cursor:pointer}
 <div class="dashboard">
   <section class="module" id="meeting-module"><div class="module-head"><div><div class="micro">01 / Meetings become evidence</div><h2>The Meeting Room</h2><p>Preparation → source notes → decisions. Nothing from a discussion is silently treated as an approved commitment.</p></div><span class="module-count" id="meeting-count">0</span></div>
     <div class="module-body"><div class="meeting-list" id="meeting-list"><div class="empty">No meetings yet.</div></div>
-    <div class="small-row"><strong>Selected meeting / living notes</strong><button class="flat" type="button" id="download-brief">Download brief ↗</button></div>
+    <div class="small-row"><strong>Selected meeting / living notes</strong><button class="flat" type="button" id="download-brief">Download brief ↗</button><button class="flat" type="button" id="prep-meeting" disabled>Generate meeting intelligence ↗</button></div>
     <div class="field"><label for="meeting-editor">Agenda & notes, retained as source evidence</label><textarea id="meeting-editor" rows="4" placeholder="Select a meeting to examine its agenda and notes. Never add private facts to the public demo." disabled></textarea></div>
     <div class="form-foot"><button class="secondary" id="download-ics" type="button" disabled>Export event (.ics)</button><button class="primary" id="save-notes" type="button" disabled>Record notes</button></div>
     <details class="create" id="meeting-create"><summary>+ Compose a meeting</summary><form id="meeting-form"><div class="fields">
@@ -135,4 +135,4 @@ a{color:inherit}button,input,textarea,select{font:inherit}button{cursor:pointer}
 </main>
 <footer class="footer"><span>APERTURE / CAUSAL LOOM · PRIVATE-FIRST MEETINGS + PROJECTS · NO AUTONOMOUS SIDE EFFECTS</span><span><a href="../">APERTURE PORTFOLIO</a> · <a href="../commercial-4d/">COMMERCIAL 4D</a> · <a href="MASTER_PROMPT.md">BUILD SPECIFICATION</a></span></footer>
 <div class="toast" id="toast" aria-live="polite" role="status"></div>
-<script src="./core.js"></script><script src="./vault.js"></script><script src="./app.js"></script><script src="./loom.js"></script></body></html>
+<script src="./core.js"></script><script src="./vault.js"></script><script src="./meeting-intelligence.js"></script><script src="./app.js"></script><script src="./loom.js"></script></body></html>
