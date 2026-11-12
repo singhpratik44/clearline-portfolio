@@ -1,0 +1,202 @@
+{
+  "schema": "aperture-decision-ledger-v7/1",
+  "project_id": "quiet-journey",
+  "cycles": [
+    {
+      "cycle_id": "000-inventory",
+      "date": "2026-11-12",
+      "status": "inventory-only",
+      "source_path": "prayer/",
+      "baseline": {
+        "verified_operating_outcome": null
+      },
+      "decisions": [
+        {
+          "id": "D01",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D02",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D03",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D04",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D05",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D06",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D07",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D08",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D09",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D10",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D11",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D12",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D13",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D14",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D15",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D16",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D17",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D18",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D19",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        },
+        {
+          "id": "D20",
+          "answer": "Not yet evaluated",
+          "confidence": null,
+          "evidence": [],
+          "status": "pending",
+          "subactions": [],
+          "approval_gate": null
+        }
+      ],
+      "next_actions": [
+        "Verify baseline",
+        "Evaluate 20 decisions",
+        "Execute only approved actions"
+      ]
+    }
+  ]
+}
