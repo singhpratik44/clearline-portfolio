@@ -166,3 +166,14 @@ test("Mobile storefront and acquisition pages have responsive viewport and navig
  assert.match(store,/href="playground\//);
  assert.match(landing,/href="\.\.\/help\//);
 });
+
+test("Launch Cycle 001: storefront maps four verified live checkout URLs and discloses delivery limitations",()=>{
+ const links=["14A5kFboG8wc7fSgIx6kg00","3cIbJ3dwO27O6bObod6kg01","dRmeVf0K2aEk0RufEt6kg02","cNi8wR78q27OcAc9g56kg03"];
+ for(const suffix of links)assert.ok(store.includes("https://buy.stripe.com/"+suffix),suffix);
+ assert.match(store,/id="before-you-buy"/);
+ assert.match(store,/Minecraft Education \(a separate license may be required\)/);
+ assert.match(store,/Save the complete link, including the # section/);
+ assert.match(store,/no account or automatic lost-link recovery/);
+ assert.match(store,/href="start\//);
+ assert.match(store,/href="help\//);
+});
