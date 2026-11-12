@@ -41,7 +41,7 @@ function controls(){
  options("filter-project",state.projects,p=>p.name);
  const el=$("filter-project"),all=node("option",null,"ALL PROJECTS");all.value="all";el.insertBefore(all,el.firstChild);
  if(scope!=="all"&&!state.projects.some(p=>p.id===scope))scope="all";el.value=scope;
- for(const id of ["meeting-project","task-project"])options(id,state.projects,p=>p.name,"Choose project");
+ for(const id of ["meeting-project","task-project","calendar-project"])options(id,state.projects,p=>p.name,"Choose project");
  options("proposal-meeting",state.meetings,m=>m.title+" / "+(pby(m.projectId)?.name||""),"Choose source meeting");
  for(const id of ["dep-task","dep-blocker"])options(id,state.tasks,t=>t.title,"Choose task");
 }
@@ -250,6 +250,42 @@ function interactions(){
  $("undo").addEventListener("click",()=>{if(!history.length)return;state=history.pop();scope="all";selected=null;render();dirty("Local change reversed. Re-save vault if needed.");});
  $("export-json").addEventListener("click",()=>{download("aperture-private-mission.json",JSON.stringify(state,null,2),"application/json");toast("Private snapshot downloaded. Never commit it to public GitHub.");});
  $("export-report").addEventListener("click",()=>{download("aperture-weekly-brief.md",brief(),"text/markdown");toast("Brief generated locally; not sent.");});
+ let calendarDraft=[];
+ $("calendar-file").addEventListener("change",async e=>{
+  const file=e.target.files?.[0];calendarDraft=[];$("calendar-confirm").checked=false;$("calendar-commit").disabled=true;
+  if(!file)return;
+  try{
+   if(file.size>1024*1024)throw Error("Calendar import limit: 1 MB.");
+   const result=root.ApertureCalendarBridge.parse(await file.text());
+   calendarDraft=root.ApertureCalendarBridge.preview(result.events,state.meetings);
+   const duplicates=calendarDraft.filter(x=>x.duplicate).length;
+   const eligible=calendarDraft.filter(x=>!x.duplicate);
+   const view=$("calendar-preview");view.replaceChildren();
+   view.append(node("strong",null,eligible.length+" new · "+duplicates+" duplicates · "+result.skipped+" skipped (unsupported/cancelled)"));
+   view.append(node("p",null,result.notice));
+   for(const ev of calendarDraft.slice(0,30)){
+    view.append(node("p",null,(ev.duplicate?"DUPLICATE — ":"REVIEW — ")+ev.title+" / "+dateTime(ev.startsAt)));
+   }
+   if(calendarDraft.length>30)view.append(node("p",null,"Only first 30 shown; import includes all eligible events. Use a smaller file for detailed review."));
+   $("calendar-commit").disabled=!eligible.length;
+  }catch(err){$("calendar-preview").textContent=err.message||String(err);toast(err.message||String(err),true);}
+ });
+ $("calendar-commit").addEventListener("click",()=>{
+  const projectId=$("calendar-project").value;
+  if(!$("calendar-confirm").checked){toast("Review and confirm the calendar preview first.",true);return;}
+  if(!state.projects.some(p=>p.id===projectId)){toast("Choose a valid project.",true);return;}
+  const eligible=root.ApertureCalendarBridge.preview(calendarDraft,state.meetings).filter(e=>!e.duplicate);
+  if(!eligible.length){toast("No new events to import.",true);return;}
+  const before=state;
+  try{
+   let next=state;
+   for(const e of eligible)next=C.addMeeting(next,{title:e.title,projectId,startsAt:e.startsAt,agenda:e.agenda,owner:e.owner});
+   state=C.normalize(next);history.push(before);if(history.length>15)history.shift();
+   calendarDraft=[];$("calendar-file").value="";$("calendar-confirm").checked=false;$("calendar-commit").disabled=true;
+   $("calendar-preview").textContent=eligible.length+" reviewed calendar events imported to local workspace. No invitations sent.";
+   render();dirty(eligible.length+" meetings imported locally. Save encrypted vault to retain them.");
+  }catch(err){state=before;toast(err.message||String(err),true);}
+ });
  $("import-json").addEventListener("change",async e=>{
   const f=e.target.files?.[0];e.target.value="";if(!f)return;
   try{if(f.size>2*1024*1024)throw Error("Private file limit is 2MB.");
