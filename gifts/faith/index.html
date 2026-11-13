@@ -22,6 +22,13 @@ section{padding:24px 0}h2{font:normal clamp(32px,5vw,48px)/1.12 Georgia,serif;le
 .sub{max-width:650px;color:#53655c}.share{background:var(--forest);color:#fff;border-radius:20px;padding:25px;margin:22px 0}
 .share .eyebrow{color:#f1d49d}.share h2{font-size:clamp(30px,5vw,43px)}.share p{color:#d6e2d9}.share button{background:#efce91;color:#153029}.share button.secondary{background:#244c44;color:white;border:1px solid #829d91}
 #status{min-height:25px;font-size:13px;color:#e1efd8}
+.buy-gift{background:#fffefa;border:2px solid #b58b4f;border-radius:20px;padding:clamp(22px,5vw,38px);margin:20px 0 8px;box-shadow:0 12px 28px #51422212}
+.buy-gift label{font-size:14px;font-weight:800;display:block;margin:15px 0 7px}
+.buy-gift select{background:white;color:var(--ink);border:1px solid #938e7d;border-radius:10px;width:100%;padding:13px;font:inherit;min-height:52px}
+.buy-gift .buy-cta{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:20px}
+.buy-gift .buy-cta .button{flex:1 1 190px}
+.buy-gift .buy-price{font-size:27px;font-weight:850;color:#164734}
+.buy-gift .explain{font-size:14px;color:#52645a;max-width:710px}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.card{background:#fffefa;border:1px solid var(--line);border-radius:18px;padding:23px;display:flex;flex-direction:column}
 .card .symbol{font-size:34px}.card p{color:#54665d;font-size:14px;flex:1}.card .bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:15px}.price{font-size:22px;font-weight:850;color:#16362d}
 .free{background:var(--soft);border-radius:18px;padding:25px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;margin:12px 0}.free h3{margin:0}.free p{margin:6px 0 0;font-size:14px;color:#4b6058}
@@ -36,7 +43,22 @@ footer{font-size:13px;color:#5c6b60;padding-bottom:55px}footer a{text-decoration
 <main>
 <section class="hero"><div class="eyebrow">A free gift + meaningful printables</div><h1>Send someone<br><em>a little light.</em></h1>
 <p>Share awareness, love, wonder and kindness from your phone. Free reflection comes first; family printable workbooks are optional.</p>
-<div class="buttons"><a class="button" href="#share">Share with someone</a><a class="button secondary" href="#gifts">Explore family gifts</a></div></section>
+<div class="buttons"><a class="button" href="#buy">🎁 Buy a Gift</a><a class="button secondary" href="#share">Share a free gift</a><a class="button secondary" href="#gifts">Browse gifts</a></div></section>
+<section id="buy" class="buy-gift" aria-labelledby="buyTitle">
+<div class="eyebrow">Simple digital gifting · One-time purchase</div>
+<h2 id="buyTitle">🎁 Buy a Gift</h2>
+<p class="sub">Choose an original printable gift for someone you care about. Pay securely through Stripe, then personalize the printable cover and share or print it yourself.</p>
+<label for="giftChoice">Choose a family gift</label>
+<select id="giftChoice" name="giftChoice">
+<option value="sikh-seva">Seva &amp; Chardi Kala Family Journey — $14</option>
+<option value="christian-courage">Kindness &amp; Courage Faith Journey — $14</option>
+<option value="interfaith-kindness">Many Traditions, Shared Kindness — $14</option>
+<option value="family-heritage">Our Family Story Keepsake — $15</option>
+<option value="faith-bundle">Faith, Heritage &amp; Kindness Collection (all four) — $35</option>
+</select>
+<div class="buy-cta"><span class="buy-price" id="giftPrice" aria-live="polite">$14</span><a class="button" id="giftCheckout" href="https://buy.stripe.com/9B63cxboGeUA6bOgIx6kg0k" rel="noopener noreferrer" aria-label="Buy selected $14 digital gift through Stripe">Buy this gift — Secure checkout ↗</a></div>
+<p class="explain">After successful checkout, Stripe opens the existing printable activity. Add a To/From dedication there and save or print it for your recipient. <strong>No automatic text, email, gifting fulfillment or private download is provided.</strong> Content is currently also accessible through public links; payment supports an original workbook license, not exclusive access. <a href="../terms.html">Read terms and refunds.</a></p>
+</section>
 <div class="share" id="share"><div class="eyebrow">From one phone to another</div><h2>Send the store in a tap.</h2>
 <p>Choose how you want to share. You control the recipient and must press Send in your own messaging app. We never import contacts or send automatic texts.</p>
 <div class="buttons"><button id="nativeShare" type="button">Share on my phone</button><button class="secondary" id="textLink" type="button">Open text message</button><button class="secondary" id="whatsapp" type="button">Share on WhatsApp</button><button class="secondary" id="copyLink" type="button">Copy store link</button></div>
@@ -47,11 +69,11 @@ footer{font-size:13px;color:#5c6b60;padding-bottom:55px}footer a{text-decoration
 <section id="gifts" aria-labelledby="giftTitle"><div class="eyebrow">Optional original digital activity guides</div><h2 id="giftTitle">A kindness that lasts beyond today.</h2>
 <p class="sub">Thoughtful, separately themed printable workbooks to use together. All prices USD, one-time; payment is handled by Stripe. These are digital printable activities, not shipped items or access to scripture.</p>
 <div class="grid">
-<article class="card"><span class="symbol" aria-hidden="true">🪯</span><div class="eyebrow">Sikh inspired · Ages 9+</div><h3>Seva & Chardi Kala Family Journey</h3><p>Eight original family practices on truthful living, equal dignity, remembrance, service and resilient hope.</p><div class="bottom"><span class="price">$14</span><a class="button" href="https://buy.stripe.com/9B63cxboGeUA6bOgIx6kg0k" rel="noopener noreferrer" aria-label="Review Seva and Chardi Kala checkout">View checkout</a></div></article>
+<article class="card"><span class="symbol" aria-hidden="true">🪯</span><div class="eyebrow">Sikh inspired · Ages 9+</div><h3>Seva & Chardi Kala Family Journey</h3><p>Eight original family practices on truthful living, equal dignity, remembrance, service and resilient hope.</p><div class="bottom"><span class="price">$14</span><a class="button" href="https://buy.stripe.com/9B63cxboGeUA6bOgIx6kg0k" rel="noopener noreferrer" aria-label="Review Seva and Chardi Kala checkout">Buy this gift</a></div></article>
 <article class="card"><span class="symbol" aria-hidden="true">🕊️</span><div class="eyebrow">Christian inspired · Ages 8+</div><h3>Kindness & Courage Faith Journey</h3><p>Eight family reflection activities on compassion, honesty, courage, gratitude and service.</p><div class="bottom"><span class="price">$14</span><a class="button" href="https://buy.stripe.com/aFacN7csK7s87fSak96kg0l" rel="noopener noreferrer" aria-label="Review Kindness and Courage checkout">View checkout</a></div></article>
 <article class="card"><span class="symbol" aria-hidden="true">🌎</span><div class="eyebrow">Interfaith · Ages 9+</div><h3>Many Traditions, Shared Kindness</h3><p>Eight original dialogue activities exploring religious and secular perspectives with care.</p><div class="bottom"><span class="price">$14</span><a class="button" href="https://buy.stripe.com/28EeVf0K2aEk7fS63T6kg0m" rel="noopener noreferrer" aria-label="Review Many Traditions checkout">View checkout</a></div></article>
 <article class="card"><span class="symbol" aria-hidden="true">📖</span><div class="eyebrow">Family history · Ages 7+</div><h3>Our Family Story Keepsake</h3><p>Eight printable pages for celebrating stories, food, traditions, lessons and hopes together.</p><div class="bottom"><span class="price">$15</span><a class="button" href="https://buy.stripe.com/5kQ8wRboGdQw43Gbod6kg0n" rel="noopener noreferrer" aria-label="Review Family Story checkout">View checkout</a></div></article>
-<article class="card" style="grid-column:1/-1;background:#eaf1e8"><span class="symbol" aria-hidden="true">🤝</span><div class="eyebrow">Four distinct traditions and themes</div><h3>Faith, Heritage & Kindness Collection</h3><p>All four family printables together: 32 original activities spanning Sikh-inspired, Christian-inspired, interfaith and family story editions. Each tradition retains its own identity.</p><div class="bottom"><span class="price">$35</span><a class="button" href="https://buy.stripe.com/fZu7sN1O66o47fS9g56kg0s" rel="noopener noreferrer" aria-label="Review Faith Heritage and Kindness Collection checkout">View collection checkout</a></div></article>
+<article class="card" style="grid-column:1/-1;background:#eaf1e8"><span class="symbol" aria-hidden="true">🤝</span><div class="eyebrow">Four distinct traditions and themes</div><h3>Faith, Heritage & Kindness Collection</h3><p>All four family printables together: 32 original activities spanning Sikh-inspired, Christian-inspired, interfaith and family story editions. Each tradition retains its own identity.</p><div class="bottom"><span class="price">$35</span><a class="button" href="https://buy.stripe.com/fZu7sN1O66o47fS9g56kg0s" rel="noopener noreferrer" aria-label="Review Faith Heritage and Kindness Collection checkout">Buy collection</a></div></article>
 </div>
 <p class="tiny">Browse all available digital gifts in the <a href="../">APERTURE Gift Lab</a>.</p>
 </section>
@@ -71,6 +93,15 @@ const instaUrl=base+"?utm_source=instagram&utm_medium=organic&utm_campaign=faith
 const shareText="A little light for someone you love: free spiritual reflection + optional family faith, heritage and kindness printables. "+phoneUrl;
 const instaCaption="A moment of light can change a day. ✨\n\nExplore free reflection inspired by kindness and service, plus optional original digital-printable family activities exploring Sikh values, Christian values, interfaith understanding and family heritage.\n\nFree reflection always. No sign-in to explore. Optional printables from $14; digital only. Browse via the link in bio or Story sticker.\n\n"+instaUrl+"\n\n#Kindness #Seva #Interfaith #FaithAndFamily #DigitalGifts #HolidayKindness";
 const msg=document.getElementById("status"),imageMsg=document.getElementById("imgStatus");
+const giftLinks=Object.freeze({
+"sikh-seva":{price:14,url:"https://buy.stripe.com/9B63cxboGeUA6bOgIx6kg0k"},
+"christian-courage":{price:14,url:"https://buy.stripe.com/aFacN7csK7s87fSak96kg0l"},
+"interfaith-kindness":{price:14,url:"https://buy.stripe.com/28EeVf0K2aEk7fS63T6kg0m"},
+"family-heritage":{price:15,url:"https://buy.stripe.com/5kQ8wRboGdQw43Gbod6kg0n"},
+"faith-bundle":{price:35,url:"https://buy.stripe.com/fZu7sN1O66o47fS9g56kg0s"}
+});
+const giftSelect=document.getElementById("giftChoice"),giftLink=document.getElementById("giftCheckout"),giftPrice=document.getElementById("giftPrice");
+giftSelect.addEventListener("change",()=>{const item=giftLinks[giftSelect.value];if(!item)return;giftLink.href=item.url;giftLink.setAttribute("aria-label","Buy selected $"+item.price+" digital gift through Stripe");giftPrice.textContent="$"+item.price;});
 const notify=(s)=>{msg.textContent=s};
 async function copy(t){if(navigator.clipboard&&window.isSecureContext){await navigator.clipboard.writeText(t)}else{const a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";document.body.append(a);a.select();const ok=document.execCommand("copy");a.remove();if(!ok)throw new Error("Copy not permitted");}}
 document.getElementById("copyLink").addEventListener("click",async()=>{try{await copy(phoneUrl);notify("Store link copied. Paste it in any message.")}catch(e){notify("Copy unavailable. Select the address in your browser to share.")}});
