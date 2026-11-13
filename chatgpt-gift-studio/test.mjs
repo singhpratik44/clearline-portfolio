@@ -39,6 +39,15 @@ try {
     body: JSON.stringify({ session_id: "cs_test_fake" })
   });
   assert.equal(verify.status, 503, "No entitlement without Stripe configuration");
+  const landing = await fetch(base + "/");
+  assert.equal(landing.status, 200);
+  const landingHtml = await landing.text();
+  assert.match(landingHtml, /Gift Digital Twin/);
+  assert.match(landingHtml, /id="runTwin"/);
+  assert.match(landingHtml, /function simulateTwin\(/);
+  assert.match(landingHtml, /affiliate commissions/i);
+  assert.match(landingHtml, /NOT AN AFFILIATE LINK/);
+  assert.match(landingHtml, /id="shopCategory"/);
   const giftPage = await fetch(base + "/gift");
   assert.equal(giftPage.status, 200);
   assert.match(await giftPage.text(), /Open your gift/);
