@@ -46,11 +46,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+      - run: npm install --omit=dev
+        working-directory: chatgpt-gift-studio
       - run: npm install --no-save @playwright/test
         working-directory: chatgpt-gift-studio
       - run: npx playwright install --with-deps chromium
-        working-directory: chatgpt-gift-studio
-      - run: npm install --omit=dev
         working-directory: chatgpt-gift-studio
       - name: Start local app for current-commit mobile tests
         run: |
