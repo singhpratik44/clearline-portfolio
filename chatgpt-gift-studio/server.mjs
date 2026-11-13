@@ -1,5 +1,6 @@
 import { createServer } from "node:http";
 import { readFileSync } from "node:fs";
+import crypto from "node:crypto";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { registerAppResource, registerAppTool, RESOURCE_MIME_TYPE } from "@modelcontextprotocol/ext-apps/server";
@@ -192,6 +193,68 @@ function respond(res, status, contentType, body) {
   res.writeHead(status, { "Content-Type": contentType, "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer" });
   res.end(body);
 }
+// Gift Story checkout is deliberately test-mode-only until end-to-end fulfillment is verified.
+// The gift message is never sent to Stripe. The purchaser keeps it locally and unlocks a
+// shareable greeting only after a server-side Stripe session verification.
+const checkoutPrice = 799;
+const checkoutEnabled = Boolean(process.env.STRIPE_TEST_SECRET_KEY && process.env.GIFT_STORY_TEST_PRICE_ID);
+async function stripeCall(path, init = {}) {
+  const response = await fetch("https://api.stripe.com/v1/" + path, {
+    ...init, headers: { Authorization: "Bearer " + process.env.STRIPE_TEST_SECRET_KEY,
+      ...(init.headers || {}) }, signal: AbortSignal.timeout(12000)
+  });
+  const data = await response.json();
+  if (!response.ok) throw Error("Stripe request failed");
+  return data;
+}
+async function readBody(req) {
+  let raw = "";
+  for await (const chunk of req) {
+    raw += chunk.toString();
+    if (raw.length > 4096) throw Error("Request too large");
+  }
+  return JSON.parse(raw || "{}");
+}
+async function checkoutStart(req, res) {
+  if (!checkoutEnabled) return respond(res, 503, "application/json", JSON.stringify({ error: "Paid Gift Story checkout is not available yet. Gift Finder remains free." }));
+  try {
+    const body = await readBody(req);
+    if (body.sku !== "gift-story-v1") return respond(res, 400, "application/json", JSON.stringify({ error: "Invalid product" }));
+    const price = await stripeCall("prices/" + encodeURIComponent(process.env.GIFT_STORY_TEST_PRICE_ID));
+    if (price.livemode || !price.active || price.currency !== "usd" || price.unit_amount !== checkoutPrice || price.type !== "one_time")
+      return respond(res, 503, "application/json", JSON.stringify({ error: "Price configuration is not verified" }));
+    const params = new URLSearchParams({
+      mode: "payment", "line_items[0][price]": price.id, "line_items[0][quantity]": "1",
+      success_url: "https://aperture-gift-studio.onrender.com/?gift_story_session={CHECKOUT_SESSION_ID}",
+      cancel_url: "https://aperture-gift-studio.onrender.com/?gift_story_cancelled=1",
+      "metadata[product]": "gift-story-v1"
+    });
+    const session = await stripeCall("checkout/sessions", { method: "POST", headers: {
+      "Content-Type": "application/x-www-form-urlencoded", "Idempotency-Key": "giftstory-" + crypto.randomUUID()
+    }, body: params.toString() });
+    if (session.livemode || !session.url) throw Error("Invalid checkout session");
+    return respond(res, 200, "application/json", JSON.stringify({ url: session.url, testMode: true }));
+  } catch {
+    return respond(res, 502, "application/json", JSON.stringify({ error: "Checkout unavailable" }));
+  }
+}
+async function checkoutVerify(req, res) {
+  if (!checkoutEnabled) return respond(res, 503, "application/json", JSON.stringify({ error: "Checkout verification not configured" }));
+  try {
+    const body = await readBody(req);
+    if (typeof body.session_id !== "string" || !/^cs_test_[A-Za-z0-9_]+$/.test(body.session_id))
+      return respond(res, 400, "application/json", JSON.stringify({ error: "Invalid session" }));
+    const session = await stripeCall("checkout/sessions/" + encodeURIComponent(body.session_id));
+    const line = await stripeCall("checkout/sessions/" + encodeURIComponent(body.session_id) + "/line_items?limit=5");
+    const correctLine = line.data?.length === 1 && line.data[0].price?.id === process.env.GIFT_STORY_TEST_PRICE_ID && line.data[0].quantity === 1;
+    const paid = !session.livemode && session.mode === "payment" && session.payment_status === "paid" &&
+      session.status === "complete" && session.currency === "usd" && session.amount_total === checkoutPrice &&
+      session.metadata?.product === "gift-story-v1" && correctLine;
+    return respond(res, paid ? 200 : 403, "application/json", JSON.stringify({ entitled: Boolean(paid), testMode: true }));
+  } catch {
+    return respond(res, 502, "application/json", JSON.stringify({ error: "Verification unavailable" }));
+  }
+}
 const port = Number(process.env.PORT || 8787);
 createServer(async (req, res) => {
   const url = new URL(req.url || "/", "http://localhost");
@@ -200,7 +263,9 @@ createServer(async (req, res) => {
   if (req.method === "GET" && url.pathname === "/support") return respond(res, 200, "text/html; charset=utf-8", supportPage);
   if (req.method === "GET" && url.pathname === "/gift") return respond(res, 200, "text/html; charset=utf-8", giftCard);
   if (req.method === "GET" && url.pathname === "/privacy") return respond(res, 200, "text/html; charset=utf-8", privacy);
-  if (req.method === "GET" && url.pathname === "/health") return respond(res, 200, "application/json", JSON.stringify({ ok: true, name: "aperture-gift-studio", checkoutLive: false }));
+  if (req.method === "GET" && url.pathname === "/health") return respond(res, 200, "application/json", JSON.stringify({ ok: true, name: "aperture-gift-studio", checkoutLive: false, giftStoryTestConfigured: checkoutEnabled }));
+  if (req.method === "POST" && url.pathname === "/api/checkout/gift-story") return checkoutStart(req, res);
+  if (req.method === "POST" && url.pathname === "/api/checkout/verify") return checkoutVerify(req, res);
   if (req.method === "POST" && url.pathname === "/api/gift") {
     try {
       let body = "";
