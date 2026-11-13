@@ -83,7 +83,7 @@ test('public page includes all operational surfaces and discloses actual licensi
    assert.ok(page.includes('id="'+id+'"'),id);
  for(const f of ['sports-collection.js','basketball-collection.js','basketball-extra.js','checkout-links.js','sponsors.js','market.js'])assert.ok(page.includes('src="'+(f.includes('collection')||f==='basketball-extra.js'||f==='checkout-links.js'?'../../gifts/':'')+f+'"'),f);
  assert.match(page,/licensed feed or widget agreement/);
- assert.match(page,/STRIPE-HOSTED CHECKOUTS/);
+ assert.match(page,/SECURE STRIPE CHECKOUT/);
  assert.match(page,/No affiliation, endorsement/);
  const terms=readFileSync(root+'advertising.html','utf8');
  assert.match(terms,/full refund/i);
