@@ -46,7 +46,7 @@ function makeCertificate(a){
   const {to,from}=dedication();
   const date=new Intl.DateTimeFormat(undefined,{year:"numeric",month:"long",day:"numeric"}).format(new Date());
   $("v2CertificateTo").textContent=to||"A person who chose kindness";
-  $("v2CertificateTitle").textContent=a.title;
+  $("v2CertificateGiftName").textContent=a.title;
   $("v2CertificateDate").textContent=date;
   $("v2CertificateFrom").textContent=from?"A gift from "+from:"An APERTURE × Clearline experience";
   $("v2CertificateNote").textContent="I completed a real act of "+a.category.toLowerCase()+".";
@@ -125,6 +125,7 @@ $("v2PrintCertificate").addEventListener("click",()=>window.print());
 $("v2PassSame").addEventListener("click",()=>{if(completed)share(completed.id);});
 $("v2SurpriseNext").addEventListener("click",()=>{nextGift();const id=$("v2NextGiftTitle").dataset.giftId;if(id)share(id);});
 $("v2CopyNext").addEventListener("click",async()=>{if(!completed)return;const a=freshGift(completed.id);if(!a)return;try{await copy(message(a,fragmentLink(a.id)));feedback("A different gift was copied. Send it to someone who would welcome it.");}catch(_){feedback("Copy unavailable. Try the Share button.");}});
+if(!$("giftPanel").hidden){const id=actionId();if(id)openReveal(lookup.get(id));}
 $("v2NewGift").addEventListener("click",()=>{
   clearCompleted();$("surprise").click();
 });
