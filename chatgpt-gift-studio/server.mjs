@@ -199,7 +199,8 @@ function respond(res, status, contentType, body) {
 const checkoutPrice = 799;
 const checkoutEnabled = Boolean(process.env.STRIPE_TEST_SECRET_KEY && process.env.GIFT_STORY_TEST_PRICE_ID);
 async function stripeCall(path, init = {}) {
-  const response = await fetch("https://api.stripe.com/v1/" + path, {
+  const apiBase = process.env.NODE_ENV === "test" && /^http:\/\/127\.0\.0\.1:\d+$/.test(process.env.STRIPE_MOCK_BASE || "") ? process.env.STRIPE_MOCK_BASE : "https://api.stripe.com";
+  const response = await fetch(apiBase + "/v1/" + path, {
     ...init, headers: { Authorization: "Bearer " + process.env.STRIPE_TEST_SECRET_KEY,
       ...(init.headers || {}) }, signal: AbortSignal.timeout(12000)
   });
