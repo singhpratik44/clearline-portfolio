@@ -28,7 +28,7 @@ try {
   assert.equal(health.checkoutLive, false);
   const page = await fetch(base + "/");
   assert.equal(page.status, 200);
-  assert.match(await page.text(), /Make generosity tangible/);
+  assert.match(await page.text(), /Find the gift\. Give the feeling\./);
   const giftPage = await fetch(base + "/gift");
   assert.equal(giftPage.status, 200);
   assert.match(await giftPage.text(), /Open your gift/);
