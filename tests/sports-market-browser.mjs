@@ -16,6 +16,13 @@ try{
   assert.ok((await page.locator('#gift-grid .product').count())>=42,'42+ existing sports gifts on marketplace');
   assert.equal(await page.locator('#sponsor-products .panel.ad').count(),3);
   assert.equal(await page.locator('#sponsor-products a[href^="https://book.stripe.com/"]').count(),3);
+  await page.locator('[data-world="gifts"]').click();
+  assert.match(await page.locator('#world-title').innerText(),/Give the game meaning/);
+  assert.equal(await page.locator('#world-action').getAttribute('href'),'#gifts');
+  await page.locator('[data-world="moments"]').focus();
+  await page.keyboard.press('ArrowRight');
+  assert.equal(await page.locator('[data-world="gifts"]').getAttribute('aria-pressed'),'true');
+  assert.equal(await page.locator('[data-world="moments"]').getAttribute('aria-pressed'),'false');
   assert.ok((await page.locator('#league-cards .panel').count())>=6);
   await page.locator('[data-league="basketball"]').click();
   assert.ok((await page.locator('#league-cards .panel').count())>=2);
