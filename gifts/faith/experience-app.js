@@ -78,6 +78,7 @@ function showCurrent(scroll=true){
   setStatus("Open your gift. Try the action in your own way, then mark it complete.");
   setShareStatus("Share the gift link with someone you choose. Names in a shared link are visible to anyone who has it.");
   if(scroll)panel.scrollIntoView({behavior:"smooth",block:"start"});
+  document.dispatchEvent(new CustomEvent("aperture:gift-opened",{detail:{id:item.id}}));
 }
 function openSequence(ids,kind,scroll=true){
   const valid=ids.filter(id=>byId.has(id)).slice(0,3);
@@ -91,6 +92,7 @@ function updateProgress(){
 function markDone(){
   const item=current();if(!item)return;
   completed.add(item.id);updateProgress();stopTimer();$("startTimer").disabled=true;
+  document.dispatchEvent(new CustomEvent("aperture:gift-completed",{detail:{id:item.id}}));
   $("markDone").disabled=true;
   if(at<sequence.length-1){
     $("nextStep").hidden=false;
