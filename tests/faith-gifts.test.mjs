@@ -43,6 +43,8 @@ test("100 gift modes work in an actual mobile browser, with private sharing and 
     ["/gifts/faith/experience.html","experience.html"],
     ["/gifts/faith/experiences.js","experiences.js"],
     ["/gifts/faith/experience-app.js","experience-app.js"],
+    ["/gifts/faith/experience-v2.js","experience-v2.js"],
+    ["/gifts/faith/experience-v2.css","experience-v2.css"],
   ]);
   const requested=[];
   const server=createServer(async(req,res)=>{
@@ -61,6 +63,7 @@ test("100 gift modes work in an actual mobile browser, with private sharing and 
   const browser=await chromium.launch({headless:true,executablePath:chrome,args:["--no-sandbox","--disable-dev-shm-usage"]});
   try{
     const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,acceptDownloads:true});
+    const unwrap=async p=>{if(await p.locator("#v2Reveal").isVisible())await p.locator("#v2Open").click();};
     const errors=[];page.on("pageerror",e=>errors.push(e.message));
     await page.addInitScript(()=>{
       Object.defineProperty(navigator,"clipboard",{configurable:true,value:{writeText:async value=>{window.__lastCopy=value;}}});
@@ -83,6 +86,7 @@ test("100 gift modes work in an actual mobile browser, with private sharing and 
     await page.locator("#recipient").fill("Nia");
     await page.locator("#sender").fill("Kai");
     await page.locator("#guided").click();
+    await unwrap(page);
     assert.equal(await page.locator("#giftStep").textContent(),"Step 1 of 3");
     assert.equal(await page.locator("#dedication").textContent(),"For Nia · From Kai");
     await page.locator("#startTimer").click();
@@ -92,6 +96,7 @@ test("100 gift modes work in an actual mobile browser, with private sharing and 
     await page.locator("#markDone").click();
     assert.equal(await page.locator("#nextStep").isVisible(),true);
     await page.locator("#nextStep").click();
+    await unwrap(page);
     assert.equal(await page.locator("#pauseTimer").textContent(),"Pause","Changing gifts resets timer");
     assert.equal(await page.locator("#giftStep").textContent(),"Step 2 of 3");
     await page.locator("#copyGift").click();
@@ -101,6 +106,8 @@ test("100 gift modes work in an actual mobile browser, with private sharing and 
     const recipient=await browser.newPage();
     const recipientResponse=await recipient.goto(shared,{waitUntil:"networkidle"});
     assert.equal(recipientResponse.status(),200);
+    assert.equal(await recipient.locator("#v2Reveal").isVisible(),true);
+    await unwrap(recipient);
     assert.equal(await recipient.locator("#dedication").textContent(),"For Nia · From Kai");
     assert.equal(await recipient.locator("#giftStep").textContent(),"Step 1 of 3");
     await recipient.close();
@@ -111,19 +118,33 @@ test("100 gift modes work in an actual mobile browser, with private sharing and 
     assert.equal(await page.locator("#giftStep").textContent(),"Step 3 of 3");
     await page.locator("#markDone").click();
     assert.match(await page.locator("#giftStatus").textContent(),/Experience complete/);
+    assert.equal(await page.locator("#v2Certificate").isVisible(),true);
+    assert.equal(await page.locator("#v2Next").isVisible(),true);
+    assert.equal(await page.locator("#v2CertificateTo").textContent(),"Nia");
+    const certificatePromise=page.waitForEvent("download");
+    await page.locator("#v2DownloadCertificate").click();
+    const certificateDownload=await certificatePromise;
+    assert.match(certificateDownload.suggestedFilename(),/^aperture-certificate-\d{3}\.png$/);
+    await page.locator("#v2CopyNext").click();
+    assert.match(await page.evaluate(()=>window.__lastCopy),/#g=\d{3}/);
+    assert.equal(await page.locator("#v2Chain").textContent(),"3");
     assert.match(await page.locator("#progress").textContent(),/3 of 100/);
     await page.locator("#today").click();
+    await unwrap(page);
     const daily=await page.locator("#giftTitle").textContent();
     await page.locator("#surprise").click();
+    await unwrap(page);
     await page.locator("#today").click();
     assert.equal(await page.locator("#giftTitle").textContent(),daily,"Daily selection is deterministic on a given date");
     await page.locator("#randomThree").click();
+    await unwrap(page);
     assert.equal(await page.locator("#giftStep").textContent(),"Step 1 of 3");
     await page.locator("#copyGift").click();
     const triple=new URLSearchParams(new URL(await page.evaluate(()=>window.__lastCopy)).hash.slice(1)).get("seq").split(",");
     assert.equal(triple.length,3);
     assert.equal(new Set(triple).size,3,"Three random gifts must be distinct");
     await page.locator('[data-gift-id="078"]').click();
+    await unwrap(page);
     assert.match(await page.locator("#giftKind").textContent(),/078/);
     const downloadPromise=page.waitForEvent("download");
     await page.locator("#saveCard").click();
