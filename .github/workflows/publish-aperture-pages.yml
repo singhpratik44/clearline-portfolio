@@ -28,9 +28,40 @@ jobs:
           test -s love-in-action-30/index.html
           test -s pathways/index.html
           test -s one-moment/index.html
+          test -s sports-os/market/index.html
+          test -s sports-os/market/market.js
+          test -s sports-os/market/sponsors.js
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: .
       - id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify deployed sports marketplace and live sponsor links
+        run: |
+          python3 - <<'PY'
+          import time, urllib.request
+          base="https://singhpratik44.github.io/clearline-portfolio/sports-os/market/"
+          checks={
+              "": ('id="gift-grid"','id="moment-preview"','id="sponsor-products"','src="market.js"'),
+              "market.js": ("function filterProducts(", "function approvedPlacements(", "book.stripe.com"),
+              "sponsors.js": ("APERTURE_SPORTS_ADS","plink_1UbEuXRuy3ohymOHfeLD1NSL","plink_1UbEupRuy3ohymOHfqJbtvLv","plink_1UbEurRuy3ohymOHG6UCPxi0"),
+              "advertising.html": ("Advertising Conditions","full refund","$49","$99","$249"),
+              "technology.html": ("TheSportsDB","Sportradar","Live sport"),
+              "README.md": ("Sports Market","Stripe Payment Links","Live sports licensing boundary")
+          }
+          for attempt in range(10):
+              try:
+                  for path,markers in checks.items():
+                      req=urllib.request.Request(base+path,headers={'User-Agent':'APERTURE-Sports-Market-Release/1.0','Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=15) as res:
+                          content=res.read().decode('utf-8',errors='replace')
+                          assert res.status==200,(path,res.status)
+                          assert all(marker in content for marker in markers),("content",path)
+                  print("PUBLIC SPORTS MARKETPLACE VERIFIED:",base)
+                  break
+              except Exception as exc:
+                  print("Release verification attempt",attempt+1,repr(exc))
+                  if attempt==9: raise
+                  time.sleep(7)
+          PY
