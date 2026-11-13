@@ -8,6 +8,7 @@ on:
       - '**/*.html'
       - 'assets/aperture-shell.js'
       - 'tests/site-integrity.test.mjs'
+      - 'tests/spiritual-center.test.mjs'
       - 'tests/faith-gifts.test.mjs'
       - 'tests/code-the-game.test.mjs'
       - 'tests/code-the-game-browser.mjs'
@@ -29,6 +30,7 @@ on:
       - '**/*.html'
       - 'assets/aperture-shell.js'
       - 'tests/site-integrity.test.mjs'
+      - 'tests/spiritual-center.test.mjs'
       - 'tests/faith-gifts.test.mjs'
       - 'tests/code-the-game.test.mjs'
       - 'tests/code-the-game-browser.mjs'
@@ -95,4 +97,4 @@ jobs:
         with:
           node-version: '22'
       - name: Check navigation, routes and homepage scripts
-        run: node --test tests/site-integrity.test.mjs
+        run: node --test tests/site-integrity.test.mjs tests/spiritual-center.test.mjs
