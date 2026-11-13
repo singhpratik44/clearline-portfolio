@@ -1,0 +1,15 @@
+/* APERTURE Sports Universe — no telemetry, account or unlicensed score fetch */
+(function(root){
+const worlds=[
+{id:"live",icon:"◉",title:"The live game.",eyebrow:"01 / SPORTS SIGNAL",body:"One gateway to official league scoreboards. Choose your sport and see what's happening on the source's own website. No copied live data.",action:"Explore official scores",href:"#live"},
+{id:"moments",icon:"✦",title:"Turn a moment into a memory.",eyebrow:"02 / MOMENT ENGINE",body:"Create an original dedication for a teammate, coach or someone you love. Personalize it, open it, share it. The moment stays in your browser.",action:"Create a moment",href:"#moments"},
+{id:"gifts",icon:"◈",title:"Give the game meaning.",eyebrow:"03 / DIGITAL GIFT LAB",body:"Explore original basketball, team and coach gifts. Browse real product listings and use existing secure Stripe-hosted checkout links.",action:"Explore the gift lab",href:"#gifts"},
+{id:"clubs",icon:"⌁",title:"Build the next generation.",eyebrow:"04 / CLUB OPERATIONS",body:"Turn registration, coach scheduling and revenue challenges into operational improvements. Start with the existing club diagnostic and review-gated services.",action:"Explore club tools",href:"../revenue-recovery/pilot.html"},
+{id:"sponsors",icon:"◇",title:"Be part of the experience.",eyebrow:"05 / BRAND PARTNERSHIPS",body:"Buy clearly labeled independent APERTURE sponsor inventory. Every placement is reviewed and scheduled manually; reach is never guaranteed.",action:"View sponsor packages",href:"#sponsor"}
+];
+function find(id){return worlds.find(w=>w.id===id)||worlds[0]}
+function init(doc){const buttons=[...doc.querySelectorAll("[data-world]")];const el=id=>doc.getElementById(id);if(!buttons.length||!el("world-title"))return;
+function choose(id){const w=find(id);for(const b of buttons)b.setAttribute("aria-pressed",String(b.dataset.world===w.id));el("world-icon").textContent=w.icon;el("world-eyebrow").textContent=w.eyebrow;el("world-title").textContent=w.title;el("world-body").textContent=w.body;el("world-action").textContent=w.action;el("world-action").setAttribute("href",w.href);el("world-progress").replaceChildren(...worlds.map(x=>{const n=doc.createElement("i");n.className=x.id===w.id?"active":"";return n}));}
+for(const b of buttons){b.addEventListener("click",()=>choose(b.dataset.world));b.addEventListener("keydown",e=>{if(!["ArrowLeft","ArrowRight"].includes(e.key))return;e.preventDefault();const i=worlds.findIndex(x=>x.id===b.dataset.world),step=e.key==="ArrowRight"?1:-1,next=buttons[(i+step+buttons.length)%buttons.length];next.focus();choose(next.dataset.world)})}choose("moments")}
+if(typeof module!=="undefined"&&module.exports)module.exports={worlds,find};if(root.document)init(root.document);
+})(typeof globalThis!=="undefined"?globalThis:this);
