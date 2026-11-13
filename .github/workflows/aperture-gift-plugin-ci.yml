@@ -36,3 +36,19 @@ jobs:
         working-directory: chatgpt-gift-studio
       - run: node test-production.mjs
         working-directory: chatgpt-gift-studio
+
+  mobile-browser:
+    needs: smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-save @playwright/test
+        working-directory: chatgpt-gift-studio
+      - run: npx playwright install --with-deps chromium
+        working-directory: chatgpt-gift-studio
+      - run: npx playwright test digital-twin.mobile.spec.mjs --reporter=line
+        working-directory: chatgpt-gift-studio
