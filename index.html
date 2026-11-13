@@ -175,6 +175,8 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 @media(max-width:800px){.flagship .flagship-inner,.organization-grid{grid-template-columns:1fr}.flagship-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px}.flagship-directory strong{font-size:1rem}}
 </style><style>
 .showcases{display:grid;gap:18px}.showcase{--tint:#e2ece6;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(20px,4vw,52px);padding:clamp(22px,5vw,60px);border-radius:26px;background:var(--tint);scroll-margin-top:24px}.showcase-sports{--tint:#f0e2d1}.showcase-experience{--tint:#e4e5f4}.showcase-faith{--tint:#ece9dd}.showcase-gifts{--tint:#f2e3eb}.showcase-innovation{--tint:#dde9ee}.showcase-label{margin:0 0 12px;font-weight:800;font-size:.85rem}.showcase h3{font:700 clamp(28px,4.5vw,60px)/1.03 'Space Grotesk',Geist,system-ui,sans-serif;letter-spacing:-.05em;margin:0}.showcase-copy{max-width:55ch;margin:16px 0 24px}.showcase-actions{display:flex;gap:8px;flex-wrap:wrap}.showcase-feature{display:flex;align-items:center;gap:20px;background:#fffefaad;border:1px solid #ffffffa0;border-radius:20px;padding:clamp(18px,3vw,36px);align-self:center}.showcase-feature h4{font-size:1.4rem;margin:0}.showcase-feature p{margin:8px 0 0}.showcase-feature img{width:clamp(65px,11vw,120px);height:auto;border-radius:6px}@media(max-width:700px){.showcase{grid-template-columns:1fr}.showcase-actions .btn{flex:1 1 155px;text-align:center}}
+</style><style>
+.live-preview{grid-column:1/-1;min-width:0;margin:0;border:1px solid #263a382b;border-radius:18px;padding:clamp(16px,3vw,26px);background:#fffefa}.live-preview legend{padding:0 8px;font-weight:800}.live-preview p{margin:0 0 12px}.preview-choices{display:flex;gap:8px;flex-wrap:wrap}.preview-choices button{min-height:44px;padding:8px 14px;border:1px solid #345849;border-radius:12px;background:white;color:#16342a;cursor:pointer;font-weight:700}.preview-choices button[aria-pressed=true]{background:#16342a;color:white}.live-preview .preview-result{margin:14px 0 0;line-height:1.6;padding:12px;background:#eaf1ed;border-radius:10px}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -205,27 +207,27 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 <article class="showcase showcase-education" id="area-education">
 <div><p class="showcase-label">Education</p><h3>Build a game. Learn how it works.</h3><p class="showcase-copy">For learners, families, and educators. Start with a playable project, then explore coding programs and lessons.</p><div class="showcase-actions"><a class="btn " href="code-the-game/">Try Code the Game</a><a class="btn outline" href="learning/">Explore learning programs</a></div></div>
 <div class="showcase-feature"><div><h4>Code the Game</h4><p>Try a project in game design and logic.</p></div></div>
-</article>
+<fieldset class="live-preview"><legend>Build a game rule</legend><p>What should a player earn for collecting one star?</p><div class="preview-choices"><button type="button" aria-pressed="false" data-result="Three stars earn 3 points. Use this rule when you want to count stars directly.">1 point</button><button type="button" aria-pressed="false" data-result="Three stars earn 15 points. To reach 20, the player needs four stars.">5 points</button><button type="button" aria-pressed="false" data-result="Three stars earn 30 points. If the goal is 25, the player wins on the third star.">10 points</button></div><p class="preview-result" aria-live="polite">Choose an option to see a sample.</p></fieldset></article>
 <article class="showcase showcase-sports" id="area-sports">
 <div><p class="showcase-label">Sports</p><h3>Give every practice a purpose.</h3><p class="showcase-copy">For coaches, athletes, and program leaders. Explore tools for practice planning, athlete development, and sports media.</p><div class="showcase-actions"><a class="btn " href="basketball-os.html">Open coaching tools</a><a class="btn outline" href="sports-media.html">Explore sports media</a></div></div>
 <div class="showcase-feature"><div><h4>APERTURE Arena</h4><p>See how coaching tools organize a practice around what athletes need to learn.</p></div></div>
-</article>
+<fieldset class="live-preview"><legend>Plan a 30-minute practice</legend><p>What does your team need most today?</p><div class="preview-choices"><button type="button" aria-pressed="false" data-result="5 min movement warmup → 10 min dribble and change direction → 10 min 1-on-1 with light pressure → 5 min review. Watch whether players keep their eyes up.">Ball control</button><button type="button" aria-pressed="false" data-result="5 min movement warmup → 10 min footwork and layups → 10 min finishing from a pass → 5 min review. Watch whether players finish with either hand.">Finishing</button><button type="button" aria-pressed="false" data-result="5 min movement warmup → 10 min closeouts → 10 min 3-on-3 help defense → 5 min review. Watch whether teammates call for help early.">Team defense</button></div><p class="preview-result" aria-live="polite">Choose an option to see a sample.</p></fieldset></article>
 <article class="showcase showcase-experience" id="area-experience">
 <div><p class="showcase-label">Human experience</p><h3>Make time for what matters.</h3><p class="showcase-copy">Take a short reflection break or practice how you show up in a conversation, presentation, or other high pressure moment.</p><div class="showcase-actions"><a class="btn " href="experience/">Try a free experience</a><a class="btn outline" href="https://aperture-own-the-room.onrender.com/">Practice confidence</a></div></div>
 <div class="showcase-feature"><div><h4>A Moment Is Enough</h4><p>Four free experiences centered on awareness, joy, love, and wonder.</p></div></div>
-</article>
+<fieldset class="live-preview"><legend>Practice a response</legend><p>Where would you like to feel more prepared?</p><div class="preview-choices"><button type="button" aria-pressed="false" data-result="Write the one decision you want the meeting to reach. Rehearse asking for it in one sentence.">A meeting</button><button type="button" aria-pressed="false" data-result="Say your opening sentence aloud. Then pause and give one concrete example before explaining your main point.">A presentation</button><button type="button" aria-pressed="false" data-result="Start with one thing you observed and one thing you need. Practice leaving room for the other person to respond.">A hard conversation</button></div><p class="preview-result" aria-live="polite">Choose an option to see a sample.</p></fieldset></article>
 <article class="showcase showcase-faith" id="area-faith">
 <div><p class="showcase-label">Faith &amp; reflection</p><h3>Make space for prayer and gratitude.</h3><p class="showcase-copy">Explore at your own pace. Sikh and Christian reflections honor their respective traditions. Participation is optional.</p><div class="showcase-actions"><a class="btn " href="prayer/start/">Begin the journey</a><a class="btn outline" href="prayer/three-year/companion/sample.html">Preview the workbook</a></div></div>
 <div class="showcase-feature"><div><h4>A Quiet Journey</h4><p>Start with a reflection or preview a printable month from the companion workbook.</p></div></div>
-</article>
+<fieldset class="live-preview"><legend>Choose a reflection</legend><p>What would you like to make room for?</p><div class="preview-choices"><button type="button" aria-pressed="false" data-result="Name one thing someone did for you today. How could you thank them specifically?">Gratitude</button><button type="button" aria-pressed="false" data-result="Think of someone whose day you could make easier. Choose one thing you can do without expecting recognition.">Service</button><button type="button" aria-pressed="false" data-result="Recall a moment when you were sure you were right. What could you ask to understand the other person better?">Humility</button></div><p class="preview-result" aria-live="polite">Choose an option to see a sample.</p></fieldset></article>
 <article class="showcase showcase-gifts" id="area-gifts">
 <div><p class="showcase-label">Gifts &amp; art</p><h3>Give someone an experience.</h3><p class="showcase-copy">Create a personal digital gift with an activity to discover, or browse original art for a wall or phone.</p><div class="showcase-actions"><a class="btn " href="gifts/">Create a gift</a><a class="btn outline" href="shop/art/">Shop art</a></div></div>
 <div class="showcase-feature"><img src="shop/art/previews/the-clutch.svg" alt="The Clutch basketball poster" loading="lazy"><div><h4>Clearline Art</h4><p>Basketball inspired prints and work that explores themes beyond the game.</p></div></div>
-</article>
+<fieldset class="live-preview"><legend>Preview a gift experience</legend><p>What do you want the recipient to feel?</p><div class="preview-choices"><button type="button" aria-pressed="false" data-result="Opening message: “I noticed how you showed up for me.” Activity: Write down one small kindness you want to pass on.">Appreciated</button><button type="button" aria-pressed="false" data-result="Opening message: “I’m rooting for you.” Activity: Pick one small thing you can do today and give yourself credit for doing it.">Encouraged</button><button type="button" aria-pressed="false" data-result="Opening message: “This moment deserves a celebration.” Activity: Save one photo and a sentence about what made today matter.">Celebrated</button></div><p class="preview-result" aria-live="polite">Choose an option to see a sample.</p></fieldset></article>
 <article class="showcase showcase-innovation" id="area-innovation">
 <div><p class="showcase-label">Innovation &amp; business</p><h3>Make a difficult decision easier to inspect.</h3><p class="showcase-copy">For operators and partners. Explore decision simulations, then apply the same discipline to a workflow your team needs to improve.</p><div class="showcase-actions"><a class="btn " href="civilization-lab.html">Explore Civilization Lab</a><a class="btn outline" href="sprint/">See the $500 Workflow Sprint</a></div></div>
 <div class="showcase-feature"><div><h4>Civilization Lab</h4><p>Explore how evidence, assumptions, and dependencies change the options in a simulation.</p></div></div>
-</article>
+<fieldset class="live-preview"><legend>Make a decision with evidence</legend><p>A center misses enrollment follow-ups. What do you know?</p><div class="preview-choices"><button type="button" aria-pressed="false" data-result="Measure time to first reply and how often an inquiry has an owner. That gives you a baseline before changing the process.">No baseline yet</button><button type="button" aria-pressed="false" data-result="Assign one owner and due time for every new inquiry. Review exceptions daily and compare with your baseline.">Handoffs are missed</button><button type="button" aria-pressed="false" data-result="Check whether the improvement lasted and whether inquiries were comparable. If it holds, document the process and name an owner.">The new process helped</button></div><p class="preview-result" aria-live="polite">Choose an option to see a sample.</p></fieldset></article>
 </section>
 
 <section class="home-art" aria-labelledby="home-art-title">
@@ -303,4 +305,15 @@ document.getElementById("year").textContent=String(new Date().getFullYear());
 filter();
 })();
 </script>
-</body></html>
+<script>
+document.querySelectorAll('.live-preview').forEach(preview => {
+  preview.addEventListener('click', event => {
+    const button = event.target.closest('button[data-result]');
+    if (!button) return;
+    preview.querySelectorAll('button').forEach(option => {
+      option.setAttribute('aria-pressed', String(option === button));
+    });
+    preview.querySelector('.preview-result').textContent = button.dataset.result;
+  });
+});
+</script></body></html>
