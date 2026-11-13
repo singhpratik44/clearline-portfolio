@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>APERTURE Gift Studio — Make generosity tangible</title><meta name="description" content="A quiet, useful gift planning studio. Meaningful physical gift ideas and words worth sharing.">
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#20392f;background:#f8f5ed}*{box-sizing:border-box}body{margin:0}.shell{max-width:1000px;margin:0 auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-size:13px;font-weight:780;letter-spacing:.15em}.top a{color:#315b4d;text-decoration:none;font-size:13px}.hero{padding:64px 0 34px}.kicker{font-size:12px;text-transform:uppercase;letter-spacing:.2em;color:#6b725f}.hero h1{font-size:clamp(44px,7vw,82px);letter-spacing:-.058em;line-height:1.02;max-width:800px;margin:18px 0}.hero p{font-size:18px;line-height:1.6;max-width:590px;color:#526056}.panel{background:#fffdfa;border:1px solid #e3e1d8;box-shadow:0 16px 70px #32453712;border-radius:23px;padding:26px;margin:20px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.group{display:flex;flex-direction:column;gap:6px}.group.full{grid-column:1/-1}label{font-size:13px;font-weight:650}select,input,textarea{width:100%;font:inherit;padding:13px;border:1px solid #d7dbd0;border-radius:10px;background:white;color:#263d31}textarea{resize:vertical;min-height:86px}.cta{appearance:none;border:0;border-radius:11px;background:#265343;color:white;padding:14px 22px;font-size:15px;font-weight:720;cursor:pointer}.cta:hover{background:#153f32}.ghost{appearance:none;background:#f3f5ee;border:1px solid #d8dfd5;border-radius:10px;padding:11px 15px;cursor:pointer}.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}.muted{color:#738078;font-size:12px}.ideas{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.idea{background:#fff;border:1px solid #e0e5db;border-radius:14px;padding:18px}.idea h3{margin:8px 0 8px;font-size:19px}.tag{font-size:12px;color:#697c70}.note{padding:20px;background:#e8eddf;border-radius:14px;font-size:17px;line-height:1.7}.h2{font-size:26px;letter-spacing:-.03em}.foot{border-top:1px solid #d8dfd2;margin-top:55px;padding:25px 0;color:#768176;font-size:13px;display:flex;justify-content:space-between;gap:16px}.foot a{color:inherit}#result[hidden]{display:none}#error{color:#a12f31}
+@media(max-width:700px){.grid,.ideas{grid-template-columns:1fr}.hero{padding-top:38px}.panel{padding:20px}.foot{display:block}}
+</style></head><body><div class="shell">
+<header class="top"><div class="brand">APERTURE <span aria-hidden="true">✦</span> GIFT STUDIO</div><a href="https://singhpratik44.github.io/clearline-portfolio/">By Clearline</a></header>
+<section class="hero"><div class="kicker">Awareness · Joy · Love · Wonder</div><h1>Make generosity tangible.</h1><p>Find a meaningful physical gift and the words to go with it. Thoughtful ideas in seconds, no sign-in, no pressure.</p></section>
+<section class="panel"><h2 class="h2">Create a gift plan</h2><form id="form"><div class="grid">
+<div class="group"><label for="recipient">Who is it for?</label><input id="recipient" name="recipient" maxlength="60" placeholder="A friend, parent, mentor…" value="a friend"></div>
+<div class="group"><label for="occasion">Occasion</label><select id="occasion" name="occasion"><option value="holidays">Holidays</option><option value="birthday">Birthday</option><option value="thank-you">Thank you</option><option value="just-because">Just because</option><option value="celebration">Celebration</option></select></div>
+<div class="group"><label for="budget">Gift budget (USD)</label><select id="budget" name="budget"><option value="12">Under $15</option><option value="30" selected>Under $35</option><option value="60">Under $70</option><option value="100">$70+</option></select></div>
+<div class="group"><label for="feeling">What should they feel?</label><select id="feeling" name="feeling"><option value="gratitude">Appreciated</option><option value="joy">Joyful</option><option value="encouragement">Encouraged</option><option value="wonder">Wonder</option></select></div>
+<div class="group full"><label for="detail">Optional personal detail (avoid sensitive information)</label><textarea id="detail" name="detail" maxlength="140" placeholder="A quality you admire, or a moment they helped you"></textarea></div></div>
+<div class="actions"><button class="cta" type="submit">Make my gift plan</button><span class="muted">Free preview · No payment collected</span></div><p id="error" role="alert"></p></form></section>
+<section id="result" hidden><h2 class="h2" id="heading">Your gift directions</h2><div class="ideas" id="ideas"></div><h2 class="h2">A message that means something</h2><div class="note" id="note"></div><div class="actions"><button type="button" class="ghost" id="copy">Copy message</button><span id="copied" class="muted" aria-live="polite"></span></div><p class="muted" id="caution"></p></section>
+<div class="foot"><span>Gift ideas, not live product listings. Shopping is disabled while fulfillment is unverified.</span><span><a href="/privacy">Privacy</a> · <a href="https://singhpratik44.github.io/clearline-portfolio/">Clearline</a></span></div></div>
+<script>
+const form=document.getElementById("form");
+const id=x=>document.getElementById(x);
+form.addEventListener("submit",async e=>{
+ e.preventDefault();id("error").textContent="";const button=form.querySelector("button");button.disabled=true;button.textContent="Creating…";
+ try{
+  const data=Object.fromEntries(new FormData(form).entries());data.budget=Number(data.budget);
+  const res=await fetch("/api/plan",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(data)});
+  if(!res.ok)throw Error("Please retry.");
+  const body=await res.json();const plan=body.plan;
+  id("heading").textContent=plan.heading;id("ideas").replaceChildren();
+  plan.recommendations.forEach((gift,i)=>{
+   const card=document.createElement("article");card.className="idea";
+   const tag=document.createElement("div");tag.className="tag";tag.textContent="IDEA 0"+(i+1)+" · "+gift.estimate+" illustrative";
+   const title=document.createElement("h3");title.textContent=gift.title;
+   const p=document.createElement("p");p.textContent=gift.why;
+   card.append(tag,title,p);id("ideas").append(card);
+  });
+  id("note").textContent=plan.message;id("caution").textContent=plan.disclaimer;
+  id("result").hidden=false;id("copied").textContent="";id("result").scrollIntoView({behavior:"smooth",block:"start"});
+ }catch(e){id("error").textContent="Could not create the plan. "+e.message;}
+ finally{button.disabled=false;button.textContent="Make my gift plan";}
+});
+id("copy").addEventListener("click",async()=>{try{await navigator.clipboard.writeText(id("note").textContent);id("copied").textContent="Copied";}catch{id("copied").textContent="Select the note text to copy";}});
+</script></body></html>
