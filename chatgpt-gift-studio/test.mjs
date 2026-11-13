@@ -58,6 +58,21 @@ try {
   const giftPage = await fetch(base + "/gift");
   assert.equal(giftPage.status, 200);
   assert.match(await giftPage.text(), /Unwrap your gift/);
+  const giftHtml = await (await fetch(base + "/gift")).text();
+  assert.match(giftHtml, /og:image/);
+  assert.match(giftHtml, /twitter:card/);
+  assert.match(giftHtml, /track\("open"\)/);
+  const art = await fetch(base + "/share-card.svg");
+  assert.equal(art.status, 200);
+  assert.match(art.headers.get("content-type"), /image\/svg\+xml/);
+  const metricStart = await (await fetch(base + "/api/gift/metrics")).json();
+  assert.equal(metricStart.persistent, false);
+  const eventResponse = await fetch(base + "/api/gift/event",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event:"open"})});
+  assert.equal(eventResponse.status,204);
+  const metricEnd = await (await fetch(base + "/api/gift/metrics")).json();
+  assert.equal(metricEnd.open,metricStart.open+1);
+  const invalidEvent = await fetch(base + "/api/gift/event",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event:"open",recipient:"Private"})});
+  assert.equal(invalidEvent.status,400);
   const giftApi = await fetch(base + "/api/gift", {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ recipient: "Mum", sender: "Me", occasion: "christmas", feeling: "gratitude" })
