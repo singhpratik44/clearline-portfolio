@@ -66,7 +66,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js sitemap.xml _site/
-          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday _site/
+          cp -R assets center clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
@@ -163,14 +163,17 @@ jobs:
           assert html.count('</head>')==1 and 'aperture-home-release-sha' not in html
           marker='<meta name="aperture-home-release-sha" content="'+os.environ['GITHUB_SHA']+'">'
           path.write_text(html.replace('</head>',marker+'</head>',1),encoding='utf-8')
-          assert 'assets/aperture-v5.css' in path.read_text(encoding='utf-8')
-          assert 'assets/aperture-p2.css' in path.read_text(encoding='utf-8')
-          assert 'assets/aperture-p2.js' in path.read_text(encoding='utf-8')
+          assert 'href="center/"' in path.read_text(encoding='utf-8'), 'Current homepage must link The Center'
+          legacy=Path('_site/previous-home.html').read_text(encoding='utf-8')
+          assert 'assets/aperture-v5.css' in legacy
+          assert 'assets/aperture-p2.css' in legacy
+          assert 'assets/aperture-p2.js' in legacy
           PY
       - name: Validate packaged site
         run: |
           test -s _site/app.bundle.js
           test -s _site/index.html
+          test -s _site/center/index.html
           test -s _site/assets/aperture-p2.css
           test -s _site/assets/aperture-p2.js
           test -s _site/clearline/index.html
