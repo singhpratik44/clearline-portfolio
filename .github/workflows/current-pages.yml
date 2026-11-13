@@ -1,0 +1,92 @@
+name: Publish current APERTURE website
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.html'
+      - 'assets/**'
+      - 'shop/**'
+      - 'sprint/**'
+      - 'experience/**'
+      - 'center/**'
+      - 'gifts/**'
+      - 'coding/**'
+      - 'learning/**'
+      - 'prayer/**'
+      - 'tests/revenue-sprint.test.mjs'
+      - '.github/workflows/current-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate current revenue and paid-gift access boundaries
+        run: |
+          node --test tests/revenue-sprint.test.mjs
+          node --test tests/gift-fulfillment.test.mjs
+          node --test research/representation.test.mjs
+      - name: Build compatibility bundle for legacy demos
+        run: |
+          npm install --no-save --no-package-lock react@18 react-dom@18 esbuild@0.25
+          npx esbuild src/entry.jsx --bundle --minify --outfile=app.bundle.js --loader:.tsx=tsx --jsx=automatic --define:process.env.NODE_ENV='"production"'
+      - name: Stage allowlisted public site
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p _site
+          cp *.html *.js sitemap.xml _site/
+          cp app.bundle.js _site/
+          for dir in assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday shop sprint experience own-the-room lab; do
+            if test -d "$dir"; then cp -R "$dir" _site/; fi
+          done
+          if test -d center; then cp -R center _site/; fi
+          mkdir -p _site/chatgpt-gift-studio/public
+          if test -d chatgpt-gift-studio/public; then cp -R chatgpt-gift-studio/public/. _site/chatgpt-gift-studio/public/; fi
+          mkdir -p _site/research _site/src
+          cp research/representation.mjs _site/research/
+          cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
+          touch _site/.nojekyll
+          for page in index.html shop/index.html sprint/index.html gifts/index.html learning/index.html prayer/index.html holiday/index.html sports-os/index.html; do
+            test -s "_site/$page" || { echo "Missing required public page $page"; exit 1; }
+          done
+          grep -q 'buy.stripe.com/aFa9AVcsKcMs1Vy1ND6kg1o' _site/sprint/index.html
+          grep -q 'href="../sprint/"' _site/shop/index.html
+          grep -q 'FICTIONAL WORKFLOW' _site/sprint/index.html
+          grep -q 'No guaranteed revenue increase' _site/sprint/index.html
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    steps:
+      - uses: actions/deploy-pages@v4
+      - name: Verify revenue page on public Pages host
+        shell: bash
+        run: |
+          set -euo pipefail
+          url='https://singhpratik44.github.io/clearline-portfolio/sprint/'
+          for i in $(seq 1 12); do
+            if curl --fail --location --silent --show-error --max-time 15 "$url" | grep -q 'One workflow. Four practical outputs'; then
+              echo "Verified published revenue page: $url"
+              exit 0
+            fi
+            echo "Revenue route not published yet: attempt $i"
+            sleep 8
+          done
+          echo "Public revenue route could not be verified"
+          exit 1
