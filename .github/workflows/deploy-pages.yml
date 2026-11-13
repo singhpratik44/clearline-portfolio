@@ -73,6 +73,29 @@ jobs:
           cp lab/index.html _site/lab/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
           touch _site/.nojekyll
+      - name: Configure optional consent-based PostHog site analytics
+        env:
+          POSTHOG_PROJECT_TOKEN: ${{ secrets.POSTHOG_PROJECT_TOKEN }}
+          POSTHOG_API_HOST: ${{ vars.POSTHOG_API_HOST }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          from pathlib import Path
+
+          token = os.environ.get('POSTHOG_PROJECT_TOKEN', '').strip()
+          host = os.environ.get('POSTHOG_API_HOST', '').strip().rstrip('/')
+          allowed_hosts = {'https://us.i.posthog.com', 'https://eu.i.posthog.com'}
+          valid = bool(re.fullmatch(r'phc_[A-Za-z0-9_-]{8,200}', token)) and host in allowed_hosts
+          if not valid:
+              token, host = '', ''
+              print('APERTURE Holiday analytics disabled: configure the GitHub Actions POSTHOG_PROJECT_TOKEN secret and POSTHOG_API_HOST variable.')
+          else:
+              print('APERTURE Holiday analytics project configured from deployment settings; anonymous events still require visitor consent.')
+          config = {'provider': 'posthog', 'projectToken': token, 'apiHost': host}
+          target = Path('_site/holiday/analytics-config.js')
+          assert target.is_file(), 'Holiday analytics configuration template missing'
+          target.write_text('/* Generated from GitHub Actions deployment settings; public project token, not a personal API key. */\nwindow.APERTURE_ANALYTICS_CONFIG = Object.freeze(' + json.dumps(config, separators=(',', ':')) + ');\n', encoding='utf-8')
+          PY
       - name: Refresh and stage APERTURE Sports employer opportunities
         run: |
           python3 sports-os/refresh_opportunities.py --output _site/sports-os/opportunities.json
@@ -155,6 +178,8 @@ jobs:
           test -s _site/wellness/index.html
           test -s _site/holiday/index.html
           grep -q 'Give someone' _site/holiday/index.html
+          test -s _site/holiday/analytics-config.js
+          test -s _site/holiday/analytics.js
           test -s _site/code-the-game/index.html
           test -s _site/code-the-game/help/index.html
           test -s _site/code-the-game/roblox/index.html
