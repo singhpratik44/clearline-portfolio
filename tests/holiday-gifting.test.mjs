@@ -12,8 +12,8 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
   const server=createServer(async(req,res)=>{
     try{
       const path=new URL(req.url,'http://localhost').pathname;
-      if(path!=='/holiday/'&&path!=='/holiday/index.html'){res.writeHead(404);res.end();return}
-      const body=await readFile(join(process.cwd(),'holiday/index.html'));
+      if(!['/holiday/','/holiday/index.html','/holiday/privacy.html','/holiday/sms-terms.html'].includes(path)){res.writeHead(404);res.end();return}
+      const body=await readFile(join(process.cwd(),'holiday',path.endsWith('privacy.html')?'privacy.html':path.endsWith('sms-terms.html')?'sms-terms.html':'index.html'));
       res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(body);
     }catch(e){res.writeHead(500);res.end(String(e))}
   });
@@ -26,7 +26,7 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
     await page.addInitScript(()=>{
       Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async text=>{window.__copied=text}}});
     });
-    const response=await page.goto(base+'?theme=love&to=Alex&from=Sam',{waitUntil:'networkidle'});
+    const response=await page.goto(base+'?theme=love&to=Alex&from=Sam&utm_source=unity&utm_medium=partner&utm_campaign=holiday2026',{waitUntil:'networkidle'});
     assert.equal(response.status(),200);
     assert.equal(await page.locator('#dear').textContent(),'For Alex');
     assert.equal(await page.locator('#signature').textContent(),'With love, Sam');
@@ -39,6 +39,9 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
     await page.locator('#copy').click();
     assert.equal(await page.locator('#status').textContent(),'Message copied.');
     const copied=await page.evaluate(()=>window.__copied);
+    assert.ok(copied.includes('utm_source=unity'),copied);
+    assert.ok(copied.includes('utm_medium=partner'),copied);
+    assert.ok(copied.includes('utm_campaign=holiday2026'),copied);
     assert.ok(copied.includes('theme=peace&to=Alex&from=Sam'),copied);
     assert.match(copied,/May you find a quiet place/);
     const url=copied.slice(copied.lastIndexOf('http'));
@@ -50,6 +53,13 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
     await second.close();
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
     assert.equal(overflow,false,'Mobile horizontal overflow');
+    assert.equal(await page.locator('#sms-interest').count(),1);
+    assert.equal(await page.locator('#sms-consent').isChecked(),false);
+    assert.equal(await page.locator('#sms-terms').isChecked(),false);
+    assert.match(await page.locator('#sms-result').textContent(),/must send/i);
+    for(const p of ['privacy.html','sms-terms.html']){
+      const policy=await browser.newPage();const res=await policy.goto(base+p);assert.equal(res.status(),200);assert.ok((await policy.locator('main').textContent()).length>300);await policy.close();
+    }
     assert.deepEqual(errors,[],'JavaScript runtime errors');
     await page.close();
   }finally{await browser.close();await new Promise(ok=>server.close(ok))}
