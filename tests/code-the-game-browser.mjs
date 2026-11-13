@@ -16,7 +16,7 @@ try {
   assert.equal(await page.locator('#before-you-buy').count(),1);
   assert.equal(await page.locator('a[href^="https://buy.stripe.com/"]').count()>=4,true);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'storefront horizontal overflow');
-  await page.getByRole('link',{name:/Try a free lesson/i}).first().click();
+  await page.getByRole('link',{name:/Try a free coding project first/i}).first().click();
   assert.match(page.url(),/\/code-the-game\/start\//);
   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'starter horizontal overflow');
   await page.goto('http://127.0.0.1:8771/code-the-game/marketing/');
