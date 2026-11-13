@@ -1,3 +1,15 @@
+## Public website (November 2026)
+
+**APERTURE Experiences & Innovation:** [Main public homepage](https://singhpratik44.github.io/clearline-portfolio/) · [Render deployment](https://aperture-main-website.onrender.com/)
+
+The homepage is a responsive, no-sign-in discovery site with twelve linked experience, learning, and innovation projects, live client-side category/search filtering, and accessible navigation. The earlier APERTURE v5 decision workbench is preserved at [previous-home.html](./previous-home.html). Original project URLs are unchanged.
+
+**Deployment:** GitHub `main` is the source of truth; the Render static site `aperture-main-website` auto-deploys from this repository. GitHub Pages publication is configured separately. The homepage is static and does not process payments or store customer information. Individual paid offerings must be verified independently before promotion.
+
+**Verification:** All 18 internal homepage link targets resolved in the GitHub repository on November 13, 2026; Render reported a successful live deployment. An independent browser fetch of the public URLs was not available in this environment, so production browser/visual QA remains open.
+
+---
+
 # Clearline — APERTURE Operating Intelligence
 
 **[NEW: Experience Layer v2 — Awareness · Joy · Love · Wonder](https://singhpratik44.github.io/clearline-portfolio/experience/)** — Four free, private interactive journeys. No sign-in, tracking, streaks or pressure. [Editable source](./experience/).\n\n**Mission:** Make consequential organizational decisions explainable, testable, authorized, recoverable, and more efficient through one versioned operating model.
