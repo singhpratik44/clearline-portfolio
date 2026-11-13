@@ -169,6 +169,10 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 <style>
 .path-card h3{margin:0;font-size:1.3rem;line-height:1.2}.path-card p{margin:0;color:var(--muted);font-size:.93rem}.path-actions{display:grid;gap:4px;margin-top:auto}.path-actions a{display:flex;align-items:center;min-height:44px;color:#285b46;font-weight:700;text-underline-offset:3px}.path-card:hover{transform:none}
 @media(max-width:700px){.hero-inner{padding-top:36px;gap:24px}.hero h1{font-size:clamp(40px,10vw,60px);margin-block:12px 16px}.hero-actions{margin-top:16px}.hero-note{margin-top:14px}.pathways-preview{padding:16px}.preview-grid a{min-height:56px}}
+</style><style>
+.flagship .flagship-inner{padding-block:clamp(48px,8vw,112px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,6vw,92px);align-items:center}
+.flagship .flagship-intro h1{font-size:clamp(53px,7.5vw,112px);margin:0 0 24px}.flagship-directory{border-top:1px solid #ffffff45}.flagship-directory a{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:14px 8px;border-bottom:1px solid #ffffff45;text-decoration:none;min-height:64px}.flagship-directory a:hover{background:#ffffff12}.flagship-directory strong{font-size:1.15rem}.flagship-directory small{grid-column:1;color:#d5e2d7}.flagship-directory span{grid-column:2;grid-row:1/3;color:#c6f2db}.organization{padding-block:clamp(40px,7vw,84px)}.organization-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.organization-grid article{display:flex;flex-direction:column;background:#fffefa;border:1px solid var(--border);border-radius:18px;padding:24px}.organization-grid h3{margin:0}.organization-grid a{margin-top:auto;display:flex;align-items:center;min-height:44px;color:#285b46;font-weight:750}
+@media(max-width:800px){.flagship .flagship-inner,.organization-grid{grid-template-columns:1fr}.flagship-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px}.flagship-directory strong{font-size:1rem}}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -183,25 +187,16 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 </div>
 </header>
 <main id="main">
-<section class="hero">
-<div class="wrap hero-inner">
-<div>
-<div class="kicker">APERTURE / EXPERIENCES · LEARNING · HUMAN POTENTIAL</div>
-<h1>Many paths.<br><em>One human purpose.</em></h1>
-<p>Explore experiences, education, sports, creative work, spiritual reflection, and tools for responsible progress. Different paths, connected by truth, service, wonder, and respect for people.</p>
-<div class="hero-actions"><a class="btn gold" href="#paths">Choose your path <span aria-hidden="true">↘</span></a><a class="btn light" href="#explore">Explore everything <span aria-hidden="true">↘</span></a><a class="btn light" href="engage.html">Build with us <span aria-hidden="true">↗</span></a></div>
-<div class="hero-note">Free experiences · Practical paid work · Faith paths are optional · No account needed for many journeys</div>
-</div>
-<div class="hero-visual"><div class="pathways-preview"><div class="preview-kicker">A connected ecosystem</div><h2>Choose what you need today.</h2><div class="preview-grid">
-<a href="experience/"><span>✦</span><strong>Experience</strong><small>Pause · reflect · reconnect</small></a>
-<a href="coding/"><span>⌘</span><strong>Education</strong><small>Learn · make · grow</small></a>
-<a href="basketball-os.html"><span>◉</span><strong>Sports</strong><small>Practice · coach · develop</small></a>
-<a href="gifts/"><span>✧</span><strong>Gifts & art</strong><small>Create · share · delight</small></a>
-<a href="prayer/start/"><span>☼</span><strong>Spiritual growth</strong><small>Explore at your own pace</small></a>
-<a href="civilization-lab.html"><span>◎</span><strong>Innovation</strong><small>Decide · design · improve</small></a>
-</div><div class="preview-values">Connected by truth · service · wonder · human dignity</div></div></div></div>
-</section>
-<div class="trust"><div class="wrap trust-inner"><strong>ONE PURPOSE · MANY PATHS</strong><span>✳ Learn</span><span>✳ Play & coach</span><span>✳ Give & create</span><span>✳ Reflect</span><span>✳ Build responsibly</span></div></div>
+<section class="hero flagship"><div class="wrap flagship-inner">
+<div class="flagship-intro"><h1>Learn. Play.<br><em>Build what matters.</em></h1><p>APERTURE develops learning experiences, coaching tools, creative products, and decision systems for people and organizations.</p><div class="hero-actions"><a class="btn gold" href="#paths">Explore the portfolio</a><a class="btn light" href="shop/">Shop Clearline</a><a class="btn light" href="#organizations">For organizations</a></div></div>
+<nav class="flagship-directory" aria-label="APERTURE portfolio"><a href="coding/"><strong>Education</strong><small>Build with code</small><span aria-hidden="true">↗</span></a>
+<a href="basketball-os.html"><strong>Sports</strong><small>Coach and develop athletes</small><span aria-hidden="true">↗</span></a>
+<a href="experience/"><strong>Human experience</strong><small>Practice confidence and reflection</small><span aria-hidden="true">↗</span></a>
+<a href="prayer/start/"><strong>Faith & reflection</strong><small>Explore prayer and gratitude</small><span aria-hidden="true">↗</span></a>
+<a href="gifts/"><strong>Gifts & art</strong><small>Create something worth sharing</small><span aria-hidden="true">↗</span></a>
+<a href="civilization-lab.html"><strong>Innovation</strong><small>Explore tools for complex decisions</small><span aria-hidden="true">↗</span></a></nav>
+</div></section>
+
 
 <section class="wrap section pathways" id="paths" aria-labelledby="paths-title"><h2 id="paths-title">Find your next step</h2><div class="path-grid">
 <article class="path-card"><h3>Personal growth</h3><p>Free reflection and practical confidence exercises.</p><div class="path-actions"><a href="experience/">Try a free reflection</a><a href="https://aperture-own-the-room.onrender.com/">Practice confidence</a></div></article>
@@ -247,7 +242,11 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 <div class="steps"><div class="step"><span class="num">01 / TRUTH</span><h3>Say what is real.</h3><p>Label prototypes and examples clearly. Separate hopes from evidence and never promise results we have not measured.</p></div><div class="step"><span class="num">02 / DIGNITY</span><h3>Protect people’s agency.</h3><p>Respect privacy, consent, accessibility, and the freedom to choose what to explore.</p></div><div class="step"><span class="num">03 / SERVICE</span><h3>Make the work useful.</h3><p>Approach people with humility and compassion. Let tools serve people, families, teams, and communities.</p></div><div class="step"><span class="num">04 / WONDER</span><h3>Leave room to grow.</h3><p>Make space for joy, creativity, learning, and possibility—without pressure or coercion.</p></div></div>
 <p class="section-lead" style="margin-top:24px">Sikh and Christian reflections are offered with respect for each tradition and without treating them as interchangeable. Everyone is welcome.</p>
 </section>
-<section class="band" id="about"><div class="wrap band-inner"><div><div class="section-label">For families, educators, coaches, creators & partners</div><h2>Bring the right people together.</h2><p>APERTURE is one connected home for experiences, learning, sports, creativity, reflection, and responsible operating tools. Explore freely, use what helps, or propose a project that serves people well.</p></div><div class="band-actions"><a class="btn" href="engage.html">Explore collaboration ↗</a><a class="btn outline" href="hire.html">Professional experience ↗</a></div></div></section>
+<section class="band" id="about"><div class="wrap organization" id="organizations"><h2>Work with APERTURE</h2><div class="organization-grid">
+<article><h3>Schools &amp; youth programs</h3><p>Explore project based coding, enrichment, and coaching tools for your program.</p><a href="learning/">Explore learning programs</a></article>
+<article><h3>Operators &amp; teams</h3><p>Start with one process, from enrollment follow-up to staff handoffs. The Workflow Sprint maps the issue and gives your team a plan to measure improvements.</p><a href="sprint/">See the $500 Workflow Sprint</a></article>
+<article><h3>Partners &amp; collaborators</h3><p>Bring a project in education, sport, community, or responsible technology.</p><a href="engage.html">Start a partnership conversation</a></article>
+</div></div></section>
 <section class="wrap section faq" aria-labelledby="faq-title"><div class="section-label">Good to know</div><h2 id="faq-title">A few simple answers.</h2>
 <details><summary>Do I need an account to get started?</summary><p>Many of the free experiences open directly in your browser. Individual offerings may have different requirements, which should be shown on their own pages.</p></details>
 <details><summary>Is everything free?</summary><p>No. Many experiences are free to explore, while some offerings may include paid products. Check each product page for its current availability, terms, and pricing before purchasing.</p></details>
