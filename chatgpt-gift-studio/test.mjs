@@ -39,10 +39,17 @@ try {
     body: JSON.stringify({ session_id: "cs_test_fake" })
   });
   assert.equal(verify.status, 503, "No entitlement without Stripe configuration");
+  const download = await fetch(base + "/api/checkout/download", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ session_id: "cs_test_fake", recipient: "Friend", message: "Thank you" })
+  });
+  assert.equal(download.status, 503, "Never deliver a PDF without configured Stripe verification");
   const landing = await fetch(base + "/");
   assert.equal(landing.status, 200);
   const landingHtml = await landing.text();
   assert.match(landingHtml, /Gift Digital Twin/);
+  assert.match(landingHtml, /Personalized Gift Story PDF/);
+  assert.match(landingHtml, /id="storyCheckout" disabled/);
   assert.match(landingHtml, /id="runTwin"/);
   assert.match(landingHtml, /function simulateTwin\(/);
   assert.match(landingHtml, /affiliate commissions/i);
