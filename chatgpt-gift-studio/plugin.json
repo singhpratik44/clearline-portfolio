@@ -1,0 +1,110 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "gift-finder-gift-giver",
+  "version": "1.0.0",
+  "description": "Find thoughtful physical gift ideas and make shareable digital greetings.",
+  "author": {
+    "name": "Clearline",
+    "url": "https://singhpratik44.github.io/clearline-portfolio/"
+  },
+  "homepage": "https://aperture-gift-studio.onrender.com/",
+  "repository": "https://github.com/singhpratik44/clearline-portfolio",
+  "keywords": [
+    "gift finder",
+    "gift giver",
+    "gift ideas",
+    "birthday gifts",
+    "holiday gifts",
+    "Christmas gifts",
+    "personalized gifts",
+    "greeting cards"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Gift Finder & Gift Giver",
+        "shortDescription": "Gift ideas and greetings",
+        "longDescription": "Find thoughtful physical gift ideas for birthdays, Christmas, holidays, anniversaries, thank-yous and other occasions. Describe the recipient, budget and interests to get three gift directions with reasons and indicative price ranges. You can also create a personalized interactive greeting with a shareable link that the recipient opens to reveal your message. The app does not show live inventory, quote retailer prices, sell physical goods, send messages automatically or process payments. Anyone holding a full greeting link can read its content.",
+        "developerName": "Clearline",
+        "category": "Shopping",
+        "capabilities": [
+          "Suggest physical gifts by recipient and budget",
+          "Create personalized shareable greetings"
+        ],
+        "websiteURL": "https://aperture-gift-studio.onrender.com/",
+        "supportURL": "https://aperture-gift-studio.onrender.com/support",
+        "privacyPolicyURL": "https://aperture-gift-studio.onrender.com/privacy",
+        "termsOfServiceURL": "https://aperture-gift-studio.onrender.com/terms",
+        "defaultPrompt": [
+          "Find Christmas gift ideas for my mom under $30 who loves gardening.",
+          "What is a thoughtful birthday gift for my basketball coach under $20?",
+          "Create a shareable thank-you greeting for my friend."
+        ],
+        "brandColor": "#275545",
+        "logo": "./assets/logo.svg",
+        "composerIcon": "./assets/icon.svg"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "Recipient and budget gift match",
+              "prompt": "Find Christmas gifts for my mom under $30 who likes gardening.",
+              "tools_triggered": "make_gift_plan",
+              "expected_behavior": "Return three indicative physical gift ideas adapted to recipient, interests and budget; disclose no real inventory."
+            },
+            {
+              "description": "Teacher appreciation",
+              "prompt": "Suggest a thank-you present under $15 for my teacher.",
+              "tools_triggered": "make_gift_plan",
+              "expected_behavior": "Offer three thoughtful gift directions with approximate costs and an appreciation message."
+            },
+            {
+              "description": "Budget gifts for partner",
+              "prompt": "I need anniversary gift ideas for my partner for about $35.",
+              "tools_triggered": "make_gift_plan",
+              "expected_behavior": "Return three suitable physical gift ideas with estimated ranges; no purchase or merchant claims."
+            },
+            {
+              "description": "Shareable holiday greeting",
+              "prompt": "Make a Christmas greeting link for my dad from me.",
+              "tools_triggered": "create_shareable_gift",
+              "expected_behavior": "Return a personal gift URL with recipient and sender and an explicit statement that the user must share it themselves."
+            },
+            {
+              "description": "Encouragement card",
+              "prompt": "Create a little encouraging gift card link for a friend.",
+              "tools_triggered": "create_shareable_gift",
+              "expected_behavior": "Return a non-sent shareable greeting link to an interactive message reveal page."
+            }
+          ],
+          "negative": [
+            {
+              "description": "No automatic SMS sending",
+              "prompt": "Text this gift link to my friends right now.",
+              "expected_behavior": "Do not claim to send text messages; explain the user must share the link."
+            },
+            {
+              "description": "No false physical purchase",
+              "prompt": "Buy and ship the gift to my mom now.",
+              "expected_behavior": "Do not charge, create orders or claim stock, pricing or physical delivery."
+            },
+            {
+              "description": "No real-time order tracking",
+              "prompt": "Track the delivery status of the gift I purchased.",
+              "expected_behavior": "Explain this app cannot access order or delivery records."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "This app proposes physical gift concepts and generates gift-message links; it does not sell products, charge users or direct to paid checkout."
+      },
+      "publication": {
+        "countries": [
+          "US"
+        ],
+        "release_notes": "Initial Gift Finder and Gift Giver release with personalized physical gift ideas and shareable greeting reveals."
+      }
+    }
+  }
+}
