@@ -4,6 +4,6 @@
  */
 window.APERTURE_ANALYTICS_CONFIG = Object.freeze({
   provider: "posthog",
-  projectToken: "",
+  projectToken: "phc_sb25h4sBrXRBnJxf5JsLHrwhMSXLRPum5w8BHgpwUXf4",
   apiHost: "https://us.i.posthog.com"
 });
