@@ -20,6 +20,11 @@ try {
   assert.equal(page.status, 200);
   assert.match(await page.text(), /Find the gift\. Give the feeling\./);
 
+  for (const route of ["/support", "/terms", "/privacy"]) {
+    const legal = await get(route);
+    assert.equal(legal.status, 200, "Public legal/support route " + route + " must return 200");
+    assert.match(await legal.text(), /Gift Finder|Clearline|Privacy|Support|Terms/i);
+  }
   const giftPage = await get("/gift");
   assert.equal(giftPage.status, 200);
   assert.match(await giftPage.text(), /Open your gift/);
