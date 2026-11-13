@@ -188,6 +188,18 @@ createServer(async (req, res) => {
   if (req.method === "GET" && url.pathname === "/gift") return respond(res, 200, "text/html; charset=utf-8", giftCard);
   if (req.method === "GET" && url.pathname === "/privacy") return respond(res, 200, "text/html; charset=utf-8", privacy);
   if (req.method === "GET" && url.pathname === "/health") return respond(res, 200, "application/json", JSON.stringify({ ok: true, name: "aperture-gift-studio", checkoutLive: false }));
+  if (req.method === "POST" && url.pathname === "/api/gift") {
+    try {
+      let body = "";
+      for await (const chunk of req) {
+        body += chunk.toString();
+        if (body.length > 8192) return respond(res, 413, "application/json", JSON.stringify({ error: "Input too large" }));
+      }
+      return respond(res, 200, "application/json", JSON.stringify({ gift: createGiftMessage(JSON.parse(body || "{}")) }));
+    } catch {
+      return respond(res, 400, "application/json", JSON.stringify({ error: "Invalid JSON input" }));
+    }
+  }
   if (req.method === "POST" && url.pathname === "/api/plan") {
     try {
       let body = "";
