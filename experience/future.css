@@ -1,0 +1,48 @@
+/* APERTURE 2040 — spatial interface layer. Non-invasive override of v2 interactions. */
+:root{color-scheme:dark;background:#030711}
+body{background:#030711}
+.ael{--ael-text:#f5fbff;--ael-muted:#a7b9d0;--ael-dim:#9daac2;--ael-panel:rgba(11,25,44,.66);--ael-line:rgba(139,230,255,.22);--ael-accent:#83eaff;--ael-glow:rgba(58,205,255,.16);background:radial-gradient(ellipse 70% 50% at 50% -15%,#204b76 0%,transparent 76%),radial-gradient(ellipse 65% 70% at 105% 55%,#132744 0%,transparent 72%),#030711;color:#f3faff;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+.ael[data-hue="lavender"]{--ael-accent:#a9a4ff;--ael-glow:rgba(142,135,255,.2)}
+.ael[data-hue="peach"]{--ael-accent:#ffc89b;--ael-glow:rgba(255,181,113,.19)}
+.ael[data-hue="rose"]{--ael-accent:#ff98c6;--ael-glow:rgba(255,112,186,.19)}
+.ael[data-hue="mint"]{--ael-accent:#8dffe0;--ael-glow:rgba(73,244,200,.19)}
+.ael::before{content:"";position:absolute;inset:0;pointer-events:none;z-index:-1;opacity:.42;background-image:linear-gradient(rgba(142,214,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(142,214,255,.035) 1px,transparent 1px);background-size:48px 48px;mask-image:linear-gradient(to bottom,black,transparent 75%)}
+.ael-sky{height:850px;background:radial-gradient(ellipse 45% 44% at 50% 25%,rgba(52,128,202,.23),transparent 85%),radial-gradient(ellipse 30% 25% at 50% 23%,rgba(107,222,255,.08),transparent 80%)}
+.ael-aura{border-color:rgba(126,211,255,.18);box-shadow:0 0 100px rgba(30,150,255,.06),inset 0 0 90px rgba(30,150,255,.035)}
+.ael-aura::before,.ael-aura::after{border-color:rgba(149,228,255,.13)}
+.ael-aura-one{width:680px;left:calc(50% - 340px);top:-300px;animation:future-orbit 90s linear infinite}
+.ael-aura-two{width:980px;left:calc(50% - 490px);top:-445px;animation:future-orbit 130s linear reverse infinite}
+.ael-star{color:#8aeaff;text-shadow:0 0 25px #4ceaff}
+.ael-shell{width:min(100% - 36px,1200px)}
+.ael-header{min-height:86px;border-bottom:1px solid rgba(139,230,255,.14);backdrop-filter:blur(20px)}
+.ael-brand{font-weight:800;letter-spacing:.23em}
+.ael-brand-mark{width:42px;height:42px;border:1px solid rgba(136,238,255,.7);box-shadow:0 0 25px rgba(77,212,255,.18);color:#a9f5ff;background:rgba(33,122,172,.1)}
+.ael-brand-sub{color:#9bb7c9}
+.ael-quiet-toggle,.ael-btn-ghost,.ael-btn-outline{background:rgba(13,35,56,.65);border:1px solid rgba(137,223,255,.28);color:#e3f7ff;backdrop-filter:blur(18px);border-radius:999px}
+.ael-hero{padding:100px 8px 85px}
+.ael-hero-kicker,.ael-overline,.ael-eyebrow{color:#8fe9ff;letter-spacing:.25em;text-transform:uppercase}
+.ael-kicker-line{background:#65d8ff}
+.ael-hero h1{font-family:ui-sans-serif,system-ui,sans-serif;font-size:clamp(55px,8.5vw,120px);font-weight:650;line-height:1.01;letter-spacing:-.085em;text-shadow:0 18px 65px rgba(57,192,255,.14)}
+.ael-hero h1 em{font-style:normal;font-weight:300;background:linear-gradient(110deg,#8eeeff 10%,#d5c4ff 46%,#ffbed7 85%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ael-hero p{color:#b6cbe0;font-size:clamp(16px,1.7vw,19px);line-height:1.7}
+.ael-section-heading h2{font-family:ui-sans-serif,system-ui,sans-serif;letter-spacing:-.055em;font-weight:600}
+.ael-path-grid{gap:16px}
+.ael-path{position:relative;overflow:hidden;background:linear-gradient(145deg,rgba(34,69,101,.66),rgba(7,19,37,.88));border:1px solid rgba(133,217,255,.25);border-radius:26px;box-shadow:0 16px 55px rgba(0,0,0,.23),inset 0 1px rgba(235,251,255,.1);backdrop-filter:blur(24px);transition:transform .25s,border-color .25s,box-shadow .25s}
+.ael-path::before{content:"";position:absolute;width:210px;height:210px;right:-75px;top:-90px;border-radius:50%;background:radial-gradient(circle,var(--ael-glow),transparent 70%);pointer-events:none}
+.ael-path:hover,.ael-path:focus-visible{transform:translateY(-5px);border-color:var(--ael-accent);box-shadow:0 24px 65px var(--ael-glow)}
+.ael-path-symbol{color:var(--ael-accent);filter:drop-shadow(0 0 14px var(--ael-glow))}
+.ael-path-name{font-weight:650;letter-spacing:-.045em}
+.ael-path-short{color:#b1c5d8}
+.ael-path-arrow{color:var(--ael-accent)}
+.ael-journey,.ael-complete,.ael-manifesto{background:linear-gradient(150deg,rgba(22,49,78,.82),rgba(6,16,31,.94));border:1px solid rgba(144,229,255,.23);border-radius:30px;box-shadow:0 30px 110px rgba(0,0,0,.28),inset 0 1px rgba(225,249,255,.08);backdrop-filter:blur(25px)}
+.ael-journey-glow{background:radial-gradient(circle,var(--ael-glow),transparent 72%)}
+.ael-progress{accent-color:var(--ael-accent)}
+.ael-btn-primary{background:linear-gradient(110deg,#9ef3ff,#a4c8ff);color:#061326;border:0;border-radius:999px;box-shadow:0 8px 30px rgba(83,206,255,.2);font-weight:750}
+.ael-chip{background:rgba(20,52,81,.72);border:1px solid rgba(139,230,255,.28);border-radius:999px;color:#e9f9ff}
+.ael-chip.is-picked{background:rgba(92,213,255,.2);border-color:#92e9ff}
+.ael-reflection textarea{background:rgba(3,14,28,.65);border:1px solid rgba(145,222,255,.3);border-radius:18px;color:#f1faff}
+.ael-footer{border-top-color:rgba(140,220,255,.15)}
+.ael[data-quiet="true"] .ael-aura,.ael[data-quiet="true"] .ael-star{animation:none;opacity:.08}
+@keyframes future-orbit{to{transform:rotate(360deg)}}
+@media(max-width:650px){.ael-shell{width:min(100% - 28px,1200px)}.ael-header{min-height:76px}.ael-hero{padding:70px 0 58px}.ael-hero h1{font-size:clamp(50px,13vw,78px)}.ael-path{border-radius:22px}.ael-journey,.ael-complete,.ael-manifesto{border-radius:22px}}
+@media(prefers-reduced-motion:reduce){.ael-aura,.ael-path{animation:none!important;transition:none!important}}
