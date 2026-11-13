@@ -1,6 +1,7 @@
 import { createServer } from "node:http";
 import { readFileSync } from "node:fs";
 import crypto from "node:crypto";
+import sharp from "sharp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 import { registerAppResource, registerAppTool, RESOURCE_MIME_TYPE } from "@modelcontextprotocol/ext-apps/server";
@@ -11,11 +12,13 @@ const widget = readFileSync(new URL("./public/widget.html", import.meta.url), "u
 const privacy = readFileSync(new URL("./public/privacy.html", import.meta.url), "utf8");
 const giftCard = readFileSync(new URL("./public/gift.html", import.meta.url), "utf8");
 const shareArtwork = readFileSync(new URL("./public/share-card.svg", import.meta.url), "utf8");
-const shareMeta = `<meta property="og:type" content="website"><meta property="og:site_name" content="Gift Finder &amp; Gift Giver"><meta property="og:title" content="A gift is waiting for you 🎁"><meta property="og:description" content="Unwrap a little joy, love and wonder. A free thoughtful gift, made with care."><meta property="og:image" content="https://aperture-gift-studio.onrender.com/share-card.svg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="A gift is waiting for you 🎁"><meta name="twitter:description" content="Unwrap a little joy, love and wonder."><meta name="twitter:image" content="https://aperture-gift-studio.onrender.com/share-card.svg">`;
+const sharePng = await sharp(Buffer.from(shareArtwork)).png().toBuffer();
+const shareMeta = `<meta property="og:type" content="website"><meta property="og:site_name" content="Gift Finder &amp; Gift Giver"><meta property="og:title" content="A gift is waiting for you 🎁"><meta property="og:description" content="Unwrap a little joy, love and wonder. A free thoughtful gift, made with care."><meta property="og:image" content="https://aperture-gift-studio.onrender.com/share-card.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="A gift is waiting for you 🎁"><meta name="twitter:description" content="Unwrap a little joy, love and wonder."><meta name="twitter:image" content="https://aperture-gift-studio.onrender.com/share-card.png">`;
 const socialGiftPage = giftCard.replace("</head>", shareMeta + "</head>");
 // Aggregate-only, process-local counters: no IP, cookies, names, messages, or URL fragments.
 // Counts reset on restart and are not suitable for financial or longitudinal reporting.
 const giftEvents = { open: 0, complete: 0, forward: 0 };
+const dashboard = readFileSync(new URL("./public/metrics.html", import.meta.url), "utf8");
 
 const termsPage = readFileSync(new URL("./public/terms.html", import.meta.url), "utf8");
 const supportPage = readFileSync(new URL("./public/support.html", import.meta.url), "utf8");
@@ -330,7 +333,9 @@ createServer(async (req, res) => {
   if (req.method === "GET" && url.pathname === "/terms") return respond(res, 200, "text/html; charset=utf-8", termsPage);
   if (req.method === "GET" && url.pathname === "/support") return respond(res, 200, "text/html; charset=utf-8", supportPage);
   if (req.method === "GET" && url.pathname === "/gift") return respond(res, 200, "text/html; charset=utf-8", socialGiftPage);
+  if (req.method === "GET" && url.pathname === "/share-card.png") return respond(res, 200, "image/png", sharePng);
   if (req.method === "GET" && url.pathname === "/share-card.svg") return respond(res, 200, "image/svg+xml; charset=utf-8", shareArtwork);
+  if (req.method === "GET" && url.pathname === "/gift/metrics") return respond(res, 200, "text/html; charset=utf-8", dashboard);
   if (req.method === "GET" && url.pathname === "/api/gift/metrics") return respond(res, 200, "application/json", JSON.stringify({ ...giftEvents, scope: "process-local", persistent: false, privacy: "aggregate-only" }));
   if (req.method === "POST" && url.pathname === "/api/gift/event") {
     if (req.headers.dnt === "1" || req.headers["sec-gpc"] === "1") return respond(res, 204, "text/plain", "");
