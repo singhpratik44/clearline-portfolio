@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.singhpratik44/gift-finder-clearline",
+  "title": "Gift Finder by Clearline",
+  "description": "Personalized gift ideas and shareable interactive gifts via a free remote MCP server.",
+  "websiteUrl": "https://aperture-gift-studio.onrender.com",
+  "repository": {
+    "url": "https://github.com/singhpratik44/clearline-portfolio",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://aperture-gift-studio.onrender.com/mcp"
+    }
+  ]
+}
