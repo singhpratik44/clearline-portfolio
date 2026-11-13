@@ -52,7 +52,7 @@
  function validHttps(value,allowlist){
   try{const x=new URL(value);return x.protocol==="https:"&&(!allowlist||allowlist.has(x.hostname))?x.href:null}catch{return null}
  }
- const allowedCheckoutHosts=new Set(["buy.stripe.com","checkout.stripe.com"]);
+ const allowedCheckoutHosts=new Set(["buy.stripe.com","checkout.stripe.com","book.stripe.com"]);
  const money=c=>new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(c/100);
  function products(catalogs,links){
   const out=[],seen=new Set();
@@ -193,7 +193,7 @@
  function displayAds(){
    const container=$("sponsor-products");container.replaceChildren();
    const packages=Array.isArray(ads.packages)?ads.packages:[];
-   if(!packages.length)return;
+   if(!packages.length){container.append(h("div","No verified advertising inventory available.","empty"));return;}
    for(const p of packages){
     const panel=h("article",undefined,"panel ad");
     panel.append(h("span","ADVERTISEMENT INVENTORY · ONE-TIME","adtag"),h("h3",p.name),h("p",p.description),h("div",money(p.price_cents),"price"),h("p","Subject to advertiser review and agreed scheduling; no guaranteed impressions, traffic or league endorsement.","small"));
@@ -217,5 +217,7 @@
  // Sponsor placeholders: no sponsor is represented without proof of an approved, paid, time-bounded placement.
  const hero=doc.querySelector(".hero .shell");const heroSlot=h("aside",undefined,"panel ad");heroSlot.id="hero-sponsor-slot";heroSlot.style.marginTop="19px";hero.append(heroSlot);
  const momentContainer=$("moment-preview").parentElement;const momentSlot=h("aside",undefined,"panel ad");momentSlot.id="moment-sponsor-slot";momentSlot.style.marginTop="12px";momentContainer.append(momentSlot);
- chooseLeague("all");fillRoadmap();displayAds();sponsoredSlot("presenter","hero-sponsor-slot");sponsoredSlot("moment","moment-sponsor-slot");applyMoment(currentMoment,false);
+ const sponsorSection=$("sponsor-products");const communitySlot=h("aside",undefined,"panel ad");communitySlot.id="community-sponsor-slot";communitySlot.style.marginTop="14px";sponsorSection.after(communitySlot);
+ const presentingSlot=h("aside",undefined,"panel ad");presentingSlot.id="presenter-sponsor-slot";presentingSlot.style.marginTop="14px";communitySlot.after(presentingSlot);
+ chooseLeague("all");fillRoadmap();displayAds();sponsoredSlot("presenter","hero-sponsor-slot");sponsoredSlot("presenter","presenter-sponsor-slot");sponsoredSlot("community","community-sponsor-slot");sponsoredSlot("moment","moment-sponsor-slot");applyMoment(currentMoment,false);
 })(typeof globalThis!=="undefined"?globalThis:this);
