@@ -1,0 +1,22 @@
+name: APERTURE Gift Studio MCP test
+on:
+  push:
+    paths:
+      - "chatgpt-gift-studio/**"
+      - ".github/workflows/aperture-gift-plugin-ci.yml"
+  workflow_dispatch:
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --omit=dev
+        working-directory: chatgpt-gift-studio
+      - run: node --check server.mjs
+        working-directory: chatgpt-gift-studio
+      - run: node test.mjs
+        working-directory: chatgpt-gift-studio
