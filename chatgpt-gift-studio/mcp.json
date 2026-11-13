@@ -1,0 +1,16 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "gift-finder-giver": {
+      "type": "streamable-http",
+      "url": "https://aperture-gift-studio.onrender.com/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "none"
+          }
+        }
+      }
+    }
+  }
+}
