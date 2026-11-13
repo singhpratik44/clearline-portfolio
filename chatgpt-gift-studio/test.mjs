@@ -60,7 +60,7 @@ try {
   assert.match(await giftPage.text(), /Unwrap your gift/);
   const giftHtml = await (await fetch(base + "/gift")).text();
   assert.match(giftHtml, /og:image/);
-  assert.match(giftHtml, /share-card\\.png/);
+  assert.ok(giftHtml.includes("share-card.png"));
   const dashboardResponse=await fetch(base + "/gift/metrics");
   assert.equal(dashboardResponse.status,200);
   assert.match(await dashboardResponse.text(), /Gift activity/);
