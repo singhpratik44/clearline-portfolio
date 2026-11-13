@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://singhpratik44.github.io/clearline-portfolio/sitemap.xml
