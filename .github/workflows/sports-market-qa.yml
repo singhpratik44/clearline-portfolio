@@ -1,0 +1,48 @@
+name: APERTURE Sports Marketplace QA
+on:
+  push:
+    paths:
+      - 'sports-os/market/**'
+      - 'tests/sports-market.test.mjs'
+      - 'tests/sports-market-browser.mjs'
+      - 'gifts/checkout-links.js'
+      - 'gifts/sports-collection.js'
+      - 'gifts/basketball-collection.js'
+      - 'gifts/basketball-extra.js'
+      - '.github/workflows/sports-market-qa.yml'
+  pull_request:
+    paths:
+      - 'sports-os/market/**'
+      - 'tests/sports-market.test.mjs'
+      - 'tests/sports-market-browser.mjs'
+      - 'gifts/checkout-links.js'
+      - 'gifts/sports-collection.js'
+      - 'gifts/basketball-collection.js'
+      - 'gifts/basketball-extra.js'
+      - '.github/workflows/sports-market-qa.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify gift linking, sponsor caps, moments and rights boundaries
+        run: node --test tests/sports-market.test.mjs
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser automation
+        run: |
+          npm install --no-save --no-package-lock playwright
+          npx playwright install --with-deps chromium
+      - name: Verify buyer experience at mobile and desktop widths
+        run: node tests/sports-market-browser.mjs
