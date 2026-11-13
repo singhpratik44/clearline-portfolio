@@ -78,6 +78,7 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Test mobile and desktop interactive journeys
         run: |
+          node --test tests/faith-gifts.test.mjs
           node tests/interactive-browser.mjs
           node tests/civilization-browser.mjs
           node tests/site-browser.mjs
