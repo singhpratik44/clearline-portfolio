@@ -24,9 +24,9 @@ try {
     for (let i = 0; i < 6; i++) await page.locator('#cmdF').click();
     assert.match(await page.locator('#queueCount').textContent(), /13 commands/);
     await page.locator('#runRobot').click();
-    await page.waitForFunction(() => document.getElementById('robotStatus')?.textContent?.includes('Mission complete'), { timeout: 12000 });
+    await page.waitForFunction(() => document.getElementById('robotStatus')?.textContent?.includes('Mission complete'), null, { timeout: 12000 });
 
-    await page.locator('#threshold').fill('70');
+    await page.locator('#threshold').evaluate(el => { el.value = '70'; el.dispatchEvent(new Event('input', { bubbles: true })); });
     assert.equal(await page.locator('#thValue').textContent(), '70');
     await page.locator('#evalAI').click();
     assert.match(await page.locator('#aiResult').textContent(), /predictions matched/);
