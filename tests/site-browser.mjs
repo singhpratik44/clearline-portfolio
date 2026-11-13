@@ -135,6 +135,34 @@ try {
    assert.deepEqual(errors,[],'Commercial pilot and prospect JavaScript errors');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Prospect dashboard horizontal overflow');
 
+   await page.goto('http://127.0.0.1:8767/sports-os/market/');
+   await page.locator('#gift-grid .product').first().waitFor();
+   const marketGifts=await page.locator('#gift-grid .product').count();
+   assert.ok(marketGifts>=42,'Sports Market reuses 42+ existing digital gift products');
+   assert.equal(await page.locator('#sponsor-products .panel.ad').count(),3,'Three purchasable advertiser placements');
+   assert.equal(await page.locator('#sponsor-products a[href^="https://book.stripe.com/"]').count(),3,'Live Stripe advertiser checkouts wired');
+   await page.locator('[data-league="soccer"]').click();
+   assert.equal(await page.locator('#league-cards .panel').count(),1,'Official soccer scoreboard filtered');
+   await page.locator('[data-league="all"]').click();
+   assert.ok((await page.locator('#league-cards .panel').count())>=6,'Official sports scoreboard directory restored');
+   await page.locator('#recipient').fill('MVP');
+   await page.locator('#occasion').selectOption('thanks');
+   await page.locator('#moment-form button[type="submit"]').click();
+   assert.match(await page.locator('#moment-title').innerText(),/MVP/);
+   assert.ok((await page.url()).includes('#m='),'Personal fan moment shareable in fragment URL');
+   await page.locator('#gift-category').selectOption('soccer');
+   assert.ok((await page.locator('#gift-grid .product').count())>=1,'Soccer gifts filter');
+   await page.locator('#gift-category').selectOption('all');
+   await page.locator('#gift-sort').selectOption('low');
+   assert.ok((await page.locator('#gift-grid .product').count())>=42,'Full catalog recovers after sort');
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Sports marketplace mobile/desktop overflow');
+   assert.deepEqual(errors,[],'Sports marketplace client errors');
+   await page.goto('http://127.0.0.1:8767/sports-os/market/advertising.html');
+   assert.match(await page.title(),/Advertising Conditions/);
+   assert.match(await page.locator('main').innerText(),/full refund/i);
+   await page.goto('http://127.0.0.1:8767/sports-os/market/technology.html');
+   assert.match(await page.locator('main').innerText(),/Live sport/i);
+
    await page.goto('http://127.0.0.1:8767/gifts/');
    const totalGifts=await page.locator('.gift-card').count();
    assert.ok(totalGifts>=69,'Gift Lab has at least 69 purchasable editions');
