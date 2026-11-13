@@ -1,95 +1,94 @@
-<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>APERTURE Project Studio</title><style>
-*{box-sizing:border-box}body{margin:0;background:#101c1a;color:#edf5ed;font:16px/1.5 system-ui}main,header{width:min(1080px,92%);margin:auto}header{padding:24px 0;border-bottom:1px solid #678279}h1{font-size:clamp(38px,8vw,96px);line-height:1;letter-spacing:-.07em;margin:44px 0 12px}a{color:#bdf0cf}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0}section{background:#1b302b;border:1px solid #47645a;border-radius:20px;padding:22px}label{display:block;margin:12px 0}input,select,textarea,button{font:inherit;padding:10px;border-radius:8px;border:1px solid #78978a}input,select,textarea{width:100%;background:#f3faf4;color:#152821}textarea{min-height:85px}button{background:#bdf0cf;color:#152821;cursor:pointer;margin:4px 4px 4px 0;min-height:44px}.task{border-top:1px solid #678279;padding:12px 0}.task input{width:auto;margin-right:10px}.task label{margin:0}.task p{white-space:pre-wrap;overflow-wrap:anywhere}#status{min-height:24px}@media(max-width:700px){.grid{grid-template-columns:1fr}}
-</style><header><a href="./">APERTURE</a></header><main><h1>Build a real project.</h1><p>Combine education, sports, personal growth, faith, creative work, and operations in one plan. Your project stays in this browser. Export it to keep a copy or share it.</p>
-<div class="grid"><section><h2>Project brief</h2><form id="brief"><label>Starting point<select id="template"><option value="">Blank project</option><option>Youth program</option><option>Coaching season</option><option>Community initiative</option><option>Creative launch</option></select></label><button type="button" id="apply">Add suggested activities</button><label>Project name<input id="name" maxlength="120"></label><label>Who is it for?<input id="audience" maxlength="160"></label><label>What would success look like?<textarea id="goal" maxlength="2000"></textarea></label><button type="submit">Save brief</button></form></section>
-<section><h2>Add an activity</h2><form id="activity"><label>APERTURE area<select id="area"></select></label><label>Activity<input id="title" required maxlength="160"></label><label>Notes or evidence<textarea id="notes" maxlength="2000"></textarea></label><button>Add to plan</button></form></section></div>
-<section><h2>Project plan</h2><p id="progress"></p><div id="tasks"></div><button id="export">Export project as Markdown</button><p id="status" role="status"></p></section></main>
-<script>
-const byId = id => document.getElementById(id);
-const areas = ["Education","Sports","Personal growth","Faith & reflection","Gifts & art","Innovation & operations"];
-const templates = {
-  "Youth program": [[0,"Build and demo a small game"],[1,"Run a teamwork practice"],[5,"Review attendance and participant feedback"]],
-  "Coaching season": [[1,"Plan the first practice and pick a skill to observe"],[2,"Rehearse how to give constructive feedback"],[5,"Review progress and adjust the next session"]],
-  "Community initiative": [[3,"Choose an optional act of service"],[4,"Create a thank-you gift for volunteers"],[5,"Agree on who owns each follow-up"]],
-  "Creative launch": [[4,"Create a prototype someone can try"],[2,"Rehearse a short introduction"],[5,"Collect feedback and choose one revision"]]
-};
-const key = "aperture-project-studio-v1";
-let project = {name:"",audience:"",goal:"",tasks:[]};
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>APERTURE — Program Workspace</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f1f3ef;color:#152d27;font:16px/1.5 system-ui}header{background:#142e27;color:white;padding:20px 4%;display:flex;gap:22px;align-items:center;flex-wrap:wrap}header a{color:#c2f1d4}h1{font-size:clamp(28px,5vw,60px);line-height:1.05;letter-spacing:-.05em}main{max-width:1400px;margin:auto;padding:28px 4%}.layout{display:grid;grid-template-columns:240px 1fr;gap:24px}.panel,article{background:white;border:1px solid #d0dbd3;border-radius:16px;padding:20px;margin-bottom:16px}button,input,select,textarea{font:inherit;min-height:44px;border:1px solid #a4b9ac;border-radius:8px;padding:9px}button{background:#173f30;color:white;cursor:pointer}input,select,textarea{width:100%;background:white;color:#152d27}label{display:block;margin:10px 0}textarea{min-height:85px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}.stats div{background:#dfebe2;padding:18px;border-radius:12px}.stats strong{display:block;font-size:26px}.projects button{display:block;width:100%;text-align:left;margin-bottom:8px;background:white;color:#173f30}.projects button[aria-pressed=true]{background:#173f30;color:white}.task-head{display:flex;gap:10px;align-items:center}.task-head input{width:24px}.task-head strong{flex:1}.muted{color:#526b5d}.pill{background:#eaf0e9;border-radius:6px;padding:3px 8px;font-size:13px}.danger{background:white;color:#842a32}a{color:#24583f}.empty{padding:24px;color:#526b5d}#status{min-height:24px}details summary{cursor:pointer;font-weight:750}button:focus-visible,a:focus-visible{outline:3px solid #c18523;outline-offset:3px}@media(max-width:800px){.layout{grid-template-columns:1fr}.stats{grid-template-columns:1fr}.projects{display:flex;gap:8px;overflow:auto}.projects button{min-width:180px}}
+</style></head><body><header><a href="./">APERTURE</a><span>Program Workspace</span></header><main><h1>Run the work that matters.</h1><p>Plan programs, assign responsibility, and compare progress across your portfolio.</p><p class="muted">Saved on this device. Export a backup to move your work between devices. Owners are planning labels and receive no notifications.</p><div class="stats" id="stats"></div><div class="layout"><aside><section class="panel"><h2>Programs</h2><div id="projects" class="projects"></div><form id="new-project"><label>Program name<input id="new-name" required maxlength="120"></label><button>Create program</button></form></section><section class="panel"><h3>Backup &amp; transfer</h3><button id="backup">Export workspace</button><label>Import a workspace<input id="import" type="file" accept=".json,application/json"></label><p class="muted">Import adds programs to this workspace.</p></section></aside><div><section class="panel"><form id="brief"><div class="row"><label>Program name<input id="name" required maxlength="120"></label><label>Area<select id="area"><option>Education</option><option>Sports</option><option>Human experience</option><option>Faith & reflection</option><option>Gifts & art</option><option>Innovation & operations</option></select></label></div><label>Goal and audience<textarea id="goal" maxlength="4000"></textarea></label><div class="row"><label>Budget in USD<input id="budget" type="number" min="0" max="1000000000" step=".01"></label><label>Actual spending in USD<input id="spent" type="number" min="0" max="1000000000" step=".01"></label></div><button>Save program</button> <button type="button" id="report">Export program report</button></form></section><section class="panel"><h2>Milestones and activities</h2><div class="row"><label>Show<select id="filter"><option>All</option><option>Open</option><option>Complete</option><option>Overdue</option></select></label><button id="starter">Add a program launch outline</button></div><div id="tasks"></div><details><summary>Add an activity</summary><form id="add-task"><label>Activity<input id="task-title" required maxlength="200"></label><div class="row"><label>Owner<input id="owner" maxlength="120"></label><label>Due date<input id="due" type="date"></label></div><label>Notes or evidence<textarea id="notes" maxlength="4000"></textarea></label><button>Add activity</button></form></details></section></div></div><p id="status" role="status"></p></main><script>
+const $ = id => document.getElementById(id);
+const key = 'aperture-program-workspace-v2';
+const uid = () => crypto.randomUUID();
+const clean = value => typeof value === 'string' ? value.slice(0,4000) : '';
+const amount = value => Math.max(0,Math.min(1e9,Number(value)||0));
+function normalize(value) {
+  return {id:uid(),name:clean(value.name)||'Untitled program',area:clean(value.area)||'Education',goal:clean(value.goal),budget:amount(value.budget),spent:amount(value.spent),tasks:(Array.isArray(value.tasks)?value.tasks:[]).slice(0,500).map(task => ({id:uid(),title:clean(task.title)||'Activity',owner:clean(task.owner),due:/^\d{4}-\d{2}-\d{2}$/.test(task.due)?task.due:'',notes:clean(task.notes),done:task.done===true}))};
+}
+let programs = [];
 try {
   const saved = JSON.parse(localStorage.getItem(key));
-  if (saved && Array.isArray(saved.tasks)) project = saved;
-} catch {}
-for (const field of ["name","audience","goal"]) byId(field).value = project[field] || "";
-for (const area of areas) byId("area").add(new Option(area,area));
-function save(message) {
-  for (const field of ["name","audience","goal"]) project[field] = byId(field).value.trim();
-  try {
-    localStorage.setItem(key,JSON.stringify(project));
-    byId("status").textContent = message;
-  } catch {
-    byId("status").textContent = "Browser storage is unavailable. Export your project before leaving.";
+  if (Array.isArray(saved)) programs = saved.filter(item=>item&&typeof item==='object').slice(0,100).map(normalize);
+  else {
+    const legacy = JSON.parse(localStorage.getItem('aperture-project-studio-v1'));
+    if (legacy) programs = [normalize({...legacy,goal:[legacy.audience,legacy.goal].filter(Boolean).join('\n')})];
   }
-  render();
+} catch {}
+if (!programs.length) programs = [normalize({name:'My first program'})];
+let active = programs[0].id;
+const current = () => programs.find(program=>program.id===active);
+const today = () => {const d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');};
+const overdue = task => !task.done && task.due && task.due<today();
+function persist(message) {
+  try {localStorage.setItem(key,JSON.stringify(programs));$('status').textContent=message;}
+  catch {$('status').textContent='Storage unavailable or full. Export the workspace before leaving.';}
+}
+function node(tag,text,className) {const el=document.createElement(tag);el.textContent=text;if(className)el.className=className;return el;}
+function fillBrief() {
+  const p=current();
+  for(const field of ['name','area','goal','budget','spent']) $(field).value=p[field];
+}
+function readBrief() {
+  const p=current();
+  p.name=$('name').value.trim()||'Untitled program';
+  p.area=$('area').value;p.goal=$('goal').value;p.budget=amount($('budget').value);p.spent=amount($('spent').value);
 }
 function render() {
-  byId("progress").textContent = project.tasks.filter(task => task.done).length + " of " + project.tasks.length + " activities complete";
-  const list = byId("tasks");
-  list.replaceChildren();
-  for (const task of project.tasks) {
-    const row = document.createElement("div");
-    row.className = "task";
-    const label = document.createElement("label");
-    const box = document.createElement("input");
-    box.type = "checkbox";
-    box.checked = task.done;
-    box.onchange = () => { task.done = box.checked; save("Progress saved."); };
-    label.append(box,task.title);
-    const detail = document.createElement("p");
-    detail.textContent = [task.area,task.notes].filter(Boolean).join(" — ");
-    const remove = document.createElement("button");
-    remove.textContent = "Remove";
-    remove.setAttribute("aria-label","Remove " + task.title);
-    remove.onclick = () => { project.tasks = project.tasks.filter(item => item !== task); save("Activity removed."); };
-    row.append(label,detail,remove);
-    list.append(row);
+  $('projects').replaceChildren();
+  for(const p of programs) {
+    const b=node('button',p.name);b.setAttribute('aria-pressed',String(p.id===active));
+    b.onclick=()=>{readBrief();persist('Program saved.');active=p.id;fillBrief();render();};
+    $('projects').append(b);
+  }
+  const tasks=programs.flatMap(p=>p.tasks);
+  $('stats').replaceChildren();
+  for(const [value,label] of [[programs.length,'Programs'],[tasks.filter(t=>t.done).length+' / '+tasks.length,'Activities complete'],[tasks.filter(overdue).length,'Activities overdue']]) {
+    const box=node('div','');box.append(node('strong',String(value)),node('span',label));$('stats').append(box);
+  }
+  $('tasks').replaceChildren();
+  const filter=$('filter').value;
+  const visible=current().tasks.filter(t=>filter==='All'||filter==='Open'&&!t.done||filter==='Complete'&&t.done||filter==='Overdue'&&overdue(t));
+  if(!visible.length)$('tasks').append(node('p','No activities in this view.','empty'));
+  for(const task of visible) {
+    const card=node('article',''),head=node('div','','task-head'),box=document.createElement('input');
+    box.type='checkbox';box.checked=task.done;box.setAttribute('aria-label','Complete '+task.title);
+    box.onchange=()=>{task.done=box.checked;persist('Progress saved.');render();};
+    head.append(box,node('strong',task.title));card.append(head,node('p',[task.owner||'Unassigned',task.due||'No due date',overdue(task)?'Overdue':''].filter(Boolean).join(' · '),'muted'));
+    const details=document.createElement('details');details.append(node('summary','Edit activity and evidence'));
+    for(const [field,label] of [['title','Activity'],['owner','Owner'],['due','Due date'],['notes','Notes or evidence']]) {
+      const wrapper=node('label',label),input=document.createElement(field==='notes'?'textarea':'input');
+      if(field==='due')input.type='date';input.value=task[field];
+      input.onchange=()=>{task[field]=input.value;persist('Activity saved.');render();};
+      wrapper.append(input);details.append(wrapper);
+    }
+    card.append(details);$('tasks').append(card);
   }
 }
-byId("brief").onsubmit = event => { event.preventDefault(); save("Project brief saved."); };
-byId("brief").addEventListener("change",event => {
-  if (["name","audience","goal"].includes(event.target.id)) save("Project brief saved.");
-});
-byId("apply").onclick = () => {
-  const activities = templates[byId("template").value];
-  if (!activities) { byId("status").textContent = "Choose a starting point first."; return; }
-  for (const [index,title] of activities) {
-    const area = areas[index];
-    if (!project.tasks.some(task => task.title === title && task.area === area)) {
-      project.tasks.push({title,area,notes:"",done:false});
-    }
-  }
-  save("Suggested activities added to your plan.");
+$('brief').onsubmit=e=>{e.preventDefault();readBrief();persist('Program saved.');render();};
+$('brief').addEventListener('change',()=>{readBrief();persist('Program saved.');render();});
+$('new-project').onsubmit=e=>{e.preventDefault();readBrief();const p=normalize({name:$('new-name').value});programs.push(p);active=p.id;e.target.reset();fillBrief();persist('Program created.');render();};
+$('add-task').onsubmit=e=>{e.preventDefault();const title=$('task-title').value.trim();if(!title)return;current().tasks.push({id:uid(),title,owner:$('owner').value,due:$('due').value,notes:$('notes').value,done:false});e.target.reset();persist('Activity added.');render();};
+$('filter').onchange=render;
+$('starter').onclick=()=>{for(const title of ['Define audience and intended outcome','Create a sample session or prototype','Invite feedback and record what you learn','Review costs and delivery responsibilities','Decide the next launch milestone'])if(!current().tasks.some(t=>t.title===title))current().tasks.push({id:uid(),title,owner:'',due:'',notes:'',done:false});persist('Launch outline added.');render();};
+function download(text,name,type) {
+  const url=URL.createObjectURL(new Blob([text],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$('backup').onclick=()=>{readBrief();persist('Workspace exported.');download(JSON.stringify({version:2,programs},null,2),'aperture-workspace.json','application/json');};
+$('report').onclick=()=>{readBrief();persist('Report exported.');const p=current();download(['# '+p.name,'',p.area,'',p.goal,'','Budget (USD): '+p.budget,'Spent (USD): '+p.spent,'Remaining (USD): '+(p.budget-p.spent),'',...p.tasks.map(t=>'- ['+(t.done?'x':' ')+'] '+t.title+'\n  Owner: '+(t.owner||'Unassigned')+' | Due: '+(t.due||'Unscheduled')+'\n  '+t.notes)].join('\n'),'aperture-program.md','text/markdown');};
+$('import').onchange=async e=>{
+  const file=e.target.files[0];if(!file)return;
+  try {
+    if(file.size>2e6)throw Error('Choose a JSON backup smaller than 2 MB.');
+    const data=JSON.parse(await file.text());
+    if(data.version!==2||!Array.isArray(data.programs)||!data.programs.length||data.programs.some(p=>!p||typeof p!=='object'))throw Error('Choose an APERTURE workspace JSON backup.');
+    if(programs.length+data.programs.length>100)throw Error('A workspace supports up to 100 programs.');
+    readBrief();programs.push(...data.programs.map(normalize));persist('Programs imported.');render();
+  } catch(error){$('status').textContent=error.message;}
+  e.target.value='';
 };
-byId("activity").onsubmit = event => {
-  event.preventDefault();
-  const title = byId("title").value.trim();
-  if (!title) { byId("title").focus(); return; }
-  project.tasks.push({title,area:byId("area").value,notes:byId("notes").value.trim(),done:false});
-  event.target.reset();
-  save("Activity added.");
-};
-byId("export").onclick = () => {
-  save("Project ready to export.");
-  const lines = ["# " + (project.name || "APERTURE project"),"", "Audience: " + project.audience,"",project.goal,"","## Activities"];
-  for (const task of project.tasks) {
-    lines.push("- [" + (task.done ? "x" : " ") + "] " + task.area + ": " + task.title);
-    if (task.notes) lines.push("",task.notes,"");
-  }
-  const url = URL.createObjectURL(new Blob([lines.join("\n")],{type:"text/markdown"}));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "aperture-project.md";
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url),1000);
-};
-render();
-</script>
+fillBrief();render();persist('Workspace ready.');
+</script></body></html>
