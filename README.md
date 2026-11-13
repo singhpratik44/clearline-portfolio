@@ -2,7 +2,9 @@
 
 **APERTURE Experiences & Innovation:** [Main public homepage](https://singhpratik44.github.io/clearline-portfolio/) · [Render deployment](https://aperture-main-website.onrender.com/)
 
-The homepage is a responsive, no-sign-in discovery site with twelve linked experience, learning, and innovation projects, live client-side category/search filtering, and accessible navigation. The earlier APERTURE v5 decision workbench is preserved at [previous-home.html](./previous-home.html). Original project URLs are unchanged.
+The homepage is a responsive, no-sign-in discovery site with thirteen linked experience, learning, and innovation projects, live client-side category/search filtering, and accessible navigation. The earlier APERTURE v5 decision workbench is preserved at [previous-home.html](./previous-home.html). Original project URLs are unchanged.
+
+**The Center (candidate, not yet deployed):** [Spiritual and ethical center](./center/) brings together ten initiatives (education, network, funding, sports, coding, gifts, human experience, confidence, plugin distribution, and Clearline commerce) in a free, mobile-first interactive decision layer. It presents Sikh and Christian lenses separately and optionally. Spiritual reflection and prayer are never paywalled, no religious outcomes are promised, and project outcomes remain unverified unless evidenced. This feature is being reviewed in a branch and is not claimed live until merged and publicly checked.
 
 **Deployment:** GitHub `main` is the source of truth; the Render static site `aperture-main-website` auto-deploys from this repository. GitHub Pages publication is configured separately. The homepage is static and does not process payments or store customer information. Individual paid offerings must be verified independently before promotion.
 
