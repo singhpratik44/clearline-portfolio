@@ -162,6 +162,10 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 <style>
 .path-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:30px}.path-card{display:flex;flex-direction:column;gap:12px;min-height:190px;padding:23px;border-radius:20px;background:#fffefa;border:1px solid var(--border);text-decoration:none;transition:transform .18s,border-color .18s}.path-card:hover{transform:translateY(-3px);border-color:#8ea897}.path-card span{font-size:10px;font-weight:850;letter-spacing:.14em;color:#65806a}.path-card strong{font:650 22px/1.2 'Space Grotesk',Geist,system-ui,sans-serif;letter-spacing:-.04em}.path-card small{font-size:13px;line-height:1.6;color:var(--muted)}@media(max-width:800px){.path-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:540px){.path-grid{grid-template-columns:1fr}.path-card{min-height:150px}}
 </style>
+
+<style>
+.hero-visual{align-items:center}.pathways-preview{width:100%;max-width:500px;padding:clamp(22px,3vw,34px);border:1px solid #ffffff4a;border-radius:28px;background:linear-gradient(145deg,#f5f0fa,#e9f1ed);color:#201b36;box-shadow:0 24px 80px #080b1e66}.preview-kicker{color:#557564;font-size:10px;font-weight:850;letter-spacing:.16em;text-transform:uppercase}.pathways-preview h2{font:750 clamp(24px,3vw,34px)/1.1 'Space Grotesk',Geist,system-ui,sans-serif;letter-spacing:-.055em;margin:14px 0 22px}.preview-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.preview-grid a{display:grid;grid-template-columns:30px 1fr;column-gap:8px;align-items:center;padding:12px;border-radius:15px;background:#fff;border:1px solid #ded8ed;text-decoration:none}.preview-grid a:hover{border-color:#758e7e;transform:translateY(-1px)}.preview-grid a span{grid-row:span 2;color:#567a67;font-size:20px;text-align:center}.preview-grid strong{font-size:13px;line-height:1.15}.preview-grid small{font-size:10px;color:#665e75;line-height:1.35;margin-top:4px}.preview-values{margin-top:18px;color:#4f6358;font-size:10px;font-weight:750;letter-spacing:.05em}@media(max-width:950px){.pathways-preview{max-width:620px}}@media(max-width:500px){.preview-grid{grid-template-columns:1fr 1fr;gap:8px}.preview-grid a{padding:10px 8px}.preview-grid strong{font-size:12px}.preview-grid small{font-size:9px}}
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -185,14 +189,14 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 <div class="hero-actions"><a class="btn gold" href="#paths">Choose your path <span aria-hidden="true">↘</span></a><a class="btn light" href="#explore">Explore everything <span aria-hidden="true">↘</span></a><a class="btn light" href="engage.html">Build with us <span aria-hidden="true">↗</span></a></div>
 <div class="hero-note">Free experiences · Practical paid work · Faith paths are optional · No account needed for many journeys</div>
 </div>
-<div class="hero-visual"><form class="gift-builder" id="gift-starter" action="gifts/">
-<h2>Start with a moment of care</h2><p>One simple way into APERTURE: create a personal gift to share. Explore the other paths below.</p>
-<label for="gift-person">Their first name</label><input id="gift-person" maxlength="60" required placeholder="Alex">
-<label for="gift-occasion">What’s the occasion?</label><select id="gift-occasion"><option>Thank you</option><option>Encouragement</option><option>Just because</option></select>
-<label for="gift-sender">Your name <small>(optional)</small></label><input id="gift-sender" maxlength="60" autocomplete="given-name" placeholder="From you">
-<label for="gift-note">Add your own message <small>(optional)</small></label><textarea id="gift-note" maxlength="240" rows="2" placeholder="One thing you want them to know"></textarea>
-<button class="btn" type="submit">Create a gift link</button><div id="gift-actions" hidden><a id="gift-preview" target="_blank" rel="noopener">Preview gift ↗</a><button type="button" class="btn" id="gift-share">Share gift</button><input id="gift-link" aria-label="Gift link" readonly></div><p id="gift-result" role="status"></p>
-</form></div></div>
+<div class="hero-visual"><div class="pathways-preview"><div class="preview-kicker">A connected ecosystem</div><h2>Choose what you need today.</h2><div class="preview-grid">
+<a href="experience/"><span>✦</span><strong>Experience</strong><small>Pause · reflect · reconnect</small></a>
+<a href="coding/"><span>⌘</span><strong>Education</strong><small>Learn · make · grow</small></a>
+<a href="basketball-os.html"><span>◉</span><strong>Sports</strong><small>Practice · coach · develop</small></a>
+<a href="gifts/"><span>✧</span><strong>Gifts & art</strong><small>Create · share · delight</small></a>
+<a href="prayer/start/"><span>☼</span><strong>Spiritual growth</strong><small>Explore at your own pace</small></a>
+<a href="civilization-lab.html"><span>◎</span><strong>Innovation</strong><small>Decide · design · improve</small></a>
+</div><div class="preview-values">Connected by truth · service · wonder · human dignity</div></div></div></div>
 </section>
 <div class="trust"><div class="wrap trust-inner"><strong>ONE PURPOSE · MANY PATHS</strong><span>✳ Learn</span><span>✳ Play & coach</span><span>✳ Give & create</span><span>✳ Reflect</span><span>✳ Build responsibly</span></div></div>
 
