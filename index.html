@@ -123,7 +123,15 @@ footer p{font-size:14px;color:#aec3b4;max-width:400px;line-height:1.8}
 @media(max-width:390px){.brand{font-size:16px}.hero-actions .btn{width:100%}.orbit-tag{font-size:9px}.footer-top{grid-template-columns:1fr}.footer-top>div:first-child{grid-column:auto}.tabs .tab{font-size:12px;padding:9px 12px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.btn,.product{transition:none}}
 </style>
-</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800&display=swap');
+body{font-family:Geist,system-ui,sans-serif;background:#f7f7fc;color:#201b36}
+.hero,body>header:has(h1){background:radial-gradient(ellipse at 90% 10%,#49317d,transparent 65%),#17132c;color:white}
+.hero h1,body>header h1{font-family:Geist,system-ui,sans-serif;font-weight:800;letter-spacing:-.075em}
+.hero h1 em{color:#d8c6ff}.btn.gold{background:#d8c6ff;border-color:#d8c6ff;color:#201839}
+.hero-visual{min-height:0}.gift-builder{width:100%;max-width:440px;background:#f2ebff;color:#201839;border-radius:28px;padding:clamp(20px,4vw,36px);box-shadow:0 24px 80px #0a071b55}
+.gift-builder label{display:block;font-weight:650;margin:14px 0 6px}.gift-builder input,.gift-builder select{width:100%;padding:13px;border:1px solid #a89abf;border-radius:12px;background:white;color:#201839;font:inherit}.gift-builder button{margin-top:18px;width:100%}.gift-builder h2{font:750 30px/1.1 Geist,system-ui;margin:0}.gift-builder p{color:#493e61;font-size:14px;margin-bottom:0}.gift-builder a{color:#38236a}.card,.product{border-color:#ded8ed;border-radius:24px}.section h2{font-family:Geist,system-ui;font-weight:750}
+</style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header>
@@ -141,25 +149,17 @@ footer p{font-size:14px;color:#aec3b4;max-width:400px;line-height:1.8}
 <div class="wrap hero-inner">
 <div>
 <div class="kicker">CLEARLINE / DIGITAL EXPERIENCES</div>
-<h1>Make a little<br><em>more meaningful.</em></h1>
+<h1>Send a gift.<br><em>Make their day.</em></h1>
 <p>Find a gift that feels personal, give someone an experience they can open instantly, or explore practical learning for real life.</p>
 <div class="hero-actions"><a class="btn gold" href="gifts/">Make a gift <span aria-hidden="true">↗</span></a><a class="btn light" href="shop/">Explore the shop <span aria-hidden="true">↗</span></a></div>
 <div class="hero-note">Free to explore · Opens on any phone · No account needed</div>
 </div>
-<div class="hero-visual">
-<div class="gift-preview" aria-label="A preview of a personal digital gift">
-<div class="preview-orb orb-a"></div><div class="preview-orb orb-b"></div>
-<div class="preview-card">
-<div class="preview-label"><span>✦</span> A MOMENT FOR YOU</div>
-<div class="preview-gift" aria-hidden="true">🎁</div>
-<div class="preview-title">You matter<br>more than you know.</div>
-<div class="preview-footer"><span>Made with care</span><span class="preview-open">Open gift ↗</span></div>
-</div>
-<div class="preview-float float-top">A little joy, sent your way</div>
-<div class="preview-float float-bottom">♡  Free to send</div>
-</div>
-</div>
-</div>
+<div class="hero-visual"><form class="gift-builder" id="gift-starter" action="gifts/">
+<h2>Make someone’s day</h2>
+<label for="gift-person">Their first name</label><input id="gift-person" maxlength="60" required placeholder="Alex">
+<label for="gift-occasion">What’s the occasion?</label><select id="gift-occasion"><option>Thank you</option><option>Encouragement</option><option>Just because</option></select>
+<button class="btn" type="submit">Create a gift link</button><p id="gift-result" role="status"></p>
+</form></div></div>
 </section>
 <div class="trust"><div class="wrap trust-inner"><strong>BUILT FOR REAL LIFE</strong><span>✳ Explore free experiences</span><span>✳ Make something meaningful</span><span>✳ Learn by doing</span><span>✳ Human-centered by design</span></div></div>
 <section class="wrap section" id="experiences">
@@ -228,4 +228,16 @@ document.getElementById("year").textContent=String(new Date().getFullYear());
 filter();
 })();
 </script>
-</body></html>
+<script>
+document.querySelector('#gift-starter').addEventListener('submit',event=>{
+ const recipient=document.querySelector('#gift-person').value.trim();
+ if(!recipient)return;
+ event.preventDefault();
+ const messages={'Thank you':'Thank you for showing up for me. Take a moment for yourself today.','Encouragement':'I’m rooting for you. Take one small step today and give yourself credit for it.','Just because':'You crossed my mind today. Here’s a little moment just for you.'};
+ const message=messages[document.querySelector('#gift-occasion').value];
+ const bytes=new TextEncoder().encode(JSON.stringify({recipient,sender:'Someone who cares',message}));
+ const link=new URL('chatgpt-gift-studio/public/gift.html',location.href);
+ link.hash=btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+ const open=document.createElement('a');open.href=link;open.textContent='Open your gift link';document.querySelector('#gift-result').replaceChildren(open);
+});
+</script></body></html>
