@@ -29,6 +29,17 @@ try {
   const page = await fetch(base + "/");
   assert.equal(page.status, 200);
   assert.match(await page.text(), /Make generosity tangible/);
+  const giftPage = await fetch(base + "/gift");
+  assert.equal(giftPage.status, 200);
+  assert.match(await giftPage.text(), /Open your gift/);
+  const giftApi = await fetch(base + "/api/gift", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ recipient: "Mum", sender: "Me", occasion: "christmas", feeling: "gratitude" })
+  });
+  assert.equal(giftApi.status, 200);
+  const giftPayload = (await giftApi.json()).gift;
+  assert.match(giftPayload.shareUrl, /^https:\/\/aperture-gift-studio\.onrender\.com\/gift#/);
+  assert.equal(giftPayload.sent, false);
   const form = await fetch(base + "/api/plan", {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ recipient: "my mentor", budget: 30, feeling: "gratitude", occasion: "holidays" })
@@ -42,13 +53,19 @@ try {
   await client.connect(transport);
   const tools = await client.listTools();
   assert.ok(tools.tools.some(x => x.name === "make_gift_plan"));
+  assert.ok(tools.tools.some(x => x.name === "create_shareable_gift"));
   const result = await client.callTool({
     name: "make_gift_plan",
     arguments: { recipient: "a friend", occasion: "holidays", feeling: "joy", budget: 30 }
   });
   assert.equal(result.structuredContent.plan.recommendations.length, 3);
   assert.equal(result.structuredContent.plan.purchaseReady, false);
-  console.log("PASS: health, public page, API, MCP initialize/list-tools/call-tool");
+  const shareResult = await client.callTool({
+    name: "create_shareable_gift", arguments: { recipient: "Mum", sender: "Me", feeling: "gratitude" }
+  });
+  assert.match(shareResult.structuredContent.gift.shareUrl, /\/gift#/);
+  assert.equal(shareResult.structuredContent.gift.sent, false);
+  console.log("PASS: health, gift reveal, API plan/gift, MCP initialize/list-tools/both tool calls");
 } catch (err) {
   console.error("FAIL:", err);
   process.exitCode = 1;
