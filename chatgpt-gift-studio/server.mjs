@@ -64,6 +64,10 @@ const byRecipient = [
     ["A memory scrapbook", "Make space for their drawings, stories and adventures.", "$15–$45"]
   ] }
 ];
+function estimateMax(estimate) {
+  const values = [...estimate.matchAll(/\$(\d+)/g)].map(m => Number(m[1]));
+  return values.length ? Math.max(...values) : Infinity;
+}
 function pickIdeas(recipient, budget, group, interests) {
   const match = byRecipient.find(x => x.pattern.test(recipient));
   const query = (interests || "").toLowerCase();
@@ -75,11 +79,15 @@ function pickIdeas(recipient, budget, group, interests) {
     [["A small art and craft kit", "Match their skill level and preferred materials.", "$12–$35"]] :
     /plant|garden|nature/.test(query) ?
     [["A small plant or seed kit", "Check their space and preferences before choosing.", "$8–$30"]] : [];
-  let ideas = [...interestSuggestions, ...(match?.suggestions || []), ...group.ideas];
-  return ideas.filter((item, index, arr) => arr.findIndex(x => x[0] === item[0]) === index)
-    .filter(x => budget < 15 ? /\$[3-9]–|\$[4-9]–|\$10–|\$8–|\$5–/.test(x[2]) : true)
-    .concat(group.ideas).slice(0,3)
-    .map(([title, why, estimate]) => ({ title, why, estimate }));
+  const fallback = [
+    ["A handwritten letter", "Share a specific moment you appreciate about them.", "$1–$5"],
+    ["A printed favorite photo", "Choose a happy shared memory and write a note on the back.", "$1–$5"],
+    ["A handmade appreciation card", "Make something original that reflects their interests.", "$1–$5"]
+  ];
+  const ideas = [...interestSuggestions, ...(match?.suggestions || []), ...group.ideas, ...giftSets.flatMap(g => g.ideas), ...fallback];
+  const deduped = ideas.filter((item, index, arr) => arr.findIndex(x => x[0] === item[0]) === index);
+  const fitting = deduped.filter(item => estimateMax(item[2]) <= budget);
+  return fitting.slice(0, 3).map(([title, why, estimate]) => ({ title, why, estimate }));
 }
 function createGiftMessage(args = {}) {
   const recipient = shortString(args.recipient, "someone special", 60);
