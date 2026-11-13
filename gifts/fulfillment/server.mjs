@@ -88,6 +88,24 @@ createServer(async(req,res)=>{
       if(url.search.length>1024)return send(res,414,'Request too long');
       return await handleClassicx(req,res,url);
     }
+    if(url.pathname==='/api/love-pathway-test') {
+      // Isolated sandbox-only endpoint; never accepts live Checkout sessions.
+      res.setHeader('Cache-Control','private, no-store');
+      res.setHeader('Referrer-Policy','no-referrer');
+      res.setHeader('X-Content-Type-Options','nosniff');
+      res.setHeader('X-Robots-Tag','noindex, nofollow, noarchive');
+      if(req.method!=='GET')return send(res,405,'Method not allowed');
+      if(url.search.length>1024)return send(res,414,'Request too long');
+      if(process.env.PATHWAY_TEST_ENABLED!=='true')return send(res,404,'Not found');
+      const check=await verifyPathwayPurchase(url.searchParams.get('session_id'),{secret:process.env.STRIPE_TEST_SECRET_KEY,testMode:true});
+      if(!check.ok)return send(res,check.status,'Sandbox download unavailable');
+      const pdf=buildPathwayPdf();
+      res.statusCode=200;
+      res.setHeader('Content-Type','application/pdf');
+      res.setHeader('Content-Disposition','attachment; filename="APERTURE-30-Days-SANDBOX.pdf"');
+      res.setHeader('Content-Length',String(pdf.length));
+      return res.end(pdf);
+    }
     if(url.pathname==='/api/love-pathway') {
       res.setHeader('Cache-Control','private, no-store');
       res.setHeader('Referrer-Policy','no-referrer');
