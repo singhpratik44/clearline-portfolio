@@ -171,7 +171,7 @@
    const filtered=filterProducts(catalog,{query:q,category,sort,occasion:currentMoment.occasion,sport:currentMoment.sport});
    const container=$("gift-grid");container.replaceChildren();for(const p of filtered)container.append(productCard(p));
    $("gift-count").textContent=filtered.length+" of "+catalog.length+" existing paid digital sports gifts · Price shown in USD";
-   $("catalog-count").textContent=catalog.length+" VERIFIED-LINK DIGITAL GIFTS";
+   $("catalog-count").textContent=catalog.length+" LINKED ORIGINAL GIFTS";
    $("gift-empty").hidden=filtered.length!==0;
  }
  function fillRoadmap(){
