@@ -5,6 +5,7 @@ on:
       - 'sports-os/market/**'
       - 'tests/sports-market.test.mjs'
       - 'tests/sports-market-design.test.mjs'
+      - 'tests/sports-universe.test.mjs'
       - 'tests/sports-market-browser.mjs'
       - 'gifts/checkout-links.js'
       - 'gifts/sports-collection.js'
@@ -33,7 +34,7 @@ jobs:
         with:
           node-version: '22'
       - name: Verify gift linking, sponsor caps, moments and rights boundaries
-        run: node --test tests/sports-market.test.mjs tests/sports-market-design.test.mjs
+        run: node --test tests/sports-market.test.mjs tests/sports-market-design.test.mjs tests/sports-universe.test.mjs
   browser:
     runs-on: ubuntu-latest
     steps:
