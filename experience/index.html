@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0a0f20" />
+  <meta name="description" content="Four gentle ways to meet a moment: awareness, joy, love, and wonder. No account, tracking, or pressure." />
+  <meta property="og:title" content="APERTURE — A Moment Is Enough" />
+  <meta property="og:description" content="An invitation to awareness, joy, love, and wonder." />
+  <title>APERTURE · A Moment Is Enough</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#experience-layer">Skip to experiences</a>
+  <div id="experience-layer"></div>
+  <script type="module">
+    import { createExperienceLayer } from './experience-layer.js';
+    createExperienceLayer(document.getElementById('experience-layer'), { syncURL: true });
+  </script>
+</body>
+</html>

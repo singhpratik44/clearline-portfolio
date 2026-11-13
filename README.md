@@ -1,6 +1,6 @@
 # Clearline — APERTURE Operating Intelligence
 
-**Mission:** Make consequential organizational decisions explainable, testable, authorized, recoverable, and more efficient through one versioned operating model.
+**[NEW: Experience Layer v2 — Awareness · Joy · Love · Wonder](https://singhpratik44.github.io/clearline-portfolio/experience/)** — Four free, private interactive journeys. No sign-in, tracking, streaks or pressure. [Editable source](./experience/).\n\n**Mission:** Make consequential organizational decisions explainable, testable, authorized, recoverable, and more efficient through one versioned operating model.
 
 **[Live portfolio](https://singhpratik44.github.io/clearline-portfolio/)** · **[Coaching journey: Faith × APERTURE](./coaching-journey.html)** · **[Sports & Media case study](https://singhpratik44.github.io/clearline-portfolio/sports-media.html)** · **[Interactive Decision Universe (development source)](./interactive-decision-universe.html)** · **[Jason Rules](./jason-rules.html)** · **[Thinkverse work sample](./thinkverse-jason-rules.html)** · **[Architecture and goals](./docs/MASTER_PLAN.md)**
 
