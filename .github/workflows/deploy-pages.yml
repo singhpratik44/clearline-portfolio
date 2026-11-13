@@ -64,7 +64,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js sitemap.xml _site/
-          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness _site/
+          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
@@ -151,6 +151,8 @@ jobs:
           test -s _site/clearline/index.html
           test -d _site/assets
           test -s _site/wellness/index.html
+          test -s _site/holiday/index.html
+          grep -q 'Give someone' _site/holiday/index.html
           test -s _site/code-the-game/index.html
           test -s _site/code-the-game/help/index.html
           test -s _site/code-the-game/roblox/index.html
@@ -505,5 +507,27 @@ jobs:
               except Exception as exc:
                   print('Verification attempt',attempt+1,repr(exc))
                   if attempt==15:raise
+                  time.sleep(12)
+          PY
+
+      - name: Verify published holiday gifting route and personalized URL
+        run: |
+          python3 - <<'PY'
+          import time,urllib.request
+          base='https://singhpratik44.github.io/clearline-portfolio/holiday/'
+          suffixes=['','?theme=love&to=Alex&from=Sam']
+          expected=['Give someone','id="message"','id="share"','id="sms"','id="email"','const messages=']
+          for attempt in range(16):
+              try:
+                  for suffix in suffixes:
+                      req=urllib.request.Request(base+suffix,headers={'User-Agent':'APERTURE-Holiday-Release-Check/1.0','Cache-Control':'no-cache'})
+                      with urllib.request.urlopen(req,timeout=15) as response:
+                          page=response.read().decode('utf-8',errors='replace')
+                          assert response.status==200 and all(token in page for token in expected),(suffix,'missing holiday content')
+                  print('LIVE HOLIDAY ROUTE VERIFIED',base)
+                  break
+              except Exception as exc:
+                  print('Holiday verification attempt',attempt+1,repr(exc))
+                  if attempt==15: raise
                   time.sleep(12)
           PY
