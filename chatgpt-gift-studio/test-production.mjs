@@ -18,7 +18,7 @@ try {
   assert.equal(h.checkoutLive, false);
   const page = await get("/");
   assert.equal(page.status, 200);
-  assert.match(await page.text(), /Make generosity tangible/);
+  assert.match(await page.text(), /Find the gift\. Give the feeling\./);
 
   const giftPage = await get("/gift");
   assert.equal(giftPage.status, 200);
