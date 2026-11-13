@@ -60,11 +60,15 @@ try {
   assert.match(await giftPage.text(), /Unwrap your gift/);
   const giftHtml = await (await fetch(base + "/gift")).text();
   assert.match(giftHtml, /og:image/);
+  assert.match(giftHtml, /share-card\\.png/);
+  const dashboardResponse=await fetch(base + "/gift/metrics");
+  assert.equal(dashboardResponse.status,200);
+  assert.match(await dashboardResponse.text(), /Gift activity/);
   assert.match(giftHtml, /twitter:card/);
   assert.match(giftHtml, /track\("open"\)/);
-  const art = await fetch(base + "/share-card.svg");
+  const art = await fetch(base + "/share-card.png");
   assert.equal(art.status, 200);
-  assert.match(art.headers.get("content-type"), /image\/svg\+xml/);
+  assert.match(art.headers.get("content-type"), /image\/png/);
   const metricStart = await (await fetch(base + "/api/gift/metrics")).json();
   assert.equal(metricStart.persistent, false);
   const eventResponse = await fetch(base + "/api/gift/event",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({event:"open"})});
