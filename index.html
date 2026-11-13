@@ -280,36 +280,4 @@ document.getElementById("year").textContent=String(new Date().getFullYear());
 filter();
 })();
 </script>
-<script>
-document.querySelector('#gift-starter').addEventListener('submit',event=>{
- const recipient=document.querySelector('#gift-person').value.trim();
- event.preventDefault();
- if(!recipient){document.querySelector('#gift-result').textContent='Enter their first name.';return;}
- const messages={'Thank you':'Thank you for showing up for me. Take a moment for yourself today.','Encouragement':'I’m rooting for you. Take one small step today and give yourself credit for it.','Just because':'You crossed my mind today. Here’s a little moment just for you.'};
- const message=document.querySelector('#gift-note').value.trim() || messages[document.querySelector('#gift-occasion').value];
- const bytes=new TextEncoder().encode(JSON.stringify({recipient,sender:document.querySelector('#gift-sender').value.trim() || 'Someone who cares',message}));
- const link=new URL('chatgpt-gift-studio/public/gift.html',location.href);
- link.hash=btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
- document.querySelector('#gift-preview').href=link;
- document.querySelector('#gift-link').value=link.href;
- document.querySelector('#gift-actions').hidden=false;
- document.querySelector('#gift-result').textContent='Your gift is ready to preview or share.';
-});
-document.querySelector('#gift-starter').addEventListener('input',()=>{
- document.querySelector('#gift-actions').hidden=true;
- document.querySelector('#gift-result').textContent='';
-});
-document.querySelector('#gift-share').addEventListener('click',async()=>{
- const link=document.querySelector('#gift-link');
- const status=document.querySelector('#gift-result');
- try {
-  if(navigator.share){await navigator.share({title:'A gift for you',url:link.value});return;}
-  await navigator.clipboard.writeText(link.value);
-  status.textContent='Gift link copied.';
- } catch(error) {
-  if(error.name==='AbortError')return;
-  link.select();
-  status.textContent='Copy the selected link to send your gift.';
- }
-});
-</script></body></html>
+</body></html>
