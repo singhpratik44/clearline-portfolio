@@ -13,7 +13,7 @@ test('APERTURE v5 mobile layout and local decision controls',{timeout:120000},as
  assert.ok(chrome,'Google Chrome is required for real browser testing');
  const server=createServer((req,res)=>{void serve(req,res)});await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
  const browser=await chromium.launch({headless:true,executablePath:chrome,args:['--no-sandbox','--disable-dev-shm-usage']});
- try{await mkdir('_artifacts',{recursive:true});const base='http://127.0.0.1:'+server.address().port+'/';
+ try{await mkdir('_artifacts',{recursive:true});const base='http://127.0.0.1:'+server.address().port+'/previous-home.html';
  for(const [width,height] of [[375,812],[390,844],[768,1024],[1280,900]]){await t.test('layout '+width+'px',async()=>{
   const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1,isMobile:width<500,hasTouch:width<500});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
