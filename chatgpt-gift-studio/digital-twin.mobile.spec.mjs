@@ -25,7 +25,8 @@ test("mobile digital twin feedback and reset", async ({ browser }) => {
 });
 
 test("mobile free gift reveal, activity and pass-it-forward", async ({browser})=>{
- const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+ const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,permissions:["clipboard-read","clipboard-write"]});
+ const page=await context.newPage();
  const payload={recipient:"Friend",sender:"Someone",message:"You matter more than you know. Wishing you joy, love, and wonder.",feeling:"joy",occasion:"just-because"};
  const token=Buffer.from(JSON.stringify(payload)).toString("base64url");
  await page.goto((process.env.TARGET_BASE||"https://aperture-gift-studio.onrender.com/")+"/gift#"+token,{waitUntil:"domcontentloaded"});
@@ -39,6 +40,15 @@ test("mobile free gift reveal, activity and pass-it-forward", async ({browser})=
  await page.locator("#nextMessage").fill("Have a wonderful day.");
  await page.locator("#createNext").click();
  await expect(page.locator("#nextStatus")).not.toContainText("Add a name");
+ const nextLink=await page.evaluate(()=>navigator.clipboard.readText());
+ expect(nextLink).toContain("/gift#");
+ const nextToken=nextLink.split("#")[1];
+ const nextGift=JSON.parse(Buffer.from(nextToken,"base64url").toString("utf8"));
+ expect(nextGift).toMatchObject({recipient:"Alex",sender:"Friend",message:"Have a wonderful day."});
+ await page.goto(nextLink,{waitUntil:"domcontentloaded"});
+ await page.getByRole("button",{name:/Unwrap your gift/}).click();
+ await expect(page.locator("#to")).toHaveText("For Alex");
+ await expect(page.locator("#message")).toHaveText("Have a wonderful day.");
  await expect(page.locator("#revealed")).toBeVisible();
  await page.close();
 });
