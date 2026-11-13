@@ -48,3 +48,28 @@
 @keyframes giftArrive{from{opacity:0;transform:translateY(80px) scale(.88) rotate(-5deg)}to{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
 @media(max-width:650px){.reveal-experience{padding:60px 18px 30px}.ceremony-heading{font-size:clamp(40px,11vw,62px)}.unwrap-envelope{height:190px}.gift-revealed .gift-modal{max-height:80vh;padding:34px 22px}.gift-revealed .gift-modal p{font-size:18px}.reveal-actions .btn{width:100%}}
 @media(prefers-reduced-motion:reduce){.ambient-orb,.reveal-confetti i,.gift-revealed .gift-modal{animation:none!important}.unwrap-envelope,.envelope-flap,.envelope-letter{transition:none!important}}
+
+/* Personalized gift wrapping — carried through shared links */
+.gift-style-picker{margin:0 0 20px}.gift-style-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-top:12px}.gift-style{background:#fff;border:2px solid #e1deeb;border-radius:14px;padding:8px 5px 10px;display:flex;align-items:center;flex-direction:column;gap:7px;font-size:11px;font-weight:850;color:var(--ink);min-width:0}.gift-style.selected{border-color:#2b43f6;box-shadow:0 0 0 2px #2b43f626}.style-swatch{width:100%;max-width:88px;aspect-ratio:1.4;border-radius:9px;display:grid;place-items:center;font-size:29px}.style-wonder{background:#d9d0ff;color:#5646ae}.style-sunshine{background:#ffdc8d;color:#a74b23}.style-midnight{background:#1d2759;color:#f2d9a5}.style-garden{background:#c9e9ce;color:#427c65}
+.preview-frame,.reveal-experience,.gift-revealed .gift-modal,.envelope-back,.envelope-front,.envelope-flap{transition:background .4s,color .4s,box-shadow .4s}
+.preview-frame[data-theme=sunshine]{background:linear-gradient(145deg,#fff4bd,#ffcb9e);box-shadow:18px 22px 0 #f28d60}
+.preview-frame[data-theme=midnight]{background:linear-gradient(145deg,#29376f,#141d3e);color:#fff5d5;box-shadow:18px 22px 0 #b3a3f0;border-color:#7f83b8}
+.preview-frame[data-theme=garden]{background:linear-gradient(145deg,#e5f8dd,#b9dfce);box-shadow:18px 22px 0 #6ea58e;border-color:#86b79a}
+.reveal-experience[data-theme=sunshine]{background:radial-gradient(ellipse at center,#e78d73,#8c3258 80%,#56234d)}
+.reveal-experience[data-theme=midnight]{background:radial-gradient(ellipse at center,#28386f,#0d1533 80%,#070c1d)}
+.reveal-experience[data-theme=garden]{background:radial-gradient(ellipse at center,#558d80,#173c49 80%,#0e2b35)}
+.reveal-experience[data-theme=sunshine] .envelope-back{background:#ffe6ad}
+.reveal-experience[data-theme=sunshine] .envelope-front{background:#ffcb86}
+.reveal-experience[data-theme=sunshine] .envelope-flap{background:#ffe0a1}
+.reveal-experience[data-theme=midnight] .envelope-back{background:#6575bd}
+.reveal-experience[data-theme=midnight] .envelope-front{background:#43549e}
+.reveal-experience[data-theme=midnight] .envelope-flap{background:#8895d0}
+.reveal-experience[data-theme=garden] .envelope-back{background:#a6d5b5}
+.reveal-experience[data-theme=garden] .envelope-front{background:#7fbea2}
+.reveal-experience[data-theme=garden] .envelope-flap{background:#b7e3c6}
+.reveal-experience[data-theme=sunshine] .gift-modal{background:#fff1cb;box-shadow:20px 20px 0 #e9a16f}
+.reveal-experience[data-theme=midnight] .gift-modal{background:#202b53;color:#fff7e8;box-shadow:20px 20px 0 #a89adc}
+.reveal-experience[data-theme=midnight] .gift-modal .gift-kicker,.reveal-experience[data-theme=midnight] .gift-modal .celebrate{color:#f6dba5}
+.reveal-experience[data-theme=midnight] .reveal-credit{color:#d7d2f5}
+.reveal-experience[data-theme=garden] .gift-modal{background:#e9f7e7;box-shadow:20px 20px 0 #75b39b}
+@media(max-width:400px){.gift-style-options{gap:5px}.gift-style{font-size:10px;padding:6px 3px}.style-swatch{font-size:24px}}
