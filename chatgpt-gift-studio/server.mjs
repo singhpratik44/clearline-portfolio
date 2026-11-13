@@ -167,6 +167,7 @@ function createGiftServer() {
       message: z.string().max(240).optional().describe("Optional original custom note, do not include confidential data")
     },
     outputSchema: { gift: cardShape },
+    _meta: { ui: { resourceUri: "ui://gift-studio/plan.html" }, "openai/toolInvocation/invoking": "Creating your shareable gift", "openai/toolInvocation/invoked": "Gift link ready" },
     annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false }
   }, async (args) => {
     const gift = createGiftMessage(args);
