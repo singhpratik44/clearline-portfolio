@@ -39,7 +39,7 @@ jobs:
           path: _artifacts/aperture-v5-*.png
           if-no-files-found: warn
       - name: Verify APERTURE Revenue Recovery calculations and privacy gates
-        run: node --test tests/revenue-recovery.test.mjs tests/revenue-commercial.test.mjs
+        run: node --test tests/revenue-recovery.test.mjs tests/revenue-commercial.test.mjs tests/sports-market.test.mjs
       - name: Verify CODE THE GAME courses, delivery and public arcade
         run: |
           node --test tests/code-the-game.test.mjs tests/code-the-game-crypto.test.mjs
@@ -389,7 +389,12 @@ jobs:
               "revenue-recovery/sample-audit.html": ("FICTIONAL SAMPLE DATA", "$1,054", "NOT RECOVERED MONEY"),
               "revenue-recovery/prospects.html": ("Buyer Intelligence", 'id="top-prospects"', 'src="prospects.js"'),
               "revenue-recovery/prospects.js": ("function score(", "function rank(", "UNSENT DRAFT"),
-              "revenue-recovery/prospects-2026-11-10.json": ('"schema_version": 1', '"records":', '"pain_verified": false')
+              "revenue-recovery/prospects-2026-11-10.json": ('"schema_version": 1', '"records":', '"pain_verified": false'),
+              "market/index.html": ('APERTURE SPORTS', 'id="gift-grid"', 'id="moment-preview"', 'id="sponsor-products"'),
+              "market/market.js": ("function filterProducts(", "function approvedPlacements(", "function encodeMoment(", "book.stripe.com"),
+              "market/sponsors.js": ("APERTURE_SPORTS_ADS", "Community Sponsor", "Fan Moment Sponsor", "Presenting Partner", "placements:[]"),
+              "market/advertising.html": ("Advertising Conditions", "$49", "$99", "$249", "full refund"),
+              "market/technology.html": ("Live Data", "Sportradar", "real-time scores"),
           }
           for attempt in range(10):
               try:
