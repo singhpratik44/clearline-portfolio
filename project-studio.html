@@ -1,0 +1,95 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>APERTURE Project Studio</title><style>
+*{box-sizing:border-box}body{margin:0;background:#101c1a;color:#edf5ed;font:16px/1.5 system-ui}main,header{width:min(1080px,92%);margin:auto}header{padding:24px 0;border-bottom:1px solid #678279}h1{font-size:clamp(38px,8vw,96px);line-height:1;letter-spacing:-.07em;margin:44px 0 12px}a{color:#bdf0cf}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:30px 0}section{background:#1b302b;border:1px solid #47645a;border-radius:20px;padding:22px}label{display:block;margin:12px 0}input,select,textarea,button{font:inherit;padding:10px;border-radius:8px;border:1px solid #78978a}input,select,textarea{width:100%;background:#f3faf4;color:#152821}textarea{min-height:85px}button{background:#bdf0cf;color:#152821;cursor:pointer;margin:4px 4px 4px 0;min-height:44px}.task{border-top:1px solid #678279;padding:12px 0}.task input{width:auto;margin-right:10px}.task label{margin:0}.task p{white-space:pre-wrap;overflow-wrap:anywhere}#status{min-height:24px}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style><header><a href="./">APERTURE</a></header><main><h1>Build a real project.</h1><p>Combine education, sports, personal growth, faith, creative work, and operations in one plan. Your project stays in this browser. Export it to keep a copy or share it.</p>
+<div class="grid"><section><h2>Project brief</h2><form id="brief"><label>Starting point<select id="template"><option value="">Blank project</option><option>Youth program</option><option>Coaching season</option><option>Community initiative</option><option>Creative launch</option></select></label><button type="button" id="apply">Add suggested activities</button><label>Project name<input id="name" maxlength="120"></label><label>Who is it for?<input id="audience" maxlength="160"></label><label>What would success look like?<textarea id="goal" maxlength="2000"></textarea></label><button type="submit">Save brief</button></form></section>
+<section><h2>Add an activity</h2><form id="activity"><label>APERTURE area<select id="area"></select></label><label>Activity<input id="title" required maxlength="160"></label><label>Notes or evidence<textarea id="notes" maxlength="2000"></textarea></label><button>Add to plan</button></form></section></div>
+<section><h2>Project plan</h2><p id="progress"></p><div id="tasks"></div><button id="export">Export project as Markdown</button><p id="status" role="status"></p></section></main>
+<script>
+const byId = id => document.getElementById(id);
+const areas = ["Education","Sports","Personal growth","Faith & reflection","Gifts & art","Innovation & operations"];
+const templates = {
+  "Youth program": [[0,"Build and demo a small game"],[1,"Run a teamwork practice"],[5,"Review attendance and participant feedback"]],
+  "Coaching season": [[1,"Plan the first practice and pick a skill to observe"],[2,"Rehearse how to give constructive feedback"],[5,"Review progress and adjust the next session"]],
+  "Community initiative": [[3,"Choose an optional act of service"],[4,"Create a thank-you gift for volunteers"],[5,"Agree on who owns each follow-up"]],
+  "Creative launch": [[4,"Create a prototype someone can try"],[2,"Rehearse a short introduction"],[5,"Collect feedback and choose one revision"]]
+};
+const key = "aperture-project-studio-v1";
+let project = {name:"",audience:"",goal:"",tasks:[]};
+try {
+  const saved = JSON.parse(localStorage.getItem(key));
+  if (saved && Array.isArray(saved.tasks)) project = saved;
+} catch {}
+for (const field of ["name","audience","goal"]) byId(field).value = project[field] || "";
+for (const area of areas) byId("area").add(new Option(area,area));
+function save(message) {
+  for (const field of ["name","audience","goal"]) project[field] = byId(field).value.trim();
+  try {
+    localStorage.setItem(key,JSON.stringify(project));
+    byId("status").textContent = message;
+  } catch {
+    byId("status").textContent = "Browser storage is unavailable. Export your project before leaving.";
+  }
+  render();
+}
+function render() {
+  byId("progress").textContent = project.tasks.filter(task => task.done).length + " of " + project.tasks.length + " activities complete";
+  const list = byId("tasks");
+  list.replaceChildren();
+  for (const task of project.tasks) {
+    const row = document.createElement("div");
+    row.className = "task";
+    const label = document.createElement("label");
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.checked = task.done;
+    box.onchange = () => { task.done = box.checked; save("Progress saved."); };
+    label.append(box,task.title);
+    const detail = document.createElement("p");
+    detail.textContent = [task.area,task.notes].filter(Boolean).join(" — ");
+    const remove = document.createElement("button");
+    remove.textContent = "Remove";
+    remove.setAttribute("aria-label","Remove " + task.title);
+    remove.onclick = () => { project.tasks = project.tasks.filter(item => item !== task); save("Activity removed."); };
+    row.append(label,detail,remove);
+    list.append(row);
+  }
+}
+byId("brief").onsubmit = event => { event.preventDefault(); save("Project brief saved."); };
+byId("brief").addEventListener("change",event => {
+  if (["name","audience","goal"].includes(event.target.id)) save("Project brief saved.");
+});
+byId("apply").onclick = () => {
+  const activities = templates[byId("template").value];
+  if (!activities) { byId("status").textContent = "Choose a starting point first."; return; }
+  for (const [index,title] of activities) {
+    const area = areas[index];
+    if (!project.tasks.some(task => task.title === title && task.area === area)) {
+      project.tasks.push({title,area,notes:"",done:false});
+    }
+  }
+  save("Suggested activities added to your plan.");
+};
+byId("activity").onsubmit = event => {
+  event.preventDefault();
+  const title = byId("title").value.trim();
+  if (!title) { byId("title").focus(); return; }
+  project.tasks.push({title,area:byId("area").value,notes:byId("notes").value.trim(),done:false});
+  event.target.reset();
+  save("Activity added.");
+};
+byId("export").onclick = () => {
+  save("Project ready to export.");
+  const lines = ["# " + (project.name || "APERTURE project"),"", "Audience: " + project.audience,"",project.goal,"","## Activities"];
+  for (const task of project.tasks) {
+    lines.push("- [" + (task.done ? "x" : " ") + "] " + task.area + ": " + task.title);
+    if (task.notes) lines.push("",task.notes,"");
+  }
+  const url = URL.createObjectURL(new Blob([lines.join("\n")],{type:"text/markdown"}));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = "aperture-project.md";
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url),1000);
+};
+render();
+</script>
