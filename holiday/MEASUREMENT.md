@@ -48,7 +48,10 @@ The opt-in rate is *not known* from event data because only consenting visitors 
 - Terms: /holiday/sms-terms.html. Privacy: /holiday/privacy.html.
 
 ## Connection state
-- PostHog plugin: not installed/connected as of the November 12, 2026 implementation check.
-- Static PostHog project token: deliberately blank; no destination and no send.
+- PostHog app: **connected** to the account; active US Cloud project `732948` (the only project currently listed).
+- Static PostHog project token: deliberately blank in source. GitHub Actions now supports deployment-time injection from `POSTHOG_PROJECT_TOKEN` (repository Action secret) and `POSTHOG_API_HOST` (repository Action variable); without both, no destination and no send.
 - Current production analytics: **Not connected**, not zero.
-- Connect PostHog in ChatGPT and then configure the website project token from PostHog project settings; the plugin connection alone does not install the website snippet.
+- Dashboard created: https://us.posthog.com/project/732948/dashboard/2346990 — currently a readiness explanation, **not a verified traffic report**.
+- To enable events, set GitHub Actions secret `POSTHOG_PROJECT_TOKEN` to the public `phc_` project token from PostHog Project settings, and GitHub Actions variable `POSTHOG_API_HOST` to the exact project ingestion host. This project uses `https://us.i.posthog.com`. Trigger a new GitHub Pages workflow after configuring. Do not add any PostHog personal API key.
+- Check PostHog project IP anonymization settings and obtain user approval before changing them. Default is currently `anonymize_ips: false`; do not describe all network metadata as fully anonymized before this is resolved.
+- Once deployed, explicitly opt in from the holiday page and verify events in PostHog's event debugger and a true saved insight before adding numerical funnel charts.
