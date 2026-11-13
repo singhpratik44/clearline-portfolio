@@ -130,7 +130,7 @@ body{font-family:Geist,system-ui,sans-serif;background:#f7f7fc;color:#201b36}
 .hero h1,body>header h1{font-family:Geist,system-ui,sans-serif;font-weight:800;letter-spacing:-.075em}
 .hero h1 em{color:#d8c6ff}.btn.gold{background:#d8c6ff;border-color:#d8c6ff;color:#201839}
 .hero-visual{min-height:0}.gift-builder{width:100%;max-width:440px;background:#f2ebff;color:#201839;border-radius:28px;padding:clamp(20px,4vw,36px);box-shadow:0 24px 80px #0a071b55}
-.gift-builder label{display:block;font-weight:650;margin:14px 0 6px}.gift-builder input,.gift-builder select{width:100%;padding:13px;border:1px solid #a89abf;border-radius:12px;background:white;color:#201839;font:inherit}.gift-builder button{margin-top:18px;width:100%}.gift-builder h2{font:750 30px/1.1 Geist,system-ui;margin:0}.gift-builder p{color:#493e61;font-size:14px;margin-bottom:0}.gift-builder a{color:#38236a}.card,.product{border-color:#ded8ed;border-radius:24px}.section h2{font-family:Geist,system-ui;font-weight:750}
+.gift-builder label{display:block;font-weight:650;margin:14px 0 6px}.gift-builder input,.gift-builder select,.gift-builder textarea{width:100%;padding:13px;border:1px solid #a89abf;border-radius:12px;background:white;color:#201839;font:inherit}.gift-builder button{margin-top:18px;width:100%}.gift-builder h2{font:750 30px/1.1 Geist,system-ui;margin:0}.gift-builder p{color:#493e61;font-size:14px;margin-bottom:0}.gift-builder a{color:#38236a}.card,.product{border-color:#ded8ed;border-radius:24px}.section h2{font-family:Geist,system-ui;font-weight:750}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -158,7 +158,9 @@ body{font-family:Geist,system-ui,sans-serif;background:#f7f7fc;color:#201b36}
 <h2>Make someone’s day</h2>
 <label for="gift-person">Their first name</label><input id="gift-person" maxlength="60" required placeholder="Alex">
 <label for="gift-occasion">What’s the occasion?</label><select id="gift-occasion"><option>Thank you</option><option>Encouragement</option><option>Just because</option></select>
-<button class="btn" type="submit">Create a gift link</button><p id="gift-result" role="status"></p>
+<label for="gift-sender">Your name <small>(optional)</small></label><input id="gift-sender" maxlength="60" autocomplete="given-name" placeholder="From you">
+<label for="gift-note">Add your own message <small>(optional)</small></label><textarea id="gift-note" maxlength="240" rows="2" placeholder="One thing you want them to know"></textarea>
+<button class="btn" type="submit">Create a gift link</button><div id="gift-actions" hidden><a id="gift-preview" target="_blank" rel="noopener">Preview gift ↗</a><button type="button" class="btn" id="gift-share">Share gift</button><input id="gift-link" aria-label="Gift link" readonly></div><p id="gift-result" role="status"></p>
 </form></div></div>
 </section>
 <div class="trust"><div class="wrap trust-inner"><strong>BUILT FOR REAL LIFE</strong><span>✳ Explore free experiences</span><span>✳ Make something meaningful</span><span>✳ Learn by doing</span><span>✳ Human-centered by design</span></div></div>
@@ -231,13 +233,33 @@ filter();
 <script>
 document.querySelector('#gift-starter').addEventListener('submit',event=>{
  const recipient=document.querySelector('#gift-person').value.trim();
- if(!recipient)return;
  event.preventDefault();
+ if(!recipient){document.querySelector('#gift-result').textContent='Enter their first name.';return;}
  const messages={'Thank you':'Thank you for showing up for me. Take a moment for yourself today.','Encouragement':'I’m rooting for you. Take one small step today and give yourself credit for it.','Just because':'You crossed my mind today. Here’s a little moment just for you.'};
- const message=messages[document.querySelector('#gift-occasion').value];
- const bytes=new TextEncoder().encode(JSON.stringify({recipient,sender:'Someone who cares',message}));
+ const message=document.querySelector('#gift-note').value.trim() || messages[document.querySelector('#gift-occasion').value];
+ const bytes=new TextEncoder().encode(JSON.stringify({recipient,sender:document.querySelector('#gift-sender').value.trim() || 'Someone who cares',message}));
  const link=new URL('chatgpt-gift-studio/public/gift.html',location.href);
  link.hash=btoa(String.fromCharCode(...bytes)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
- const open=document.createElement('a');open.href=link;open.textContent='Open your gift link';document.querySelector('#gift-result').replaceChildren(open);
+ document.querySelector('#gift-preview').href=link;
+ document.querySelector('#gift-link').value=link.href;
+ document.querySelector('#gift-actions').hidden=false;
+ document.querySelector('#gift-result').textContent='Your gift is ready to preview or share.';
+});
+document.querySelector('#gift-starter').addEventListener('input',()=>{
+ document.querySelector('#gift-actions').hidden=true;
+ document.querySelector('#gift-result').textContent='';
+});
+document.querySelector('#gift-share').addEventListener('click',async()=>{
+ const link=document.querySelector('#gift-link');
+ const status=document.querySelector('#gift-result');
+ try {
+  if(navigator.share){await navigator.share({title:'A gift for you',url:link.value});return;}
+  await navigator.clipboard.writeText(link.value);
+  status.textContent='Gift link copied.';
+ } catch(error) {
+  if(error.name==='AbortError')return;
+  link.select();
+  status.textContent='Copy the selected link to send your gift.';
+ }
 });
 </script></body></html>
