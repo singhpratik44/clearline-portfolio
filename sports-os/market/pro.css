@@ -1,0 +1,28 @@
+/* APERTURE SPORTS — editorial commerce design system v2 */
+:root{--bg:#080e13;--surface:#151e25;--surface2:#202c35;--line:#384852;--ink:#fffdf4;--muted:#c5c9c6;--acid:#e6ff75;--sun:#f7b477;--blue:#b8d8ff;--rad:12px}
+html{scroll-padding-top:88px}body{background:var(--bg);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:-.012em}
+header{background:#0b1217f2;border-bottom:1px solid #2c3b43;box-shadow:0 10px 40px #0003}
+header .shell{min-height:76px}.brand{font-size:19px;letter-spacing:.03em}.brand span{font-size:9px;letter-spacing:.21em;color:var(--acid)}.nav{gap:22px}.nav a{font-size:12px;color:#e1e5df}.nav a:hover{color:var(--acid)}
+.hero{min-height:660px;display:flex;align-items:center;overflow:hidden;padding:90px 0 72px;background:linear-gradient(90deg,#080e13 0%,#080e13e8 47%,#080e1370 100%),url('hero-art.svg') center right/cover no-repeat}
+.hero:before{background:radial-gradient(circle at 75% 46%,#ecb46c20,transparent 36%);pointer-events:none}.hero .shell{position:relative;z-index:1}.hero h1{max-width:790px;font-size:clamp(54px,8vw,106px);line-height:.98;letter-spacing:-.082em;font-weight:950}.hero h1 em{color:var(--acid)}.hero p{max-width:610px;font-size:18px;color:#e0e4dd}.kicker{color:var(--acid);font-size:11px;letter-spacing:.23em}
+.button{border-radius:6px;background:#1d2a32;border-color:#4b5d63;min-height:43px;transition:transform .16s ease,background .16s ease,box-shadow .16s ease}
+.button:hover{transform:translateY(-2px);box-shadow:0 8px 22px #0005;background:#30434d}.button.primary{background:var(--acid);border-color:var(--acid);color:#101713}.button.primary:hover{background:#f3ffae}.button.light{background:#0d171cc9}
+.hero .actions{margin:32px 0 25px}.hero .button{min-height:52px;padding:14px 22px}
+.metrics{gap:7px}.chip{border-color:#6a7c6a;color:#e9f3e3;background:#101e1bd9;padding:8px 12px}
+.section{padding:72px 0;border-top:1px solid #1c2b32}.section:nth-of-type(even){background:#0e171d}.section h2{font-size:clamp(34px,5vw,58px);letter-spacing:-.065em;max-width:690px}.section-head p{font-size:15px;color:#bfcac7}
+.panel{background:#17232a;border:1px solid #344751;border-radius:var(--rad);box-shadow:0 9px 30px #0002}.panel:hover{border-color:#607277}.panel .label{color:#b9d8a8}.panel p{color:#cbd5d2}.panel h3{font-size:20px}.panel.ad{background:linear-gradient(145deg,#1b2a2c,#151e24);border-color:#5d6654}
+.sports-tabs{margin:24px 0}.tab{border-radius:5px;background:#17232b}.tab[aria-pressed=true]{background:var(--acid);color:#0e1815}
+#moment-preview{min-height:385px;background:radial-gradient(circle at 82% 8%,#e6ff7566,transparent 36%),radial-gradient(circle at 0% 92%,#f7b47766,transparent 45%),#1b3339;border:1px solid #89a3a0;border-radius:10px;box-shadow:inset 0 0 60px #0002}#moment-preview .momenttitle{font-size:clamp(34px,4.6vw,58px)}.momenticon{font-size:72px}
+.input{background:#0b161d;border-color:#49606a;border-radius:6px;min-height:46px}.input:focus{border-color:var(--acid);outline:2px solid #e6ff7580}.field{font-size:12px}
+.product{overflow:hidden}.cover{min-height:160px;margin:-22px -22px 20px;border-radius:0;position:relative;font-size:70px;background:radial-gradient(circle at 75% 5%,#ffffff88,transparent 40%),linear-gradient(130deg,#e8d6b2,#b1d5c8)!important}.product .price{font-size:27px}.product .bottom{margin-top:15px}.product .disclose{margin-bottom:0}.product h3{font-size:21px}
+.price{color:#f5ffdd}.note{border-left-color:var(--acid);background:#1b2929;color:#e6eee4}
+#hero-sponsor-slot{max-width:580px;background:#0b171bd9;border-style:dashed;border-color:#65765e}#hero-sponsor-slot p{margin:7px 0}.adtag{background:#2a3322;color:#e8f8bf}
+.footer{background:#080e13;padding:45px 0 80px}
+.announcement{background:var(--acid);color:#101b16;font-weight:800;text-align:center;font-size:11px;letter-spacing:.045em;padding:9px 15px}.announcement a{color:#101b16;text-decoration:underline}
+.journey{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:30px 0}.journey-step{border-top:2px solid #7f986a;padding:22px 8px 8px}.journey-step strong{font-size:12px;letter-spacing:.12em;color:var(--acid)}.journey-step h3{font-size:23px;letter-spacing:-.04em;margin:8px 0}.journey-step p{font-size:13px;color:#b9c8c4;margin:0}
+.proof{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}.proof span{border:1px solid #4a5c61;background:#142128;padding:8px 11px;border-radius:4px;font-size:11px;color:#d7e0dc}
+.faq{max-width:860px;margin:auto}.faq details{border-bottom:1px solid #45575d;padding:18px 0}.faq summary{font-size:16px;font-weight:800;cursor:pointer}.faq p{color:#c2d0cb;font-size:14px}
+@media(max-width:840px){.hero{background-position:58% center}.journey{grid-template-columns:1fr}.journey-step{padding:16px 5px}.product .cover{margin:-22px -22px 20px}}
+@media(max-width:590px){header .shell{min-height:65px}.announcement{font-size:10px}.hero{min-height:620px;padding:70px 0 55px;background:linear-gradient(180deg,#080e13bb,#080e13 70%),url('hero-art.svg') 65% top/auto 85% no-repeat}.hero h1{font-size:clamp(48px,13.5vw,75px)}.hero p{font-size:16px}.section{padding:48px 0}.product .cover{margin:-18px -18px 18px}.nav{gap:12px}.nav a{font-size:11px}#moment-preview{min-height:320px}}
+@media(prefers-reduced-motion:reduce){.button{transition:none}.button:hover{transform:none}}
+@media print{.announcement,.journey{display:none!important}}
