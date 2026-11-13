@@ -58,7 +58,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(247,246,240,.97);border-
 .orbit-center small{font-size:10px;letter-spacing:.18em;margin-top:9px}
 .orbit-tag{position:absolute;z-index:2;background:#254739;color:#fff;border:1px solid #739b85;border-radius:999px;padding:10px 16px;font-size:12px;font-weight:740;box-shadow:0 10px 25px #0002}
 .orbit-tag.one{top:12%;left:-6%}.orbit-tag.two{top:25%;right:-8%}.orbit-tag.three{bottom:23%;left:-11%}.orbit-tag.four{bottom:8%;right:0}
-.trust{border-bottom:1px solid var(--border);background:#eeefe7}
+.gift-preview{width:min(100%,430px);aspect-ratio:1.06;position:relative;display:grid;place-items:center;isolation:isolate}.preview-orb{position:absolute;border-radius:50%;filter:blur(2px);z-index:-1}.orb-a{width:72%;height:72%;right:0;top:3%;background:radial-gradient(circle at 35% 35%,#f3d6a2,#f3d6a200 70%)}.orb-b{width:55%;height:55%;left:0;bottom:4%;background:radial-gradient(circle at 60% 50%,#7bbd9b99,#7bbd9b00 70%)}.preview-card{width:min(78%,320px);min-height:340px;padding:25px;border:1px solid #ffffff8a;border-radius:26px;background:linear-gradient(145deg,#fffefaee,#f5efe3e8);color:#17362b;box-shadow:0 30px 80px #071a154d;transform:rotate(-3deg);backdrop-filter:blur(18px)}.preview-label{display:flex;align-items:center;gap:8px;color:#54735e;font-size:10px;font-weight:850;letter-spacing:.15em}.preview-label span{font-size:17px;color:#b48742}.preview-gift{font-size:62px;text-align:center;margin:18px 0 10px;filter:drop-shadow(0 12px 12px #38271722)}.preview-title{font:500 32px/1.07 Georgia,serif;letter-spacing:-.04em;text-align:center}.preview-footer{display:flex;justify-content:space-between;align-items:center;border-top:1px solid #d9ddce;margin-top:23px;padding-top:15px;color:#6d796b;font-size:10px}.preview-open{background:#193c30;color:#fff;padding:8px 12px;border-radius:99px;font-weight:750}.preview-float{position:absolute;padding:11px 15px;border:1px solid #ffffff6b;border-radius:99px;background:#173c31d9;color:#fff;font-size:11px;font-weight:700;box-shadow:0 10px 30px #0002;backdrop-filter:blur(12px)}.float-top{top:8%;right:-2%}.float-bottom{bottom:7%;left:-3%}@media(max-width:700px){.gift-preview{max-width:370px;margin:0 auto}.preview-card{min-height:300px}.preview-title{font-size:29px}.float-top{right:-1%}.float-bottom{left:0}}.trust{border-bottom:1px solid var(--border);background:#eeefe7}
 .trust-inner{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding-top:18px;padding-bottom:18px;font-size:12px;font-weight:720;color:#53685c}
 .trust strong{font-size:11px;color:#203a2f;letter-spacing:.14em}
 .section{padding-top:96px;padding-bottom:8px}
@@ -140,13 +140,25 @@ footer p{font-size:14px;color:#aec3b4;max-width:400px;line-height:1.8}
 <section class="hero">
 <div class="wrap hero-inner">
 <div>
-<div class="kicker">APERTURE / EXPERIENCES & INNOVATION</div>
-<h1>Make room for <em>what matters.</em></h1>
-<p>Clearline builds practical learning programs and operating improvements. Explore coding education, digital experiences, and focused services for organizations.</p>
-<div class="hero-actions"><a class="btn gold" href="shop/">Shop Clearline <span aria-hidden="true">↗</span></a><a class="btn light" href="coding/">Explore education <span aria-hidden="true">↗</span></a><a class="btn outline" href="experience/">Try something free <span aria-hidden="true">↗</span></a></div>
-<div class="hero-note">Start exploring without an account. Choose what feels meaningful to you.</div>
+<div class="kicker">CLEARLINE / DIGITAL EXPERIENCES</div>
+<h1>Make a little<br><em>more meaningful.</em></h1>
+<p>Find a gift that feels personal, give someone an experience they can open instantly, or explore practical learning for real life.</p>
+<div class="hero-actions"><a class="btn gold" href="chatgpt-gift-studio/">Make a gift <span aria-hidden="true">↗</span></a><a class="btn light" href="shop/">Explore the shop <span aria-hidden="true">↗</span></a></div>
+<div class="hero-note">Free to explore · Opens on any phone · No account needed</div>
 </div>
-<div class="hero-visual" aria-hidden="true"><div class="orbit"><span class="orbit-tag one">Awareness</span><span class="orbit-tag two">Joy</span><span class="orbit-tag three">Love</span><span class="orbit-tag four">Wonder</span><div class="orbit-center"><b>Be<br>present.</b><small>BEGIN HERE</small></div></div></div>
+<div class="hero-visual">
+<div class="gift-preview" aria-label="A preview of a personal digital gift">
+<div class="preview-orb orb-a"></div><div class="preview-orb orb-b"></div>
+<div class="preview-card">
+<div class="preview-label"><span>✦</span> A MOMENT FOR YOU</div>
+<div class="preview-gift" aria-hidden="true">🎁</div>
+<div class="preview-title">You matter<br>more than you know.</div>
+<div class="preview-footer"><span>Made with care</span><span class="preview-open">Open gift ↗</span></div>
+</div>
+<div class="preview-float float-top">A little joy, sent your way</div>
+<div class="preview-float float-bottom">♡  Free to send</div>
+</div>
+</div>
 </div>
 </section>
 <div class="trust"><div class="wrap trust-inner"><strong>BUILT FOR REAL LIFE</strong><span>✳ Explore free experiences</span><span>✳ Make something meaningful</span><span>✳ Learn by doing</span><span>✳ Human-centered by design</span></div></div>
