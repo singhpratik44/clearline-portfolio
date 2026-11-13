@@ -89,7 +89,11 @@ function pickIdeas(recipient, budget, group, interests) {
     /art|drawing|craft/.test(query) ?
     [["A small art and craft kit", "Match their skill level and preferred materials.", "$12–$35"]] :
     /plant|garden|nature/.test(query) ?
-    [["A small plant or seed kit", "Check their space and preferences before choosing.", "$8–$30"]] : [];
+    [
+      ["Herb seed packets and plant labels", "Choose two herbs suited to their growing space and label them by variety.", "$4–$8"],
+      ["A small herb seed starting kit", "Give them a compact way to start basil or chives on a sunny windowsill.", "$8–$15"],
+      ["A compact planter with drainage", "Pick a pot that fits a windowsill or balcony and add a saucer to catch drips.", "$12–$24"]
+    ] : [];
   const fallback = [
     ["A handwritten letter", "Share a specific moment you appreciate about them.", "$1–$5"],
     ["A printed favorite photo", "Choose a happy shared memory and write a note on the back.", "$1–$5"],
