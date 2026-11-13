@@ -1,0 +1,19 @@
+{
+  "id": "/clearline-portfolio/code-the-game/",
+  "name": "CODE THE GAME · Holiday Robot Quest",
+  "short_name": "Robot Quest",
+  "description": "Free holiday robotics, AI and invention challenges for families.",
+  "start_url": "/clearline-portfolio/code-the-game/holiday/?source=home-screen",
+  "scope": "/clearline-portfolio/code-the-game/",
+  "display": "standalone",
+  "background_color": "#fffaf0",
+  "theme_color": "#123f3a",
+  "icons": [
+    {
+      "src": "holiday/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
