@@ -1,34 +1,55 @@
-# APERTURE Gift Studio — ChatGPT MCP plugin
+# Gift Finder & Gift Giver (by Clearline)
 
-An actual runnable, read-only ChatGPT gift planning plugin and mobile-first public demo from Clearline. This version generates **three physical-gift concepts** and a short personal message, for free. It does not use an LLM API, collect payments, promise stock, store input, require sign-in or initiate outreach.
+A deployed ChatGPT MCP plugin for **finding thoughtful physical gift ideas** and **creating an interactive digital greeting link that the user shares**. The same app is available as a mobile-first web experience.
 
-## Run
-Node.js >=20:
-- cd chatgpt-gift-studio
-- npm install
-- npm start
-- Open http://localhost:8787 and http://localhost:8787/health
-- Test the POST /api/plan endpoint with a JSON body such as {"recipient":"my mentor","budget":30,"feeling":"gratitude","occasion":"holidays"}.
+**Live website:** https://aperture-gift-studio.onrender.com/  
+**MCP endpoint:** https://aperture-gift-studio.onrender.com/mcp  
+**Recipient's reveal page:** https://aperture-gift-studio.onrender.com/gift  
+**Privacy:** https://aperture-gift-studio.onrender.com/privacy  
+**Support:** https://aperture-gift-studio.onrender.com/support  
+**Terms:** https://aperture-gift-studio.onrender.com/terms
 
-## ChatGPT setup
-Deploy on a server with public HTTPS. In ChatGPT Plugins, select **Add custom MCP server**, enter the exact \`https://YOUR-HOST/mcp\` endpoint, review permissions and connect. Call \`make_gift_plan\` from the new plugin. The tool returns structuredContent and a lightweight MCP Apps UI card. This requires account eligibility and user-controlled setup. **Not submitted to the public plugin directory.**
+## Two MCP tools
 
-## Monetization architecture
-The plugin remains a useful free tool. Current OpenAI plugin rules permit commerce only for **physical goods**. Digital goods, consulting services, subscriptions, and paid upgrades must not be marketed or transacted inside this plugin. The preferred route is to establish a verified physical goods supply (e.g., print-on-demand postcards/prints with real SKU, costs, shipping zones, refunds/returns), then place a merchant-owned external checkout behind an explicit inventory/fulfillment readiness gate. Do not enable a checkout merely because a Stripe link exists.
+- `make_gift_plan` — three illustrative physical gift concepts matched to recipient, interests, budget and occasion, with estimated price ranges and a suggested note. No retailer inventory, shopping transaction, real-time price checks or shipping.
+- `create_shareable_gift` — a shareable URL for a free greeting with a recipient-visible reveal, using only optional short names and a message. The user decides whether and whom to send it to. The app does **not** send SMS/email. The shared message is inside the URL fragment and can be read by anyone who has the complete link.
 
-For selling Clearline's AI workflow or custom-plugin installation service, market independently through Clearline's own website and opt-in business outreach; do not pitch or route to that digital service from this plugin.
+## Run locally
 
-## Readiness checklist
-- [x] Deterministic gift plan and public mobile-first preview
-- [x] Read-only MCP tool and optional visual card
-- [x] No checkout, no misleading availability
-- [x] Privacy notice and no app-side input persistence
-- [ ] Verify HTTPS /mcp live from ChatGPT
-- [ ] Test MCP Inspector / client init + tool call
-- [ ] Configure a dedicated support email and terms
-- [ ] Verify maker/fulfillment and real physical product prices
-- [ ] Review sales tax / shipping / refund / delivery policies
-- [ ] Test mode purchase and payment-confirmed fulfillment
-- [ ] Developer verification and directory approval
+Node.js 20+:
+```bash
+cd chatgpt-gift-studio
+npm install --omit=dev
+npm start
+# server starts at http://localhost:8787
+node test.mjs
+```
 
-Marketing hypotheses are not revenue data. Record actual visits, plan generations, opted-in leads, confirmed orders, gross receipts, fees and refunds separately.
+For your own ChatGPT account, add the public HTTPS MCP endpoint via **Plugins > Add > Add custom MCP server**, no authentication. Paste "Gift Finder & Gift Giver" as the plugin name. The MCP server is a working deployment; creating a custom connection does not make the app publicly listed.
+
+## Public directory package
+
+A portable package is prepared under:
+- `plugin.json` — brand, organic gift search intent, two real user workflows and reviewer scenarios
+- `mcp.json` — stable HTTPS Streamable HTTP endpoint with no auth
+- `assets/logo.svg`, `assets/icon.svg` — square vector icons
+- Web pages for required product, privacy, support and terms URLs
+
+Before submission, the owner must confirm the chosen verified publisher identity, validate support/privacy policies, test mobile ChatGPT invocations, record an accessible video walkthrough, complete domain verification (as instructed in the portal) and upload a **ZIP containing the plugin.json, mcp.json and assets folder at its root**. Public review and approval are not automatic.
+
+### Quality and safety
+
+- Read-only/deterministic tools, no Stripe integration, no checkout, no physical order claims
+- No recipients contacted automatically and no gift-message database
+- Some web server operational metadata may be retained by Render
+- No fabricated sales, rankings, referrals or installs
+- Keep all marketing and metadata truthful: don't keyword stuff or claim special OpenAI endorsement
+
+### Testing
+
+```bash
+node test.mjs
+node test-production.mjs
+```
+
+CI checks Node syntax, local MCP initialization, two tools, public HTTPS server routes, interactive gift link generation and dependency audit.
