@@ -4,11 +4,17 @@
   "private": true,
   "type": "module",
   "description": "A free ChatGPT gift planning plugin with a public demo; no checkout or inventory claims.",
-  "engines": {"node": ">=20"},
-  "scripts": {"start": "node server.mjs", "check": "node --check server.mjs"},
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "check": "node --check server.mjs"
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.20.2",
     "@modelcontextprotocol/ext-apps": "^1.0.1",
-    "zod": "^4.6.7"
+    "zod": "^4.6.7",
+    "sharp": "^0.34.5"
   }
 }
