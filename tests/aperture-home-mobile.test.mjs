@@ -13,14 +13,14 @@ test('APERTURE v5 mobile layout and local decision controls',{timeout:120000},as
  assert.ok(chrome,'Google Chrome is required for real browser testing');
  const server=createServer((req,res)=>{void serve(req,res)});await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
  const browser=await chromium.launch({headless:true,executablePath:chrome,args:['--no-sandbox','--disable-dev-shm-usage']});
- try{await mkdir('_artifacts',{recursive:true});const base='http://127.0.0.1:'+server.address().port+'/';
+ try{await mkdir('_artifacts',{recursive:true});const base='http://127.0.0.1:'+server.address().port+'/previous-home.html';
  for(const [width,height] of [[375,812],[390,844],[768,1024],[1280,900]]){await t.test('layout '+width+'px',async()=>{
   const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1,isMobile:width<500,hasTouch:width<500});
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   const response=await page.goto(base,{waitUntil:'networkidle',timeout:30000});
   assert.equal(response.status(),200);assert.equal(await page.locator('#missionTitle').count(),1);
   assert.equal(await page.locator('.project').count(),23);assert.equal(await page.locator('.gate').count(),4);assert.equal(await page.locator('.p2-tab').count(),5);assert.equal(await page.locator('#p2-project option').count(),23);assert.equal(await page.locator('.project .p2-inspect').count(),23);
-  const sizes=await page.evaluate(()=>({root:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth,body:document.body.scrollWidth}));
+  const sizes=await page.evaluate(()=>({root:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth,body:document.body.scrollWidth,offenders:[...document.querySelectorAll('*')].filter(el=>{const r=el.getBoundingClientRect();return r.width>0&&r.right>innerWidth+2;}).slice(0,12).map(el=>({tag:el.tagName,className:String(el.className).slice(0,70),id:el.id,right:Math.round(el.getBoundingClientRect().right),width:Math.round(el.getBoundingClientRect().width)}))}));
   assert.ok(sizes.scroll<=sizes.root+2,'Root horizontal overflow: '+width+' '+JSON.stringify(sizes));assert.ok(sizes.body<=sizes.root+2,'Body horizontal overflow: '+width+' '+JSON.stringify(sizes));
   assert.ok(await page.locator('#workbench').isVisible());
   if(width===375||width===1280)await page.screenshot({path:'_artifacts/aperture-v5-'+width+'.png',fullPage:true});

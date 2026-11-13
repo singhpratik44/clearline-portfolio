@@ -11,15 +11,25 @@ try {
    const page=await browser.newPage({viewport,isMobile:viewport.width<500,hasTouch:viewport.width<500});
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto('http://127.0.0.1:8767/');
-   await page.locator('#aperture-site-navigation').waitFor();
-   assert.ok((await page.locator('.project').count())>=22,'Mission Operations is listed in the portfolio');
    assert.match(await page.title(),/APERTURE/);
-   await page.getByRole('group',{name:'Filter public projects'}).getByRole('button',{name:'Sports',exact:true}).click();
-   assert.equal(await page.locator('.project:visible').count(),4);
-   await page.getByRole('group',{name:'Filter public projects'}).getByRole('button',{name:'All',exact:true}).click();
-   await page.locator('#project-search').fill('basketball');
-   assert.ok((await page.locator('.project:visible').count())>=1);
+   assert.ok((await page.locator('.product').count())>=12,'Current portfolio catalog is present');
+   await page.getByRole('group',{name:'Filter projects'}).getByRole('button',{name:'Learning'}).click();
+   assert.ok((await page.locator('.product:visible').count())>=1);
+   await page.getByRole('group',{name:'Filter projects'}).getByRole('button',{name:'All',exact:true}).click();
+   await page.locator('#project-search').fill('spiritual');
+   assert.ok((await page.locator('.product:visible').count())>=1);
    await page.locator('#project-search').fill('');
+   await page.goto('http://127.0.0.1:8767/center/');
+   assert.match(await page.title(),/The Center/);
+   assert.equal(await page.locator('.mission').count(),10);
+   await page.locator('[data-id="sports"]').click();
+   assert.match(await page.locator('#mission-name').textContent(),/Sports/);
+   await page.locator('#lens').selectOption('sikh');
+   assert.match(await page.locator('#faith-note').textContent(),/Sikh teachings/);
+   await page.locator('#lens').selectOption('christian');
+   assert.match(await page.locator('#faith-note').textContent(),/Christian teachings/);
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Center mobile horizontal overflow');
+   assert.deepEqual(errors,[],'Center JavaScript errors');
 
    await page.goto('http://127.0.0.1:8767/mission-operations.html');
    assert.match(await page.title(),/Mission Operations/);
@@ -51,8 +61,8 @@ try {
    const menu=page.locator('#aperture-site-navigation').locator('summary');
    await menu.click();
    assert.ok((await page.locator('#aperture-site-navigation').locator('.menu a').count())>=19);
-   assert.deepEqual(errors,[],'Homepage JavaScript errors');
-   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Homepage horizontal overflow');
+   assert.deepEqual(errors,[],'Mission Operations JavaScript errors');
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Mission Operations horizontal overflow');
    for(const path of ['basketball.html','clearline/','lab/']){
       await page.goto('http://127.0.0.1:8767/'+path);
       await page.locator('#aperture-site-navigation').waitFor();

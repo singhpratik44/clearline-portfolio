@@ -55,7 +55,7 @@ test("Arcade contains keyboard and touch controls and a verifiably reachable fin
   assert.match(arcade,/model\.gems\.size===3/);
 });
 test("Storefront explicitly discloses requirements and no live sessions",()=>{
-  assert.match(store,/No live coding sessions/);
+  assert.match(store,/not live classes or videos/);
   assert.match(store,/Minecraft Education with Code Builder/);
   assert.match(store,/code-the-game/);
   assert.match(store,/stripe\.com/);

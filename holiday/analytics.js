@@ -159,6 +159,9 @@
     setStatus('Your browser privacy preference is respected: analytics is disabled.');
     return;
   }
+  // Show the consent choice only when a provider is configured and privacy signals allow it.
+  // Showing buttons does not load the SDK or capture an event.
+  if (choices) choices.hidden = false;
   const preference = readPreference();
   if (preference === 'yes') start();
   else if (preference === 'no') {
