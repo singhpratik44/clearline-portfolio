@@ -1,15 +1,25 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
-:root{color-scheme:light dark}body{font:14px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;margin:0;padding:16px;background:Canvas;color:CanvasText}h2{font-size:19px;margin:4px 0 12px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}.gift{border:1px solid color-mix(in srgb,CanvasText 20%,transparent);border-radius:13px;padding:12px;margin:10px 0}.gift strong{display:block}.muted{opacity:.72}.note{padding:14px;border-left:3px solid #be8548;background:color-mix(in srgb,CanvasText 5%,Canvas);border-radius:4px}.message{white-space:pre-wrap}.footer{font-size:11px;opacity:.66;margin-top:14px}.hide{display:none}
+:root{color-scheme:light dark}body{font:14px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;margin:0;padding:16px;background:Canvas;color:CanvasText}h2{font-size:19px;margin:4px 0 12px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}.gift{border:1px solid color-mix(in srgb,CanvasText 20%,transparent);border-radius:13px;padding:12px;margin:10px 0}.gift strong{display:block}.muted{opacity:.72}.note{padding:14px;border-left:3px solid #be8548;background:color-mix(in srgb,CanvasText 5%,Canvas);border-radius:4px}.message{white-space:pre-wrap}.footer{font-size:11px;opacity:.66;margin-top:14px}.hide{display:none}.giftlink{display:inline-block;background:#275545;color:#fff;text-decoration:none;border-radius:9px;padding:10px 15px;margin-top:12px;font-weight:700}.giftlink:focus-visible{outline:3px solid #a47739;outline-offset:3px}
 </style></head>
-<body><div class="eyebrow">APERTURE / Gift Studio</div><h2 id="heading">Gift plan</h2>
+<body><div class="eyebrow">Gift Finder &amp; Gift Giver</div><h2 id="heading">Gift plan</h2>
 <section id="ideas" aria-live="polite"><p class="muted">Creating your plan…</p></section>
 <div id="note" class="note hide"><strong>Words to include</strong><p id="message" class="message"></p></div>
-<p id="caution" class="footer"></p>
+<div id="shared" class="hide"><p id="giftNote"></p><a class="giftlink" id="giftLink" href="#" target="_blank" rel="noopener noreferrer">Open shareable greeting</a><p class="muted">Copy this link to share it. No message is sent automatically.</p></div><p id="caution" class="footer"></p>
 <script>
 const el=id=>document.getElementById(id);
 function draw(data){
+ const gift=data&&data.gift||data&&data.structuredContent&&data.structuredContent.gift;
+ if(gift){
+   el("heading").textContent="Your shareable gift is ready";
+   el("ideas").replaceChildren();el("note").classList.add("hide");
+   el("shared").classList.remove("hide");
+   el("giftNote").textContent="For "+gift.recipient+": "+gift.message;
+   if(typeof gift.shareUrl==="string" && gift.shareUrl.startsWith("https://aperture-gift-studio.onrender.com/gift#"))el("giftLink").href=gift.shareUrl;
+   el("caution").textContent=gift.notice||"";
+   return;
+ }
  const plan=data&&data.plan||data&&data.structuredContent&&data.structuredContent.plan;
  if(!plan)return;
  el("heading").textContent=plan.heading||"Your gift plan";
