@@ -13,6 +13,17 @@ try{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('http://127.0.0.1:8997/sports-os/market/');
   await page.locator('#gift-grid .product').first().waitFor({timeout:15000});
+  assert.equal(await page.locator('.launch-actions .launch-tile').count(),4,'Four immediate mobile entry points');
+  assert.ok(await page.locator('.launchpad').isVisible());
+  if(viewport.width<500){
+    assert.ok(await page.locator('.mobile-dock').isVisible(),'Persistent mobile actions');
+    await page.locator('#mobile-menu-toggle').click();
+    assert.equal(await page.locator('#mobile-menu-toggle').getAttribute('aria-expanded'),'true');
+    await page.locator('#mobile-menu-toggle').click();
+    assert.equal(await page.locator('#mobile-menu-toggle').getAttribute('aria-expanded'),'false');
+    assert.ok((await page.locator('.launchpad').boundingBox()).y<150,'Command deck appears immediately');
+  }
+
   assert.ok((await page.locator('#gift-grid .product').count())>=42,'42+ existing sports gifts on marketplace');
   assert.equal(await page.locator('#sponsor-products .panel.ad').count(),3);
   assert.equal(await page.locator('#sponsor-products a[href^="https://book.stripe.com/"]').count(),3);
