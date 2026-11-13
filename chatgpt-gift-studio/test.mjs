@@ -29,6 +29,16 @@ try {
   const page = await fetch(base + "/");
   assert.equal(page.status, 200);
   assert.match(await page.text(), /Find the gift\. Give the feeling\./);
+  const checkout = await fetch(base + "/api/checkout/gift-story", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ sku: "gift-story-v1" })
+  });
+  assert.equal(checkout.status, 503, "No payment without verified test Stripe configuration");
+  const verify = await fetch(base + "/api/checkout/verify", {
+    method: "POST", headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ session_id: "cs_test_fake" })
+  });
+  assert.equal(verify.status, 503, "No entitlement without Stripe configuration");
   const giftPage = await fetch(base + "/gift");
   assert.equal(giftPage.status, 200);
   assert.match(await giftPage.text(), /Open your gift/);
