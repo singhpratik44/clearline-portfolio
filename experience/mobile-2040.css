@@ -1,0 +1,58 @@
+/* APERTURE 2040 mobile: app-first layout, not a scaled-down desktop landing page. */
+@media (max-width: 650px) {
+ html,body{overflow-x:hidden}
+ .ael{min-height:100svh;background:#030711}
+ .ael-shell{width:100%;padding:0 16px}
+ .ael-header{position:sticky;top:0;z-index:20;margin:0 -16px;padding:env(safe-area-inset-top) 17px 0;min-height:calc(66px + env(safe-area-inset-top));background:rgba(3,9,22,.88);backdrop-filter:blur(28px);border-bottom:1px solid rgba(145,225,255,.15)}
+ .ael-brand{font-size:11px;letter-spacing:.16em}
+ .ael-brand-mark{width:34px;height:34px}
+ .ael-brand-sub{font-size:9px}
+ .ael-quiet-toggle{font-size:0;min-width:46px;width:46px;height:46px;padding:0;box-shadow:inset 0 1px rgba(255,255,255,.13)}
+ .ael-quiet-toggle span{font-size:24px}
+ .ael main{display:flex;flex-direction:column}
+ .ael-hero{order:0;text-align:left;padding:28px 3px 15px}
+ .ael-hero-kicker{justify-content:flex-start;font-size:9px;letter-spacing:.23em}
+ .ael-kicker-line{width:13px}
+ .ael-hero h1{font-size:clamp(44px,12.2vw,67px);line-height:.98;letter-spacing:-.075em;margin:13px 0 10px}
+ .ael-hero h1 br{display:none}
+ .ael-hero h1 em::before{content:" "}
+ .ael-hero p{font-size:12px;line-height:1.55;margin:0;max-width:330px;color:#a6bdd2}
+ .ael-paths{order:1;margin:0 -16px;padding:10px 16px 14px}
+ .ael-section-heading{display:none}
+ .ael-path-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+ .ael-path{min-height:80px;padding:12px 4px 9px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;border-radius:17px;background:rgba(15,32,55,.7);border:1px solid rgba(126,198,230,.16);box-shadow:none;transform:none!important}
+ .ael-path.is-selected{background:linear-gradient(160deg,rgba(39,92,131,.68),rgba(17,35,60,.8));border:1px solid var(--ael-accent);box-shadow:inset 0 0 20px var(--ael-glow),0 0 20px var(--ael-glow)}
+ .ael-path-head{display:flex;justify-content:center;width:auto}
+ .ael-path-index,.ael-path-short,.ael-path-arrow{display:none!important}
+ .ael-path-symbol{font-size:26px;line-height:1.1}
+ .ael-path-name{font-size:11px;line-height:1.1;letter-spacing:-.02em;font-weight:650}
+ .ael-experience-area{order:2;margin:0 -16px;padding:0 12px}
+ .ael-area-heading{display:none}
+ .ael-journey{position:relative;overflow:hidden;border-radius:26px;min-height:min(620px,calc(100svh - 270px));display:flex;flex-direction:column;background:radial-gradient(ellipse 90% 50% at 50% 30%,var(--ael-glow),transparent 90%),linear-gradient(155deg,#112a47,#071326 76%);border:1px solid rgba(145,227,255,.24);box-shadow:0 15px 45px rgba(0,0,0,.25),inset 0 1px rgba(255,255,255,.09)}
+ .ael-journey-top{padding:22px 22px 12px}
+ .ael-progress{margin:0 22px}
+ .ael-journey-content{flex:1;display:flex;flex-direction:column;justify-content:center;padding:17px 20px 22px}
+ .ael-journey-glow{width:96px;height:96px;border-radius:50%;margin:0 auto 19px;background:radial-gradient(circle,var(--ael-glow),rgba(14,43,72,.18) 65%,transparent);border:1px solid rgba(145,225,255,.22);box-shadow:0 0 70px var(--ael-glow)}
+ .ael-journey-glow span{font-family:system-ui;font-size:53px;color:var(--ael-accent)}
+ .ael-eyebrow{font-size:10px;letter-spacing:.2em}
+ .ael-journey h2{font:650 clamp(28px,8.5vw,40px)/1.12 system-ui,sans-serif;letter-spacing:-.055em;margin:10px 0}
+ .ael-step-copy{font-size:14px;line-height:1.55;color:#c5d8e8}
+ .ael-activity{width:100%;margin-top:15px}
+ .ael-choice-activity,.ael-reflection,.ael-idea{background:rgba(2,14,29,.43);border-radius:19px;border:1px solid rgba(130,211,245,.19);padding:15px 12px}
+ .ael-chip-row{gap:7px}
+ .ael-chip{font-size:12px;padding:10px 12px;min-height:43px}
+ .ael-journey-footer{position:relative;padding:12px 15px calc(13px + env(safe-area-inset-bottom));min-height:79px;gap:8px;background:rgba(4,17,34,.4);border-top:1px solid rgba(142,219,255,.15)}
+ .ael-unhurried{display:none}
+ .ael-btn{min-height:47px}
+ .ael-btn-primary{flex:1;max-width:220px;justify-content:center}
+ .ael-btn-ghost{padding:10px 14px}
+ .ael-below-journey{padding:14px 6px 0;gap:8px}
+ .ael-below-journey p{font-size:11px}
+ .ael-manifesto{order:3;margin:35px 0 15px;padding:25px 14px;border-radius:21px}
+ .ael-manifesto p{font-size:21px;line-height:1.3}
+ .ael-footer{padding:18px 0 25px;font-size:9px}
+ .ael-aura-one{top:-310px;opacity:.7}
+ .ael-aura-two{top:-480px;opacity:.25}
+ .ael.is-quiet .ael-hero{padding-top:28px}
+}
+@media (max-width:360px){.ael-path-name{font-size:10px}.ael-shell{padding:0 12px}.ael-paths{margin:0 -12px;padding-left:12px;padding-right:12px}.ael-experience-area{margin:0 -12px}.ael-brand-sub{display:none}}
