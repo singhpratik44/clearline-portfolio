@@ -52,6 +52,7 @@ footer{font-size:13px;color:#5c695f;padding-bottom:65px}.done{font-size:15px;col
 @media print{header,footer,.hero,.choice,.gallery,.footer-box,#giftPanel .row,#giftPanel textarea,#giftPanel label,#giftPanel .status,#giftPanel .timer,.hint{display:none!important}#giftPanel{display:block!important;color:#121e1b!important;background:white!important;border:none!important;padding:15px!important}#giftPanel h2,#giftPanel p,#giftPanel .mission{color:#121e1b!important}#giftPanel .note{border:1px solid black!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 </style>
+<link rel="stylesheet" href="./experience-v2.css">
 </head><body>
 <header><nav><a class="brand" href="./">APERTURE × CLEARLINE</a><div class="row"><a href="./">Faith Store</a><a href="../../ggs/">Free GGS</a><a href="../../holiday/">Moment of Light</a></div></nav></header>
 <main>
@@ -76,6 +77,17 @@ footer{font-size:13px;color:#5c695f;padding-bottom:65px}.done{font-size:15px;col
 </div>
 <p class="hint">Or choose any exact gift from the complete collection below. Random modes choose from this same transparent list of 100.</p>
 </section>
+<section class="v2-reveal" id="v2Reveal" role="dialog" aria-modal="true" aria-labelledby="v2RevealTitle" hidden>
+<div class="v2-reveal-card">
+<span class="eyebrow">A moment made just for you</span>
+<span class="v2-sun" aria-hidden="true">✦</span>
+<p id="v2RevealTo">A gift for you</p>
+<p class="eyebrow" id="v2RevealTheme">Kindness</p>
+<h2 id="v2RevealTitle">A little light is waiting.</h2>
+<p>Not just a message. This gift has one small action you can really do. Ready to open it?</p>
+<button id="v2Open" type="button">Unwrap my gift ✨</button>
+<button id="v2Skip" type="button" class="v2-dismiss">Skip animation</button>
+</div></section>
 <section class="panel" id="giftPanel" hidden aria-live="polite">
 <div class="topline"><span class="eyebrow" id="giftKind">A gift of presence</span><span id="giftStep" class="done"></span></div>
 <p id="dedication" class="muted">A gift for you</p>
@@ -88,7 +100,24 @@ footer{font-size:13px;color:#5c695f;padding-bottom:65px}.done{font-size:15px;col
 <label for="privateNote">Your own words (optional, private to this page)</label><textarea id="privateNote" maxlength="1000" placeholder="What did you notice, make, say, or learn? Nothing is sent to anyone."></textarea>
 <div class="row" style="margin-top:20px"><button id="shareGift" type="button">Send this gift</button><button id="copyGift" type="button" class="alt">Copy gift link</button><button id="smsGift" type="button" class="alt">Open text message</button><button id="saveCard" type="button" class="alt">Save keepsake PNG</button><button id="printGift" type="button" class="alt">Print gift</button></div>
 <div class="row" style="margin-top:14px"><button id="nextStep" type="button" hidden>Next step →</button><button id="another" type="button" class="alt">Another surprise</button><button id="copyReflection" type="button" class="alt">Copy my reflection</button></div>
+<section class="v2-certificate" id="v2Certificate" hidden aria-labelledby="v2CertificateTitle">
+<span class="v2-complete">✦ A MOMENT MADE REAL</span>
+<h3 id="v2CertificateTitle">Your certificate of kindness</h3>
+<p>Presented to <strong id="v2CertificateTo"></strong> for completing <strong id="v2CertificateTitle"></strong>.</p>
+<p id="v2CertificateNote">You made kindness real.</p>
+<p><span id="v2CertificateDate"></span> · <span id="v2CertificateFrom"></span></p>
+<div class="row"><button id="v2DownloadCertificate" type="button">Download my certificate</button><button id="v2PrintCertificate" class="alt" type="button">Print certificate</button></div>
+<p class="hint">This certificate celebrates your self-reported action; it is not externally verified. Nothing is uploaded.</p>
+</section>
+<section class="v2-next" id="v2Next" hidden aria-labelledby="v2NextTitle">
+<span class="v2-complete">PASS IT FORWARD</span><h3 id="v2NextTitle">Your gift can keep moving.</h3>
+<p id="v2NextDescription">Invite someone to do an action of their own.</p>
+<p class="v2-loop">You have completed <span id="v2Chain">0</span> gift step(s) in this browser session.</p>
+<div class="row"><button id="v2PassSame" type="button">Gift this same experience</button><button id="v2SurpriseNext" type="button">Send a different surprise</button><button id="v2CopyNext" class="alt" type="button">Copy another gift</button><button id="v2NewGift" class="alt" type="button">Try another myself</button></div>
+<p id="v2NextGiftTitle" class="hint" hidden></p>
+</section>
 <div class="status" id="giftStatus" role="status" aria-live="polite"></div>
+<div class="status" id="v2Status" role="status" aria-live="polite"></div>
 <p id="shareInfo">Sharing opens a chooser; you choose who receives it and press Send yourself.</p>
 </section>
 <section id="all" class="gallery"><div class="gallery-head"><div><span class="eyebrow">03 · Make your own choice</span><h2>100 ways to make a difference.</h2></div><p id="progress" class="hint">0 activities completed in this browser session</p></div>
@@ -99,5 +128,6 @@ footer{font-size:13px;color:#5c695f;padding-bottom:65px}.done{font-size:15px;col
 <section class="footer-box"><strong>Generosity first.</strong> These 100 interactive actions are free to use and share. They are independent, original activities inspired by care, truthful living, connection and service across many traditions and everyday life—not scripture, therapy, professional counseling, or religious instruction. The <a href="./">optional Faith &amp; Family Store</a> offers separately priced printable workbooks; buying a workbook is not required to open any activity. This page does not send texts, DM people, or collect your responses. It does not authenticate payments or deliver paid files.</section>
 </main><footer>APERTURE × Clearline · <a href="./">Faith & Family Gifts</a> · <a href="../../ggs/">GGS Wisdom in Action</a> · <a href="../../holiday/">Free Moment of Light</a></footer>
 <script src="./experiences.js"></script>
+<script src="./experience-v2.js" defer></script>
 <script src="./experience-app.js"></script>
 </body></html>
