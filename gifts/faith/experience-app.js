@@ -23,6 +23,7 @@ function stopTimer(){
   paused=false;
   $("startTimer").textContent="Start a 90-second moment";
   $("pauseTimer").disabled=true;
+  $("pauseTimer").textContent="Pause";
 }
 function resetTimer(){stopTimer();secondsLeft=90;timerText();}
 function tick(){
