@@ -1,0 +1,22 @@
+name: APERTURE Digital Twin Mobile QA
+on:
+  push:
+    paths:
+      - 'aperture/digital-twin/**'
+      - 'tests/aperture-twin-mobile.mjs'
+      - '.github/workflows/aperture-twin-mobile.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-save playwright
+      - run: npx playwright install --with-deps chromium webkit
+      - run: node tests/aperture-twin-mobile.mjs
