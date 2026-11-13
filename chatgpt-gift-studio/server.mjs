@@ -9,6 +9,8 @@ const landing = readFileSync(new URL("./public/index.html", import.meta.url), "u
 const widget = readFileSync(new URL("./public/widget.html", import.meta.url), "utf8");
 const privacy = readFileSync(new URL("./public/privacy.html", import.meta.url), "utf8");
 const giftCard = readFileSync(new URL("./public/gift.html", import.meta.url), "utf8");
+const termsPage = readFileSync(new URL("./public/terms.html", import.meta.url), "utf8");
+const supportPage = readFileSync(new URL("./public/support.html", import.meta.url), "utf8");
 const allowedFeelings = ["gratitude", "joy", "encouragement", "wonder"];
 const allowedOccasions = ["holidays", "birthday", "thank-you", "just-because", "celebration", "anniversary", "christmas", "secret-santa", "graduation"];
 const giftSets = [
@@ -186,6 +188,8 @@ const port = Number(process.env.PORT || 8787);
 createServer(async (req, res) => {
   const url = new URL(req.url || "/", "http://localhost");
   if (req.method === "GET" && url.pathname === "/") return respond(res, 200, "text/html; charset=utf-8", landing);
+  if (req.method === "GET" && url.pathname === "/terms") return respond(res, 200, "text/html; charset=utf-8", termsPage);
+  if (req.method === "GET" && url.pathname === "/support") return respond(res, 200, "text/html; charset=utf-8", supportPage);
   if (req.method === "GET" && url.pathname === "/gift") return respond(res, 200, "text/html; charset=utf-8", giftCard);
   if (req.method === "GET" && url.pathname === "/privacy") return respond(res, 200, "text/html; charset=utf-8", privacy);
   if (req.method === "GET" && url.pathname === "/health") return respond(res, 200, "application/json", JSON.stringify({ ok: true, name: "aperture-gift-studio", checkoutLive: false }));
