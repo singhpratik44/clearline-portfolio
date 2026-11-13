@@ -8,3 +8,43 @@
 .product-art:before{content:'';position:absolute;inset:14px;border:1px solid #ffffffaa;border-radius:15px;pointer-events:none}.product-art:after{content:'ORIGINAL GIFT · G I F T E R';position:absolute;bottom:15px;left:18px;font-size:9px;letter-spacing:.12em;font-weight:850;opacity:.6}.product-art .folio,.product-art .playbook,.product-art .tickets{transition:transform .45s cubic-bezier(.2,.8,.2,1)}.product:hover .folio{transform:rotate(-5deg) translateY(-10px)}.product:hover .playbook{transform:rotate(1deg) translateY(-10px)}.product:hover .tickets{transform:rotate(7deg) translateY(-8px)}
 .preview-frame{background:radial-gradient(circle at 12% 15%,#fff 0,#fff9e7 52%,#fce8d6 100%);position:relative}.preview-frame:before,.preview-frame:after{content:'✳';position:absolute;color:#eab89e;font-size:28px;top:20px;left:20px}.preview-frame:after{top:auto;left:auto;bottom:20px;right:20px;color:#c2b9ee}.form-panel input:focus,.form-panel textarea:focus,.form-panel select:focus{outline:2px solid var(--blue);outline-offset:2px}.site-header{backdrop-filter:blur(16px);background:#f7f6f1f2}
 @media(max-width:720px){.stage-spark{font-size:26px}.product-filters{gap:7px}.product-filter{padding:10px 13px;font-size:12px}}@media(prefers-reduced-motion:reduce){.stage-spark{animation:none}}
+
+/* Gifter immersive recipient-opening experience */
+.reveal-experience{background:radial-gradient(ellipse at 50% 42%,#403ba5 0,#23245f 46%,#15173d 100%);isolation:isolate;overflow:hidden}
+.reveal-experience[hidden],.gift-ceremony[hidden],.gift-revealed[hidden]{display:none!important}
+.reveal-ambient{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
+.ambient-orb{position:absolute;border-radius:50%;filter:blur(3px);opacity:.48;animation:ambientFloat 10s ease-in-out infinite alternate}
+.orb-one{width:36vw;height:36vw;min-width:240px;min-height:240px;background:radial-gradient(circle,#fe9887aa,transparent 68%);top:-16%;left:-9%}
+.orb-two{width:45vw;height:45vw;min-width:260px;min-height:260px;background:radial-gradient(circle,#9c85f6aa,transparent 70%);bottom:-30%;right:-14%;animation-delay:-5s}
+.orb-three{width:25vw;height:25vw;background:radial-gradient(circle,#f8d88b77,transparent 70%);top:28%;right:20%;animation-delay:-2s}
+@keyframes ambientFloat{to{transform:translate(30px,-38px) scale(1.15)}}
+.gift-ceremony{width:min(640px,100%);margin:auto;text-align:center;color:white;position:relative;z-index:2}
+.ceremony-kicker{font-size:12px;letter-spacing:.22em;font-weight:850;color:#f4e5ab}
+.ceremony-heading{font-family:'Fraunces',Georgia,serif;font-size:clamp(42px,7vw,77px);font-weight:550;line-height:1.02;letter-spacing:-.065em;margin:22px 0 10px}
+.ceremony-heading em{font-weight:450;color:#ffd7a0}
+.unwrap-gift{display:grid;justify-items:center;gap:20px;margin:0 auto;padding:30px 20px 5px;background:none;border:0;color:white;width:min(410px,100%);-webkit-tap-highlight-color:transparent}
+.unwrap-envelope{width:min(310px,78vw);height:212px;display:block;position:relative;filter:drop-shadow(0 25px 24px #0006);perspective:850px;transition:transform .5s}
+.unwrap-gift:hover .unwrap-envelope{transform:translateY(-8px) rotate(-2deg)}
+.envelope-back{position:absolute;inset:0;border-radius:12px;background:#f7bcb3;box-shadow:inset 0 -12px 0 #e78f91}
+.envelope-front{position:absolute;inset:0;background:#ffa89f;clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);border-radius:12px;z-index:4}
+.envelope-flap{position:absolute;inset:0;background:#ffcfbf;clip-path:polygon(0 0,100% 0,50% 57%);transform-origin:50% 0;z-index:6;transition:transform .75s cubic-bezier(.22,.8,.22,1);backface-visibility:hidden}
+.envelope-seal{position:absolute;top:38%;left:calc(50% - 28px);width:56px;height:56px;display:grid;place-items:center;background:#f5e27f;color:#4b397a;border-radius:50%;z-index:7;font-size:35px;box-shadow:0 5px 16px #6c46644d;transition:opacity .25s}
+.envelope-letter{position:absolute;left:12%;top:13%;width:76%;height:78%;background:#fffaf0;border-radius:9px;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;font-size:12px;letter-spacing:.13em;color:#292d53;font-weight:850;transition:transform .8s .22s cubic-bezier(.2,.8,.2,1);box-shadow:0 5px 14px #4c31553b}
+.letter-star{font-size:52px;line-height:1;color:#3c48e6}
+.unwrap-gift.unwrapped .envelope-flap{transform:rotateX(180deg);z-index:2}
+.unwrap-gift.unwrapped .envelope-seal{opacity:0}
+.unwrap-gift.unwrapped .envelope-letter{transform:translateY(-120px) rotate(-3deg);z-index:5}
+.unwrap-caption{font-size:15px;font-weight:800;letter-spacing:.03em}
+.ceremony-footnote{font-size:12px;color:#d8d5f2;margin-top:14px}
+.gift-revealed{width:min(630px,100%);z-index:3;position:relative}
+.gift-revealed .gift-modal{width:100%;max-height:85vh;overflow:auto;margin:auto;animation:giftArrive .85s cubic-bezier(.2,.7,.2,1) both}
+.gift-revealed .gift-modal h2{overflow-wrap:anywhere}
+.gift-revealed .gift-modal p{overflow-wrap:anywhere}
+.reveal-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:30px}
+.reveal-credit{font-size:11px!important;color:#6d647b;margin-top:24px}
+.reveal-confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.reveal-confetti i{position:absolute;top:-30px;left:var(--x);width:9px;height:18px;border-radius:3px;opacity:0;transform:rotate(var(--rotate));animation:confettiFall var(--duration) var(--delay) ease-in forwards}
+@keyframes confettiFall{5%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate3d(70px,110vh,0) rotate(850deg)}}
+@keyframes giftArrive{from{opacity:0;transform:translateY(80px) scale(.88) rotate(-5deg)}to{opacity:1;transform:translateY(0) scale(1) rotate(0)}}
+@media(max-width:650px){.reveal-experience{padding:60px 18px 30px}.ceremony-heading{font-size:clamp(40px,11vw,62px)}.unwrap-envelope{height:190px}.gift-revealed .gift-modal{max-height:80vh;padding:34px 22px}.gift-revealed .gift-modal p{font-size:18px}.reveal-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){.ambient-orb,.reveal-confetti i,.gift-revealed .gift-modal{animation:none!important}.unwrap-envelope,.envelope-flap,.envelope-letter{transition:none!important}}
