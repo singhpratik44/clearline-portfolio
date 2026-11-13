@@ -13,5 +13,13 @@ test("mobile digital twin feedback and reset", async ({ browser }) => {
  await expect(page.locator("#twinOutput")).toBeHidden();
  await expect(page.locator("#twinStyle")).toHaveValue("practical");
  await expect(page.locator("#twinInterest")).toHaveValue("beauty");
+ await page.locator("#lessonCategory").selectOption("books");
+ await expect(page.locator("#lessonCards")).toContainText("personalized book-and-reflection");
+ await expect(page.locator("#lessonCards a[href='https://bookshop.org/']")).toBeVisible();
+ await page.locator("#shopCategory").selectOption("beauty");
+ await expect(page.locator("#shopCards")).toContainText("Ulta Beauty");
+ await page.locator("#shopCards").getByRole("button",{name:"Free interactive tutorial"}).first().click();
+ await expect(page.locator("#lessonCategory")).toHaveValue("beauty");
+ await expect(page.locator("#lessonCards")).toContainText("thoughtful self-care gift");
  await page.close();
 });
