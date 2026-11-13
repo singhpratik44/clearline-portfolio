@@ -12,9 +12,10 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
   const server=createServer(async(req,res)=>{
     try{
       const path=new URL(req.url,'http://localhost').pathname;
-      if(!['/holiday/','/holiday/index.html','/holiday/privacy.html','/holiday/sms-terms.html','/holiday/partners/'].includes(path)){res.writeHead(404);res.end();return}
-      const body=await readFile(join(process.cwd(),'holiday',path.endsWith('privacy.html')?'privacy.html':path.endsWith('sms-terms.html')?'sms-terms.html':path.endsWith('/partners/')?'partners/index.html':'index.html'));
-      res.writeHead(200,{'Content-Type':'text/html; charset=utf-8'});res.end(body);
+      if(!['/holiday/','/holiday/index.html','/holiday/privacy.html','/holiday/sms-terms.html','/holiday/partners/','/holiday/analytics-config.js','/holiday/analytics.js'].includes(path)){res.writeHead(404);res.end();return}
+      const target=path.endsWith('/analytics-config.js')?'analytics-config.js':path.endsWith('/analytics.js')?'analytics.js':path.endsWith('privacy.html')?'privacy.html':path.endsWith('sms-terms.html')?'sms-terms.html':path.endsWith('/partners/')?'partners/index.html':'index.html';
+      const body=await readFile(join(process.cwd(),'holiday',target));
+      res.writeHead(200,{'Content-Type':target.endsWith('.js')?'text/javascript; charset=utf-8':'text/html; charset=utf-8'});res.end(body);
     }catch(e){res.writeHead(500);res.end(String(e))}
   });
   await new Promise(ok=>server.listen(0,'127.0.0.1',ok));
@@ -54,6 +55,8 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
     const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
     assert.equal(overflow,false,'Mobile horizontal overflow');
     assert.equal(await page.locator('#sms-interest').count(),1);
+    assert.equal(await page.locator('#analytics-choices').isVisible(),false);
+    assert.match(await page.locator('#analytics-status').textContent(),/not connected/i);
     assert.ok((await page.evaluate(()=>window.APERTURE_HOLIDAY_EVENTS)).some(x=>x.name==='gift_copy_success'));
     assert.equal(await page.locator('#sms-interest #sms-consent').count(),1);
     assert.equal(await page.locator('#sms-consent').isChecked(),false);
@@ -68,6 +71,44 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
     assert.match(await partner.locator('#generated').textContent(),/ref=testpartner/);
     assert.match(await partner.locator('#generated').textContent(),/utm_campaign=holiday2026/);
     await partner.close();
+    // A separately provisioned mock project demonstrates true consent gating without live network calls.
+    const measured=await browser.newPage({viewport:{width:390,height:844}});
+    await measured.route('**/holiday/analytics-config.js',route=>route.fulfill({
+      status:200,contentType:'text/javascript',body:'window.APERTURE_ANALYTICS_CONFIG={provider:"posthog",projectToken:"phc_TestToken1234567",apiHost:"https://us.i.posthog.com"};'
+    }));
+    await measured.addInitScript(()=>{
+      window.__sentEvents=[];
+      window.posthog={
+        __SV:1, consent:false,
+        init(token,options){this.options=options;options.loaded(this)},
+        opt_in_capturing(){this.consent=true},
+        opt_out_capturing(){this.consent=false},
+        capture(name,properties){
+          if(!this.consent)return;
+          const event=this.options.before_send({event:name,properties:{...properties,$referrer:'https://example.com/?name=PRIVATE'}});
+          if(event)window.__sentEvents.push(event);
+        }
+      };
+      Object.defineProperty(navigator,'clipboard',{configurable:true,value:{writeText:async()=>{}}});
+    });
+    await measured.goto(base+'?theme=love&to=SECRETNAME&from=HIDDEN&utm_source=partner&utm_campaign=holiday2026',{waitUntil:'networkidle'});
+    assert.equal(await measured.locator('#analytics-choices').isVisible(),true);
+    assert.equal((await measured.evaluate(()=>window.__sentEvents)).length,0,'No data before consent');
+    await measured.locator('#analytics-accept').click();
+    const allowed=await measured.evaluate(()=>window.__sentEvents);
+    assert.equal(allowed.length,1,'One view after consent');
+    assert.equal(allowed[0].event,'gift_view');
+    assert.equal(allowed[0].properties.utm_source,'partner');
+    assert.ok(!JSON.stringify(allowed).includes('SECRETNAME'),'Gift name was leaked');
+    assert.ok(!JSON.stringify(allowed).includes('HIDDEN'),'Sender name was leaked');
+    assert.ok(!JSON.stringify(allowed).includes('PRIVATE'),'Referrer was leaked');
+    await measured.locator('#copy').click();
+    assert.ok((await measured.evaluate(()=>window.__sentEvents)).some(e=>e.event==='gift_copy_success'));
+    await measured.locator('#analytics-decline').click();
+    const before=await measured.evaluate(()=>window.__sentEvents.length);
+    await measured.locator('#copy').click();
+    assert.equal(await measured.evaluate(()=>window.__sentEvents.length),before,'Tracking continued after withdrawal');
+    await measured.close();
     assert.deepEqual(errors,[],'JavaScript runtime errors');
     await page.close();
   }finally{await browser.close();await new Promise(ok=>server.close(ok))}
