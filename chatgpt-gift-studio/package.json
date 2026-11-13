@@ -1,0 +1,14 @@
+{
+  "name": "aperture-gift-studio-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A free ChatGPT gift planning plugin with a public demo; no checkout or inventory claims.",
+  "engines": {"node": ">=20"},
+  "scripts": {"start": "node server.mjs", "check": "node --check server.mjs"},
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.2",
+    "@modelcontextprotocol/ext-apps": "^1.0.1",
+    "zod": "^3.25.76"
+  }
+}
