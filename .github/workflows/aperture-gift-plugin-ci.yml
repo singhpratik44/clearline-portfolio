@@ -56,7 +56,7 @@ jobs:
         run: |
           node server.mjs > /tmp/gift-studio.log 2>&1 &
           for i in $(seq 1 25); do
-            if curl -fsS http://127.0.0.1:3000/health >/dev/null; then exit 0; fi
+            if curl -fsS http://127.0.0.1:8787/health >/dev/null; then exit 0; fi
             sleep 1
           done
           cat /tmp/gift-studio.log
@@ -65,4 +65,4 @@ jobs:
       - run: npx playwright test digital-twin.mobile.spec.mjs --reporter=line
         working-directory: chatgpt-gift-studio
         env:
-          TARGET_BASE: http://127.0.0.1:3000
+          TARGET_BASE: http://127.0.0.1:8787
