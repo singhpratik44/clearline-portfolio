@@ -25,6 +25,36 @@ footer{border-top:1px solid var(--line);background:#080d15;padding:45px 0;color:
 #notice{position:fixed;right:16px;bottom:16px;z-index:100;background:#d6ffe9;color:#071615;border-radius:14px;padding:12px 19px;font-size:13px;font-weight:750;box-shadow:0 12px 50px #0008}#notice[hidden]{display:none}
 @media(max-width:1050px){.hero .wrap{min-height:600px}.stack{height:440px}.section-title{align-items:start;flex-direction:column}.offer h3{font-size:28px}.hero h1{font-size:clamp(50px,7vw,90px)}}@media(max-width:760px){.wrap{width:min(100% - 34px,1450px)}nav .wrap{min-height:66px}.nav-hide{display:none!important}nav .links{gap:12px}.hero .wrap{grid-template-columns:1fr;padding-top:57px;padding-bottom:55px;gap:9px}.hero h1{font-size:clamp(56px,12vw,92px);margin:19px 0 20px}.hero p{font-size:15px}.stack{height:370px;width:min(100%,470px);margin:auto}.gallery{grid-template-columns:repeat(2,minmax(0,1fr));gap:21px 13px}.offer-grid{grid-template-columns:1fr}.offer{min-height:320px}.free{grid-template-columns:1fr}.free .visual{min-height:240px}.free .moon{height:220px;width:220px}.faq{grid-template-columns:1fr;gap:8px}section{padding-top:70px}.metrics .wrap{gap:14px;justify-content:start}.piece-info{align-items:start;flex-direction:column}.piece-info h3{font-size:19px}.piece-info a{font-size:12px}.note-strip{align-items:start;flex-direction:column}}@media(max-width:440px){.gallery{grid-template-columns:1fr}.hero .actions .pill{width:100%}.stack{height:325px}.stack .poster{width:52%}.free .visual{min-height:200px}.free .moon{width:160px;height:160px}nav .links .pill{padding:10px 12px;min-height:40px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+/* COLLECTION 001 / INTERACTIVE ART PREVIEW */
+.view-art{position:absolute;z-index:4;bottom:14px;left:14px;right:14px;text-align:center;min-height:43px;padding:10px;border:1px solid #fff9;background:#080e18df;backdrop-filter:blur(15px);border-radius:999px;color:#fff;font:800 12px 'DM Sans',sans-serif;cursor:pointer;transition:background .2s,transform .2s}
+.view-art:hover{background:#25493f;transform:translateY(-2px)}
+.preview-dialog{width:min(1030px,calc(100vw - 28px));max-height:min(92vh,890px);padding:0;border:1px solid #ffffff45;background:#0e131e;color:#f9f7ef;border-radius:22px;box-shadow:0 40px 100px #000e;overflow:auto}
+.preview-dialog::backdrop{background:#02050bdd;backdrop-filter:blur(10px)}
+.dialog-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr)}
+.dialog-stage{position:relative;min-height:620px;background:radial-gradient(circle at 50% 40%,#a5a09c,#8e9691 50%,#747f78);display:grid;place-items:center;overflow:hidden;transition:background .25s}
+.dialog-stage:after{content:'';height:18%;position:absolute;bottom:0;left:0;right:0;background:linear-gradient(175deg,#4b4d49,#282923);opacity:.6}
+.dialog-room{display:grid;place-items:center;position:relative;z-index:2;width:65%;max-width:340px;filter:drop-shadow(16px 20px 18px #0007);transition:width .3s,transform .3s}
+.dialog-room img{display:block;width:100%;aspect-ratio:2/3;object-fit:cover;border:10px solid #161a20;outline:2px solid #ffffff55;background:#17202b}
+.dialog-stage.is-phone{background:radial-gradient(circle at 50% 60%,#45435c,#1d2534 80%)}
+.dialog-stage.is-phone:after{opacity:.1}
+.dialog-stage.is-phone .dialog-room{width:39%;max-width:210px;transform:rotate(-5deg)}
+.dialog-stage.is-phone .dialog-room:before{content:'';position:absolute;z-index:2;top:10px;left:50%;transform:translateX(-50%);width:33%;height:15px;border-radius:0 0 12px 12px;background:#060709}
+.dialog-stage.is-phone .dialog-room img{border:10px solid #060709;border-radius:30px;aspect-ratio:1440/3120;box-shadow:0 0 0 2px #54545e;object-fit:cover}
+.dialog-close{position:absolute;z-index:5;right:18px;top:17px;border:1px solid #ffffff9c;background:#080e17c9;color:white;border-radius:999px;width:40px;height:40px;font-size:23px;cursor:pointer}
+.dialog-body{padding:clamp(24px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
+.dialog-body h2{font:700 clamp(38px,4vw,65px)/1 'Space Grotesk',sans-serif;letter-spacing:-.07em;margin:15px 0}
+.dialog-body p{color:#bcc2ca;line-height:1.75;font-size:14px}
+.dialog-tabs{display:flex;gap:10px;margin:22px 0}
+.dialog-tabs button{border:1px solid #ffffff45;border-radius:999px;padding:10px 15px;background:#ffffff09;color:white;font-size:12px;font-weight:800;cursor:pointer}
+.dialog-tabs button[aria-pressed=true]{background:#c5fadf;color:#10251b;border-color:#c5fadf}
+.dialog-price{font:700 34px 'Space Grotesk',sans-serif;letter-spacing:-.05em;margin:20px 0}
+.dialog-price small{font:500 12px 'DM Sans',sans-serif;color:#b9b8c1;letter-spacing:0}
+.dialog-body .pill{width:100%;margin:0 0 11px}
+.dialog-caption{font-size:11px!important;color:#b8bdc7!important;margin:13px 0 0}
+.mobile-buy{display:none}
+@media(max-width:760px){.dialog-grid{grid-template-columns:1fr}.dialog-stage{min-height:350px}.dialog-room{width:42%;max-width:175px}.dialog-stage.is-phone .dialog-room{width:25%;min-width:105px}.dialog-body{padding:24px}.dialog-body h2{font-size:42px}.mobile-buy{position:fixed;bottom:0;left:0;right:0;z-index:45;border-top:1px solid #ffffff30;background:#080c15f1;backdrop-filter:blur(18px);padding:10px 17px max(10px,env(safe-area-inset-bottom));display:flex;align-items:center;gap:13px;justify-content:space-between}.mobile-buy span{font-size:11px;color:#c6c2ca}.mobile-buy strong{display:block;color:#fff;font:700 15px 'Space Grotesk'}.mobile-buy .pill{min-height:43px;padding:10px 18px}footer{padding-bottom:110px}}
+@media(max-width:440px){.dialog-stage{min-height:295px}.dialog-body h2{font-size:37px}}
 </style></head><body>
 <nav aria-label="Main"><div class="wrap"><a class="logo" href="../../">APERTURE<span>∞</span> / ART</a><div class="links"><a class="nav-hide" href="#gallery">Gallery</a><a class="nav-hide" href="#collections">Collections</a><a class="pill secondary" href="../">Main store ↗</a></div></div></nav>
 <header class="hero"><div class="wrap"><div><div class="eyebrow">CLEARLINE ORIGINALS / COLLECTION 001</div><h1>Art for<br>the <em>next</em><br>chapter.</h1><p>Basketball. Wonder. Quiet strength. Six original art editions made for the screens you carry and the spaces you create. Beautiful things with something to say.</p><div class="actions"><a class="pill primary" href="#collections">Shop the collection <span aria-hidden="true">↗</span></a><a class="pill secondary" href="#gallery">Explore the gallery</a></div><div class="proof"><span><b>06</b> original artworks</span><span><b>02</b> worlds</span><span><b>01</b> intention: meaningful design</span></div></div><div class="stack" aria-label="Featured art previews"><img class="poster one" src="previews/quiet-power.svg" alt="Quiet Power art preview"><img class="poster two" src="previews/the-clutch.svg" alt="The Clutch basketball art preview"><img class="poster three" src="previews/wonder-is-here.svg" alt="Wonder art preview"><span class="note">Digitally made. Real-world feeling.</span></div></div></header>
@@ -49,4 +79,43 @@ const qs=s=>document.querySelector(s);document.querySelectorAll('.filter').forEa
 const shareURL=new URL(location.href);shareURL.searchParams.set('utm_source','customer_share');shareURL.searchParams.set('utm_campaign','art_archive_001');
 qs('#share').addEventListener('click',async()=>{try{if(navigator.share){await navigator.share({title:'CLEARLINE ART — Original posters and wallpapers',text:'Six original basketball and beyond-the-game artworks.',url:shareURL.href});}else{await navigator.clipboard.writeText(shareURL.href);qs('#share').textContent='Link copied ✓';}}catch(e){if(e.name!=='AbortError'){qs('#share').textContent='Copy the page link to share';}}});
 qs('#free-download').addEventListener('click',()=>{try{const c=document.createElement('canvas');c.width=1080;c.height=2340;const g=c.getContext('2d');let bg=g.createLinearGradient(0,0,1080,2340);bg.addColorStop(0,'#061421');bg.addColorStop(.6,'#0f4544');bg.addColorStop(1,'#07242d');g.fillStyle=bg;g.fillRect(0,0,1080,2340);const glow=g.createRadialGradient(550,840,60,550,840,550);glow.addColorStop(0,'#d0ffdd');glow.addColorStop(.4,'#6edab6');glow.addColorStop(.75,'#2f8174');glow.addColorStop(1,'#092e36');g.fillStyle=glow;g.beginPath();g.arc(550,820,310,0,Math.PI*2);g.fill();for(let i=0;i<7;i++){g.beginPath();g.arc(550,820,355+i*62,0,Math.PI*2);g.strokeStyle='rgba(212,255,230,'+(.18-i*.018)+')';g.lineWidth=2;g.stroke()}g.fillStyle='#e8ffef';g.textAlign='center';g.font='700 78px system-ui';g.fillText('MAKE ROOM',540,1760);g.fillText('FOR WONDER',540,1860);g.font='500 33px system-ui';g.fillStyle='#b7ddce';g.fillText('APERTURE  ∞  CLEARLINE',540,2100);c.toBlob(blob=>{if(!blob){qs('#free-status').textContent='Download unavailable on this browser';return;}const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='clearline-make-room-for-wonder-free-wallpaper.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);qs('#free-status').textContent='Your free wallpaper is ready.';},'image/png');}catch(e){qs('#free-status').textContent='Download unavailable; please try another browser.';}});
-</script></body></html>
+
+/* Artwork previews: a working, keyboard-accessible product inspection flow */
+(function(){
+  const modal=document.getElementById('art-preview'),stage=document.getElementById('dialog-stage');
+  if(!modal||typeof modal.showModal!=='function')return;
+  const title=document.getElementById('dialog-title'),description=document.getElementById('dialog-description'),image=document.getElementById('dialog-image'),category=document.getElementById('dialog-category'),buy=document.getElementById('dialog-buy');
+  const packs={
+    courtside:{name:'Courtside',url:'https://buy.stripe.com/14AdRbeASh2IeIkak96kg1t'},
+    beyond:{name:'Beyond',url:'https://buy.stripe.com/4gMbJ33WeeUA2ZCgIx6kg1u'}
+  };
+  const tabs=modal.querySelectorAll('[data-mockup]');
+  function setMode(mode){stage.classList.toggle('is-phone',mode==='phone');tabs.forEach(t=>t.setAttribute('aria-pressed',String(t.dataset.mockup===mode)));image.alt=title.textContent+' '+(mode==='phone'?'phone wallpaper mockup':'framed wall poster mockup');}
+  tabs.forEach(t=>t.addEventListener('click',()=>setMode(t.dataset.mockup)));
+  document.querySelectorAll('.piece').forEach(piece=>{
+    const art=piece.querySelector('.art'),img=art.querySelector('img'),name=piece.querySelector('h3').textContent,desc=piece.querySelector('.piece-info p').textContent,pack=packs[piece.dataset.category];
+    const b=document.createElement('button');b.type='button';b.className='view-art';b.textContent='Preview in your space ↗';b.setAttribute('aria-label','Preview '+name+' in a mockup');art.appendChild(b);
+    b.addEventListener('click',()=>{title.textContent=name;description.textContent=desc;category.textContent=pack.name.toUpperCase()+' / ORIGINAL ART';image.src=img.getAttribute('src');buy.href=pack.url;buy.textContent='Get the '+pack.name+' pack ↗';setMode('wall');modal.showModal();});
+  });
+  document.getElementById('dialog-close').addEventListener('click',()=>modal.close());
+  document.getElementById('dialog-details').addEventListener('click',()=>modal.close());
+  modal.addEventListener('click',e=>{if(e.target===modal)modal.close();});
+})();
+</script>
+<dialog class="preview-dialog" id="art-preview" aria-labelledby="dialog-title" aria-describedby="dialog-description">
+  <div class="dialog-grid">
+    <div class="dialog-stage" id="dialog-stage">
+      <button class="dialog-close" type="button" aria-label="Close artwork preview" id="dialog-close">×</button>
+      <div class="dialog-room"><img id="dialog-image" src="previews/the-clutch.svg" alt="Artwork mockup"></div>
+    </div>
+    <div class="dialog-body"><span class="eyebrow" id="dialog-category">COURTSIDE / ORIGINAL ART</span><h2 id="dialog-title">The Clutch</h2><p id="dialog-description">Original independent basketball artwork.</p>
+      <div class="dialog-tabs" role="group" aria-label="Choose mockup style"><button type="button" data-mockup="wall" aria-pressed="true">On the wall</button><button type="button" data-mockup="phone" aria-pressed="false">On a phone</button></div>
+      <p>Each pack includes print-resolution PNG posters, mobile PNG wallpapers and the original scalable SVGs for personal use.</p>
+      <div class="dialog-price" id="dialog-price">$19 <small>one-time · digital pack</small></div>
+      <a class="pill primary" id="dialog-buy" href="https://buy.stripe.com/14AdRbeASh2IeIkak96kg1t" target="_blank" rel="noopener noreferrer">Get the Courtside pack ↗</a>
+      <a class="pill secondary" href="#collections" id="dialog-details">Compare all collections ↗</a>
+      <p class="dialog-caption">Illustrative mockup only. No physical product shipped. Files are emailed manually within one business day after confirmed payment. Independent art, no professional sports affiliation.</p>
+    </div>
+  </div>
+</dialog>
+<div class="mobile-buy"><div><strong>Collection 001</strong><span>6 originals · digital from $19</span></div><a class="pill primary" href="#collections">View packs ↗</a></div></body></html>
