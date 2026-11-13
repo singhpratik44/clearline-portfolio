@@ -173,6 +173,8 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 .flagship .flagship-inner{padding-block:clamp(48px,8vw,112px);display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(24px,6vw,92px);align-items:center}
 .flagship .flagship-intro h1{font-size:clamp(53px,7.5vw,112px);margin:0 0 24px}.flagship-directory{border-top:1px solid #ffffff45}.flagship-directory a{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:14px 8px;border-bottom:1px solid #ffffff45;text-decoration:none;min-height:64px}.flagship-directory a:hover{background:#ffffff12}.flagship-directory strong{font-size:1.15rem}.flagship-directory small{grid-column:1;color:#d5e2d7}.flagship-directory span{grid-column:2;grid-row:1/3;color:#c6f2db}.organization{padding-block:clamp(40px,7vw,84px)}.organization-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.organization-grid article{display:flex;flex-direction:column;background:#fffefa;border:1px solid var(--border);border-radius:18px;padding:24px}.organization-grid h3{margin:0}.organization-grid a{margin-top:auto;display:flex;align-items:center;min-height:44px;color:#285b46;font-weight:750}
 @media(max-width:800px){.flagship .flagship-inner,.organization-grid{grid-template-columns:1fr}.flagship-directory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:12px}.flagship-directory strong{font-size:1rem}}
+</style><style>
+.showcases{display:grid;gap:18px}.showcase{--tint:#e2ece6;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(20px,4vw,52px);padding:clamp(22px,5vw,60px);border-radius:26px;background:var(--tint);scroll-margin-top:24px}.showcase-sports{--tint:#f0e2d1}.showcase-experience{--tint:#e4e5f4}.showcase-faith{--tint:#ece9dd}.showcase-gifts{--tint:#f2e3eb}.showcase-innovation{--tint:#dde9ee}.showcase-label{margin:0 0 12px;font-weight:800;font-size:.85rem}.showcase h3{font:700 clamp(28px,4.5vw,60px)/1.03 'Space Grotesk',Geist,system-ui,sans-serif;letter-spacing:-.05em;margin:0}.showcase-copy{max-width:55ch;margin:16px 0 24px}.showcase-actions{display:flex;gap:8px;flex-wrap:wrap}.showcase-feature{display:flex;align-items:center;gap:20px;background:#fffefaad;border:1px solid #ffffffa0;border-radius:20px;padding:clamp(18px,3vw,36px);align-self:center}.showcase-feature h4{font-size:1.4rem;margin:0}.showcase-feature p{margin:8px 0 0}.showcase-feature img{width:clamp(65px,11vw,120px);height:auto;border-radius:6px}@media(max-width:700px){.showcase{grid-template-columns:1fr}.showcase-actions .btn{flex:1 1 155px;text-align:center}}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -189,23 +191,42 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 <main id="main">
 <section class="hero flagship"><div class="wrap flagship-inner">
 <div class="flagship-intro"><h1>Learn. Play.<br><em>Build what matters.</em></h1><p>APERTURE develops learning experiences, coaching tools, creative products, and decision systems for people and organizations.</p><div class="hero-actions"><a class="btn gold" href="#paths">Explore the portfolio</a><a class="btn light" href="shop/">Shop Clearline</a><a class="btn light" href="#organizations">For organizations</a></div></div>
-<nav class="flagship-directory" aria-label="APERTURE portfolio"><a href="coding/"><strong>Education</strong><small>Build with code</small><span aria-hidden="true">↗</span></a>
-<a href="basketball-os.html"><strong>Sports</strong><small>Coach and develop athletes</small><span aria-hidden="true">↗</span></a>
-<a href="experience/"><strong>Human experience</strong><small>Practice confidence and reflection</small><span aria-hidden="true">↗</span></a>
-<a href="prayer/start/"><strong>Faith & reflection</strong><small>Explore prayer and gratitude</small><span aria-hidden="true">↗</span></a>
-<a href="gifts/"><strong>Gifts & art</strong><small>Create something worth sharing</small><span aria-hidden="true">↗</span></a>
-<a href="civilization-lab.html"><strong>Innovation</strong><small>Explore tools for complex decisions</small><span aria-hidden="true">↗</span></a></nav>
+<nav class="flagship-directory" aria-label="APERTURE portfolio"><a href="#area-education"><strong>Education</strong><small>Build with code</small><span aria-hidden="true">↗</span></a>
+<a href="#area-sports"><strong>Sports</strong><small>Coach and develop athletes</small><span aria-hidden="true">↗</span></a>
+<a href="#area-experience"><strong>Human experience</strong><small>Practice confidence and reflection</small><span aria-hidden="true">↗</span></a>
+<a href="#area-faith"><strong>Faith & reflection</strong><small>Explore prayer and gratitude</small><span aria-hidden="true">↗</span></a>
+<a href="#area-gifts"><strong>Gifts & art</strong><small>Create something worth sharing</small><span aria-hidden="true">↗</span></a>
+<a href="#area-innovation"><strong>Innovation</strong><small>Explore tools for complex decisions</small><span aria-hidden="true">↗</span></a></nav>
 </div></section>
 
 
-<section class="wrap section pathways" id="paths" aria-labelledby="paths-title"><h2 id="paths-title">Find your next step</h2><div class="path-grid">
-<article class="path-card"><h3>Personal growth</h3><p>Free reflection and practical confidence exercises.</p><div class="path-actions"><a href="experience/">Try a free reflection</a><a href="https://aperture-own-the-room.onrender.com/">Practice confidence</a></div></article>
-<article class="path-card"><h3>Education</h3><p>Build games, websites, and creative coding projects.</p><div class="path-actions"><a href="coding/">Explore coding</a><a href="code-the-game/">Try Code the Game</a></div></article>
-<article class="path-card"><h3>Sports</h3><p>Find basketball coaching tools and ideas for practice.</p><div class="path-actions"><a href="basketball-os.html">Open the coaching tools</a><a href="sports-media.html">Explore sports media</a></div></article>
-<article class="path-card"><h3>Gifts &amp; art</h3><p>Create a personal gift or browse posters and wallpapers.</p><div class="path-actions"><a href="gifts/">Create a gift</a><a href="shop/art/">Browse premium art</a></div></article>
-<article class="path-card"><h3>Spiritual growth</h3><p>Optional paths for prayer, gratitude, and reflection.</p><div class="path-actions"><a href="prayer/start/">Begin A Quiet Journey</a><a href="prayer/three-year/companion/sample.html">Try a free workbook sample</a></div></article>
-<article class="path-card"><h3>Innovation &amp; business</h3><p>Explore decision tools, partnerships, or help with a workflow.</p><div class="path-actions"><a href="civilization-lab.html">Explore Civilization Lab</a><a href="sprint/">See the $500 Workflow Sprint</a></div></article>
-</div></section>
+<section class="wrap section showcases" id="paths" aria-labelledby="paths-title">
+<h2 id="paths-title">Explore APERTURE</h2>
+<article class="showcase showcase-education" id="area-education">
+<div><p class="showcase-label">Education</p><h3>Build a game. Learn how it works.</h3><p class="showcase-copy">For learners, families, and educators. Start with a playable project, then explore coding programs and lessons.</p><div class="showcase-actions"><a class="btn " href="code-the-game/">Try Code the Game</a><a class="btn outline" href="learning/">Explore learning programs</a></div></div>
+<div class="showcase-feature"><div><h4>Code the Game</h4><p>Try a project in game design and logic.</p></div></div>
+</article>
+<article class="showcase showcase-sports" id="area-sports">
+<div><p class="showcase-label">Sports</p><h3>Give every practice a purpose.</h3><p class="showcase-copy">For coaches, athletes, and program leaders. Explore tools for practice planning, athlete development, and sports media.</p><div class="showcase-actions"><a class="btn " href="basketball-os.html">Open coaching tools</a><a class="btn outline" href="sports-media.html">Explore sports media</a></div></div>
+<div class="showcase-feature"><div><h4>APERTURE Arena</h4><p>See how coaching tools organize a practice around what athletes need to learn.</p></div></div>
+</article>
+<article class="showcase showcase-experience" id="area-experience">
+<div><p class="showcase-label">Human experience</p><h3>Make time for what matters.</h3><p class="showcase-copy">Take a short reflection break or practice how you show up in a conversation, presentation, or other high pressure moment.</p><div class="showcase-actions"><a class="btn " href="experience/">Try a free experience</a><a class="btn outline" href="https://aperture-own-the-room.onrender.com/">Practice confidence</a></div></div>
+<div class="showcase-feature"><div><h4>A Moment Is Enough</h4><p>Four free experiences centered on awareness, joy, love, and wonder.</p></div></div>
+</article>
+<article class="showcase showcase-faith" id="area-faith">
+<div><p class="showcase-label">Faith &amp; reflection</p><h3>Make space for prayer and gratitude.</h3><p class="showcase-copy">Explore at your own pace. Sikh and Christian reflections honor their respective traditions. Participation is optional.</p><div class="showcase-actions"><a class="btn " href="prayer/start/">Begin the journey</a><a class="btn outline" href="prayer/three-year/companion/sample.html">Preview the workbook</a></div></div>
+<div class="showcase-feature"><div><h4>A Quiet Journey</h4><p>Start with a reflection or preview a printable month from the companion workbook.</p></div></div>
+</article>
+<article class="showcase showcase-gifts" id="area-gifts">
+<div><p class="showcase-label">Gifts &amp; art</p><h3>Give someone an experience.</h3><p class="showcase-copy">Create a personal digital gift with an activity to discover, or browse original art for a wall or phone.</p><div class="showcase-actions"><a class="btn " href="gifts/">Create a gift</a><a class="btn outline" href="shop/art/">Shop art</a></div></div>
+<div class="showcase-feature"><img src="shop/art/previews/the-clutch.svg" alt="The Clutch basketball poster" loading="lazy"><div><h4>Clearline Art</h4><p>Basketball inspired prints and work that explores themes beyond the game.</p></div></div>
+</article>
+<article class="showcase showcase-innovation" id="area-innovation">
+<div><p class="showcase-label">Innovation &amp; business</p><h3>Make a difficult decision easier to inspect.</h3><p class="showcase-copy">For operators and partners. Explore decision simulations, then apply the same discipline to a workflow your team needs to improve.</p><div class="showcase-actions"><a class="btn " href="civilization-lab.html">Explore Civilization Lab</a><a class="btn outline" href="sprint/">See the $500 Workflow Sprint</a></div></div>
+<div class="showcase-feature"><div><h4>Civilization Lab</h4><p>Explore how evidence, assumptions, and dependencies change the options in a simulation.</p></div></div>
+</article>
+</section>
 
 <section class="home-art" aria-labelledby="home-art-title">
 <div class="home-art-panel"><div class="home-art-copy"><div class="mini">Just released / Collection 001</div><h2 id="home-art-title">Put a little <em>wonder</em> on your wall.</h2><p>Six original basketball-inspired and beyond-the-game artworks. Print-ready posters, premium phone wallpapers and editable-size vectors — from $19. Digital-only.</p><a class="btn" href="shop/art/">Explore CLEARLINE ART ↗</a></div>
