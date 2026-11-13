@@ -20,6 +20,8 @@ jobs:
         working-directory: chatgpt-gift-studio
       - run: node test.mjs
         working-directory: chatgpt-gift-studio
+      - run: node test-checkout.mjs
+        working-directory: chatgpt-gift-studio
       - name: Dependency audit (high severity blocks release)
         run: npm audit --omit=dev --audit-level=high
         working-directory: chatgpt-gift-studio
