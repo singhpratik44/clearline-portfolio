@@ -9,7 +9,7 @@
   {id:"mlb",sport:"baseball",name:"MLB",icon:"⚾",url:"https://www.mlb.com/scores",detail:"Official baseball results and schedule"},
   {id:"nhl",sport:"hockey",name:"NHL",icon:"🏒",url:"https://www.nhl.com/scores",detail:"Official professional hockey scores"},
   {id:"mls",sport:"soccer",name:"MLS",icon:"⚽",url:"https://www.mlssoccer.com/schedule/scores",detail:"Official American professional soccer results"},
-  {id:"ncaa",sport:"basketball",name:"NCAA basketball",icon:"🏀",url:"https://www.ncaa.com/scoreboard/basketball-men/d1",detail:"College basketball scores on the governing association site"}
+  {id:"ncaa",sport:"basketball",name:"NCAA basketball",icon:"🏀",url:"https://www.ncaa.com/scoreboard/basketball-men/d1",detail:"Official NCAA college basketball scores"}
  ];
  const ICON={basketball:"🏀",soccer:"⚽",football:"🏈",baseball:"⚾",hockey:"🏒",all:"🏆"};
  const OCCASION={
@@ -89,7 +89,7 @@
  function cleanMoment(raw){
    const sport=ICON[raw?.sport]?raw.sport:"basketball";
    const occasion=OCCASION[raw?.occasion]?raw.occasion:"win";
-   const safe=(x,max)=>String(x||"").replace(/[<>]/g,"").replace(/[\r\n\t]+/g," ").trim().slice(0,max);
+   const safe=(x,max)=>String(x||"").replace(/<[^>]*>/g,"").replace(/[<>]/g,"").replace(/[\r\n\t]+/g," ").trim().slice(0,max);
    return {sport,occasion,recipient:safe(raw?.recipient,48),from:safe(raw?.from,48),message:safe(raw?.message,145)};
  }
  function momentText(m){
