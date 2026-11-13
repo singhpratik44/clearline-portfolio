@@ -179,6 +179,8 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 .live-preview{grid-column:1/-1;min-width:0;margin:0;border:1px solid #263a382b;border-radius:18px;padding:clamp(16px,3vw,26px);background:#fffefa}.live-preview legend{padding:0 8px;font-weight:800}.live-preview p{margin:0 0 12px}.preview-choices{display:flex;gap:8px;flex-wrap:wrap}.preview-choices button{min-height:44px;padding:8px 14px;border:1px solid #345849;border-radius:12px;background:white;color:#16342a;cursor:pointer;font-weight:700}.preview-choices button[aria-pressed=true]{background:#16342a;color:white}.live-preview .preview-result{margin:14px 0 0;line-height:1.6;padding:12px;background:#eaf1ed;border-radius:10px}
 </style><style>
 .product-offer{grid-column:1/-1;display:grid;grid-template-columns:1.2fr 1fr;gap:24px;background:#142e27;color:#fff;border-radius:18px;padding:clamp(20px,3vw,34px)}.product-offer h4{font-size:1.4rem;margin:0 0 8px}.product-offer strong{color:#c6f2db;font-size:1.05rem}.product-offer p{color:#dae6dd;max-width:65ch;font-size:.95rem}.offer-actions{display:flex;flex-direction:column;gap:14px;justify-content:center;align-items:flex-start}.offer-actions .btn{background:#c6f2db;color:#142e27}.offer-actions>a:last-child{color:#fff;min-height:44px;display:flex;align-items:center;text-underline-offset:4px}@media(max-width:700px){.product-offer{grid-template-columns:1fr}.offer-actions{align-items:stretch}}
+</style><style>
+#aperture-palette{width:min(650px,calc(100vw - 28px));padding:0;border:1px solid #ffffff55;border-radius:22px;background:#131e20;color:#f5f7f2;box-shadow:0 30px 120px #0009}#aperture-palette::backdrop{background:#07120fbb;backdrop-filter:blur(8px)}.palette-shell{padding:18px}.palette-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.palette-head label{font-weight:800}.palette-head button{background:#293735;color:white;border:1px solid #52655d;border-radius:8px;padding:7px 12px;min-height:40px}.palette-shell input{width:100%;height:54px;background:#f5f8f4;color:#142d25;border-radius:12px;padding:0 16px;font:inherit}.palette-option{display:flex;width:100%;text-align:left;gap:12px;align-items:center;padding:12px;border:0;border-bottom:1px solid #ffffff18;background:transparent;color:#f5f7f2;cursor:pointer;border-radius:10px}.palette-option[aria-selected=true],.palette-option:hover{background:#294239}.palette-option span{display:grid;gap:2px}.palette-option small,.palette-hint{color:#b9c9bf}.palette-hint{font-size:12px;margin:14px 3px 2px}.palette-empty{padding:18px;color:#b9c9bf}.palette-trigger{position:fixed;z-index:40;right:20px;bottom:20px;display:flex;align-items:center;gap:9px;border:1px solid #ffffff40;border-radius:99px;padding:11px 16px;background:#122b24;color:#eff8ef;box-shadow:0 8px 28px #07120f55;cursor:pointer}.palette-trigger kbd{background:#ffffff20;border-radius:5px;padding:2px 6px}@media(max-width:600px){.palette-trigger{right:12px;bottom:12px}.palette-trigger span{display:none}}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -278,7 +280,7 @@ section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:
 <details><summary>What is APERTURE?</summary><p>APERTURE is an independent initiative connecting experiences, education, sports, creative work, spiritual reflection, and responsible operating tools around human potential. Some projects are free experiences; others are products, services, prototypes, or demonstrations. Each page identifies its own status and terms.</p></details>
 <details><summary>Can we collaborate?</summary><p>Yes. Visit the collaboration page to learn about potential work together. No project or commercial relationship is implied until mutually agreed.</p></details>
 </section>
-</main>
+<dialog id="aperture-palette" aria-labelledby="palette-title"><div class="palette-shell"><div class="palette-head"><label for="palette-search" id="palette-title">Where do you want to go?</label><button type="button" id="palette-close" aria-label="Close search">Esc</button></div><input id="palette-search" type="search" placeholder="Search products, activities, and offers…" autocomplete="off"><div id="palette-results" role="listbox" aria-label="APERTURE destinations"></div><p class="palette-hint">↑ ↓ to move · Enter to open · Esc to close · Ctrl or ⌘ K to search</p></div></dialog></main>
 <footer><div class="wrap"><div class="footer-top"><div><a class="brand" href="./"><span class="mark" aria-hidden="true">◎</span>APERTURE</a><p>Experiences, learning, sports, creativity, reflection, and responsible innovation—connected by truth, service, wonder, and human dignity.</p></div><nav class="footer-links" aria-label="Explore"><strong>Explore</strong><a href="experience/">A Moment Is Enough</a><a href="holiday/">Free holiday gift</a><a href="gifts/">Gift Lab</a><a href="coding/">Coding</a><a href="prayer/start/">A Quiet Journey</a></nav><nav class="footer-links" aria-label="More"><strong>More</strong><a href="sprint/">Workflow Sprint · $500</a><a href="engage.html">Collaborate</a><a href="hire.html">Professional work</a><a href="previous-home.html">Original workbench</a><a href="https://github.com/singhpratik44/clearline-portfolio" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a></nav></div><div class="footer-bottom"><span>© <span id="year">2026</span> APERTURE Experiences & Innovation</span><span>Human-centered by design · Independent projects and prototypes</span></div></div></footer>
 <script>
 (function(){
@@ -318,4 +320,89 @@ document.querySelectorAll('.live-preview').forEach(preview => {
     preview.querySelector('.preview-result').textContent = button.dataset.result;
   });
 });
+</script><button type="button" class="palette-trigger" id="palette-open" aria-haspopup="dialog" aria-controls="aperture-palette"><span>Explore APERTURE</span><kbd>⌘ K</kbd></button>
+<script>
+(() => {
+  const dialog = document.getElementById("aperture-palette");
+  const search = document.getElementById("palette-search");
+  const results = document.getElementById("palette-results");
+  const destinations = [
+    ["Education","Build projects and learn coding","area-education"],
+    ["Sports","Coaching tools and sports media","area-sports"],
+    ["Human experience","Reflection and confidence practice","area-experience"],
+    ["Faith and reflection","A Quiet Journey and workbook","area-faith"],
+    ["Gifts and art","Personal gifts and original art","area-gifts"],
+    ["Innovation and business","Civilization Lab and Workflow Sprint","area-innovation"],
+    ["Coding lessons","Private 60-minute lesson · $65","learning/book/"],
+    ["Premium art","Digital collections · $19 to $29","shop/art/"],
+    ["Reflection workbook","Individual $29 · group license $199","prayer/three-year/companion/shop.html"],
+    ["Workflow Sprint","Scoped workflow diagnostic · $500","sprint/"]
+  ];
+  let active = 0;
+  function render() {
+    const query = search.value.trim().toLocaleLowerCase();
+    const matches = destinations.filter(item => item.join(" ").toLocaleLowerCase().includes(query));
+    results.replaceChildren();
+    if (!matches.length) {
+      const empty = document.createElement("p");
+      empty.className = "palette-empty";
+      empty.textContent = "No matches. Try education, sports, faith, gifts, or business.";
+      results.append(empty);
+      return;
+    }
+    active = Math.min(active, matches.length - 1);
+    matches.forEach((item,index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "palette-option";
+      button.setAttribute("role","option");
+      button.setAttribute("aria-selected",String(index === active));
+      const text = document.createElement("span");
+      const title = document.createElement("strong");
+      const detail = document.createElement("small");
+      title.textContent = item[0];
+      detail.textContent = item[1];
+      text.append(title,detail);
+      button.append(text);
+      button.onclick = () => {
+        const target = item[2].startsWith("area-") ? document.getElementById(item[2]) : null;
+        dialog.close();
+        if (target) {
+          const scroll = () => target.scrollIntoView({behavior:"smooth",block:"center"});
+          if (document.startViewTransition) document.startViewTransition(scroll);
+          else scroll();
+        } else location.href = item[2];
+      };
+      results.append(button);
+    });
+  }
+  function openPalette() {
+    dialog.showModal();
+    search.value = "";
+    active = 0;
+    render();
+    search.focus();
+  }
+  document.getElementById("palette-open").onclick = openPalette;
+  document.getElementById("palette-close").onclick = () => dialog.close();
+  search.addEventListener("input",() => { active = 0; render(); });
+  search.addEventListener("keydown",event => {
+    const options = results.querySelectorAll(".palette-option");
+    if (event.key === "ArrowDown" || event.key === "ArrowUp") {
+      event.preventDefault();
+      active = (active + (event.key === "ArrowDown" ? 1 : -1) + options.length) % options.length;
+      render();
+    }
+    if (event.key === "Enter" && options[active]) {
+      event.preventDefault();
+      options[active].click();
+    }
+  });
+  document.addEventListener("keydown",event => {
+    if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+      event.preventDefault();
+      if (dialog.open) dialog.close(); else openPalette();
+    }
+  });
+})();
 </script></body></html>
