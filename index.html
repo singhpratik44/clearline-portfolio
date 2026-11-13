@@ -131,6 +131,32 @@ body{font-family:Geist,system-ui,sans-serif;background:#f7f7fc;color:#201b36}
 .hero h1 em{color:#d8c6ff}.btn.gold{background:#d8c6ff;border-color:#d8c6ff;color:#201839}
 .hero-visual{min-height:0}.gift-builder{width:100%;max-width:440px;background:#f2ebff;color:#201839;border-radius:28px;padding:clamp(20px,4vw,36px);box-shadow:0 24px 80px #0a071b55}
 .gift-builder label{display:block;font-weight:650;margin:14px 0 6px}.gift-builder input,.gift-builder select,.gift-builder textarea{width:100%;padding:13px;border:1px solid #a89abf;border-radius:12px;background:white;color:#201839;font:inherit}.gift-builder button{margin-top:18px;width:100%}.gift-builder h2{font:750 30px/1.1 Geist,system-ui;margin:0}.gift-builder p{color:#493e61;font-size:14px;margin-bottom:0}.gift-builder a{color:#38236a}.card,.product{border-color:#ded8ed;border-radius:24px}.section h2{font-family:Geist,system-ui;font-weight:750}
+
+/* 2026 visual refresh + CLEARLINE Art integration */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+.hero{background:radial-gradient(ellipse at 86% 9%,#3e2c59 0,transparent 48%),radial-gradient(ellipse at 18% 85%,#18514c 0,transparent 46%),#111522}
+.hero:before{border-color:#b89ee350;box-shadow:0 0 0 65px #c5a0eb0c,0 0 0 130px #b5d2c108}
+.hero h1{font-family:'Space Grotesk',Geist,system-ui,sans-serif;font-weight:700;letter-spacing:-.082em;line-height:.98}
+.hero h1 em{color:#e6c7a5}
+.hero .btn.gold{background:#c6f2db;color:#13221b;border-color:#c6f2db}
+.hero .btn.light{border-color:#ffffff6b;background:#ffffff14;color:#fff}
+.hero .btn.light:hover{background:#ffffff28}
+.gift-builder{background:#f5f0fa;border:1px solid #ffffffaa;box-shadow:0 30px 115px #080b1ea0}
+.gift-builder h2,.section h2,.feature h3,.product h3,.step h3{font-family:'Space Grotesk',Geist,system-ui,sans-serif;letter-spacing:-.055em}
+section.home-art{width:min(1200px,calc(100% - 38px));margin:65px auto 0;padding:0}
+.home-art-panel{display:grid;grid-template-columns:1fr .93fr;gap:14px;align-items:center;min-height:365px;background:radial-gradient(circle at 82% 12%,#59466f,transparent 55%),linear-gradient(125deg,#0e131e,#16392f);color:#fff;border-radius:28px;overflow:hidden}
+.home-art-copy{padding:clamp(28px,5vw,57px)}
+.home-art .mini{color:#e7c99f;font-size:11px;text-transform:uppercase;font-weight:900;letter-spacing:.2em}
+.home-art h2{font:700 clamp(40px,5vw,65px)/1.02 'Space Grotesk',system-ui,sans-serif;letter-spacing:-.069em;margin:19px 0}
+.home-art h2 em{color:#c7f8df;font-style:normal}
+.home-art p{color:#c8d5d0;line-height:1.72;max-width:510px;font-size:14px}
+.home-art .btn{background:#c7f8df;color:#10291e;border-color:#c7f8df;margin-top:12px}
+.home-art-visual{height:360px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.home-art-visual img{position:absolute;width:36%;height:auto;aspect-ratio:2/3;object-fit:cover;border:4px solid #16222d;box-shadow:0 20px 45px #0009;border-radius:4px}
+.home-art-visual img:nth-child(1){transform:translateX(-77%) rotate(-13deg)}
+.home-art-visual img:nth-child(2){z-index:2;transform:translateY(-7%) rotate(3deg)}
+.home-art-visual img:nth-child(3){transform:translateX(77%) rotate(16deg)}
+@media(max-width:700px){section.home-art{margin-top:44px}.home-art-panel{grid-template-columns:1fr}.home-art-copy{padding:29px 26px 0}.home-art h2{font-size:clamp(38px,9vw,55px)}.home-art-visual{height:225px}.home-art-visual img{width:min(30%,140px)}.hero h1{font-size:clamp(52px,11vw,78px)}}
 </style></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -141,7 +167,7 @@ body{font-family:Geist,system-ui,sans-serif;background:#f7f7fc;color:#201b36}
 <a href="#experiences">Experiences</a><a href="#explore">Explore</a><a href="#approach">Our approach</a><a href="#about">About</a><a href="shop/">Shop</a><a href="shop/art/">Premium art</a><a href="sprint/">Business Sprint</a>
 <a class="btn small" href="engage.html">Work with us <span aria-hidden="true">↗</span></a>
 </nav>
-<details class="mobile-nav"><summary>Menu ☰</summary><nav class="mobile-panel" aria-label="Mobile navigation"><a href="#experiences">Experiences</a><a href="#explore">Explore all</a><a href="#approach">Our approach</a><a href="#about">About</a><a href="sprint/">Business Sprint</a><a href="engage.html">Work with us</a></nav></details>
+<details class="mobile-nav"><summary>Menu ☰</summary><nav class="mobile-panel" aria-label="Mobile navigation"><a href="#experiences">Experiences</a><a href="#explore">Explore all</a><a href="#approach">Our approach</a><a href="#about">About</a><a href="shop/">Shop</a><a href="shop/art/">Premium art</a><a href="sprint/">Business Sprint</a><a href="engage.html">Work with us</a></nav></details>
 </div>
 </header>
 <main id="main">
@@ -164,6 +190,11 @@ body{font-family:Geist,system-ui,sans-serif;background:#f7f7fc;color:#201b36}
 </form></div></div>
 </section>
 <div class="trust"><div class="wrap trust-inner"><strong>BUILT FOR REAL LIFE</strong><span>✳ Explore free experiences</span><span>✳ Make something meaningful</span><span>✳ Learn by doing</span><span>✳ Human-centered by design</span></div></div>
+
+<section class="home-art" aria-labelledby="home-art-title">
+<div class="home-art-panel"><div class="home-art-copy"><div class="mini">Just released / Collection 001</div><h2 id="home-art-title">Put a little <em>wonder</em> on your wall.</h2><p>Six original basketball-inspired and beyond-the-game artworks. Print-ready posters, premium phone wallpapers and editable-size vectors — from $19. Digital-only.</p><a class="btn" href="shop/art/">Explore CLEARLINE ART ↗</a></div>
+<div class="home-art-visual" aria-label="Original premium art collection"><img loading="lazy" src="shop/art/previews/quiet-power.svg" alt="Quiet Power poster art"><img loading="lazy" src="shop/art/previews/the-clutch.svg" alt="The Clutch basketball poster art"><img loading="lazy" src="shop/art/previews/wonder-is-here.svg" alt="Wonder poster art"></div></div>
+</section>
 <section class="wrap section" id="experiences">
 <div class="section-top"><div><div class="section-label">Start with an experience</div><h2>Something good starts here.</h2><p class="section-lead">Whether you have a minute or an afternoon, there is something worth discovering.</p></div><a class="text-link" href="#explore">See everything <span aria-hidden="true">↗</span></a></div>
 <div class="feature-grid">
