@@ -49,6 +49,6 @@ test('mission operations work sample is linked, syntactically valid and explicit
  assert.match(page,/Simulation only/);
  assert.match(page,/URL\.createObjectURL/);
  assert.match(page,/if\(!feasible\(\)\)/);
- assert.match(content('index.html'),/href="mission-operations\.html"/);
+ assert.match(content('index.html'),/href="center\//);
  assert.match(content('assets/aperture-shell.js'),/mission-operations\.html/);
 });
