@@ -35,7 +35,7 @@ test("all ten initiatives connect to concrete work and valid local project route
     assert.ok(fs.existsSync(path.join(root,target)),"Missing project: "+route);
   }
   assert.match(page,/Do not claim directory approval/);
-  assert.match(page,/no religious outcomes are promised|no promises of divine outcomes|no religious outcomes/i);
+  assert.match(page,/Never sell divine favor/);
 });
 
 test("distinct optional faith lenses never replace the inclusive default",()=>{
