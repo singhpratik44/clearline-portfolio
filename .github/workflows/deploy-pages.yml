@@ -29,6 +29,8 @@ jobs:
         run: node --test tests/momentum-wellness.test.mjs tests/sports-os.test.mjs tests/mission-control.test.mjs tests/commercial-planner.test.mjs tests/commercial-gmail-security.test.mjs tests/commercial-opportunities.test.mjs tests/commercial-4d.test.mjs tests/site-baseline.mjs tests/local-assets.mjs tests/decision-kernel.mjs tests/future-explorer.mjs tests/solver-router.mjs tests/world-graph.mjs tests/organization-simulator.mjs tests/information-holography.mjs
       - name: Verify APERTURE v5 mobile and desktop browser layout
         run: node --test tests/aperture-home-mobile.test.mjs
+      - name: Verify holiday personalized gift sharing in Chrome
+        run: node --test tests/holiday-gifting.test.mjs
       - name: Upload APERTURE v5 browser QA screenshots
         if: always()
         uses: actions/upload-artifact@v4
