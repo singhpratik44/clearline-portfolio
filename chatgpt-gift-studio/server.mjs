@@ -255,6 +255,66 @@ async function checkoutVerify(req, res) {
     return respond(res, 502, "application/json", JSON.stringify({ error: "Verification unavailable" }));
   }
 }
+
+// Generate a simple one-page PDF only after Stripe confirms this exact test-mode purchase.
+// Personalization is never sent to Stripe or persisted on the server.
+function pdfSafe(value, max = 120) {
+  return String(value ?? "").normalize("NFKD").replace(/[^\x20-\x7e]/g, " ").replace(/[()\\]/g, " ").slice(0, max).trim();
+}
+function pdfDocument(details) {
+  const lines = [
+    "A GIFT STORY", "A personal keepsake by Clearline", "",
+    "For: " + pdfSafe(details.recipient, 65),
+    "From: " + pdfSafe(details.sender, 65), "",
+    "A moment of appreciation", "",
+    ...pdfSafe(details.message, 360).match(/.{1,68}(?:\s|$)|.{1,68}/g)?.map(x => x.trim()).slice(0, 8) || [],
+    "", "A small reminder: your presence matters.",
+    "Awareness  -  Joy  -  Love  -  Wonder"
+  ];
+  const esc = x => x.replace(/\\/g, "\\\\").replace(/\(/g, "\\(").replace(/\)/g, "\\)");
+  const stream = lines.map((line, i) => "BT /F1 " + (i === 0 ? 25 : 13) + " Tf 56 " + (748 - i * 31) + " Td (" + esc(line) + ") Tj ET").join("\n");
+  const objects = [
+    "<< /Type /Catalog /Pages 2 0 R >>",
+    "<< /Type /Pages /Kids [3 0 R] /Count 1 >>",
+    "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>",
+    "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>",
+    "<< /Length " + Buffer.byteLength(stream, "latin1") + " >>\nstream\n" + stream + "\nendstream"
+  ];
+  let pdf = "%PDF-1.4\n";
+  const offsets = [0];
+  objects.forEach((obj, i) => { offsets.push(Buffer.byteLength(pdf, "latin1")); pdf += (i + 1) + " 0 obj\n" + obj + "\nendobj\n"; });
+  const start = Buffer.byteLength(pdf, "latin1");
+  pdf += "xref\n0 " + (objects.length + 1) + "\n0000000000 65535 f \n";
+  offsets.slice(1).forEach(x => { pdf += String(x).padStart(10, "0") + " 00000 n \n"; });
+  pdf += "trailer\n<< /Size " + (objects.length + 1) + " /Root 1 0 R >>\nstartxref\n" + start + "\n%%EOF";
+  return Buffer.from(pdf, "latin1");
+}
+async function paidGiftStory(sessionId) {
+  const session = await stripeCall("checkout/sessions/" + encodeURIComponent(sessionId));
+  const line = await stripeCall("checkout/sessions/" + encodeURIComponent(sessionId) + "/line_items?limit=5");
+  const correctLine = line.data?.length === 1 && line.data[0].price?.id === process.env.GIFT_STORY_TEST_PRICE_ID && line.data[0].quantity === 1;
+  return !session.livemode && session.mode === "payment" && session.payment_status === "paid" &&
+    session.status === "complete" && session.currency === "usd" && session.amount_total === checkoutPrice &&
+    session.metadata?.product === "gift-story-v1" && correctLine;
+}
+async function checkoutDownload(req, res) {
+  if (!checkoutEnabled) return respond(res, 503, "application/json", JSON.stringify({ error: "Paid PDF delivery is not configured" }));
+  try {
+    const body = await readBody(req);
+    if (typeof body.session_id !== "string" || !/^cs_test_[A-Za-z0-9_]+$/.test(body.session_id))
+      return respond(res, 400, "application/json", JSON.stringify({ error: "Invalid session" }));
+    if (!(await paidGiftStory(body.session_id)))
+      return respond(res, 403, "application/json", JSON.stringify({ error: "Verified payment required" }));
+    const pdf = pdfDocument({ recipient: body.recipient, sender: body.sender, message: body.message });
+    res.writeHead(200, {
+      "Content-Type": "application/pdf", "Content-Disposition": 'attachment; filename="gift-story.pdf"',
+      "Content-Length": pdf.length, "Cache-Control": "no-store, private",
+      "X-Content-Type-Options": "nosniff", "Referrer-Policy": "no-referrer"
+    });
+    return res.end(pdf);
+  } catch { return respond(res, 502, "application/json", JSON.stringify({ error: "Gift Story delivery unavailable" })); }
+}
+
 const port = Number(process.env.PORT || 8787);
 createServer(async (req, res) => {
   const url = new URL(req.url || "/", "http://localhost");
@@ -266,6 +326,7 @@ createServer(async (req, res) => {
   if (req.method === "GET" && url.pathname === "/health") return respond(res, 200, "application/json", JSON.stringify({ ok: true, name: "aperture-gift-studio", checkoutLive: false, giftStoryTestConfigured: checkoutEnabled }));
   if (req.method === "POST" && url.pathname === "/api/checkout/gift-story") return checkoutStart(req, res);
   if (req.method === "POST" && url.pathname === "/api/checkout/verify") return checkoutVerify(req, res);
+  if (req.method === "POST" && url.pathname === "/api/checkout/download") return checkoutDownload(req, res);
   if (req.method === "POST" && url.pathname === "/api/gift") {
     try {
       let body = "";
