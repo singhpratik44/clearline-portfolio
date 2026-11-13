@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+:root{color-scheme:light dark}body{font:14px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;margin:0;padding:16px;background:Canvas;color:CanvasText}h2{font-size:19px;margin:4px 0 12px}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.7}.gift{border:1px solid color-mix(in srgb,CanvasText 20%,transparent);border-radius:13px;padding:12px;margin:10px 0}.gift strong{display:block}.muted{opacity:.72}.note{padding:14px;border-left:3px solid #be8548;background:color-mix(in srgb,CanvasText 5%,Canvas);border-radius:4px}.message{white-space:pre-wrap}.footer{font-size:11px;opacity:.66;margin-top:14px}.hide{display:none}
+</style></head>
+<body><div class="eyebrow">APERTURE / Gift Studio</div><h2 id="heading">Gift plan</h2>
+<section id="ideas" aria-live="polite"><p class="muted">Creating your plan…</p></section>
+<div id="note" class="note hide"><strong>Words to include</strong><p id="message" class="message"></p></div>
+<p id="caution" class="footer"></p>
+<script>
+const el=id=>document.getElementById(id);
+function draw(data){
+ const plan=data&&data.plan||data&&data.structuredContent&&data.structuredContent.plan;
+ if(!plan)return;
+ el("heading").textContent=plan.heading||"Your gift plan";
+ el("ideas").replaceChildren();
+ (plan.recommendations||[]).forEach((item,i)=>{
+   const card=document.createElement("div");card.className="gift";
+   const strong=document.createElement("strong");strong.textContent=(i+1)+". "+item.title;
+   const p=document.createElement("div");p.textContent=item.why;
+   const cost=document.createElement("small");cost.className="muted";cost.textContent="Illustrative cost: "+item.estimate;
+   card.append(strong,p,cost);el("ideas").append(card);
+ });
+ el("note").classList.remove("hide");
+ el("message").textContent=plan.message||"";
+ el("caution").textContent=plan.disclaimer||"";
+}
+window.addEventListener("message",event=>{
+ if(event.source!==window.parent)return;
+ const m=event.data;
+ if(m&&m.jsonrpc==="2.0"&&m.method==="ui/notifications/tool-result")draw(m.params);
+});
+if(window.openai&&window.openai.toolOutput)draw(window.openai.toolOutput);
+</script></body></html>
