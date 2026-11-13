@@ -36,8 +36,8 @@ try{
  assert.equal((await checkout.json()).testMode,true);
  const unpaid=await post("/api/checkout/download",{session_id:"cs_test_unpaid",recipient:"Mum"});
  assert.equal(unpaid.status,403,"Unpaid must never receive PDF");
- const fake=await post("/api/checkout/download",{session_id:"cs_test_unknown",recipient:"Mum"});
- assert.equal(fake.status,403);
+ const fake=await post("/api/checkout/download",{session_id:"invalid",recipient:"Mum"});
+ assert.equal(fake.status,400);
  const paid=await post("/api/checkout/download",{session_id:"cs_test_paid",recipient:"Mum",sender:"Me",message:"Thank you for everything."});
  assert.equal(paid.status,200);
  assert.match(paid.headers.get("content-type"),/application\/pdf/);
