@@ -10,6 +10,7 @@ on:
       - 'tests/site-integrity.test.mjs'
       - 'tests/code-the-game.test.mjs'
       - 'tests/code-the-game-browser.mjs'
+      - 'tests/classroom-browser.mjs'
       - 'code-the-game/**'
       - 'aperture/decision-engine-v7/**'
       - 'tests/aperture-v7-dashboard.test.mjs'
@@ -29,6 +30,7 @@ on:
       - 'tests/site-integrity.test.mjs'
       - 'tests/code-the-game.test.mjs'
       - 'tests/code-the-game-browser.mjs'
+      - 'tests/classroom-browser.mjs'
       - 'code-the-game/**'
       - 'aperture/decision-engine-v7/**'
       - 'tests/aperture-v7-dashboard.test.mjs'
@@ -80,6 +82,7 @@ jobs:
           node tests/civilization-browser.mjs
           node tests/site-browser.mjs
           node tests/code-the-game-browser.mjs
+          node tests/classroom-browser.mjs
 
   site-integrity:
     runs-on: ubuntu-latest
