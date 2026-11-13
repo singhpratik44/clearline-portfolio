@@ -45,10 +45,13 @@ test("mobile free gift reveal, activity and pass-it-forward", async ({browser})=
  const nextToken=nextLink.split("#")[1];
  const nextGift=JSON.parse(Buffer.from(nextToken,"base64url").toString("utf8"));
  expect(nextGift).toMatchObject({recipient:"Alex",sender:"Friend",message:"Have a wonderful day."});
- await page.goto(nextLink,{waitUntil:"domcontentloaded"});
- await page.getByRole("button",{name:/Unwrap your gift/}).click();
- await expect(page.locator("#to")).toHaveText("For Alex");
- await expect(page.locator("#message")).toHaveText("Have a wonderful day.");
- await expect(page.locator("#revealed")).toBeVisible();
+ const recipientPage=await context.newPage();
+ await recipientPage.goto(nextLink,{waitUntil:"domcontentloaded"});
+ await expect(recipientPage.getByRole("button",{name:/Unwrap your gift/})).toBeVisible();
+ await recipientPage.getByRole("button",{name:/Unwrap your gift/}).click();
+ await expect(recipientPage.locator("#to")).toHaveText("For Alex");
+ await expect(recipientPage.locator("#message")).toHaveText("Have a wonderful day.");
+ await expect(recipientPage.locator("#revealed")).toBeVisible();
+ await recipientPage.close();
  await page.close();
 });
