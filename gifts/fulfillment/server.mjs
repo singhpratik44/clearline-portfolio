@@ -3,6 +3,7 @@ import redeem from './api/redeem.mjs';
 import {buildQuietPdf,verifyQuietPurchase} from './quiet-journal.mjs';
 import {handleClassicx,handleClassicxWebhook} from './classicx.mjs';
 import {verifyPathwayPurchase,buildPathwayPdf} from './love-pathway.mjs';
+import {handleArt} from './art.mjs';
 
 const port=Number.parseInt(process.env.PORT||'3000',10);
 if(!Number.isInteger(port)||port<1||port>65535)throw new Error('PORT must be a valid port');
@@ -50,7 +51,9 @@ async function smokeTestPrivateRoutes(){
     {name:'quiet_invalid_payment_denied',path:'/api/quiet-journal?session_id=invalid',want:400},
     {name:'classicx_missing_payment_denied',path:'/classicx/redeem',want:400},
     {name:'classicx_invalid_payment_denied',path:'/classicx/download?session_id=invalid',want:400},
-    {name:'classicx_encrypted_assets_denied',path:'/classicx-vault/one.b64',want:404}
+    {name:'classicx_encrypted_assets_denied',path:'/classicx-vault/one.b64',want:404},
+    {name:'art_purchase_required',path:'/art/redeem',want:400},
+    {name:'art_unpaid_download_denied',path:'/art/download?session_id=invalid',want:400}
   ];
   for(const c of checks) {
     try{
@@ -78,6 +81,9 @@ createServer(async(req,res)=>{
       res.setHeader('Access-Control-Allow-Origin','https://classicx-moments-store.onrender.com');
       res.setHeader('X-Content-Type-Options','nosniff');
       return res.end(Buffer.from('R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=','base64'));
+    }
+    if(url.pathname==='/art/redeem'||url.pathname==='/art/download'){
+      return await handleArt(req,res,url);
     }
     if(url.pathname==='/healthz') {
       if(!['GET','HEAD'].includes(req.method))return send(res,405,'Method not allowed');
