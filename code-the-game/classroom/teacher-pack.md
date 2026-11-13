@@ -71,3 +71,24 @@ Framework reference: https://protecting-the-center.netlify.app/ . Linking does n
 
 ## Educator feedback checklist
 Grade and class size: ____. Devices: ____. Browser tested: ____. Accessibility issues: ____. Standards reviewed by: ____. Student learning evidence: ____. Requested changes: ____. Procurement requirements: ____.
+
+## Robotics, AI and competition readiness extension (new November 2026)
+
+This optional extension builds on the six-week **game coding core**. It is designed for teacher review and does not imply hardware, external competition entry, affiliation, or tested outcomes.
+
+| Optional session | Core activity | Student evidence | Proposed curriculum connection |
+|---|---|---|---|
+| A — Robot algorithm | Use the [browser robot mission simulator](./#lab); program forward/turn instructions; identify collisions | Annotated route and program revision | 6.NS.C.6 / 6.NS.C.8 paper-coordinate extension |
+| B — Sensors & robotics | Represent a color-sensor decision as an if/then rule; optionally use approved LEGO Education Computer Science & AI hardware | Input/output flowchart | 6.EE.B.6 variables and relationships |
+| C — Explainable AI | Change the decision threshold in the [AI literacy exercise](./#ai), record matches/errors and explain limits | Comparison table and error analysis | W.6.2 explanatory writing |
+| D — Accessible design | Propose a robot/game for a classmate with an identified accessibility need; validate with consent where possible | Persona, design improvement and reflection | SL.6.1 collaborative discussion |
+| E — League preparation | Evaluate official FIRST/LEGO, VEX and WRO rules before choosing an event | Eligibility/hardware/cost decision checklist | W.6.2 source-based explanation |
+| F — Hackathon showcase | Use the [competition team kit](./competition-team-kit.md) to demo a coded solution and reflect on evidence | Two-minute pitch, live demonstration and test results | SL.6.1 and W.6.2 |
+
+**Equipment policy:** The browser modules need no hardware or login. LEGO Education Computer Science & AI kits and other robotics equipment are separate products and are not bundled with CODE THE GAME. LEGO SPIKE Prime and Essential retired from direct sales on June 30, 2026; LEGO continues SPIKE App support to June 30, 2031. Check the current season and regional rules for hardware eligibility.
+
+**Important organizer distinction:** FIRST LEGO League's 2026–27 BIOGLOW season is announced as its final FIRST-run season. LEGO Education has separately announced LEGO League beginning in 2027–28. Competition links on the hub lead to the official organizers; CODE THE GAME is independent.
+
+**AI terminology:** The threshold demonstration is a deterministic classroom rule and **not** a trained machine learning model, facial recognition or a real robot sensor. Students must test, describe and question the rule rather than infer real-world safety.
+
+**Classroom readiness:** Confirm accessible interaction with students, device browser compatibility, teacher supervision and procurement before adoption. Proposed standards connections require a credentialed educator's review.
