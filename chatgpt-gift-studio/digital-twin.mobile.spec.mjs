@@ -23,3 +23,22 @@ test("mobile digital twin feedback and reset", async ({ browser }) => {
  await expect(page.locator("#lessonCards")).toContainText("thoughtful self-care gift");
  await page.close();
 });
+
+test("mobile free gift reveal, activity and pass-it-forward", async ({browser})=>{
+ const page=await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});
+ const payload={recipient:"Friend",sender:"Someone",message:"You matter more than you know. Wishing you joy, love, and wonder.",feeling:"joy",occasion:"just-because"};
+ const token=Buffer.from(JSON.stringify(payload)).toString("base64url");
+ await page.goto((process.env.TARGET_BASE||"https://aperture-gift-studio.onrender.com/")+"/gift#"+token,{waitUntil:"domcontentloaded"});
+ await expect(page.getByRole("button",{name:/Unwrap your gift/})).toBeVisible();
+ await page.getByRole("button",{name:/Unwrap your gift/}).click();
+ await expect(page.locator("#message")).toHaveText(payload.message);
+ await page.locator("#moment").click();
+ await expect(page.locator("#affirmation")).toContainText("Reach out");
+ await page.locator("#nextName").fill("Alex");
+ await page.locator("#nextSender").fill("Friend");
+ await page.locator("#nextMessage").fill("Have a wonderful day.");
+ await page.locator("#createNext").click();
+ await expect(page.locator("#nextStatus")).not.toContainText("Add a name");
+ await expect(page.locator("#revealed")).toBeVisible();
+ await page.close();
+});
