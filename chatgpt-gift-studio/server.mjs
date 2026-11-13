@@ -8,8 +8,9 @@ import { z } from "zod";
 const landing = readFileSync(new URL("./public/index.html", import.meta.url), "utf8");
 const widget = readFileSync(new URL("./public/widget.html", import.meta.url), "utf8");
 const privacy = readFileSync(new URL("./public/privacy.html", import.meta.url), "utf8");
+const giftCard = readFileSync(new URL("./public/gift.html", import.meta.url), "utf8");
 const allowedFeelings = ["gratitude", "joy", "encouragement", "wonder"];
-const allowedOccasions = ["holidays", "birthday", "thank-you", "just-because", "celebration"];
+const allowedOccasions = ["holidays", "birthday", "thank-you", "just-because", "celebration", "anniversary", "christmas", "secret-santa", "graduation"];
 const giftSets = [
   { label: "Thoughtful under $15", minimum: 0, ideas: [
     ["A handwritten postcard", "A specific, honest memory makes a small physical gift meaningful.", "$3–$10"],
@@ -39,11 +40,69 @@ function shortString(value, fallback, max = 80) {
 function formatText(value) {
   return value.charAt(0).toUpperCase() + value.slice(1).replaceAll("-", " ");
 }
+const byRecipient = [
+  { pattern: /mom|mother|mum|dad|father|parent|grandma|grandpa|family/i, suggestions: [
+    ["A family-memory photo print", "Choose one meaningful memory and add a handwritten explanation.", "$8–$28"],
+    ["A personalized family keepsake", "A framed photograph or print can remind them of time together.", "$18–$65"],
+    ["A set of handwritten appreciation cards", "Give them several specific reasons you value them.", "$4–$15"]
+  ] },
+  { pattern: /teacher|mentor|coach|tutor|principal/i, suggestions: [
+    ["A handwritten thank-you note set", "Name one specific way they made a difference.", "$4–$15"],
+    ["A thoughtful desk bookmark", "Select a design reflecting their interests, then add a personal note.", "$5–$12"],
+    ["A framed gratitude print", "Celebrate the influence they have on others without assuming their tastes.", "$18–$50"]
+  ] },
+  { pattern: /girlfriend|boyfriend|wife|husband|partner|spouse|fianc/i, suggestions: [
+    ["An illustrated memory postcard", "Highlight a shared story with an original message.", "$5–$15"],
+    ["A mini printed photo album", "Tell the story of a few meaningful moments together.", "$15–$35"],
+    ["A framed favorite photograph", "Pair it with a promise of shared quality time.", "$25–$70"]
+  ] },
+  { pattern: /child|kid|son|daughter|niece|nephew/i, suggestions: [
+    ["A creative activity kit", "Choose an age-appropriate craft based on what they already enjoy.", "$10–$35"],
+    ["A storybook with a dedication", "Add an encouraging inscription at the front.", "$8–$30"],
+    ["A memory scrapbook", "Make space for their drawings, stories and adventures.", "$15–$45"]
+  ] }
+];
+function pickIdeas(recipient, budget, group, interests) {
+  const match = byRecipient.find(x => x.pattern.test(recipient));
+  const query = (interests || "").toLowerCase();
+  const interestSuggestions = /book|reading/.test(query) ?
+    [["A book with a personal dedication", "Choose a genre they already enjoy and write why you picked it.", "$10–$30"]] :
+    /basketball|sport|fitness/.test(query) ?
+    [["A sports-themed keepsake", "Choose a real team-neutral design and include an encouraging message.", "$8–$30"]] :
+    /art|drawing|craft/.test(query) ?
+    [["A small art and craft kit", "Match their skill level and preferred materials.", "$12–$35"]] :
+    /plant|garden|nature/.test(query) ?
+    [["A small plant or seed kit", "Check their space and preferences before choosing.", "$8–$30"]] : [];
+  let ideas = [...interestSuggestions, ...(match?.suggestions || []), ...group.ideas];
+  return ideas.filter((item, index, arr) => arr.findIndex(x => x[0] === item[0]) === index)
+    .filter(x => budget < 15 ? /\$[3-9]–|\$[4-9]–|\$10–|\$8–|\$5–/.test(x[2]) : true)
+    .concat(group.ideas).slice(0,3)
+    .map(([title, why, estimate]) => ({ title, why, estimate }));
+}
+function createGiftMessage(args = {}) {
+  const recipient = shortString(args.recipient, "someone special", 60);
+  const sender = shortString(args.sender, "Someone who appreciates you", 60);
+  const feeling = allowedFeelings.includes(args.feeling) ? args.feeling : "joy";
+  const occasion = allowedOccasions.includes(args.occasion) ? args.occasion : "just-because";
+  const customMessage = shortString(args.message, "", 240);
+  const defaults = {
+    joy: "You bring so much light into ordinary moments. Here's a little reminder that you matter.",
+    gratitude: "Thank you for the kindness you give to the world. It makes a difference.",
+    encouragement: "You have more strength and possibility in you than you know. Keep going.",
+    wonder: "May today hold one lovely surprise and many reasons to smile."
+  };
+  const message = customMessage || defaults[feeling];
+  // A URL fragment is not sent to our web server. Anyone with the full shared link can read its content.
+  const shareUrl = "https://aperture-gift-studio.onrender.com/gift#" + Buffer.from(JSON.stringify({ recipient, sender, message, feeling, occasion }), "utf8").toString("base64url");
+  return { recipient, sender, message, occasion, feeling, shareUrl, sent: false,
+    notice: "A free interactive greeting card, not a purchased or shipped gift. Nothing is sent automatically. Anyone possessing the full URL can view its message; do not include sensitive information." };
+}
 function makePlan(args = {}) {
   const recipient = shortString(args.recipient, "someone important", 60);
   const occasion = allowedOccasions.includes(args.occasion) ? args.occasion : "holidays";
   const feeling = allowedFeelings.includes(args.feeling) ? args.feeling : "gratitude";
   const detail = shortString(args.detail, "", 140);
+  const interests = shortString(args.interests, "", 80);
   const n = Number(args.budget);
   const budget = Number.isFinite(n) ? Math.max(5, Math.min(500, Math.round(n))) : 30;
   const group = budget < 15 ? giftSets[0] : budget < 35 ? giftSets[1] : budget < 70 ? giftSets[2] : giftSets[3];
@@ -58,11 +117,15 @@ function makePlan(args = {}) {
   return {
     recipient, occasion, feeling, budget, message,
     heading: "Three gift directions for " + recipient,
-    recommendations: group.ideas.map(([title, why, estimate]) => ({ title, why, estimate })),
+    recommendations: pickIdeas(recipient, budget, group, interests),
     disclaimer: "These are product concepts and illustrative price ranges, not live inventory, fixed quotes or purchase offers. Checkout is disabled until a real merchant, fulfillment, shipping, returns and taxes are verified.",
     purchaseReady: false
   };
 }
+const cardShape = z.object({
+  recipient: z.string(), sender: z.string(), message: z.string(), occasion: z.string(), feeling: z.string(),
+  shareUrl: z.string(), sent: z.boolean(), notice: z.string()
+});
 const planShape = z.object({
   recipient: z.string(), occasion: z.string(), feeling: z.string(),
   budget: z.number(), message: z.string(), heading: z.string(),
@@ -70,18 +133,19 @@ const planShape = z.object({
   disclaimer: z.string(), purchaseReady: z.boolean()
 });
 function createGiftServer() {
-  const server = new McpServer({ name: "aperture-gift-studio", version: "0.1.0" });
+  const server = new McpServer({ name: "gift-finder-gift-giver", version: "0.2.0" });
   registerAppResource(server, "gift-studio-widget", "ui://gift-studio/plan.html", {},
     async () => ({ contents: [{ uri: "ui://gift-studio/plan.html", mimeType: RESOURCE_MIME_TYPE, text: widget }] }));
   registerAppTool(server, "make_gift_plan", {
-    title: "Make a meaningful physical gift plan",
-    description: "Create three practical physical gift ideas and a personalized gift note. Works without accounts or model API costs. It DOES NOT sell items, claim inventory, charge customers, or send messages.",
+    title: "Find personalized gift ideas by recipient and budget",
+    description: "Use when someone asks for gift ideas, what to buy someone, a birthday present, Christmas gift, Secret Santa idea, anniversary gift, teacher appreciation gift, or budget-friendly presents for mom, dad, partner, friend, coach or child. Return three personalized PHYSICAL gift concepts with illustrative price ranges, a reason each fits, and a suggested card message. This is NOT a live product search, purchase, inventory check, shipment or price quote; never say we found items in stock.",
     inputSchema: {
       recipient: z.string().max(60).optional().describe("Recipient's first name or relationship (avoid sensitive details)"),
       occasion: z.enum(allowedOccasions).optional(),
       feeling: z.enum(allowedFeelings).optional(),
       budget: z.number().min(5).max(500).optional().describe("Approximate total gift budget in USD"),
-      detail: z.string().max(140).optional().describe("Optional short non-sensitive memory or compliment")
+      detail: z.string().max(140).optional().describe("Optional short non-sensitive memory or compliment"),
+      interests: z.string().max(80).optional().describe("Gift recipient interests, for example books, sports, art or gardening")
     },
     outputSchema: { plan: planShape },
     _meta: { ui: { resourceUri: "ui://gift-studio/plan.html" }, "openai/toolInvocation/invoking": "Creating a thoughtful gift plan", "openai/toolInvocation/invoked": "Gift plan ready" }
@@ -90,6 +154,25 @@ function createGiftServer() {
     return {
       structuredContent: { plan },
       content: [{ type: "text", text: JSON.stringify({ plan }, null, 2) }]
+    };
+  });
+  registerAppTool(server, "create_shareable_gift", {
+    title: "Give a free shareable digital greeting card",
+    description: "Use when someone asks to give a gift, surprise a friend, send a thoughtful message, create a birthday greeting, share a thank-you or make a personalized gift link. Creates a free interactive greeting card with a reveal moment and optional note. Returns a shareable link for the USER to send; does not send SMS, email, make purchases, ship goods or imply a paid gift. The recipient's name and note are encoded in the link fragment and readable by anyone with the link, so do not include private details.",
+    inputSchema: {
+      recipient: z.string().max(60).optional().describe("First name or relation, do not include sensitive details"),
+      sender: z.string().max(60).optional().describe("Display name of sender"),
+      occasion: z.enum(allowedOccasions).optional().describe("Reason for sending the greeting"),
+      feeling: z.enum(allowedFeelings).optional().describe("Tone of the card"),
+      message: z.string().max(240).optional().describe("Optional original custom note, do not include confidential data")
+    },
+    outputSchema: { gift: cardShape },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false }
+  }, async (args) => {
+    const gift = createGiftMessage(args);
+    return {
+      structuredContent: { gift },
+      content: [{ type: "text", text: JSON.stringify({ gift }, null, 2) }]
     };
   });
   return server;
@@ -102,6 +185,7 @@ const port = Number(process.env.PORT || 8787);
 createServer(async (req, res) => {
   const url = new URL(req.url || "/", "http://localhost");
   if (req.method === "GET" && url.pathname === "/") return respond(res, 200, "text/html; charset=utf-8", landing);
+  if (req.method === "GET" && url.pathname === "/gift") return respond(res, 200, "text/html; charset=utf-8", giftCard);
   if (req.method === "GET" && url.pathname === "/privacy") return respond(res, 200, "text/html; charset=utf-8", privacy);
   if (req.method === "GET" && url.pathname === "/health") return respond(res, 200, "application/json", JSON.stringify({ ok: true, name: "aperture-gift-studio", checkoutLive: false }));
   if (req.method === "POST" && url.pathname === "/api/plan") {
