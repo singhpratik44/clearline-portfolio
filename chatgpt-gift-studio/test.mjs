@@ -57,7 +57,7 @@ try {
   assert.match(landingHtml, /id="shopCategory"/);
   const giftPage = await fetch(base + "/gift");
   assert.equal(giftPage.status, 200);
-  assert.match(await giftPage.text(), /Open your gift/);
+  assert.match(await giftPage.text(), /Unwrap your gift/);
   const giftApi = await fetch(base + "/api/gift", {
     method: "POST", headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ recipient: "Mum", sender: "Me", occasion: "christmas", feeling: "gratitude" })
