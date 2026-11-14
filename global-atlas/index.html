@@ -7,7 +7,7 @@
 <meta name="description" content="APERTURE Atlas: a global discovery and governance workspace connecting education, sports, computer science, and organizational opportunities.">
 <title>APERTURE ∞ Atlas | Global Intelligence Network</title>
 <link rel="preconnect" href="https://unpkg.com">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoWByC0DhT6c0o=" crossorigin="">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <style>
 :root {color-scheme:dark;--bg:#080e1c;--panel:#101a2c;--line:#283a50;--muted:#b3c6d6;--text:#f2f7ff;--accent:#7ee5ca;--gold:#e7c489;--blue:#85baff}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
@@ -160,7 +160,7 @@ function categorize(t){
 }
 function osmLink(p){return 'https://www.openstreetmap.org/'+p.type+'/'+p.id}
 function extract(el){
- var t=el.tags||{}, lat=el.lat||(el.center&&el.center.lat),lng=el.lon||(el.center&&el.center.lon);
+ var t=el.tags||{}, lat=typeof el.lat==='number'?el.lat:el.center&&el.center.lat,lng=typeof el.lon==='number'?el.lon:el.center&&el.center.lon;
  if(typeof lat!=='number'||typeof lng!=='number')return null;
  if(!t.name||!t.name.trim())return null;
  return {id:el.type+'/'+el.id,type:el.type,oid:el.id,name:t.name.trim(),lat:lat,lng:lng,kind:categorize(t),website:safeUrl(t.website||t['contact:website']||''),tags:t};
@@ -221,7 +221,7 @@ async function fetchPlaces(){
  var controller=new AbortController(),timeout=setTimeout(function(){controller.abort()},30000);
  var res;
  try{
- res=await fetch('https://overpass.kumi.systems/api/interpreter',{method:'POST',body:new URLSearchParams({data:makeQuery()}),signal:controller.signal});
+ res=await fetch('https://overpass.private.coffee/api/interpreter',{method:'POST',body:new URLSearchParams({data:makeQuery()}),signal:controller.signal});
  }finally{clearTimeout(timeout)}
  if(!res.ok)throw new Error('Map data service returned '+res.status);
  var json=await res.json(), seen=new Set();
@@ -242,7 +242,7 @@ async function geosearch(ev){
 }
 function switchMode(next){
  if(next==='3d'){
- if(!window.Globe){message('Loading optional 3D globe…');var sc=document.createElement('script');sc.src='https://unpkg.com/globe.gl@2.41.1/dist/globe.gl.min.js';sc.onload=function(){switchMode('3d')};sc.onerror=function(){message('3D globe unavailable on this device or network. The accessible 2D atlas remains available.')};document.body.append(sc);return}
+ if(!window.Globe){message('Loading optional 3D globe…');var sc=document.createElement('script');sc.src='https://unpkg.com/globe.gl@2.46.2/dist/globe.gl.min.js';sc.onload=function(){switchMode('3d')};sc.onerror=function(){message('3D globe unavailable on this device or network. The accessible 2D atlas remains available.')};document.body.append(sc);return}
  try{
  if(!globe){globe=Globe()(globeEl).globeImageUrl('https://unpkg.com/three-globe@2.45.0/example/img/earth-blue-marble.jpg').backgroundColor('#090f1d').pointAltitude(0.013).pointRadius(0.25).pointColor('color').onPointClick(function(d){showDetail(d.p)});
  globe.controls().autoRotate=true;globe.controls().autoRotateSpeed=0.25}
