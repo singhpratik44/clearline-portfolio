@@ -2,7 +2,7 @@
   "schema": "aperture.project-registry.v1",
   "importedAt": "2026-11-14",
   "origin": "APERTURE public homepage (23 visible project cards)",
-  "caveat": "Homepage summaries imported; not a full per-project code or browser audit. Paths are candidate paths and must be verified before linking.",
+  "caveat": "Registry reconciled against production main branch source for verified known paths; unresolved project paths null. Homepage current navigation and historical card inventory differ.",
   "projects": [
     {
       "id": "portfolio-01",
@@ -10,8 +10,8 @@
       "domain": "Reflection",
       "description": "Private prayer and reflection; five-minute, seven-day and long-horizon paths",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": "reflection.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "prayer/start/index.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -20,7 +20,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-02",
@@ -28,8 +29,8 @@
       "domain": "Education",
       "description": "Printable digital gift activities and Stripe storefront",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": "gift-lab/",
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "shop/index.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -38,7 +39,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-03",
@@ -47,7 +49,7 @@
       "description": "Deterministic operations scenarios, approvals and evidence",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": "mission-operations.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -56,7 +58,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-04",
@@ -65,7 +68,7 @@
       "description": "Dependencies, enrollment scenarios and decision preflight",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": "civilization-lab.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -74,7 +77,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-05",
@@ -82,8 +86,8 @@
       "domain": "Systems",
       "description": "Decision, execution and oversight concepts",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": "aperture-unified-command.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "mission-control.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -92,7 +96,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-06",
@@ -101,7 +106,7 @@
       "description": "Deterministic consequences of changed assumptions",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": "interactive-decision-universe.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -110,7 +115,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-07",
@@ -118,8 +124,8 @@
       "domain": "Sports",
       "description": "Coaching, scouting, 90-day pathways and practice architect",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": "sports-os/",
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "sports/index.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -128,7 +134,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-08",
@@ -137,7 +144,7 @@
       "description": "Interactive basketball tactics, film and simulated season",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": "basketball-os.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -146,7 +153,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-09",
@@ -154,8 +162,8 @@
       "domain": "Sports",
       "description": "Practice planning and people-centered leadership",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "sports-os/index.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -164,7 +172,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-10",
@@ -172,8 +181,8 @@
       "domain": "Sports",
       "description": "Basketball storytelling and audience growth research",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "sports-media.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -182,7 +191,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-11",
@@ -191,7 +201,7 @@
       "description": "Decision rights, risk controls and institutional governance",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": "governance.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -200,7 +210,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-12",
@@ -209,7 +220,7 @@
       "description": "Franchise-unit operational risk monitoring",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -218,7 +229,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     },
     {
       "id": "portfolio-13",
@@ -227,7 +239,7 @@
       "description": "AI governance and assurance patterns",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -236,7 +248,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     },
     {
       "id": "portfolio-14",
@@ -245,7 +258,7 @@
       "description": "Multi-view enrollment and marketing simulation",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": "enrollment.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -254,7 +267,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-15",
@@ -262,8 +276,8 @@
       "domain": "Education",
       "description": "Math adoption, educator trust and rollout evidence",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "thinkverse-jason-rules.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -272,7 +286,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-16",
@@ -280,8 +295,8 @@
       "domain": "Research",
       "description": "Classical representation and verifiable computational rules",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": "thinkverse-jason-rules.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": null,
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -290,7 +305,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     },
     {
       "id": "portfolio-17",
@@ -299,7 +315,7 @@
       "description": "Indexed operating systems and implementation records",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -308,7 +324,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     },
     {
       "id": "portfolio-18",
@@ -317,7 +334,7 @@
       "description": "Reversible experiments with fictional organizational state",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -326,7 +343,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     },
     {
       "id": "portfolio-19",
@@ -335,7 +353,7 @@
       "description": "Delivery and operational change methodology",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -344,7 +362,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     },
     {
       "id": "portfolio-20",
@@ -353,7 +372,7 @@
       "description": "Institutional collaboration pathways",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": "engage.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -362,7 +381,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-21",
@@ -370,8 +390,8 @@
       "domain": "Partnerships",
       "description": "Professional operating architecture and collaboration",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": "partnerships/index.html",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -380,7 +400,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "source-file confirmed for 12 known pages; others candidate until checked"
     },
     {
       "id": "portfolio-22",
@@ -389,7 +410,7 @@
       "description": "Job-specific operational work sample",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
       "path": null,
-      "verification": "homepage-listed; individual page not fully audited",
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -398,7 +419,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     },
     {
       "id": "portfolio-23",
@@ -406,8 +428,8 @@
       "domain": "Research",
       "description": "Proposed canonical schema and IP model",
       "source": "https://singhpratik44.github.io/clearline-portfolio/",
-      "path": "invest.html",
-      "verification": "homepage-listed; individual page not fully audited",
+      "path": null,
+      "verification": "homepage inventory entry; individual implementation audit pending or partial",
       "stage": "imported",
       "owner": "unassigned",
       "dependencies": [],
@@ -416,7 +438,8 @@
         "Identify existing functionality vs concept",
         "Define next measurable milestone"
       ],
-      "approved": false
+      "approved": false,
+      "pathStatus": "unresolved; not inventing path"
     }
   ]
 }
