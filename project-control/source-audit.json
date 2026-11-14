@@ -1,0 +1,70 @@
+{
+  "auditedAt": "2026-11-14",
+  "method": "Direct GitHub source inspection of production main branch; static heuristics, not browser QA",
+  "projects": [
+    {
+      "path": "governance.html",
+      "exists": true,
+      "bytes": 56071,
+      "observation": "Network governance source includes interactive scripts and a canonical-state demonstration; no localStorage or fetch call found."
+    },
+    {
+      "path": "civilization-lab.html",
+      "exists": true,
+      "bytes": 31474,
+      "observation": "Interactive source exists and uses browser localStorage."
+    },
+    {
+      "path": "mission-operations.html",
+      "exists": true,
+      "bytes": 30656,
+      "observation": "Interactive work-sample source exists; no browser persistence detected by string scan."
+    },
+    {
+      "path": "basketball-os.html",
+      "exists": true,
+      "bytes": 18282,
+      "observation": "Standalone interactive basketball source exists; no persistence detected by string scan."
+    },
+    {
+      "path": "sports-os/index.html",
+      "exists": true,
+      "bytes": 28458,
+      "observation": "Sports Career OS source includes one form; no fetch or localStorage detected."
+    },
+    {
+      "path": "enrollment.html",
+      "exists": true,
+      "bytes": 2401,
+      "observation": "Thin loader page with fetch dependency; its actual engine needs separate dependency audit."
+    },
+    {
+      "path": "gifts/index.html",
+      "exists": true,
+      "bytes": 995,
+      "observation": "Minimal Gifter page; does not establish paid-gift fulfillment."
+    },
+    {
+      "path": "gift-lab/index.html",
+      "exists": false,
+      "observation": "This guessed path returned GitHub 404; actual gift storefront path must be verified."
+    },
+    {
+      "path": "thinkverse-jason-rules.html",
+      "exists": true,
+      "bytes": 10820,
+      "observation": "Source title identifies District Partnership OS, not Jason Rules. Previous import path mapping is incorrect."
+    },
+    {
+      "path": "engage.html",
+      "exists": true,
+      "bytes": 5595,
+      "observation": "Engage page includes a form; form submission and privacy handling require browser inspection."
+    }
+  ],
+  "limitations": [
+    "Only 10 candidate source paths checked; 9 existed, one guessed path 404.",
+    "Public homepage lists 23 project cards, but their source paths and behavior require individual verification.",
+    "No end-to-end phone, payment, worker, or deployment tests were executed."
+  ]
+}
