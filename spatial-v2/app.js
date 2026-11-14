@@ -8,7 +8,7 @@ const stage = q("#stage"), status = q("#readoutText"), fps = q("#fps");
 const pane = q("#drawer"), formGift = q("#giftForm"), formBrief = q("#briefForm");
 const action = q("#action"), exportButton = q("#export");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-let renderer, camera, orbit, scene, world, sun, train, ball, giftLid, giftLabel;
+let renderer, camera, orbit, scene, world, sun, hemi, train, ball, giftLid, giftLabel, homeVisuals;
 let current = "home", quality = "auto", motion = !reduced;
 let cameraFlight = null, tour = null, shot = -1, giftOpened = false;
 let last = performance.now(), frames = 0, fpsStart = performance.now(), angle = 0;
@@ -85,15 +85,33 @@ function base(color="#334b44",size=120){
 function clearWorld(){
   if(giftLabel){giftLabel.texture.dispose();giftLabel=null}
   world.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){const m=Array.isArray(o.material)?o.material:[o.material];m.forEach(v=>v.dispose())}});
-  world.clear();train=null;ball=null;giftLid=null;giftOpened=false;
+  world.clear();train=null;ball=null;giftLid=null;giftOpened=false;homeVisuals=null;
+}
+function setPalette(){
+  if(!homeVisuals)return;
+  const schemes={modern:["#ba936f","#406b71","#e8e3d8"],nordic:["#d0bb9d","#c9bdae","#f1ece4"],warm:["#856149","#9c6153","#dbc3ab"]};
+  const p=schemes[q("#styleSelect").value]||schemes.modern;
+  homeVisuals.floor.material.color.set(p[0]);
+  homeVisuals.sofas.forEach(o=>o.material.color.set(p[1]));
+  homeVisuals.walls.forEach(o=>o.material.color.set(p[2]));
+}
+function setLight(){
+  if(current!=="home"||!scene)return;
+  const v=Number(q("#daylight").value),night=v>72;
+  hemi.intensity=night?.65:v>52?1.45:2;
+  sun.intensity=night?.18:v>52?2.0:2.7;
+  sun.color.set(night?"#8097c7":v>52?"#ffbd95":"#ffe6bf");
+  sun.position.set(Math.cos(v/100*Math.PI)*18,Math.max(3,Math.sin(v/100*Math.PI)*26),12);
+  scene.background.set(night?"#0b1021":v>52?"#51485f":"#111c2a");
+  q("#dayTime").textContent=night?"Night":v>52?"Golden hour":"Daylight";
 }
 function buildHome(){
   scene.background.set("#111c2a");scene.fog=null;
   base("#24384a",65);
-  box(world,0,.03,0,15,.17,11,"#ba936f");
+  const floor=box(world,0,.03,0,15,.17,11,"#ba936f");
   box(world,0,-.15,0,18,.18,14,"#b7aa95");
   const wall="#e8e3d8", wood="#b58e68";
-  const w=(x,y,z,a,b,c,col=wall)=>box(world,x,y,z,a,b,c,col);
+  const walls=[];const w=(x,y,z,a,b,c,col=wall)=>{const v=box(world,x,y,z,a,b,c,col);if(col===wall)walls.push(v);return v};
   w(-7.5,1.6,0,.25,3.2,11);w(7.5,1.6,0,.25,3.2,11);
   w(0,1.6,-5.5,15,3.2,.25);w(-5,1.6,5.5,5,3.2,.25);w(5,1.6,5.5,5,3.2,.25);
   w(0,1.6,0,.18,3.2,3.9);w(-3.7,1.6,-1.8,7.5,3.2,.16);w(4.4,1.6,1.7,6.2,3.2,.16);
@@ -101,7 +119,7 @@ function buildHome(){
   w(-1.8,1.7,-5.36,3,1.6,.08,glass);w(4,1.7,-5.36,3.5,1.6,.08,glass);
   w(-3,1.5,5.39,3,1.9,.08,glass);w(2.5,1.5,5.39,3.2,1.9,.08,glass);
   w(-4,0.1,1.8,5,.06,3.8,"#d6c0a7"); // rug
-  w(-4,0.48,3.15,3.8,.72,1.1,"#406b71");w(-5.4,.6,2,1.1,.8,1.4,"#406b71");
+  const sofaA=w(-4,0.48,3.15,3.8,.72,1.1,"#406b71"),sofaB=w(-5.4,.6,2,1.1,.8,1.4,"#406b71");
   w(-3.6,.33,1.4,1.7,.4,.85,"#977052");w(-3.6,.15,1.4,1.5,.1,.65,"#efe4d0");
   w(3.8,.46,2.9,3.7,.86,1.3,"#ac8568");w(3.8,.89,2.9,3.95,.12,1.45,"#e6c9a6");
   for(const x of [2.2,5.4])for(const z of [1.2,4.6]){w(x,.43,z,.55,.86,.6,"#d8cdb7")}
@@ -111,6 +129,7 @@ function buildHome(){
   w(1.65,1.35,-4.8,.8,2.5,.4,"#faf3e7");
   for(const z of [-4,4]){cylinder(world,6.3,.35,z,.45,.5,.7,"#9f7856");sphere(world,6.3,1.3,z,.8,"#668e70")}
   for(const x of [-5,0,5])sphere(world,x,3.3,0,.22,"#f8deb0");
+  homeVisuals={floor,walls,sofas:[sofaA,sofaB]};setPalette();
 }
 function buildDistrict(){
   scene.background.set("#aec4c4");scene.fog=new THREE.Fog("#aec4c4",100,190);
@@ -211,8 +230,9 @@ function animateTo(i,immediate=false){
 function setScene(kind,keepQuery=false){
   if(!copy[kind])kind="home";
   current=kind;clearWorld();tour=null;shot=-1;cameraFlight=null;
+  if(hemi)hemi.intensity=2;if(sun){sun.intensity=2.7;sun.color.set("#fce9c5");sun.position.set(20,35,15)}
   ({home:buildHome,district:buildDistrict,sports:buildSports,gifts:buildGifts})[kind]();
-  cameraStops=presets[kind];
+  cameraStops=presets[kind];if(kind==="home")setLight();
   if(q('#details'))q('#details').setAttribute('aria-expanded',String(kind==='gifts'));
   q("#eyebrow").textContent=copy[kind].label;
   q("#headline").textContent=copy[kind].title;
@@ -297,7 +317,7 @@ function init(){
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
   stage.append(renderer.domElement);
   world=new THREE.Group();scene.add(world);
-  scene.add(new THREE.HemisphereLight("#dbf2ff","#3c4a52",2.0));
+  hemi=new THREE.HemisphereLight("#dbf2ff","#3c4a52",2.0);scene.add(hemi);
   sun=new THREE.DirectionalLight("#fce9c5",2.7);sun.position.set(20,35,15);
   sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);
   Object.assign(sun.shadow.camera,{left:-85,right:85,top:85,bottom:-85,near:.5,far:140});
@@ -316,6 +336,8 @@ function init(){
   q("#motion").addEventListener("click",()=>{motion=!motion;q("#motion").textContent=motion?"Pause motion":"Play motion";q("#motion").dataset.active=String(motion);tell(motion?"Motion resumed":"Motion paused")});
   q("#quality").addEventListener("click",()=>{quality=quality==="auto"?"eco":"auto";renderer.setPixelRatio(quality==="eco"?Math.min(devicePixelRatio,1):Math.min(devicePixelRatio,1.5));renderer.shadowMap.enabled=quality!=="eco";q("#quality").textContent=quality==="eco"?"Eco quality":"Auto quality";tell("Quality: "+quality)});
   q("#share").addEventListener("click",async()=>{try{if(navigator.share)await navigator.share({title:"APERTURE Spatial Experience",url:location.href});else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);tell("Experience link copied")}else tell("Copy the browser address to share")}catch(e){/* share dismissed */}});
+  q("#styleSelect").addEventListener("change",setPalette);
+  q("#daylight").addEventListener("input",setLight);
   q("#giftOpen").addEventListener("click",()=>{if(current==="gifts")doAction()});
   q("#recipient").addEventListener("input",drawGiftLabel);
   q("#message").addEventListener("input",drawGiftLabel);
