@@ -26,3 +26,14 @@ The existing public Network Governance instrument already describes nodes, edges
 
 ## Release status
 Feature branch: `feature/global-atlas-20261114`. Draft PR #56. No production deployment or verified phone test has been performed for this new page.
+
+## Source audit — 2026-11-14
+`source-audit.json` records direct GitHub source checks for 10 candidate paths. Nine existed; one guessed Gift Lab path did not. The existing `thinkverse-jason-rules.html` page title is District Partnership OS, so the provisional Jason Rules path in the import is wrong. The `enrollment.html` page is a thin loader and must be audited with its fetched dependencies. Do not use candidate paths as authoritative.
+
+## Authorized worker and persistence boundaries
+- `portfolio-import.json` is **persistent, version-controlled repository storage**, but the UI's local dependency edits are **not automatically synced** to it. The Git repository is the canonical *seed*, not yet a live project database.
+- `worker.mjs` performs a deterministic, read-only registry and DAG audit, writes a report and returns nonzero on invalid graph state.
+- `.github/workflows/aperture-project-audit.yml` defines a **manual workflow_dispatch** worker, not a recurring or autonomous background agent. GitHub Actions must be enabled and the workflow must be available on the repository default branch before it can be run through the usual Actions UI.
+- Worker artifacts are retained by GitHub Actions according to repository retention policy. They are not a trusted append-only execution ledger.
+- Production integration still requires authenticated server persistence, protected write API, append-only event store, queue, scoped agent runner, job status, approval service, mobile tests and rollout review.
+- The isolated workflow has not been executed on GitHub; do not claim it passed.
