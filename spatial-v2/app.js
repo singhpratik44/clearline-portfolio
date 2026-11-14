@@ -8,7 +8,7 @@ const stage = q("#stage"), status = q("#readoutText"), fps = q("#fps");
 const pane = q("#drawer"), formGift = q("#giftForm"), formBrief = q("#briefForm");
 const action = q("#action"), exportButton = q("#export");
 const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-let renderer, camera, orbit, scene, world, sun, train, ball, giftLid;
+let renderer, camera, orbit, scene, world, sun, train, ball, giftLid, giftLabel;
 let current = "home", quality = "auto", motion = !reduced;
 let cameraFlight = null, tour = null, shot = -1, giftOpened = false;
 let last = performance.now(), frames = 0, fpsStart = performance.now(), angle = 0;
@@ -83,6 +83,7 @@ function base(color="#334b44",size=120){
   box(world,0,-.25,0,size,.5,size,color);
 }
 function clearWorld(){
+  if(giftLabel){giftLabel.texture.dispose();giftLabel=null}
   world.traverse(o=>{if(o.geometry)o.geometry.dispose();if(o.material){const m=Array.isArray(o.material)?o.material:[o.material];m.forEach(v=>v.dispose())}});
   world.clear();train=null;ball=null;giftLid=null;giftOpened=false;
 }
@@ -175,11 +176,30 @@ function buildGifts(){
   giftLid=new THREE.Group();giftLid.position.set(0,2.75,0);world.add(giftLid);
   box(giftLid,0,0,0,3.5,.48,3.5,"#e4c38e");
   box(giftLid,0,.26,0,.42,.11,3.7,"#f9e9c7");box(giftLid,0,.26,0,3.7,.11,.42,"#f9e9c7");
+  const board=document.createElement("canvas");board.width=768;board.height=320;
+  const texture=new THREE.CanvasTexture(board);texture.colorSpace=THREE.SRGBColorSpace;
+  const sign=new THREE.Mesh(new THREE.PlaneGeometry(10.2,4.25),new THREE.MeshBasicMaterial({map:texture,transparent:true,depthWrite:false,side:THREE.DoubleSide}));
+  sign.position.set(0,7.3,0);sign.visible=false;world.add(sign);
+  giftLabel={canvas:board,texture,sign};drawGiftLabel();
   for(let i=0;i<12;i++){const a=i*Math.PI*2/12;const light=sphere(world,Math.cos(a)*7.9,3.6+(i%3)*.7,Math.sin(a)*7.9,.14,"#ffe2a5");
     light.userData.float=i;
   }
 }
 
+function drawGiftLabel(){
+  if(!giftLabel)return;const g=giftLabel.canvas.getContext("2d");
+  const name=(q("#recipient").value.trim()||"Someone special").slice(0,40);
+  const msg=(q("#message").value.trim()||"May this moment bring you joy.").slice(0,200);
+  g.clearRect(0,0,768,320);g.fillStyle="#102b36e6";g.fillRect(0,0,768,320);
+  g.strokeStyle="#edc888";g.lineWidth=4;g.strokeRect(8,8,752,304);
+  g.textAlign="center";g.fillStyle="#f0d8a2";g.font="bold 25px sans-serif";g.fillText("A SMALL WORLD, JUST FOR YOU",384,58);
+  g.fillStyle="#ffffff";g.font="47px Georgia";g.fillText("For "+name,384,130);
+  g.font="25px Georgia";g.fillStyle="#d9f1e8";
+  const words=msg.split(/\s+/);const lines=[];let line="";
+  for(const word of words){const tryLine=line?line+" "+word:word;if(g.measureText(tryLine).width>690&&line){lines.push(line);line=word}else line=tryLine}
+  if(line)lines.push(line);lines.slice(0,3).forEach((x,i)=>g.fillText(x,384,184+i*32));
+  giftLabel.texture.needsUpdate=true;
+}
 function animateTo(i,immediate=false){
   const stop=cameraStops[i];if(!stop)return;
   qa("#hotspots .chip").forEach((b,j)=>b.setAttribute("aria-pressed",String(i===j)));
@@ -206,6 +226,9 @@ function setScene(kind,keepQuery=false){
     const b=document.createElement("button");b.className="chip";b.type="button";b.textContent=p[0];b.setAttribute("aria-pressed",String(i===0));b.addEventListener("click",()=>{tour=null;action.textContent=copy[kind].action;animateTo(i)});q("#hotspots").append(b);
   });
   animateTo(0,true);
+  const subj="APERTURE Spatial Pilot — "+({home:"Concept Home",district:"Living District",sports:"Basketball Camera Studio",gifts:"Interactive Gift"}[kind]);
+  const body="Hello, I explored APERTURE "+copy[kind].label+". I would like to discuss a scoped pilot.\n\nOrganization:\nDesired outcome:\nTimeline:\nIndicative budget:\n";
+  q("#pilot").href="mailto:parry.s.2324@gmail.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body);
   q("#drawerTitle").textContent=kind==="gifts"?"Make it personal":kind==="home"?"Verified client brief":"Experience details";
   q("#drawerDesc").textContent=kind==="gifts"?"Recipient and message stay in this browser tab. A keepsake downloads to your device.":"Concept preview. Models do not replace verified measurements, technical reviews or licensed footage.";
   formGift.hidden=kind!=="gifts";formBrief.hidden=kind!=="home";
@@ -227,7 +250,7 @@ function startTour(){
 function doAction(){
   if(current==="home"||current==="district"){startTour();return}
   if(current==="sports"){shot=performance.now();tell("Simulated shot trajectory — not game footage");return}
-  giftOpened=!giftOpened;pane.hidden=false; q("#giftPreview").textContent=giftOpened?"Your moment is open.": "Your gift is ready to open.";
+  giftOpened=!giftOpened;pane.hidden=false;drawGiftLabel();if(giftLabel)giftLabel.sign.visible=giftOpened; q("#giftPreview").textContent=giftOpened?"Your moment is open.": "Your gift is ready to open.";
   tell(giftOpened?"Your gift has opened ✦":"Gift reset");
 }
 function downloadText(name,text,type="text/plain"){
@@ -293,6 +316,8 @@ function init(){
   q("#quality").addEventListener("click",()=>{quality=quality==="auto"?"eco":"auto";renderer.setPixelRatio(quality==="eco"?Math.min(devicePixelRatio,1):Math.min(devicePixelRatio,1.5));renderer.shadowMap.enabled=quality!=="eco";q("#quality").textContent=quality==="eco"?"Eco quality":"Auto quality";tell("Quality: "+quality)});
   q("#share").addEventListener("click",async()=>{try{if(navigator.share)await navigator.share({title:"APERTURE Spatial Experience",url:location.href});else if(navigator.clipboard){await navigator.clipboard.writeText(location.href);tell("Experience link copied")}else tell("Copy the browser address to share")}catch(e){/* share dismissed */}});
   q("#giftOpen").addEventListener("click",()=>{if(current==="gifts")doAction()});
+  q("#recipient").addEventListener("input",drawGiftLabel);
+  q("#message").addEventListener("input",drawGiftLabel);
   q("#downloadBrief").addEventListener("click",clientBrief);
   q("#downloadGift").addEventListener("click",keepsake);
   addEventListener("resize",resize);
