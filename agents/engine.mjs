@@ -144,7 +144,8 @@ function runRelease(x,results){
  const reasons=[...holds.map(id=>"blocked by "+id)];
  if(requested)reasons.push("external action "+requested+" not enabled in this preview");
  if(["story","outreach","release"].includes(x.task))reasons.push("human review is mandatory before external publication/outreach/release");
- return result("release","HOLD","No external action executed. "+(reasons.length?reasons.join("; "):"Human approval and live integration QA still required before public release."),{authorization:"required",holds,reasons,executedActions:0});
+ const decision=reasons.length?"HOLD":"PASS";
+ return result("release",decision,"No external action executed. "+(reasons.length?reasons.join("; "):"Local analysis completed. Publishing, sending, payment, enrollment and production updates remain disabled; those require a separate authorized integration."),{authorization:"required for external effects",holds,reasons,executedActions:0,externalActionsEnabled:false});
 }
 export function validateAtlasCsv(csv){
  const lines=String(csv||"").replace(/\r/g,"").split("\n").filter(Boolean);
