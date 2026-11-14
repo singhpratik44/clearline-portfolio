@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APERTURE ∞ Agent Control Room</title><meta name="description" content="11 governed agents for APERTURE tuition, coding, evidence, maps and outreach.">
+<style>
+:root{color-scheme:dark;--bg:#080e1b;--p:#121f32;--line:#385066;--text:#f1f6ff;--muted:#b5c8d8;--mint:#91ead3}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#292f52,transparent 53%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,sans-serif}a{color:#99e5d1}
+header{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:16px 26px;border-bottom:1px solid var(--line);background:#0b1526eb}
+header strong{letter-spacing:.1em}header strong span{color:var(--mint)}nav{display:flex;gap:16px;flex-wrap:wrap}nav a{font-size:12px;text-decoration:none}
+main{max-width:1300px;margin:auto;padding:25px 18px 80px}h1{font-size:clamp(38px,5vw,65px);letter-spacing:-.068em;line-height:1.06;margin:8px 0 15px}h1 em{font-style:normal;color:var(--mint)}h2{margin:0 0 8px;letter-spacing:-.035em}h3{margin:10px 0}
+.eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:.17em;color:var(--mint);font-weight:800}.lead{max-width:900px;color:var(--muted);font-size:16px}
+.layout{display:grid;grid-template-columns:minmax(320px,400px) minmax(0,1fr);gap:16px;margin-top:27px}
+.panel{border-radius:20px;background:#111d30;border:1px solid var(--line);padding:20px}.note{padding:12px;background:#28293a;border-left:3px solid #dec38f;border-radius:0 9px 9px 0;color:#e8ddcc;font-size:12px}
+label.field{display:block;margin:12px 0;font-size:13px;font-weight:700}label.field span{display:block;margin-bottom:5px}
+input,select,textarea{background:#09172a;border:1px solid #4b667f;border-radius:10px;color:white;width:100%;padding:10px;font:inherit;min-height:43px}
+input[type=checkbox]{width:19px;min-height:0;height:19px;accent-color:var(--mint)}label.tick{display:flex;gap:9px;font-size:13px;margin:11px 0;align-items:start}
+button{font:inherit;cursor:pointer;border:1px solid #54778b;background:#213c51;color:white;padding:10px 15px;min-height:43px;border-radius:11px;font-weight:750}
+button.primary{background:var(--mint);color:#09251e;border-color:var(--mint)}button:hover{filter:brightness(1.13)}button:disabled{opacity:.6}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.row label{flex:1;min-width:110px}.sub{font-size:12px;color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:13px 0}
+.metric{padding:11px;background:#091b2d;border:1px solid #38536b;border-radius:12px}.metric strong{display:block;font-size:27px}.metric small{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.agent{border:1px solid #405670;border-radius:12px;background:#142840;padding:12px}
+.agent b{display:block;font-size:13px}.agent p{color:var(--muted);font-size:11px;margin:4px 0}
+.status{display:inline-block;padding:4px 7px;font-size:10px;font-weight:800;letter-spacing:.07em;border-radius:100px;background:#384c61}
+.status.PASS{background:#1a5645;color:#c0ffe5}.status.HOLD{background:#673c39;color:#ffe1d1}.status.REVIEW{background:#695136;color:#ffe0a3}.status.SKIP{background:#3d5063;color:#cad5dd}
+details{border:1px solid #3e5770;border-radius:12px;background:#12263d;padding:12px;margin:9px 0}
+summary{cursor:pointer;display:flex;justify-content:space-between;gap:9px;font-weight:750}
+details p{color:#d5e5ef;font-size:13px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#081626;border:1px solid #304a62;border-radius:8px;padding:12px;font-size:11px;max-height:240px;overflow:auto}
+footer{padding:24px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+[hidden]{display:none!important}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}
+@media(max-width:560px){.grid{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}header{padding:12px}}
+</style></head>
+<body><header><strong>APERTURE <span>∞ AGENTS</span></strong><nav><a href="../">Home</a><a href="../global-atlas/">Global Atlas</a><a href="../learning-economics/">Learning Economics</a><a href="../learning/book/">Coding lesson</a></nav></header>
+<main><span class="eyebrow">Governed intelligence · isolated preview</span><h1>Eleven agents.<br><em>One accountable system.</em></h1>
+<p class="lead">Run a real local agent pipeline for USPA tuition, coding coaching, student achievements, global map scenarios, and outreach drafts. Each agent produces a verdict and an evidence ledger. No messaging, payment, enrollment, publication or production deployment happens automatically.</p>
+<p class="note">These are deterministic, browser-executed agents — not hosted language models or unattended workers. Runs occur only when you initiate them. Source snapshots and student stories still require human verification.</p>
+<div class="layout">
+<section class="panel"><span class="eyebrow">Mission input</span><h2>Dispatch the crew</h2>
+<label class="field"><span>Mission</span><select id="task"><option value="coding">Build a coding service plan</option><option value="uspa">Analyze USPA public tuition</option><option value="story">Review student achievement</option><option value="map">Model global-map proximity</option><option value="outreach">Draft partner outreach</option><option value="release">Check release readiness</option></select></label>
+<section data-task="coding">
+<label class="field"><span>Computer science skill</span><select id="skill"><option value="python">Python</option><option value="scratch">Scratch</option><option value="web">Apps and web</option><option value="robotics">Robotics</option><option value="games">Game development</option><option value="ai">Applied AI</option><option value="sports">Sports analytics</option><option value="apcs">AP Computer Science</option><option value="cyber">Cybersecurity</option><option value="agents">Advanced agents</option></select></label>
+<div class="row"><label class="field"><span>Hours</span><input id="hours" type="number" min="1" max="200" value="10"></label><label class="field"><span>Hourly rate $</span><input id="rate" type="number" min="1" max="500" value="55"></label></div>
+<div class="row"><label class="field"><span>Hours/week</span><input id="weeklyHours" type="number" min=".5" max="40" step=".5" value="2"></label><label class="field"><span>Assumed self-study hours</span><input id="baseline" type="number" min="0" max="1000" value="18"></label></div>
+<label class="field"><span>Hypothetical value of time $/h (not income)</span><input id="timeValue" type="number" min="0" max="1000" value="0"></label>
+<p class="sub">Existing checkout is a general $65 single lesson. Multipacks shown as calculations are not active offers.</p></section>
+<section data-task="uspa" hidden>
+<label class="field"><span>Academic pathway</span><select id="uspaProgram"><option value="middle">Middle school</option><option value="high">High school</option><option value="course">Individual course credit</option></select></label>
+<label class="field"><span>Term</span><select id="uspaTerm"><option value="annual">Full year</option><option value="semester">One semester</option><option value="two">Two semesters</option></select></label>
+<div class="row"><label class="field"><span>Course credits</span><input id="credits" type="number" value="1" min="1" max="10"></label><label class="field"><span>Assumed weeks</span><input id="weeks" type="number" value="36" min="1" max="52"></label></div>
+<label class="tick"><input id="learningCoach" type="checkbox"> Include published USPA Learning Coach option for individual credits</label>
+<p class="sub">Rates are a research snapshot, not a confirmed offer. <a href="https://gouspa.org/truth-in-tuition/" target="_blank" rel="noopener noreferrer">Official USPA tuition ↗</a></p></section>
+<section data-task="story" hidden>
+<label class="field"><span>Permission-safe alias (no full student name)</span><input id="alias" maxlength="80" placeholder="Student A"></label>
+<label class="field"><span>Project</span><input id="project" maxlength="160" placeholder="Biology learning app"></label>
+<label class="field"><span>Public supporting URL</span><input id="storySource" type="url" placeholder="https://..."></label>
+<label class="tick"><input id="consent" type="checkbox"> Documented permission to publish exists</label>
+<label class="tick"><input id="coachingEvidence" type="checkbox"> Evidence connects this project to coaching</label>
+<p class="sub">Review requires consent, a source and a proven coaching relationship. No story is published by this tool.</p></section>
+<section data-task="map" hidden>
+<label class="field"><span>Public Atlas CSV file</span><input id="atlasFile" type="file" accept=".csv,text/csv"></label>
+<p id="map-count" class="sub">No records imported. Export a city view from Global Atlas first.</p>
+<div class="row"><a href="../global-atlas/">Open Atlas ↗</a><button id="clear-map" type="button">Clear records</button></div>
+<p class="sub">Location pairs within 5 km are hypothetical opportunities, never verified relationships.</p></section>
+<section data-task="outreach" hidden>
+<label class="field"><span>Target institution or segment</span><input id="target" maxlength="150" placeholder="Youth sports academies"></label>
+<label class="field"><span>Proposed reason to connect</span><textarea id="purpose" maxlength="400" rows="3" placeholder="Explore optional coding workshops"></textarea></label>
+<p class="sub">The agent writes a draft only. It does not identify contacts or send messages.</p></section>
+<section data-task="release" hidden><p class="note">Release remains blocked pending real browser testing, data verification and human approval.</p></section>
+<div class="row" style="margin-top:17px"><button class="primary" id="run">Run all 11 agents</button><button id="example">Use safe sample</button></div>
+<p id="feedback" class="sub" role="status">Ready to run a deterministic agent analysis.</p>
+</section>
+<section class="panel"><span class="eyebrow">Execution audit</span><h2>Agent control ledger</h2>
+<div class="metrics"><div class="metric"><small>Passed</small><strong id="passed">—</strong></div><div class="metric"><small>Review</small><strong id="reviewed">—</strong></div><div class="metric"><small>Held</small><strong id="held">—</strong></div><div class="metric"><small>External actions</small><strong id="external">0</strong></div></div>
+<div id="agents" class="grid" aria-label="Specialist agents"></div>
+<div id="output" hidden><hr><h3>Outputs and evidence</h3><p id="digest" class="sub" style="overflow-wrap:anywhere"></p>
+<div class="row"><button id="export">Export run + ledger JSON</button><button id="copy" hidden>Copy draft only</button></div>
+<div id="details" aria-live="polite"></div><p class="note">Final release approval always remains HOLD. No third-party action has been executed.</p></div>
+</section>
+</div></main>
+<footer>APERTURE ∞ · Eleven deterministic local agents. No autonomous outreach, live admissions, external enrollment, or confidential student data. All consequential actions require explicit approval and a separate authorized integration.</footer>
+<script type="module">
+import {AGENTS,runAgents,validateAtlasCsv} from './engine.mjs';
+const $=id=>document.getElementById(id);
+let records=[],report=null;
+function showTask(){
+ const t=$('task').value;document.querySelectorAll('[data-task]').forEach(el=>el.hidden=el.dataset.task!==t);
+ $('feedback').textContent='Ready: '+t+' workflow. No background actions.';
+}
+function drawAgents(rs=[]){
+ const grid=$('agents');grid.replaceChildren();
+ for(const a of AGENTS){
+  const r=rs.find(x=>x.agent===a.id),box=document.createElement('div'),label=document.createElement('b'),d=document.createElement('p'),status=document.createElement('span');
+  box.className='agent';label.textContent=a.name;d.textContent=a.role;status.className='status '+(r?r.status:'');status.textContent=r?r.status:'READY';
+  box.append(label,d,status);grid.append(box);
+ }
+}
+function read(){
+ const value=id=>$(id).value;
+ return {task:value('task'),skill:value('skill'),hours:value('hours'),rate:value('rate'),weeklyHours:value('weeklyHours'),baseline:value('baseline'),timeValue:value('timeValue'),
+  uspaProgram:value('uspaProgram'),uspaTerm:value('uspaTerm'),credits:value('credits'),weeks:value('weeks'),learningCoach:$('learningCoach').checked,
+  alias:value('alias'),project:value('project'),storySource:value('storySource'),consent:$('consent').checked,coachingEvidence:$('coachingEvidence').checked,
+  target:value('target'),purpose:value('purpose'),records:records,action:'analyze'};
+}
+function render(r){
+ report=r;drawAgents(r.results);$('passed').textContent=r.summary.passed;$('reviewed').textContent=r.summary.review;$('held').textContent=r.summary.held;
+ $('external').textContent='0';$('digest').textContent='SHA-256 decision-ledger digest: '+(r.ledgerDigest||'unavailable in this browser');
+ const details=$('details');details.replaceChildren();
+ for(const entry of r.results){
+  if(entry.status==='SKIP')continue;
+  const el=document.createElement('details'),head=document.createElement('summary'),name=document.createElement('span'),status=document.createElement('span'),p=document.createElement('p');
+  el.open=entry.status==='HOLD'||['uspa','coding','geo','stories','outreach'].includes(entry.agent);
+  name.textContent=AGENTS.find(x=>x.id===entry.agent)?.name||entry.agent;status.textContent=entry.status;status.className='status '+entry.status;
+  head.append(name,status);p.textContent=entry.detail;el.append(head,p);
+  if(entry.data&&Object.keys(entry.data).length){const pre=document.createElement('pre');pre.textContent=JSON.stringify(entry.data,null,2);el.append(pre)}
+  details.append(el);
+ }
+ $('copy').hidden=!r.results.find(x=>x.agent==='outreach')?.data.draft;
+ $('output').hidden=false;
+ $('feedback').textContent='Executed '+r.results.length+' agent stages; '+r.status+'. Zero external actions.';
+}
+async function run(){
+ $('run').disabled=true;$('feedback').textContent='Running deterministic agents…';
+ try{render(await runAgents(read()))}catch(e){$('feedback').textContent='Analysis failed: '+e.message}
+ finally{$('run').disabled=false}
+}
+function sample(){
+ const t=$('task').value;
+ if(t==='coding'){$('skill').value='agents';$('hours').value='10';$('rate').value='55';$('baseline').value='18'}
+ if(t==='uspa'){$('uspaProgram').value='high';$('uspaTerm').value='annual'}
+ if(t==='story'){$('alias').value='Student A';$('project').value='Biology learning application';$('storySource').value='';$('consent').checked=false;$('coachingEvidence').checked=false}
+ if(t==='map'){records=[{name:'Fictional school A',kind:'education',lat:33.75,lng:-117.87},{name:'Fictional coding center B',kind:'coding',lat:33.754,lng:-117.868}];$('map-count').textContent='2 fictional map locations loaded as a clearly labeled test scenario.'}
+ if(t==='outreach'){$('target').value='Orange County youth sports programs';$('purpose').value='explore optional coding workshops for student-athletes'}
+ $('feedback').textContent='Safe test inputs ready. Tap Run to generate evidence and ledger.';
+}
+async function mapFile(e){
+ const file=e.target.files?.[0];if(!file)return;
+ if(file.size>250000){$('map-count').textContent='File exceeds the 250 KB limit.';return}
+ try{records=validateAtlasCsv(await file.text());$('map-count').textContent=records.length+' user-imported community map entries staged for geographic analysis.'}
+ catch(err){records=[];$('map-count').textContent='Import failed: '+err.message}
+ finally{e.target.value=''}
+}
+function download(){
+ if(!report)return;const data=JSON.stringify(report,null,2),url=URL.createObjectURL(new Blob([data],{type:'application/json'})),a=document.createElement('a');
+ a.href=url;a.download='aperture-agent-ledger-'+report.generatedAt.slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function copy(){
+ const value=report?.results.find(x=>x.agent==='outreach')?.data.draft;
+ if(!value)return;
+ try{await navigator.clipboard.writeText(value);$('feedback').textContent='Draft copied. No message was sent.'}
+ catch(e){$('feedback').textContent='Copy unavailable. Expand the outreach draft to select its text.'}
+}
+$('task').addEventListener('change',showTask);$('run').addEventListener('click',run);$('example').addEventListener('click',sample);
+$('atlasFile').addEventListener('change',mapFile);$('clear-map').addEventListener('click',()=>{records=[];$('map-count').textContent='Imported public places cleared.'});
+$('export').addEventListener('click',download);$('copy').addEventListener('click',copy);
+drawAgents();showTask();
+</script></body></html>
