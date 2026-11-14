@@ -47,7 +47,7 @@ jobs:
           mkdir -p _site
           cp *.html *.js sitemap.xml _site/
           cp app.bundle.js _site/
-          for dir in assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday shop sprint experience own-the-room lab; do
+          for dir in assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday shop sprint enrollment-sprint experience own-the-room lab; do
             if test -d "$dir"; then cp -R "$dir" _site/; fi
           done
           if test -d center; then cp -R center _site/; fi
@@ -57,7 +57,7 @@ jobs:
           cp research/representation.mjs _site/research/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
           touch _site/.nojekyll
-          for page in index.html shop/index.html sprint/index.html gifts/index.html learning/index.html prayer/index.html holiday/index.html sports-os/index.html; do
+          for page in index.html shop/index.html sprint/index.html enrollment-sprint/index.html gifts/index.html learning/index.html prayer/index.html holiday/index.html sports-os/index.html; do
             test -s "_site/$page" || { echo "Missing required public page $page"; exit 1; }
           done
           grep -q 'buy.stripe.com/aFa9AVcsKcMs1Vy1ND6kg1o' _site/sprint/index.html
