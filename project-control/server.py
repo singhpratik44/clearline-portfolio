@@ -78,6 +78,9 @@ class Handler(BaseHTTPRequestHandler):
     pid=self.path.split('/')[-1]
     try:return self.send(200,state(db,pid))
     except ValueError:return self.send(404,{'error':'unknown_project'})
+   if self.path=="/research/tasks":
+    from research_tasks import list_tasks
+    return self.send(200,{"tasks":list_tasks(db)})
    if self.path=="/health":return self.send(200,{"status":"ready","storage":"sqlite"})
    if self.path=="/projects":return self.send(200,{"projects":[dict(zip(("id","name","domain","stage","source","version"),row)) for row in db.execute("SELECT id,name,domain,stage,source,version FROM projects ORDER BY domain,name")]})
    if self.path=="/ledger/verify":return self.send(200,verify(db))
@@ -94,8 +97,25 @@ class Handler(BaseHTTPRequestHandler):
     if self.path=='/lifecycle':
      from lifecycle import initialize
      initialize(db)
+    if self.path.startswith('/research/'):
+     from research_tasks import initialize
+     initialize(db)
     db.execute("BEGIN IMMEDIATE")
     try:
+     if self.path=='/research/import':
+      from research_tasks import seed
+      pid=body.get('project_id')
+      if not isinstance(pid,str):return self.abort(db,400,'invalid_project')
+      try:created=seed(db,pid)
+      except ValueError as err:return self.abort(db,400,str(err))
+      db.commit();return self.send(201,{'imported':created,'project_id':pid})
+     if self.path=='/research/transition':
+      from research_tasks import transition
+      tid=body.get('task_id');action=body.get('action');payload=body.get('payload',{})
+      if not isinstance(tid,str) or not isinstance(action,str) or not isinstance(payload,dict):return self.abort(db,400,'invalid_request')
+      try:result=transition(db,tid,action,payload)
+      except ValueError as err:return self.abort(db,409,str(err))
+      db.commit();return self.send(201,result)
      if self.path=='/lifecycle':
       from lifecycle import transition
       pid=body.get('project_id');action=body.get('action');payload=body.get('payload',{})
