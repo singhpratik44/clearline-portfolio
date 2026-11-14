@@ -213,6 +213,7 @@ function setScene(kind,keepQuery=false){
   current=kind;clearWorld();tour=null;shot=-1;cameraFlight=null;
   ({home:buildHome,district:buildDistrict,sports:buildSports,gifts:buildGifts})[kind]();
   cameraStops=presets[kind];
+  if(q('#details'))q('#details').setAttribute('aria-expanded',String(kind==='gifts'));
   q("#eyebrow").textContent=copy[kind].label;
   q("#headline").textContent=copy[kind].title;
   q("#accent").textContent=copy[kind].accent;
@@ -290,7 +291,7 @@ function doExport(){if(current==="home")clientBrief();else if(current==="gifts")
 function init(){
   const canvasSupport=document.createElement("canvas");
   if(!canvasSupport.getContext("webgl")&&!canvasSupport.getContext("experimental-webgl"))throw Error("WebGL not available");
-  scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(54,innerWidth/innerHeight,.08,350);
+  scene=new THREE.Scene();camera=new THREE.PerspectiveCamera(innerWidth<760?68:54,innerWidth/innerHeight,.08,350);
   renderer=new THREE.WebGLRenderer({antialias:true,powerPreference:"high-performance",preserveDrawingBuffer:true,alpha:false});
   renderer.setPixelRatio(Math.min(devicePixelRatio,1.5));renderer.setSize(innerWidth,innerHeight);
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
@@ -320,6 +321,7 @@ function init(){
   q("#message").addEventListener("input",drawGiftLabel);
   q("#downloadBrief").addEventListener("click",clientBrief);
   q("#downloadGift").addEventListener("click",keepsake);
+  if(typeof ResizeObserver!=="undefined")new ResizeObserver(()=>{document.documentElement.style.setProperty("--bottom-panel-h",q("#bottom").getBoundingClientRect().height+"px")}).observe(q("#bottom"));
   addEventListener("resize",resize);
   addEventListener("orientationchange",resize);
   addEventListener("keydown",e=>{
@@ -335,7 +337,7 @@ function init(){
 function resize(){
   if(!renderer)return;
   const w=innerWidth,h=innerHeight;
-  camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h);
+  camera.aspect=w/h;camera.fov=w<760?68:54;camera.updateProjectionMatrix();renderer.setSize(w,h);
 }
 function tick(now){
   requestAnimationFrame(tick);
