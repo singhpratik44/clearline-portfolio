@@ -35,7 +35,7 @@
  <div class="tools">
   <div id="hotspots" aria-label="Camera perspectives"><button type="button" class="chip">Dollhouse</button></div>
   <button type="button" class="tool primary" id="action">▶ Guided rooms</button>
-  <button type="button" class="tool" id="details" aria-expanded="false" aria-controls="drawer">Details</button>
+  <button type="button" class="tool" id="details" aria-expanded="false" aria-controls="drawer">Details / Hire</button>
   <button type="button" class="tool" id="export">Download client brief</button>
  </div>
  <div class="meta">
@@ -63,6 +63,8 @@
   <div class="drawer-actions"><button type="button" class="tool primary" id="giftOpen">✦ Reveal gift</button><button type="button" class="tool" id="downloadGift">Save keepsake PNG</button></div>
   <p>No sign-in, recipient data transmission, purchase, or automated delivery. Download is local to your device.</p>
  </div>
+ <div class="drawer-actions"><a id="pilot" class="tool primary" href="mailto:parry.s.2324@gmail.com?subject=APERTURE%20Spatial%20Pilot">Discuss a scoped paid pilot ↗</a></div>
+ <p>Concept demo only. Scope, fee and delivery terms require separate agreement.</p>
  <div id="standardDetails" hidden>
   <p id="sceneDetail"></p>
   <p>Drag to orbit. Pinch to zoom. Choose a camera perspective. Use the motion and quality switches to fit your device. Accessibility fallback: descriptive text and keyboard controls are provided.</p>
@@ -71,4 +73,5 @@
 <div id="notice" hidden role="status"></div>
 <div id="fallback" role="alert"><div class="inner"><span class="overline">APERTURE / ACCESSIBLE FALLBACK</span><h2>Explore the idea, even without WebGL.</h2><p id="fallbackMessage">The interactive renderer is not available. On another browser, try the 3D experience again.</p><p>Spatial Home · Furnished hypothetical concept.<br>Living District · Walkable streets, plaza and train.<br>Sports Vision · Basketball camera perspectives.<br>Gift Garden · Personal greeting concept.</p></div></div>
 <script type="module" src="./app.js"></script>
+<script>setTimeout(function(){if(!document.querySelector("#stage canvas")){document.querySelector("#fallback").classList.add("active");document.querySelector("#readoutText").textContent="3D could not load";document.querySelector("#fallbackMessage").textContent="The 3D library did not load in this browser. You can still explore the descriptions and contact APERTURE about a project."}},12000)</script>
 </body></html>
