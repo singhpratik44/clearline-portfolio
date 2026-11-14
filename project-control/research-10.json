@@ -1,0 +1,100 @@
+{
+  "collectedAt": "2026-11-14",
+  "count": 10,
+  "scope": "Ten directly located research items and technical articles relevant to project management, execution, verification, and agent cost. Does not imply one item from each requested provider.",
+  "sourceCoverage": {
+    "arXiv": 3,
+    "OpenReview": 2,
+    "ICML": 2,
+    "EACL": 1,
+    "HuggingFace": 1,
+    "LangChain": 1,
+    "NeurIPS": "workshop discovered, no additional study included",
+    "AutoML_org": "not independently verified",
+    "PapersWithCode": "not independently verified",
+    "MLPapersWeekly": "not independently verified"
+  },
+  "studies": [
+    {
+      "title": "ESAA: Event Sourcing for Autonomous Agents in LLM-Based Software Engineering",
+      "date": "2026-02-26",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2602.23193",
+      "insight": "Separate agent intentions from deterministic state mutations; replay event log.",
+      "feature": "event-sourced project mutations"
+    },
+    {
+      "title": "Verification as an Architectural Layer for LLM Agents",
+      "date": "2026-09-25",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2609.31937",
+      "insight": "Pair requirements with deterministic gates and optional LLM review; small pilot, not general proof.",
+      "feature": "acceptance gates and budgeted escalation"
+    },
+    {
+      "title": "Engineering Sustainable Agents",
+      "date": "2026-10-02",
+      "source": "arXiv",
+      "url": "https://arxiv.org/abs/2610.03010",
+      "insight": "Multi-agent overhead can dominate simple tasks; route to cheapest adequate workflow.",
+      "feature": "single-agent/deterministic-first routing"
+    },
+    {
+      "title": "Effective Strategies for Asynchronous Software Engineering Agents",
+      "date": "2026-07-08",
+      "source": "OpenReview / COLM",
+      "url": "https://openreview.net/search?content=authors&group=all&sort=cdate%3Adesc&source=forum&term=~Jiayi_Geng1",
+      "insight": "Relevant asynchronous SWE agent work; paper abstract and evaluation not independently extracted.",
+      "feature": "asynchronous worker research backlog",
+      "evidence": "listing-only"
+    },
+    {
+      "title": "EnterpriseOps-Gym: Environments and Evaluations for Stateful Agentic Planning and Tool Use in Enterprise Settings",
+      "date": "2026-07",
+      "source": "ICML 2026 / PMLR",
+      "url": "https://proceedings.mlr.press/v306/malay26a.html",
+      "insight": "Stateful enterprise tools and access protocols expose weak long-horizon agent reliability.",
+      "feature": "stateful lifecycle benchmark"
+    },
+    {
+      "title": "MAS-ProVe: Understanding the Process Verification of Multi-Agent Systems",
+      "date": "2026-07",
+      "source": "ICML 2026 / PMLR",
+      "url": "https://proceedings.mlr.press/v306/venkataramani26a.html",
+      "insight": "Process verifiers are not reliably better; measure verifier value before adding complexity.",
+      "feature": "verification A/B tests"
+    },
+    {
+      "title": "Verification-Aware Planning for Multi-Agent Systems (VeriMAP)",
+      "date": "2026-03",
+      "source": "EACL 2026",
+      "url": "https://aclanthology.org/2026.eacl-long.353/",
+      "insight": "Model task dependencies and explicit passing criteria per subtask.",
+      "feature": "typed DAG and acceptance contracts"
+    },
+    {
+      "title": "SWE-Bench Pro: Can AI Agents Solve Long-Horizon Software Engineering Tasks?",
+      "date": "2025-09-19 / revised 2026-02-11",
+      "source": "OpenReview",
+      "url": "https://openreview.net/forum?id=9R2iUHhVfr&noteId=LWVlPBGyZS",
+      "insight": "Test agents on long-horizon repository tasks rather than short toy examples.",
+      "feature": "multi-step code change evaluation"
+    },
+    {
+      "title": "Active-SWE: Benchmarking Coding Agents for Proactive Bug Fixing without Issue Reports",
+      "date": "2026-08-05",
+      "source": "Hugging Face Papers / arXiv",
+      "url": "https://huggingface.co/papers/2608.04682",
+      "insight": "Proactive issue discovery is difficult; require reproducible evidence before claiming fixes.",
+      "feature": "evidence-backed bug queue"
+    },
+    {
+      "title": "The Agent Development Lifecycle",
+      "date": "2026-05-09",
+      "source": "LangChain Blog",
+      "url": "https://www.langchain.com/blog/the-agent-development-lifecycle",
+      "insight": "Build, test, deploy and monitor as a repeatable gated cycle.",
+      "feature": "release lifecycle stages"
+    }
+  ]
+}
