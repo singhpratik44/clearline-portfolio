@@ -47,6 +47,10 @@
  <div style="display:flex;gap:8px;align-items:center;justify-content:space-between"><h2 id="drawerTitle">Verified client brief</h2><button type="button" class="tool" id="closeDrawer" aria-label="Close details">×</button></div>
  <p id="drawerDesc">Concept model only. Client source information must be verified.</p>
  <div id="briefForm" hidden>
+  <label for="styleSelect">Interior style</label>
+  <select id="styleSelect" class="tool"><option value="modern">Modern</option><option value="nordic">Nordic</option><option value="warm">Warm luxury</option></select>
+  <label for="daylight">Day / night lighting</label>
+  <input id="daylight" type="range" min="0" max="100" value="35" aria-label="Day to night lighting" style="width:100%;accent-color:#a8f1d2"><p id="dayTime">Afternoon</p>
   <p>These checkboxes capture your own attestations, not a third-party inspection. No data is uploaded.</p>
   <div id="checklist">
    <label><input id="verifyPlan" type="checkbox"> I have a real client floor plan and usage rights</label>
@@ -64,7 +68,7 @@
   <p>No sign-in, recipient data transmission, purchase, or automated delivery. Download is local to your device.</p>
  </div>
  <div class="drawer-actions"><a id="pilot" class="tool primary" href="mailto:parry.s.2324@gmail.com?subject=APERTURE%20Spatial%20Pilot">Discuss a scoped paid pilot ↗</a></div>
- <p>Concept demo only. Scope, fee and delivery terms require separate agreement.</p>
+ <p>Concept demo only. Scope, fee and delivery terms require separate agreement. <a href="./adaptive-intelligence.txt" download>Download the APERTURE Adaptive Intelligence master prompt</a>.</p>
  <div id="standardDetails" hidden>
   <p id="sceneDetail"></p>
   <p>Drag to orbit. Pinch to zoom. Choose a camera perspective. Use the motion and quality switches to fit your device. Accessibility fallback: descriptive text and keyboard controls are provided.</p>
