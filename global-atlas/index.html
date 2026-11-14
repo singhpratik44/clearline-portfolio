@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090f1d">
+<meta name="description" content="APERTURE Atlas: a global discovery and governance workspace connecting education, sports, computer science, and organizational opportunities.">
+<title>APERTURE ∞ Atlas | Global Intelligence Network</title>
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoWByC0DhT6c0o=" crossorigin="">
+<style>
+:root {color-scheme:dark;--bg:#080e1c;--panel:#101a2c;--line:#283a50;--muted:#b3c6d6;--text:#f2f7ff;--accent:#7ee5ca;--gold:#e7c489;--blue:#85baff}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font:15px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--text)}
+button,input{font:inherit}button,a,input{outline-offset:3px}a{color:#a3e6e0}button{cursor:pointer}button:disabled{opacity:.5;cursor:not-allowed}
+.skip{position:absolute;top:-100px;left:12px;background:white;color:#111;padding:10px;z-index:9999}.skip:focus{top:8px}
+header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:15px clamp(18px,2.2vw,34px);border-bottom:1px solid var(--line);background:#0b1424}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:#fff;font-weight:850;letter-spacing:.12em}
+.logo-mark{width:30px;height:30px;display:grid;place-items:center;border:1px solid var(--accent);border-radius:50%;color:var(--accent);font-size:19px}
+.topnav{display:flex;gap:18px;align-items:center}.topnav a{font-size:13px;text-decoration:none;color:var(--muted)}.topnav a:hover{color:#fff}
+.eyebrow{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.18em;color:var(--accent)}
+.intro{display:flex;gap:22px;justify-content:space-between;align-items:end;padding:25px clamp(18px,2.2vw,34px) 20px}
+.intro h1{font-size:clamp(30px,3.2vw,50px);line-height:1.05;letter-spacing:-.055em;margin:7px 0 10px}.intro p{margin:0;color:var(--muted);max-width:850px}
+.proof{border:1px solid #3f5e5b;border-radius:999px;background:#14322c;color:#b3f4e0;padding:8px 12px;font-size:12px;white-space:nowrap}
+.workspace{display:grid;grid-template-columns:minmax(310px,355px) minmax(0,1fr);gap:15px;padding:0 15px 15px;min-height:680px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:19px;overflow:hidden}
+.sidebar{padding:17px;display:flex;flex-direction:column;gap:15px;max-height:calc(100vh - 180px);overflow:auto;min-height:640px}
+.searchrow{display:flex;gap:8px}.searchrow input{background:#0b1424;border:1px solid #4a5b6c;border-radius:11px;min-width:0;flex:1;color:#fff;padding:11px}
+.action{border:1px solid #385268;border-radius:11px;padding:10px 13px;background:#182942;color:var(--text);font-weight:700}.action:hover,.action[aria-pressed="true"]{background:#27516a}.action.primary{background:var(--accent);color:#091a20;border-color:var(--accent)}.action.primary:hover{background:#b0fff0}
+.tabs,.chips,.filters{display:flex;gap:7px;flex-wrap:wrap}
+.tab,.chip{background:#14233a;color:#d6e4f3;border:1px solid #34475f;border-radius:99px;padding:8px 11px;font-size:12px}.tab[aria-pressed="true"],.chip[aria-pressed="true"]{background:#214f4c;border-color:var(--accent);color:#edfff9}
+.tab{font-weight:750}
+.label{font-size:11px;color:#b9c8d7;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin:1px 0 5px}
+.hint{font-size:12px;color:var(--muted)}
+.check{display:flex;align-items:center;gap:9px;padding:7px 8px;border:1px solid #33455a;border-radius:9px;font-size:13px;flex:1 0 44%;min-width:130px}
+.check input{width:16px;height:16px;accent-color:#7ee5ca}
+#result-list{display:grid;gap:8px}
+.item{border:1px solid #344b60;background:#111e32;border-radius:12px;padding:12px;text-align:left;color:#fff;width:100%}.item:hover,.item:focus-visible{border-color:var(--accent)}.item strong{display:block;font-size:14px}.item small{display:block;color:#b9cbd9;margin-top:5px}
+.maparea{display:flex;flex-direction:column;min-height:640px;position:relative}
+.toolbar{display:flex;gap:7px;padding:10px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.mapstage{flex:1;min-height:590px;position:relative;background:radial-gradient(circle at 40% 50%,#203455,#09111e 65%)}
+#map,#globe{position:absolute;inset:0;width:100%;height:100%}#globe{display:none}#globe canvas{display:block}
+.mapstatus{position:absolute;left:13px;right:13px;bottom:13px;z-index:500;max-width:610px;background:#091626e9;border:1px solid #365166;backdrop-filter:blur(14px);color:#eaf5fc;border-radius:12px;padding:10px 13px;font-size:12px;pointer-events:none}
+.mapstatus:empty{display:none}
+.legend{position:absolute;right:12px;top:12px;z-index:500;background:#0b1827e9;padding:10px 12px;border-radius:12px;font-size:12px;border:1px solid #344b61;line-height:1.85}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:8px}.education{background:#8ccaff}.sports{background:#ffcb8b}.coding{background:#ad98ff}.libraries{background:#89e3bb}
+.detail{display:none;position:absolute;left:13px;top:14px;z-index:550;width:min(360px,calc(100% - 26px));padding:17px;background:#0b1729ee;border:1px solid #49718b;border-radius:14px;box-shadow:0 14px 40px #0008;backdrop-filter:blur(15px)}
+.detail h3{font-size:20px;line-height:1.2;margin:6px 24px 9px 0}.detail p{font-size:13px;color:#ccdfeb}.detail .links{display:flex;flex-wrap:wrap;gap:12px;font-size:13px}
+.close{position:absolute;top:10px;right:10px;border:0;color:#fff;background:#25384c;border-radius:6px;width:28px;height:28px}
+.source-pill{font-size:11px;color:#ffdbad;letter-spacing:.035em}
+#statusbar{padding:9px 12px;color:#c9d8e4;border-top:1px solid var(--line);font-size:12px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.system{padding:13px;border:1px solid #334d62;border-radius:12px;background:#102033}.system strong{display:block}.system p{font-size:12px;color:#c3d4e2;margin:5px 0 9px}.system a{font-size:12px}
+.pathway{display:flex;gap:11px;border-left:2px solid var(--accent);padding:7px 7px 10px 13px}.pathway b{display:block}.pathway span{font-size:12px;color:var(--muted)}
+.pathway .num{font-size:11px;font-weight:900;color:var(--gold)}
+.hidden{display:none!important}
+footer{padding:22px clamp(18px,3vw,35px);font-size:12px;color:#a9bbcd;line-height:1.65}
+footer a{color:#b4e6ed}
+.pin{width:15px;height:15px;border-radius:50%;border:2px solid #101b2b;box-shadow:0 0 0 2px #ffffff44}
+.leaflet-popup-content-wrapper,.leaflet-popup-tip{background:#15263b;color:#fff}.leaflet-control-attribution{font-size:10px!important}
+@media(max-width:900px){.workspace{grid-template-columns:1fr}.sidebar{max-height:none;min-height:unset}.mapstage{min-height:520px}.maparea{min-height:560px}.intro{align-items:start;flex-direction:column;gap:10px}.topnav{gap:10px}}
+@media(max-width:520px){.intro{padding:19px}.workspace{padding:0 8px 8px;gap:8px}.sidebar{padding:12px}.mapstage{min-height:460px}.maparea{min-height:500px}.toolbar{padding:7px}.action{padding:9px}.legend{font-size:10px;right:7px;top:8px}.topnav a:nth-child(2){display:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to atlas</a>
+<header><a class="logo" href="../"><span class="logo-mark">∞</span> APERTURE <span style="color:var(--accent)">ATLAS</span></a>
+<nav class="topnav" aria-label="Related projects"><a href="../">Home</a><a href="https://protecting-the-center.netlify.app/clearline/">Governance source</a><a href="../athlete-os/">Athlete OS</a></nav></header>
+<section class="intro"><div><span class="eyebrow">Global intelligence network · research preview</span><h1>Explore places. Connect possibilities.</h1><p>A human-centered, world-scale discovery layer for education, athletics, computer science, mentorship programs, and institutional governance. Explore public map data and model proposals without confusing a possible collaboration with a real one.</p></div><span class="proof">PUBLIC DATA ≠ VERIFIED PARTNERSHIP</span></section>
+<main id="main" class="workspace">
+<aside class="panel sidebar" aria-label="Atlas controls">
+<div class="tabs" role="group" aria-label="Workspace panels">
+<button class="tab" data-tab="discover" aria-pressed="true">Discover</button>
+<button class="tab" data-tab="pathways" aria-pressed="false">CS pathways</button>
+<button class="tab" data-tab="systems" aria-pressed="false">Governance</button>
+</div>
+<section id="panel-discover">
+<p class="label">Jump to a region</p>
+<div class="chips" id="regions">
+<button class="chip" data-lat="33.75" data-lng="-117.87" data-z="11">Orange County</button>
+<button class="chip" data-lat="37.77" data-lng="-122.42" data-z="11">Bay Area</button>
+<button class="chip" data-lat="40.71" data-lng="-74.0" data-z="11">New York</button>
+<button class="chip" data-lat="51.507" data-lng="-0.128" data-z="11">London</button>
+<button class="chip" data-lat="1.352" data-lng="103.82" data-z="11">Singapore</button>
+<button class="chip" data-lat="-33.87" data-lng="151.21" data-z="11">Sydney</button>
+</div>
+<p class="label" style="margin-top:14px">Search a city or address</p>
+<form id="search-form" class="searchrow"><input id="place-search" type="search" aria-label="Search geographic place" placeholder="City, state or country" autocomplete="off" required><button class="action" type="submit">Go</button></form>
+<p class="label" style="margin-top:14px">Explore open geographic layers</p>
+<div class="filters" id="filters">
+<label class="check"><input type="checkbox" data-layer="education" checked> 🏫 Education</label>
+<label class="check"><input type="checkbox" data-layer="sports" checked> 🏀 Sports</label>
+<label class="check"><input type="checkbox" data-layer="coding" checked> 💻 Coding / STEM</label>
+<label class="check"><input type="checkbox" data-layer="libraries" checked> 📚 Libraries</label>
+</div>
+<p class="hint">Zoom into a city, then load public places. Only a user-triggered search contacts OpenStreetMap services. Records may be incomplete and are not validated partners or active opportunities.</p>
+<button class="action primary" id="load" type="button" style="width:100%">Find places in this map view</button>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-top:15px"><p class="label" style="margin:0">Map results</p><span class="hint" id="count">0 loaded</span></div>
+<div id="result-list" aria-live="polite"><p class="hint">Select a region and load public places to populate this list.</p></div>
+</section>
+<section id="panel-pathways" class="hidden">
+<p class="label">Computer science continuum</p>
+<p class="hint">Three tracks merged into one pathway, with optional athletic and academic connections. These are proposed APERTURE curricula, not claimed school offerings.</p>
+<div class="pathway"><span class="num">01</span><div><b>Discover · ages 7–12</b><span>Creative coding, Scratch, STEM, robotics, computational thinking and safe AI literacy.</span></div></div>
+<div class="pathway"><span class="num">02</span><div><b>Build · ages 12–18</b><span>Python, JavaScript, game design, web apps, algorithms, data science, robotics and portfolio projects.</span></div></div>
+<div class="pathway"><span class="num">03</span><div><b>Advance · high school to college</b><span>AP CS preparation, college computing, Git, secure engineering, cloud systems, cybersecurity and applied AI.</span></div></div>
+<div class="pathway"><span class="num">04</span><div><b>Research · college and beyond</b><span>Machine learning, AI agents, systems research, evaluation, advanced algorithms, scientific computing and reproducibility.</span></div></div>
+<div class="pathway"><span class="num">05</span><div><b>Apply · lifelong</b><span>Sports analytics, athlete dashboards, educational products, internships, mentoring, founder-led projects and professional pathways.</span></div></div>
+<div class="system"><strong>Student ↔ organization</strong><p>Pathways and institutional programs share evidence, but student data needs consent, role-scoped access and safeguarding. No identifiable student records are loaded in this preview.</p></div>
+</section>
+<section id="panel-systems" class="hidden">
+<p class="label">Existing systems · preserved as linked modules</p>
+<div id="system-list">
+<div class="system"><strong>01 · Enrollment Growth</strong><p>Forecasts, decision gates, stress testing, lifecycle and conversion.</p><a href="https://protecting-the-center.netlify.app/clearline/enrollment">Open existing system</a></div>
+<div class="system"><strong>02 · Franchise Governance</strong><p>Network posture, four verification governors, causal ledger, adaptive reviews.</p><a href="https://protecting-the-center.netlify.app/clearline/unit-defense">Open existing system</a></div>
+<div class="system"><strong>03 · Network Control Plane</strong><p>Canonical state, critical paths, regulatory clocks, network twin.</p><a href="https://protecting-the-center.netlify.app/clearline/governance">Open existing system</a></div>
+<div class="system"><strong>04 · AI Self-Review</strong><p>Consistency, evidence, risk, conformance and calibration checks.</p><a href="https://protecting-the-center.netlify.app/clearline/self-review">Open existing system</a></div>
+<div class="system"><strong>05 · Basketball Academy</strong><p>Development pathways, workload safety and retention governance.</p><a href="https://protecting-the-center.netlify.app/clearline/basketball">Open existing system</a></div>
+<div class="system"><strong>06 · Enterprise Governance</strong><p>Decision lineage, due diligence and enterprise controls.</p><a href="https://protecting-the-center.netlify.app/">Open existing system</a></div>
+</div>
+<div class="system"><strong>Relationship integrity</strong><p>USPA: exploratory/referral proposal until permissions verified. theCoderSchool and Code Ninjas: historical experience, not current organizational partnership or endorsement.</p></div>
+</section>
+</aside>
+<section class="panel maparea" aria-label="Interactive global map">
+<div class="toolbar">
+<button class="action" id="twoD" aria-pressed="true" type="button">2D atlas</button>
+<button class="action" id="threeD" aria-pressed="false" type="button">3D globe</button>
+<button class="action" id="world" type="button">World view</button>
+<button class="action" id="scenario" aria-pressed="false" type="button">Scenario mode</button>
+<button class="action" id="export" type="button">Export visible records</button>
+</div>
+<div class="mapstage">
+<div id="map" role="application" aria-label="Interactive OpenStreetMap atlas. Use zoom, pan, or region buttons."></div>
+<div id="globe" role="img" aria-label="Three-dimensional globe visualization of loaded public places"></div>
+<div class="legend"><div><i class="dot education"></i>Education</div><div><i class="dot sports"></i>Sports</div><div><i class="dot coding"></i>Coding/STEM</div><div><i class="dot libraries"></i>Libraries</div></div>
+<div class="detail" id="detail" aria-live="polite"><button type="button" class="close" id="close" aria-label="Close detail">×</button><div class="eyebrow" id="detail-type"></div><h3 id="detail-name"></h3><p id="detail-text"></p><p class="source-pill">Community-sourced location · affiliation unverified</p><div class="links" id="detail-links"></div><button type="button" class="action" id="intro-copy" style="margin-top:15px">Copy introduction request</button></div>
+<div class="mapstatus" id="mapstatus" role="status">World overview. Choose a city and tap “Find places in this map view.” No affiliations are implied.</div>
+</div>
+<div id="statusbar"><span id="viewport-status">Global discovery · no organizations loaded</span><span>OpenStreetMap contributors · ODbL · exploratory preview</span></div>
+</section></main>
+<footer><strong>Evidence before claims.</strong> OpenStreetMap is community-maintained and locations should be checked against official sources before outreach. No endorsement, USPA authorization, franchise relationship, live enrollment, verified mentors, or confidential records are implied. Scenario mode is explicitly hypothetical. <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OSM licensing and attribution</a>. An open discovery tool is not a substitute for consent or youth data safeguards.</footer>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script>
+(function(){
+'use strict';
+var colors={education:'#8ccaff',sports:'#ffcb8b',coding:'#ad98ff',libraries:'#89e3bb'};
+var places=[], markers=[], chosen=null, globe=null, mode='2d', loading=false, scenario=false;
+var $=function(id){return document.getElementById(id)};
+var mapEl=$('map'), globeEl=$('globe'), list=$('result-list');
+function message(t){$('mapstatus').textContent=t}
+function safeUrl(url){try{var u=new URL(url);return /^https?:$/.test(u.protocol)?u.href:null}catch(e){return null}}
+function create(tag,txt){var el=document.createElement(tag);if(txt!==undefined)el.textContent=txt;return el}
+function chosenLayers(){return Array.from(document.querySelectorAll('input[data-layer]:checked')).map(function(x){return x.dataset.layer})}
+function visible(){var set=chosenLayers();return places.filter(function(p){return set.includes(p.kind)})}
+function categorize(t){
+ if((t.name||'').match(/coding|code ninjas|coder|robotics|stem|computer science/i))return 'coding';
+ if(t.amenity==='library')return 'libraries';
+ if(['school','university','college'].includes(t.amenity))return 'education';
+ if(['sports_centre','fitness_centre','stadium'].includes(t.leisure))return 'sports';
+ return 'coding';
+}
+function osmLink(p){return 'https://www.openstreetmap.org/'+p.type+'/'+p.id}
+function extract(el){
+ var t=el.tags||{}, lat=el.lat||(el.center&&el.center.lat),lng=el.lon||(el.center&&el.center.lon);
+ if(typeof lat!=='number'||typeof lng!=='number')return null;
+ if(!t.name||!t.name.trim())return null;
+ return {id:el.type+'/'+el.id,type:el.type,oid:el.id,name:t.name.trim(),lat:lat,lng:lng,kind:categorize(t),website:safeUrl(t.website||t['contact:website']||''),tags:t};
+}
+function clearMarks(){markers.forEach(function(x){x.remove()});markers=[]}
+function showDetail(p){
+ chosen=p;$('detail').style.display='block';$('detail-type').textContent=p.kind.toUpperCase();
+ $('detail-name').textContent=p.name;
+ $('detail-text').textContent=(p.tags['addr:city']||p.tags['addr:suburb']||'Map location')+' · Public community entry. Program availability, affiliation, and contact accuracy have not been independently verified.';
+ var links=$('detail-links');links.replaceChildren();
+ var a=create('a','Open map record ↗');a.href=osmLink(p);a.target='_blank';a.rel='noopener noreferrer';links.append(a);
+ if(p.website){var w=create('a','Listed website ↗');w.href=p.website;w.target='_blank';w.rel='noopener noreferrer';links.append(w)}
+}
+function renderList(){
+ list.replaceChildren();var data=visible();$('count').textContent=data.length+' displayed';
+ if(!data.length){list.append(create('p','No matching map records loaded. Zoom into a city and search the current view.'));return}
+ data.slice(0,70).forEach(function(p){
+ var b=create('button');b.className='item';b.type='button';b.append(create('strong',p.name));
+ b.append(create('small',p.kind+' · community-sourced · unverified affiliation'));
+ b.onclick=function(){if(mode==='3d')switchMode('2d');map.flyTo([p.lat,p.lng],Math.max(map.getZoom(),14));showDetail(p)};
+ list.append(b)
+ });
+ if(data.length>70)list.append(create('p','Showing first 70 list entries; all current results remain on the map.'));
+}
+function draw(){
+ clearMarks();var data=visible();
+ data.forEach(function(p){
+ var icon=L.divIcon({className:'',html:'<div class="pin" style="background:'+colors[p.kind]+'"></div>',iconSize:[16,16],iconAnchor:[8,8]});
+ var m=L.marker([p.lat,p.lng],{icon:icon,title:p.name}).addTo(map);m.on('click',function(){showDetail(p)});markers.push(m)
+ });
+ renderList();
+ if(globe){globe.pointsData(data.map(function(p){return {lat:p.lat,lng:p.lng,color:colors[p.kind],p:p}}))}
+ $('viewport-status').textContent=data.length+' public places in loaded results · '+(scenario?'hypothetical scenario active':'no partnership assertions');
+}
+function currentBounds(){
+ var b=map.getBounds();
+ return [b.getSouth().toFixed(5),b.getWest().toFixed(5),b.getNorth().toFixed(5),b.getEast().toFixed(5)].join(',');
+}
+function makeQuery(){
+ var box=currentBounds(), terms=[];
+ var selected=chosenLayers();
+ var matching={
+ education:['node["amenity"~"^(school|college|university)$"]','way["amenity"~"^(school|college|university)$"]'],
+ sports:['node["leisure"~"^(sports_centre|fitness_centre|stadium)$"]','way["leisure"~"^(sports_centre|fitness_centre|stadium)$"]'],
+ coding:['node["name"~"(coding|code ninjas|coder|robotics|computer science|STEM)",i]','way["name"~"(coding|code ninjas|coder|robotics|computer science|STEM)",i]'],
+ libraries:['node["amenity"="library"]','way["amenity"="library"]']
+ };
+ selected.forEach(function(k){matching[k].forEach(function(v){terms.push(v+'('+box+');')})});
+ return '[out:json][timeout:25];('+terms.join('')+');out center 400;';
+}
+async function fetchPlaces(){
+ if(loading)return;
+ if(map.getZoom()<9){message('Please zoom into a city (level 9 or closer) before requesting map places. This limits server load and keeps results useful.');return}
+ if(!chosenLayers().length){message('Select at least one layer.');return}
+ loading=true;$('load').disabled=true;$('load').textContent='Loading public places…';
+ message('Requesting community-maintained OpenStreetMap records for this visible region…');
+ try{
+ var controller=new AbortController(),timeout=setTimeout(function(){controller.abort()},30000);
+ var res;
+ try{
+ res=await fetch('https://overpass.kumi.systems/api/interpreter',{method:'POST',body:new URLSearchParams({data:makeQuery()}),signal:controller.signal});
+ }finally{clearTimeout(timeout)}
+ if(!res.ok)throw new Error('Map data service returned '+res.status);
+ var json=await res.json(), seen=new Set();
+ places=(json.elements||[]).map(extract).filter(function(p){if(!p||seen.has(p.id))return false;seen.add(p.id);return true});
+ draw();message('Loaded '+places.length+' named public entries for this view. The list is limited to 400 source records per request. Community entries do not establish APERTURE affiliation.');
+ }catch(e){message('Could not load public places ('+e.message+'). Try a smaller map area or try again. The interactive atlas is still available.')}
+ finally{loading=false;$('load').disabled=false;$('load').textContent='Find places in this map view'}
+}
+async function geosearch(ev){
+ ev.preventDefault();var s=$('place-search').value.trim();if(s.length<2)return;
+ message('Looking up geographic place…');
+ try{
+ var res=await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&q='+encodeURIComponent(s));
+ if(!res.ok)throw new Error('Search service unavailable');
+ var a=await res.json();if(!a.length){message('Place not found. Try a city and country.');return}
+ map.setView([+a[0].lat,+a[0].lon],11);switchMode('2d');message('Moved to '+a[0].display_name+'. Tap “Find places in this map view” to load public entries.');
+ }catch(e){message('Geographic search is temporarily unavailable. Use the city shortcut buttons or pan the map.')}
+}
+function switchMode(next){
+ if(next==='3d'){
+ if(!window.Globe){message('Loading optional 3D globe…');var sc=document.createElement('script');sc.src='https://unpkg.com/globe.gl@2.41.1/dist/globe.gl.min.js';sc.onload=function(){switchMode('3d')};sc.onerror=function(){message('3D globe unavailable on this device or network. The accessible 2D atlas remains available.')};document.body.append(sc);return}
+ try{
+ if(!globe){globe=Globe()(globeEl).globeImageUrl('https://unpkg.com/three-globe@2.45.0/example/img/earth-blue-marble.jpg').backgroundColor('#090f1d').pointAltitude(0.013).pointRadius(0.25).pointColor('color').onPointClick(function(d){showDetail(d.p)});
+ globe.controls().autoRotate=true;globe.controls().autoRotateSpeed=0.25}
+ globeEl.style.display='block';mapEl.style.display='none';globe.width(globeEl.clientWidth||700).height(globeEl.clientHeight||550);globe.pointsData(visible().map(function(p){return {lat:p.lat,lng:p.lng,color:colors[p.kind],p:p}}));
+ }catch(e){message('3D rendering is not supported on this device. Continuing in 2D.');globeEl.style.display='none';mapEl.style.display='block';return}
+ }else{globeEl.style.display='none';mapEl.style.display='block';setTimeout(function(){map.invalidateSize()},90)}
+ mode=next;$('twoD').setAttribute('aria-pressed',String(next==='2d'));$('threeD').setAttribute('aria-pressed',String(next==='3d'));
+}
+function copyIntro(){
+ if(!chosen)return;
+ var text='Hello, I am exploring potential education, computer science, and sports program connections through APERTURE. I found '+chosen.name+' in a public map directory and would like to identify the appropriate contact and learn whether a conversation would be useful. This inquiry does not assume an existing affiliation.';
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(text).then(function(){message('Introduction request copied. No message was sent.')},function(){message('Clipboard unavailable. Please copy the request manually.')});
+ else message('Clipboard access is unavailable on this browser.');
+}
+function exportCsv(){
+ var a=[['Name','Category','Latitude','Longitude','OSM source URL','Source status'],...visible().map(function(p){return [p.name,p.kind,p.lat,p.lng,osmLink(p),'OSM community listing; not independently verified']})];
+ var csv=a.map(function(row){return row.map(function(x){var t=String(x).replace(/^[=+\-@]/,"'");return '"'+t.replace(/"/g,'""')+'"'}).join(',')}).join('\r\n');
+ var blob=new Blob([csv],{type:'text/csv;charset=utf-8;'}),url=URL.createObjectURL(blob),link=create('a');link.href=url;link.download='aperture-atlas-openstreetmap-records.csv';link.click();setTimeout(function(){URL.revokeObjectURL(url)},1000);
+ message('Exported community directory records. OpenStreetMap data is © contributors and licensed under ODbL; attribution and license obligations apply.');
+}
+var map;
+if(!window.L){message('The map renderer could not load. Check network access and reload.');$('load').disabled=true;return}
+map=L.map('map',{worldCopyJump:true,zoomControl:true,keyboard:true}).setView([25,-20],2);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:19,attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'}).addTo(map);
+document.querySelectorAll('[data-tab]').forEach(function(btn){btn.onclick=function(){document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-pressed',String(x===btn));$('panel-'+x.dataset.tab).classList.toggle('hidden',x!==btn)})}});
+document.querySelectorAll('#regions [data-lat]').forEach(function(btn){btn.onclick=function(){switchMode('2d');map.setView([+btn.dataset.lat,+btn.dataset.lng],+btn.dataset.z);message('Showing '+btn.textContent+'. Select layers and load public places for the current view.')}});
+document.querySelectorAll('input[data-layer]').forEach(function(el){el.onchange=draw});
+$('load').onclick=fetchPlaces;$('search-form').onsubmit=geosearch;$('twoD').onclick=function(){switchMode('2d')};$('threeD').onclick=function(){switchMode('3d')};
+$('world').onclick=function(){switchMode('2d');map.setView([25,-20],2);message('World overview. Zoom to a specific city to load public place records.')};
+$('scenario').onclick=function(){scenario=!scenario;this.setAttribute('aria-pressed',String(scenario));draw();message(scenario?'HYPOTHETICAL MODE: use this view to plan potential network coverage. No actual affiliations, commitments or outreach have been created.':'Returned to public directory mode. No affiliations are asserted.')};
+$('close').onclick=function(){$('detail').style.display='none';chosen=null};$('intro-copy').onclick=copyIntro;$('export').onclick=exportCsv;
+window.addEventListener('resize',function(){if(globe&&mode==='3d')globe.width(globeEl.clientWidth).height(globeEl.clientHeight)});
+})();
+</script>
+</body></html>
