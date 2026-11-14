@@ -8,7 +8,7 @@ const coding=await runAgents({task:"coding",skill:"python",hours:10,rate:55,week
 assert.equal(coding.results.length,11);
 assert.equal(coding.results.find(a=>a.agent==="coding").data.total,550);
 assert.equal(coding.results.find(a=>a.agent==="economics").data.assumedDifference,8);
-assert.equal(coding.results.find(a=>a.agent==="release").status,"HOLD");
+assert.equal(coding.results.find(a=>a.agent==="release").status,"PASS");
 assert.deepEqual(coding.effects,{emailsSent:0,payments:0,publications:0,submissions:0});
 if(globalThis.crypto?.subtle)assert.equal(coding.ledgerDigest.length,64);
 
