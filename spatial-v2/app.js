@@ -332,7 +332,7 @@ function tick(now){
     else ball.position.set(0,1,6);
   }
   if(current==="gifts"&&giftLid){
-    giftLid.position.y+=(giftOpened?4.3:2.75-giftLid.position.y)*Math.min(dt*3,1);
+    giftLid.position.y+=((giftOpened?4.3:2.75)-giftLid.position.y)*Math.min(dt*3,1);
     if(giftOpened&&giftLid.position.y>4.2)giftLid.rotation.z=Math.min(.25,giftLid.rotation.z+dt*.25);
     if(!giftOpened)giftLid.rotation.z=Math.max(0,giftLid.rotation.z-dt*.7);
   }
