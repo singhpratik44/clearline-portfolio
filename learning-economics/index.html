@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d1527">
+<meta name="description" content="Explore US Performance Academy's publicly listed tuition, independent APERTURE coding services, transparent learning scenarios, and a privacy-first student impact evidence registry.">
+<title>APERTURE Learning Economics · Academics × Computer Science</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0f1d;--panel:#141d30;--panel2:#18263d;--line:#33445e;--ink:#f4f8ff;--soft:#c5d2e0;--accent:#9aefd2;--purple:#bfadf9;--gold:#eacb90;--blue:#98cafa;--danger:#f4c7b6}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at top left,#20264d 0%,transparent 40%),var(--bg);color:var(--ink);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif}
+a{color:#a6f0d9}button,input,select,textarea{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #c2f7e5;outline-offset:3px}
+.skip{position:absolute;top:-100px;left:10px;padding:12px;background:#fff;color:#122;z-index:100}.skip:focus{top:10px}
+header{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:13px clamp(15px,3vw,42px);background:#0c1527ec;border-bottom:1px solid var(--line);backdrop-filter:blur(16px)}
+.brand{color:#fff;text-decoration:none;font-size:16px;font-weight:850;letter-spacing:.13em}.brand span{color:var(--accent)}
+nav{display:flex;gap:14px;flex-wrap:wrap}nav a{color:#d2deec;text-decoration:none;font-size:12px;font-weight:750}
+main{max-width:1280px;margin:auto;padding:28px clamp(15px,3vw,42px) 80px}
+.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:18px;align-items:end;padding:20px 0 34px}
+.eyebrow{font-size:11px;font-weight:850;letter-spacing:.2em;color:var(--accent);text-transform:uppercase}
+h1{font-size:clamp(40px,5.7vw,78px);letter-spacing:-.07em;line-height:1.02;margin:11px 0 17px}
+h1 em{color:var(--accent);font-style:normal}h2{font-size:clamp(27px,3vw,42px);letter-spacing:-.05em;margin:0 0 10px}h3{font-size:19px;margin:0 0 8px;letter-spacing:-.025em}
+p{margin:8px 0 12px} .lead{color:var(--soft);font-size:16px;max-width:730px}
+.signal{border:1px solid #445772;border-radius:20px;padding:22px;background:radial-gradient(circle at 95% 5%,#364f63,transparent 66%),#131f32}
+.signal strong{font-size:24px;letter-spacing:-.05em}.signal p{color:#cee0eb;font-size:13px}
+.tiny{font-size:12px;color:var(--soft)}.muted{color:var(--soft)}.note{border-left:3px solid var(--gold);padding:7px 13px;background:#27283a;border-radius:0 9px 9px 0;color:#ecdfc8;font-size:12px;line-height:1.55}
+.section{margin-top:35px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}.grid.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.panel{background:linear-gradient(145deg,var(--panel),#101b2d);border:1px solid var(--line);border-radius:20px;padding:clamp(17px,2vw,25px);min-width:0}.panel.alt{background:#132339}
+.label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.11em;color:#c2d7e8}
+.field{display:block;margin:10px 0 13px;font-weight:650;font-size:13px}.field span{display:block;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #4b6480;background:#0a1629;color:#fff;border-radius:11px;min-height:45px}
+.field input[type=range]{padding:0;accent-color:var(--accent)}.cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.pill{display:inline-block;font-size:11px;font-weight:800;color:#a6efdb;background:#153932;padding:6px 9px;border:1px solid #456d60;border-radius:99px}.pill.warning{background:#3c2d23;border-color:#8a6847;color:#ffdbb5}
+.price{font-size:clamp(36px,4.5vw,61px);font-weight:820;letter-spacing:-.065em;margin:9px 0 3px;font-variant-numeric:tabular-nums}
+.stat{padding:15px;border:1px solid #3b5166;background:#111e31;border-radius:15px}.stat strong{display:block;font-size:clamp(23px,2.7vw,37px);letter-spacing:-.045em;font-variant-numeric:tabular-nums}.stat small{font-size:12px;color:var(--soft)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.btn{display:inline-flex;justify-content:center;align-items:center;text-decoration:none;padding:10px 14px;border-radius:11px;border:1px solid #4a6980;background:#1e334b;color:#fff;font-weight:760;font-size:13px;min-height:43px}.btn:hover{background:#2a5066}.btn.primary{background:var(--accent);color:#09201b;border-color:var(--accent)}.btn.primary:hover{background:#bbffe7}.btn.ghost{background:transparent}
+.outcome{display:flex;gap:9px;align-items:flex-start;padding:11px 0;border-bottom:1px solid #344458}.outcome:last-child{border:0}.outcome b{color:var(--accent)}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.story-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.story{border:1px solid #3a5269;border-radius:15px;background:#14263b;padding:18px}
+.story strong{display:block;font-size:19px;margin:9px 0 6px}.story p{font-size:13px;color:#d1deeb}
+.story .source{font-size:12px}.story pre{white-space:pre-wrap;overflow-wrap:anywhere}
+#story-list{display:grid;gap:9px;margin-top:12px;max-height:450px;overflow:auto}
+.entry{border:1px solid #415469;padding:11px;border-radius:11px;background:#142338;overflow-wrap:anywhere}
+.entry b{display:block}.entry span{display:block;color:#c3d7e3;font-size:12px}
+.diagram{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.step{border:1px solid #40526a;background:#101b30;padding:14px;border-radius:13px}.step b{display:block;font-size:12px;color:var(--gold)}.step strong{font-size:14px}.step p{font-size:12px;color:var(--soft)}
+#uspa-source{display:block;margin:8px 0;color:#c1def9}
+hr{border:0;border-top:1px solid var(--line);margin:15px 0}
+footer{padding:30px clamp(15px,4vw,45px);border-top:1px solid var(--line);background:#0b1321;color:#b8cbd9;font-size:12px}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.grid,.grid.three,.story-grid{grid-template-columns:1fr}.diagram{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:550px){header{position:relative}.cols{grid-template-columns:1fr}.diagram{grid-template-columns:1fr}main{padding-top:18px}.signal{padding:16px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><a class="brand" href="../">APERTURE <span>∞ LEARNING</span></a><nav aria-label="Main navigation"><a href="../global-atlas/">World atlas</a><a href="#academic">USPA tuition</a><a href="#coding">Coding service</a><a href="#impact">Student projects</a><a href="../learning/book/">Book lesson</a></nav></header>
+<main id="main">
+<section class="hero">
+<div><span class="eyebrow">Education economics · governed evidence</span><h1>What can learning<br><em>make possible?</em></h1><p class="lead">Compare public academic tuition with independent coding coaching. Build a transparent budget, choose a project milestone, model time assumptions, and preserve real student accomplishments with verifiable evidence.</p>
+<div class="actions"><a class="btn primary" href="#coding">Build my learning plan</a><a class="btn ghost" href="#academic">Explore USPA tuition</a><a class="btn ghost" href="#impact">Student impact library</a></div></div>
+<div class="signal"><span class="eyebrow">The APERTURE distinction</span><strong>Academic access + creating real things.</strong><p>US Performance Academy and APERTURE coding are separate providers. These are comparison scenarios, not a bundled enrollment or authorized USPA offer. All milestones and time savings are estimates, never guarantees.</p><span class="pill">Source-linked tuition · 14 Nov 2026</span></div>
+</section>
+<div class="diagram" aria-label="Learning value workflow"><div class="step"><b>01 / PURPOSE</b><strong>Choose a capability</strong><p>Understand learner interests and needs</p></div><div class="step"><b>02 / INVESTMENT</b><strong>Set hours and budget</strong><p>Compare actual prices and draft options</p></div><div class="step"><b>03 / CREATION</b><strong>Build evidence</strong><p>Project, feedback and portfolio milestones</p></div><div class="step"><b>04 / OUTCOME</b><strong>Measure reality</strong><p>Track finished work; never promise a return</p></div></div>
+
+<section id="academic" class="section">
+<div class="section-head"><div><span class="eyebrow">Verified public pricing</span><h2>USPA academic tuition</h2><p class="muted">Official published rates, with clear selection and calculation assumptions.</p></div><a class="btn" href="https://gouspa.org/truth-in-tuition/" target="_blank" rel="noopener noreferrer">Official USPA tuition ↗</a></div>
+<div class="grid">
+<div class="panel"><span class="pill">USPA published tuition · independent school</span>
+<label class="field"><span>Choose academic pathway</span><select id="uspa-program">
+<option value="middle">Middle School · grades 6–8</option><option value="high">High School · grades 9–12</option><option value="course">Individual academic course / credit</option><option value="summer">Summer or accelerated course / credit</option>
+</select></label>
+<div id="academic-length-block"><label class="field"><span>Tuition period</span><select id="uspa-term"><option value="year">Full academic year</option><option value="semester">One semester</option><option value="twoSemesters">Two separately billed semesters (comparison)</option></select></label></div>
+<div id="academic-coach-block" hidden><label class="field"><span>Course support</span><select id="uspa-coach"><option value="no">Course only</option><option value="yes">With USPA Learning Coach</option></select></label><label class="field"><span>Number of credits / courses</span><input id="uspa-credits" type="number" value="1" min="1" max="10" step="1"></label><p class="tiny">USPA states a maximum of two individual courses may be taken at a time. This calculator can model sequential courses; it is not an enrollment plan.</p></div>
+<div class="cols">
+<div class="stat"><small>Published tuition subtotal</small><strong id="academic-tuition">$17,140</strong></div>
+<div class="stat"><small>Listed application fee</small><strong id="academic-fee">$50</strong></div>
+</div>
+<p class="tiny" id="academic-caption">Application fee is presented separately; other costs and payment schedules require confirmation.</p>
+<label class="field"><span>Assumed instruction weeks for analysis (not USPA's calendar)</span><input id="uspa-weeks" type="number" min="1" max="52" value="36"></label>
+<p class="note">Official school tuition is not an hourly coaching price. The per-week figure is only a mathematical planning aid, not an estimate of classes, actual attendance, or curriculum contact hours.</p>
+</div>
+<div class="panel alt"><span class="eyebrow">Academic investment breakdown</span>
+<div class="price" id="academic-total">$17,190</div><p class="muted">Estimated total of displayed charges; not an enrollment quote.</p>
+<div class="grid"><div class="stat"><small>Tuition per assumed week</small><strong id="academic-weekly">$476</strong></div><div class="stat"><small>Tuition period</small><strong id="academic-period" style="font-size:21px">Year</strong></div></div>
+<hr><p id="academic-details">Full-year USPA middle school tuition is listed as $17,140. Application fee is listed as $50.</p>
+<p class="tiny">Public references verified against the USPA site. Tuition may change; scholarships, installments, additional fees and eligibility are not assumed. APERTURE does not collect school applications or USPA tuition.</p>
+<a id="uspa-source" href="https://gouspa.org/truth-in-tuition/" target="_blank" rel="noopener noreferrer">See the official price and terms ↗</a>
+<div class="actions"><a class="btn" href="https://gouspa.org/admissions/" target="_blank" rel="noopener noreferrer">Contact USPA admissions</a><a class="btn ghost" href="https://gouspa.org/individual-course-offerings/" target="_blank" rel="noopener noreferrer">Individual courses</a></div>
+</div></div>
+</section>
+
+<section id="coding" class="section">
+<div class="section-head"><div><span class="eyebrow">Independent coding as a service</span><h2>Price → hours → skill → project</h2><p class="muted">An interactive scope estimator. Only the existing general $65 private lesson is a current checkout item; discounted packages below are proposals, not active products.</p></div><a class="btn" href="../learning/book/">Existing $65 lesson checkout ↗</a></div>
+<div class="grid">
+<div class="panel">
+<label class="field"><span>What will the learner build or practice?</span><select id="coding-skill">
+<option value="scratch">Creative coding &amp; Scratch · original game</option>
+<option value="python">Python fundamentals · data application</option>
+<option value="web">Web &amp; mobile app · published prototype</option>
+<option value="robotics">Robotics · sensor / movement demo</option>
+<option value="ai">AI literacy &amp; applied AI · responsible prototype</option>
+<option value="games">Game development · playable game</option>
+<option value="sports">Sports analytics · performance dashboard</option>
+<option value="apcs">AP Computer Science · practice and portfolio</option>
+<option value="cyber">Cybersecurity foundations · safe lab</option>
+<option value="agents">Advanced CS / AI agents · evaluated workflow</option>
+</select></label>
+<label class="field"><span>Coaching purchase scenario</span><select id="coding-pack">
+<option value="1">One existing general 60-min coding lesson · $65</option>
+<option value="5">Proposed 5-hour package · $60/hour</option>
+<option value="10" selected>Proposed 10-hour package · $55/hour</option>
+<option value="20">Proposed 20-hour package · $50/hour</option>
+</select></label>
+<div class="cols">
+<label class="field"><span>Hours coached per week</span><input id="weekly-hours" type="number" min=".5" max="40" step=".5" value="2"></label>
+<label class="field"><span>Self-directed hours (your own estimate)</span><input id="self-hours" type="number" min="0" max="500" step="1" value="18"></label>
+</div>
+<label class="field"><span>Optional value of personal time per hour (scenario, not income)</span><input id="time-value" type="number" min="0" max="500" step="5" value="0"></label>
+<p class="note">No observed evidence supports any universal "hours saved" figure. Enter your own comparison baseline. More time coached does not necessarily reduce total study time; skill development may require more practice, not less.</p>
+</div>
+<div class="panel alt"><span class="eyebrow">Your learning economics</span><div class="price" id="coding-total">$550</div>
+<p class="muted" id="coding-price-notice">Proposed ten-hour package · not available for immediate purchase.</p>
+<div class="grid">
+<div class="stat"><small>Effective coaching rate</small><strong id="coding-rate">$55/h</strong></div><div class="stat"><small>Planned elapsed time</small><strong id="coding-weeks">5 weeks</strong></div>
+<div class="stat"><small>Assumed difference in hours</small><strong id="saved-hours">8h</strong></div><div class="stat"><small>Assumed time-equivalent value</small><strong id="saved-value">$0</strong></div>
+</div>
+<hr>
+<h3 id="coding-outcome">Potential milestone: original Python project</h3><p id="coding-milestones" class="muted"></p>
+<p class="tiny" id="coding-calc-note">These are hypothetical scenarios, not validated learning outcomes, wages, admissions, scholarships or financial returns.</p>
+<div class="actions"><a class="btn primary" href="../learning/book/">Request an available coding coach ↗</a><button class="btn" id="copy-plan" type="button">Copy my plan</button></div>
+<div class="tiny" id="copy-status" role="status"></div>
+</div>
+</div>
+</section>
+
+<section id="combined" class="section">
+<div class="section-head"><div><span class="eyebrow">Independent offerings · side-by-side scenario</span><h2>Combine your learning budget</h2><p class="muted">One academic tuition option and one proposed coding plan, transparently added—not a USPA/ APERTURE bundle or tuition discount.</p></div></div>
+<div class="grid three">
+<div class="stat"><small>USPA listed tuition + fee</small><strong id="sum-uspa">$17,190</strong></div>
+<div class="stat"><small>APERTURE coding scenario</small><strong id="sum-coding">$550</strong></div>
+<div class="stat"><small>Combined estimated outlay</small><strong id="sum-both">$17,740</strong></div>
+</div>
+<p class="tiny">Academic tuition is billed by USPA; coding services are independent. Do not assume curriculum integration, credit recognition, enrollment, financial aid, admission, or combined payment checkout. Coding package rates beyond the single lesson are not live prices.</p>
+</section>
+
+<section id="impact" class="section">
+<div class="section-head"><div><span class="eyebrow">Evidence over invented testimonials</span><h2>Student achievement library</h2><p class="muted">A scalable, privacy-conscious archive for 100+ real project stories, with proof, consent and review gates. We do not publish invented experiences or an unverified list of former students.</p></div><span class="pill warning">Student attribution requires permission</span></div>
+<div class="story-grid">
+<article class="story"><span class="pill">Independently documented public award</span><strong>Tvisha Choubey — Happy Hub</strong><p>Public Congressional App Challenge records identify Tvisha as the 2022 California 15th District winner. Happy Hub explores wellbeing and mood-reflection tools. This verifies the achievement, <b>not</b> APERTURE coaching, permission for a personal endorsement, or a current partnership.</p><p class="source"><a href="https://www.congressionalappchallenge.us/22-ca15/" target="_blank" rel="noopener noreferrer">Official competition record ↗</a></p></article>
+<article class="story"><span class="pill warning">Unverified founder-reported anecdote</span><strong>Biology-learning app · identity withheld</strong><p>The founder has mentioned a student-built biology app. Project details, coaching connection, attribution, actual results and publication permission still require evidence. The learner's name is intentionally withheld until verified consent.</p><p class="source">Editorial state: draft intake, not a public testimonial.</p></article>
+</div>
+<div class="grid" style="margin-top:17px">
+<div class="panel">
+<span class="eyebrow">100+ stories · evidence-first ingestion</span><h3>Build the archive from real projects</h3>
+<p class="muted">This browser-only tool can stage hundreds of anonymized records from CSV. Nothing is uploaded or saved to a server. A record only enters the review-approved list when all consent and source fields are supplied; each still requires human editorial verification before publication.</p>
+<div class="cols">
+<div class="stat"><small>Real stories staged this session</small><strong id="import-count">0</strong></div>
+<div class="stat"><small>Review-ready candidates</small><strong id="review-count">0</strong></div>
+</div>
+<label class="field"><span>Load an anonymized, permission-screened CSV (on this device only)</span><input id="csv-file" type="file" accept=".csv,text/csv"></label>
+<p class="tiny">Column names: alias, project, skill, outcome, source_url, consent. Use initials or approved pseudonyms; do not upload full names, contact details, schools, health data, ages, or other child-identifying information. "consent" must be yes, and must represent documented permission to publish.</p>
+<div class="actions"><button class="btn" id="template" type="button">Get 125-row intake template</button><button class="btn" id="approved-export" type="button">Export review-ready JSON</button></div>
+<p class="tiny">Template entries are blank intake slots, <strong>not</strong> actual student stories or impact claims. Downloaded JSON is a review artifact, not an automatic website publication.</p>
+<div id="import-status" class="tiny" role="status"></div>
+</div>
+<div class="panel alt">
+<span class="eyebrow">Private editorial preview</span><h3>Review before any story goes live</h3>
+<label class="field"><span>Filter staged stories</span><select id="story-filter"><option value="all">All records</option><option value="review">Consent + source provided</option><option value="draft">Needs evidence/consent</option></select></label>
+<label class="field"><span>Find a skill or project</span><input id="story-search" type="search" placeholder="Python, robotics, apps…" autocomplete="off"></label>
+<div id="story-list" aria-live="polite"><p class="tiny">No private stories have been imported.</p></div>
+</div>
+</div>
+<p class="note">The founder reports having worked with 500+ learners across earlier coding education roles. That aggregate is not 500 verified published testimonials. Previously employed schools and their networks do not endorse or own this independent APERTURE offering; do not transfer their private student records.</p>
+</section>
+</main>
+<footer><strong>APERTURE ∞</strong> · Academic comparisons, coding economics, and authentic student accomplishments.<br>
+USPA rates: <a href="https://gouspa.org/truth-in-tuition/">official tuition</a> and <a href="https://gouspa.org/individual-course-offerings/">individual courses</a>. Public student award: <a href="https://www.congressionalappchallenge.us/22-ca15/">Congressional App Challenge</a>. APERTURE existing service: <a href="../learning/book/">private coding lesson</a>.<br>
+All amounts in USD. Final admissions, schedules, terms, payment options, program eligibility and prices must be confirmed with the actual provider. Scenario estimates are not promises of completion, learning time saved, economic returns or admission.
+</footer>
+<script>
+(function(){
+'use strict';
+const $=(id)=>document.getElementById(id);
+const money=(n)=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+const number=(id,min,max,def)=>{const x=Number($(id).value);return Number.isFinite(x)?Math.min(max,Math.max(min,x)):def};
+const PROGRAMS={middle:{name:'Middle school · grades 6–8',year:17140,semester:9430,fee:50},high:{name:'High school · grades 9–12',year:19490,semester:10540,fee:50}};
+const SKILLS={
+scratch:{label:'Scratch / creative coding',outcome:'Playable original game prototype',milestone:'Plan the play loop, implement controls and scoring, then test with feedback.'},
+python:{label:'Python foundations',outcome:'Small Python application with tests',milestone:'Understand variables and functions, build a personal project, debug errors, and explain the code.'},
+web:{label:'Web & mobile app',outcome:'Accessible interactive app prototype',milestone:'Sketch screens, build responsive interactions, handle basic input, test, then publish when ready.'},
+robotics:{label:'Robotics',outcome:'Demonstrable robot or simulator behavior',milestone:'Design a control sequence, test sensors or virtual hardware, improve reliability and document results.'},
+ai:{label:'Applied AI',outcome:'Responsible AI prototype',milestone:'Identify a human problem, evaluate a dataset and model, document risk and demonstrate limitations.'},
+games:{label:'Game development',outcome:'Playable original game',milestone:'Implement a core mechanic, iterate on rules and UI, test with players, and fix identified issues.'},
+sports:{label:'Sports data science',outcome:'Athlete-development dashboard',milestone:'Choose measured metrics, chart data, test assumptions, and distinguish estimates from observed performance.'},
+apcs:{label:'AP Computer Science preparation',outcome:'Structured coding practice portfolio',milestone:'Complete timed algorithm exercises, work with class design, and review mistakes for improvement.'},
+cyber:{label:'Defensive cybersecurity',outcome:'Legal, isolated security lab report',milestone:'Learn threat modeling, secure basics and safe auditing in an authorized sandbox.'},
+agents:{label:'Advanced AI agents',outcome:'Tested agent workflow with evaluation ledger',milestone:'Specify the task, build deterministic checks, implement an approval gate, test failures, and measure outcomes.'}
+};
+let academic={tuition:17140,fee:50,total:17190}, coding={hours:10,rate:55,total:550,saved:8,weeks:5,skill:SKILLS.python}, stories=[];
+function uspa(){
+ const id=$('uspa-program').value,term=$('uspa-term').value,isCourse=id==='course'||id==='summer';
+ $('academic-length-block').hidden=isCourse;$('academic-coach-block').hidden=!isCourse;
+ let tuition,fee,period,details;
+ if(isCourse){
+  const credits=Math.round(number('uspa-credits',1,10,1)),unit=$('uspa-coach').value==='yes'?3250:1650;
+  tuition=unit*credits;fee=0;period=credits+' course credit'+(credits===1?'':'s');
+  details=credits+' credit(s) modeled at '+money(unit)+' each. USPA allows at most two individual courses concurrently. Confirm additional fees and schedules with admissions.';
+ }else{
+  let p=PROGRAMS[id];tuition=term==='year'?p.year:term==='semester'?p.semester:p.semester*2;
+  fee=p.fee;period=term==='year'?'Year':term==='semester'?'Semester':'2 semesters';
+  details=p.name+' at '+money(p.year)+' annual tuition or '+money(p.semester)+' per semester. Two separately billed semesters total '+money(p.semester*2)+', before the displayed application fee.';
+ }
+ academic={tuition,fee,total:tuition+fee,period};
+ $('academic-tuition').textContent=money(tuition);$('academic-fee').textContent=isCourse?'Not listed':money(fee);
+ $('academic-total').textContent=money(academic.total);$('academic-period').textContent=period;
+ $('academic-weekly').textContent=money(tuition/number('uspa-weeks',1,52,36));
+ $('academic-details').textContent=details;
+ $('academic-caption').textContent=isCourse?'USPA does not list an individual-course application fee on this source page. The estimate excludes any unlisted charges.':'USPA lists a $50 application fee. Tuition and fee are separate; admissions controls actual billing.';
+ updateCombined();
+}
+function plan(){
+ const k=$('coding-skill').value,p=$('coding-pack').value,hours=Number(p);
+ const rate=({1:65,5:60,10:55,20:50})[p],weekly=number('weekly-hours',0.5,40,2),self=number('self-hours',0,500,18),value=number('time-value',0,500,0);
+ const saved=Math.max(0,self-hours),duration=hours/weekly,skill=SKILLS[k];
+ coding={hours,rate,total:hours*rate,saved,weeks:duration,skill};
+ $('coding-total').textContent=money(coding.total);$('coding-rate').textContent=money(rate)+'/h';$('coding-weeks').textContent=duration.toLocaleString('en-US',{maximumFractionDigits:1})+' weeks';
+ $('saved-hours').textContent=saved+'h';$('saved-value').textContent=money(saved*value);
+ $('coding-price-notice').textContent=p==='1'?'Existing one-time general coding lesson; scope and instructor availability must be confirmed.':'Proposed package, not active or authorized as a checkout product.';
+ $('coding-outcome').textContent='Potential milestone: '+skill.outcome;
+ $('coding-milestones').textContent=skill.milestone+' This is a coaching plan target, not a guaranteed outcome.';
+ $('coding-calc-note').textContent='Baseline assumed '+self+' self-directed hours vs '+hours+' coached hours. Difference '+saved+' hours is user-entered comparison, NOT demonstrated savings. '+money(saved*value)+' is a hypothetical non-cash time equivalent at '+money(value)+'/hour; no income or return is predicted.';
+ updateCombined();
+}
+function updateCombined(){
+ if(!academic||!coding)return;
+ $('sum-uspa').textContent=money(academic.total);$('sum-coding').textContent=money(coding.total);$('sum-both').textContent=money(academic.total+coding.total);
+}
+function parseCSV(raw){
+ const rows=[];let arr=[],field='',quoted=false;
+ for(let i=0;i<raw.length;i++){const c=raw[i];
+  if(quoted){if(c==='"'&&raw[i+1]==='"'){field+='"';i++}else if(c==='"'){quoted=false}else field+=c}
+  else if(c==='"'){quoted=true}else if(c===','){arr.push(field);field=''}else if(c==='\n'){arr.push(field.replace(/\r$/,''));rows.push(arr);arr=[];field=''}else field+=c}
+ if(quoted)throw new Error('Unclosed quoted CSV field');
+ if(field||arr.length){arr.push(field.replace(/\r$/,''));rows.push(arr)}
+ return rows;
+}
+function permittedSource(url){try{const u=new URL(url);return u.protocol==='https:'?u.href:''}catch(e){return ''}}
+function reviewReady(r){return r.consent&&!!r.source&&!!r.project}
+function drawStories(){
+ const count=stories.length,ready=stories.filter(reviewReady).length;
+ $('import-count').textContent=count.toLocaleString();$('review-count').textContent=ready.toLocaleString();
+ const query=$('story-search').value.trim().toLocaleLowerCase(),filter=$('story-filter').value;
+ const filtered=stories.filter(r=>(filter==='all'||(filter==='review'&&reviewReady(r))||(filter==='draft'&&!reviewReady(r)))&&(r.project+' '+r.skill+' '+r.outcome).toLocaleLowerCase().includes(query));
+ const list=$('story-list');list.replaceChildren();
+ if(!filtered.length){list.append(Object.assign(document.createElement('p'),{className:'tiny',textContent:'No matching staged records. No stories are being published.'}));return}
+ filtered.slice(0,50).forEach(r=>{
+ const div=document.createElement('div');div.className='entry';
+ const b=document.createElement('b');b.textContent=r.project||'Untitled student project';div.append(b);
+ const meta=document.createElement('span');meta.textContent=(r.skill||'Uncategorized')+' · '+(reviewReady(r)?'Consent + source supplied; awaiting human editorial verification':'Draft — source or permission missing');div.append(meta);
+ if(r.outcome){const p=document.createElement('span');p.textContent=r.outcome.slice(0,500);div.append(p)}
+ list.append(div);
+ });
+ if(filtered.length>50){const p=document.createElement('p');p.className='tiny';p.textContent='Showing first 50 of '+filtered.length+' matching rows. Refine the search to inspect more.';list.append(p)}
+}
+function download(filename,text,type){
+ const blob=new Blob([text],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=filename;a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function template(){
+ let lines=['alias,project,skill,outcome,source_url,consent'];
+ for(let i=0;i<125;i++)lines.push(',,,,,');
+ download('aperture-student-story-intake-125-blank-rows.csv',lines.join('\r\n')+'\r\n','text/csv;charset=utf-8');
+ $('import-status').textContent='Created 125 empty intake rows. None is a claimed student success story.';
+}
+async function loadCSV(event){
+ const file=event.target.files?.[0];if(!file)return;
+ if(file.size>1024*1024){$('import-status').textContent='File too large. Maximum 1 MB for safe browser review.';return}
+ try{
+ const arr=parseCSV(await file.text());if(arr.length<2)throw new Error('No data rows.');
+ const headers=arr[0].map(x=>x.trim().toLowerCase()),required=['alias','project','skill','outcome','source_url','consent'];
+ if(required.some(x=>!headers.includes(x)))throw new Error('Missing required headers: '+required.join(', '));
+ let rows=arr.slice(1).filter(row=>row.some(x=>x.trim())).slice(0,2000);
+ stories=rows.map(row=>{
+  let get=(key)=>String(row[headers.indexOf(key)]||'').trim().slice(0,700);
+  return {alias:get('alias'),project:get('project'),skill:get('skill'),outcome:get('outcome'),source:permittedSource(get('source_url')),consent:get('consent').toLowerCase()==='yes'};
+ });
+ $('import-status').textContent=stories.length+' records staged locally. '+stories.filter(reviewReady).length+' candidates have consent=yes and HTTPS source. Neither is automatically verified or published. Discard the page to discard this session.';
+ drawStories();
+ }catch(e){$('import-status').textContent='Cannot import CSV: '+e.message}
+ finally{event.target.value=''}
+}
+function exportApproved(){
+ const rows=stories.filter(reviewReady).map(r=>({alias:r.alias,project:r.project,skill:r.skill,outcome:r.outcome,source_url:r.source,requires_human_review:true,published:false}));
+ download('aperture-student-stories-review-only.json',JSON.stringify({warning:'NOT PUBLISHED. Verify parental/student consent, evidence and attribution before any release.',records:rows},null,2),'application/json');
+ $('import-status').textContent='Exported '+rows.length+' source-and-consent candidates for human review. No website content changed.';
+}
+async function copyPlan(){
+ const text='APERTURE learning scenario: '+coding.skill.label+'\nProposed coaching: '+coding.hours+' hours at '+money(coding.rate)+'/hour; total '+money(coding.total)+'\nEstimated calendar duration: '+coding.weeks.toFixed(1)+' weeks\nYour assumed baseline: '+number('self-hours',0,500,18)+' self-directed hours; modeled difference '+coding.saved+' hours (not measured or guaranteed).\nAcademic alternative: USPA '+academic.period+' tuition '+money(academic.tuition)+'; displayed fee '+money(academic.fee)+'\nCombined hypothetical total '+money(academic.total+coding.total)+'; offers are independent. Only the existing $65 general lesson currently has a checkout. Confirm all prices and availability with providers.';
+ try{if(!navigator.clipboard)throw new Error('Clipboard API not available');await navigator.clipboard.writeText(text);$('copy-status').textContent='Plan copied. No booking or payment was made.'}catch(e){$('copy-status').textContent='Clipboard unavailable. Try from a secure HTTPS browser tab.'}
+}
+['uspa-program','uspa-term','uspa-coach','uspa-credits','uspa-weeks'].forEach(k=>$(k).addEventListener('input',uspa));
+['coding-skill','coding-pack','weekly-hours','self-hours','time-value'].forEach(k=>$(k).addEventListener('input',plan));
+$('copy-plan').addEventListener('click',copyPlan);$('template').addEventListener('click',template);$('approved-export').addEventListener('click',exportApproved);
+$('csv-file').addEventListener('change',loadCSV);$('story-filter').addEventListener('change',drawStories);$('story-search').addEventListener('input',drawStories);
+uspa();plan();
+})();
+</script>
+</body></html>
