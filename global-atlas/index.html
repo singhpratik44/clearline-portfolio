@@ -95,6 +95,7 @@ footer a{color:#b4e6ed}
 <p class="hint">Zoom into a city, then load public places. Only a user-triggered search contacts OpenStreetMap services. Records may be incomplete and are not validated partners or active opportunities.</p>
 <button class="action primary" id="load" type="button" style="width:100%">Find places in this map view</button>
 <div style="display:flex;justify-content:space-between;align-items:center;margin-top:15px"><p class="label" style="margin:0">Map results</p><span class="hint" id="count">0 loaded</span></div>
+<div id="scenario-report" class="system hidden" aria-live="polite" style="margin-bottom:12px"></div>
 <div id="result-list" aria-live="polite"><p class="hint">Select a region and load public places to populate this list.</p></div>
 </section>
 <section id="panel-pathways" class="hidden">
@@ -143,7 +144,7 @@ footer a{color:#b4e6ed}
 (function(){
 'use strict';
 var colors={education:'#8ccaff',sports:'#ffcb8b',coding:'#ad98ff',libraries:'#89e3bb'};
-var places=[], markers=[], chosen=null, globe=null, mode='2d', loading=false, scenario=false;
+var places=[], markers=[], scenarioLines=[], chosen=null, globe=null, mode='2d', loading=false, scenario=false;
 var $=function(id){return document.getElementById(id)};
 var mapEl=$('map'), globeEl=$('globe'), list=$('result-list');
 function message(t){$('mapstatus').textContent=t}
@@ -165,7 +166,24 @@ function extract(el){
  if(!t.name||!t.name.trim())return null;
  return {id:el.type+'/'+el.id,type:el.type,oid:el.id,name:t.name.trim(),lat:lat,lng:lng,kind:categorize(t),website:safeUrl(t.website||t['contact:website']||''),tags:t};
 }
-function clearMarks(){markers.forEach(function(x){x.remove()});markers=[]}
+function clearMarks(){markers.forEach(function(x){x.remove()});markers=[];scenarioLines.forEach(function(x){x.remove()});scenarioLines=[]}
+function kilometres(a,b){var rad=Math.PI/180,dLat=(b.lat-a.lat)*rad,dLng=(b.lng-a.lng)*rad,x=Math.sin(dLat/2)**2+Math.cos(a.lat*rad)*Math.cos(b.lat*rad)*Math.sin(dLng/2)**2;return 12742*Math.asin(Math.min(1,Math.sqrt(x)))}
+function scenarioAnalysis(data){
+ var report=$('scenario-report');report.classList.toggle('hidden',!scenario);
+ if(!scenario)return;
+ var schools=data.filter(function(p){return p.kind==='education'}).slice(0,100);
+ var peers=data.filter(function(p){return p.kind==='sports'||p.kind==='coding'}).slice(0,100);
+ var pairs=[];
+ schools.forEach(function(a){peers.forEach(function(b){var km=kilometres(a,b);if(km<=5)pairs.push({a:a,b:b,km:km})})});
+ pairs.sort(function(a,b){return a.km-b.km});
+ var used=new Set(),unique=[];
+ pairs.forEach(function(x){if(unique.length<12&&!used.has(x.a.id+'|'+x.b.id)){used.add(x.a.id+'|'+x.b.id);unique.push(x)}});
+ unique.forEach(function(p){scenarioLines.push(L.polyline([[p.a.lat,p.a.lng],[p.b.lat,p.b.lng]],{color:'#b2a2ff',dashArray:'5 8',weight:2,opacity:.75,interactive:false}).addTo(map))});
+ report.replaceChildren();report.append(create('strong','Hypothetical proximity analysis'));
+ report.append(create('p',schools.length+' education sites and '+peers.length+' sports/coding sites inspected. '+unique.length+' nearby candidate pairings visualized within 5 km. These are geographic possibilities, NOT relationships or forecasts of conversion.'));
+ if(unique.length){var nearest=unique[0];report.append(create('p','Closest example: '+nearest.a.name+' ↔ '+nearest.b.name+' ('+nearest.km.toFixed(1)+' km).'))}
+ else report.append(create('p','No nearby cross-category pairs in the loaded sample. Zoom or select other layers.'));
+}
 function showDetail(p){
  chosen=p;$('detail').style.display='block';$('detail-type').textContent=p.kind.toUpperCase();
  $('detail-name').textContent=p.name;
@@ -191,7 +209,7 @@ function draw(){
  var icon=L.divIcon({className:'',html:'<div class="pin" style="background:'+colors[p.kind]+'"></div>',iconSize:[16,16],iconAnchor:[8,8]});
  var m=L.marker([p.lat,p.lng],{icon:icon,title:p.name}).addTo(map);m.on('click',function(){showDetail(p)});markers.push(m)
  });
- renderList();
+ renderList();scenarioAnalysis(data);
  if(globe){globe.pointsData(data.map(function(p){return {lat:p.lat,lng:p.lng,color:colors[p.kind],p:p}}))}
  $('viewport-status').textContent=data.length+' public places in loaded results · '+(scenario?'hypothetical scenario active':'no partnership assertions');
 }
@@ -272,7 +290,7 @@ document.querySelectorAll('#regions [data-lat]').forEach(function(btn){btn.oncli
 document.querySelectorAll('input[data-layer]').forEach(function(el){el.onchange=draw});
 $('load').onclick=fetchPlaces;$('search-form').onsubmit=geosearch;$('twoD').onclick=function(){switchMode('2d')};$('threeD').onclick=function(){switchMode('3d')};
 $('world').onclick=function(){switchMode('2d');map.setView([25,-20],2);message('World overview. Zoom to a specific city to load public place records.')};
-$('scenario').onclick=function(){scenario=!scenario;this.setAttribute('aria-pressed',String(scenario));draw();message(scenario?'HYPOTHETICAL MODE: use this view to plan potential network coverage. No actual affiliations, commitments or outreach have been created.':'Returned to public directory mode. No affiliations are asserted.')};
+$('scenario').onclick=function(){scenario=!scenario;this.setAttribute('aria-pressed',String(scenario));draw();message(scenario?'HYPOTHETICAL MODE: purple dashed lines connect nearby education and sports/coding records within 5 km. No actual partnerships, commitments or outreach have been created.':'Returned to public directory mode. No affiliations are asserted.')};
 $('close').onclick=function(){$('detail').style.display='none';chosen=null};$('intro-copy').onclick=copyIntro;$('export').onclick=exportCsv;
 window.addEventListener('resize',function(){if(globe&&mode==='3d')globe.width(globeEl.clientWidth).height(globeEl.clientHeight)});
 })();
