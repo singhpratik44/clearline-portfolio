@@ -66,7 +66,7 @@ jobs:
         run: |
           mkdir -p _site
           cp *.html *.js sitemap.xml _site/
-          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday _site/
+          cp -R assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday shop sprint enrollment-sprint _site/
           mkdir -p _site/research
           cp research/representation.mjs _site/research/
           mkdir -p _site/lab _site/src
