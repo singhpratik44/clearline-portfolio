@@ -12,6 +12,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test protected project database lifecycle
+        run: python3 -m unittest discover -s project-control -p 'test_*.py' -v
       - name: Validate imported project registry and DAG
         run: node project-control/worker.mjs
       - name: Archive execution evidence
