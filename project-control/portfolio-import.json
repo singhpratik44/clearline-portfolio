@@ -1,0 +1,422 @@
+{
+  "schema": "aperture.project-registry.v1",
+  "importedAt": "2026-11-14",
+  "origin": "APERTURE public homepage (23 visible project cards)",
+  "caveat": "Homepage summaries imported; not a full per-project code or browser audit. Paths are candidate paths and must be verified before linking.",
+  "projects": [
+    {
+      "id": "portfolio-01",
+      "name": "A Quiet Journey",
+      "domain": "Reflection",
+      "description": "Private prayer and reflection; five-minute, seven-day and long-horizon paths",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "reflection.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-02",
+      "name": "APERTURE Gift Lab",
+      "domain": "Education",
+      "description": "Printable digital gift activities and Stripe storefront",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "gift-lab/",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-03",
+      "name": "Mission Operations Lab",
+      "domain": "Systems",
+      "description": "Deterministic operations scenarios, approvals and evidence",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "mission-operations.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-04",
+      "name": "Civilization Lab",
+      "domain": "Systems",
+      "description": "Dependencies, enrollment scenarios and decision preflight",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "civilization-lab.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-05",
+      "name": "Unified Command",
+      "domain": "Systems",
+      "description": "Decision, execution and oversight concepts",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "aperture-unified-command.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-06",
+      "name": "Decision Universe",
+      "domain": "Research",
+      "description": "Deterministic consequences of changed assumptions",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "interactive-decision-universe.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-07",
+      "name": "APERTURE Sports Career OS",
+      "domain": "Sports",
+      "description": "Coaching, scouting, 90-day pathways and practice architect",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "sports-os/",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-08",
+      "name": "APERTURE Arena",
+      "domain": "Sports",
+      "description": "Interactive basketball tactics, film and simulated season",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "basketball-os.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-09",
+      "name": "Coaching Journey",
+      "domain": "Sports",
+      "description": "Practice planning and people-centered leadership",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-10",
+      "name": "Sports & Media Intelligence",
+      "domain": "Sports",
+      "description": "Basketball storytelling and audience growth research",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-11",
+      "name": "Network Governance",
+      "domain": "Operations",
+      "description": "Decision rights, risk controls and institutional governance",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "governance.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-12",
+      "name": "Unit Defense",
+      "domain": "Operations",
+      "description": "Franchise-unit operational risk monitoring",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-13",
+      "name": "AI Self-Review",
+      "domain": "Research",
+      "description": "AI governance and assurance patterns",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-14",
+      "name": "Enrollment Growth",
+      "domain": "Operations",
+      "description": "Multi-view enrollment and marketing simulation",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "enrollment.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-15",
+      "name": "District Partnership OS",
+      "domain": "Education",
+      "description": "Math adoption, educator trust and rollout evidence",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-16",
+      "name": "Jason Rules",
+      "domain": "Research",
+      "description": "Classical representation and verifiable computational rules",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "thinkverse-jason-rules.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-17",
+      "name": "Clearline Register",
+      "domain": "Operations",
+      "description": "Indexed operating systems and implementation records",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-18",
+      "name": "Experimental Decision Lab",
+      "domain": "Research",
+      "description": "Reversible experiments with fictional organizational state",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-19",
+      "name": "Implementation Record",
+      "domain": "Operations",
+      "description": "Delivery and operational change methodology",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-20",
+      "name": "Engage",
+      "domain": "Partnerships",
+      "description": "Institutional collaboration pathways",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "engage.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-21",
+      "name": "Work Together",
+      "domain": "Partnerships",
+      "description": "Professional operating architecture and collaboration",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-22",
+      "name": "Application Exhibit",
+      "domain": "Partnerships",
+      "description": "Job-specific operational work sample",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": null,
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    },
+    {
+      "id": "portfolio-23",
+      "name": "IP and Investment Model",
+      "domain": "Research",
+      "description": "Proposed canonical schema and IP model",
+      "source": "https://singhpratik44.github.io/clearline-portfolio/",
+      "path": "invest.html",
+      "verification": "homepage-listed; individual page not fully audited",
+      "stage": "imported",
+      "owner": "unassigned",
+      "dependencies": [],
+      "acceptance": [
+        "Review original page and source",
+        "Identify existing functionality vs concept",
+        "Define next measurable milestone"
+      ],
+      "approved": false
+    }
+  ]
+}
