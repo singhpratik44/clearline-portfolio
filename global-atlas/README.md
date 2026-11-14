@@ -38,3 +38,29 @@ No personal student data is present. Individual student/mentor points must never
 
 ## Deferred
 Not yet implemented: permissioned APERTURE organization database, verified partners, real introductions, live admissions, student accounts, governance-ledger/API connections, enterprise billing, true enrollment conversions, and predictive scenario simulations. These require separate authorization, integrations, testing and data governance. The current map's geographic pairing is a proximity exploration tool, not an outcome model.
+
+## Learning Economics extension (November 14, 2026)
+
+The same isolated branch adds `learning-economics/index.html` and connects it to the APERTURE homepage and atlas sidebar.
+
+### Official USPA prices (public source: https://gouspa.org/truth-in-tuition/)
+- Middle school grades 6–8: $17,140 full academic year; $9,430 one semester; $50 application fee.
+- High school grades 9–12: $19,490 full academic year; $10,540 one semester; $50 application fee.
+- Individual courses and summer/accelerated: $1,650 per credit/course; $3,250 with Learning Coach; up to 2 individual courses concurrently.
+- Application fee for individual courses is not listed on the cited tuition page; calculator does not invent one.
+- The only live APERTURE coding payment product evidenced in repository is the existing general $65 private coding and game-development lesson at `learning/book/`. Proposed bundle scenarios ($60/hr for 5 hours, $55/hr for 10, $50/hr for 20) are NOT live or separately purchasable until approved and connected.
+- A combined budget calculator is arithmetic only; no integration, enrollment or authorized partnership with USPA is asserted.
+- The user controls coaching hours, estimated self-directed baseline and optional hourly value-of-time. Difference is an input-driven assumption, NOT measured time saved or an earnings projection.
+
+### Success stories with responsible provenance
+- Public record: https://www.congressionalappchallenge.us/22-ca15/ identifies Tvisha Choubey as 2022 CA-15 winner for Happy Hub. Public award proven; connection to user's coaching is NOT independently proven and must not be asserted.
+- Founder-reported biology app project: identity withheld and anecdote kept in draft state until evidence and publication consent.
+- A local-only CSV interface accepts up to 2,000 records for review, includes a blank 125-row template (NOT 125 success claims), requires source URL + documented consent for review-ready candidates, and exports JSON explicitly marked unpublished. It does not store or upload student data.
+- Before releasing any named case study, confirm relevant student / guardian permission as appropriate, verify project artifacts and claims, and avoid reuse of any former-employer's confidential student records.
+
+### Additional testing before any merge
+- Test tuition selection across full year, semester, 2 semesters, individual and accelerated courses, and the Learning Coach toggle.
+- Test coding 1/5/10/20-hour scenarios, skill changes, hours baseline, optional value of time and combined totals.
+- Test CSV parser with quoted commas, malicious spreadsheet formulas, zero records, missing headers, large uploads and consent/source gating; confirm no server requests from user-imported story data.
+- Test links to official USPA pricing and the actual existing $65 checkout; ensure proposed bundles have no payment button.
+- Verify under-18 content approval and accessibility. Review all live external links.
