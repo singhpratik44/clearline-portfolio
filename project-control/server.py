@@ -91,11 +91,13 @@ class Handler(BaseHTTPRequestHandler):
    body=json.loads(self.rfile.read(size))
    if not isinstance(body,dict):return self.send(400,{"error":"invalid_payload"})
    with connect() as db:
+    if self.path=='/lifecycle':
+     from lifecycle import initialize
+     initialize(db)
     db.execute("BEGIN IMMEDIATE")
     try:
      if self.path=='/lifecycle':
-      from lifecycle import initialize,transition
-      initialize(db)
+      from lifecycle import transition
       pid=body.get('project_id');action=body.get('action');payload=body.get('payload',{})
       if not isinstance(pid,str) or not isinstance(action,str) or not isinstance(payload,dict):return self.abort(db,400,'invalid_request')
       try:event=transition(db,pid,action,payload)
