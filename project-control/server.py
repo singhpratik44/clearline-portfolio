@@ -5,6 +5,7 @@ Python stdlib only. Not exposed by static GitHub Pages.
 import os,json,sqlite3,hashlib,hmac,datetime,uuid
 from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from pathlib import Path
+
 ROOT=Path(__file__).resolve().parent
 DB=Path(os.environ.get("APERTURE_DB_PATH",str(ROOT/"private.sqlite3")))
 TOKEN=os.environ.get("APERTURE_ADMIN_TOKEN","")
@@ -65,8 +66,18 @@ class Handler(BaseHTTPRequestHandler):
   supplied=self.headers.get("Authorization","").removeprefix("Bearer ")
   return bool(TOKEN and len(TOKEN)>=32 and hmac.compare_digest(supplied,TOKEN))
  def do_GET(self):
+  if self.path=='/control-plane':
+   data=(ROOT/'index.html').read_bytes();self.send_response(200);self.send_header('Content-Type','text/html; charset=utf-8');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
+  if self.path=='/portfolio-import.json':
+   data=(ROOT/'portfolio-import.json').read_bytes();self.send_response(200);self.send_header('Content-Type','application/json');self.send_header('Content-Length',str(len(data)));self.end_headers();self.wfile.write(data);return
   if not self.authorized():return self.send(401,{"error":"unauthorized"})
   with connect() as db:
+   if self.path.startswith('/lifecycle/'):
+    from lifecycle import initialize,state
+    initialize(db)
+    pid=self.path.split('/')[-1]
+    try:return self.send(200,state(db,pid))
+    except ValueError:return self.send(404,{'error':'unknown_project'})
    if self.path=="/health":return self.send(200,{"status":"ready","storage":"sqlite"})
    if self.path=="/projects":return self.send(200,{"projects":[dict(zip(("id","name","domain","stage","source","version"),row)) for row in db.execute("SELECT id,name,domain,stage,source,version FROM projects ORDER BY domain,name")]})
    if self.path=="/ledger/verify":return self.send(200,verify(db))
@@ -82,6 +93,14 @@ class Handler(BaseHTTPRequestHandler):
    with connect() as db:
     db.execute("BEGIN IMMEDIATE")
     try:
+     if self.path=='/lifecycle':
+      from lifecycle import initialize,transition
+      initialize(db)
+      pid=body.get('project_id');action=body.get('action');payload=body.get('payload',{})
+      if not isinstance(pid,str) or not isinstance(action,str) or not isinstance(payload,dict):return self.abort(db,400,'invalid_request')
+      try:event=transition(db,pid,action,payload)
+      except ValueError as err:return self.abort(db,409,str(err))
+      db.commit();return self.send(201,event)
      if self.path=="/dependencies":
       pid,dep=body.get("project_id"),body.get("depends_on")
       if not isinstance(pid,str) or not isinstance(dep,str) or pid==dep or not db.execute("SELECT 1 FROM projects WHERE id=?",(pid,)).fetchone() or not db.execute("SELECT 1 FROM projects WHERE id=?",(dep,)).fetchone():return self.abort(db,400,"invalid_project")
