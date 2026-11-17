@@ -1,0 +1,21 @@
+{
+  "name": "APERTURE Enterprise Commerce",
+  "status": "preview",
+  "checkout_provider": "stripe",
+  "products": [
+    {"id":"coding-project","name":"Coding Project","price_usd":29,"mode":"payment","stripe_payment_link":""},
+    {"id":"basketball-pathway","name":"Basketball Pathway","price_usd":29,"mode":"payment","stripe_payment_link":""},
+    {"id":"studio-monthly","name":"APERTURE Monthly","price_usd":49,"mode":"subscription","stripe_payment_link":""},
+    {"id":"custom-project","name":"Custom Project Builder","price_usd":49,"mode":"payment","stripe_payment_link":""},
+    {"id":"school-pilot","name":"School Pilot","price_usd":5000,"mode":"invoice","requires_human_review":true},
+    {"id":"franchise","name":"Franchise Location License","price_usd":1500,"mode":"subscription","requires_human_review":true},
+    {"id":"sponsored-challenge","name":"Sponsored Challenge","price_usd":2500,"mode":"invoice","requires_human_review":true}
+  ],
+  "implementation_notes": [
+    "Populate Stripe Payment Links only after confirming the Stripe account and tax settings.",
+    "Use webhook-confirmed entitlements; never unlock paid access from a client-side success message.",
+    "Keep school, franchise and sponsored orders behind a human approval and contract gate.",
+    "Use separate preview, staging and production deployments.",
+    "Only the primary agent may merge or trigger production deployment."
+  ]
+}
