@@ -1,0 +1,23 @@
+name: APERTURE deployment contract (audit)
+on:
+  push:
+    branches:
+      - audit/render-deployment-drift-20261119
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Deployment configuration contract
+        run: node scripts/check-deployment-contract.mjs
+      - name: Homepage integrity tests
+        run: node --test tests/site-integrity.test.mjs
+      - name: Gift fulfillment authorization tests
+        run: node --test tests/gift-fulfillment.test.mjs
