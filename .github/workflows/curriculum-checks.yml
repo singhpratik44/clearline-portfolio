@@ -4,6 +4,9 @@ on:
     paths:
       - 'curriculum.html'
       - 'learning-lab.html'
+      - 'game-studio.html'
+      - 'build-ledger.json'
+      - 'tests/test_game_studio.py'
       - 'tests/test_learning_lab.py'
       - 'tests/learning-lab-browser.test.mjs'
       - '.github/workflows/curriculum-checks.yml'
@@ -24,7 +27,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Validate learning lab
-        run: python tests/test_learning_lab.py
+        run: |
+          python tests/test_learning_lab.py
+          python tests/test_game_studio.py
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
