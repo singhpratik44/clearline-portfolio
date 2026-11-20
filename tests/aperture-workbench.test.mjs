@@ -7,4 +7,4 @@ test('five modules are present',()=>{for(const name of ['Core Platform','Educati
 test('risk calculator enforces nonnegative budget and stop below entry',()=>{assert.match(html,/stop>=entry/);assert.match(html,/budget<0/);assert.match(html,/Math\.floor\(capital\/entry\)/)});
 test('governance blocks unfinished prerequisites',()=>{assert.match(html,/!t\.done&&!ready\(t\)/);assert.match(html,/x\.deps\.includes\(id\)&&x\.done/)});
 test('proposal-only agents and demo-only sales',()=>{assert.match(html,/no action executed/);assert.match(html,/no charge is made/)});
-test('escapes dynamic ledger and lesson content',()=>{assert.match(html,/function esc\(/);assert.match(html,/esc\(e\.detail\)/)});
+test('escapes dynamic ledger and lesson content',()=>{assert.match(html,/const esc=s=>/);assert.match(html,/esc\(e\.detail\)/)});
