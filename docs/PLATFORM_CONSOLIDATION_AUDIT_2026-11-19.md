@@ -22,6 +22,8 @@ All seven services below point at `singhpratik44/clearline-portfolio`.
 
 The core Render website's latest live commit (`4dcef4b`) predates the observed main head (`efff60f`). The live Render homepage displayed an older version with “12 ways to explore”; the GitHub Pages homepage displayed the newer directory with “13 ways to explore.” Both pages loaded in the browser. Treat Render as stale until its source SHA is refreshed and reviewed.
 
+GitHub compare shows the website deployment is 247 commits behind main across 127 changed files (+3,400/−120 lines). The gift delivery deployment is 168 commits behind main across 76 changed files (+2,114/−85 lines). The diff includes a changed homepage and fulfillment server, plus many new public pages and workflows. This is a broad release; use an isolated review and regression pass before refreshing either live service.
+
 The gift delivery service is live at https://aperture-gift-delivery.onrender.com, with automatic deployment disabled. Its active deployment (`4c145c1`) is from Nov 13. Render service metadata has no configured health check path, while repository `render.yaml` declares `/healthz`. The live `GET /healthz` returned `ok`. Direct invalid-session requests to `/api/redeem` and `/api/quiet-journal` were denied with invalid-session messages. No real checkout session was used.
 
 The Nov 13 gift-delivery build log reports 32 tests passed and startup smoke checks passed, including health, purchase-denial routes, and secret isolation checks. This is dated build evidence; it does not prove a paid customer journey works today. Recent Render logs queried since Nov 19 contained no app/request entries for the website or delivery service.
