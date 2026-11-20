@@ -1,0 +1,26 @@
+name: APERTURE curriculum checks
+on:
+  pull_request:
+    paths:
+      - 'curriculum.html'
+      - 'learning-lab.html'
+      - 'tests/test_learning_lab.py'
+      - '.github/workflows/curriculum-checks.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'curriculum.html'
+      - 'learning-lab.html'
+      - 'tests/test_learning_lab.py'
+jobs:
+  curriculum:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate learning lab
+        run: python tests/test_learning_lab.py
