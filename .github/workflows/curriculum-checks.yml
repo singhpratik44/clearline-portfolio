@@ -5,6 +5,7 @@ on:
       - 'curriculum.html'
       - 'learning-lab.html'
       - 'tests/test_learning_lab.py'
+      - 'tests/learning-lab-browser.test.mjs'
       - '.github/workflows/curriculum-checks.yml'
   push:
     branches: [main]
@@ -24,3 +25,12 @@ jobs:
           python-version: '3.12'
       - name: Validate learning lab
         run: python tests/test_learning_lab.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser test dependencies
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Test all lessons in Chromium
+        run: node --test tests/learning-lab-browser.test.mjs
