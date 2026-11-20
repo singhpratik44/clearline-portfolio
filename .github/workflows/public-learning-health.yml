@@ -1,0 +1,15 @@
+name: APERTURE public learning health
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 14 * * *'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check public homepage and learning routes
+        run: python3 scripts/verify-public-learning.py
