@@ -1,0 +1,54 @@
+{
+  "schema": 1,
+  "project": "APERTURE Education OS",
+  "releaseGate": "All required checks must pass before merge",
+  "agents": [
+    {
+      "id": "builder",
+      "role": "Feature delivery",
+      "checks": [
+        "game-studio.html exists",
+        "starter game can score"
+      ]
+    },
+    {
+      "id": "qa",
+      "role": "Browser regression",
+      "checks": [
+        "36 lessons",
+        "mobile rendering",
+        "game editor save/run"
+      ]
+    },
+    {
+      "id": "security",
+      "role": "Sandbox and privacy",
+      "checks": [
+        "iframe sandbox allows scripts only",
+        "no server-side student data"
+      ]
+    },
+    {
+      "id": "release",
+      "role": "Deployment verification",
+      "checks": [
+        "GitHub Actions success",
+        "Pages smoke test after deployment"
+      ]
+    }
+  ],
+  "builds": [
+    {
+      "id": "education-001",
+      "feature": "Curriculum lab",
+      "status": "review",
+      "evidence": "tests/test_learning_lab.py"
+    },
+    {
+      "id": "education-002",
+      "feature": "Browser game studio",
+      "status": "implemented-unverified",
+      "evidence": "game-studio.html"
+    }
+  ]
+}
