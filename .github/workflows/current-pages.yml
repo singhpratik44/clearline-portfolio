@@ -15,6 +15,9 @@ on:
       - 'prayer/**'
       - 'tests/revenue-sprint.test.mjs'
       - '.github/workflows/current-pages.yml'
+      - 'site.webmanifest'
+      - 'llms.txt'
+      - 'robots.txt'
   workflow_dispatch:
 permissions:
   contents: read
@@ -45,7 +48,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p _site
-          cp *.html *.js sitemap.xml _site/
+          cp *.html *.js sitemap.xml robots.txt site.webmanifest llms.txt _site/
           cp app.bundle.js _site/
           for dir in assets clearline career-os partnerships aperture learning prayer network-4d commercial-4d mission-control sports-os code-the-game coding gifts wellness holiday shop sprint experience own-the-room lab; do
             if test -d "$dir"; then cp -R "$dir" _site/; fi
