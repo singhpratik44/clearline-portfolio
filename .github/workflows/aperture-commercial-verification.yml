@@ -4,6 +4,7 @@ on:
     paths:
       - 'aperture/workbench/**'
       - 'aperture/commercialize/**'
+      - 'aperture/leads/**'
       - 'tests/aperture-*.test.mjs'
       - '.github/workflows/aperture-commercial-verification.yml'
   workflow_dispatch:
@@ -18,7 +19,7 @@ jobs:
         with:
           node-version: '22'
       - name: Run five-module and commercial tests
-        run: node --test tests/aperture-workbench.test.mjs tests/aperture-commercial.test.mjs
+        run: node --test tests/aperture-workbench.test.mjs tests/aperture-commercial.test.mjs tests/aperture-leads.test.mjs
       - name: Check no secret keys in public pages
         run: |
           if grep -En 'sk_live_|sk_test_' aperture/workbench/index.html aperture/commercialize/index.html; then
