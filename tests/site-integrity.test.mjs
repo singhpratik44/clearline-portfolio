@@ -21,10 +21,12 @@ test('standalone public pages have document structure, while shared-shell pages 
 test('homepage is a complete navigable index, not a missing bundle mount',()=>{
   const home=content('index.html');
   assert.doesNotMatch(home,/app\.bundle\.js/);
-  const projectCards=[...home.matchAll(/<article class="project"[^>]*>/g)];
-  assert.ok(projectCards.length >= 20, 'Sports Career OS must be listed in the project index');
-  assert.match(home,/href="sports-os\//);
-  const links=[...home.matchAll(/href="([^"]+)"/g)].map(x=>x[1]).filter(x=>!x.startsWith('#')&&!/^https?:|^mailto:/.test(x));
+  assert.match(home,/<main\b[^>]*id="main"/i,'Homepage must provide its main landmark');
+  assert.match(home,/class="flagship-directory"/,'Homepage must expose the portfolio directory');
+  assert.match(home,/href="#area-sports"/,'Directory must link to the sports section');
+  assert.match(home,/APERTURE Athlete Command Center/,'Sports destination must be identified in the homepage');
+  assert.match(home,/href="athlete-os\//,'Homepage must link to Athlete OS');
+  const links=[...home.matchAll(/href="([^"]+)"/g)].map(x=>x[1]).filter(x=>!x.startsWith('#')&&!/^https?:|^mailto:|^tel:|^javascript:/i.test(x));
   for(const link of links){const normalized=decodeURIComponent(link.split(/[?#]/)[0]);const dest=normalized.endsWith('/')?normalized+'index.html':normalized;assert.ok(fs.existsSync(path.join(root,dest)),'Missing homepage link: '+link)}
 });
 
