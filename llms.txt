@@ -1,0 +1,21 @@
+# APERTURE by Clearline
+
+> APERTURE is a public portfolio and commercial experience layer by Clearline Group LLC.
+
+## Start here
+
+- Homepage: https://singhpratik44.github.io/clearline-portfolio/
+- Business Workflow Sprint: https://singhpratik44.github.io/clearline-portfolio/sprint/
+- Coding and learning: https://singhpratik44.github.io/clearline-portfolio/learning/
+- Basketball and sports: https://singhpratik44.github.io/clearline-portfolio/basketball.html
+- Gifts and shop: https://singhpratik44.github.io/clearline-portfolio/shop/
+- Responsible innovation: https://singhpratik44.github.io/clearline-portfolio/civilization-lab.html
+- Contact: mailto:parry.s.2324@gmail.com
+
+## Commercial scope
+
+APERTURE offers educational pathways, private coding lessons, digital gifts, sports and coaching work samples, and scoped workflow design. Pricing and availability are shown on the relevant page and should be confirmed before payment.
+
+## Truth boundary
+
+Public pages may contain interactive prototypes, simulations, and illustrative scenarios. They do not by themselves represent deployed agents, customer results, employer affiliations, private integrations, or guaranteed outcomes.
