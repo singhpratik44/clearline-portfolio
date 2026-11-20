@@ -77,14 +77,29 @@ jobs:
                   if attempt==9: raise
                   time.sleep(7)
           PY
-      - name: Verify public learning routes after deployment
+      - name: Verify public learning routes after propagation
         run: |
           python3 - <<'PY'
-          import urllib.request
+          import time, urllib.request
           base='https://singhpratik44.github.io/clearline-portfolio/'
-          for path,marker in [('', 'APERTURE'),('curriculum.html','curriculum'),('learning-lab.html','id="course"'),('game-studio.html','id="preview"')]:
-              with urllib.request.urlopen(urllib.request.Request(base+path,headers={'Cache-Control':'no-cache'}),timeout=20) as response:
-                  page=response.read().decode('utf-8',errors='replace')
-                  assert response.status==200 and marker.lower() in page.lower() and 'APERTURE / ROUTE NOT FOUND' not in page,path
-              print('Verified:',base+path)
+          checks=[('', 'APERTURE'),('curriculum.html','curriculum'),('learning-lab.html','id="course"'),('game-studio.html','id="preview"')]
+          for attempt in range(15):
+              failures=[]
+              for path,marker in checks:
+                  try:
+                      request=urllib.request.Request(base+path,headers={'Cache-Control':'no-cache','User-Agent':'APERTURE-Pages-Release/1.0'})
+                      with urllib.request.urlopen(request,timeout=15) as response:
+                          page=response.read().decode('utf-8',errors='replace')
+                          assert response.status==200, f'HTTP {response.status}'
+                          assert marker.lower() in page.lower(), f'missing {marker}'
+                          assert 'APERTURE / ROUTE NOT FOUND' not in page, 'custom 404'
+                  except Exception as error:
+                      failures.append(f'{path or "home"}: {error}')
+              if not failures:
+                  print('All public learning routes verified')
+                  break
+              print(f'Propagation check {attempt+1}/15: ' + '; '.join(failures),flush=True)
+              if attempt==14:
+                  raise RuntimeError('Public learning routes still unavailable after propagation window')
+              time.sleep(12)
           PY
