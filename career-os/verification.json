@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-19T00:43:09+00:00",
+  "generated_at": "2026-11-20T00:53:12+00:00",
   "method": "Independent public ATS API and GitHub Pages checks; no private accounts accessed",
   "automation": "read-only; does not email, apply, or attest human approval",
   "summary": {
     "roles_checked": 7,
     "verified_for_review": 1,
-    "posting_blocked": 2,
+    "posting_blocked": 1,
     "needs_review": 5,
     "demo_not_confirmed": 0
   },
@@ -92,8 +92,8 @@
       "company": "Lemnis / Mainstay",
       "title": "Partnership Director",
       "posting": {
-        "state": "blocked",
-        "reason": "Employer's public Lever posting API no longer lists this requisition",
+        "state": "review",
+        "reason": "Lever posting API returned 502; not treated as closed",
         "url": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e"
       },
       "employer_needs": {
