@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>APERTURE Game Studio</title>
+<style>:root{font-family:system-ui,sans-serif;color:#153026;background:#f3f6f2}*{box-sizing:border-box}body{margin:0}header{background:#102922;color:white;padding:20px max(18px,calc((100vw - 1120px)/2))}header a{color:#e1f2dc}main{max-width:1120px;margin:auto;padding:20px}h1{margin:12px 0}p{line-height:1.5}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.panel{background:white;border:1px solid #d1ded4;border-radius:14px;padding:18px}textarea{width:100%;min-height:360px;font:14px/1.5 ui-monospace,monospace;tab-size:2;border:1px solid #9caf9d;border-radius:8px;padding:12px}iframe{width:100%;height:360px;border:2px solid #c6d6c8;border-radius:8px;background:white}button{border:0;border-radius:8px;background:#174b37;color:white;padding:11px 16px;cursor:pointer;margin:3px}button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid #ef9c20}button.secondary{background:#4b5d53}.status{padding:10px;background:#eaf3e8;border-radius:8px;margin-top:10px;white-space:pre-wrap}.muted{color:#476152}label{font-weight:700;display:block;margin:12px 0 5px}@media(max-width:760px){.grid{grid-template-columns:1fr}textarea{min-height:260px}}</style></head>
+<body><header><a href="./">APERTURE Home</a> · <a href="learning-lab.html">Learning Lab</a><h1>Game Studio</h1><p>Write JavaScript, run your game safely, and save a playable project on this device.</p></header>
+<main><section class="panel"><h2>Challenge: Score a basket</h2><p>Click the ball to score. Change the points per basket, background color, or add a timer. Press Run to test your changes.</p><p class="muted">Projects are stored in this browser only. Running code is isolated in a sandboxed frame; it cannot access your APERTURE account or browser storage.</p></section>
+<div class="grid"><section class="panel"><h2>Code editor</h2><label for="code">HTML, CSS and JavaScript</label><textarea id="code" spellcheck="false"></textarea><div><button id="run">Run game</button><button id="save">Save project</button><button id="export" class="secondary">Export HTML</button><button id="reset" class="secondary">Reset starter</button></div><div class="status" id="status" role="status" aria-live="polite">Ready to build.</div></section>
+<section class="panel"><h2>Live game preview</h2><iframe id="preview" title="Sandboxed game preview" sandbox="allow-scripts" referrerpolicy="no-referrer"></iframe><p class="muted">Run executes the editor content in an isolated frame. Only export projects you trust.</p></section></div></main>
+<script>
+(()=>{'use strict';
+const key='aperture-game-studio-v1';
+const starter=`<!doctype html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1"><style>
+body{font-family:system-ui;text-align:center;background:#e7f3ed;padding:24px}
+button{font-size:70px;border:0;background:transparent;cursor:pointer}
+</style></head><body><h1>Basketball Challenge</h1><p>Score: <strong id="score">0</strong></p>
+<button id="ball" aria-label="Shoot basketball">🏀</button>
+<scr${"ipt"}>
+let score=0;
+document.getElementById('ball').addEventListener('click',()=>{
+ score+=2;document.getElementById('score').textContent=score;
+});
+<\/script></body></html>`;
+const $=id=>document.getElementById(id),status=message=>$('status').textContent=message;
+try{$('code').value=localStorage.getItem(key)||starter}catch{$('code').value=starter}
+function run(){const frame=$('preview');frame.srcdoc=$('code').value;status('Game running in isolated preview.');}
+$('run').addEventListener('click',run);
+$('save').addEventListener('click',()=>{try{localStorage.setItem(key,$('code').value);status('Saved locally on this device.')}catch{status('Local saving unavailable. Export your project instead.')}});
+$('reset').addEventListener('click',()=>{if(confirm('Replace the editor with the starter game?')){$('code').value=starter;run();status('Starter restored. Save to keep it.')}});
+$('export').addEventListener('click',()=>{const blob=new Blob([$('code').value],{type:'text/html'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='aperture-game.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status('Project exported as HTML.')});
+run();
+})();
+</script></body></html>
