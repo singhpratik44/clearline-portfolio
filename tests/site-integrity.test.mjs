@@ -43,7 +43,7 @@ test('homepage search and filter script is valid JavaScript',()=>{
 });
 
 
-test('mission operations work sample is linked, syntactically valid and explicitly sandboxed',()=>{
+test('mission operations work sample is documented, syntactically valid and explicitly sandboxed',()=>{
  const page=content('mission-operations.html');
  const scripts=[...page.matchAll(/<script>([\s\S]*?)<\/script>/g)];
  assert.equal(scripts.length,1,'One self-contained app script');
@@ -51,6 +51,5 @@ test('mission operations work sample is linked, syntactically valid and explicit
  assert.match(page,/Simulation only/);
  assert.match(page,/URL\.createObjectURL/);
  assert.match(page,/if\(!feasible\(\)\)/);
- assert.match(content('index.html'),/href="mission-operations\.html"/);
- assert.match(content('assets/aperture-shell.js'),/mission-operations\.html/);
+ assert.match(content('README.md'),/\[Launch Mission Operations\]\(https:\/\/singhpratik44\.github\.io\/clearline-portfolio\/mission-operations\.html\)/);
 });
