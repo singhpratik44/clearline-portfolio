@@ -90,6 +90,12 @@
     const link=document.createElement("a");
     link.textContent=readingTools[i][0]; link.href=readingTools[i][1]; link.className="text-link";
     article.querySelector(".unit-actions").append(link);
+    if ([4,5,9,10].includes(i+1)) {
+      const worldLink=document.createElement("a");
+      worldLink.textContent="Build a branching world";
+      worldLink.href="worlds/index.html";
+      article.querySelector(".unit-actions").append(worldLink);
+    }
   }
   function restore(){state=selectedFromURL();paint(/^#unit-\d+$/.test(location.hash));}
   window.addEventListener("popstate",restore);

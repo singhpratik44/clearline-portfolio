@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#142338"><meta name="description" content="Invent a branching game, story, or simulation. Link scenes, experiment with rules, and share a playable world."><title>World Builder · APERTURE Project Academy</title><link rel="stylesheet" href="worlds.css"><script defer src="engine.js"></script><script defer src="starters.js"></script><script defer src="atlas.js"></script><script defer src="editor.js"></script></head>
+<body><a class="skip" href="#world-editor">Skip to workshop</a>
+<header class="top"><nav class="wrap"><a class="brand" href="../index.html"><i aria-hidden="true"></i> APERTURE</a><div><a href="../index.html">Project Academy</a><a href="../studio/index.html">My studio</a><a href="../facilitator/index.html#world-session">Teach this</a></div></nav></header>
+<main>
+<section id="shared" class="wrap shared" hidden aria-labelledby="shared-title"><a href="index.html">Open World Builder</a><p class="eyebrow">Player edition</p><h1 id="shared-title">Shared world</h1><p id="shared-summary"></p><div id="shared-player"></div></section>
+<div id="creator-page">
+<section class="hero"><div class="hero-inner wrap"><div><p class="eyebrow">Project Academy / World Builder</p><h1>Make a world<br>with <em>rules.</em></h1><p class="lead">What if a kite could borrow the wind? What if a city had just one cup of rain? Invent a choice, decide what it costs, and let someone play out the consequences.</p><a class="primary" href="#world-editor">Open my workshop</a></div>
+<section class="arcade" aria-labelledby="arcade-heading"><h2 id="arcade-heading">Try a world</h2><div id="arcade-picks" class="arcade-picks" role="group" aria-label="Example worlds"></div><div class="sample-cover" id="sample-cover"><p id="sample-kind" class="eyebrow"></p><h3 id="sample-name"></h3><p id="sample-desc"></p><button id="play-example" type="button">Play this world</button></div><div id="arcade-player" hidden></div></section></div></section>
+<div class="wrap workshop-wrap">
+<section id="world-editor" class="workbench" aria-labelledby="workbench-title">
+  <div class="workbench-bar">
+    <div><h2 id="workbench-title">My world workshop</h2><p>Pick a world to remix, or start with two scenes of your own.</p></div>
+    <div class="controls"><label>Starter world <select id="world-starter"></select></label><button type="button" id="load-world">Use starter</button></div>
+  </div>
+  <details class="world-atlas"><summary>Explore the scene map</summary><div id="scene-atlas"></div></details>
+  <div class="workbench-grid">
+    <aside class="scene-rail" aria-labelledby="map-heading">
+      <h3 id="map-heading">Scene map</h3>
+      <nav id="scene-list" class="scene-list" aria-label="Edit a scene"></nav>
+      <button type="button" id="add-scene">Add a scene</button>
+      <details class="world-settings"><summary>World settings</summary>
+        <label>World title<input id="world-title" maxlength="80"></label>
+        <label>What will the player do?<textarea id="world-description" maxlength="600" rows="3"></textarea></label>
+        <label>Thing to count<input id="world-resource" maxlength="40" placeholder="Seeds"></label>
+        <label>Starting amount<input type="number" id="world-initial" min="0" max="99" step="1"></label>
+        <label>Opening scene<select id="world-start"></select></label>
+      </details>
+    </aside>
+    <section class="scene-desk" aria-labelledby="desk-heading">
+      <h3 id="desk-heading">Edit scene</h3>
+      <label>Scene name<input id="scene-name" maxlength="80"></label>
+      <label>What does the player see?<textarea id="scene-text" rows="4" maxlength="1800"></textarea></label>
+      <label class="check-label"><input id="scene-ending" type="checkbox"> End the world here</label>
+      <div id="choice-section"><h4>Player choices</h4><p class="editor-note">Each choice leads to a scene. Use a rule to change what your player can do.</p>
+        <div id="choice-list"></div><button type="button" id="add-choice">Add a choice</button>
+      </div>
+      <button type="button" id="remove-scene" class="quiet">Remove this scene</button>
+      <details class="coach-panel"><summary>Ask a coach</summary><p id="coach-hint"></p><button id="next-hint" type="button">Get a project hint</button></details>
+    </section>
+    <aside class="play-desk" aria-labelledby="play-heading">
+      <h3 id="play-heading">Player preview</h3>
+      <button type="button" id="test-world">Play from the start</button>
+      <p id="preview-note" class="editor-note" role="status"></p>
+      <div id="world-player" class="world-player"></div>
+    </aside>
+  </div>
+  <div class="file-tools"><h3>Keep or share your world</h3><p>Give a friend the playable file. Give them an editable copy if you want them to remix it.</p>
+    <div class="controls"><button type="button" id="copy-world-link">Copy playable link</button><button type="button" id="export-game">Download playable game</button><button type="button" id="export-project">Download editable project</button><button type="button" id="import-project">Open project file</button><input id="world-file" type="file" accept=".json,application/json" hidden></div>
+    <p class="editor-note">Anyone with the link can read the game text. Leave out names and private details.</p><span id="share-link-status" role="status"></span>
+    <p id="world-save" class="studio-status"></p>
+    <p id="world-message" role="status" aria-live="polite"></p>
+  </div>
+</section>
+
+<details class="from-studio" id="studio-transfer"><summary>Continue a two-choice scene from Project Studio</summary><p>Bring the opening, both actions, and their outcomes into the workshop as three linked scenes. Your original stays in Project Studio.</p><button id="bring-studio" type="button">Bring in my Studio scene</button><p id="transfer-status" role="status"></p></details>
+</div></div></main>
+<footer><div class="wrap"><strong>APERTURE / World Builder</strong><a href="../index.html">Curriculum</a><a href="../offline-studio.zip" id="offline-link">Offline kit</a></div></footer>
+</body></html>
