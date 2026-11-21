@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gift-finder-gift-giver",
-  "version": "1.1.0",
-  "description": "Find thoughtful physical gift ideas and make shareable digital greetings.",
+  "version": "1.2.0",
+  "description": "Find a thoughtful gift, create a personal greeting link, or choose a free activity to make for someone.",
   "author": {
     "name": "Clearline",
     "url": "https://singhpratik44.github.io/clearline-portfolio/"
@@ -10,37 +10,36 @@
   "homepage": "https://aperture-gift-studio.onrender.com/",
   "repository": "https://github.com/singhpratik44/clearline-portfolio",
   "keywords": [
+    "gift maker",
     "gift finder",
-    "gift giver",
-    "gift ideas",
-    "birthday gifts",
-    "holiday gifts",
-    "Christmas gifts",
-    "personalized gifts",
-    "greeting cards"
+    "greeting card",
+    "thank you",
+    "birthday",
+    "printable",
+    "group card",
+    "personalized gift"
   ],
   "extensions": {
     "com.openai": {
       "interface": {
-        "displayName": "Gift Finder & Gift Giver",
-        "shortDescription": "Gift ideas and greetings",
-        "longDescription": "Find thoughtful physical gift ideas for birthdays, Christmas, holidays, anniversaries, thank-yous and other occasions. Describe the recipient, budget and interests to get three gift directions with reasons and indicative price ranges. You can also create a personalized interactive greeting with a shareable link that the recipient opens to reveal your message. The app does not show live inventory, quote retailer prices, sell physical goods, send messages automatically or process payments. Anyone holding a full greeting link can read its content.",
+        "displayName": "APERTURE Gift Maker",
+        "shortDescription": "Gift ideas and personal cards",
+        "longDescription": "Make a gift for a specific person. Describe an occasion, a budget and one thing they love to get three physical gift ideas with approximate prices. Create a personal greeting link that opens with a reveal, or use the included guide to choose an APERTURE group card, printable, map puzzle or coding activity. You choose who receives the finished gift and how to share it. Anyone with the complete greeting link can read its message.",
         "developerName": "Clearline",
-        "category": "Shopping",
+        "category": "Creativity",
         "capabilities": [
-          "Suggest physical gifts by recipient and budget",
-          "Create personalized shareable greetings",
-          "Prepare printable holiday thank-you postcards",
-          "Find digital gifts with catalog prices and listings"
+          "Suggest thoughtful physical gifts within a budget",
+          "Create a personal greeting link",
+          "Guide the sender to free themed printables, group cards and activities"
         ],
         "websiteURL": "https://aperture-gift-studio.onrender.com/",
         "supportURL": "https://aperture-gift-studio.onrender.com/support",
         "privacyPolicyURL": "https://aperture-gift-studio.onrender.com/privacy",
         "termsOfServiceURL": "https://aperture-gift-studio.onrender.com/terms",
         "defaultPrompt": [
-          "Find Christmas gift ideas for my mom under $30 who loves gardening.",
-          "Find APERTURE gifts for a basketball coach under $20.",
-          "Make a printable holiday thank-you postcard with an evening stars design."
+          "Suggest three gifts under $30 for a gardener who just moved.",
+          "Make a thank-you greeting I can share with my coach.",
+          "Help me make a free football-themed gift using my sister's favorite colors."
         ],
         "brandColor": "#275545",
         "logo": "./assets/logo.svg",
@@ -78,18 +77,6 @@
               "prompt": "Create a little encouraging gift card link for a friend.",
               "tools_triggered": "create_shareable_gift",
               "expected_behavior": "Return a non-sent shareable greeting link to an interactive message reveal page."
-            },
-            {
-              "description": "Printable holiday greeting",
-              "prompt": "Make a holiday thank-you postcard for a friend with the pine grove design.",
-              "tools_triggered": "create_holiday_postcard",
-              "expected_behavior": "Return a browser-readable greeting link, the blank PDF and an unsent email subject and body. No message is delivered."
-            },
-            {
-              "description": "Find actual gift catalog items",
-              "prompt": "Find three APERTURE gifts for a young game designer under $20.",
-              "tools_triggered": "find_catalog_gifts",
-              "expected_behavior": "Return matching free or priced catalog items within budget, with direct listings and explanations. No purchase or delivery."
             }
           ],
           "negative": [
@@ -111,13 +98,13 @@
           ]
         },
         "commerce": false,
-        "commerce_description": "This app proposes physical gift concepts and generates gift-message links; it does not sell products, charge users or direct to paid checkout."
+        "commerce_description": "The plugin suggests physical gift concepts, creates greeting links and points to free activities. Its public web finder also lists optional paid catalog items. The plugin does not place orders or take payment."
       },
       "publication": {
         "countries": [
           "US"
         ],
-        "release_notes": "Initial Gift Finder and Gift Giver release with personalized physical gift ideas and shareable greeting reveals."
+        "release_notes": "Includes personalized gift ideas, greetings with shareable links and a guide to themed APERTURE cards and free activities."
       }
     }
   }

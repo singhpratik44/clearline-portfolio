@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#174b3b"><meta name="referrer" content="no-referrer"><title>Free Secret Santa generator · APERTURE Gifts</title><meta name="description" content="Draw Secret Santa names for two to fifty people and share a separate reveal link with each giver. No sign-in or email addresses needed.">
+<style>
+:root{color-scheme:light;font:100%/1.5 "DM Sans",system-ui,sans-serif;color:#193b31;background:#f7f6ee}*{box-sizing:border-box}body{margin:0}header{background:#174b3b;color:white}header nav{max-width:57rem;margin:auto;padding:1rem max(1.2rem,4vw);display:flex;align-items:center;justify-content:space-between}header a{color:white}header a:first-child{font-weight:850;letter-spacing:.12em;text-decoration:none}main{max-width:53rem;margin:0 auto;padding:clamp(2rem,7vw,5rem) 1.2rem}h1,h2{font-family:"DM Serif Text",Georgia,serif;line-height:1.05;font-weight:500;margin:.1em 0 .45em}h1{font-size:clamp(2.6rem,8vw,5rem)}h2{font-size:clamp(1.9rem,4vw,2.75rem)}.intro{font-size:1.15rem;max-width:42rem}.panel{border:1px solid #c5cec1;border-radius:1rem;padding:clamp(1.1rem,3vw,2rem);background:#fffef8;margin:1.5rem 0}.row,.actions{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}.row{justify-content:space-between}label{display:block;font-weight:750}textarea,input{display:block;font:inherit;border:1px solid #687e70;padding:.65rem .75rem;border-radius:.45rem;width:100%;background:white;color:#193b31;margin:.35rem 0 1rem}#budget{max-width:10rem}small{display:block;color:#455e52}button,.btn{font:inherit;font-weight:720;border:1px solid #174b3b;border-radius:.45rem;padding:.62rem .95rem;color:#174b3b;background:transparent;cursor:pointer}button.primary,.btn{display:inline-block;background:#174b3b;color:white;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #ba5826;outline-offset:3px}a{color:#174b3b;text-underline-offset:3px}ul{padding:0;list-style:none}li{padding:1rem 0;border-block-end:1px solid #d5dcd2}li strong,#person{overflow-wrap:anywhere}li input{margin:.6rem 0}#person{font:500 clamp(2.8rem,8vw,5rem)/1.1 Georgia,serif;color:#a34022;margin:.3em 0}.err{color:#932b22;font-weight:650}summary{cursor:pointer}footer{margin-top:2rem}footer a{margin-right:1rem} [hidden]{display:none!important}
+</style></head><body>
+<header><nav><a href="../../shop/">APERTURE GIFTS</a><a href="../finder/">Gift Finder</a></nav></header><main>
+<section id="maker"><h1>Secret Santa generator</h1><p class="intro">Give everyone a name to draw and a little mystery to open. Each giver gets their own reveal link.</p>
+<form id="form" class="panel"><label for="names">Who’s in the draw?</label><small id="hint">Enter 2–50 names, one per line. Use initials or nicknames when people share a first name.</small><textarea id="names" rows="6" maxlength="3500" aria-describedby="hint" required placeholder="Sam&#10;Charlie&#10;Robin"></textarea>
+<label for="budget">Gift budget in USD <small>Optional · enter 0 for handmade or free gifts.</small></label><input id="budget" type="number" min="0" max="10000" step=".01" inputmode="decimal" placeholder="25"><button type="submit" class="primary">Draw names</button><p class="err" id="error" role="alert"></p></form>
+<section id="results" class="panel" hidden><h2 tabindex="-1" id="results-title">Send the reveal links</h2><p>Send each link only to the giver named beside it. Anyone holding that link can open its assignment. Keep this page open until you’ve copied every link.</p><ul id="assignments"></ul><p id="status" role="status"></p><button type="button" id="restart">Start a new draw</button><div id="confirm" hidden><p>Clear this list and return to the form? Previously shared links will still open their original assignments.</p><div class="actions"><button type="button" id="yes">Clear list</button><button type="button" id="no">Keep this draw</button></div></div></section></section>
+<section id="receiver" hidden><h1>Your Secret Santa draw</h1><div class="panel"><p id="closed">Your gift recipient is waiting inside.</p><button id="reveal" type="button" class="primary">Reveal my person</button><div id="opened" hidden><p>You’re giving a gift to</p><h2 id="person" tabindex="-1"></h2><p id="amount"></p><a class="btn" href="../finder/">Find a gift idea</a></div></div><a href="./">Organize a new exchange</a></section>
+<section id="invalid" hidden><h1>This reveal link is incomplete.</h1><p>Please ask your organizer for the full link, including everything after the # sign.</p><a href="./">Start a fresh draw</a></section>
+<noscript><p>Switch on JavaScript to draw names or reveal a recipient on this device.</p></noscript>
+<footer><a href="../team-card/">Make a group card</a> <a href="../holiday-thank-you/">Make a gift postcard</a></footer></main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const textName=s=>s.normalize('NFC').trim().replace(/\s+/gu,' ');
+const nameOk=s=>typeof s==='string'&&s.length>0&&[...s].length<=50&&!/[\p{Cc}\p{Cf}]/u.test(s);
+function parseNames(raw){
+  const all=raw.split(/\r?\n/).map(textName).filter(Boolean);
+  if(all.length<2||all.length>50)throw Error('Enter between 2 and 50 names.');
+  if(all.some(n=>!nameOk(n)))throw Error('Keep each name to 50 characters and use ordinary visible letters or symbols.');
+  if(new Set(all.map(n=>n.toLocaleLowerCase('en-US'))).size!==all.length)throw Error('Two names match. Add an initial or use a different nickname for each.');
+  return all;
+}
+function validBudget(raw){
+  if(raw==='')return null;
+  if(!/^\d{1,5}(\.\d{1,2})?$/.test(raw)||Number(raw)>10000)throw Error('Enter a budget from 0 to 10,000 with up to two decimal places.');
+  return Number(raw);
+}
+function randomBelow(size){
+  const sample=new Uint32Array(1), limit=4294967296-4294967296%size;
+  do{crypto.getRandomValues(sample);}while(sample[0]>=limit);
+  return sample[0]%size;
+}
+function draw(names){
+  // Rejection sampling on a Fisher–Yates shuffle gives each valid assignment equal probability.
+  let picks;
+  do{
+    picks=names.slice();
+    for(let end=picks.length-1;end>0;end--){
+      const i=randomBelow(end+1);
+      [picks[end],picks[i]]=[picks[i],picks[end]];
+    }
+  }while(picks.some((recipient,i)=>recipient===names[i]));
+  return picks;
+}
+function makeLink(recipient,budget){
+  const url=new URL(location.href);url.search='';
+  const data=new URLSearchParams({v:'1',to:recipient});
+  if(budget!==null)data.set('usd',String(budget));
+  url.hash=data.toString();return url.href;
+}
+function parseReveal(fragment){
+  const fields=new URLSearchParams(fragment.slice(1));
+  if(fragment.length>1200||fields.get('v')!=='1'||fields.getAll('to').length!==1||fields.getAll('usd').length>1||fields.getAll('v').length!==1)throw Error('Invalid reveal');
+  const name=fields.get('to');
+  if(!nameOk(name)||textName(name)!==name||[...fields.keys()].some(k=>!['to','v','usd'].includes(k)))throw Error('Invalid reveal');
+  return {name,budget:validBudget(fields.get('usd')||'')};
+}
+function make(tag,value){const el=document.createElement(tag);if(value)el.textContent=value;return el;}
+function action(label,fn){const el=make('button',label);el.type='button';el.addEventListener('click',fn);return el;}
+function addAssignment(giver,person,budget){
+  const link=makeLink(person,budget),li=make('li'),row=make('div'),actions=make('div');
+  row.className='row';actions.className='actions';row.append(make('strong',giver),actions);
+  const field=make('input');field.readOnly=true;field.value=link;field.hidden=true;field.setAttribute('aria-label','Reveal link to send to '+giver);
+  function manual(){field.hidden=false;field.focus();field.select();$('status').textContent='Select and copy the link for '+giver+'.';}
+  actions.append(action('Copy link',async()=>{try{await navigator.clipboard.writeText(link);$('status').textContent='Link copied for '+giver+'.';}catch{manual();}}));
+  if(typeof navigator.share==='function')actions.append(action('Share link',async()=>{try{await navigator.share({title:'Your Secret Santa draw',url:link});}catch(err){if(err.name!=='AbortError')manual();}}));
+  const details=make('details'),summary=make('summary','View assignment'),result=make('p',giver+' gives to '+person+'.');details.append(summary,result);li.append(row,field,details);$('assignments').append(li);
+}
+function renderPage(){
+  $('maker').hidden=Boolean(location.hash);$('receiver').hidden=true;$('invalid').hidden=true;
+  if(!location.hash)return;
+  try{
+    const gift=parseReveal(location.hash);
+    $('person').textContent=gift.name;$('amount').textContent=gift.budget===null?'':gift.budget===0?'Budget: free or handmade.':'Gift budget: '+new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'}).format(gift.budget)+'.';
+    $('receiver').hidden=false;$('opened').hidden=true;$('closed').hidden=false;$('reveal').hidden=false;
+  }catch{$('invalid').hidden=false;}
+}
+$('reveal').onclick=()=>{$('closed').hidden=true;$('reveal').hidden=true;$('opened').hidden=false;$('person').focus();};
+$('form').addEventListener('submit',e=>{
+  e.preventDefault();$('error').textContent='';
+  try{
+    const names=parseNames($('names').value),budget=validBudget($('budget').value),picks=draw(names);
+    $('assignments').replaceChildren();names.forEach((name,i)=>addAssignment(name,picks[i],budget));
+    $('form').hidden=true;$('results').hidden=false;$('results-title').focus();
+  }catch(err){$('error').textContent=err.message;}
+});
+$('restart').onclick=()=>{$('confirm').hidden=false;$('no').focus();};
+$('no').onclick=()=>{$('confirm').hidden=true;$('restart').focus();};
+$('yes').onclick=()=>{$('assignments').replaceChildren();$('status').textContent='';$('confirm').hidden=true;$('results').hidden=true;$('form').hidden=false;$('names').focus();};
+window.addEventListener('hashchange',renderPage);renderPage();
+</script></body></html>

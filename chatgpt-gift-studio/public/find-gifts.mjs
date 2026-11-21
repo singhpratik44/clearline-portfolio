@@ -187,6 +187,15 @@ function budgetCap(input) {
   return cap;
 }
 
+// Enclosures are free activities the recipient can open immediately.
+export function getCardActivities() {
+  return catalog
+    .filter(item => item.price === 0 && !["holiday-thank-you", "maker-greeting"].includes(item.id))
+    .map(item => ({id: item.id, title: item.title, url: SITE + item.path}));
+}
+
+const cardActivityIds = new Set(getCardActivities().map(item => item.id));
+
 export function findCatalogGifts(input={}) {
   const cap=budgetCap(input);
   const interestText=textOf(input.interests);
@@ -215,6 +224,7 @@ export function findCatalogGifts(input={}) {
     if(event.length && !topics.includes(event[0])) reasons.push(event[0]==="holiday" ? "holiday giving" : event[0]==="thanks" ? "a thank-you" : event[0]+" giving");
     const why=reasons.length ? "Matches "+reasons.join(", ")+". "+p.detail : p.detail;
     const r={id:p.id,title:p.title,priceUsd:p.price,why,url:SITE+p.path,nextStep:p.next};
+    if (cardActivityIds.has(p.id)) r.cardMakerUrl=SITE+"gifts/holiday-thank-you/?activity="+encodeURIComponent(p.id);
     if (p.preview) r.previewUrl=SITE+"shop/3d/index.html#kit="+p.preview;
     return r;
   });

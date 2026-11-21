@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#204739">
+<meta name="description" content="Collect signed notes from a team, family or class. Make a free printable group card you can share with one link.">
+<title>Make a group card · APERTURE Gifts</title>
+<style>
+:root{color-scheme:light;font:100%/1.55 "DM Sans",system-ui,sans-serif;color:#183c31;background:#f8f5ec;--line:#c8d0bc;--green:#194b39}*{box-sizing:border-box}body{margin:0}a{color:#15573d}nav,main,footer{width:min(940px,92%);margin:auto}nav,footer{padding:1.2rem 0;display:flex;align-items:center;gap:1rem;justify-content:space-between}nav{border-bottom:1px solid var(--line)}nav a:first-child{font-weight:850;letter-spacing:.12em;text-decoration:none}main{padding:2rem 0 3rem}h1,h2,p{margin:0 0 .7rem}h1,h2{font-family:Georgia,serif;line-height:1.08}h1{font-size:clamp(2.7rem,7vw,5.1rem);letter-spacing:-.045em}h2{font-size:clamp(1.7rem,5vw,2.5rem)}.intro{max-width:65ch;color:#375545}.layout{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);gap:1.6rem;align-items:start;margin-top:1.6rem}fieldset{border:1px solid var(--line);padding:1.1rem;border-radius:14px;margin:0 0 .9rem;min-inline-size:0;background:#fffef7}legend{font-weight:750;padding:0 .35rem}label{font-weight:660;display:block;margin-bottom:.3rem}input,textarea{padding:.65rem;width:100%;border:1px solid #788c7b;border-radius:7px;color:inherit;background:white;font:inherit}textarea{resize:vertical}label:not(:first-child){margin-top:.65rem}.tools{display:flex;flex-wrap:wrap;gap:.55rem;margin:.75rem 0}.button,button{appearance:none;font:inherit;font-weight:720;border-radius:8px;border:1px solid var(--green);padding:.55rem .9rem;min-height:44px;background:white;color:var(--green);cursor:pointer;text-decoration:none}.primary{background:var(--green);color:#fff}button:disabled{opacity:.5;cursor:default}:focus-visible{outline:3px solid #aa4b09;outline-offset:3px}.art{background:#faf4d9;border:1px solid #bdac6f;border-top:8px solid #b96435;border-radius:4px 22px 4px 22px;padding:clamp(1.1rem,3vw,2.2rem);color:#374130;overflow-wrap:anywhere}.art header{padding-bottom:.65rem;border-bottom:2px solid #a49d6d}.art #title{font-family:Georgia,serif;font-size:clamp(2rem,4.3vw,3.5rem);margin:.3rem 0}.notes{padding:0;list-style:none;margin:0}.notes li{padding:1rem 0;border-bottom:1px dashed #b7af8b}.notes li:last-child{border:0}.message{white-space:pre-wrap;margin-bottom:.2rem;font-family:Georgia,serif;font-size:1.18rem}.signature{font-size:.94rem;font-weight:700}.fine{font-size:.88rem;color:#435a48}#share-section{margin-top:1.3rem}#status:empty{display:none}[hidden]{display:none!important}body.received .layout{display:block;max-width:680px;margin:0 auto}body.received #title{font-size:clamp(2.3rem,7vw,4.2rem)}footer{border-top:1px solid var(--line)}@media(max-width:670px){.layout{grid-template-columns:1fr}main{padding-top:1.4rem}}@media print{nav,footer,#intro,#editor,#share-section,#recipient-actions,#invalid,#preview-label,#empty,noscript{display:none!important}body,main,.layout{background:white;margin:0;width:100%;max-width:none;display:block}main{padding:0}.art{background:white;color:black;border-color:#666;border-top-width:2px}.notes li{break-inside:avoid}.art header{break-after:avoid}}
+</style></head><body>
+<nav aria-label="Main"><a href="../../">APERTURE</a><a href="../finder/">Gift Finder</a></nav>
+<main><div id="intro"><h1>Make a group card.</h1><p class="intro">Collect a few words from the family, team or class. One organizer enters the notes here and shares the finished card with one link.</p></div>
+<noscript><p>Turn on JavaScript to build or open a group card in this browser.</p></noscript>
+<section id="invalid" hidden><h1>This card link is incomplete.</h1><p>Ask the sender for the full link, or <a href="./">start a new card</a>.</p></section>
+<div id="layout" class="layout"><div id="editor">
+<form id="form"><fieldset><legend>Card details</legend><label for="occasion">Card heading</label><input id="occasion" maxlength="60" value="Thank you!" required><label for="to">For</label><input id="to" maxlength="40" placeholder="Coach, Nana, Ms. Lee…" required></fieldset>
+<div id="entries"></div><div class="tools"><button type="button" id="add">Add a signed note</button><button class="primary" type="submit">Make share link</button></div>
+<p class="fine">Up to 12 notes. Anyone with the complete link can read them. Keep a copy of the link before closing this page.</p></form>
+<div id="share-section" hidden><h2>Share your card</h2><label for="link">Finished card link</label><input id="link" readonly><div class="tools"><button id="copy">Copy link</button><a class="button" id="open" target="_blank" rel="noopener noreferrer">Open finished card</a></div></div>
+<p role="status" id="status"></p></div>
+<section aria-label="Group card"><p id="preview-label"><strong>Card preview</strong></p><article class="art"><header><h2 id="title">Thank you!</h2><p id="dedication"></p></header><ol id="notes" class="notes"></ol><p id="empty">Your signed notes appear here.</p></article>
+<div class="tools" id="recipient-actions" hidden><button class="primary" id="print">Print card</button><a class="button" href="./">Make a new group card</a></div></section></div></main>
+<footer><a href="../holiday-thank-you/">Make a personal postcard</a><a href="../finder/">Find a gift</a></footer>
+<script>
+(() => {
+'use strict';
+const el=id=>document.getElementById(id);
+const newNode=(tag,text)=>{const n=document.createElement(tag);n.textContent=text;return n;};
+const maxNotes=12;
+let sequence=0;
+function readDraft(){
+  const notes=Array.from(el('entries').children,row=>[row.querySelector('input').value.trim(),row.querySelector('textarea').value.trim()]);
+  return {v:1,title:el('occasion').value.trim(),to:el('to').value.trim(),notes};
+}
+function render(card){
+  el('title').textContent=card.title||'Your group card';el('dedication').textContent=card.to?'For '+card.to:'';
+  const notes=card.notes.filter(([name,msg])=>name||msg);
+  el('notes').replaceChildren(...notes.map(([name,msg])=>{
+    const li=document.createElement('li'),p=newNode('p',msg),by=newNode('span',name?'— '+name:'');
+    p.className='message';by.className='signature';li.append(p,by);return li;
+  }));
+  el('empty').hidden=notes.length>0;
+}
+function invalidate(){el('share-section').hidden=true;el('link').value='';el('open').removeAttribute('href');el('status').textContent='';render(readDraft());}
+function orderRows(){
+  const rows=Array.from(el('entries').children);
+  rows.forEach((row,i)=>{row.querySelector('legend').textContent='Signed note '+(i+1);const b=row.querySelector('button');b.disabled=rows.length===1;b.setAttribute('aria-label','Remove signed note '+(i+1));});
+  el('add').disabled=rows.length>=maxNotes;
+}
+function addRow(focus){
+  if(el('entries').children.length>=maxNotes)return;
+  const n=++sequence,row=document.createElement('fieldset');row.append(newNode('legend','Signed note'));
+  for(const [tag,caption,limit] of [['input','Signed by',32],['textarea','Message',140]]){
+    const id='note-'+n+'-'+tag,label=newNode('label',caption),field=document.createElement(tag);
+    label.htmlFor=id;field.id=id;field.required=true;field.maxLength=limit;if(tag==='textarea')field.rows=2;
+    row.append(label,field);
+  }
+  const remove=newNode('button','Remove note');remove.type='button';remove.style.marginTop='.6rem';
+  remove.addEventListener('click',()=>{row.remove();orderRows();invalidate();el('add').focus();});row.append(remove);el('entries').append(row);orderRows();invalidate();if(focus)row.querySelector('input').focus();
+}
+function encode(card){
+  const bytes=new TextEncoder().encode(JSON.stringify(card));
+  return btoa(Array.from(bytes,b=>String.fromCharCode(b)).join('')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+function validText(s,max){return typeof s==='string'&&s.trim().length>0&&s.length<=max;}
+function validate(c){return c&&c.v===1&&validText(c.title,60)&&validText(c.to,40)&&Array.isArray(c.notes)&&c.notes.length>=1&&c.notes.length<=maxNotes&&c.notes.every(p=>Array.isArray(p)&&p.length===2&&validText(p[0],32)&&validText(p[1],140));}
+function openCard(){
+  document.body.classList.add('received');el('intro').hidden=true;el('editor').hidden=true;el('preview-label').hidden=true;
+  try{
+    const hash=location.hash.slice(1);if(!/^card=[A-Za-z0-9_-]{1,14500}$/.test(hash))throw Error();
+    const chars=atob(hash.slice(5).replace(/-/g,'+').replace(/_/g,'/'));
+    const card=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(Uint8Array.from(chars,c=>c.charCodeAt(0))));
+    if(!validate(card))throw Error();const heading=document.createElement('h1');heading.id='title';el('title').replaceWith(heading);render(card);el('recipient-actions').hidden=false;
+  }catch{el('invalid').hidden=false;el('layout').hidden=true;}
+}
+el('add').addEventListener('click',()=>addRow(true));el('form').addEventListener('input',invalidate);
+el('form').addEventListener('submit',event=>{
+  event.preventDefault();const card=readDraft();if(!validate(card)){el('status').textContent='Add a heading, recipient, name and message for every signed note.';return;}
+  const payload=encode(card);if(payload.length>14500){el('status').textContent='This card is too large to share. Shorten a few notes and try again.';return;}
+  const url=new URL(location.href);url.search='';url.hash='card='+payload;
+  el('link').value=url.href;el('open').href=url.href;el('share-section').hidden=false;el('link').focus();el('link').select();
+  el('status').textContent='Your card link is ready. Share it with the recipient.';
+});
+el('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(el('link').value);el('status').textContent='Card link copied.';}catch{el('link').focus();el('link').select();el('status').textContent='Select and copy the link above.';}});
+el('print').addEventListener('click',()=>window.print());
+window.addEventListener('hashchange',()=>location.reload());
+if(location.hash)openCard();else addRow(false);
+})();
+</script></body></html>

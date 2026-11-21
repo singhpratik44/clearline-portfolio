@@ -25,6 +25,7 @@ function giftCard(item) {
   li.append(elem("h3",item.title),elem("span",item.priceUsd===0?"Free":"$"+item.priceUsd+" USD","price"),elem("p",item.why),elem("p",item.nextStep));
   const actions=elem("div","","actions");
   actions.append(link("Open item",item.url));
+  if(item.cardMakerUrl)actions.append(link("Give this with a postcard",item.cardMakerUrl));
   if(item.previewUrl)actions.append(link("See the 3D preview",item.previewUrl));
   const share=elem("button","Copy kit link","share");share.type="button";
   share.addEventListener("click",async()=>{
