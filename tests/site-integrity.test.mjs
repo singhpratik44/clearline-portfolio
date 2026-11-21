@@ -35,7 +35,7 @@ test('shared navigation covers top-level and nested public work',()=>{
 });
 
 test('homepage search and filter script is valid JavaScript',()=>{
-  const scripts=[...content('index.html').matchAll(/<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/gi)].map(x=>x[1]).filter(Boolean);
+  const scripts=[...content('index.html').matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/gi)].filter(x=>!/(?:type=["']application\/(?:ld\+json|json)["'])/i.test(x[1])).map(x=>x[2]).filter(Boolean);
   assert.ok(scripts.length);
   for(const script of scripts)new vm.Script(script,{filename:'index-inline.js'});
 });
