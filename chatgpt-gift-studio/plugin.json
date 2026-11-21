@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gift-finder-gift-giver",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Find a thoughtful gift, create a personal greeting link, or choose a free activity to make for someone.",
   "author": {
     "name": "Clearline",
@@ -98,7 +98,8 @@
           ]
         },
         "commerce": false,
-        "commerce_description": "The plugin suggests physical gift concepts, creates greeting links and points to free activities. Its public web finder also lists optional paid catalog items. The plugin does not place orders or take payment."
+        "commerce_description": "The plugin suggests physical gift concepts, creates greeting links and points to free activities. In-plugin activities are free and the printable links point directly to PDFs. The plugin does not place orders or take payment.",
+        "demo_recording_url": "https://singhpratik44.github.io/clearline-portfolio/assets/gift-maker-review.mp4"
       },
       "publication": {
         "countries": [
