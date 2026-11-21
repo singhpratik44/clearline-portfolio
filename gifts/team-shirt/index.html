@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Team Shirt Maker | APERTURE</title><meta name="description" content="Design a basketball warm-up shirt and share the exact colors, size and number with someone buying a gift.">
+<style>
+*{box-sizing:border-box}body{margin:0;color:#172923;background:#f7f7ef;font:16px/1.45 system-ui,sans-serif}main{max-width:980px;margin:auto;padding:24px}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #adb9ac;padding-bottom:16px}header strong{letter-spacing:.15em}a{color:inherit}h1{font-size:clamp(2.4rem,6vw,4.7rem);line-height:.98;letter-spacing:-.055em;margin:40px 0 16px}h2{margin:0 0 14px}p{max-width:650px}.studio{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(240px,1fr);gap:18px;margin-top:26px}.stage{background:#d5dfc7;border-radius:18px;display:grid;place-items:center;position:relative;min-height:310px}.stage svg{width:100%;max-height:375px}.panel{background:#fff;padding:22px;border:1px solid #c2cdbf;border-radius:18px}label{font-weight:650;display:block;margin:12px 0 4px}select,input{font:inherit;padding:8px;width:100%}button,.button{background:#18372d;color:white;font:inherit;font-weight:650;border:0;border-radius:8px;padding:12px 16px;cursor:pointer;display:inline-block;margin:12px 6px 0 0;text-decoration:none}.secondary{background:white;border:1px solid #718876;color:#172923}.stage button{margin:0 0 18px}.note{font-size:.9rem;color:#425247}footer{margin:30px 0;padding:18px 0;border-top:1px solid #b4c4af}[hidden]{display:none!important}@media(max-width:640px){.studio{grid-template-columns:1fr}.stage{min-height:240px}.stage svg{max-height:260px}main{padding:17px}}@media print{header,.panel,footer,button,.note{display:none!important}.studio{display:block}.stage{background:white}}
+</style></head><body><main><header><strong>APERTURE</strong><a href="../../partnerships/interactive-demos/">Partner studio</a></header>
+<h1 id="title">Design your warm-up shirt.</h1><p id="intro">Pick your colors, size and number. Send the finished design to someone who knows your game.</p>
+<div class="studio"><div class="stage"><svg viewBox="0 0 360 340" role="img" aria-labelledby="caption"><title id="caption">Basketball warm-up shirt, front view</title>
+<path id="shirt" d="M130 36 Q180 66 230 36 L268 50 328 113 290 153 256 125 256 294 Q180 309 104 294 L104 125 70 153 32 113 92 50Z" fill="#223c74" stroke="#142922" stroke-width="3"/>
+<path id="trim" d="M130 36 Q181 95 230 36 Q180 65 130 36Z M35 112 L71 146 76 141 40 107Z M325 112 L289 146 284 141 320 107Z" fill="white"/>
+<g id="print" fill="white" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="900"><text id="word" x="180" y="135" font-size="17" letter-spacing="1">APERTURE</text><text id="digit" x="180" y="209" font-size="77">23</text></g></svg><button id="flip" class="secondary">View back</button></div>
+<section class="panel"><h2 id="paneltitle">Shirt details</h2>
+<form id="choices"><label for="color">Shirt color</label><select id="color"><option>Navy</option><option>Forest</option><option>Maroon</option><option>Black</option></select>
+<label for="ink">Print color</label><select id="ink"><option>White</option><option>Gold</option><option>Mint</option></select>
+<label for="num">Player number (0–99)</label><input id="num" inputmode="numeric" type="text" pattern="[0-9]{1,2}" maxlength="2" value="23" required>
+<label for="size">Shirt size</label><select id="size"><option>Youth S</option><option selected>Youth M</option><option>Youth L</option><option>Adult S</option><option>Adult M</option><option>Adult L</option><option>Adult XL</option></select>
+<button type="submit">Share this design</button></form><p id="summary" hidden></p><a id="edit" class="button secondary" href="./" hidden>Make your own</a>
+<p id="msg" aria-live="polite"></p><div id="manual" hidden><label for="link">Copy your design link</label><input id="link" readonly></div></section></div>
+<footer><strong>Team store pilot</strong><p class="note">This is a design preview. Retailer pricing, availability and checkout are pending. Anyone with a shared link can view its design choices.</p></footer></main>
+<script>
+const el=id=>document.getElementById(id);
+const palette={Navy:'#223c74',Forest:'#204d39',Maroon:'#69263a',Black:'#22262a',White:'#fff',Gold:'#ffda70',Mint:'#b0ffdc'};
+const fields=['color','ink','num','size'];
+const incoming=new URLSearchParams(location.hash.slice(1));
+const isGift=incoming.get('gift')==='1';
+let back=false;
+function choices(){return Object.fromEntries(fields.map(k=>[k,el(k).value]))}
+function draw(){
+ const {color,ink,num,size}=choices();
+ el('shirt').setAttribute('fill',palette[color]);
+ for(const k of ['trim','print'])el(k).setAttribute('fill',palette[ink]);
+ el('digit').textContent=/^[0-9]{1,2}$/.test(num)?num:'';
+ el('digit').setAttribute('font-size',back?'100':'77');
+ el('word').textContent=back?'':'APERTURE';
+ el('flip').textContent=back?'View front':'View back';
+ el('caption').textContent=color+' shirt with '+ink+' print, number '+num+', '+(back?'back':'front')+' view';
+ el('summary').textContent=color+' shirt · '+ink+' print · #'+num+' · '+size;
+ el('manual').hidden=true;el('msg').textContent='';
+}
+if(isGift){
+ for(const k of fields){const v=incoming.get(k),input=el(k);if(k==='num'?/^[0-9]{1,2}$/.test(v):Array.from(input.options).some(o=>o.value===v))input.value=v}
+ el('title').textContent='Someone designed this for you to see.';
+ el('paneltitle').textContent='Their shirt design';el('intro').textContent='See the player’s picks and flip the shirt to check both sides.';
+ el('choices').hidden=true;el('summary').hidden=false;el('edit').hidden=false;
+}
+el('choices').addEventListener('input',draw);el('flip').onclick=()=>{back=!back;draw()};
+el('choices').onsubmit=async event=>{
+ event.preventDefault();const u=new URL(location.href);u.search='';u.hash=new URLSearchParams({gift:'1',...choices()}).toString();
+ try{if(navigator.share){await navigator.share({title:'My basketball warm-up shirt',url:u.href});el('msg').textContent='Design shared.'}else{await navigator.clipboard.writeText(u.href);el('msg').textContent='Design link copied.'}}
+ catch(error){if(error.name==='AbortError')return;el('manual').hidden=false;el('link').value=u.href;el('link').select()}
+};draw();
+</script></body></html>
