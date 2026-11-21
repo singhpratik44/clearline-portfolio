@@ -1,6 +1,6 @@
 # Gift Finder & Gift Giver (by Clearline)
 
-A deployed ChatGPT MCP plugin for **finding thoughtful physical gift ideas** and **creating an interactive digital greeting link that the user shares**. The same app is available as a mobile-first web experience.
+An MCP server for **finding thoughtful physical gift ideas** and **creating an interactive digital greeting link that the user shares**. The same app is available as a mobile-first web experience.
 
 **Live website:** https://aperture-gift-studio.onrender.com/  
 **MCP endpoint:** https://aperture-gift-studio.onrender.com/mcp  
@@ -9,10 +9,16 @@ A deployed ChatGPT MCP plugin for **finding thoughtful physical gift ideas** and
 **Support:** https://aperture-gift-studio.onrender.com/support  
 **Terms:** https://aperture-gift-studio.onrender.com/terms
 
-## Two MCP tools
+## MCP tools
 
 - `make_gift_plan` — three illustrative physical gift concepts matched to recipient, interests, budget and occasion, with estimated price ranges and a suggested note. No retailer inventory, shopping transaction, real-time price checks or shipping.
 - `create_shareable_gift` — a shareable URL for a free greeting with a recipient-visible reveal, using only optional short names and a message. The user decides whether and whom to send it to. The app does **not** send SMS/email. The shared message is inside the URL fragment and can be read by anyone who has the complete link.
+
+- `create_holiday_postcard` — prepares a printable holiday card link, a blank two-design PDF and an unsent subject/body. Anyone with the full link can read the included note. The printable and the third MCP tool must be deployed on their respective hosts.
+
+- `find_catalog_gifts` — ranks existing APERTURE digital offers by recipient, interests, occasion and budget, returning a price and listing for each. A zero budget returns free options.
+
+Partner sites can copy the [postcard maker embed](https://singhpratik44.github.io/clearline-portfolio/gifts/embed/) or link to the full-page maker. An authorized website owner installs the snippet. Sending through a connected Gmail or other messaging app is a separate action for a chosen recipient.
 
 ## Run locally
 
@@ -30,7 +36,7 @@ For your own ChatGPT account, add the public HTTPS MCP endpoint via **Plugins > 
 ## Public directory package
 
 A portable package is prepared under:
-- `plugin.json` — brand, organic gift search intent, two real user workflows and reviewer scenarios
+- `plugin.json` — brand, organic gift search intent, gift planning and card creation workflows and reviewer scenarios
 - `mcp.json` — stable HTTPS Streamable HTTP endpoint with no auth
 - `assets/logo.svg`, `assets/icon.svg` — square vector icons
 - Web pages for required product, privacy, support and terms URLs
@@ -52,4 +58,4 @@ node test.mjs
 node test-production.mjs
 ```
 
-CI checks Node syntax, local MCP initialization, two tools, public HTTPS server routes, interactive gift link generation and dependency audit.
+CI checks Node syntax, local MCP initialization, core tools, public HTTPS server routes, interactive gift link generation and dependency audit.

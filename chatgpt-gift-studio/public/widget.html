@@ -6,10 +6,41 @@
 <body><div class="eyebrow">Gift Finder &amp; Gift Giver</div><h2 id="heading">Gift plan</h2>
 <section id="ideas" aria-live="polite"><p class="muted">Creating your plan…</p></section>
 <div id="note" class="note hide"><strong>Words to include</strong><p id="message" class="message"></p></div>
-<div id="shared" class="hide"><p id="giftNote"></p><a class="giftlink" id="giftLink" href="#" target="_blank" rel="noopener noreferrer">Open shareable greeting</a><p class="muted">Copy this link to share it. No message is sent automatically.</p></div><p id="caution" class="footer"></p>
+<div id="shared" class="hide"><p id="giftNote"></p><a class="giftlink" id="giftLink" href="#" target="_blank" rel="noopener noreferrer">Open shareable greeting</a><p class="muted">Copy this link to share it. No message is sent automatically.</p></div><section id="postcard" class="hide"><p>Your postcard can be opened and printed. Anyone with the link can read the note.</p><a id="postcardLink" class="giftlink" target="_blank" rel="noreferrer">Open the postcard</a> <a id="blankPdf" target="_blank" rel="noreferrer">Blank printable PDF</a><p>To deliver it, choose a recipient in your email or messaging app and review before sending.</p></section><p id="caution" class="footer"></p>
 <script>
 const el=id=>document.getElementById(id);
 function draw(data){
+ const catalog=data?.catalog || data?.structuredContent?.catalog;
+ if(catalog?.recommendations){
+   el("shared").classList.add("hide");el("note").classList.add("hide");el("postcard").classList.add("hide");
+   el("heading").textContent="Gift matches";
+   const list=el("ideas");list.replaceChildren();
+   function listing(card,label,url){
+     if(typeof url!=="string" || !url.startsWith("https://singhpratik44.github.io/clearline-portfolio/"))return;
+     const a=document.createElement("a");a.href=url;a.target="_blank";a.rel="noopener noreferrer";a.textContent=label;
+     const line=document.createElement("p");line.append(a);card.append(line);
+   }
+   for(const gift of catalog.recommendations){
+     const card=document.createElement("article");card.className="gift";
+     const title=document.createElement("strong"); title.textContent=gift.title+" · "+(gift.priceUsd===0?"Free":"$"+gift.priceUsd+" USD");
+     const why=document.createElement("p");why.textContent=gift.why;
+     const action=document.createElement("p");action.textContent=gift.nextStep;card.append(title,why,action);
+     listing(card,"Open listing",gift.url);if(gift.previewUrl)listing(card,"Open preview",gift.previewUrl);
+     list.append(card);
+   }
+   el("caution").textContent="Check the listing for current pricing and terms.";return;
+ }
+ const card=data?.postcard || data?.structuredContent?.postcard;
+ const panel=el("postcard");
+ panel.classList.add("hide");
+ if(card){
+   const base="https://singhpratik44.github.io/clearline-portfolio/gifts/holiday-thank-you/";
+   if(typeof card.shareUrl!=="string" || !card.shareUrl.startsWith(base+"#card=1&"))return;
+   el("heading").textContent="Your holiday postcard is ready";el("ideas").replaceChildren();
+   el("shared").classList.add("hide");el("note").classList.add("hide");panel.classList.remove("hide");
+   el("postcardLink").href=card.shareUrl;el("blankPdf").href=base+"holiday-thank-you-postcards.pdf";
+   el("caution").textContent="Prepared for sharing. No message has been sent.";return;
+ }
  const gift=data&&data.gift||data&&data.structuredContent&&data.structuredContent.gift;
  if(gift){
    el("heading").textContent="Your shareable gift is ready";
@@ -22,6 +53,7 @@ function draw(data){
  }
  const plan=data&&data.plan||data&&data.structuredContent&&data.structuredContent.plan;
  if(!plan)return;
+ el("shared").classList.add("hide");
  el("heading").textContent=plan.heading||"Your gift plan";
  el("ideas").replaceChildren();
  (plan.recommendations||[]).forEach((item,i)=>{
@@ -35,10 +67,19 @@ function draw(data){
  el("message").textContent=plan.message||"";
  el("caution").textContent=plan.disclaimer||"";
 }
+let ready=false;
 window.addEventListener("message",event=>{
  if(event.source!==window.parent)return;
  const m=event.data;
- if(m&&m.jsonrpc==="2.0"&&m.method==="ui/notifications/tool-result")draw(m.params);
+ if(!m || m.jsonrpc!=="2.0")return;
+ if(m.id==="gift-ui-init" && m.result?.protocolVersion && !ready){
+   ready=true;
+   window.parent.postMessage({jsonrpc:"2.0",method:"ui/notifications/initialized"},event.origin==="null"?"*":event.origin);
+ }
+ if(m.method==="ui/notifications/tool-result")draw(m.params);
 });
+if(window.parent!==window) window.parent.postMessage({jsonrpc:"2.0",id:"gift-ui-init",method:"ui/initialize",params:{
+ appInfo:{name:"APERTURE Gift Studio",version:"0.3.0"},appCapabilities:{},protocolVersion:"2026-01-26"
+}},"*");
 if(window.openai&&window.openai.toolOutput)draw(window.openai.toolOutput);
 </script></body></html>

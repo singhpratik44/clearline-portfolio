@@ -10,7 +10,22 @@
   ];
   const added=[...(window.APERTURE_GIFT_LAB_V2?.products||[]),...(window.APERTURE_GIFT_LAB_SPORTS?.products||[]),...(window.APERTURE_GIFT_LAB_BASKETBALL?.products||[]),...(window.APERTURE_GIFT_LAB_BASKETBALL_EXTRA?.products||[])];
   const links=window.APERTURE_GIFT_CHECKOUT||{};
-  const products=[...original,...added].filter(p=>typeof links[p.sku]==='string'&&links[p.sku].startsWith('https://buy.stripe.com/'));
+  // Some collection files describe the same entitlement and checkout.
+  const bySku = new Map();
+  // USD cents on the active payment links for duplicate catalog entries, checked Nov 20, 2026.
+  const checkoutPrices = {
+    'point-guard-lab': 1500, 'defense-chalkboard': 1700, 'basketball-numbers': 1900,
+    'coach-session-cards': 2500, 'basketball-dreambook': 1500,
+    'basketball-starter-collection': 3900, 'basketball-coach-studio': 5900
+  };
+  const conflictingPrices = new Set();
+  for (const product of [...original, ...added]) {
+    if (!links[product.sku]?.startsWith('https://buy.stripe.com/')) continue;
+    const first = bySku.get(product.sku);
+    if (!first) bySku.set(product.sku, product);
+    else if (first.price !== product.price) conflictingPrices.add(product.sku);
+  }
+  const products = [...bySku.values()];
   const featured=['basketball-coach-ops','basketball-tactics-library','basketball-gifts-collection','defensive-iq','coach-season','basketball-iq','all-sports-bundle','coach-practice','basketball-ultimate','athlete-mindset-kids','team-captain','coach-appreciation','all-vault','confidence-kids','sikh-seva','birthday-story','coding-pathway','birthday','game','growth-bundle','faith-bundle','pathways-bundle','classroom-party','achievement-awards'];
   products.sort((a,b)=>{const ar=featured.indexOf(a.sku),br=featured.indexOf(b.sku);return (ar===-1?1000:ar)-(br===-1?1000:br)||a.name.localeCompare(b.name)});
   const esc=x=>String(x).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
@@ -27,7 +42,11 @@
     const label=p.kind==='bundle'?'Collection':p.category;
     const activities=p.activityCount+' original activities';
     const bundle=p.kind==='bundle';
-    return '<article class="gift-card '+(p.sku==='all-vault'?'vault':'')+'" data-category="'+esc(p.category)+'" id="'+esc(p.sku)+'"><div class="cover" style="--cover:'+esc(p.color)+'"><div class="cover-top"><span>APERTURE / GIFT LAB</span><span>'+esc(label.toUpperCase())+'</span></div><div class="art" aria-hidden="true">'+esc(p.emoji)+'</div><span class="cover-title">'+esc(p.name)+'</span><span class="cover-bottom">'+esc(activities)+'</span></div><div class="card-body"><div class="kicker">'+esc(p.category.toUpperCase())+' · '+esc(p.age)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.description)+'</p><div class="features"><span>✓ '+(bundle?'Choose & print each included book':'Print-ready activity pages')+'</span><span>✓ Personal-use digital license · <a href="terms.html#license">terms</a></span><span>✓ Customizable gift dedication</span><span>✓ Digital PDF via browser print</span></div><div class="buy-row"><strong>$'+(p.price/100).toFixed(0)+'<small> one-time</small></strong><a class="buy" href="'+esc(links[p.sku])+'" rel="noopener" aria-label="Buy '+esc(p.name)+' for $'+(p.price/100).toFixed(0)+' with Stripe">Get digital gift →</a></div><p class="license-note">One-time digital license, not copyright ownership. <a href="terms.html" aria-label="Digital use license and refund terms for this gift">License, refunds &amp; privacy</a>. Current printable material is publicly reachable; paid checkout is not exclusive access.</p></div></article>';
+    const confirmedInCatalog = !conflictingPrices.has(p.sku) || Object.hasOwn(checkoutPrices, p.sku);
+    const price = '$'+((checkoutPrices[p.sku] ?? p.price)/100).toFixed(0);
+    const visiblePrice = confirmedInCatalog ? price+'<small> one-time</small>' : 'See checkout for price';
+    const priceLabel = confirmedInCatalog ? ' for '+price : '';
+    return '<article class="gift-card '+(p.sku==='all-vault'?'vault':'')+'" data-category="'+esc(p.category)+'" id="'+esc(p.sku)+'"><div class="cover" style="--cover:'+esc(p.color)+'"><div class="cover-top"><span>APERTURE / GIFT LAB</span><span>'+esc(label.toUpperCase())+'</span></div><div class="art" aria-hidden="true">'+esc(p.emoji)+'</div><span class="cover-title">'+esc(p.name)+'</span><span class="cover-bottom">'+esc(activities)+'</span></div><div class="card-body"><div class="kicker">'+esc(p.category.toUpperCase())+' · '+esc(p.age)+'</div><h3>'+esc(p.name)+'</h3><p>'+esc(p.description)+'</p><div class="features"><span>✓ '+(bundle?'Choose & print each included book':'Print-ready activity pages')+'</span><span>✓ Personal-use digital license · <a href="terms.html#license">terms</a></span><span>✓ Customizable gift dedication</span><span>✓ Digital PDF via browser print</span></div><a class="kit-preview" href="../shop/3d/#kit=gift-'+encodeURIComponent(p.sku)+'" aria-label="Preview '+esc(p.name)+' in 3D">Preview this gift in 3D</a><div class="buy-row"><strong>'+visiblePrice+'</strong><a class="buy" href="'+esc(links[p.sku])+'" rel="noopener" aria-label="Buy '+esc(p.name)+priceLabel+' with Stripe">Get digital gift →</a></div><p class="license-note">One-time digital license, not copyright ownership. <a href="terms.html" aria-label="Digital use license and refund terms for this gift">License, refunds &amp; privacy</a>. Current printable material is publicly reachable; paid checkout is not exclusive access.</p></div></article>';
   }
   function render(){
     const q=search.value.trim().toLocaleLowerCase('en');

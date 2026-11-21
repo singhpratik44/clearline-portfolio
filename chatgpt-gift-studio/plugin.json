@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "gift-finder-gift-giver",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Find thoughtful physical gift ideas and make shareable digital greetings.",
   "author": {
     "name": "Clearline",
@@ -29,7 +29,9 @@
         "category": "Shopping",
         "capabilities": [
           "Suggest physical gifts by recipient and budget",
-          "Create personalized shareable greetings"
+          "Create personalized shareable greetings",
+          "Prepare printable holiday thank-you postcards",
+          "Find digital gifts with catalog prices and listings"
         ],
         "websiteURL": "https://aperture-gift-studio.onrender.com/",
         "supportURL": "https://aperture-gift-studio.onrender.com/support",
@@ -37,8 +39,8 @@
         "termsOfServiceURL": "https://aperture-gift-studio.onrender.com/terms",
         "defaultPrompt": [
           "Find Christmas gift ideas for my mom under $30 who loves gardening.",
-          "What is a thoughtful birthday gift for my basketball coach under $20?",
-          "Create a shareable thank-you greeting for my friend."
+          "Find APERTURE gifts for a basketball coach under $20.",
+          "Make a printable holiday thank-you postcard with an evening stars design."
         ],
         "brandColor": "#275545",
         "logo": "./assets/logo.svg",
@@ -76,6 +78,18 @@
               "prompt": "Create a little encouraging gift card link for a friend.",
               "tools_triggered": "create_shareable_gift",
               "expected_behavior": "Return a non-sent shareable greeting link to an interactive message reveal page."
+            },
+            {
+              "description": "Printable holiday greeting",
+              "prompt": "Make a holiday thank-you postcard for a friend with the pine grove design.",
+              "tools_triggered": "create_holiday_postcard",
+              "expected_behavior": "Return a browser-readable greeting link, the blank PDF and an unsent email subject and body. No message is delivered."
+            },
+            {
+              "description": "Find actual gift catalog items",
+              "prompt": "Find three APERTURE gifts for a young game designer under $20.",
+              "tools_triggered": "find_catalog_gifts",
+              "expected_behavior": "Return matching free or priced catalog items within budget, with direct listings and explanations. No purchase or delivery."
             }
           ],
           "negative": [

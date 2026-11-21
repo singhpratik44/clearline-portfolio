@@ -2,7 +2,15 @@
 
 A no-build embeddable gift discovery widget for third-party websites. Uses existing Stripe-hosted payment links; it never collects card details.
 
-## Install on a website
+## Gift Finder
+
+The [finder installation guide](https://singhpratik44.github.io/clearline-portfolio/gifts/embed/#finder-install) contains a live example, code and ordinary-link fallback for interest- and budget-based digital gift recommendations.
+
+## Postcard maker
+
+For an interactive card visitors can create, preview, print and prepare for delivery, use [the copyable iframe and live demo](https://singhpratik44.github.io/clearline-portfolio/gifts/embed/). Host sites can include the linked fallback if the editor strips iframe markup. Private notes are readable by anyone with the full shared gift link and do not appear in the iframe installation code.
+
+## Install the gift discovery widget on a website
 
 ```html
 <div id="gifter-widget"></div>

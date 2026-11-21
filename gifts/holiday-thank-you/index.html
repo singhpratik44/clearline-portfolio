@@ -23,19 +23,20 @@
  .sheet{width:6in;height:8in;max-width:none;margin:0 auto!important;border:1px dashed #333;page-break-inside:avoid;break-inside:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}.panel{aspect-ratio:auto;height:50%;page-break-inside:avoid;break-inside:avoid}.back{border-top-color:#333}
  .front-word{font-size:36pt}.front-sub{font-size:10.5pt}.note-body{font-size:11pt;line-height:1.28;transform:rotate(180deg)}.back .typed{line-height:1.32}.print-hint{display:block;text-align:center;font:9pt/1.35 system-ui,sans-serif;color:#23302a;margin:2.5mm auto 0;width:6in}
 }
+.handoff{display:flex;gap:.6rem .9rem;flex-wrap:wrap;align-items:center}.handoff button{cursor:pointer;padding:.4rem .7rem}.handoff [hidden],.receive[hidden],#gift-handoff[hidden]{display:none}#prepared-url{width:100%;margin:.35rem 0 .65rem;padding:.4rem;font:inherit}#gift-handoff{border-top:1px solid var(--line);margin-top:1rem;padding-top:.8rem}.receive{padding:1.8rem 0}.receive p{margin:.3rem 0}.receive h1{font:500 clamp(2.4rem,6vw,4rem)/1.05 Georgia,serif;margin:.3rem 0}.received .hero,.received .tools,.received .tips,.received .studio>div:first-child,.embedded .bar,.embedded .hero,.embedded .more,.embedded .tips,.embedded .skip{display:none}.received .studio{display:block}.received .preview{width:min(100%,6in);margin:auto}.embedded .studio{padding:.75rem 0;grid-template-columns:1fr}.embedded .preview{width:min(100%,6in);margin:auto}.embedded .frame{width:min(36rem,calc(100% - 1.25rem))}@media print{.receive,.embedded .tools,.embedded .studio>div:first-child{display:none!important}.embedded .studio{padding:0}.embedded .frame{width:100%}}
 </style></head>
 <body><a class="skip" href="#create">Skip to card maker</a><header class="bar"><div class="frame"><a class="brand" href="../featured/">APERTURE GIFTS</a><a href="../../creator-series.html#playable-postcards">Playable Postcards series</a></div></header>
 <main class="frame"><header class="hero"><p class="kicker">Free printable · Holiday collection</p><h1>A holiday thank-you postcard.</h1><p>Thank someone for a small kindness you still remember. Choose a design, add a note, and fold one sheet into a 6 × 4-inch keepsake.</p></header>
-<div class="studio" id="create"><div><form class="tools" id="card-form"><h2>Make your card</h2><fieldset><legend>Front design</legend><div class="opts"><label><input type="radio" name="design" id="grove" checked>Pine grove</label><label><input type="radio" name="design" id="stars">Evening stars</label></div></fieldset>
+<section class="receive" id="receive" hidden><p class="kicker">A holiday thank-you postcard</p><h1>This card is for you.</h1><p>Read your note below or fold a printed copy.</p><button type="button" id="print-received" class="print-btn">Print this card</button> <a href="./" target="_blank" rel="noopener">Make your own card</a></section><div class="studio" id="create"><div><form class="tools" id="card-form"><h2>Make your card</h2><fieldset><legend>Front design</legend><div class="opts"><label><input type="radio" name="design" id="grove" checked>Pine grove</label><label><input type="radio" name="design" id="stars">Evening stars</label></div></fieldset>
 <fieldset><legend>Back of card</legend><div class="opts"><label><input type="radio" name="mode" id="type" checked>Type a note</label><label><input type="radio" name="mode" id="hand">Write by hand</label></div></fieldset>
 <div class="entry"><label for="recipient">To</label><input id="recipient" maxlength="35" autocomplete="off"><label for="note">Your thank-you</label><textarea id="note" rows="4" maxlength="200" aria-describedby="note-hint" placeholder="I still think about the time you…"></textarea><small id="note-hint">Up to 200 characters. Name one thing they did and what it meant to you.</small><label for="sender">From</label><input id="sender" maxlength="35" autocomplete="off"></div>
-<p><a href="holiday-thank-you-postcards.pdf" download>Download both blank designs (PDF)</a></p><button class="print-btn" id="print" type="button" hidden>Print or save as PDF</button><noscript><p>Use your browser’s Print command to make a blank card to fill in by hand.</p><style>.entry,.tools fieldset:has(#type){display:none}</style></noscript>
-<p class="fine">Your note stays in this page. Sharing the page address gives someone a fresh card to make.</p></form>
+<p><a href="holiday-thank-you-postcards.pdf" download>Download both blank designs (PDF)</a></p><button class="print-btn" id="prepare" type="button" hidden>Create gift link</button> <button class="print-btn" id="print" type="button" hidden>Print or save as PDF</button><noscript><p>Use your browser’s Print command to make a blank card to fill in by hand.</p><style>.entry,.tools fieldset:has(#type){display:none}</style></noscript>
+<div id="gift-handoff" hidden><label for="prepared-url"><strong>Your gift link</strong></label><input id="prepared-url" type="text" readonly><div class="handoff"><button type="button" id="copy-gift">Copy link</button><button type="button" id="share-gift" hidden>Share…</button><a id="draft" rel="noreferrer" target="_blank">Open email draft</a><a id="open-gift" rel="noopener noreferrer" target="_blank">Preview gift</a></div><p class="fine">Choose the recipient and press Send in your email or messaging app.</p></div><p role="status" id="share-status"></p><p class="fine">Your note stays in this browser until you share a gift link. Anyone with the complete gift link can open it and read the note. Use display names and leave out private details.</p></form>
 <section class="tips"><h2>Print and fold</h2><ol><li>Use one sheet of US Letter or A4, portrait. Set scale to 100% (actual size) and turn off browser headers and footers.</li><li>Cut around the outside dashed rectangle. Fold at the middle dashed line with the blank sides together. The upside-down print on the back will turn upright.</li><li>Glue the blank sides together if you like. Slip the card into an envelope or hand it to your person.</li></ol></section></div>
 <section class="preview" aria-labelledby="preview-title"><h2 id="preview-title">Card preview</h2><div class="sheet" id="sheet"><div class="front panel"><span class="frame-line" aria-hidden="true"></span><div class="art pine" aria-hidden="true"><i class="tree"></i><i class="tree"></i><i class="tree"></i></div><div class="art starfield" aria-hidden="true"><i class="star"></i><i class="star"></i><i class="star"></i></div><strong class="front-word">Thank you</strong><span class="front-sub">For a kindness worth remembering.</span></div>
 <div class="back panel"><div class="note-body"><span class="back-label">A little holiday gratitude</span><p class="to" id="show-to"></p><div class="typed" id="show-note"></div><div class="hand-lines" aria-hidden="true"><span></span><span></span><span></span></div><p class="from" id="show-from"></p></div></div></div>
 <p class="fine">The preview shows both sides upright. The printed page positions them for folding.</p><p class="print-hint">Cut the outside rectangle. Fold at the center dashed line with blank sides touching.</p></section></div>
-<section class="more"><h2>Give it a digital companion</h2><div><a href="../featured/#make">Make a free digital greeting</a><a href="../../creator-series.html#playable-postcards">Build a playable postcard</a></div></section></main>
+<section class="more"><h2>Give it a digital companion</h2><div><a href="../featured/#make">Make a free digital greeting</a><a href="../../creator-series.html#playable-postcards">Build a playable postcard</a><a href="../embed/">Add the maker to your website</a></div></section></main>
 <script>
 (() => {
   const get = id => document.getElementById(id);
@@ -50,6 +51,47 @@
     get("show-note").textContent = text;
     get("sheet").classList.toggle("has-note", Boolean(text));
   }
+  const publicPage = "https://singhpratik44.github.io/clearline-portfolio/gifts/holiday-thank-you/";
+  const received = new URLSearchParams(location.hash.slice(1));
+  const limit = (value, size) => Array.from((value || "").trim()).slice(0, size).join("");
+  if (new URLSearchParams(location.search).get("embed") === "1") document.documentElement.classList.add("embedded");
+  if (received.get("card") === "1" && location.hash.length <= 5000) {
+    get("recipient").value = limit(received.get("to"), 35);
+    get("sender").value = limit(received.get("from"), 35);
+    note.value = limit(received.get("note"), 200);
+    get(received.get("design") === "stars" ? "stars" : "grove").checked = true;
+    document.documentElement.classList.add("received");
+    get("receive").hidden = false;
+  }
+  get("print-received").addEventListener("click", () => { update(); window.print(); });
+  const handoff = get("gift-handoff"), status = get("share-status"), field = get("prepared-url");
+  const prepare = get("prepare"); prepare.hidden = false;
+  prepare.addEventListener("click", () => {
+    const hand = get("hand").checked;
+    const card = new URLSearchParams({card:"1", design:get("stars").checked ? "stars" : "grove"});
+    if (!hand) {
+      card.set("to", limit(get("recipient").value, 35));
+      card.set("from", limit(get("sender").value, 35));
+      card.set("note", limit(note.value, 200));
+    }
+    field.value = publicPage + "#" + card.toString();
+    get("open-gift").href = field.value;
+    get("draft").href = "mailto:?subject=" + encodeURIComponent("A holiday thank-you for you") +
+      "&body=" + encodeURIComponent("I made you a holiday postcard. Open it here:\n" + field.value);
+    get("share-gift").hidden = typeof navigator.share !== "function";
+    handoff.hidden = false;
+    status.textContent = "Gift link ready. Your card has not been sent.";
+  });
+  form.addEventListener("input", () => { handoff.hidden = true; field.value = ""; status.textContent = ""; });
+  const manual = () => { field.focus(); field.select(); status.textContent = "Select and copy the gift link."; };
+  get("copy-gift").addEventListener("click", async () => {
+    try { await navigator.clipboard.writeText(field.value); status.textContent = "Gift link copied."; }
+    catch { manual(); }
+  });
+  get("share-gift").addEventListener("click", async () => {
+    try { await navigator.share({title:"A holiday thank-you for you",url:field.value}); }
+    catch(error) { if(error.name !== "AbortError") manual(); }
+  });
   form.addEventListener("submit", event => event.preventDefault());
   form.addEventListener("input", update);
   window.addEventListener("pageshow", update);

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#123b37">
+<title>Side Street · Free city planning game | APERTURE</title>
+<meta name="description" content="Can two streets connect three homes to a park, shop and transit stop? Repair a neighborhood, trace real walking routes and design your own street grid in this free city planning game.">
+<link rel="canonical" href="https://singhpratik44.github.io/clearline-portfolio/shop/city-challenge/">
+<meta property="og:title" content="Side Street · A city planning game">
+<meta property="og:description" content="Give three families a way to reach the park, shop and bus. You have two new streets.">
+<style>
+:root{color-scheme:light;--ink:#123b37;--cream:#fbf8ea;--line:#c8cfb4;--green:#577862;--orange:#c05a32;--soft:#dce6ca;--road:#435750}*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--cream);font:1rem/1.5 "DM Sans",system-ui,sans-serif}a{color:#164f47;text-underline-offset:.18em}button,select,input{font:inherit}button{cursor:pointer}a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #ac451b;outline-offset:3px}.wrap{width:min(1140px,93%);margin-inline:auto}.skip{position:absolute;left:1rem;top:-6rem;z-index:10;background:#fff;padding:.7rem}.skip:focus{top:.5rem}header{background:var(--ink);color:white}header .wrap{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:.85rem 0}.wordmark{font-weight:850;letter-spacing:.15em;text-decoration:none}header a{color:#f2f5c1}header nav{display:flex;flex-wrap:wrap;gap:1rem}main{padding:clamp(1rem,4vw,3.1rem) 0 2rem}.hero{max-width:53rem;margin:0 0 1.4rem}.hero h1{font-family:"Archivo Black",system-ui,sans-serif;font-size:clamp(2.9rem,7vw,5.5rem);letter-spacing:-.08em;line-height:.98;margin:0}.hero p{max-width:44rem;font-size:clamp(1.05rem,1.8vw,1.32rem);margin:.7rem 0 0}.workspace{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(15rem,.8fr);align-items:start;gap:clamp(1rem,3vw,2.35rem)}.board{border:1px solid #829681;border-radius:1rem;padding:clamp(.7rem,2vw,1.3rem);background:#e6ead3}.bar{display:flex;align-items:center;justify-content:space-between;gap:.65rem;flex-wrap:wrap;margin:0 0 .75rem}.bar h2{font-size:1.3rem;margin:0}.bar button,.minor{color:var(--ink);background:var(--cream);border:1px solid #829681;border-radius:6px;padding:.38rem .7rem;font-weight:650}.bar button:disabled,.minor:disabled{opacity:.55;cursor:default}.tiles{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:2px solid var(--ink);border-radius:5px;overflow:hidden;max-width:39rem;margin:auto}.tile{position:relative;isolation:isolate;display:grid;place-items:center;aspect-ratio:1;min-width:0;border:0;border-right:1px solid #9aae90;border-bottom:1px solid #9aae90;border-radius:0;background:#e7e9ce;color:var(--ink);padding:0}.tile:nth-child(7n){border-right:0}.tile:nth-last-child(-n+7){border-bottom:0}.tile:focus-visible{outline:3px solid #ffbd3e;outline-offset:-4px;z-index:2}.tile:hover{box-shadow:inset 0 0 0 3px rgba(15,74,61,.6)}.tile.grass{background:radial-gradient(#bbc9a2 1px,transparent 1px) 0 0/8px 8px,#e7ead5}.tile.road{background:#d5ddbd}.roadbed{display:block;position:absolute;background:var(--road);z-index:-1}.joint{inset:33%;border-radius:17%}.north{top:0;bottom:48%;left:33%;right:33%}.south{top:48%;bottom:0;left:33%;right:33%}.west{left:0;right:48%;top:33%;bottom:33%}.east{left:48%;right:0;top:33%;bottom:33%}.tile.traced{box-shadow:inset 0 0 0 3px #e29d18}.trace-dot{position:absolute;width:14%;height:14%;border-radius:50%;background:#ffe5a2;outline:2px solid #72531c}.tile b{font:750 clamp(.54rem,1.1vw,.72rem)/1 ui-monospace,monospace;position:absolute;bottom:3px;right:4px;background:#f7f7e6d9;border-radius:2px;padding:1px;color:#193b34}.landmark{font:850 clamp(1.1rem,4.2vw,2.65rem)/1 ui-monospace,monospace;min-width:60%;max-height:68%;display:grid;place-items:center}.home .landmark{background:#bd5534;color:#fff4dd;clip-path:polygon(50% 0%,100% 40%,89% 41%,89% 100%,12% 100%,12% 41%,0 41%);padding:.35em .18em .11em}.shop .landmark{background:#ffe7a5;color:#533913;border-top:.23em dashed #ab502b;border-bottom:4px solid #745233;min-height:52%;padding:.02em}.park .landmark{border-radius:50% 50% 44% 44%;background:#3c7955;color:#f7fad5;padding:.16em}.bus .landmark{color:#d8eff1;background:#31606a;border-radius:.23em;padding:.13em .08em;border-bottom:.12em solid #192e36}.tile.selected-house{outline:2px solid var(--ink);outline-offset:-4px}.legend,.toolbar,.actions,.navlinks{display:flex;gap:.5rem;flex-wrap:wrap}.legend{margin:.75rem 0 0;font-size:.84rem;font-weight:600;gap:.3rem .85rem}.legend span{white-space:nowrap}.panel{padding:1.05rem 0;border-top:1px solid #b4c2aa}.panel:first-child{border-top:3px solid var(--ink)}.panel h2,.next h2{margin:0 0 .45rem;font-size:1.35rem;letter-spacing:-.025em}.panel p,.next p{margin:.4rem 0 .75rem}.toolbar button{min-width:3.2rem}.tool{border:1px solid #809682;background:white;border-radius:6px;padding:.38rem .6rem;color:var(--ink);font-weight:650}.tool[aria-pressed="true"],.cta{background:var(--ink);color:#fff8e5}.tool:disabled{opacity:.46;cursor:default}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}.metric{background:#e7ebd5;padding:.65rem;border-radius:6px}.metric strong{font:750 clamp(1.4rem,3vw,2rem)/1.2 system-ui,sans-serif;display:block}.metric span{font-size:.86rem}.controls{display:grid;grid-template-columns:1fr 1fr;gap:.65rem}label{display:block;font-size:.92rem;font-weight:700}select{display:block;width:100%;padding:.48rem;margin:.25rem 0;border:1px solid #839583;color:var(--ink);background:#fffdf3;border-radius:.4rem}.route-out{min-height:3em}.feedback{margin:.55rem 0 0!important;min-height:1.5rem;font-weight:650}.share-input{display:block;width:100%;padding:.4rem;font:inherit}.next{border-top:3px solid var(--ink);padding:1rem 0;margin-top:1.2rem;max-width:48rem}.cta{padding:.55rem .9rem;text-decoration:none;border-radius:.4rem;font-weight:700}.navlinks{align-items:center;gap:1rem}footer{padding:1.1rem 0;background:#e2e7d0}.small{font-size:.88rem}.sr{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}[hidden]{display:none!important}@media(max-width:760px){.workspace{grid-template-columns:1fr}.hero{margin-bottom:1rem}.side{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}.side .panel{border-top:1px solid var(--line)}.board{max-width:42rem}}@media(max-width:520px){.side{display:block}.tile b{font-size:.52rem}.wrap{width:94%}header .wrap{gap:.5rem}header nav{font-size:.88rem;gap:.65rem}}@media print{header,footer,.skip,.bar button,.toolbar,.buttons,.actions,.navlinks,.mode-actions,.next,.share-input,.feedback,.share-panel{display:none!important}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}main,.wrap{padding:0;width:100%}.hero h1{font-size:2rem}.workspace{display:grid;grid-template-columns:1.45fr 1fr;gap:1rem}.side{display:block}.board{break-inside:avoid}.tile{print-color-adjust:exact}.panel{padding:.35rem 0}.tile b{font-size:.5rem}}
+</style></head>
+<body><a href="#board" class="skip">Skip to the map</a>
+<header><div class="wrap"><a class="wordmark" href="../../">APERTURE</a><nav aria-label="Store navigation"><a href="../">Shop</a><a href="../3d/index.html#kit=city">3D kit studio</a></nav></div></header>
+<main class="wrap"><div class="hero"><h1>Side Street</h1><p>Three homes, one corner shop, one park and one bus stop. Can two new streets put all three places within walking reach of every home?</p></div>
+<noscript>Enable JavaScript to place streets and test routes. You can also <a href="../">explore the APERTURE shop</a>.</noscript>
+<div class="workspace"><section class="board" id="board" aria-labelledby="board-title"><div class="bar"><h2 id="board-title">Neighborhood map</h2><button id="undo" type="button" disabled>Undo</button></div><div class="tiles" id="tiles" role="group" aria-label="Neighborhood tile map" aria-describedby="keys"></div><p class="legend"><span>H · Home</span><span>S · Shop</span><span>P · Park</span><span>B · Bus stop</span></p><p class="small" id="keys">Choose a tool, then tap a square. On a keyboard, use the arrows to move and Enter or Space to place.</p><p class="feedback" id="feedback" role="status"></p></section>
+<div class="side"><section class="panel"><h2 id="mode-title">Two-street challenge</h2><p id="brief">Add streets on empty lots between the existing lanes. You have two street tiles. Select a street you added to take it back.</p>
+<div class="toolbar" id="tools" role="group" aria-label="Building tools"></div><div class="mode-actions actions" style="margin-top:.65rem"><button class="minor" id="free" type="button">Design freely</button><button class="minor" id="restart" type="button">Restart challenge</button></div></section>
+<section class="panel"><h2>Walking access</h2><div class="metrics"><div class="metric"><strong id="homes-count">0 / 3</strong><span>Homes with all 3 services</span></div><div class="metric"><strong id="routes-count">0 / 9</strong><span>Reachable home–service pairs</span></div></div><p id="compare" class="small"></p></section>
+<section class="panel"><h2>Trace a walk</h2><div class="controls"><label>Start at<select id="home"></select></label><label>Walk to<select id="target"><option value="S">Shop</option><option value="P">Park</option><option value="B">Bus stop</option></select></label></div><p class="route-out" id="route" aria-live="polite"></p><p class="small">Each move is one square up, down, left or right. A trip must use at least one street and can end at any matching destination.</p></section>
+<section class="panel share-panel"><h2>Keep your map</h2><p class="small" id="save-note">Your map stays in this browser. A copied link opens a playable copy in free design.</p><div class="actions"><button id="share" type="button" class="minor">Copy map link</button><button id="print" type="button" class="minor">Print map</button></div><label id="manual" hidden>Map link<input id="share-url" class="share-input" readonly></label></section></div></div>
+<section class="next"><h2>What would your neighborhood look like in 3D?</h2><p>Choose a layout, building height and neighborhood priority in the Planning Lab. The 3D kit starts a separate design.</p><div class="navlinks"><a class="cta" href="../3d/index.html#kit=city">Design a neighborhood in 3D</a><a href="../">Browse APERTURE kits and gifts</a></div></section></main>
+<footer><div class="wrap">Side Street · An original APERTURE city planning game</div></footer>
+<script>
+(() => {
+  "use strict";
+  const width=7, initial="...S.P."+"H=.=.=H"+".=.=.=."+".=.=.=."+".=.=.=."+"H=.=.=B"+".......";
+  const types={".":["Empty lot","grass"],"=":["Street","road"],H:["Home","home"],S:["Shop","shop"],P:["Park","park"],B:["Bus stop","bus"]};
+  const key="aperture-side-street-v1",serviceTypes=["S","P","B"],byId=id=>document.getElementById(id);
+  function neighbors(index) {
+    const row=Math.floor(index/width),col=index%width;
+    return [[row>0,index-width,"north"],[row<width-1,index+width,"south"],[col>0,index-1,"west"],[col<width-1,index+1,"east"]].filter(([ok])=>ok);
+  }
+  function routes(map,start) {
+    const queue=[],previous=new Map([[start,-1]]),found={};
+    for(const [,tile] of neighbors(start)) if(map[tile]==="="){previous.set(tile,start);queue.push(tile);}
+    for(let i=0;i<queue.length;i++){
+      const here=queue[i];
+      for(const [,tile] of neighbors(here)){
+        if(previous.has(tile))continue;
+        const type=map[tile];
+        if(type==="="){previous.set(tile,here);queue.push(tile);}
+        else if(serviceTypes.includes(type)&&!found[type]){
+          const path=[tile];let cursor=here;
+          while(cursor!==-1){path.push(cursor);cursor=previous.get(cursor);}
+          found[type]=path.reverse();
+        }
+      }
+    }
+    return found;
+  }
+  function assess(map) {
+    const homes=[],paths=new Map();let full=0,total=0;
+    for(let tile=0;tile<map.length;tile++)if(map[tile]==="H"){
+      homes.push(tile);const walks=routes(map,tile);paths.set(tile,walks);
+      const count=Object.keys(walks).length;total+=count;if(count===3)full++;
+    }
+    return {homes,paths,full,total};
+  }
+  const coord=i=>String.fromCharCode(65+i%width)+(Math.floor(i/width)+1);
+  const valid=s=>typeof s==="string"&&s.length===49&&/^[.HSPB=]+$/.test(s);
+  const edits=s=>Array.from(s).filter((x,i)=>x!==initial[i]).length;
+  const legal=s=>valid(s)&&edits(s)<=2&&Array.from(s).every((x,i)=>x===initial[i]||(x==="="&&initial[i]==="."));
+  let map=initial,mode="challenge",baseline=initial,tool="=",history=[],selectedHome=-1,cursor=0,sharedDraft=false;
+  function restore(){
+    const shared=new URLSearchParams(location.hash.slice(1)).get("map");
+    if(valid(shared)){
+      map=shared;mode="free";baseline=shared;sharedDraft=true;
+      byId("save-note").textContent="You are editing a shared map. Changes go into this tab’s link. Copy the link to keep your version.";
+      return;
+    }
+    try{
+      const v=JSON.parse(localStorage.getItem(key));
+      if(v&&valid(v.map)&&valid(v.baseline)&&(v.mode==="free"||(v.mode==="challenge"&&legal(v.map)))){
+        map=v.map;mode=v.mode;baseline=mode==="challenge"?initial:v.baseline;
+      }
+    }catch{}
+  }
+  const startCompare=()=>assess(baseline).total;
+  let baselineRoutes;
+  const buttons=[];
+  function save(){
+    if(sharedDraft){
+      try{window.history.replaceState(null,"",location.pathname+location.search+"#map="+encodeURIComponent(map));}catch{}
+      return;
+    }
+    try{localStorage.setItem(key,JSON.stringify({map,mode,baseline}));}
+    catch{byId("save-note").textContent="This browser could not save your map. Copy a map link or print it to keep a version.";}
+  }
+  function checkpoint(){
+    history.push({map,mode,baseline});if(history.length>60)history.shift();
+  }
+  function say(text){byId("feedback").textContent=text;}
+  function draw(){
+    byId("manual").hidden=true;
+    const a=assess(map),h=byId("home"),target=byId("target").value;
+    if(!a.homes.includes(selectedHome))selectedHome=a.homes[0]??-1;
+    h.replaceChildren(...a.homes.map(i=>new Option("Home "+coord(i),String(i))));
+    h.disabled=!a.homes.length;if(a.homes.length)h.value=String(selectedHome);
+    const path=a.paths.get(selectedHome)?.[target]||[],routeSet=new Set(path);
+    byId("route").textContent=selectedHome<0?"Place a home to trace its first walk.":path.length?("Home "+coord(selectedHome)+" to "+types[target][0].toLowerCase()+" "+coord(path.at(-1))+" takes "+(path.length-1)+" moves along the highlighted path."):("Home "+coord(selectedHome)+" has no street route to a "+types[target][0].toLowerCase()+".");
+    byId("homes-count").textContent=a.full+" / "+a.homes.length;
+    byId("routes-count").textContent=a.total+" / "+(3*a.homes.length);
+    const gain=a.total-baselineRoutes;
+    if(mode==="challenge")byId("compare").textContent=a.full===3?"Challenge solved. Every home has a walking route to every service.":"Original neighborhood: "+baselineRoutes+" of 9 pairs. You have added "+(edits(map))+" of 2 streets.";
+    else byId("compare").textContent="Your starting map had "+baselineRoutes+" reachable pairs. Change since then: "+(gain>0?"+":"")+gain+". Each home contributes three possible pairs.";
+    byId("mode-title").textContent=mode==="free"?"Free design":"Two-street challenge";
+    byId("brief").textContent=mode==="free"?"Build a neighborhood of your own. Place homes, services and connecting streets, then compare the walks.":"Add streets on empty lots between the existing lanes. You have two street tiles. Select a street you added to take it back.";
+    byId("free").hidden=mode==="free";byId("undo").disabled=!history.length;
+    for(const b of byId("tools").children){b.hidden=mode==="challenge"&&b.dataset.tile!=="=";b.setAttribute("aria-pressed",String(b.dataset.tile===tool));}
+    for(let i=0;i<map.length;i++){
+      const b=buttons[i],type=map[i],label=types[type];b.className="tile "+label[1]+(routeSet.has(i)?" traced":"")+(selectedHome===i?" selected-house":"");
+      b.setAttribute("aria-label",coord(i)+" · "+label[0]+(routeSet.has(i)?", traced walk":""));b.tabIndex=i===cursor?0:-1;b.replaceChildren();
+      if(type==="="){
+        const dirs=["joint",...neighbors(i).filter(([,j])=>map[j]!==".").map(([,j,d])=>d)];
+        for(const d of dirs){const el=document.createElement("span");el.className="roadbed "+d;b.append(el);}
+        if(routeSet.has(i)){const el=document.createElement("span");el.className="trace-dot";b.append(el);}
+      }else if(type!=="."){
+        const el=document.createElement("span");el.className="landmark";el.textContent=type;b.append(el);
+      }
+      if(type!=="."&&type!=="="){const address=document.createElement("b");address.textContent=coord(i);b.append(address);}
+    }
+  }
+  function edit(i){
+    let next=tool;
+    if(mode==="challenge"){
+      if(initial[i]!=="."){say("That tile is part of the original neighborhood. Choose an empty lot.");return;}
+      if(map[i]==="=")next=".";
+      else if(edits(map)>=2){say("Both streets are in use. Remove one you added or choose free design.");return;}
+    }
+    if(map[i]===next){say(coord(i)+" already contains "+types[next][0].toLowerCase()+".");return;}
+    checkpoint();map=map.slice(0,i)+next+map.slice(i+1);draw();save();
+    say(mode==="challenge"&&assess(map).full===3?"Both connections work. All 9 home–service pairs are reachable.":types[next][0]+" at "+coord(i)+".");
+  }
+  restore();baselineRoutes=startCompare();
+  for(const [value,label] of [["=","Street"],["H","Home"],["S","Shop"],["P","Park"],["B","Bus stop"],[".","Erase"]]){
+    const b=document.createElement("button");b.type="button";b.dataset.tile=value;b.className="tool";b.textContent=label;
+    b.onclick=()=>{tool=value;draw();say(label+" selected.");};byId("tools").append(b);
+  }
+  for(let i=0;i<49;i++){
+    const b=document.createElement("button");b.type="button";
+    b.onclick=()=>{cursor=i;edit(i);};b.onfocus=()=>{buttons[cursor].tabIndex=-1;cursor=i;b.tabIndex=0;};
+    b.onkeydown=e=>{
+      const x=i%width,y=Math.floor(i/width);const moves={ArrowLeft:x>0?i-1:i,ArrowRight:x<6?i+1:i,ArrowUp:y>0?i-7:i,ArrowDown:y<6?i+7:i};
+      if(Object.prototype.hasOwnProperty.call(moves,e.key)){e.preventDefault();buttons[moves[e.key]].focus();}
+    };
+    buttons.push(b);byId("tiles").append(b);
+  }
+  byId("home").onchange=e=>{selectedHome=Number(e.target.value);draw();};byId("target").onchange=draw;
+  byId("free").onclick=()=>{checkpoint();mode="free";baseline=map;baselineRoutes=startCompare();tool="=";draw();save();say("Your current map is ready for free design.");};
+  byId("restart").onclick=()=>{if(mode==="challenge"&&map===initial){say("The starting map is ready.");return;}checkpoint();mode="challenge";map=initial;baseline=initial;baselineRoutes=startCompare();tool="=";draw();save();say("Challenge restarted. Use Undo to return to your previous map.");};
+  byId("undo").onclick=()=>{const last=history.pop();if(!last)return;({map,mode,baseline}=last);tool=mode==="challenge"?"=":tool;baselineRoutes=startCompare();draw();save();say("Undid your last change.");};
+  byId("share").onclick=async()=>{
+    const publicPage="https://singhpratik44.github.io/clearline-portfolio/shop/city-challenge/";
+    const base=location.protocol==="file:"?publicPage:location.href.split("#")[0];
+    const url=base+"#map="+encodeURIComponent(map);
+    try{await navigator.clipboard.writeText(url);say("Map link copied. Open it to design a new version.");}
+    catch{byId("manual").hidden=false;const input=byId("share-url");input.value=url;input.focus();input.select();say("Select and copy the map link.");}
+  };
+  byId("print").onclick=()=>window.print();
+  draw();
+})();
+</script></body></html>

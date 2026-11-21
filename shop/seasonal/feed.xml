@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>APERTURE Studio seasonal releases</title>
+    <link>https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/press.html</link>
+    <description>Individual APERTURE Studio printables, images, and interactive companions for family, school, and community publications.</description>
+    <language>en-US</language>
+    <atom:link href="https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Thanksgiving Table Draft</title>
+      <link>https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/#table-draft</link>
+      <guid>https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/#table-draft</guid>
+      <description>Four foldable Thanksgiving place cards give each guest space for a name and a conversation prompt. Print one free US Letter sheet.</description>
+      <category>Family activities</category><dc:creator>APERTURE Studio</dc:creator>
+      <enclosure url="https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/table-draft.pdf" length="101418" type="application/pdf"/>
+      <media:thumbnail url="https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/table-draft.webp" width="580" height="751"/>
+    </item>
+    <item>
+      <title>Game Day Color Lab</title>
+      <link>https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/#game-day</link>
+      <guid>https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/#game-day</guid>
+      <description>Color three team swatches, design a look on the face chart, and follow the original Crosswind passing play. One free printable sheet combines football and makeup design.</description>
+      <category>Sports and design</category><dc:creator>APERTURE Studio</dc:creator>
+      <enclosure url="https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/game-day-color-lab.pdf" length="60360" type="application/pdf"/>
+      <media:thumbnail url="https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/game-day-color-lab.webp" width="580" height="751"/>
+    </item>
+    <item>
+      <title>Side Street City Atlas</title>
+      <link>https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/#side-street</link>
+      <guid>https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/#side-street</guid>
+      <description>Mark two changes on an original neighborhood map. Use the coordinate key to trace a walk and compare a second route. The atlas prints on one US Letter sheet.</description>
+      <category>Learning games</category><dc:creator>APERTURE Studio</dc:creator>
+      <enclosure url="https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/side-street-atlas.pdf" length="105672" type="application/pdf"/>
+      <media:thumbnail url="https://singhpratik44.github.io/clearline-portfolio/shop/seasonal/side-street-atlas.webp" width="580" height="751"/>
+    </item>
+    <item>
+      <title>Side Street neighborhood planning game</title>
+      <link>https://singhpratik44.github.io/clearline-portfolio/shop/city-challenge/</link>
+      <guid>https://singhpratik44.github.io/clearline-portfolio/shop/city-challenge/</guid>
+      <description>Make two street changes, then trace how neighbors can walk to local destinations in the free browser game.</description>
+      <category>Learning games</category><dc:creator>APERTURE Studio</dc:creator>
+    </item>
+    <item>
+      <title>3D preference studio</title>
+      <link>https://singhpratik44.github.io/clearline-portfolio/shop/3d/</link>
+      <guid>https://singhpratik44.github.io/clearline-portfolio/shop/3d/</guid>
+      <description>Choose a kit, change three preferences, and explore an illustrative scene. Follow its links to the corresponding edition or creative tool.</description>
+      <category>3D design</category><dc:creator>APERTURE Studio</dc:creator>
+    </item>
+    <item>
+      <title>Gift Finder for readers and publishers</title>
+      <link>https://singhpratik44.github.io/clearline-portfolio/gifts/embed/#finder-install</link>
+      <guid>https://singhpratik44.github.io/clearline-portfolio/gifts/embed/#finder-install</guid>
+      <description>Try APERTURE's interest-and-budget gift finder and copy the iframe or direct-link version for use on a host page.</description>
+      <category>Publisher tools</category><dc:creator>APERTURE Studio</dc:creator>
+    </item>
+  </channel>
+</rss>

@@ -1,4 +1,6 @@
 import { createServer } from "node:http";
+import { findCatalogGifts } from "./find-gifts.mjs";
+import { prepareHolidayPostcard } from "./holiday-postcard.mjs";
 import { readFileSync } from "node:fs";
 import crypto from "node:crypto";
 import sharp from "sharp";
@@ -158,7 +160,7 @@ const planShape = z.object({
   disclaimer: z.string(), purchaseReady: z.boolean()
 });
 function createGiftServer() {
-  const server = new McpServer({ name: "gift-finder-gift-giver", version: "0.2.0" });
+  const server = new McpServer({ name: "gift-finder-gift-giver", version: "0.3.0" });
   registerAppResource(server, "gift-studio-widget", "ui://gift-studio/plan.html", {},
     async () => ({ contents: [{ uri: "ui://gift-studio/plan.html", mimeType: RESOURCE_MIME_TYPE, text: widget }] }));
   registerAppTool(server, "make_gift_plan", {
@@ -200,6 +202,41 @@ function createGiftServer() {
       structuredContent: { gift },
       content: [{ type: "text", text: JSON.stringify({ gift }, null, 2) }]
     };
+  });
+  registerAppTool(server, "find_catalog_gifts", {
+    title: "Find APERTURE gifts by recipient, interest and budget",
+    description: "Find up to three matching items from the APERTURE digital gift catalog. Use budgetUsd: 0 for free choices. Return the price, why it fits, a listing, and a preview when available. This tool browses catalog offers and does not place orders, reserve stock or send a gift.",
+    inputSchema: {
+      recipient:z.string().max(80).optional().describe("Recipient type, such as a coach, family or curious kid; use no contact details"),
+      audience:z.string().max(80).optional(),
+      interests:z.array(z.string().max(80)).max(8).optional().describe("Interests such as coding, basketball or design"),
+      occasion:z.string().max(80).optional(), budgetUsd:z.number().min(0).optional(), limit:z.number().int().min(1).max(3).optional()
+    },
+    outputSchema:{catalog:z.object({currency:z.literal("USD"),budgetUsd:z.number().nullable(),
+      recommendations:z.array(z.object({id:z.string(),title:z.string(),priceUsd:z.number(),why:z.string(),
+        url:z.string(),previewUrl:z.string().optional(),nextStep:z.string()}))})},
+    annotations:{readOnlyHint:true,destructiveHint:false,openWorldHint:false},
+    _meta:{ui:{resourceUri:"ui://gift-studio/plan.html"}}
+  }, async args => {
+    const catalog=findCatalogGifts(args);
+    return {structuredContent:{catalog},content:[{type:"text",text:JSON.stringify(catalog)}]};
+  });
+  registerAppTool(server, "create_holiday_postcard", {
+    title: "Make a printable holiday thank-you postcard",
+    description: "Prepare a holiday thank-you with an optional short note, a printable 6 × 4-inch card and a link for a recipient to open. Anyone holding the link can read its contents. Use only display names and non-sensitive text. Returns a subject and a message the user can share. No email address is needed and no message is sent by this tool.",
+    inputSchema: {
+      recipient: z.string().max(35).optional().describe("Optional display name for the card"),
+      sender: z.string().max(35).optional().describe("Optional display name to sign the card"),
+      message: z.string().max(200).optional().describe("A non-sensitive thank-you note"),
+      design: z.enum(["grove", "stars"]).optional()
+    },
+    outputSchema: { postcard: z.object({ title:z.string(), shareUrl:z.string(), blankPdfUrl:z.string(),
+      emailSubject:z.string(), emailBody:z.string(), sent:z.literal(false), notice:z.string() }) },
+    annotations: { readOnlyHint: true, destructiveHint: false, openWorldHint: false },
+    _meta: {ui:{resourceUri:"ui://gift-studio/plan.html"}}
+  }, async args => {
+    const postcard = prepareHolidayPostcard(args);
+    return { structuredContent:{postcard}, content:[{type:"text",text:JSON.stringify(postcard)}] };
   });
   return server;
 }

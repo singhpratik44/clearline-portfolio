@@ -110,6 +110,18 @@ try {
   });
   assert.match(shareResult.structuredContent.gift.shareUrl, /\/gift#/);
   assert.equal(shareResult.structuredContent.gift.sent, false);
+  const found = await client.callTool({name:"find_catalog_gifts",arguments:{interests:["coding"],budgetUsd:0}});
+  assert.ok(found.structuredContent.catalog.recommendations.length>0);
+  assert.ok(found.structuredContent.catalog.recommendations.every(item=>item.priceUsd===0 && item.url.startsWith("https://")));
+  const postcard = await client.callTool({name:"create_holiday_postcard", arguments:{recipient:"A friend",message:"Thank you!",design:"stars"}});
+  const card = postcard.structuredContent.postcard;
+  const url = new URL(card.shareUrl);
+  assert.equal(url.origin, "https://singhpratik44.github.io");
+  assert.equal(url.search,"");
+  assert.equal(new URLSearchParams(url.hash.slice(1)).get("note"), "Thank you!");
+  assert.equal(new URLSearchParams(url.hash.slice(1)).get("design"), "stars");
+  assert.equal(card.sent,false);
+  assert.ok(card.emailBody.includes(card.shareUrl));
   console.log("PASS: health, gift reveal, API plan/gift, MCP initialize/list-tools/both tool calls");
 } catch (err) {
   console.error("FAIL:", err);
