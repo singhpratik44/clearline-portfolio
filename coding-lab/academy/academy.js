@@ -90,6 +90,12 @@
     const link=document.createElement("a");
     link.textContent=readingTools[i][0]; link.href=readingTools[i][1]; link.className="text-link";
     article.querySelector(".unit-actions").append(link);
+    const skill = ["design","rules","sequence","rules","state","data","debug","remix","debug","communicate"][i];
+    const evidence = document.createElement("a");
+    evidence.textContent = "Record skill evidence";
+    const fields = new URLSearchParams({skill, stage: "Unit " + (i+1) + " · " + article.querySelector("h3").textContent});
+    evidence.href = "mastery/index.html#" + fields.toString();
+    article.querySelector(".unit-actions").append(evidence);
     if ([4,5,9,10].includes(i+1)) {
       const worldLink=document.createElement("a");
       worldLink.textContent="Build a branching world";

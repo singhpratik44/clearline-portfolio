@@ -1,0 +1,74 @@
+#mastery-report {
+  --mr-ink: #193833;
+  --mr-muted: #405e58;
+  --mr-rule: #b6cbc2;
+  --mr-surface: #fffefa;
+  --mr-soft: #eaf4ed;
+  color: var(--mr-ink);
+  max-width: 74rem;
+  margin: 1.5rem auto 4rem;
+  font-family: "Atkinson Hyperlegible Next", system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+#mastery-report *, #mastery-report *::before, #mastery-report *::after {box-sizing: border-box}
+#mastery-report [hidden] {display: none !important}
+#mastery-report h2, #mastery-report h3, #mastery-report h4 {color: var(--mr-ink); line-height: 1.13; margin: 0 0 .6rem; letter-spacing: -.025em}
+#mastery-report h2 {font-size: clamp(1.5rem, 3vw, 2.12rem)}
+#mastery-report h3 {font-size: 1.38rem; margin-top: 1.6rem}
+#mastery-report h4 {font-size: 1.12rem}
+#mastery-report p {color: inherit; margin: .45rem 0 .8rem; overflow-wrap: anywhere}
+#mastery-report .mr-work {display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(15rem, .85fr); align-items: start; gap: 1rem}
+#mastery-report .mr-form-panel, #mastery-report .mr-tools, #mr-output {min-width: 0; background: var(--mr-surface); border: 1px solid var(--mr-rule); border-radius: 1rem; padding: clamp(1rem, 3vw, 2rem)}
+#mastery-report .mr-tools {background: var(--mr-soft)}
+#mastery-report label {display: block; color: var(--mr-ink); font-weight: 700; margin-top: 1rem; margin-bottom: .28rem}
+#mastery-report label small {font-weight: 400}
+#mastery-report input:not([type="checkbox"]), #mastery-report textarea, #mastery-report select {
+  width: 100%; max-width: 100%; padding: .7rem; font: inherit; min-height: 2.8rem; color: #162e28; background: #fff; border: 1px solid #788f85; border-radius: .45rem;
+}
+#mastery-report textarea {resize: vertical}
+#mastery-report input::placeholder {color: #526760}
+#mastery-report button, #mastery-report summary {cursor: pointer}
+#mastery-report button {font: inherit; font-weight: 650; line-height: 1.3; min-height: 2.75rem; border: 1px solid #637f73; padding: .62rem .88rem; background: #fff; color: #1a4437; border-radius: .45rem}
+#mastery-report .mr-primary {display: block; background: #205441; color: #fff; margin-top: 1.1rem; border-color: #205441}
+#mastery-report button:hover:not(:disabled) {background: #d9ebdc; color: #17372d}
+#mastery-report button:disabled {opacity: .57; cursor: default}
+#mastery-report :focus-visible {outline: 3px solid #914500; outline-offset: 3px}
+#mastery-report .mr-pair {display: grid; gap: .75rem; grid-template-columns: repeat(2, minmax(0,1fr))}
+#mastery-report .mr-rubric {padding: .85rem 1rem; background: var(--mr-soft); border-left: 3px solid #42754c; border-radius: .3rem; margin: 1rem 0}
+#mastery-report .mr-rubric summary {padding: .35rem 0; font-weight: 650}
+#mastery-report .mr-rubric ol {padding-left: 1.5rem; margin: .4rem 0}
+#mastery-report .mr-rubric li {margin-bottom: .5rem}
+#mastery-report .mr-rubric a {color: #205441; display: inline-block; margin: .5rem 0 .25rem; text-decoration: underline}
+#mastery-report .mr-help, #mastery-report .mr-meta, #mr-context {color: var(--mr-muted); font-size: .93rem}
+#mr-context {margin-top: .5rem}
+#mastery-report .mr-toggle {display: flex; gap: .55rem; align-items: flex-start; cursor: pointer}
+#mastery-report .mr-toggle input {margin: .23rem 0; width: 1.15rem; height: 1.15rem; accent-color: #205441; flex: none}
+#mastery-report .mr-file-actions {display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 .5rem}
+#mastery-report .mr-report-head {display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem}
+#mastery-report .mr-report-head h2 {margin: 0}
+#mastery-report .mr-status:not(:empty) {border-left: 3px solid #587055; color: #193c2e; background: #f2f5df; padding: .75rem; margin: 1rem 0}
+#mr-output {margin-top: 1rem}
+#mastery-report .mr-skill-list {display: grid; padding: 0; list-style: none; margin: 0; gap: .35rem}
+#mastery-report .mr-skill-list li {display: grid; grid-template-columns: 1fr 1fr 1.1fr; gap: .4rem; border-bottom: 1px solid var(--mr-rule); padding: .5rem 0}
+#mastery-report .mr-skill-list small {font-size: .9rem; color: var(--mr-muted)}
+#mastery-report .mr-record {border-top: 1px solid var(--mr-rule); padding: 1rem 0 .7rem; overflow-wrap: anywhere}
+#mastery-report .mr-record p {white-space: pre-line}
+#mastery-report .mr-remove {font-size: .88rem}
+@media (max-width: 700px) {
+  #mastery-report .mr-work {grid-template-columns: minmax(0,1fr)}
+  #mastery-report .mr-skill-list li {grid-template-columns: 1fr}
+}
+@media (max-width: 450px) {
+  #mastery-report .mr-pair {grid-template-columns: minmax(0,1fr); gap: 0}
+}
+@media print {
+  body:has(#mastery-report) :not(:has(#mastery-report)):not(#mastery-report):not(#mastery-report *) {display: none !important}
+  body:has(#mastery-report), body:has(#mastery-report) :has(#mastery-report), #mastery-report {display: block !important; background: white !important; color: #000 !important; box-shadow: none !important; padding: 0 !important; margin: 0 !important; max-width: none !important}
+  #mastery-report .mr-work, #mr-status, #mastery-report button {display: none !important}
+  #mr-output {padding: 0; margin: 0; border: none}
+  #mastery-report h2, #mastery-report h3, #mastery-report h4, #mastery-report p, #mastery-report small {color: #111}
+  #mastery-report .mr-record, #mastery-report .mr-skill-list li {break-inside: avoid}
+  #mastery-report h3 {break-after: avoid}
+  #mastery-report {font-size: 10.5pt}
+}
