@@ -17,7 +17,7 @@
 <div class="pair"><label>For<input id="to" maxlength="60" placeholder="Recipient"></label><label>From<input id="from" maxlength="60" placeholder="Your name"></label></div>
 <label>Cover title<input id="title" maxlength="75"></label><label>Cover cloth<select id="theme"><option value="forest">Forest linen</option><option value="rose">Mulberry linen</option><option value="night">Midnight linen</option></select></label>
 <fieldset><legend>Memory pages</legend><label>Edit page<select id="choose"></select></label><label>Page heading<input id="heading" maxlength="65"></label><label>Memory or message<textarea id="body" rows="3" maxlength="400"></textarea></label><label>Add a photo<input type="file" id="photo" accept="image/jpeg,image/png,image/webp"></label><p class="hint">Choose a JPG, PNG or WebP under 8 MB. Photos stay on this device until you send the downloaded keepsake.</p><div class="row"><button id="removePhoto" hidden>Remove photo</button><button id="add">Add page</button><button id="del">Remove page</button></div></fieldset></section></div>
-<section class="send" id="send"><h2>Send your gift</h2><p>Copy a link for the written pages, or download the complete book with photos and attach it to a message. Anyone with the link or file can open it. Keep a download before closing this tab.</p><div class="row"><button class="primary" id="share">Copy text gift link</button><button id="download">Download photo keepsake</button></div><label id="manual" hidden>Copy this gift link<input id="url" readonly></label></section><p class="status" role="status" id="status"></p></main>
+<section class="send" id="send"><h2>Send your gift</h2><p>Copy a link for the written pages, or download the complete book with photos and attach it to a message. Anyone with the link or file can open it. Keep a download before closing this tab.</p><div class="row"><button class="primary" id="share">Copy text gift link</button><button id="sendNative" hidden>Send gift…</button><button id="download">Download photo keepsake</button></div><label id="manual" hidden>Copy this gift link<input id="url" readonly></label></section><p class="status" role="status" id="status"></p></main>
 <script id="giftData" type="application/json">null</script>
 <script>
 'use strict';
@@ -71,8 +71,28 @@ $('photo').onchange=async()=>{
  try{const img=new Image();img.src=src;await img.decode();const ratio=Math.min(1,1100/Math.max(img.naturalWidth,img.naturalHeight));const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.naturalWidth*ratio));canvas.height=Math.max(1,Math.round(img.naturalHeight*ratio));const ctx=canvas.getContext('2d');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(img,0,0,canvas.width,canvas.height);const data=canvas.toDataURL('image/jpeg',.76);if(data.length>1500000)throw Error();page.photo=data;if(book.pages.includes(page)){if(book.pages[editing]===page)view=editing;editor();changed();$('status').textContent='Photo added to the downloadable keepsake.'}}
  catch{$('status').textContent='This image could not be opened. Choose another photo.'}finally{URL.revokeObjectURL(src);$('download').disabled=false;$('photo').disabled=false}
 };
-$('share').onclick=async()=>{const data={...book,pages:book.pages.map(({heading,body})=>({heading,body}))};const url=canonical+'#book='+encode(JSON.stringify(data));if(url.length>24000){$('status').textContent='This text is too long for a shareable link. Download and send the keepsake instead.';return}
+function textGiftURL(){const data={...book,pages:book.pages.map(({heading,body})=>({heading,body}))};return canonical+'#book='+encode(JSON.stringify(data))}
+$('share').onclick=async()=>{const url=textGiftURL();if(url.length>24000){$('status').textContent='This text is too long for a shareable link. Download and send the keepsake instead.';return}
  $('url').value=url;$('manual').hidden=false;try{await navigator.clipboard.writeText(url);$('status').textContent='Text gift link copied. Paste it into your message.'}catch{$('url').focus();$('url').select();$('status').textContent='Select and copy the gift link, then paste it into your message.'}};
-$('download').onclick=()=>{const content=JSON.stringify(book).replaceAll('<','\\u003c').replaceAll('>','\\u003e').replaceAll('&','\\u0026');const file=original.replace(/(<script id="giftData" type="application\/json">)null(<\/script>)/,(all,open,close)=>open+content+close);const blob=new Blob([file],{type:'text/html;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='APERTURE-scrapbook.html';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);$('status').textContent='Keepsake downloaded. Attach the HTML file or share it through a drive link. Open the file in a browser.'};
+function keepsakeBlob(){const content=JSON.stringify(book).replaceAll('<','\\u003c').replaceAll('>','\\u003e').replaceAll('&','\\u0026');const file=original.replace(/(<script id="giftData" type="application\/json">)null(<\/script>)/,(all,open,close)=>open+content+close);return new Blob([file],{type:'text/html;charset=utf-8'})}
+$('download').onclick=()=>{const url=URL.createObjectURL(keepsakeBlob()),a=document.createElement('a');a.href=url;a.download='APERTURE-scrapbook.html';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),30000);$('status').textContent='Keepsake downloaded. Attach the HTML file or share it through a drive link. Open the file in a browser.'};
+if(typeof navigator.share==='function'&&!reader){
+ $('sendNative').hidden=false;
+ $('sendNative').onclick=async()=>{
+  if($('download').disabled){$('status').textContent='Wait for the photo to finish preparing.';return}
+  const title=book.title||'A little book';
+  try{
+   if(book.pages.some(p=>p.photo)){
+    const file=new File([keepsakeBlob()],'APERTURE-scrapbook.html',{type:'text/html'});
+    if(!navigator.canShare?.({files:[file]})){ $('status').textContent='Use Download photo keepsake, then attach the file to your message.';return }
+    await navigator.share({title,files:[file]});
+   }else{
+    const url=textGiftURL();if(url.length>24000){$('status').textContent='Use Download photo keepsake for this longer book.';return}
+    await navigator.share({title,url})
+   }
+   $('status').textContent='Gift handed to your sharing app.';
+  }catch(error){if(error.name!=='AbortError')$('status').textContent='Use the copy or download option to share this gift.'}
+ }
+}
 editor();render();
 </script></body></html>
