@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Rotate, recolor and share a basketball, warm-up shirt, lipstick, mug or gift box. Try APERTURE's interactive product studio for shops.">
+<title>Product Studio · APERTURE</title>
+<style>
+:root{color-scheme:light;--ink:#1b3029;--paper:#f7f5ef;--rule:#c8ccc0;--lime:#d8f79b}*{box-sizing:border-box}body{margin:0;font:16px/1.45 'DM Sans',system-ui,sans-serif;background:var(--paper);color:var(--ink)}a{color:inherit;text-underline-offset:.19em}nav,main{max-width:1150px;margin:auto}nav{padding:19px 26px;display:flex;justify-content:space-between;border-bottom:1px solid var(--rule)}nav strong{letter-spacing:.13em}main{padding:0 26px 52px}header{padding:36px 0 21px}h1{margin:0;font-size:clamp(39px,7vw,86px);letter-spacing:-.07em;line-height:1.05}header p{max-width:62ch;color:#46594f;margin:12px 0 0}h2{font-size:clamp(25px,3.8vw,42px);letter-spacing:-.045em;line-height:1.06;margin:0 0 13px}h3{font-size:18px;margin:0}p{margin:8px 0 16px}button,select,input,textarea{font:inherit}button,a.action{cursor:pointer;font-weight:650;border:1px solid #718074;color:var(--ink);background:#fff;border-radius:7px;padding:10px 14px;min-height:44px}button:hover,a.action:hover{background:#f1f7e8}button:focus-visible,select:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,canvas:focus-visible{outline:3px solid #0875dc;outline-offset:2px}.deck{display:grid;grid-template-columns:minmax(0,1.36fr) minmax(285px,1fr);border:1px solid var(--rule);border-radius:18px;overflow:hidden;background:#fff}.stage{position:relative;background:radial-gradient(ellipse at 50% 44%,#e5ece1,#c4cfc1);display:grid;align-content:center;min-width:0;padding:12px 12px 64px}.stage canvas{width:100%;height:clamp(320px,40vw,470px);display:block;touch-action:none}.controls{position:absolute;bottom:14px;left:0;right:0;display:flex;justify-content:center;gap:8px}.controls button{background:#fffffff0}.side{padding:clamp(20px,4vw,39px);border-left:1px solid var(--rule)}label{display:block;margin-top:15px;font-size:14px;font-weight:750}select,input,textarea{display:block;width:100%;padding:10px;border:1px solid #879586;border-radius:7px;background:white;color:var(--ink);min-height:44px;margin-top:5px}.side .actions{margin-top:20px}.actions{display:flex;align-items:center;flex-wrap:wrap;gap:8px}.primary{background:var(--lime);border-color:#899f59}#tip,.note{font-size:14px;color:#4f6055}.share{margin:15px 0 0}#summary{margin-top:12px}footer{margin-top:22px;padding:16px 0;border-top:1px solid var(--rule)}[hidden]{display:none!important}body.embedded nav,body.embedded header,body.embedded footer{display:none}body.embedded main{padding:6px}.eyeline{letter-spacing:.1em;text-transform:uppercase;font-weight:700;font-size:12px;color:#516653;margin:0 0 7px}@media(max-width:700px){main{padding:0 13px 23px}nav{padding:14px}header{padding:23px 0 17px}.deck{grid-template-columns:1fr}.stage canvas{height:250px}.side{border-left:0;border-top:1px solid var(--rule);padding:17px}.stage{padding-bottom:58px}.controls button{padding:7px 12px}}
+</style>
+</head>
+<body>
+<nav aria-label="Site"><strong>APERTURE</strong><a href="../">Partner marketing studio</a></nav>
+<main>
+<header><h1>Product studio</h1><p>Choose a product, make it yours, and send someone the exact design. Each sample also works on a partner’s own page.</p></header>
+<div class="deck">
+<div class="stage">
+<canvas id="model" tabindex="0" width="640" height="460" aria-label="Interactive product model">Your browser can display the product details in the panel below.</canvas>
+<div class="controls" aria-label="Rotate model"><button type="button" id="left" aria-label="Rotate left 30 degrees">↶ Left</button><button type="button" id="reset">Front</button><button type="button" id="right" aria-label="Rotate right 30 degrees">Right ↷</button></div>
+</div>
+<section class="side" aria-labelledby="name">
+<p id="category" class="eyeline"></p><h2 id="name">Your product</h2>
+<label for="product">Product</label><select id="product"></select>
+<label for="tone" id="toneLabel"></label><select id="tone"></select>
+<label for="trim" id="trimLabel"></label><select id="trim"></select>
+<label for="num" id="numLabel" hidden>Player number</label><input id="num" type="text" inputmode="numeric" maxlength="2" pattern="[0-9]{1,2}" value="23" hidden>
+<p class="note" id="tip"></p>
+<p id="summary" aria-live="polite"></p>
+<div class="actions"><button type="button" class="primary" id="share">Copy design link</button><button type="button" id="embed">Get embed code</button></div>
+<p id="status" aria-live="polite"></p>
+<div class="share" id="manual" hidden><label for="copyvalue" id="copylabel">Copy this text</label><textarea id="copyvalue" rows="3" readonly></textarea></div>
+<a id="shirtlink" href="../../../gifts/team-shirt/" hidden>Choose a size in the team shirt maker →</a>
+</section></div>
+<footer><strong>Concept samples</strong><p class="note">Colors and proportions are illustrative. A retailer can replace sample choices with approved products, sizes and purchase links.</p><a href="../">Explore partner demos</a></footer></main>
+<script src="../../../gifts/team-shirt/product-viewer.js"></script>
+<script>
+(() => {
+  const colors = {
+    Orange:'#c3642e', Cream:'#e9dfc6', Violet:'#775899', Charcoal:'#333a38',
+    Navy:'#233c76', Forest:'#22604b', Maroon:'#7e334c', Gold:'#e4bd61', White:'#ffffff',
+    Mint:'#9ce1bd', Rose:'#aa4f69', Coral:'#e37666', Berry:'#923954', Bronze:'#aa795a',
+    Oat:'#d4c0a3', Moss:'#718853', Plum:'#673d64', Sand:'#dbbe97', Teal:'#397e7d',
+    Brick:'#a64c40', Sage:'#91a793', Blush:'#ddadb6', Cocoa:'#76584a', Ink:'#202735'
+  };
+  const products = {
+    ball:{name:'Court ball',category:'Basketball',tone:'Cover color',tones:['Orange','Cream','Violet'],trim:'Channel color',trims:['Charcoal','White','Navy'],tip:'Turn the ball to compare channel contrast on both sides.'},
+    lipstick:{name:'Lip color',category:'Beauty',tone:'Lip shade',tones:['Berry','Coral','Rose'],trim:'Case color',trims:['Gold','Charcoal','Bronze'],tip:'Rotate the case to see the selected shade above the collar.'},
+    mug:{name:'Studio mug',category:'Home',tone:'Body glaze',tones:['Oat','Moss','Plum'],trim:'Accent glaze',trims:['Teal','Brick','Cream'],tip:'Rotate the mug to inspect its handle and accent glaze.'},
+    box:{name:'Gift box',category:'Gifts',tone:'Wrapping color',tones:['Sage','Blush','Cocoa'],trim:'Ribbon color',trims:['Cream','Gold','Ink'],tip:'Turn the box to see how the ribbon contrasts with the wrap.'},
+    shirt:{name:'Team warm-up',category:'Team apparel',tone:'Fabric color',tones:['Navy','Forest','Maroon'],trim:'Print color',trims:['White','Gold','Mint'],tip:'Rotate from the chest print to the player number on the back.'}
+  };
+  const $ = id => document.getElementById(id);
+  const menu = $('product'), canvas = $('model'), linkBox = $('manual');
+  const fragment = new URLSearchParams(location.hash.slice(1));
+  if(new URLSearchParams(location.search).get('embed') === '1') document.body.classList.add('embedded');
+  for(const [key,p] of Object.entries(products)) menu.add(new Option(p.name,key));
+  menu.value=Object.hasOwn(products,fragment.get('product'))?fragment.get('product'):'ball';
+  let viewer;
+  function populate(id,names,value) {
+    const sel=$(id);
+    sel.replaceChildren(...names.map(name=>new Option(name,name)));
+    if(names.includes(value)) sel.value=value;
+  }
+  function clearMessage() { linkBox.hidden=true; $('status').textContent=''; }
+  function state() {
+    const data=new URLSearchParams({product:menu.value,tone:$('tone').value,trim:$('trim').value});
+    if(menu.value==='shirt') data.set('num',$('num').value || '0');
+    return data;
+  }
+  function render() {
+    const p=products[menu.value], data=state(), number=data.get('num') || '23';
+    const settings={shape:menu.value,color:colors[data.get('tone')],ink:colors[data.get('trim')],number};
+    if(window.ApertureProductViewer) {
+      if(viewer) viewer.update(settings);
+      else viewer=window.ApertureProductViewer.mount(canvas,settings);
+    }
+    const desc=p.name+' · '+data.get('tone')+' / '+data.get('trim')+(menu.value==='shirt'?' · #'+number:'');
+    canvas.setAttribute('aria-label',desc+'; use the rotate controls to change the view');
+    $('summary').textContent=desc;
+    $('tip').textContent=viewer?p.tip:'The 3D view is unavailable. Your selections can still be shared.';
+    for(const id of ['left','right','reset']) $(id).disabled=!viewer;
+    clearMessage();
+  }
+  function change(initial=false) {
+    const p=products[menu.value];
+    $('category').textContent=p.category;
+    $('name').textContent=p.name;
+    $('toneLabel').textContent=p.tone; $('trimLabel').textContent=p.trim;
+    populate('tone',p.tones,initial?fragment.get('tone'):null);
+    populate('trim',p.trims,initial?fragment.get('trim'):null);
+    for(const id of ['numLabel','num','shirtlink']) $(id).hidden=menu.value!=='shirt';
+    if(initial && /^[0-9]{1,2}$/.test(fragment.get('num'))) $('num').value=fragment.get('num');
+    render(); if(viewer) viewer.front();
+  }
+  menu.addEventListener('change',()=>change());
+  $('tone').addEventListener('change',render); $('trim').addEventListener('change',render);
+  $('num').addEventListener('input',()=>{$('num').value=$('num').value.replace(/[^0-9]/g,'').slice(0,2);render()});
+  $('left').onclick=()=>viewer?.rotate(-Math.PI/6); $('right').onclick=()=>viewer?.rotate(Math.PI/6); $('reset').onclick=()=>viewer?.front();
+  async function share(asEmbed) {
+    if(menu.value==='shirt' && !$('num').value){$('status').textContent='Enter a player number from 0 to 99.';$('num').focus();return}
+    const u=new URL(location.href); u.search=asEmbed?'?embed=1':''; u.hash=state().toString();
+    const value=asEmbed?'<iframe title="APERTURE product studio" src="'+u.href.replaceAll('&','&amp;')+'" width="100%" height="720" style="border:0" loading="lazy"></iframe>':u.href;
+    clearMessage();
+    if(!asEmbed) {
+      try { await navigator.clipboard.writeText(value); $('status').textContent='Design link copied.';return; } catch {}
+    }
+    $('copylabel').textContent=asEmbed?'Embed this design on your page':'Copy this design link';
+    $('copyvalue').value=value;linkBox.hidden=false;$('copyvalue').focus();$('copyvalue').select();
+  }
+  $('share').onclick=()=>share(false); $('embed').onclick=()=>share(true);
+  change(true);
+})();
+</script></body></html>
