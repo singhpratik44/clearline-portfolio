@@ -2,34 +2,20 @@ name: Publish current APERTURE website
 on:
   push:
     branches: [main]
-    paths:
-      - '**/*.html'
-      - 'assets/**'
-      - 'shop/**'
-      - 'sprint/**'
-      - 'experience/**'
-      - 'center/**'
-      - 'gifts/**'
-      - 'coding/**'
-      - 'coding-lab/**'
-      - 'learning/**'
-      - 'prayer/**'
-      - 'tests/revenue-sprint.test.mjs'
-      - '.github/workflows/current-pages.yml'
-      - 'site.webmanifest'
-      - 'llms.txt'
-      - 'robots.txt'
   workflow_dispatch:
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
 concurrency:
-  group: pages
+  group: aperture-canonical-release
   cancel-in-progress: false
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      current: ${{ steps.order.outputs.current }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -56,7 +42,7 @@ jobs:
           done
           if test -d center; then cp -R center _site/; fi
           # Public studio pages linked from the homepage. Stage only their released files.
-          for page in sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html; do
+          for page in sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html; do
             install -D -m 644 "$page" "_site/$page"
           done
           mkdir -p _site/chatgpt-gift-studio/public
@@ -65,23 +51,71 @@ jobs:
           cp research/representation.mjs _site/research/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
           touch _site/.nojekyll
-          for page in index.html shop/index.html sprint/index.html gifts/index.html learning/index.html coding-lab/index.html coding-lab/game-creator/index.html coding-lab/academy/index.html coding-lab/academy/studio/index.html coding-lab/academy/facilitator/index.html coding-lab/academy/offline-studio.zip sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html assets/aperture-human-experience.js assets/aperture-design-lab.js field-guide.html creator-series.html coding-lab/academy/pathways/index.html coding-lab/academy/mastery/index.html coding-lab/academy/mastery/report.js gifts/featured/guide.js prayer/index.html holiday/index.html sports-os/index.html; do
+          for page in index.html shop/index.html sprint/index.html gifts/index.html learning/index.html coding-lab/index.html coding-lab/game-creator/index.html coding-lab/academy/index.html coding-lab/academy/studio/index.html coding-lab/academy/facilitator/index.html coding-lab/academy/offline-studio.zip sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html assets/aperture-human-experience.js assets/aperture-design-lab.js field-guide.html creator-series.html coding-lab/academy/pathways/index.html coding-lab/academy/mastery/index.html coding-lab/academy/mastery/report.js gifts/featured/guide.js prayer/index.html holiday/index.html sports-os/index.html; do
             test -s "_site/$page" || { echo "Missing required public page $page"; exit 1; }
           done
+          grep -q 'id="preview"' _site/game-studio.html
+          grep -q 'id="course"' _site/learning-lab.html
           grep -q 'buy.stripe.com/aFa9AVcsKcMs1Vy1ND6kg1o' _site/sprint/index.html
           grep -q 'href="../sprint/"' _site/shop/index.html
           grep -q 'FICTIONAL WORKFLOW' _site/sprint/index.html
           grep -q 'No guaranteed revenue increase' _site/sprint/index.html
+      - name: Check branch-based Pages build ordering
+        id: order
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const repo = context.repo;
+            const sha = context.sha;
+            const current = async () => (await github.rest.git.getRef({...repo, ref: 'heads/main'})).data.object.sha === sha;
+            if (!(await current())) {
+              core.setOutput('current', 'false');
+              return;
+            }
+            let site;
+            try { site = (await github.rest.repos.getPages(repo)).data; }
+            catch (error) {
+              if (![403, 404].includes(error.status)) throw error;
+              core.info('Source settings unavailable. Inspecting native builds for this commit.');
+            }
+            if (!site || (site.build_type === 'legacy' && site.source?.branch === 'main')) {
+              // The branch build is managed by GitHub. Let its deploy finish first.
+              const until = Date.now() + 8 * 60 * 1000;
+              const appearBy = Date.now() + 60 * 1000;
+              for (;;) {
+                if (!(await current())) {
+                  core.setOutput('current', 'false');
+                  return;
+                }
+                const {data} = await github.rest.actions.listWorkflowRunsForRepo({...repo, head_sha: sha, per_page: 100});
+                const native = data.workflow_runs.filter(run => run.path === 'dynamic/pages/pages-build-deployment');
+                if (native.length && native.every(run => run.status === 'completed')) break;
+                if (!native.length && Date.now() >= appearBy) {
+                  core.info('No native build was scheduled for this commit. Proceeding with the canonical artifact.');
+                  break;
+                }
+                if (Date.now() >= until) throw Error('The branch publisher is still running. Retry this release after it finishes.');
+                await new Promise(resolve => setTimeout(resolve, 5000));
+              }
+            }
+            core.setOutput('current', String(await current()));
       - uses: actions/upload-pages-artifact@v3
+        if: steps.order.outputs.current == 'true'
         with:
           path: _site
   deploy:
     needs: build
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main' && needs.build.outputs.current == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
     steps:
+      - name: Confirm this release still matches main
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const ref = await github.rest.git.getRef({...context.repo, ref: 'heads/main'});
+            if (ref.data.object.sha !== context.sha) core.setFailed('A newer commit is now on main. Its release takes precedence.');
       - uses: actions/deploy-pages@v4
       - name: Verify revenue page on public Pages host
         shell: bash

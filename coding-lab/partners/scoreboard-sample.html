@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#142338"><title>A scoreboard that skipped the win · APERTURE sample skills report</title>
+<meta name="description" content="Try the same moves under two rules. See the evidence an APERTURE facilitator can help a student capture and explain.">
+<style>
+:root{font:16px/1.55 system-ui,sans-serif;color:#17312c;background:#fbfaf5}*{box-sizing:border-box}body{margin:0}.wrap{width:min(100% - 2rem,62rem);margin:auto}header{background:#152a37;color:#fafbf6}header .wrap{padding:1rem 0;display:flex;gap:1rem;justify-content:space-between}a{color:#145b4b;text-underline-offset:3px}header a{color:#d1f3e1;font-weight:700}main{padding:2rem 0 3rem}.kicker{margin:0;font:700 .9rem/1.5 ui-monospace,monospace;color:#446459}h1{font-size:clamp(2.4rem,6vw,4.8rem);line-height:1;letter-spacing:-.06em;margin:.65rem 0 1rem;max-width:13ch}h2{line-height:1.15;letter-spacing:-.025em}main>p{max-width:62ch}.lab{border:1.5px solid #285346;border-radius:.8rem;padding:clamp(1rem,3vw,2rem);background:white;margin:2rem 0}.controls{display:flex;gap:.6rem;flex-wrap:wrap;align-items:center}button{background:#174535;color:white;font:700 1rem/1.5 system-ui;padding:.6rem 1rem;border:1px solid #174535;border-radius:.35rem;cursor:pointer}.secondary{background:white;color:#174535}.twins{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin:1.25rem 0}.rule{padding:1rem;background:#f0f2ed;border:1px solid #c5cbc4;border-radius:.5rem}.rule h3{margin:0}.rule output{display:block;font:700 2.3rem/1.25 ui-monospace,monospace}.rule p{margin:.4rem 0}dl{border-block:1px solid #aaafa9;padding:1rem 0}dt{font-weight:750}dd{margin:.12rem 0 .85rem}.foot{display:flex;flex-wrap:wrap;gap:1.1rem;align-items:center}a:focus-visible,button:focus-visible{outline:3px solid #b44e26;outline-offset:3px}@media(max-width:540px){.twins{grid-template-columns:1fr}}@media print{header,.controls,.foot,button{display:none}.wrap{width:100%}main{padding:0}h1{font-size:28pt;max-width:none}.lab{margin:1rem 0}.rule,dl{break-inside:avoid}}
+</style></head><body><header><nav class="wrap" aria-label="APERTURE"><a href="index.html#creator-pilot">Partner programs</a><a href="../../creator-series.html#court-to-code">Court to Code</a></nav></header>
+<main class="wrap"><p class="kicker">Illustrative skills report · Backyard Scoreboard</p><h1>A scoreboard that skipped the win.</h1><p>A maker wants a game to end when a team earns five points or more. A basket earns two. What happens when the score jumps from four to six?</p>
+<section class="lab"><h2>Try both versions</h2><p>Both start at four. Add points to both scoreboards and compare what happens. Each freezes when its own win rule fires.</p>
+<div class="controls" hidden id="controls"><button id="two" type="button">Score a basket (+2)</button><button id="one" type="button">Score a free throw (+1)</button><button id="reset" class="secondary" type="button">Reset to four</button></div>
+<div class="twins"><div class="rule"><h3>First draft</h3><p>Win at <b>exactly five</b>.</p><output id="a">4 points</output><span id="a-status">Still playing</span></div><div class="rule"><h3>Revision</h3><p>Win at <b>five or more</b>.</p><output id="b">4 points</output><span id="b-status">Still playing</span></div></div><p id="observation" role="status">Try adding two points, then reset and try one.</p><noscript><p>On paper, adding two to four gives six. Only the revised rule ends the game. Adding one to four gives five and both versions end.</p></noscript></section>
+<section><h2>What goes into a skills report?</h2><p>This worked example uses the rules above. In a session, the learner supplies their own evidence and identifies who observed it.</p><dl><dt>Skill</dt><dd>Test and debug a rule.</dd><dt>Test case</dt><dd>Start on 4. Add 2. The first draft reaches 6 and keeps playing. The revised version reaches 6 and ends.</dd><dt>Check the original case</dt><dd>Reset and add 1. Both versions reach 5 and end.</dd><dt>Next demonstration</dt><dd>Choose a different winning score. Predict one move that lands on it and one that jumps over it, then test both.</dd></dl><div class="foot"><a href="../academy/mastery/index.html#skill=debug&amp;project=Backyard+Scoreboard">Start my own skills report</a><a href="index.html#creator-pilot">Discuss a workshop for my group</a><button type="button" hidden class="secondary" id="print">Print this example</button></div></section></main>
+<script>
+(() => {
+ const el = id => document.getElementById(id);
+ const boards = [{id:'a',wins:n=>n===5},{id:'b',wins:n=>n>=5}];
+ function render(message) {
+   for (const board of boards) {
+     el(board.id).textContent = board.score + ' points';
+     el(board.id + '-status').textContent = board.wins(board.score) ? 'Game won' : 'Still playing';
+   }
+   const finished = boards.every(board=>board.wins(board.score));
+   el('two').disabled = el('one').disabled = finished;
+   el('observation').textContent = message;
+ }
+ function reset() {
+   for (const board of boards) board.score = 4;
+   render('Try adding two points, then reset and try one.');
+ }
+ function add(points) {
+   for (const board of boards) if (!board.wins(board.score)) board.score += points;
+   const [first,second] = boards;
+   if (first.wins(first.score) && second.wins(second.score)) render('Both versions won at 5. Reset and try jumping over 5.');
+   else if (first.score > 5 && second.wins(second.score)) render('The first draft passed 5 and is still playing. The revised game ended at ' + second.score + '.');
+   else render('Compare the two scores with their win rules.');
+ }
+ el('controls').hidden = false;
+ el('print').hidden = false;
+ el('one').onclick = () => add(1);
+ el('two').onclick = () => add(2);
+ el('reset').onclick = reset;
+ el('print').onclick = () => window.print();
+ reset();
+})();
+</script></body></html>
