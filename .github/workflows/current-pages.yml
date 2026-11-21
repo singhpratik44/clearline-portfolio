@@ -42,7 +42,7 @@ jobs:
           done
           if test -d center; then cp -R center _site/; fi
           # Public studio pages linked from the homepage. Stage only their released files.
-          for page in sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html; do
+          for page in prototypes/index.html prototypes/game-night/index.html prototypes/boardwalk/index.html prototypes/great-america/index.html prototypes/realtor/index.html prototypes/car-audio/index.html sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html; do
             install -D -m 644 "$page" "_site/$page"
           done
           for asset in plugin-build/index.html plugin-build/aperture-gift-maker.zip plugin-build/aperture-gift-tools-wordpress.zip plugin-build/wordpress-playground.json plugin-build/aperture-poe-gift-maker.html plugin-build/aperture-shopify-gift-maker.liquid; do
@@ -54,7 +54,7 @@ jobs:
           cp research/representation.mjs _site/research/
           cp src/organization-simulator.mjs src/world-graph.mjs src/solver-router.mjs src/future-explorer.mjs src/decision-kernel.mjs src/information-holography.mjs _site/src/
           touch _site/.nojekyll
-          for page in index.html shop/index.html sprint/index.html gifts/index.html learning/index.html coding-lab/index.html coding-lab/game-creator/index.html coding-lab/academy/index.html coding-lab/academy/studio/index.html coding-lab/academy/facilitator/index.html coding-lab/academy/offline-studio.zip sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html assets/aperture-human-experience.js assets/aperture-design-lab.js field-guide.html creator-series.html coding-lab/academy/pathways/index.html coding-lab/academy/mastery/index.html coding-lab/academy/mastery/report.js gifts/featured/guide.js prayer/index.html holiday/index.html sports-os/index.html; do
+          for page in prototypes/index.html prototypes/game-night/index.html prototypes/boardwalk/index.html prototypes/great-america/index.html prototypes/realtor/index.html prototypes/car-audio/index.html index.html shop/index.html sprint/index.html gifts/index.html learning/index.html coding-lab/index.html coding-lab/game-creator/index.html coding-lab/academy/index.html coding-lab/academy/studio/index.html coding-lab/academy/facilitator/index.html coding-lab/academy/offline-studio.zip sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html assets/aperture-human-experience.js assets/aperture-design-lab.js field-guide.html creator-series.html coding-lab/academy/pathways/index.html coding-lab/academy/mastery/index.html coding-lab/academy/mastery/report.js gifts/featured/guide.js prayer/index.html holiday/index.html sports-os/index.html; do
             test -s "_site/$page" || { echo "Missing required public page $page"; exit 1; }
           done
           grep -q 'id="preview"' _site/game-studio.html
