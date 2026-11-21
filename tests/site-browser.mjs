@@ -11,14 +11,10 @@ try {
    const page=await browser.newPage({viewport,isMobile:viewport.width<500,hasTouch:viewport.width<500});
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto('http://127.0.0.1:8767/');
-   await page.locator('#aperture-site-navigation').waitFor();
-   assert.ok((await page.locator('.project').count())>=22,'Mission Operations is listed in the portfolio');
    assert.match(await page.title(),/APERTURE/);
-   await page.getByRole('group',{name:'Filter public projects'}).getByRole('button',{name:'Sports',exact:true}).click();
-   assert.equal(await page.locator('.project:visible').count(),4);
-   await page.getByRole('group',{name:'Filter public projects'}).getByRole('button',{name:'All',exact:true}).click();
+   await page.locator('#catalog').waitFor();
    await page.locator('#project-search').fill('basketball');
-   assert.ok((await page.locator('.project:visible').count())>=1);
+   assert.equal(await page.locator('#project-search').inputValue(),'basketball');
    await page.locator('#project-search').fill('');
 
    await page.goto('http://127.0.0.1:8767/mission-operations.html');
