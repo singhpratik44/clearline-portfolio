@@ -7,10 +7,30 @@
 #mentor-card{border-top:1px solid #45617d;padding-top:14px;margin-top:14px}
 .mentor-links{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .mentor-links a,.learning-hub a:not(.button){color:#b2e8ff}
+
+.board-wrap{position:relative;width:100%;aspect-ratio:1}
+.board-wrap canvas{width:100%;height:100%}
+.tile-grid{position:absolute;inset:1px;display:grid;grid-template-rows:repeat(10,1fr);touch-action:manipulation}
+.tile-grid [role=row]{display:grid;grid-template-columns:repeat(10,1fr)}
+.tile-grid button{min-width:0;min-height:0;padding:0;margin:0;border:0;border-radius:0;background:transparent;color:transparent}
+.tile-grid button:focus-visible{position:relative;z-index:1;outline:3px solid #111;outline-offset:-5px;box-shadow:inset 0 0 0 7px white}
+.board-notes{margin:8px 0;font-size:.91rem;color:#d3e2f1}
+.board-options input{width:auto;margin-right:.4rem}
+.first-game{margin:14px 0;padding:14px;border:1px solid #56718e;border-radius:12px}
+.first-game summary{cursor:pointer;font-weight:bold}
+.first-game li{margin-block:.3em}
+@media(forced-colors:active){.tile-grid button:focus-visible{outline-color:Highlight;box-shadow:none}}
 </style></head><body>
-<header><a href="https://singhpratik44.github.io/clearline-portfolio/coding-lab/">← Coding Lab</a> <span style="float:right">APERTURE · GAME CREATOR</span></header>
+<header><a href="https://singhpratik44.github.io/clearline-portfolio/coding-lab/">← Coding Lab</a> · <a href="https://singhpratik44.github.io/clearline-portfolio/coding-lab/academy/">Project Academy</a> <span style="float:right">APERTURE · GAME CREATOR</span></header>
 <main><h1>What will you create?</h1><p class="muted">Bring your idea to life as a game. Make choices, try them, learn the code behind them, and keep shaping your creation. There is more than one right way to build.</p>
 
+<details class="first-game" open>
+  <summary>Your first five-minute game</summary>
+  <ol><li>Start a tiny maze below. Imagine the coin is something worth rescuing.</li>
+    <li>Choose a wall or coin and put it somewhere that makes the trip feel different.</li>
+    <li>Press Play. Collect the coin or coins and reach the check mark. Name your game and let someone try it.</li></ol>
+  <button type="button" id="tiny-maze">Start a tiny maze</button>
+</details>
 <section class="panel mentor-panel" id="mentors" aria-labelledby="mentor-heading">
   <h2 id="mentor-heading">Pick a game coach</h2>
   <p>Want a hint? Pick a coach, try one idea, then decide what to keep.</p>
@@ -34,8 +54,15 @@
 <textarea id="playtest-notes" rows="3" maxlength="600" placeholder="I expected… I observed… Next I’ll change…"></textarea>
 <div class="buttons"><button id="save-design">Save notes</button><button id="download-design" class="alt">Download project journal</button></div>
 <p id="design-status" role="status"></p>
-</details><div class="grid"><section class="panel" id="game-board" tabindex="-1"><div class="buttons"><button id="edit" aria-pressed="true">✏️ Build</button><button id="play" class="alt" aria-pressed="false">▶ Play</button><button id="undo" class="alt" disabled>Undo</button><button id="reset" class="alt">Reset level</button></div><canvas id="board" width="600" height="600" aria-label="Interactive maze game board. In build mode tap tiles to place objects; in play mode use arrow controls."></canvas><p class="status" id="status" role="status" aria-live="polite">Build your maze by tapping tiles.</p><div class="pad" aria-label="Touch movement controls"><button class="up" data-move="0,-1" aria-label="Move up">↑</button><button class="left" data-move="-1,0" aria-label="Move left">←</button><button class="down" data-move="0,1" aria-label="Move down">↓</button><button class="right" data-move="1,0" aria-label="Move right">→</button></div></section>
-<aside class="panel"><h2>Level editor</h2><p class="muted">Choose a tool, then tap a tile to paint it.</p><div class="buttons" id="tools"><button data-tool="1" aria-pressed="true">🧱 Wall</button><button data-tool="2" class="alt">🪙 Coin</button><button data-tool="3" class="alt">🏁 Finish</button><button data-tool="0" class="alt">🧽 Erase</button></div><label for="title">Level name</label><input id="title" maxlength="60" value="My First Maze"><div class="buttons"><button id="sample" class="alt">Load sample</button><button id="check" class="alt">Check solvability</button></div><div class="notice" id="metrics">10 × 10 grid · Collect every coin to win.</div><h2>Publish your creation</h2><div class="buttons"><button id="share">Copy share link</button><button id="download" class="alt">Download HTML</button><button id="save" class="alt">Save on device</button></div><p><small>Share links encode the level in the URL; no server stores your design. Downloaded HTML includes the complete editor and playable game. Avoid personal information in level names.</small></p><h2>Design missions</h2><div class="lesson"><h3>1 · First playable maze</h3><small>Add at least two walls, two coins, and a finish tile. Verify the goal is reachable.</small></div><div class="lesson"><h3>2 · Difficulty tuning</h3><small>Design a route that takes at least 15 moves to complete.</small></div><div class="lesson"><h3>3 · Publish and explain</h3><small>Export the game and describe your level design decisions.</small></div></aside></div>
+</details><div class="grid"><section class="panel" id="game-board" tabindex="-1"><div class="buttons"><button id="edit" aria-pressed="true">✏️ Build</button><button id="play" class="alt" aria-pressed="false">▶ Play</button><button id="undo" class="alt" disabled>Undo</button><button id="reset" class="alt">Reset level</button></div><p class="board-notes" id="board-help">Tap a tile to paint. Keyboard: Tab into the board, use arrows to find a tile, then Enter or Space to paint. Keys 1, 2, 3, and 0 choose wall, coin, finish, and erase. In Play, arrows move the player.</p>
+<div class="board-wrap">
+  <canvas id="board" width="600" height="600" aria-hidden="true"></canvas>
+  <div class="tile-grid" id="tile-grid" role="grid" aria-label="Maze, 10 rows by 10 columns" aria-describedby="board-help" aria-rowcount="10" aria-colcount="10"></div>
+</div>
+<p class="board-notes">S = start · Block = wall · Ring = coin · ✓ = finish · P = player</p>
+<label class="board-options"><input type="checkbox" id="describe-exits">Describe nearby tiles during play</label>
+<p class="status" id="status" role="status" aria-live="polite">Build your maze by tapping tiles.</p><div class="pad" aria-label="Touch movement controls"><button class="up" data-move="0,-1" aria-label="Move up">↑</button><button class="left" data-move="-1,0" aria-label="Move left">←</button><button class="down" data-move="0,1" aria-label="Move down">↓</button><button class="right" data-move="1,0" aria-label="Move right">→</button></div></section>
+<aside class="panel"><h2>Level editor</h2><p class="muted">Choose a tool, then tap a tile or use the keyboard to paint it.</p><div class="buttons" id="tools"><button data-tool="1" aria-pressed="true">🧱 Wall</button><button data-tool="2" class="alt">🪙 Coin</button><button data-tool="3" class="alt">🏁 Finish</button><button data-tool="0" class="alt">🧽 Erase</button></div><label for="title">Level name</label><input id="title" maxlength="60" value="My First Maze"><div class="buttons"><button id="sample" class="alt">Load sample</button><button id="check" class="alt">Check solvability</button></div><div class="notice" id="metrics">10 × 10 grid · Collect every coin to win.</div><h2>Publish your creation</h2><div class="buttons"><button id="share">Copy share link</button><button id="download" class="alt">Download HTML</button><button id="save" class="alt">Save on device</button></div><p><small>Share links encode the level in the URL; no server stores your design. Downloaded HTML includes the complete editor and playable game. Avoid personal information in level names.</small></p><h2>Design missions</h2><div class="lesson"><h3>1 · First playable maze</h3><small>Add at least two walls, two coins, and a finish tile. Verify the goal is reachable.</small></div><div class="lesson"><h3>2 · Difficulty tuning</h3><small>Design a route that takes at least 15 moves to complete.</small></div><div class="lesson"><h3>3 · Publish and explain</h3><small>Export the game and describe your level design decisions.</small></div></aside></div>
 <section class="panel learning-hub" id="learning-hub" style="margin-top:16px">
 <h2>Your creation studio</h2><p>Start with an idea that matters to you. Build a version, play it, listen to what happens, and decide what to make next.</p><div class="spark"><div><span class="path-step">STUDIO SPARK</span><h3>Need a first idea?</h3><p id="spark-prompt" aria-live="polite">Choose a spark, make it yours, then build your first version.</p></div><button id="new-spark">Give me an idea</button></div>
 <div class="path-grid">
@@ -219,7 +246,184 @@ function savedMissions() {
     try { return JSON.parse(savedSetting("aperture-learning-progress-v1")) || {}; }
     catch { return {}; }
 }
-const history=[];function checkpoint(){history.push(tiles.slice());if(history.length>100)history.shift()}$("undo").onclick=()=>{if(mode==="edit"&&history.length){tiles=history.pop();render()}};function index(x,y){return y*N+x}function sample(){tiles=Array(N*N).fill(0);for(let y=1;y<8;y++)if(y!==4)tiles[index(3,y)]=1;for(let y=2;y<9;y++)if(y!==6)tiles[index(6,y)]=1;tiles[index(2,2)]=2;tiles[index(5,5)]=2;tiles[index(8,2)]=2;tiles[index(9,9)]=3;player=0;collected.clear();moves=0;won=false;render()}function draw(){ctx.clearRect(0,0,600,600);const size=600/N;for(let y=0;y<N;y++)for(let x=0;x<N;x++){let k=index(x,y),v=tiles[k];ctx.fillStyle=(x+y)%2?"#e2efe2":"#f0f6ed";ctx.fillRect(x*size,y*size,size,size);ctx.strokeStyle="#c6d8c9";ctx.strokeRect(x*size,y*size,size,size);if(v===1){ctx.fillStyle="#446a58";ctx.fillRect(x*size+5,y*size+5,size-10,size-10)}if(v===2&&!collected.has(k)){ctx.fillStyle="#d2a13d";ctx.beginPath();ctx.arc(x*size+size/2,y*size+size/2,size*.22,0,Math.PI*2);ctx.fill()}if(v===3){ctx.fillStyle="#3583a2";ctx.fillRect(x*size+size*.18,y*size+size*.18,size*.64,size*.64);ctx.fillStyle="#fff";ctx.font="bold 25px system-ui";ctx.fillText("✓",x*size+size*.32,y*size+size*.65)}}ctx.fillStyle="#173d2d";ctx.fillRect(4,4,size-8,size-8);if(mode==="play"){const x=player%N,y=Math.floor(player/N);ctx.fillStyle="#e77f4c";ctx.beginPath();ctx.arc(x*size+size/2,y*size+size/2,size*.31,0,Math.PI*2);ctx.fill()}}function goals(){return tiles.filter(t=>t===2).length}function finish(){return tiles.indexOf(3)}function reachable(){const goal=finish();if(goal<0)return{ok:false,reason:"Place a finish tile."};const q=[0],seen=new Set(q);for(let h=0;h<q.length;h++){const v=q[h],x=v%N,y=Math.floor(v/N);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy,u=index(nx,ny);if(nx<0||ny<0||nx>=N||ny>=N||tiles[u]===1||seen.has(u))continue;seen.add(u);q.push(u)}}const coins=tiles.map((t,i)=>t===2?i:-1).filter(i=>i>=0);return{ok:seen.has(goal)&&coins.every(i=>seen.has(i)),reason:seen.has(goal)&&coins.every(i=>seen.has(i))?"All coins and finish are reachable.":"Some goals are blocked.",shortest:q.length}}function render(){$("undo").disabled=mode!=="edit"||!history.length;draw();$("metrics").textContent=N+" × "+N+" grid · "+goals()+" coins · "+tiles.filter(t=>t===1).length+" walls · "+moves+" moves";$("status").textContent=won?"🏆 You won in "+moves+" moves!":mode==="edit"?"Build mode: tap a tile to paint.":"Play mode: collect every coin, then reach the blue finish.";$("edit").setAttribute("aria-pressed",String(mode==="edit"));$("play").setAttribute("aria-pressed",String(mode==="play"))}function editTile(k){if(k===0){$("status").textContent="The starting tile must stay open.";return}if(tiles[k]===tool)return;checkpoint();if(tool===3){tiles=tiles.map(v=>v===3?0:v)}tiles[k]=tool;render()}function move(dx,dy){if(mode!=="play"||won)return;const x=player%N,y=Math.floor(player/N),nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=N||ny>=N)return;const k=index(nx,ny);if(tiles[k]===1)return;player=k;moves++;if(tiles[k]===2)collected.add(k);if(tiles[k]===3&&collected.size===goals()){won=true}render()}canvas.addEventListener("pointerdown",e=>{if(mode!=="edit")return;const r=canvas.getBoundingClientRect(),x=Math.floor((e.clientX-r.left)/r.width*N),y=Math.floor((e.clientY-r.top)/r.height*N);if(x>=0&&x<N&&y>=0&&y<N)editTile(index(x,y))});document.querySelectorAll("[data-move]").forEach(b=>b.onclick=()=>{const [x,y]=b.dataset.move.split(",").map(Number);move(x,y)});window.addEventListener("keydown",e=>{if(e.target.matches("input,textarea"))return;const d={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]}[e.key];if(d){e.preventDefault();move(...d)}});document.querySelectorAll("[data-tool]").forEach(b=>b.onclick=()=>{tool=Number(b.dataset.tool);document.querySelectorAll("[data-tool]").forEach(x=>{x.setAttribute("aria-pressed",String(x===b));x.classList.toggle("alt",x!==b)})});$("edit").onclick=()=>{mode="edit";render()};$("play").onclick=()=>{mode="play";player=0;collected.clear();moves=0;won=false;render()};$("reset").onclick=()=>{if(confirm("Clear the entire level?")){checkpoint();tiles=Array(N*N).fill(0);mode="edit";render()}};$("sample").onclick=()=>{checkpoint();mode="edit";sample()};$("check").onclick=()=>{const result=reachable();$("status").textContent=result.reason;$("coach-title").textContent=result.ok?"Your prediction, checked":"Evidence for your next edit";$("coach-prompt").textContent=result.ok?"Every goal is reachable. Can you add one new wall without blocking a coin? Predict, then check again.":result.reason+" Which single wall could you erase to reopen the route?"};function payload(){return{v:1,title:$("title").value.slice(0,60),tiles:tiles.join("")}}function parse(p){if(!p||p.v!==1||typeof p.tiles!=="string"||!/^[0-3]{100}$/.test(p.tiles)||p.tiles[0]==="1"||p.tiles[0]==="2"||p.tiles[0]==="3")return false;tiles=p.tiles.split("").map(Number);$("title").value=String(p.title||"Shared Maze").slice(0,60);mode="edit";player=0;collected.clear();moves=0;won=false;render();return true}function encode(p){return btoa(JSON.stringify(p).replace(/[^\x00-\x7f]/g,c=>"\\u"+c.charCodeAt(0).toString(16).padStart(4,"0"))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}function decode(s){const bytes=atob(s.replace(/-/g,"+").replace(/_/g,"/"));try{return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(Uint8Array.from(bytes,c=>c.charCodeAt(0))))}catch{return JSON.parse(bytes)}}$("share").onclick=async()=>{const url="https://singhpratik44.github.io/clearline-portfolio/coding-lab/game-creator/#level="+encode(payload());try{await navigator.clipboard.writeText(url);$("status").textContent="Share link copied!"}catch(e){prompt("Copy your share link:",url)}};$("save").onclick=()=>{try{localStorage.setItem(key,JSON.stringify(payload()));$("status").textContent="Saved on this device."}catch(e){$("status").textContent="Storage unavailable. Download the HTML instead."}};$("download").onclick=()=>{const snapshot=document.documentElement.cloneNode(true);snapshot.querySelector('meta[name="aperture-level"]').content=encode(payload());for (const field of snapshot.querySelectorAll("textarea")) field.textContent="";
+const grid = $("tile-grid");
+const cells = [];
+let cursor = 0;
+let playMessage = "";
+const tileNames = ["open", "wall", "coin", "finish"];
+const directions = {
+    ArrowUp: [0, -1], ArrowDown: [0, 1], ArrowLeft: [-1, 0], ArrowRight: [1, 0]
+};
+const offsets = {up: [0, -1], down: [0, 1], left: [-1, 0], right: [1, 0]};
+function adjacent(position, dx, dy) {
+    const x = position % N + dx;
+    const y = Math.floor(position / N) + dy;
+    return x < 0 || x >= N || y < 0 || y >= N ? -1 : index(x, y);
+}
+function tileName(position) {
+    if (position < 0) return "edge";
+    if (position === 0) return "start";
+    if (mode === "play" && collected.has(position)) return "collected coin";
+    return tileNames[tiles[position]];
+}
+function coordinates(position) {
+    return "Row " + (Math.floor(position / N) + 1) + ", column " + (position % N + 1);
+}
+function describePosition() {
+    const nearby = Object.entries(offsets).map(([direction, [dx, dy]]) =>
+        direction + " " + tileName(adjacent(player, dx, dy)));
+    return coordinates(player) + ", " + tileName(player) + ". " + nearby.join(", ") + ".";
+}
+function syncCells() {
+    const active = mode === "play" ? player : cursor;
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].tabIndex = i === active ? 0 : -1;
+        const label = coordinates(i) + ", " + tileName(i) + (mode === "play" && i === player ? ", player" : "");
+        if (cells[i].getAttribute("aria-label") !== label) cells[i].setAttribute("aria-label", label);
+    }
+}
+function setTool(value) {
+    tool = value;
+    for (const button of document.querySelectorAll("[data-tool]")) {
+        const selected = Number(button.dataset.tool) === value;
+        button.setAttribute("aria-pressed", String(selected));
+        button.classList.toggle("alt", !selected);
+    }
+}
+function buildGrid() {
+    grid.replaceChildren();
+    for (let y = 0; y < N; y++) {
+        const row = document.createElement("div");
+        row.setAttribute("role", "row");
+        for (let x = 0; x < N; x++) {
+            const position = index(x,y);
+            const cell = document.createElement("button");
+            cell.type = "button";
+            cell.setAttribute("role", "gridcell");
+            cell.onclick = () => {
+                if (mode === "play") {
+                    cells[player].focus();
+                    return;
+                }
+                cursor = position;
+                editTile(position);
+                syncCells();
+            };
+            row.append(cell);
+            cells.push(cell);
+        }
+        grid.append(row);
+    }
+}
+buildGrid();
+grid.addEventListener("keydown", event => {
+    if (event.altKey || event.ctrlKey || event.metaKey) return;
+    const delta = directions[event.key];
+    if (delta) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (mode === "play") {
+            move(...delta);
+            cells[player].focus();
+        } else {
+            const target = adjacent(cursor, ...delta);
+            if (target < 0) return;
+            cursor = target;
+            syncCells();
+            cells[cursor].focus();
+        }
+        return;
+    }
+    if (mode === "edit" && ["0","1","2","3"].includes(event.key)) {
+        event.preventDefault();
+        setTool(Number(event.key));
+        $("status").textContent = "Tool: " + (tool === 0 ? "erase" : tileNames[tool]) + ".";
+    }
+});
+$("describe-exits").onchange = () => render();
+const history=[];function checkpoint(){history.push(tiles.slice());if(history.length>100)history.shift()}$("undo").onclick=()=>{if(mode==="edit"&&history.length){tiles=history.pop();clearRun();render()}};function index(x,y){return y*N+x}function sample(){tiles=Array(N*N).fill(0);for(let y=1;y<8;y++)if(y!==4)tiles[index(3,y)]=1;for(let y=2;y<9;y++)if(y!==6)tiles[index(6,y)]=1;tiles[index(2,2)]=2;tiles[index(5,5)]=2;tiles[index(8,2)]=2;tiles[index(9,9)]=3;player=0;collected.clear();moves=0;won=false;render()}function draw(){ctx.clearRect(0,0,600,600);const size=600/N;for(let y=0;y<N;y++)for(let x=0;x<N;x++){let k=index(x,y),v=tiles[k];ctx.fillStyle=(x+y)%2?"#e2efe2":"#f0f6ed";ctx.fillRect(x*size,y*size,size,size);ctx.strokeStyle="#c6d8c9";ctx.strokeRect(x*size,y*size,size,size);if(v===1){ctx.fillStyle="#446a58";ctx.fillRect(x*size+5,y*size+5,size-10,size-10)}if(v===2&&(mode==="edit"||!collected.has(k))){ctx.fillStyle="#d2a13d";ctx.beginPath();ctx.arc(x*size+size/2,y*size+size/2,size*.22,0,Math.PI*2);ctx.fill();ctx.strokeStyle="#654700";ctx.lineWidth=3;ctx.stroke();ctx.lineWidth=1}if(v===3){ctx.fillStyle="#3583a2";ctx.fillRect(x*size+size*.18,y*size+size*.18,size*.64,size*.64);ctx.fillStyle="#fff";ctx.font="bold 25px system-ui";ctx.fillText("✓",x*size+size*.32,y*size+size*.65)}}ctx.fillStyle="#173d2d";ctx.fillRect(4,4,size-8,size-8);ctx.fillStyle="#fff";ctx.font="bold 24px system-ui";ctx.textAlign="center";ctx.fillText("S",size/2,size*.64);ctx.textAlign="start";if(mode==="play"){const x=player%N,y=Math.floor(player/N);ctx.fillStyle="#e77f4c";ctx.beginPath();ctx.arc(x*size+size/2,y*size+size/2,size*.31,0,Math.PI*2);ctx.fill();ctx.fillStyle="#161616";ctx.font="bold 22px system-ui";ctx.textAlign="center";ctx.fillText("P",x*size+size/2,y*size+size*.63);ctx.textAlign="start"}}function goals(){return tiles.filter(t=>t===2).length}function finish(){return tiles.indexOf(3)}function reachable(){const goal=finish();if(goal<0)return{ok:false,reason:"Place a finish tile."};const q=[0],seen=new Set(q);for(let h=0;h<q.length;h++){const v=q[h],x=v%N,y=Math.floor(v/N);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const nx=x+dx,ny=y+dy,u=index(nx,ny);if(nx<0||ny<0||nx>=N||ny>=N||tiles[u]===1||seen.has(u))continue;seen.add(u);q.push(u)}}const coins=tiles.map((t,i)=>t===2?i:-1).filter(i=>i>=0);return{ok:seen.has(goal)&&coins.every(i=>seen.has(i)),reason:seen.has(goal)&&coins.every(i=>seen.has(i))?"All coins and finish are reachable.":"Some goals are blocked.",shortest:q.length}}function render() {
+    $("undo").disabled = mode !== "edit" || !history.length;
+    draw();
+    syncCells();
+    $("metrics").textContent = N + " × " + N + " grid · " + goals() + " coins · " + tiles.filter(t=>t===1).length + " walls · " + moves + " moves";
+    let status = mode === "edit" ? "Build mode. Choose a tile to paint." : "Collect every coin, then reach the finish.";
+    if (mode === "play") {
+        if (playMessage) status = playMessage;
+        if (won) status = "You won in " + moves + " moves!";
+        if ($("describe-exits").checked) status += " " + describePosition() + " " + collected.size + " of " + goals() + " coins.";
+    }
+    $("status").textContent = status;
+    $("edit").setAttribute("aria-pressed", String(mode === "edit"));
+    $("play").setAttribute("aria-pressed", String(mode === "play"));
+}
+function editTile(position) {
+    if (position === 0) {
+        $("status").textContent = "The starting tile must stay open.";
+        return;
+    }
+    if (tiles[position] !== tool) {
+        checkpoint();
+        if (tool === 3) tiles = tiles.map(value => value === 3 ? 0 : value);
+        tiles[position] = tool;
+    }
+    render();
+    $("status").textContent = coordinates(position) + " is now " + tileName(position) + ".";
+}
+function move(dx,dy) {
+    if (mode !== "play" || won) return;
+    const target = adjacent(player, dx, dy);
+    if (target < 0 || tiles[target] === 1) {
+        playMessage = target < 0 ? "Edge of the maze." : "Wall ahead.";
+    } else {
+        player = target;
+        moves++;
+        playMessage = "";
+        if (tiles[player] === 2 && !collected.has(player)) {
+            collected.add(player);
+            playMessage = "Coin collected. " + collected.size + " of " + goals() + ".";
+        }
+        if (tiles[player] === 3) {
+            won = collected.size === goals();
+            if (!won) playMessage = "At the finish. Find the remaining coins first.";
+        }
+    }
+    render();
+}
+canvas.addEventListener("pointerdown",e=>{if(mode!=="edit")return;const r=canvas.getBoundingClientRect(),x=Math.floor((e.clientX-r.left)/r.width*N),y=Math.floor((e.clientY-r.top)/r.height*N);if(x>=0&&x<N&&y>=0&&y<N)editTile(index(x,y))});document.querySelectorAll("[data-move]").forEach(b=>b.onclick=()=>{const [x,y]=b.dataset.move.split(",").map(Number);move(x,y)});window.addEventListener("keydown", event => {
+    if (mode !== "play" || event.defaultPrevented || event.ctrlKey || event.altKey || event.metaKey || event.target.matches("input,textarea,select,[contenteditable=true]")) return;
+    const delta = directions[event.key];
+    if (delta) { event.preventDefault(); move(...delta); }
+});
+document.querySelectorAll("[data-tool]").forEach(button => {
+    button.onclick = () => setTool(Number(button.dataset.tool));
+});
+$("edit").onclick = () => {
+    mode = "edit"; render(); cells[cursor].focus();
+};
+$("play").onclick = () => {
+    mode = "play"; player = 0; collected.clear(); moves = 0; won = false; playMessage = ""; render(); cells[player].focus();
+};
+$("tiny-maze").onclick = () => {
+    checkpoint();
+    tiles = Array(N*N).fill(0);
+    tiles[index(1,1)] = 2;
+    tiles[index(3,1)] = 3;
+    tiles[index(2,0)] = 1;
+    clearRun();
+    cursor = index(1,0);
+    setTool(1);
+    render();
+    cells[cursor].focus();
+    $("status").textContent = "Tiny maze ready. Put one tile of your own here or choose another spot. Undo restores your previous layout.";
+};
+function clearRun() {
+    mode = "edit"; player = 0; collected.clear(); moves = 0; won = false; playMessage = "";
+}
+$("reset").onclick=()=>{if(confirm("Clear the entire level?")){checkpoint();tiles=Array(N*N).fill(0);clearRun();render()}};$("sample").onclick=()=>{checkpoint();mode="edit";sample()};$("check").onclick = () => {
+    const result = reachable();
+    $("status").textContent = result.reason + (result.ok ? " Which wall could change the journey?" : " Trace one route and try changing one tile.");
+};
+function payload(){return{v:1,title:$("title").value.slice(0,60),tiles:tiles.join("")}}function parse(p){if(!p||p.v!==1||typeof p.tiles!=="string"||!/^[0-3]{100}$/.test(p.tiles)||p.tiles[0]==="1"||p.tiles[0]==="2"||p.tiles[0]==="3")return false;tiles=p.tiles.split("").map(Number);$("title").value=String(p.title||"Shared Maze").slice(0,60);mode="edit";player=0;collected.clear();moves=0;won=false;render();return true}function encode(p){return btoa(JSON.stringify(p).replace(/[^\x00-\x7f]/g,c=>"\\u"+c.charCodeAt(0).toString(16).padStart(4,"0"))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}function decode(s){const bytes=atob(s.replace(/-/g,"+").replace(/_/g,"/"));try{return JSON.parse(new TextDecoder("utf-8",{fatal:true}).decode(Uint8Array.from(bytes,c=>c.charCodeAt(0))))}catch{return JSON.parse(bytes)}}$("share").onclick=async()=>{const url="https://singhpratik44.github.io/clearline-portfolio/coding-lab/game-creator/#level="+encode(payload());try{await navigator.clipboard.writeText(url);$("status").textContent="Share link copied!"}catch(e){prompt("Copy your share link:",url)}};$("save").onclick=()=>{try{localStorage.setItem(key,JSON.stringify(payload()));$("status").textContent="Saved on this device."}catch(e){$("status").textContent="Storage unavailable. Download the HTML instead."}};$("download").onclick=()=>{const snapshot=document.documentElement.cloneNode(true);snapshot.querySelector('meta[name="aperture-level"]').content=encode(payload());snapshot.querySelector("#tile-grid").replaceChildren();for (const field of snapshot.querySelectorAll("textarea")) field.textContent="";
 const exported="<!doctype html>\n"+snapshot.outerHTML;const blob=new Blob([exported],{type:"text/html"}),a=document.createElement("a"),url=URL.createObjectURL(blob);a.href=url;a.download="aperture-"+($("title").value.toLowerCase().replace(/[^a-z0-9]+/g,"-")||"maze")+".html";a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);$("status").textContent="HTML exported. Open the file in a browser to play and edit."};const sparks=["Make a maze for someone who loves surprises. What should they discover?","Build a game that teaches a new player one clever trick. How will they learn it?","Invent a tiny world under the ocean. What is the player trying to protect?","Design a level for two friends to take turns solving. What makes their ideas different?","Create a space station escape with one rule that changes halfway through.","Remix the sample into a story about a place you know. Add one detail only you would think of."];let sparkIndex=0;$("new-spark").onclick=()=>{sparkIndex=(sparkIndex+Math.floor(Math.random()*(sparks.length-1))+1)%sparks.length;$("spark-prompt").textContent=sparks[sparkIndex];localStorage.setItem("aperture-creation-spark-v1",sparks[sparkIndex])};$("spark-prompt").textContent=savedSetting("aperture-creation-spark-v1")||$("spark-prompt").textContent;const missionKey="aperture-learning-progress-v1",missions=savedMissions();function paintProgress(){const n=["design","debug","scratch","python"].filter(k=>missions[k]).length;$("mission-progress").textContent=n+" of 4 missions complete";$("mission-fill").style.width=(n*25)+"%";document.querySelectorAll(".mission-done").forEach(b=>{const done=!!missions[b.dataset.mission];b.textContent=done?"Completed ✓":"Mark complete";b.setAttribute("aria-pressed",String(done))})}document.querySelectorAll(".mission-done").forEach(b=>b.onclick=()=>{missions[b.dataset.mission]=!missions[b.dataset.mission];localStorage.setItem(missionKey,JSON.stringify(missions));paintProgress()});$("reflection").value=savedSetting("aperture-learning-reflection-v1")||"";$("save-reflection").onclick=()=>{localStorage.setItem("aperture-learning-reflection-v1",$("reflection").value.slice(0,600));$("reflection-status").textContent="Reflection saved on this device."};function pythonSource(){const rows=[];for(let y=0;y<N;y++){const row=[];for(let x=0;x<N;x++)row.push(tiles[index(x,y)]);rows.push("    ["+row.join(", ")+"]")}return "# APERTURE maze reachability lab\n# 0 = open, 1 = wall, 2 = coin, 3 = finish\nmaze = [\n"+rows.join(",\n")+"\n]\nstart = (0, 0)\n\nfrom collections import deque\n\ndef reachable_tiles():\n    queue = deque([start])\n    seen = {start}\n    while queue:\n        x, y = queue.popleft()\n        for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1)):\n            nx, ny = x + dx, y + dy\n            if 0 <= nx < 10 and 0 <= ny < 10 and maze[ny][nx] != 1 and (nx, ny) not in seen:\n                seen.add((nx, ny))\n                queue.append((nx, ny))\n    return seen\n\nseen = reachable_tiles()\ncoins = [(x, y) for y in range(10) for x in range(10) if maze[y][x] == 2]\nfinish = next(((x, y) for y in range(10) for x in range(10) if maze[y][x] == 3), None)\nprint(\"Reachable coins:\", sum(coin in seen for coin in coins), \"of\", len(coins))\nprint(\"Finish reachable:\", finish in seen if finish else False)\n"}$("python-preview").value=pythonSource();$("copy-python").onclick=async()=>{try{await navigator.clipboard.writeText($("python-preview").value);$("status").textContent="Python code copied."}catch{$("status").textContent="Clipboard unavailable. Download the .py file instead."}};$("download-python").onclick=()=>{const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([$("python-preview").value],{type:"text/x-python"}));a.download="aperture-maze-lab.py";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};paintProgress();$("run-python").onclick=()=>{const button=$("run-python"),output=$("python-output"),runtime="https://cdn.jsdelivr.net/pyodide/v314.0.8/full/";button.disabled=true;output.textContent="Starting Python in your browser… The first run downloads the runtime.";const workerLines=['importScripts("'+runtime+'pyodide.js");','self.onmessage=async event=>{try{const py=await loadPyodide({indexURL:"'+runtime+'"});let out="";py.setStdout({batched:s=>{out+=s+String.fromCharCode(10)}});await py.runPythonAsync(event.data);postMessage({out:out||"Program finished with no printed output."})}catch(error){postMessage({error:String(error)})}};'];const workerUrl=URL.createObjectURL(new Blob([workerLines.join("")],{type:"text/javascript"}));const worker=new Worker(workerUrl);const timer=setTimeout(()=>{worker.terminate();URL.revokeObjectURL(workerUrl);button.disabled=false;output.textContent="Stopped after 15 seconds. Check for a loop that never ends.";},15000);worker.onmessage=event=>{clearTimeout(timer);worker.terminate();URL.revokeObjectURL(workerUrl);button.disabled=false;output.textContent=event.data.error||event.data.out};worker.onerror=event=>{clearTimeout(timer);worker.terminate();URL.revokeObjectURL(workerUrl);button.disabled=false;output.textContent="Python could not start. Check your internet connection and try again.";};worker.postMessage($("python-preview").value)};let loaded=false;try{if(location.hash.startsWith("#level="))loaded=parse(decode(location.hash.slice(7)));else if(document.querySelector('meta[name="aperture-level"]').content)loaded=parse(decode(document.querySelector('meta[name="aperture-level"]').content));else{const stored=localStorage.getItem(key);if(stored)loaded=parse(JSON.parse(stored))}}catch(e){}if(!loaded)sample();
 $("python-preview").value = pythonSource();
 $("refresh-python").onclick = () => {
