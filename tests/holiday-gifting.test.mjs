@@ -52,8 +52,8 @@ test('Holiday gift link personalizes and shares safely on mobile',{timeout:90000
     assert.match(await second.locator('#message').textContent(),/quiet place/);
     assert.equal(await second.locator('#signature').textContent(),'With love, Sam');
     await second.close();
-    const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>document.documentElement.clientWidth+2);
-    assert.equal(overflow,false,'Mobile horizontal overflow');
+    const overflow=await page.evaluate(()=>({viewport:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth,offenders:[...document.querySelectorAll('body *')].filter(el=>el.getBoundingClientRect().right>document.documentElement.clientWidth+2).slice(0,8).map(el=>({tag:el.tagName,id:el.id,className:typeof el.className==='string'?el.className:'',right:Math.round(el.getBoundingClientRect().right)}))}));
+    assert.ok(overflow.scroll<=overflow.viewport+2,'Mobile horizontal overflow: '+JSON.stringify(overflow));
     assert.equal(await page.locator('#sms-interest').count(),1);
     assert.equal(await page.locator('#analytics-choices').isVisible(),false);
     assert.match(await page.locator('#analytics-status').textContent(),/not connected/i);
