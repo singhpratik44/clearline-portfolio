@@ -159,6 +159,7 @@
     setStatus('Your browser privacy preference is respected: analytics is disabled.');
     return;
   }
+  if (choices) choices.hidden = false;
   const preference = readPreference();
   if (preference === 'yes') start();
   else if (preference === 'no') {

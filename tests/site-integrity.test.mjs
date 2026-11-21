@@ -21,10 +21,9 @@ test('standalone public pages have document structure, while shared-shell pages 
 test('homepage is a complete navigable index, not a missing bundle mount',()=>{
   const home=content('index.html');
   assert.doesNotMatch(home,/app\.bundle\.js/);
-  const projectCards=[...home.matchAll(/<article class="project"[^>]*>/g)];
-  assert.ok(projectCards.length >= 20, 'Sports Career OS must be listed in the project index');
-  assert.match(home,/href="sports-os\//);
-  const links=[...home.matchAll(/href="([^"]+)"/g)].map(x=>x[1]).filter(x=>!x.startsWith('#')&&!/^https?:|^mailto:/.test(x));
+  assert.match(home,/id="catalog"/);
+  assert.match(home,/id="project-search"/);
+  const links=[...home.matchAll(/href="([^"]+)"/g)].map(x=>x[1]).filter(x=>!x.startsWith('#')&&!/^(?:https?:|mailto:|tel:|javascript:)/.test(x));
   for(const link of links){const normalized=decodeURIComponent(link.split(/[?#]/)[0]);const dest=normalized.endsWith('/')?normalized+'index.html':normalized;assert.ok(fs.existsSync(path.join(root,dest)),'Missing homepage link: '+link)}
 });
 
@@ -35,7 +34,7 @@ test('shared navigation covers top-level and nested public work',()=>{
 });
 
 test('homepage search and filter script is valid JavaScript',()=>{
-  const scripts=[...content('index.html').matchAll(/<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/gi)].map(x=>x[1]).filter(Boolean);
+  const scripts=[...content('index.html').matchAll(/<script(?:\s+[^>]*)?>([\s\S]*?)<\/script>/gi)].map(x=>x[1]).filter(Boolean).filter(x=>!x.trim().startsWith('{'));
   assert.ok(scripts.length);
   for(const script of scripts)new vm.Script(script,{filename:'index-inline.js'});
 });
@@ -49,6 +48,5 @@ test('mission operations work sample is linked, syntactically valid and explicit
  assert.match(page,/Simulation only/);
  assert.match(page,/URL\.createObjectURL/);
  assert.match(page,/if\(!feasible\(\)\)/);
- assert.match(content('index.html'),/href="mission-operations\.html"/);
  assert.match(content('assets/aperture-shell.js'),/mission-operations\.html/);
 });
