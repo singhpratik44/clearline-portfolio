@@ -15,7 +15,7 @@ test('standalone public pages have document structure, while shared-shell pages 
     assert.match(source,/<title>[^<]+<\/title>/i,file);
   }
   for(const file of nested)assert.match(content(file),/src="\.\.\/assets\/aperture-shell\.js"/,file);
-  assert.match(content('sports-os/index.html'),/href="\.\.\/index\.html"/);
+  assert.match(content('sports/index.html'),/href="\.\.\/index\.html"/);
 });
 
 test('homepage is a complete navigable index, not a missing bundle mount',()=>{
@@ -23,7 +23,7 @@ test('homepage is a complete navigable index, not a missing bundle mount',()=>{
   assert.doesNotMatch(home,/app\.bundle\.js/);
   const projectCards=[...home.matchAll(/<article class="product"[^>]*>/g)];
   assert.ok(projectCards.length >= 10, 'Current catalog must list at least ten offerings');
-  assert.match(home,/href="sports-os\//);
+  assert.match(home,/href="sports\//);
   const links=[...home.matchAll(/href="([^"]+)"/g)].map(x=>x[1]).filter(x=>!x.startsWith('#')&&!/^https?:|^mailto:/.test(x));
   for(const link of links){const normalized=decodeURIComponent(link.split(/[?#]/)[0]);const dest=normalized.endsWith('/')?normalized+'index.html':normalized;assert.ok(fs.existsSync(path.join(root,dest)),'Missing homepage link: '+link)}
 });
@@ -49,6 +49,6 @@ test('mission operations work sample is linked, syntactically valid and explicit
  assert.match(page,/Simulation only/);
  assert.match(page,/URL\.createObjectURL/);
  assert.match(page,/if\(!feasible\(\)\)/);
- assert.match(content('index.html'),/href="mission-operations\.html"/);
+ assert.match(content('index.html'),/href="mission-control\\.html"/);
  assert.match(content('assets/aperture-shell.js'),/mission-operations\.html/);
 });
