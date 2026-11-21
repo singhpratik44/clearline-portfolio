@@ -1,0 +1,21 @@
+name: Game Builder isolated validation
+on:
+  pull_request:
+    paths:
+      - 'game-builder/**'
+      - '.github/workflows/game-builder-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate Scratch 3 archives and unique mechanics
+        run: node --test game-builder/scratch/validate.test.mjs
+      - name: Validate test-only checkout access controls
+        run: node --test game-builder/worker/security.test.mjs
