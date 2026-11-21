@@ -1,4 +1,4 @@
-import test from 'node:test';
+import test, {after} from 'node:test';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {mkdtempSync,readFileSync,existsSync,readdirSync,rmSync} from 'node:fs';
@@ -7,7 +7,8 @@ import {join,resolve} from 'node:path';
 import {createHash} from 'node:crypto';
 const root=resolve('game-builder/scratch');
 const work=mkdtempSync(join(tmpdir(),'aperture-scratch-'));
-try {
+after(()=>rmSync(work,{recursive:true,force:true}));
+{
  execFileSync(process.execPath,[join(root,'build.mjs')],{cwd:work,stdio:'pipe'});
  for(let i=1;i<=4;i++){
   test('lesson '+i+' has a readable Scratch project and packaged assets',()=>{
@@ -36,4 +37,4 @@ try {
   });
   assert.equal(new Set(signatures).size,4,'Four unique games are required before launch');
  });
-} finally {rmSync(work,{recursive:true,force:true});}
+}
