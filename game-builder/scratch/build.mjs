@@ -26,11 +26,11 @@ p.hazardMenu=b('sensing_touchingobjectmenu',null,'hazardTouch',{}, {TOUCHINGOBJE
 p.loseLife=b('data_changevariableby','returnHome','hazardIf',{VALUE:[1,[4,'-1']]},{VARIABLE:['Lives','lives']});
 p.returnHome=b('motion_gotoxy',null,'loseLife',{X:[1,[4,'0']],Y:[1,[4,'0']]});
 p.winIf=b('control_if','loseIf','forever',{CONDITION:[2,'winCheck'],SUBSTACK:[2,'winStop']});
-p.winCheck=b('operator_gte',null,'winIf',{OPERAND1:[3,'scoreReporter',[4,'0']],OPERAND2:[1,[4,String([5,3,8,6][i])]]});
+p.winCheck=b('operator_gt',null,'winIf',{OPERAND1:[3,'scoreReporter',[4,'0']],OPERAND2:[1,[4,String([4,2,7,5][i])]]});
 p.scoreReporter=b('data_variable',null,'winCheck',{}, {VARIABLE:['Score','score']});
 p.winStop=b('control_stop',null,'winIf',{}, {STOP_OPTION:['all',null]});
 p.loseIf=b('control_if',null,'forever',{CONDITION:[2,'loseCheck'],SUBSTACK:[2,'loseStop']});
-p.loseCheck=b('operator_lte',null,'loseIf',{OPERAND1:[3,'livesReporter',[4,'0']],OPERAND2:[1,[4,'0']]});
+p.loseCheck=b('operator_lt',null,'loseIf',{OPERAND1:[3,'livesReporter',[4,'0']],OPERAND2:[1,[4,'1']]});
 p.livesReporter=b('data_variable',null,'loseCheck',{}, {VARIABLE:['Lives','lives']});
 p.loseStop=b('control_stop',null,'loseIf',{}, {STOP_OPTION:['all',null]});
 for(const [k,dir] of [['right',90],['left',-90],['up',0],['down',180]]){p['event'+k]=b('event_whenkeypressed','direction'+k,null,{}, {KEY_OPTION:[k+' arrow',null]},true);p['direction'+k]=b('motion_pointindirection','step'+k,'event'+k,{DIRECTION:[1,[4,String(dir)]]});p['step'+k]=b('motion_movesteps',null,'direction'+k,{STEPS:[1,[4,String([10,7,15,12][i])]]})}
