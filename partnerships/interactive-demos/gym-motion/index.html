@@ -1,0 +1,86 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>One rep, three reads | APERTURE</title><meta name="description" content="Show a shopper how a drill works before they walk onto a court. Pause this original shooting sequence at the plant, the release or the finish."><style>*{box-sizing:border-box}body{margin:0;background:#0b181c;color:#f5f3e6;font:1rem/1.55 system-ui,sans-serif}main,header{max-width:960px;margin:auto;padding:1rem clamp(1rem,4vw,3rem)}header{display:flex;justify-content:space-between;border-bottom:1px solid #395155}a{color:#c6ee88}header a{text-decoration:none}h1{font-size:clamp(2.2rem,7vw,4.4rem);line-height:1.02;margin:.35em 0}h2{font-size:1.45rem}p{max-width:65ch}.kicker{color:#c6ee88;text-transform:uppercase;font-weight:700;letter-spacing:.1em;font-size:.8rem}.player{margin:1.4rem 0}canvas{width:100%;height:auto;display:block;border-radius:.7rem;background:#18272a}.controls{display:flex;gap:.7rem;align-items:center;flex-wrap:wrap;background:#17292c;padding:1rem;border-radius:.7rem;margin-top:.4rem}button{cursor:pointer;font:inherit;border:1px solid #758b85;padding:.5rem .9rem;background:#132125;color:#f2f3df;border-radius:.4rem}button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #c6ee88;outline-offset:3px}button#play{background:#c6ee88;color:#192122;font-weight:700;min-width:5.5rem}input{min-width:70px;flex:1;accent-color:#c6ee88}output{font-variant-numeric:tabular-nums}.notes{border-top:1px solid #395155;padding:1rem 0 2.5rem}.jumps{display:flex;gap:.5rem;flex-wrap:wrap}.small{font-size:.92rem;color:#b7c8c5}</style></head><body><header><a href="../../../"><b>APERTURE</b></a><a href="../">Interactive demos</a></header><main><p class="kicker">Basketball product demo</p><h1>One rep, three reads</h1><p>Show a shopper how a drill works before they walk onto a court. Pause this original shooting sequence at the plant, the release or the finish.</p><div class="player"><canvas width="960" height="600" role="img" aria-label="Illustrated athlete approaches the basket, gathers, releases a jump shot and scores.">An illustrated basketball player takes a pull-up jumper.</canvas><div class="controls"><button id="play">Play</button><label for="time">Timeline</label><input type="range" id="time" min="0" max="10" step=".01" value="0"><output id="clock" for="time">0.0 s</output></div></div><div class="jumps" aria-label="Jump to a moment"><button data-time="3.3">Gather</button><button data-time="4.45">Release</button><button data-time="6.65">Finish</button></div><section class="notes"><h2>Choose the next drill</h2><p>A coach can pause at foot placement. A shopper testing a shooting machine could use the same controls to follow the pass and ball return. This sample uses a fictional athlete.</p><details><summary>Embed this sample on a website</summary><p>Copy this into an HTML embed block.</p><textarea aria-label="Embed code" readonly rows="4" style="width:100%">&lt;iframe src="https://singhpratik44.github.io/clearline-portfolio/partnerships/interactive-demos/gym-motion/" title="Interactive basketball drill" width="100%" height="760" loading="lazy"&gt;&lt;/iframe&gt;</textarea></details><p><a href="../../../sports-os/market/advertising.html">See APERTURE sponsor placements and pricing</a></p></section></main><script>function drawFilm(ctx,w,h,seconds,editorial) {
+  const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
+  const smooth=n=>{n=clamp(n);return n*n*(3-2*n)};
+  const mix=(a,b,t)=>a+(b-a)*t;
+  const t=clamp(seconds,0,10),gold=editorial?'#efb86b':'#bde966';
+  ctx.save();ctx.scale(w/960,h/600);
+  const bg=ctx.createLinearGradient(0,0,0,600);
+  bg.addColorStop(0,'#08141b');bg.addColorStop(1,'#213438');
+  ctx.fillStyle=bg;ctx.fillRect(0,0,960,600);
+  const yaw=-.36+.13*smooth(t/10),zoom=1+.10*smooth(t/7);
+  function P(x,y,z){
+    const a=x*Math.cos(yaw)-z*Math.sin(yaw),b=x*Math.sin(yaw)+z*Math.cos(yaw),s=640*zoom/(17+b*.41);
+    return [490+a*s,335+(b*.52-y)*s];
+  }
+  function polygon(pts,col){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.closePath();ctx.fillStyle=col;ctx.fill()}
+  function line(pts,col,width=1){ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(...p):ctx.moveTo(...p));ctx.lineWidth=width;ctx.strokeStyle=col;ctx.lineCap='round';ctx.lineJoin='round';ctx.stroke()}
+  function dot(p,r,col){ctx.fillStyle=col;ctx.beginPath();ctx.arc(p[0],p[1],r,0,Math.PI*2);ctx.fill()}
+  function label(txt,x,y,sz,color,bold=false){ctx.fillStyle=color;ctx.font=(bold?'bold ':'')+sz+'px sans-serif';ctx.fillText(txt,x,y)}
+  function quad(x1,x2,z1,z2,col,y=0){polygon([P(x1,y,z1),P(x2,y,z1),P(x2,y,z2),P(x1,y,z2)],col)}
+  function arc(x,y,z,r,a,b,col,width){
+    const pts=[];for(let i=0;i<=48;i++){const ang=mix(a,b,i/48);pts.push(P(x+r*Math.cos(ang),y,z+r*Math.sin(ang)))}line(pts,col,width);
+  }
+  // Arena seating is procedural. No photographs or licensed footage are used.
+  for(let row=5;row>=0;row--){
+    const sy=192-row*11;
+    line([[40,sy+6],[925,sy+6]],'#294046',1.4);
+    for(let seat=0;seat<82;seat++){const col=['#425655','#304547','#3b5054','#5c6454'][(row*3+seat*7+Math.floor(seat/9))%4];dot([49+seat*10.6+(row%2)*3,sy],2.5,col)}
+  }
+  for(let x=-11;x<11;x+=.5)quad(x,x+.49,-6,6,(Math.round(x*2)%2===0)?'#846547':'#8f6c4b');
+  quad(4.3,8.7,-2,2,editorial?'#5a4a5b':'#52674d',.01);
+  const paint='#e5cc9e';
+  line([P(-10,0,-5.5),P(8.7,0,-5.5),P(8.7,0,5.5),P(-10,0,5.5),P(-10,0,-5.5)],paint,1.7);
+  line([P(8.7,0,-2),P(4.3,0,-2),P(4.3,0,2),P(8.7,0,2)],paint,1);
+  arc(4.3,0,0,2,Math.PI/2,1.5*Math.PI,paint,1.3);
+  arc(7.6,0,0,5.9,Math.PI*.58,Math.PI*1.42,paint,1.4);
+  for(let x=-8;x<=8;x+=8){
+    let p=P(x,4,-5.5);let g=ctx.createRadialGradient(p[0],p[1],0,p[0],p[1],53);g.addColorStop(0,'#fff2b955');g.addColorStop(1,'#ffffff00');ctx.fillStyle=g;ctx.fillRect(p[0]-53,p[1]-53,106,106);line([[p[0]-13,p[1]],[p[0]+13,p[1]]],'#e5e7d5',3)
+  }
+  const target=[7.45,3.05,0];line([P(9.4,0,0),P(9.4,3.6,0),P(7.9,3.6,0)],'#b8c6c0',3);
+  polygon([P(7.92,2.97,-.95),P(7.92,4.05,-.95),P(7.92,4.05,.95),P(7.92,2.97,.95)],'#cee8e055');
+  const board=[P(7.92,2.97,-.95),P(7.92,4.05,-.95),P(7.92,4.05,.95),P(7.92,2.97,.95)];line([...board,board[0]],'#d8e5e4',2);
+  const wave=t>6.5&&t<7.3?Math.sin((t-6.5)*12)*.06:0;
+  for(let i=0;i<10;i++){let a=i*2*Math.PI/10;line([P(7.45+.26*Math.cos(a),3.05,.26*Math.sin(a)),P(7.45+wave+.16*Math.cos(a+.5),2.68,.16*Math.sin(a+.5))],'#e9e6cf',1)}
+  arc(...target,.27,0,Math.PI*2,'#f89d59',3);
+  const approach=smooth(t/3.1),rise=t<4.45?smooth((t-3.5)/.95):1-smooth((t-4.45)/.8);
+  const x=mix(-4.1,1.1,approach),z=mix(1.6,.55,approach),y=.52*rise,run=Math.sin(t*8)*(1-approach),bend=.2*Math.sin(Math.PI*clamp((t-3.0)/.8));
+  let hip=P(x,y+.83-bend,z),neck=P(x+.08,y+1.53-bend,z),head=P(x+.1,y+1.76-bend,z);
+  const sc=clamp(t/3.9),shoot=smooth((t-3.45)/.82)*(1-.83*smooth((t-5.05)/1.6));
+  const shadow=P(x,0,z);ctx.fillStyle='#18201d66';ctx.beginPath();ctx.ellipse(...shadow,22,6,0,0,Math.PI*2);ctx.fill();
+  for(let side of [-1,1]){
+    let knee=P(x+side*(.15+run*.32)+bend,y+.43,z+.15*side),foot=P(x+side*(.28+run*.44),y+.02,z+.24*side);
+    line([hip,knee,foot],side<0?'#765b49':'#ad7853',6);line([foot,[foot[0]+7,foot[1]+1]],'#e9e3d2',5)
+  }
+  let shoulder=P(x+.05,y+1.43-bend,z+.15),elbow=P(x+.34,y+mix(.97,1.83,shoot)-bend,z+.18),hand=P(x+.60,y+mix(1.15,2.20,shoot)-bend,z+.1);
+  line([neck,P(x-.24,y+1.04+shoot*.59,z-.15),P(x+.16,y+1.0+shoot*.85,z-.1)],'#91654e',5);
+  polygon([[neck[0]-8,neck[1]],[neck[0]+8,neck[1]+2],[hip[0]+8,hip[1]+1],[hip[0]-9,hip[1]+1]],editorial?'#dab15a':'#afd369');
+  line([[hip[0]-6,hip[1]],[hip[0]+6,hip[1]]],'#233239',10);
+  dot(head,6.4,'#a37658');dot([head[0]-1,head[1]-3],4.8,'#3a302a');
+  line([shoulder,elbow,hand],'#b58464',5.6);
+  label(editorial?'24':'07',neck[0]-5,neck[1]+13,9,'#273337',true);
+  const start=[1.70,2.72,.65];function flight(a){return [mix(start[0],target[0],a),mix(start[1],target[1],a)+2.5*4*a*(1-a),mix(start[2],0,a)]}
+  let ball;if(t<3.25)ball=[x+.55,.17+1.04*Math.abs(Math.cos(t*5.8)),z+.1];
+  else if(t<4.45)ball=[x+.6,y+mix(1.15,2.2,smooth((t-3.45)/.82))-bend,z+.1];
+  else if(t<6.55)ball=flight(clamp((t-4.45)/2.1));
+  else ball=[7.45+.30*smooth((t-6.55)/1.5),Math.max(.14,3.05-3.8*(t-6.55)**2),0];
+  if(t>=4.45){let pts=[];for(let i=0;i<=45;i++){let a=i/45*clamp((t-4.45)/2.1);pts.push(P(...flight(a)))}line(pts,'#fadd8b88',2)}
+  let bp=P(...ball);dot(bp,5.5,'#f2954b');line([[bp[0]-4,bp[1]-2],[bp[0]+4,bp[1]+2]],'#593a2b',1.2);
+  ctx.fillStyle='#0a171eea';ctx.fillRect(0,445,960,155);ctx.fillStyle=gold;ctx.fillRect(27,465,5,88);
+  label(editorial?'APERTURE   /   FILM STUDY':'APERTURE   /   TRAINING STUDIO',46,42,15,'#d1dcda',true);
+  label(editorial?'LOS ANGELES   ·   APR 13, 2016':'ORIGINAL MOTION STUDY   ·   GYM CREATIVE',46,70,13,'#a4b9b7');
+  label(editorial?'The final go-ahead.':'One rep, three reads.',48,513,43,'#fff8e6',true);
+  const phases=editorial?['Approach','Gather','Release','Los Angeles takes the lead']:['Approach under control','Gather and plant','Follow the release','Study the finish'];
+  label(phases[t<3.1?0:t<4.45?1:t<6.55?2:3],49,547,20,gold,true);
+  label(editorial?'Kobe Bryant   /   Illustrative reconstruction':'Unbranded athlete   /   Custom gym film concept',49,579,14,'#aec0bc');
+  ctx.textAlign='right';label(editorial?(t<6.55?'LA 95   UTA 96':'LA 97   UTA 96'):'SHOOTING LAB',916,494,23,'#f4f4e7',true);
+  label(editorial?'Q4   ·   31.6 SEC AT MAKE':'PULL-UP   /   SIDE VIEW',916,526,13,'#c0cdca');ctx.textAlign='left';
+  ctx.fillStyle='#334442';ctx.fillRect(733,552,183,3);ctx.fillStyle=gold;ctx.fillRect(733,552,183*clamp(t/10),3);ctx.restore();
+}
+
+const canvas=document.querySelector('canvas'),ctx=canvas.getContext('2d'),range=document.querySelector('#time'),clock=document.querySelector('#clock'),btn=document.querySelector('#play');
+let time=0,playing=false,start=0,frame=0;
+function show(){drawFilm(ctx,960,600,time,false);range.value=time;clock.value=time.toFixed(1)+' s';btn.textContent=playing?'Pause':time>=10?'Replay':'Play';}
+function stop(){playing=false;cancelAnimationFrame(frame);show()}
+function tick(now){time=Math.min(10,(now-start)/1000);if(time>=10){stop();return}show();frame=requestAnimationFrame(tick)}
+btn.onclick=()=>{if(playing){stop();return}if(time>=10)time=0;playing=true;start=performance.now()-time*1000;frame=requestAnimationFrame(tick);show()};
+range.oninput=()=>{time=Number(range.value);stop()};for(const b of document.querySelectorAll('[data-time]'))b.onclick=()=>{time=Number(b.dataset.time);stop()};show();</script></body></html>
