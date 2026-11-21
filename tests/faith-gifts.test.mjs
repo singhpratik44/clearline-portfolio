@@ -33,7 +33,7 @@ test("Faith Gift has exactly 100 original, complete, unique experiences",async()
   assert.match(page,/100 real actions/);
   assert.match(await readFile(join(dir,"index.html"),"utf8"),/href="experience\.html/);
   assert.match(await readFile(join(root,"gifts","print.html"),"utf8"),/href="faith\/experience\.html"/);
-  assert.match(await readFile(join(root,"gifts","index.html"),"utf8"),/href="featured\\/"/);
+  assert.match(await readFile(join(root,"gifts","index.html"),"utf8"), /href="featured\\/"/);
 });
 
 test("100 gift modes work in an actual mobile browser, with private sharing and keepsake",{timeout:90000},async()=>{
