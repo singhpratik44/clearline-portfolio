@@ -1,0 +1,119 @@
+{% comment %}
+  APERTURE Gift Search & Note Maker
+  Paste this complete snippet into a Custom Liquid section on an Online Store 2.0 theme.
+  Product searches use this store's localized Shopify search. Notes stay in the open tab.
+{% endcomment %}
+<aperture-shopify-gifts>
+  <h2>Find a gift. Add a personal note.</h2>
+  <form method="get" action="{{ routes.search_url | escape }}" role="search" aria-label="Find gift products" target="_blank" rel="noopener noreferrer">
+    <label>Search {{ shop.name | escape }} products
+      <input type="search" name="q" maxlength="160" placeholder="Try a hobby, product or color" required>
+    </label>
+    <input type="hidden" name="type" value="product">
+    <div class="ap-actions"><button type="submit">Search products</button><small>Results open in a new tab so you can keep writing.</small></div>
+  </form>
+  <section data-maker hidden aria-label="Personal gift note">
+    <h3>Write a gift note</h3>
+    <p>Print a card to tuck into your gift, or copy the words into a message.</p>
+    <div class="ap-columns">
+      <div>
+        <label>Occasion
+          <select data-occasion>
+            <option>Thinking of you</option><option>Happy birthday</option><option>Thank you</option>
+            <option>Congratulations</option><option>Happy holidays</option><option>Just because</option>
+          </select>
+        </label>
+        <label>To (optional)<input data-to maxlength="45" autocomplete="off"></label>
+        <label>Your note<textarea data-body rows="4" maxlength="600" required></textarea></label>
+        <label>From (optional)<input data-from maxlength="45" autocomplete="off"></label>
+      </div>
+      <div>
+        <article class="ap-card" aria-label="Card preview">
+          <h4 data-heading>Thinking of you</h4>
+          <p data-greeting></p><p data-message>Your note will appear here.</p><p data-signature></p>
+        </article>
+        <div class="ap-actions"><button type="button" data-copy>Copy note</button><button type="button" data-print>Print card</button></div>
+        <label data-manual hidden>Select and copy your note<textarea rows="5" readonly></textarea></label>
+        <p role="status" data-status></p>
+      </div>
+    </div>
+  </section>
+</aperture-shopify-gifts>
+<style>
+aperture-shopify-gifts{display:block;max-width:58rem;margin:1.5rem auto;padding:clamp(1rem,3vw,2rem);color:inherit;border:1px solid currentColor;border-radius:12px}
+aperture-shopify-gifts h2,aperture-shopify-gifts h3,aperture-shopify-gifts h4{line-height:1.2}
+aperture-shopify-gifts h2,aperture-shopify-gifts h3{margin:0 0 .8rem}
+aperture-shopify-gifts section{margin-top:1.6rem;padding-top:1.3rem;border-top:1px solid currentColor}
+aperture-shopify-gifts label{display:block;font-weight:600;margin:.65rem 0}
+aperture-shopify-gifts input:not([type=hidden]),aperture-shopify-gifts textarea,aperture-shopify-gifts select{display:block;box-sizing:border-box;font:inherit;width:100%;padding:.55rem .7rem;border:1px solid #77877d;border-radius:6px;background:#fff;color:#172f24}
+aperture-shopify-gifts button{font:inherit;font-weight:650;cursor:pointer;min-height:42px;padding:.5rem .8rem;background:#184537;color:#fff;border:1px solid #184537;border-radius:6px}
+aperture-shopify-gifts :focus-visible{outline:3px solid #b46221;outline-offset:3px}
+aperture-shopify-gifts .ap-actions{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem;margin:.75rem 0}
+aperture-shopify-gifts .ap-columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,15rem),1fr));gap:1.2rem}
+aperture-shopify-gifts .ap-card{background:#fcf0d6;color:#3c382a;padding:1.5rem;border-radius:4px 20px;border:1px solid #bca980;border-top:6px solid #aa5937;overflow-wrap:anywhere}
+aperture-shopify-gifts .ap-card h4{font:2rem/1.1 Georgia,serif;margin:.15rem 0 .7rem}
+aperture-shopify-gifts [data-message]{white-space:pre-wrap}
+aperture-shopify-gifts [hidden]{display:none!important}
+</style>
+<script>
+(() => {
+  const tag = 'aperture-shopify-gifts';
+  if (!window.customElements || customElements.get(tag)) return;
+  class ApertureGiftNote extends HTMLElement {
+    connectedCallback() {
+      // A definition can also upgrade sections inserted by Shopify's theme editor.
+      if (!this.querySelector('[data-maker]')) {
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => this.connectedCallback(), {once:true});
+        return;
+      }
+      if (this.dataset.ready) return;
+      this.dataset.ready = 'true';
+      const part = name => this.querySelector('[data-' + name + ']');
+      const maker = part('maker'), manual = part('manual'), status = part('status');
+      const lines = () => {
+        const to = part('to').value.trim(), from = part('from').value.trim();
+        return [part('occasion').value, to ? 'Dear ' + to + ',' : '', part('body').value.trim(), from ? 'From ' + from : ''];
+      };
+      function render() {
+        const [heading,greeting,note,signature] = lines();
+        part('heading').textContent=heading;part('greeting').textContent=greeting;
+        part('message').textContent=note || 'Your note will appear here.';part('signature').textContent=signature;
+        manual.hidden=true;manual.querySelector('textarea').value='';status.textContent='';
+      }
+      function ready() {
+        if (part('body').value.trim()) return true;
+        part('body').focus();status.textContent='Write your note first.';return false;
+      }
+      maker.addEventListener('input', render);
+      part('copy').addEventListener('click', async () => {
+        if (!ready()) return;
+        const text = lines().filter(Boolean).join('\n\n');
+        try { await navigator.clipboard.writeText(text);status.textContent='Gift note copied.'; }
+        catch { manual.hidden=false;const box=manual.querySelector('textarea');box.value=text;box.focus();box.select();status.textContent='Copy the selected text.'; }
+      });
+      part('print').addEventListener('click', () => {
+        if (!ready()) return;
+        const previous=this.querySelector('iframe[data-print-frame]');
+        if(previous)previous.remove();
+        const frame=document.createElement('iframe');
+        frame.dataset.printFrame='';frame.title='Printable gift card';frame.setAttribute('aria-hidden','true');
+        frame.style.cssText='position:fixed;bottom:0;right:0;width:1px;height:1px;border:0;opacity:0;pointer-events:none';
+        this.append(frame);
+        try {
+          const doc=frame.contentDocument;doc.title='Personal gift card';doc.documentElement.lang='en';
+          const style=doc.createElement('style');
+          style.textContent='@page{margin:18mm}body{font:16pt/1.55 Georgia,serif;color:#24392d;margin:0}article{border:1px solid #8d9c90;border-top:6px solid #315846;padding:1.2em 1.5em;overflow-wrap:anywhere}h1{font-size:26pt;line-height:1.15;margin:0 0 .7em}p{white-space:pre-wrap}';
+          doc.head.append(style);
+          const card=doc.createElement('article');
+          lines().forEach((value,i)=>{if(value){const el=doc.createElement(i===0?'h1':'p');el.textContent=value;card.append(el);}});
+          doc.body.append(card);
+          frame.contentWindow.addEventListener('afterprint',()=>setTimeout(()=>frame.remove(),0),{once:true});
+          frame.contentWindow.focus();frame.contentWindow.print();
+        } catch {frame.remove();status.textContent='Printing is unavailable here. Copy your note to print from a document.';}
+      });
+      maker.hidden=false;render();
+    }
+  }
+  customElements.define(tag,ApertureGiftNote);
+})();
+</script>

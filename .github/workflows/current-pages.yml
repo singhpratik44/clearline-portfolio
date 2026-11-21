@@ -45,6 +45,9 @@ jobs:
           for page in sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html; do
             install -D -m 644 "$page" "_site/$page"
           done
+          for asset in plugin-build/index.html plugin-build/aperture-gift-maker.zip plugin-build/aperture-gift-tools-wordpress.zip plugin-build/wordpress-playground.json plugin-build/aperture-poe-gift-maker.html plugin-build/aperture-shopify-gift-maker.liquid; do
+            install -D -m 644 "$asset" "_site/$asset"
+          done
           mkdir -p _site/chatgpt-gift-studio/public
           if test -d chatgpt-gift-studio/public; then cp -R chatgpt-gift-studio/public/. _site/chatgpt-gift-studio/public/; fi
           mkdir -p _site/research _site/src

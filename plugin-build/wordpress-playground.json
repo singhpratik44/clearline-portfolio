@@ -1,0 +1,27 @@
+{
+  "$schema": "https://playground.wordpress.net/blueprint-schema.json",
+  "landingPage": "/",
+  "preferredVersions": {
+    "php": "8.3",
+    "wp": "latest"
+  },
+  "siteOptions": {
+    "blogname": "APERTURE Gift Tools Demo"
+  },
+  "steps": [
+    {
+      "step": "installPlugin",
+      "pluginData": {
+        "resource": "url",
+        "url": "https://singhpratik44.github.io/clearline-portfolio/plugin-build/aperture-gift-tools-wordpress.zip"
+      },
+      "options": {
+        "activate": true
+      }
+    },
+    {
+      "step": "runPHP",
+      "code": "<?php\nrequire_once '/wordpress/wp-load.php';\nif (!shortcode_exists('aperture_gift_tool')) {\n    throw new RuntimeException('APERTURE Gift Tools did not activate.');\n}\n$cards = wp_insert_post([\n    'post_type' => 'page', 'post_status' => 'publish',\n    'post_title' => 'Make a group card', 'post_name' => 'group-card',\n    'post_content' => '<!-- wp:paragraph --><p>This demo runs in your browser. To send a card that others can open, <a href=\"https://singhpratik44.github.io/clearline-portfolio/gifts/team-card/\">use the public group card maker</a> or install the plugin on your own site.</p><!-- /wp:paragraph -->'\n        . '<!-- wp:shortcode -->[aperture_gift_tool tool=\"group-card\"]<!-- /wp:shortcode -->',\n], true);\nif (is_wp_error($cards)) { throw new RuntimeException($cards->get_error_message()); }\n$front = wp_insert_post([\n    'post_type' => 'page', 'post_status' => 'publish',\n    'post_title' => 'Try Secret Santa', 'post_name' => 'secret-santa',\n    'post_content' => '<!-- wp:paragraph --><p>Try the exchange below, or <a href=\"?page_id=' . (int) $cards . '\">try the group card maker</a>. To share real draw links, <a href=\"https://singhpratik44.github.io/clearline-portfolio/gifts/secret-santa/\">use the public Secret Santa tool</a> or install the plugin on your own site.</p><!-- /wp:paragraph -->'\n        . '<!-- wp:shortcode -->[aperture_gift_tool tool=\"secret-santa\"]<!-- /wp:shortcode -->',\n], true);\nif (is_wp_error($front)) { throw new RuntimeException($front->get_error_message()); }\nupdate_option('show_on_front', 'page');\nupdate_option('page_on_front', $front);"
+    }
+  ]
+}
