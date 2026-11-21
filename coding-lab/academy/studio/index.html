@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#18372e"><title>Project Studio · APERTURE</title>
+  <meta name="description" content="Build a project of your own, test it with a partner, and share a revision.">
+  <link rel="stylesheet" href="studio.css"><script defer src="../units.js"></script><script defer src="studio.js"></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to studio</a>
+<header><nav aria-label="APERTURE"><a data-curriculum href="../index.html">← Project Academy</a><a href="../../game-creator/index.html">Open maze editor ↗</a></nav></header>
+<main id="main">
+  <p class="kicker">APERTURE / PROJECT ACADEMY</p>
+  <h1>My project studio</h1>
+  <p class="intro">Invent something a friend can try. Keep your first idea, play it together, then show what changed.</p>
+  <div class="save-strip"><span id="save-status" role="status">Your work saves in this browser.</span><button class="text" id="backup">Download my backup</button><button class="text" id="import">Open a project file</button><button class="text" id="new-project">Start another project</button><input type="file" id="file" accept=".json,application/json" hidden></div>
+  <nav class="steps" aria-label="Studio sections">
+    <button data-tab="plan" aria-current="step">1. Choose</button><button data-tab="build">2. Build</button><button data-tab="test">3. Test</button><button data-tab="share">4. Share</button>
+  </nav>
+  <section id="plan" class="pane" aria-labelledby="plan-heading">
+    <h2 id="plan-heading" tabindex="-1">What do you want someone to try?</h2>
+    <div class="two">
+      <label>My project is a…<select id="kind"><option>Game</option><option>Interactive story</option><option>Simulation</option><option>Tool or invention</option></select></label>
+      <label>I'll build with…<select id="medium"><option>APERTURE studio</option><option>APERTURE maze editor</option><option>Scratch blocks</option><option>Python</option><option>Web code</option><option>Paper or physical materials</option></select></label>
+    </div>
+    <label>Working title<input id="title" maxlength="80" placeholder="The last firefly"></label>
+    <label>My idea<textarea id="idea" maxlength="900" rows="3" placeholder="A player helps the last firefly decide where to leave its light…"></textarea></label>
+    <label>Who will try it, and what do I want them to discover?<textarea id="goal" maxlength="700" rows="2" placeholder="A first-time player will spot the clue in the shadows."></textarea></label>
+    <button class="primary" data-next="build">Build my first scene →</button>
+    <details class="card"><summary>Ask a coach for a starting question</summary><p id="plan-coach"></p><button id="next-prompt" class="secondary">Try another question</button></details>
+  </section>
+  <section id="build" class="pane" aria-labelledby="build-heading" hidden>
+    <h2 id="build-heading" tabindex="-1">Build one playable decision</h2>
+    <p>Write a scene with two choices. Playing it here works even if you're building the rest in another tool.</p>
+    <p id="medium-guide" class="hint"></p>
+    <label>What does the player see?<textarea id="scene" maxlength="1200" rows="3" placeholder="You reach two tunnels. One glows; the other hums."></textarea></label>
+    <div class="two">
+      <div class="card"><h3>First choice</h3><label>Action<input id="first" maxlength="100" placeholder="Follow the glow"></label><label>What happens?<textarea id="firstResult" rows="3" maxlength="900" placeholder="You find a jar of sleeping stars."></textarea></label></div>
+      <div class="card"><h3>Second choice</h3><label>Action<input id="second" maxlength="100" placeholder="Listen to the hum"></label><label>What happens?<textarea id="secondResult" rows="3" maxlength="900" placeholder="The wall sings the name of a hidden door."></textarea></label></div>
+    </div>
+    <label>Link to my playable project, if I have one<input type="url" id="workUrl" maxlength="1000" placeholder="https://…"><small>Use a public project link you control. Private links are useful only to viewers who already have access.</small></label>
+    <div class="card"><h3>Keep a version</h3><label>What should I remember about this version?<input id="version-note" maxlength="220" placeholder="In my first version both tunnels look equally inviting."></label><button class="primary" id="snapshot">Save this version</button></div>
+    <button class="secondary" data-next="test">Try it with a partner →</button>
+    <details class="card"><summary>My ten curriculum milestones</summary><p>For the unit you're working on, record something you made, tried, or noticed. You can return to any unit.</p><div id="milestones"></div></details>
+  </section>
+  <section id="test" class="pane" aria-labelledby="test-heading" hidden>
+    <h2 id="test-heading" tabindex="-1">Give your partner the controls</h2>
+    <p>Builder, save a version and predict what your partner might do. Then stay quiet while they play. Swap roles on the second round.</p>
+    <label>Builder · My prediction<textarea id="prediction" rows="2" maxlength="600" placeholder="I think the player will choose… because…"></textarea></label>
+    <div class="player" id="player"><h3>Play the current scene</h3><p id="play-scene"></p><div id="play-choices" class="actions"></div><p class="outcome" id="play-result" role="status"></p></div>
+    <label>Tester · What did you actually do or notice?<textarea id="observed" rows="2" maxlength="700" placeholder="I tried… I expected… I was surprised by…"></textarea></label>
+    <label>Builder · What will you change or keep, and why?<textarea id="revision" rows="2" maxlength="700" placeholder="I’ll keep… I’ll change… because when you tried it…"></textarea></label>
+    <div class="actions"><button class="primary" data-next="build">Revise my project</button><button class="secondary" data-next="share">Open my portfolio →</button></div>
+    <details class="card"><summary>Ask a playtest coach</summary><p id="test-coach"></p></details>
+  </section>
+  <section id="share" class="pane" aria-labelledby="share-heading" hidden>
+    <h2 id="share-heading" tabindex="-1">My creator portfolio</h2>
+    <p>Choose a first draft and a later version to show how your idea grew. You decide what leaves this device.</p>
+    <div id="version-list"></div>
+    <div class="two"><label>First draft<select id="before"></select></label><label>Later version<select id="after"></select></label></div>
+    <div class="card" id="compare"></div>
+    <h3>Credits and sharing</h3>
+    <p id="credit-note"></p>
+    <label>Creator credit for shared copies<input id="credit" maxlength="80" placeholder="Choose an alias or team name"></label>
+    <label>Other work I used or remixed (optional)<textarea id="sources" maxlength="700" rows="2" placeholder="Project name, creator alias, and where I found it"></textarea></label>
+    <fieldset><legend>Include in my family showcase</legend><label class="inline"><input id="include-notes" type="checkbox">My playtest and revision notes</label><label class="inline"><input id="include-link" type="checkbox">My project link</label></fieldset>
+    <div class="actions">
+      <button class="primary" id="showcase">Download family arcade</button>
+      <button class="secondary" id="preview">Rehearse my showcase</button>
+      <button class="secondary" id="remix">Share a remix file</button>
+    </div>
+    <p class="hint">The family arcade shares your current scene, selected versions and their captions, plus your credits. It opens in a browser and prints as a project card. The remix file contains the current scene, project type, title and credits. A recipient can open it here and make their own version.</p>
+    <div id="rehearsal" class="card" hidden><h3>Family arcade rehearsal</h3><p>Creator, introduce one decision. Guest, try the scene. Then tell the creator one detail you noticed.</p><div id="arcade-preview"></div></div>
+  </section>
+  <p role="status" id="notice" class="notice"></p>
+  <footer><a data-curriculum href="../index.html">Explore the ten curriculum units</a></footer>
+</main></body></html>

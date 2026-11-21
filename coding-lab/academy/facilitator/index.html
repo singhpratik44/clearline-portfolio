@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#123f35">
+<meta name="description" content="Run an APERTURE build-and-play workshop, host a family arcade, and record anonymous pilot observations.">
+<title>Facilitator kit · APERTURE Academy</title>
+<style>
+:root{color-scheme:light;--ink:#142f29;--sub:#3e584f;--leaf:#155440;--line:#c8d9cc;--paper:#faf9f3;--white:#fff;--tint:#ecf5ed;--lime:#e6ee96;--radius:14px;font:100%/1.55 system-ui,-apple-system,sans-serif}
+*{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper)}a{color:#11573e;text-underline-offset:.16em}a:hover{text-decoration-thickness:2px}button,input{font:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid #a84809;outline-offset:3px}.skip{position:absolute;top:-5rem;left:1rem;background:white;padding:.75rem;z-index:5}.skip:focus{top:.4rem}
+header{background:var(--ink);color:#fff}header nav{max-width:71rem;margin:auto;padding:.85rem 1.25rem;display:flex;align-items:center;justify-content:space-between;gap:.8rem;flex-wrap:wrap}header a{color:#fff;text-decoration:none}header a:hover{text-decoration:underline}.brand{font-size:.82rem;letter-spacing:.09em;font-weight:800}
+main{max-width:71rem;margin:auto;padding:clamp(1rem,4vw,3rem) 1.25rem 4rem}.hero{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(13rem,.8fr);gap:1.75rem;align-items:center;border-bottom:2px solid var(--ink);padding:0 0 1.6rem}.hero h1{font-size:clamp(2.45rem,6vw,4.8rem);line-height:1.02;letter-spacing:-.055em;margin:.3rem 0 1rem}.hero p{max-width:47rem;margin:0;color:var(--sub);font-size:1.1rem}
+.toolnav,.actions{display:flex;gap:.55rem .8rem;align-items:center;flex-wrap:wrap}.toolnav{margin:1rem 0 2rem}.toolnav a{font-weight:650}.btn{display:inline-block;border:1px solid var(--leaf);border-radius:9px;padding:.6rem .85rem;background:var(--leaf);color:white;text-decoration:none;font-weight:650}.btn.alt{background:transparent;color:var(--leaf)}.btn:hover{filter:brightness(.94)}h2,h3,h4{line-height:1.18}h2{font-size:clamp(1.65rem,3vw,2.4rem);letter-spacing:-.035em;margin:.15rem 0 .8rem}h3{margin:1.15rem 0 .4rem;font-size:1.2rem}p{margin:.4rem 0 .85rem}section+section{margin-top:2.4rem}.card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(.9rem,2.5vw,1.45rem)}.card>:first-child{margin-top:0}.card>:last-child{margin-bottom:0}.soft{background:var(--tint)}.hero .card{background:var(--lime);border-color:transparent}.columns{display:grid;grid-template-columns:1fr 1fr;gap:1rem;align-items:start}.quote{border-left:3px solid #b39a32;padding-left:.85rem;font-style:italic;color:#32463e}
+ul,ol{padding-left:1.35rem}li+li{margin-top:.3rem}.schedule{padding:0;list-style:none;counter-reset:session;margin:1rem 0}.schedule li{display:grid;grid-template-columns:6.6rem minmax(0,1fr);align-items:baseline;gap:.9rem;border-top:1px solid var(--line);padding:.9rem 0;margin:0}.slot{font-variant-numeric:tabular-nums;font-weight:700;color:var(--leaf)}.schedule h3{margin:0 0 .25rem}.schedule p{margin:0}.note{color:var(--sub);font-size:.94rem}.tally{padding:0;list-style:none}.tally li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.45rem 1rem;align-items:center;border-bottom:1px solid var(--line);padding:.7rem 0;margin:0}.tally label{font-weight:700}.tally label span{display:block;color:var(--sub);font-size:.94rem;font-weight:400}.tally input{border:1px solid #76988a;border-radius:6px;padding:.6rem;width:5.25rem;color:var(--ink);background:var(--white)}.metrics{margin:.8rem 0;min-height:4rem}.metrics li{margin:.3rem 0}#tally-status,#invite-status{min-height:1.5em;color:var(--sub)}.error{color:#93210a!important;font-weight:650}.reset{color:#713525;border-color:#985747!important;background:transparent}.invite{border-left:3px solid var(--leaf);padding:.5rem 0 .5rem 1rem;margin:.8rem 0;white-space:pre-line}.print-only{display:none}
+@media(max-width:700px){.hero,.columns{grid-template-columns:1fr}.hero{gap:1rem}.schedule li{grid-template-columns:4.8rem minmax(0,1fr);gap:.55rem}.toolnav{gap:.4rem .9rem}.tally input{width:4.4rem}}
+@media print{@page{margin:14mm}body{color:#000;background:#fff;font:10.5pt/1.35 system-ui,sans-serif}header nav{padding:0 0 4mm;color:#000}header{background:none}header .brand{color:#000}main{padding:0;max-width:none}.hero,.columns{display:block}.card,.hero .card{border:1px solid #aaa;background:none;margin:3mm 0;padding:3mm}.hero{border-bottom:1px solid #555;padding:3mm 0}.hero h1{font-size:23pt;margin:0 0 3mm}.hero p{font-size:11pt}.toolnav,.actions,.interactive,.skip,header a:not(.brand),#tally-status,#invite-status{display:none!important}.print-only{display:block}.schedule li{padding:2mm 0;gap:2mm;grid-template-columns:18mm 1fr;break-inside:avoid}.slot{color:#000}section+section{margin-top:6mm}h2{font-size:16pt}h3{font-size:12pt}h2,h3,h4{break-after:avoid}p,li{orphans:2;widows:2}.tally li{break-inside:avoid}.tally input{border:1px solid #999;padding:1mm}.tally label span{font-size:9pt}a{color:#000}.card{border-radius:0}.invite{margin:2mm 0}.print-label{display:inline}#pilot{break-before:page}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to facilitator kit</a>
+<header><nav aria-label="Site"><a class="brand" href="../index.html">APERTURE / ACADEMY</a><a href="../studio/index.html">Open project studio ↗</a></nav></header>
+<main id="main">
+<div class="hero"><div><h1>The build-and-play workshop</h1><p>Give each child a turn as a designer and a turn as someone else's first player. By the end, each creator can show one decision they made and explain what happened when someone tried it.</p></div><aside class="card" aria-label="Workshop setup"><strong>30 minutes · Pairs</strong><p>One shared device, two copies of a project, scrap paper and a pencil. One adult can guide a pair. In a larger group, give each pair the same role cards.</p><div class="actions"><button class="btn" id="print" type="button">Print facilitator kit</button></div></aside></div>
+<nav class="toolnav" aria-label="On this page"><a href="#session">Session plan</a><a href="#supports">Access and adaptations</a><a href="#arcade">Family arcade</a><a href="#pilot">Pilot tally</a><a href="#invitation">Invitation</a></nav>
+
+<section id="session" aria-labelledby="session-title"><h2 id="session-title">Run the first session</h2>
+<div class="card soft"><h3>Set up two independent drafts</h3><p>For a maze, open the <a href="../../game-creator/index.html">Game Creator</a> in two tabs. Label the tabs A and B on a slip of paper. Keep them open while partners swap. Before closing, download each draft separately. The on-device save slot is shared across tabs. For a story or simulation, use two sheets or two separate project files with the <a href="../studio/index.html">project studio</a>.</p><p><strong>Challenge.</strong> Make two routes to the same place. Change one tile, rule, or story choice so the player has a reason to pick a route.</p></div>
+<ol class="schedule" aria-label="30-minute session schedule">
+<li><span class="slot">0–2 min</span><div><h3>Offer a choice</h3><p>Each creator picks a feeling: surprise, suspense, calm, or their own. Ask, “What do you want your player to discover?” A coin can stand for anything the child chooses.</p></div></li>
+<li><span class="slot">2–7 min</span><div><h3>A builds, B predicts</h3><p>A controls the first draft. Start A’s clock when the editor or materials are ready. A changes one feature on purpose and tries it. B points to where they think a player will go. Say, “Show me the part you chose.”</p></div></li>
+<li><span class="slot">7–12 min</span><div><h3>B builds, A predicts</h3><p>Switch hands and drafts. Start a fresh five-minute clock for B. A listens while B picks a different goal or rule. If B gets stuck, offer one hint: “What could change if you move just one thing?”</p></div></li>
+<li><span class="slot">12–16 min</span><div><h3>B plays A’s creation</h3><p>A says only the goal. B plays or traces their route. A watches the first choice without narrating or correcting it. Ask B, “What did you think would happen?”</p></div></li>
+<li><span class="slot">16–20 min</span><div><h3>A plays B’s creation</h3><p>Swap again. B watches one moment, then records it with a mark, sketch, or short sentence. Use “My player tried…” An adult may write down the child's words.</p></div></li>
+<li><span class="slot">20–25 min</span><div><h3>Choose what to change or keep</h3><p>Give both creators a turn. Each picks one edit or keeps a feature on purpose. Replay the affected moment. Ask, “What did you see that helped you decide?”</p></div></li>
+<li><span class="slot">25–30 min</span><div><h3>Save and show</h3><p>Keep each version and one sentence, sketch, or dictated explanation in the learner’s portfolio. The child chooses whether to show a partner, a family member, or keep the project private. Record only anonymous counts in the pilot tally.</p></div></li>
+</ol>
+</section>
+
+<section id="supports" aria-labelledby="supports-title"><h2 id="supports-title">Make both roles accessible</h2>
+<div class="columns"><div class="card"><h3>Builder and first player</h3><p><strong>Builder.</strong> “I want you to try ___. I’ll watch what you do.” The builder chooses the rule and decides which feedback to act on.</p><p><strong>First player.</strong> “I expected ___. I tried ___. I noticed ___.” Describe one moment. Hand control back after the test.</p><p><strong>Adult guide.</strong> Offer a choice between tracing the route and changing one object. Wait for the child's signal before touching the project.</p></div>
+<div class="card"><h3>Offer a different way in</h3><ul><li>Read prompts aloud or let a partner transcribe. A drawing, gesture, or oral explanation counts.</li><li>Use large paper squares, raised tape, or labeled shapes. Distinguish walls, tokens, and finish by shape or label.</li><li>A partner can operate the controls while the creator directs each change. Record whose design decision it was.</li><li>Allow quiet observation and private show-and-tell. Make the time goal optional. An untimed or paper session can be counted separately.</li><li>If a device is unavailable, use a token and paper grid. For a story use two choice cards. For a simulation use one changeable rule and two trial runs.</li></ul></div></div></section>
+
+<section id="arcade" aria-labelledby="arcade-title"><h2 id="arcade-title">Host a family arcade</h2>
+<div class="columns"><div class="card"><h3>Set up a 15-minute showcase</h3><ol><li><strong>Before guests arrive.</strong> Ask each maker what they want to share. Use a project title on the station card. Keep private drafts off display.</li><li><strong>Minutes 0–3.</strong> Makers load their projects or set up a paper station. Pair every guest with a maker.</li><li><strong>Minutes 3–9.</strong> Run two three-minute rounds. Guests play for one minute, say what surprised them, and rotate. Makers can ask another person to present for them.</li><li><strong>Minutes 9–13.</strong> Makers show their first and latest versions and tell the story of one choice.</li><li><strong>Minutes 13–15.</strong> Let each maker decide what feedback to keep and whether to keep, export, or take down the display.</li></ol></div>
+<div class="card soft"><h3>Put this card at each station</h3><p class="quote">“Try my project. I’ll tell you the goal, then I’d like to see what you do.”</p><p><strong>Maker.</strong> “At first I tried ___. After the playtest, I kept or changed ___ because ___.”</p><p><strong>Guest.</strong> “I noticed ___ when I tried ___. What are you thinking of making next?”</p><p>For group feedback, invite one specific observation for every creator. Send project files home only when their creator chooses to share.</p></div></div></section>
+
+<section id="pilot" aria-labelledby="pilot-title"><h2 id="pilot-title">Record a classroom pilot</h2>
+<p>Use one tally for one session and one medium. First-round target: each beginner has a chance to author and play an intentional change within five minutes of starting. Count each learner once per row. Start an empty tally for a new session.</p>
+<div class="columns">
+<form class="card" id="tally-form" novalidate><h3>Anonymous counts</h3><p class="note">Blank means unobserved. Enter 0 only when the count was actually zero. Counts stay in this browser until you clear them.</p>
+<ol class="tally">
+<li><label for="present">Learners present <span>Everyone in this session.</span></label><input type="number" min="0" step="1" inputmode="numeric" id="present"></li>
+<li><label for="timed">Timed starts observed <span>Beginner creators whose full first five minutes you observed or whose early success you saw.</span></label><input type="number" min="0" step="1" inputmode="numeric" id="timed"></li>
+<li><label for="playable">Original playable by five minutes <span>Of the timed starts, those who chose a change and played a version that used it.</span></label><input type="number" min="0" step="1" inputmode="numeric" id="playable"></li>
+<li><label for="tested">Creators observed watching a playtest <span>Of everyone present, those who watched someone else try their project.</span></label><input type="number" min="0" step="1" inputmode="numeric" id="tested"></li>
+<li><label for="explained">Creators explaining a revision or deliberate keep <span>Of the observed playtests, those who linked a decision to something their player did.</span></label><input type="number" min="0" step="1" inputmode="numeric" id="explained"></li>
+</ol><p id="tally-status" role="status"></p>
+<div class="actions"><button class="btn" id="save" type="submit">Save counts on this device</button><button class="btn alt" type="button" id="export">Download session CSV</button><button class="btn reset" type="button" id="clear">Clear tally</button></div></form>
+<div class="card soft"><h3>Read the evidence</h3><ul class="metrics" id="metrics"><li>Enter observations to calculate the three rates.</li></ul><p>Record attendance and timed starts together so a quick result from one child is visible as one observation. Treat an unobserved or untimed learner as missing for the timed measure.</p><p><strong>Next session.</strong> If creators wait on instructions, simplify the first choice. If partners take over, model silent observation and run the swap again. Change one thing and record another session using the same definitions.</p><p class="note">These are classroom observations. A larger or different group may work differently. The download includes counts and denominators only.</p></div></div>
+</section>
+
+<section id="invitation" aria-labelledby="invite-title"><h2 id="invite-title">Invite a pilot class</h2><div class="card"><p>Adapt this note with the date and venue. It is ready to copy.</p>
+<blockquote class="invite" id="invite-text">Would your class or library group like to try a 30-minute APERTURE game workshop on [date] at [venue]? Each child will make a playable design, trade projects with a partner, and decide what to change after watching someone play. We can use one device per pair or paper materials. We’ll record anonymous group counts to improve the lesson. Children choose whether to show or take home their work.
+
+Try the Game Creator: https://singhpratik44.github.io/clearline-portfolio/coding-lab/game-creator/</blockquote>
+<div class="actions"><button class="btn alt" id="copy" type="button">Copy invitation</button></div><p id="invite-status" role="status"></p></div></section>
+<p class="print-only">Game Creator: singhpratik44.github.io/clearline-portfolio/coding-lab/game-creator/</p>
+</main>
+<script>
+(() => {
+  "use strict";
+  const ids = ["present", "timed", "playable", "tested", "explained"];
+  const field = id => document.getElementById(id);
+  const storageKey = "aperture-academy-pilot-v1";
+  const definitions = [
+    ["Original playable in five minutes", "playable", "timed"],
+    ["Observed peer playtests", "tested", "present"],
+    ["Explained design decision after a playtest", "explained", "tested"]
+  ];
+  const limits = [
+    ["timed", "present", "Timed starts cannot exceed learners present."],
+    ["playable", "timed", "Original playables cannot exceed timed starts."],
+    ["tested", "present", "Observed playtests cannot exceed learners present."],
+    ["explained", "tested", "Explanations cannot exceed observed playtests."]
+  ];
+  function setStatus(message, error = false) {
+    field("tally-status").textContent = message;
+    field("tally-status").classList.toggle("error", error);
+  }
+  function getCounts() {
+    return Object.fromEntries(ids.map(id => {
+      const input = field(id);
+      const value = input.value === "" && !input.validity.badInput ? null : input.valueAsNumber;
+      return [id, value];
+    }));
+  }
+  function validate(counts, requireParents) {
+    for (const id of ids) {
+      const value = counts[id];
+      if (value !== null && (!Number.isSafeInteger(value) || value < 0)) {
+        return [id, "Use a whole number of zero or more, or leave the count blank."];
+      }
+    }
+    for (const [child, parent, message] of limits) {
+      if (counts[child] === null) continue;
+      if (counts[parent] === null) {
+        if (requireParents) return [parent, "Enter the related total before saving or downloading this count."];
+      } else if (counts[child] > counts[parent]) {
+        return [child, message];
+      }
+    }
+    return null;
+  }
+  function ratio(count, denominator) {
+    if (count === null || denominator === null) return "Unobserved";
+    if (denominator === 0) return "No learners in this group (0 of 0)";
+    return count + " of " + denominator + " (" + Math.round(100 * count / denominator) + "%)";
+  }
+  function render() {
+    const counts = getCounts();
+    const invalid = validate(counts, false);
+    ids.forEach(id => field(id).removeAttribute("aria-invalid"));
+    field("metrics").replaceChildren();
+    if (invalid) {
+      field(invalid[0]).setAttribute("aria-invalid", "true");
+      setStatus(invalid[1], true);
+      return;
+    }
+    for (const [name, child, parent] of definitions) {
+      const item = document.createElement("li");
+      item.textContent = name + " — " + ratio(counts[child], counts[parent]);
+      field("metrics").append(item);
+    }
+  }
+  function exportable() {
+    const counts = getCounts();
+    const invalid = validate(counts, true);
+    if (invalid) {
+      setStatus(invalid[1], true);
+      field(invalid[0]).setAttribute("aria-invalid", "true");
+      field(invalid[0]).focus();
+      return null;
+    }
+    if (ids.every(id => counts[id] === null)) {
+      setStatus("Enter at least one observation.", true);
+      return null;
+    }
+    return counts;
+  }
+  const savedCountsShape = counts => counts && typeof counts === "object" &&
+    ids.every(id => counts[id] === null || (Number.isSafeInteger(counts[id]) && counts[id] >= 0)) &&
+    !validate(counts, true);
+  try {
+    const raw = localStorage.getItem(storageKey);
+    if (raw !== null) {
+      const counts = JSON.parse(raw);
+      if (savedCountsShape(counts)) {
+        ids.forEach(id => { field(id).value = counts[id] ?? ""; });
+        setStatus("Restored this browser’s saved tally.");
+      } else {
+        setStatus("The prior tally could not be restored. Start a new one here.");
+      }
+    }
+  } catch { setStatus("Device storage is unavailable or the prior tally is unreadable. You can still download a CSV."); }
+  render();
+  field("tally-form").addEventListener("input", () => {
+    setStatus("Draft changes have not been saved.");
+    render();
+  });
+  field("tally-form").addEventListener("submit", event => {
+    event.preventDefault();
+    const counts = exportable();
+    if (!counts) return;
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(counts));
+      setStatus("Saved counts for this session on this device.");
+    } catch { setStatus("Device storage is unavailable. Download a CSV to keep the observations.", true); }
+  });
+  field("clear").addEventListener("click", () => {
+    if (!confirm("Clear this session’s tally on this device? Download the CSV first if you need a copy.")) return;
+    try { localStorage.removeItem(storageKey); } catch {
+      setStatus("Device storage is unavailable. The saved copy could not be cleared.", true);
+      return;
+    }
+    ids.forEach(id => { field(id).value = ""; });
+    render();
+    setStatus("Tally cleared. All counts are unobserved.");
+  });
+  field("export").addEventListener("click", () => {
+    const counts = exportable();
+    if (!counts) return;
+    const rows = [["measure", "count", "denominator_label", "denominator"],
+      ["Learners present", counts.present, "", ""],
+      ["Timed starts observed", counts.timed, "Learners present", counts.present],
+      ...definitions.map(([name, child, parent]) => [name, counts[child], parent, counts[parent]])
+    ];
+    const csv = rows.map(row => row.map(cell => cell ?? "").join(",")).join("\r\n") + "\r\n";
+    const url = URL.createObjectURL(new Blob([csv], {type:"text/csv;charset=utf-8"}));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "aperture-pilot-" + new Date().toISOString().slice(0,10) + ".csv";
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    setStatus("Prepared the session CSV for download.");
+  });
+  field("copy").addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(field("invite-text").textContent.trim());
+      field("invite-status").textContent = "Invitation copied.";
+    } catch {
+      const range = document.createRange();
+      range.selectNodeContents(field("invite-text"));
+      const selection = window.getSelection();
+      selection.removeAllRanges(); selection.addRange(range);
+      field("invite-status").textContent = "Invitation selected. Use your device’s Copy command.";
+    }
+  });
+  field("print").addEventListener("click", () => window.print());
+})();
+</script>
+</body></html>
