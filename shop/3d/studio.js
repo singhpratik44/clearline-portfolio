@@ -106,7 +106,8 @@
     return url.href;
   }
   function persist(push = false) {
-    try { history[push ? "pushState" : "replaceState"](null,"",configurationURL(embedded)); } catch {}
+    const url = configurationURL(embedded);
+    try { history[push ? "pushState" : "replaceState"](null,"",window.apertureFamilyReferral?.(url) ?? url); } catch {}
   }
   function filterKits() {
     const category = $("category").value;
@@ -158,7 +159,8 @@
   function paintOffers() {
     currentOffers = kit.offers.filter(eligibleOffer).sort((a,b) => specificity(b) - specificity(a));
     const rows = currentOffers.map(offer => {
-      const li = make("li"), a = make("a", offer.title);a.href=offer.href;
+      const li = make("li"), a = make("a", offer.title);
+      a.href = window.apertureFamilyReferral?.(offer.href) ?? offer.href;
       if (embedded) {a.target="_blank";a.rel="noopener";}
       li.append(a);
       if (specificity(offer)) {

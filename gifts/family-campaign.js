@@ -27,6 +27,16 @@
     return url;
   }
 
+  // Carry the campaign only between this edition's catalog card and 3D preview.
+  window.apertureFamilyReferral = original => {
+    const url = new URL(original, window.location.href);
+    if (url.origin !== window.location.origin) return original;
+    const isCatalog = url.pathname.endsWith('/gifts/catalog.html') && url.hash === '#family';
+    const isPreview = /\/shop\/3d\/(?:index\.html)?$/.test(url.pathname)
+      && new URLSearchParams(url.hash.slice(1)).get('kit') === 'gift-family';
+    return isCatalog || isPreview ? addTags(url).href : original;
+  };
+
   const catalogLink = document.querySelector('[data-family-referral]');
   if (catalogLink) {
     catalogLink.href = addTags(new URL(catalogLink.href)).href;
