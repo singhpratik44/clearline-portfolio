@@ -76,6 +76,28 @@ footer{border-top:1px solid var(--line);background:#080d15;padding:45px 0;color:
 <footer><div class="wrap"><div><strong style="font-size:17px;color:#fff">APERTURE ∞ / CLEARLINE ART</strong><p>Independent original art for awareness, joy, courage and wonder.</p><p>© 2026 Clearline · No professional-league affiliation.</p></div><div><p><a href="../">Main store</a> · <a href="../../gifts/">Gift Lab</a> · <a href="../../">APERTURE home</a></p><p><a href="mailto:parry.s.2324@gmail.com?subject=Clearline%20Art%20support">Contact and support</a></p></div></div></footer><div id="notice" hidden role="status"></div>
 <script>
 const qs=s=>document.querySelector(s);document.querySelectorAll('.filter').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filter').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));document.querySelectorAll('.piece').forEach(p=>p.hidden=b.dataset.filter!=='all'&&p.dataset.category!==b.dataset.filter)}));
+const courtsideBase = 'https://buy.stripe.com/14AdRbeASh2IeIkak96kg1t';
+let courtsideCheckout = courtsideBase;
+const newsletterTags = new URLSearchParams({
+  utm_source: 'courtside_league',
+  utm_medium: 'email',
+  utm_campaign: 'courtside_poster_pack',
+  utm_content: 'team_newsletter'
+});
+const visitTags = new URLSearchParams(location.search);
+const packButton = document.querySelector('#courtside-pack a');
+if (packButton?.href === courtsideBase && visitTags.size === newsletterTags.size &&
+    [...newsletterTags].every(([key, value]) => visitTags.get(key) === value)) {
+  const checkout = new URL(courtsideBase);
+  checkout.search = newsletterTags.toString();
+  checkout.searchParams.set('client_reference_id', 'courtside_league_team_newsletter');
+  courtsideCheckout = checkout.href;
+  packButton.href = courtsideCheckout;
+  document.addEventListener('DOMContentLoaded', () => {
+    const previewButton = document.getElementById('dialog-buy');
+    if (previewButton?.href === courtsideBase) previewButton.href = courtsideCheckout;
+  });
+}
 const shareURL=new URL(location.href);shareURL.searchParams.set('utm_source','customer_share');shareURL.searchParams.set('utm_campaign','art_archive_001');
 qs('#share').addEventListener('click',async()=>{try{if(navigator.share){await navigator.share({title:'CLEARLINE ART — Original posters and wallpapers',text:'Six original basketball and beyond-the-game artworks.',url:shareURL.href});}else{await navigator.clipboard.writeText(shareURL.href);qs('#share').textContent='Link copied ✓';}}catch(e){if(e.name!=='AbortError'){qs('#share').textContent='Copy the page link to share';}}});
 qs('#free-download').addEventListener('click',()=>{try{const c=document.createElement('canvas');c.width=1080;c.height=2340;const g=c.getContext('2d');let bg=g.createLinearGradient(0,0,1080,2340);bg.addColorStop(0,'#061421');bg.addColorStop(.6,'#0f4544');bg.addColorStop(1,'#07242d');g.fillStyle=bg;g.fillRect(0,0,1080,2340);const glow=g.createRadialGradient(550,840,60,550,840,550);glow.addColorStop(0,'#d0ffdd');glow.addColorStop(.4,'#6edab6');glow.addColorStop(.75,'#2f8174');glow.addColorStop(1,'#092e36');g.fillStyle=glow;g.beginPath();g.arc(550,820,310,0,Math.PI*2);g.fill();for(let i=0;i<7;i++){g.beginPath();g.arc(550,820,355+i*62,0,Math.PI*2);g.strokeStyle='rgba(212,255,230,'+(.18-i*.018)+')';g.lineWidth=2;g.stroke()}g.fillStyle='#e8ffef';g.textAlign='center';g.font='700 78px system-ui';g.fillText('MAKE ROOM',540,1760);g.fillText('FOR WONDER',540,1860);g.font='500 33px system-ui';g.fillStyle='#b7ddce';g.fillText('APERTURE  ∞  CLEARLINE',540,2100);c.toBlob(blob=>{if(!blob){qs('#free-status').textContent='Download unavailable on this browser';return;}const u=URL.createObjectURL(blob);const a=document.createElement('a');a.href=u;a.download='clearline-make-room-for-wonder-free-wallpaper.png';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);qs('#free-status').textContent='Your free wallpaper is ready.';},'image/png');}catch(e){qs('#free-status').textContent='Download unavailable; please try another browser.';}});
@@ -86,7 +108,7 @@ qs('#free-download').addEventListener('click',()=>{try{const c=document.createEl
   if(!modal||typeof modal.showModal!=='function')return;
   const title=document.getElementById('dialog-title'),description=document.getElementById('dialog-description'),image=document.getElementById('dialog-image'),category=document.getElementById('dialog-category'),buy=document.getElementById('dialog-buy');
   const packs={
-    courtside:{name:'Courtside',url:'https://buy.stripe.com/14AdRbeASh2IeIkak96kg1t'},
+    courtside:{name:'Courtside',url:courtsideCheckout},
     beyond:{name:'Beyond',url:'https://buy.stripe.com/4gMbJ33WeeUA2ZCgIx6kg1u'}
   };
   const tabs=modal.querySelectorAll('[data-mockup]');
