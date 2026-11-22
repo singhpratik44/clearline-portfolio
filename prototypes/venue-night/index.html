@@ -4,35 +4,80 @@
 *{box-sizing:border-box}body{margin:0;background:#171719;color:#f8f5f1;font:16px/1.45 "Inter",Arial,sans-serif}main,header{max-width:900px;margin:auto;padding:24px}header{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #48484a}header strong{letter-spacing:.18em}header small,.eyebrow{font:12px monospace;letter-spacing:.09em;text-transform:uppercase;color:#dbd3cc}h1{font:900 clamp(52px,9vw,96px)/.95 "Archivo Black",Arial,sans-serif;letter-spacing:-.075em;margin:30px 0 12px}h2{font-size:22px;letter-spacing:-.035em;margin:0 0 14px}.intro{max-width:52ch;color:#c9c4c0;margin:0 0 30px}.grid{display:grid;grid-template-columns:1fr .86fr;gap:14px}.card{border:1px solid #48484a;border-radius:14px;padding:22px;background:#202023}fieldset{padding:0;border:0;margin:0 0 22px}legend{font-weight:700;margin-bottom:10px}.modes{display:flex;gap:6px}.modes label{flex:1;position:relative}.modes input{position:absolute;opacity:0}.modes span{display:block;text-align:center;border:1px solid #69686c;border-radius:8px;padding:11px 4px;cursor:pointer}.modes input:checked+span{background:#f7a6e3;border-color:#f7a6e3;color:#251721;font-weight:700}.modes input:focus-visible+span,button:focus-visible,input:focus-visible{outline:3px solid #77e8f1;outline-offset:3px}.field{display:block;margin:14px 0 4px;font-weight:600}input[type=number],textarea{width:100%;padding:10px 12px;background:#171719;color:#fff;border:1px solid #666469;border-radius:6px;font:inherit}small{color:#c4bfc2}.result{background:#dfef8c;color:#1b2112;border-color:#dfef8c}.result .eyebrow{color:#3d4627}.number{font-size:clamp(62px,8vw,90px);line-height:1;letter-spacing:-.07em;font-weight:800;margin-top:22px}.bar{height:8px;background:#bdcc75;margin:16px 0 8px;border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;background:#28341d}.note{border-top:1px solid #aab968;padding-top:16px}.share{width:100%;padding:13px;background:#20241a;color:white;border:0;border-radius:8px;font:700 16px inherit;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer}.share:disabled{opacity:.5}textarea{margin-top:12px;min-height:170px}footer{color:#b5afb0;font-size:13px;margin:18px 0}#message{font-size:14px}@media(max-width:660px){.grid{grid-template-columns:1fr}main,header{padding:16px}.card{padding:18px}h1{margin-top:24px}.intro{margin-bottom:20px}}
 </style>
 <header><strong>APERTURE</strong><small>Promoter tools</small></header><main><h1>Night planner</h1><p class="intro">Choose a promotion window and work out how many extra guests need to come through the door to cover the cost.</p>
+<style>
+.world{background:#202023;border:1px solid #48484a;border-radius:14px;overflow:hidden;margin:20px 0}.worldhead,.controls{padding:16px 20px}.worldhead{display:flex;align-items:center;justify-content:space-between;gap:10px}.world h2{margin:0}.world button,.world select{background:#303035;color:#f8f6f4;border:1px solid #78787b;border-radius:7px;padding:9px;font:inherit}.world button{cursor:pointer}.world button:disabled{opacity:.5}.scene{display:block;width:100%;height:clamp(265px,45vw,420px);background:#141419;touch-action:pan-y}.controls{display:grid;gap:12px}.tools{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.fixture{color:#f7a6e3}.world p{margin:0}.world button[aria-pressed=true]{background:#dfef8c;color:#181a13}button:focus-visible,select:focus-visible{outline:3px solid #77e8f1}
+</style><section class="world" aria-label="Editable club floor"><div class="worldhead"><h2>Club floor</h2><div class="tools"><button id="before" aria-pressed="false">Before</button><button id="after" aria-pressed="true">After</button></div></div><canvas id="scene" class="scene" aria-label="Rotatable 3D club floor. Use the fixture selector and movement buttons below."></canvas><div class="controls"><div class="tools"><label for="fixture">Edit fixture</label><select id="fixture"><option value="door">Entrance</option><option value="stage">Stage</option><option value="booth1">Booth A</option><option value="booth2">Booth B</option></select><button id="rotate">Rotate view ↻</button></div><div class="tools"><button data-move="0,-1">North</button><button data-move="-1,0">West</button><button data-move="1,0">East</button><button data-move="0,1">South</button><button id="toggle">Add booth B</button></div><div class="tools"><button id="runwalk">Run walk</button><button id="restart">Restart walk</button><small id="walktime"></small></div><p id="routes"></p><p id="worldstats"></p><small id="worldmsg" role="status">Select a fixture on the floor or use the menu. Move it one square at a time.</small></div></section>
 <div class="grid"><section class="card"><h2>Plan the night</h2><fieldset><legend>Promotion window</legend><div class="modes"><label><input type="radio" name="mode" value="quiet" checked><span>Quiet hours</span></label><label><input type="radio" name="mode" value="peak"><span>Peak hours</span></label></div></fieldset>
-<label class="field" for="capacity">Available capacity</label><input id="capacity" type="number" min="0" max="1000000" step="1" value="60" required><small>Room for extra guests after expected walk-ins.</small>
+<label class="field" for="capacity">Available capacity in original layout</label><input id="capacity" type="number" min="0" max="1000000" step="1" value="60" required><small>Room for extra guests after expected walk-ins.</small>
 <label class="field" for="contribution">Net contribution per extra guest ($)</label><input id="contribution" type="number" min=".01" max="1000000" step=".01" value="15" required><small>Expected guest spend minus variable costs and discounts.</small>
-<label class="field" for="cost">Fixed promotion cost ($)</label><input id="cost" type="number" min="0" max="100000000" step=".01" value="300" required></section>
+<label class="field" for="ticket">Additional net ticket income per guest ($)</label><input id="ticket" type="number" min="0" max="1000000" step=".01" value="0" required><small>Enter ticket income after fees, excluding the contribution above.</small><label class="field" for="cost">Fixed promotion cost ($)</label><input id="cost" type="number" min="0" max="100000000" step=".01" value="300" required></section>
 <section class="card result"><div class="eyebrow">Break-even estimate</div><div aria-live="polite"><div class="number" id="count">20</div><b>extra guests needed</b><div class="bar" aria-hidden="true"><i id="fill"></i></div><p id="status"></p></div><p class="note" id="advice"></p><button class="share" id="share">Share night plan ↗</button><p id="message" role="status"></p><textarea readonly hidden aria-label="Night plan to copy" id="manual"></textarea></section></div><footer>Planning prototype · Example inputs in USD. Sharing a plan creates no booking or payment.</footer></main>
 <script>
 const byId=id=>document.getElementById(id);
-const fields=['capacity','contribution','cost'].map(byId);
+const fields=['capacity','contribution','cost','ticket'].map(byId);
 const modes=[...document.querySelectorAll('[name=mode]')];
 const initial=new URLSearchParams(location.hash.slice(1));
 for(const input of fields){const v=initial.get(input.id);if(v!==null){const original=input.value;input.value=v;if(!input.validity.valid)input.value=original}}
 if(initial.get('mode')==='peak')modes[1].checked=true;
+const baseline={door:[3,5],stage:[0,0],booth1:[5,1],booth2:[5,3],extra:false};
+let layout=structuredClone(baseline),before=false,turn=0,hit=[];
+const specs={door:[1,1,1.5,'#77e8f1','Entrance'],stage:[3,2,.6,'#a79bd9','Stage'],booth1:[2,1,.85,'#ef95c9','Booth A'],booth2:[2,1,.85,'#ef95c9','Booth B']};
+const savedLayout=initial.get('floor');
+function fits(id,x,z,obj){const [w,d]=specs[id];if(x<0||z<0||x+w>8||z+d>6)return false;if(id==='door'&&x!==0&&z!==0&&x+w!==8&&z+d!==6)return false;return Object.keys(specs).every(k=>{if(k===id||(k==='booth2'&&!obj.extra))return true;const [a,b]=obj[k],[c,e]=specs[k];return x+w<=a||a+c<=x||z+d<=b||b+e<=z})}
+if(savedLayout){try{const o=JSON.parse(savedLayout);if(typeof o.extra==='boolean'&&Object.keys(specs).every(k=>Array.isArray(o[k])&&o[k].length===2&&o[k].every(Number.isInteger)&&(k==='booth2'&&!o.extra||fits(k,...o[k],o))))layout=o}catch{}}
+let playing=false,elapsed=0,start=0,frame=0;
+function route(obj,dest){
+ const [x,z]=obj.door,queue=[[[x,z]]],seen=new Set([x+','+z]);
+ const [tx,tz]=obj[dest],[w,d]=specs[dest];
+ const clear=(a,b)=>a>=0&&a<8&&b>=0&&b<6&&Object.keys(specs).every(k=>{if(k==='door'||k==='booth2'&&!obj.extra)return true;const [cx,cz]=obj[k],[cw,cd]=specs[k];return a<cx||a>=cx+cw||b<cz||b>=cz+cd});
+ for(let i=0;i<queue.length;i++){const path=queue[i],[a,b]=path[path.length-1];for(const [dx,dz] of [[0,1],[1,0],[0,-1],[-1,0]]){const nx=a+dx,nz=b+dz;if(nx>=tx&&nx<tx+w&&nz>=tz&&nz<tz+d)return path;if(clear(nx,nz)&&!seen.has(nx+','+nz)){seen.add(nx+','+nz);queue.push([...path,[nx,nz]])}}}return []
+}
+function routeLabel(path){return path.length?(path.length-1)+' squares':'blocked'}
+function walkFrame(now){elapsed=(now-start)/1000;paint();if(playing)frame=requestAnimationFrame(walkFrame)}
+byId('runwalk').onclick=()=>{playing=!playing;byId('runwalk').textContent=playing?'Pause walk':'Run walk';if(playing){start=performance.now()-elapsed*1000;frame=requestAnimationFrame(walkFrame)}else cancelAnimationFrame(frame)};
+byId('restart').onclick=()=>{elapsed=0;start=performance.now();paint()};
+function paint(){
+ const cv=byId('scene'),r=cv.getBoundingClientRect(),s=devicePixelRatio||1;cv.width=Math.round(r.width*s);cv.height=Math.round(r.height*s);const c=cv.getContext('2d');c.scale(s,s);
+ const angle=(turn*.5+.23)*Math.PI,co=Math.cos(angle),si=Math.sin(angle),scale=Math.min(r.width/11.5,r.height/7.2),obj=before?baseline:layout,selected=byId('fixture').value;
+ function project(x,z,y){x-=4;z-=3;return [r.width/2+(x*co-z*si)*scale,r.height*.56+((x*si+z*co)*.52-y*.84)*scale]}
+ function poly(points,fill,stroke){c.beginPath();points.forEach(([x,y],i)=>i?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.fillStyle=fill;c.fill();if(stroke){c.strokeStyle=stroke;c.lineWidth=1;c.stroke()}}
+ for(let x=0;x<8;x++)for(let z=0;z<6;z++)poly([[x,z],[x+1,z],[x+1,z+1],[x,z+1]].map(([a,b])=>project(a,b,0)),(x+z)%2?'#333440':'#3b3b48','#575967');
+ const blocks=Object.keys(specs).filter(k=>k!=='booth2'||obj.extra).sort((a,b)=>{const depth=k=>(obj[k][0]+specs[k][0]/2)*si+(obj[k][1]+specs[k][1]/2)*co;return depth(a)-depth(b)});hit=[];
+ for(const k of blocks){const [x,z]=obj[k],[w,d,h,color,label]=specs[k];const corners=[[x,z],[x+w,z],[x+w,z+d],[x,z+d]],top=corners.map(([a,b])=>project(a,b,h)),bot=corners.map(([a,b])=>project(a,b,0));
+ for(const i of [si>0?1:3,co>0?2:0]){const j=(i+1)%4;poly([top[i],top[j],bot[j],bot[i]],i%2?'#69647c':'#82748c','#37333f')}
+ poly(top,color,!before&&k===selected?'#fff':'#4b4657');const [a,b]=project(x+w/2,z+d/2,h);c.textAlign='center';c.font='bold 12px Arial';c.fillStyle='#15151a';c.fillText(label,a,b+4);hit.push([k,a,b])}
+ const destinations=['stage','booth1',...(obj.extra?['booth2']:[])];
+ destinations.forEach((dest,i)=>{const path=route(obj,dest);if(!path.length)return;const t=Math.max(0,elapsed-i*.55)%(path.length+2),j=Math.min(path.length-1,Math.floor(t)),next=path[Math.min(j+1,path.length-1)],f=Math.min(1,t-j);const [a,b]=path[j],x=a+(next[0]-a)*f+.5,z=b+(next[1]-b)*f+.5;const [px,py]=project(x,z,0);c.fillStyle=['#f8e879','#ff965e','#99fff3'][i];c.beginPath();c.arc(px+i*2,py-4,4,0,2*Math.PI);c.fill();c.beginPath();c.arc(px+i*2,py-10,3,0,2*Math.PI);c.fill()});
+ byId('walktime').textContent='Simulation · '+Math.floor(elapsed)+' s';
+ byId('routes').textContent='Entrance walk · Before → after: '+['stage','booth1',...(layout.extra?['booth2']:[])].map(k=>specs[k][4]+' '+(k==='booth2'?'absent':routeLabel(route(baseline,k)))+' → '+routeLabel(route(layout,k))).join(' · ');
+ const cap=Number(byId('capacity').value);byId('worldstats').textContent=(before?'Before':'After')+' · '+(obj.extra?8:4)+' booth seats · '+Math.max(0,cap-(obj.extra?2:0))+' available guest places at this layout.';
+ byId('before').setAttribute('aria-pressed',before);byId('after').setAttribute('aria-pressed',!before);byId('toggle').textContent=layout.extra?'Remove booth B':'Add booth B';document.querySelectorAll('[data-move],#toggle').forEach(b=>b.disabled=before)
+}
+function changeView(state){before=state;render()}
+byId('before').onclick=()=>changeView(true);byId('after').onclick=()=>changeView(false);byId('rotate').onclick=()=>{turn=(turn+1)%4;paint()};byId('fixture').onchange=paint;
+byId('scene').onclick=e=>{const r=e.target.getBoundingClientRect();const nearest=hit.map(([k,a,b])=>[k,Math.hypot(e.clientX-r.left-a,e.clientY-r.top-b)]).sort((a,b)=>a[1]-b[1])[0];if(nearest&&nearest[1]<40){byId('fixture').value=nearest[0];paint()}};
+document.querySelectorAll('[data-move]').forEach(b=>b.onclick=()=>{const k=byId('fixture').value,[dx,dz]=b.dataset.move.split(',').map(Number),[x,z]=layout[k];if(k==='booth2'&&!layout.extra||!fits(k,x+dx,z+dz,layout)){byId('worldmsg').textContent='Move unavailable. Keep fixtures inside the floor, clear of each other, with the entrance on an edge.';return}layout[k]=[x+dx,z+dz];byId('worldmsg').textContent=specs[k][4]+' moved.';render()});
+byId('toggle').onclick=()=>{if(!layout.extra&&!fits('booth2',...layout.booth2,layout)){let spot;for(let z=0;z<6&&!spot;z++)for(let x=0;x<7&&!spot;x++)if(fits('booth2',x,z,layout))spot=[x,z];if(!spot)return;layout.booth2=spot}layout.extra=!layout.extra;byId('fixture').value=layout.extra?'booth2':'booth1';byId('worldmsg').textContent='Each extra booth adds four seats and replaces six standing places in this model.';render()};
+window.addEventListener('resize',paint);
 let shareData;
 function render(){
+ paint();
  const mode=modes.find(x=>x.checked).value;
  byId('manual').hidden=true;byId('message').textContent='';
  byId('advice').textContent=mode==='quiet'?'Quiet hours · Set an early arrival window and count guests who would otherwise have stayed home.':'Peak hours · Allow for regular walk-ins first. Count only extra arrivals the room can accommodate.';
  const valid=fields.every(x=>x.validity.valid);
  byId('share').disabled=!valid;
  if(!valid){byId('count').textContent='—';byId('status').textContent='Check the inputs. Use whole guests, a positive contribution and a nonnegative cost.';byId('fill').style.width='0%';return}
- const [capacity,contribution,cost]=fields.map(x=>x.valueAsNumber);
- const count=Math.ceil(Math.round(cost*100)/Math.round(contribution*100));
+ const [originalCapacity,contribution,cost,ticket]=fields.map(x=>x.valueAsNumber);
+ const effective=before?baseline:layout;const capacity=Math.max(0,originalCapacity-(effective.extra?2:0));
+ const count=Math.ceil(Math.round(cost*100)/(Math.round(contribution*100)+Math.round(ticket*100)));
  byId('count').textContent=count.toLocaleString('en-US');
  const status=count>capacity?'Over capacity by '+(count-capacity)+' guests.':count===0?'The promotion has no fixed cost to recover.':count+' of '+capacity+' available places needed.';
  byId('status').textContent=status;
  byId('fill').style.width=(capacity?Math.min(100,100*count/capacity):count?100:0)+'%';
- const params=new URLSearchParams({mode,capacity,contribution,cost});
+ const params=new URLSearchParams({mode,capacity:originalCapacity,contribution,cost,ticket,floor:JSON.stringify(effective)});
  const url=new URL(location.href);url.hash=params;
- shareData={title:'APERTURE night plan',text:['APERTURE night plan · '+(mode==='quiet'?'Quiet hours':'Peak hours'),'Available capacity: '+capacity,'Net contribution per extra guest: $'+contribution.toFixed(2),'Fixed promotion cost: $'+cost.toFixed(2),'Break-even: '+count+' extra guests. '+status].join('\n'),url:url.href};
+ shareData={title:'APERTURE night plan',text:['APERTURE night plan · '+(mode==='quiet'?'Quiet hours':'Peak hours'),'Booth seats: '+(effective.extra?8:4),'Available capacity: '+capacity,'Net ticket income per guest: $'+ticket.toFixed(2),'Net contribution per extra guest: $'+contribution.toFixed(2),'Fixed promotion cost: $'+cost.toFixed(2),'Break-even: '+count+' extra guests. '+status].join('\n'),url:url.href};
 }
 document.addEventListener('input',render);render();
 byId('share').onclick=async()=>{
