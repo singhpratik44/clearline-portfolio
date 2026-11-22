@@ -36,7 +36,9 @@ function render() {
     };
   }
   el('review').disabled = !enabled || pending || !ready.length;
+  el('specialists').disabled = !enabled || pending || !ready.length;
 }
+el('specialists').onchange = changed;
 function changed() {
   version++;
   el('advice').textContent = ''; el('error').textContent = '';
@@ -54,7 +56,7 @@ el('file').onchange = async event => {
   } catch (error) { el('error').textContent = error.message; }
   finally { event.target.value = ''; }
 };
-async function readReview(response, showPartial) {
+async function readReview(response, showPartial, showProgress) {
   if (!response.headers.get('content-type')?.includes('application/x-ndjson')) return response.json();
   let buffer = '', advice = '', result;
   const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
@@ -67,6 +69,7 @@ async function readReview(response, showPartial) {
       for (const line of lines) {
         const event = JSON.parse(line);
         if (event.error) throw Error(event.error);
+        if (event.specialistsStarted && !advice) showProgress(event.specialistsStarted);
         if (typeof event.text === 'string') {
           advice += event.text;
           showPartial(advice);
@@ -80,15 +83,18 @@ async function readReview(response, showPartial) {
 }
 el('review').onclick = async () => {
   const currentVersion = version;
+  const mode = el('specialists').checked ? 'specialist' : 'standard';
   pending = true; render();
   el('advice').setAttribute('aria-busy', 'true');
   el('advice').textContent = 'Reviewing the shortlist…';
   try {
     const response = await fetch('/review', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/x-ndjson' },
-      body: JSON.stringify(briefing(rank(snapshot, today), today, snapshot.sample, steps > 0)) });
+      body: JSON.stringify({ ...briefing(rank(snapshot, today), today, snapshot.sample, steps > 0), mode }) });
     if (!response.ok) throw Error(await response.text());
     const result = await readReview(response, text => {
       if (version === currentVersion) el('advice').textContent = text;
+    }, count => {
+      if (version === currentVersion) el('advice').textContent = count === 1 ? 'First specialist started…' : 'Both specialists started…';
     });
     if (version === currentVersion) el('advice').textContent = (result.cached ? 'Reused previous review.\n\n' : '') + result.advice;
   } catch (error) { if (version === currentVersion) el('advice').textContent = error.message; }

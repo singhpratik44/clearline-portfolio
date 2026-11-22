@@ -119,3 +119,25 @@ test('a streaming review delivers the first text before completion and then serv
   assert.deepEqual(await (await post()).json(), { advice, cached: true });
   assert.equal(calls, 1);
 });
+
+test('only a specialist request uses the two-agent configuration and its cached result', async t => {
+  const seen = [];
+  const url = await start(t, { APERTURE_OPERATOR_PASSWORD: password, OPENAI_API_KEY: 'test' },
+    async (brief, key, model, onText, mode, onProgress) => {
+      seen.push({ model, mode });
+      onProgress(1); onProgress(2);
+      return 'Sample specialist synthesis.';
+    });
+  const brief = briefing(rank(sample, today), today, true, false);
+  const post = mode => fetch(url + '/review', {
+    method: 'POST', headers: { ...auth, origin: url, 'content-type': 'application/json', accept: 'application/x-ndjson' },
+    body: JSON.stringify({ ...brief, mode })
+  });
+  assert.equal((await post('other')).status, 400);
+  const first = await post('specialist');
+  const records = (await first.text()).trimEnd().split('\n').map(line => JSON.parse(line));
+  assert.deepEqual(records, [{ specialistsStarted: 1 }, { specialistsStarted: 2 }, { advice: 'Sample specialist synthesis.', cached: false }]);
+  assert.equal((await (await post('specialist')).json()).cached, true);
+  assert.equal((await post('standard')).status, 429);
+  assert.deepEqual(seen, [{ model: 'gpt-6.2-astra', mode: 'specialist' }]);
+});

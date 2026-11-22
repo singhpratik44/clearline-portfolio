@@ -71,8 +71,10 @@ export function makeServer(env, runReview = review) {
       let data;
       try { data = JSON.parse(Buffer.concat(chunks).toString()); } catch { throw fail(400, 'Invalid JSON.'); }
       const brief = checkBrief(data);
-      const model = env.OPENAI_REVIEW_MODEL || 'gpt-6-astra';
-      const signature = hash(JSON.stringify([model, brief])).toString('hex');
+      const mode = data.mode ?? 'standard';
+      if (!['standard', 'specialist'].includes(mode)) throw fail(400, 'Unknown review mode.');
+      const model = mode === 'specialist' ? (env.OPENAI_SPECIALIST_MODEL || 'gpt-6.2-astra') : (env.OPENAI_REVIEW_MODEL || 'gpt-6-astra');
+      const signature = hash(JSON.stringify([mode, model, brief])).toString('hex');
       const now = Date.now();
       for (const [key, item] of recent) if (item.expires <= now) recent.delete(key);
       if (recent.has(signature)) return send(200, JSON.stringify({ advice: recent.get(signature).advice, cached: true }), 'application/json');
@@ -92,10 +94,10 @@ export function makeServer(env, runReview = review) {
         const advice = await runReview(brief, env.OPENAI_API_KEY, model, text => {
           firstTextMs ??= Date.now() - now;
           if (streaming) emit({ text });
-        });
+        }, mode, count => { if (streaming) emit({ specialistsStarted: count }); });
         recent.set(signature, { advice, expires: Date.now() + 30 * 60000 });
         if (recent.size > 24) recent.delete(recent.keys().next().value);
-        console.info(JSON.stringify({ event: 'review_completed', firstTextMs, totalMs: Date.now() - now }));
+        console.info(JSON.stringify({ event: 'review_completed', mode, firstTextMs, totalMs: Date.now() - now }));
         if (streaming) {
           emit({ advice, cached: false });
           res.end();
