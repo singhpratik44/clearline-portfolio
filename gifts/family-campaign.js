@@ -16,7 +16,8 @@
   const channel = channels.get(source);
   if (!channel || channel[0] !== medium || channel[1] !== campaign) return;
   const content = params.get('utm_content');
-  if (content && content !== 'table-draft') return;
+  const youtubeTableDraft = source === 'youtube' && content === 'thanksgiving-table-draft';
+  if (content && content !== 'table-draft' && !youtubeTableDraft) return;
 
   function addTags(url) {
     url.searchParams.set('utm_source', source);
