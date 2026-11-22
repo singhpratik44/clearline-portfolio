@@ -32,6 +32,7 @@ function checkBrief(b) {
 
 export function makeServer(env, runReview = review) {
   let busy = false, nextReview = 0;
+  const recent = new Map();
   return createServer(async (req, res) => {
     const send = (status, body, type = 'text/plain') => {
       res.writeHead(status, { 'Content-Type': type + '; charset=utf-8' }); res.end(body);
@@ -70,12 +71,19 @@ export function makeServer(env, runReview = review) {
       let data;
       try { data = JSON.parse(Buffer.concat(chunks).toString()); } catch { throw fail(400, 'Invalid JSON.'); }
       const brief = checkBrief(data);
-      if (busy || Date.now() < nextReview) throw fail(429, 'Wait a minute before requesting another review.');
+      const model = env.OPENAI_REVIEW_MODEL || 'gpt-6-astra';
+      const signature = hash(JSON.stringify([model, brief])).toString('hex');
+      const now = Date.now();
+      for (const [key, item] of recent) if (item.expires <= now) recent.delete(key);
+      if (recent.has(signature)) return send(200, JSON.stringify({ advice: recent.get(signature).advice, cached: true }), 'application/json');
+      if (busy || now < nextReview) throw fail(429, 'Wait a minute before requesting another review.');
       busy = true;
       nextReview = Date.now() + 60000;
       try {
-        const advice = await runReview(brief, env.OPENAI_API_KEY, env.OPENAI_REVIEW_MODEL || 'gpt-6-astra');
-        send(200, JSON.stringify({ advice }), 'application/json');
+        const advice = await runReview(brief, env.OPENAI_API_KEY, model);
+        recent.set(signature, { advice, expires: Date.now() + 30 * 60000 });
+        if (recent.size > 24) recent.delete(recent.keys().next().value);
+        send(200, JSON.stringify({ advice, cached: false }), 'application/json');
       } catch (e) {
         const hint = {401: 'Check the OpenAI key in Render.', 403: 'Check project permissions and model access.',
           404: 'Check model availability for this project.', 429: 'Check API credits and rate limits.'}[e.status];

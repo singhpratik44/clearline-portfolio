@@ -66,14 +66,17 @@ test('private assets require authentication and the review route requires same o
   }
 });
 test('AI receives whitelisted shortlist fields, only on explicit request', async t => {
-  let sent;
+  let sent, calls = 0;
   const url = await start(t, { APERTURE_OPERATOR_PASSWORD: password, OPENAI_API_KEY:'test' }, async brief => {
-    sent = brief; return 'Simulated review.';
+    sent = brief; calls++; return 'Simulated review.';
   });
   const brief = briefing(rank(sample, today), today, false, false);
   const post = body => fetch(url + '/review', { method:'POST', headers:{ ...auth, origin:url, 'content-type':'application/json' }, body:JSON.stringify(body) });
   assert.equal((await post({})).status, 400);
   assert.equal((await post({...brief, notes:'discard me'})).status, 200);
   assert.deepEqual(sent, brief);
-  assert.equal((await post(brief)).status, 429);
+  const repeat = await post(brief);
+  assert.equal((await repeat.json()).cached, true);
+  assert.equal(calls, 1);
+  assert.equal((await post({...brief, simulated: true})).status, 429);
 });

@@ -63,7 +63,7 @@ el('review').onclick = async () => {
       body: JSON.stringify(briefing(rank(snapshot, today), today, snapshot.sample, steps > 0)) });
     if (!response.ok) throw Error(await response.text());
     const result = await response.json();
-    if (version === currentVersion) el('advice').textContent = result.advice;
+    if (version === currentVersion) el('advice').textContent = (result.cached ? 'Reused previous review.\n\n' : '') + result.advice;
   } catch (error) { if (version === currentVersion) el('advice').textContent = error.message; }
   finally { pending = false; render(); }
 };
