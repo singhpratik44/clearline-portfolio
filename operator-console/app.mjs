@@ -54,18 +54,45 @@ el('file').onchange = async event => {
   } catch (error) { el('error').textContent = error.message; }
   finally { event.target.value = ''; }
 };
+async function readReview(response, showPartial) {
+  if (!response.headers.get('content-type')?.includes('application/x-ndjson')) return response.json();
+  let buffer = '', advice = '', result;
+  const reader = response.body.pipeThrough(new TextDecoderStream()).getReader();
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const lines = (buffer + value).split('\n');
+      buffer = lines.pop();
+      for (const line of lines) {
+        const event = JSON.parse(line);
+        if (event.error) throw Error(event.error);
+        if (typeof event.text === 'string') {
+          advice += event.text;
+          showPartial(advice);
+        }
+        if (typeof event.advice === 'string') result = event;
+      }
+    }
+  } finally { reader.releaseLock(); }
+  if (!result) throw Error('The review was interrupted before it finished.');
+  return result;
+}
 el('review').onclick = async () => {
   const currentVersion = version;
   pending = true; render();
+  el('advice').setAttribute('aria-busy', 'true');
   el('advice').textContent = 'Reviewing the shortlist…';
   try {
-    const response = await fetch('/review', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    const response = await fetch('/review', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/x-ndjson' },
       body: JSON.stringify(briefing(rank(snapshot, today), today, snapshot.sample, steps > 0)) });
     if (!response.ok) throw Error(await response.text());
-    const result = await response.json();
+    const result = await readReview(response, text => {
+      if (version === currentVersion) el('advice').textContent = text;
+    });
     if (version === currentVersion) el('advice').textContent = (result.cached ? 'Reused previous review.\n\n' : '') + result.advice;
   } catch (error) { if (version === currentVersion) el('advice').textContent = error.message; }
-  finally { pending = false; render(); }
+  finally { el('advice').removeAttribute('aria-busy'); pending = false; render(); }
 };
 render();
 try {

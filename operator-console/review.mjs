@@ -9,17 +9,25 @@ const instructions = [
   'If sample or simulated is true, label the advice accordingly. Aim for 160 words or fewer.'
 ].join(' ');
 
-export async function review(brief, apiKey, model) {
+export async function review(brief, apiKey, model, onText) {
   const client = new OpenAI({ apiKey, maxRetries: 0 });
   const stream = await client.beta.agents.sessions.create({
     agent: { model, instructions, reasoning: { effort: 'high' }, tools: [] },
     environment: { type: 'none' }, input: JSON.stringify(brief), stream: true
   }, { signal: AbortSignal.timeout(100000) });
   let sessionId;
+  let answerItem;
   try {
     stream.withResultCollection();
     for await (const event of stream) {
       if (event.type === 'agent.session.created') sessionId = event.session.id;
+      if (event.type === 'agent.session.turn.item.added' && event.item.type === 'message' &&
+          event.item.role === 'assistant' && event.item.phase === 'final_answer') {
+        answerItem = event.item.id;
+      }
+      if (event.type === 'agent.session.turn.output_text.delta' && answerItem && event.item_id === answerItem) {
+        onText?.(event.delta);
+      }
     }
     const result = await stream.finalResult();
     if (!result.output_text.trim()) throw Error('Empty model response');

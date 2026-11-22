@@ -79,15 +79,35 @@ export function makeServer(env, runReview = review) {
       if (busy || now < nextReview) throw fail(429, 'Wait a minute before requesting another review.');
       busy = true;
       nextReview = Date.now() + 60000;
+      const streaming = req.headers.accept === 'application/x-ndjson';
+      const emit = event => {
+        if (!res.destroyed) res.write(JSON.stringify(event) + '\n');
+      };
+      if (streaming) {
+        res.writeHead(200, { 'Content-Type': 'application/x-ndjson; charset=utf-8', 'X-Accel-Buffering': 'no' });
+        res.flushHeaders();
+      }
+      let firstTextMs;
       try {
-        const advice = await runReview(brief, env.OPENAI_API_KEY, model);
+        const advice = await runReview(brief, env.OPENAI_API_KEY, model, text => {
+          firstTextMs ??= Date.now() - now;
+          if (streaming) emit({ text });
+        });
         recent.set(signature, { advice, expires: Date.now() + 30 * 60000 });
         if (recent.size > 24) recent.delete(recent.keys().next().value);
-        send(200, JSON.stringify({ advice, cached: false }), 'application/json');
+        console.info(JSON.stringify({ event: 'review_completed', firstTextMs, totalMs: Date.now() - now }));
+        if (streaming) {
+          emit({ advice, cached: false });
+          res.end();
+        } else send(200, JSON.stringify({ advice, cached: false }), 'application/json');
       } catch (e) {
         const hint = {401: 'Check the OpenAI key in Render.', 403: 'Check project permissions and model access.',
           404: 'Check model availability for this project.', 429: 'Check API credits and rate limits.'}[e.status];
-        throw fail(502, 'AI review did not finish. ' + (hint || 'Try again later.'));
+        const message = 'AI review did not finish. ' + (hint || 'Try again later.');
+        console.warn(JSON.stringify({ event: 'review_failed', providerStatus: Number(e.status) || null, totalMs: Date.now() - now }));
+        if (!streaming) throw fail(502, message);
+        emit({ error: message });
+        res.end();
       } finally { busy = false; }
     } catch (err) {
       if (!res.headersSent) send(err.status || 500, err.status ? err.message : 'Console request failed.');

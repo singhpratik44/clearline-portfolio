@@ -80,3 +80,42 @@ test('AI receives whitelisted shortlist fields, only on explicit request', async
   assert.equal(calls, 1);
   assert.equal((await post({...brief, simulated: true})).status, 429);
 });
+
+test('a streaming review delivers the first text before completion and then serves the cached answer', async t => {
+  const gate = Promise.withResolvers();
+  t.after(() => gate.resolve());
+  let calls = 0;
+  const url = await start(t, { APERTURE_OPERATOR_PASSWORD: password, OPENAI_API_KEY: 'test' },
+    async (brief, key, model, onText) => {
+      calls++;
+      onText('First choice');
+      await gate.promise;
+      return 'First choice, with supporting evidence.';
+    });
+  const post = () => fetch(url + '/review', {
+    method: 'POST',
+    headers: { ...auth, origin: url, 'content-type': 'application/json', accept: 'application/x-ndjson' },
+    body: JSON.stringify(briefing(rank(sample, today), today, true, false)),
+    signal: AbortSignal.timeout(3000)
+  });
+  const first = await post();
+  const reader = first.body.pipeThrough(new TextDecoderStream()).getReader();
+  let received = '';
+  while (!received.includes('\n')) {
+    const part = await reader.read();
+    assert.equal(part.done, false);
+    received += part.value;
+  }
+  assert.deepEqual(JSON.parse(received), { text: 'First choice' });
+  gate.resolve();
+  let final = '';
+  for (;;) {
+    const part = await reader.read();
+    if (part.done) break;
+    final += part.value;
+  }
+  const { advice } = JSON.parse(final);
+  assert.equal(advice, 'First choice, with supporting evidence.');
+  assert.deepEqual(await (await post()).json(), { advice, cached: true });
+  assert.equal(calls, 1);
+});
