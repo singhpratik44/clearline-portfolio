@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare pilot fees | APERTURE</title>
+<style>*{box-sizing:border-box}body{margin:0;background:#faf8f1;color:#183b36;font:1rem/1.55 system-ui,sans-serif}main{max-width:1050px;margin:auto;padding:clamp(16px,4vw,48px)}a{color:#175e54}h1,h2{line-height:1.1}h1{font:2.6rem/1.05 Georgia,serif;margin:28px 0 14px}p{max-width:76ch}fieldset{border:1px solid #bdccc4;border-radius:12px;padding:18px;margin:22px 0;background:white}legend{font-weight:700;background:#faf8f1;padding:0 .4em}.fields,.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,205px),1fr));gap:16px}label{display:block;font-size:.95rem}input{display:block;font:inherit;width:100%;margin-top:4px;padding:8px;border:1px solid #728981;border-radius:5px;color:inherit}article{border-top:4px solid #397b68;background:#fff;border-radius:7px;padding:16px}article h3{margin-top:0}dt{font-size:.85rem;color:#495f59}dd{margin:0 0 9px;font-weight:700;font-variant-numeric:tabular-nums}summary{cursor:pointer}#alert{color:#713120}small{display:block;margin-top:16px}a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #19644b;outline-offset:2px}</style></head>
+<body><main><a href="../#pricing">← Partner demo studio</a><h1>Compare pilot fees</h1>
+<p>Try the same sales forecast under four agreements. See what APERTURE would earn, what the partner would keep and how many extra sales cover the fee. These illustrative figures are editable and do not set a price.</p>
+<form id="inputs"><fieldset><legend>Sales assumptions for one pilot</legend><div class="fields">
+<label>Additional retained sales<input id="orders" type="number" min="0" max="1000000" step="1" value="20" required></label>
+<label>Revenue per sale ($)<input id="price" type="number" min="0.01" max="1000000" step="0.01" value="50" required></label>
+<label>Contribution margin before fee (%)<input id="margin" type="number" min="0" max="100" step=".01" value="40" required></label></div></fieldset>
+<fieldset><legend>Proposed terms for comparison</legend><div class="fields">
+<label>Fixed pilot fee ($)<input id="fixed" type="number" min="0" max="1000000" step=".01" value="250" required></label>
+<label>Share of eligible sales revenue (%)<input id="share" type="number" min="0" max="100" step=".01" value="5" required></label>
+<label>Minimum guaranteed fee ($)<input id="floorFee" type="number" min="0" max="1000000" step=".01" value="100" required></label>
+<label>Bonus on contribution above fixed fee (%)<input id="bonus" type="number" min="0" max="100" step=".01" value="10" required></label>
+</div></fieldset></form><p>Count extra, completed sales attributable to the pilot after returns. Enter revenue excluding tax and shipping. Contribution margin deducts variable costs before the pilot fee.</p>
+<h2>Compare outcomes</h2><p id="alert" role="status"></p><section id="out" class="cards" aria-label="Comparison results"></section>
+<details><summary>How the comparison works</summary><p>Revenue is retained sales times revenue per sale. Contribution is revenue times margin. The guarantee pays the larger of the guaranteed fee and the revenue share. The bonus model pays the fixed fee plus the selected share of positive contribution above that fee. A 0% bonus gives a fixed fee.</p><p>Break-even counts the fewest whole sales that cover the selected fee. With a zero upfront fee, the result reports whether positive sales cover it. If the revenue share exceeds the contribution margin, each sale loses money under that share. Your team can agree on the attribution window, eligible sales and allowable costs before signing.</p></details>
+</main><script>
+function comparePilot(x){
+  const revenue=x.orders*x.price;
+  const perSale=x.price*x.margin/100;
+  const contribution=x.orders*perSale;
+  const commission=revenue*x.share/100;
+  function units(fee){return fee===0?0:perSale===0?Infinity:Math.ceil(fee/perSale-1e-10);}
+  const shareViable=x.share<=x.margin;
+  return [
+    ['Fixed pilot',x.fixed,units(x.fixed)],
+    ['Revenue share',commission,shareViable?0:Infinity],
+    ['Guaranteed minimum or share',Math.max(x.floorFee,commission),shareViable?units(x.floorFee):Infinity],
+    ['Fixed pilot plus bonus',x.fixed+Math.max(0,contribution-x.fixed)*x.bonus/100,units(x.fixed)]
+  ].map(([name,fee,breakEven])=>({name,fee,net:contribution-fee,breakEven}));
+}
+const form=document.querySelector('#inputs'),out=document.querySelector('#out'),alertBox=document.querySelector('#alert');
+const money=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD'});
+function render(){
+  out.replaceChildren();
+  if(!form.checkValidity()){alertBox.textContent='Complete each field within its allowed range to compare offers.';return;}
+  const x=Object.fromEntries(Array.from(form.querySelectorAll('input'),el=>[el.id,el.valueAsNumber]));
+  alertBox.textContent='Additional contribution before fees: '+money.format(x.orders*x.price*x.margin/100)+'.';
+  for(const r of comparePilot(x)){
+    const card=document.createElement('article'),h=document.createElement('h3'),dl=document.createElement('dl');
+    h.textContent=r.name;
+    const breakEven=r.breakEven===Infinity?'No positive sales volume covers the fee':r.breakEven===0?'0 upfront · positive sales cover the fee':r.breakEven.toLocaleString('en-US')+' sales';
+    for(const [title,value] of [['APERTURE fee',money.format(r.fee)],['Partner contribution after fee',money.format(r.net)],['Break-even',breakEven]]){
+      const dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=title;dd.textContent=value;dl.append(dt,dd);
+    }card.append(h,dl);out.append(card);
+  }
+}
+form.addEventListener('submit',e=>e.preventDefault());
+form.addEventListener('input',render);render();
+</script></body></html>
