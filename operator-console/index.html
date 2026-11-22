@@ -6,7 +6,7 @@
 <main><div class="toolbar"><p id="context" role="status"></p><div class="actions"><label class="file">Import Mission JSON<input id="file" type="file" accept=".json,application/json"></label><button id="reset" hidden>Reset preview</button></div></div>
 <h1>What should move next?</h1><p id="summary"></p>
 <section id="choices" aria-label="Ranked tasks"></section>
-<section class="review"><h2>Second opinion</h2><p id="review-info">AI review sends a shortlist of task titles, dates and dependency counts to OpenAI. A new review uses API credits. Reopening the same review within 30 minutes reuses the answer while the service is running.</p>
-<label><input type="checkbox" id="specialists"> Use three specialists for execution, customer impact, and a skeptical review (uses more API credits)</label><br>
+<section class="review"><h2>Second opinion</h2><p id="review-info">A review sends the task shortlist, dates, and dependency counts to OpenAI. A new review uses API credits. Reopening the same review within 30 minutes reuses the answer while the service is running.</p>
+<label><input type="checkbox" id="specialists"> Use three independent reviewers: schedule auditor, customer and revenue evidence, and skeptical verifier (uses more API credits)</label><br>
 <button id="review" disabled>Request AI review</button><p id="advice" aria-live="polite"></p></section>
 <p id="error" role="alert"></p></main></body></html>
