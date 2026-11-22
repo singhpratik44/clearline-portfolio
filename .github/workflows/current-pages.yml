@@ -42,7 +42,7 @@ jobs:
           done
           if test -d center; then cp -R center _site/; fi
           # Public studio pages linked from the homepage. Stage only their released files.
-          for page in prototypes/index.html prototypes/game-night/index.html prototypes/boardwalk/index.html prototypes/great-america/index.html prototypes/realtor/index.html prototypes/car-audio/index.html sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html; do
+          for page in community-planner/index.html prototypes/index.html prototypes/game-night/index.html prototypes/boardwalk/index.html prototypes/great-america/index.html prototypes/realtor/index.html prototypes/car-audio/index.html sports/index.html athlete-os/index.html design/index.html design/2d.html beauty/index.html beauty/everyday-glow.html future/index.html love-in-action-30/index.html one-moment/index.html pathways/index.html; do
             install -D -m 644 "$page" "_site/$page"
           done
           for asset in plugin-build/index.html plugin-build/aperture-gift-maker.zip plugin-build/aperture-gift-tools-wordpress.zip plugin-build/wordpress-playground.json plugin-build/aperture-poe-gift-maker.html plugin-build/aperture-shopify-gift-maker.liquid; do
