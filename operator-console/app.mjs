@@ -94,7 +94,7 @@ el('review').onclick = async () => {
     const result = await readReview(response, text => {
       if (version === currentVersion) el('advice').textContent = text;
     }, count => {
-      if (version === currentVersion) el('advice').textContent = count === 1 ? 'First specialist started…' : 'Both specialists started…';
+      if (version === currentVersion) el('advice').textContent = count + ' of 3 specialists started…';
     });
     if (version === currentVersion) el('advice').textContent = (result.cached ? 'Reused previous review.\n\n' : '') + result.advice;
   } catch (error) { if (version === currentVersion) el('advice').textContent = error.message; }

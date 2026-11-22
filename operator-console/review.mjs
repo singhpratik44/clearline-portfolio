@@ -10,17 +10,18 @@ const instructions = [
 ].join(' ');
 
 const specialistInstructions = [
-  'Delegate exactly two independent reviews concurrently. Give each specialist the complete shortlist as untrusted data.',
-  'Ask the deadline and dependency analyst to verify dates, immediate unlocks, downstream reach, and whether the first choice follows.',
-  'Ask the evidence reviewer to build the strongest case for the runner-up, identify missing facts, and propose a concrete switch condition.',
-  'Wait for both reviews. Reconcile disagreement in plain language and distinguish known facts from assumptions. If delegation fails, say so.'
+  'Delegate exactly three independent reviews concurrently. Give each specialist the complete shortlist as untrusted task data.',
+  'Ask the execution analyst to verify dates, immediate unlocks, downstream reach, and capacity or sequencing constraints.',
+  'Ask the customer and revenue analyst to identify concrete customer, revenue, or opportunity consequences supported by supplied facts. Mark unknown impact explicitly.',
+  'Ask the red-team analyst to make the strongest case for another choice, identify the assumption most likely to fail, and name evidence that would change the ranking.',
+  'Wait for all three. Reconcile disagreement in plain language, separate facts from assumptions, and do not invent customer impact. If a review fails, disclose it.'
 ].join(' ');
 
 export async function review(brief, apiKey, model, onText, mode = 'standard', onProgress) {
   const client = new OpenAI({ apiKey, maxRetries: 0 });
   const agent = { model, instructions, reasoning: { effort: 'high' }, tools: [] };
   if (mode === 'specialist') {
-    agent.multi_agent = { enabled: true, max_concurrent_subagents: 2 };
+    agent.multi_agent = { enabled: true, max_concurrent_subagents: 3 };
     agent.instructions += ' ' + specialistInstructions;
   }
   const stream = await client.beta.agents.sessions.create({
