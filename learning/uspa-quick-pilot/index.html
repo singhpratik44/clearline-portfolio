@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APERTURE × USPA — 10-minute pilot</title>
+<meta name="description" content="A no-login activity and lightweight learning-coach feedback guide for a small approved USPA student trial.">
+<style>
+:root{color-scheme:light;--ink:#112c39;--muted:#516876;--line:#dce7e9;--sea:#007d77;--paper:#f5f8f8}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}a{color:inherit}
+main{max-width:880px;margin:0 auto;padding:30px 20px 70px}.eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:800;color:var(--sea)}
+.hero{padding:30px;background:linear-gradient(145deg,#102c39,#0c565a);color:#fff;border-radius:24px}.hero p{max-width:630px;color:#d3e7e8}.hero .eyebrow{color:#9be3d6}
+h1{font-size:clamp(2.1rem,6vw,3.7rem);line-height:1.04;letter-spacing:-.045em;margin:12px 0 14px}h2{font-size:1.35rem;margin:0 0 12px}h3{font-size:1.03rem;margin:0 0 8px}
+.hero-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}.chip{border:1px solid #8db8ba;border-radius:40px;padding:7px 12px;font-size:.8rem;font-weight:700}
+section{background:#fff;border:1px solid var(--line);border-radius:22px;padding:23px;margin:18px 0;box-shadow:0 10px 25px rgba(18,57,62,.035)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.step{padding:15px;background:#f4f9f8;border:1px solid #e0eae8;border-radius:14px}
+.num{display:inline-grid;place-items:center;background:#d7f2ed;border-radius:50%;width:28px;height:28px;font-weight:800;margin-bottom:11px}
+p{margin:8px 0 12px;color:var(--muted)}.btn{display:inline-flex;align-items:center;justify-content:center;padding:13px 18px;border:0;border-radius:12px;background:var(--sea);color:#fff;text-decoration:none;font-size:.96rem;font-weight:800;cursor:pointer}.btn:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #5bb9b5;outline-offset:2px}
+.btn.alt{background:#e5eeee;color:var(--ink)}.btn:hover{filter:brightness(.94)}
+label{display:block;font-size:.92rem;font-weight:700;margin:15px 0 7px}
+select,textarea{width:100%;border:1px solid #bbcdd0;border-radius:10px;background:#fff;color:var(--ink);padding:12px;font:inherit}
+textarea{min-height:90px;resize:vertical}
+small,.note{color:var(--muted);font-size:.85rem}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+.cbox{display:flex;gap:10px;align-items:flex-start;padding:12px 0;color:var(--muted);font-size:.94rem}.cbox input{margin-top:5px}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}#result{white-space:pre-wrap;margin:14px 0 0;background:#eaf2f1;border-radius:12px;padding:14px;display:none;font-size:.89rem}
+footer{color:var(--muted);font-size:.81rem;text-align:center;padding:15px}.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:640px){main{padding:12px 12px 40px}.hero{padding:25px 20px}.steps,.formgrid{grid-template-columns:1fr}section{padding:18px}}
+@media print{.actions,.hero-row .btn{display:none!important}body{background:#fff}main{padding:0}section,.hero{box-shadow:none;break-inside:avoid}}
+</style></head><body><main>
+<header class="hero">
+  <div class="eyebrow">APERTURE LEARNING / FOR USPA REVIEW</div>
+  <h1>Build Your Athlete Week</h1>
+  <p>A simple, independent learning activity for a coach-supervised trial with <strong>one or two students</strong>, only if USPA approves. Explore how school, training and unexpected travel affect a weekly plan.</p>
+  <div class="hero-row"><span class="chip">10 minutes</span><span class="chip">No sign-in</span><span class="chip">Coach-supervised</span><span class="chip">No student data collected here</span></div>
+</header>
+<section><h2>One small pilot. Three steps.</h2>
+  <div class="steps">
+    <div class="step"><div class="num">1</div><h3>Coach approves</h3><p>Confirm student suitability, school permission and the learning context.</p></div>
+    <div class="step"><div class="num">2</div><h3>Student plans</h3><p>Make a weekly plan, then adapt it when the team bus runs late. Talk through the choice.</p></div>
+    <div class="step"><div class="num">3</div><h3>Coach reflects</h3><p>Record three anonymous observations below and share them through approved school channels.</p></div>
+  </div>
+  <p><strong>Coach prompt:</strong> “What would you change first, and why?” There is no required right answer.</p>
+  <a class="btn" href="../athlete-week/" target="_blank" rel="noopener noreferrer">Open the athlete-week activity ↗</a>
+  <p class="note">Uses APERTURE’s existing interactive activity. The pilot does not grant school approval or override USPA policy.</p>
+</section>
+<section aria-labelledby="feedback"><h2 id="feedback">Two-minute feedback card</h2>
+  <p>A learning coach may complete this after an approved trial. Do not enter names, contact information, exact schedules or health details. Nothing is submitted automatically.</p>
+  <div class="formgrid">
+    <div><label for="participant">Trial number</label><select id="participant"><option value="Trial 1">Trial 1</option><option value="Trial 2">Trial 2</option><option value="Coach-only test">Coach-only test</option></select></div>
+    <div><label for="relevance">Did this feel realistic?</label><select id="relevance"><option value="Not recorded">Select an observation</option><option>Yes</option><option>Partly</option><option>No</option></select></div>
+    <div><label for="learning">What did the student practice?</label><select id="learning"><option value="Not recorded">Select an observation</option><option>Replanning after a delay</option><option>Balancing school and training</option><option>Explaining a decision</option><option>Needs more guidance</option></select></div>
+    <div><label for="fit">Worth a second test?</label><select id="fit"><option value="Not recorded">Select an observation</option><option>Yes, with approval</option><option>Maybe, after changes</option><option>No</option></select></div>
+  </div>
+  <label for="suggestion">One improvement (optional, no personal information)</label>
+  <textarea id="suggestion" maxlength="280" placeholder="Example: Add a choice for an unexpected practice cancellation."></textarea>
+  <label class="cbox"><input id="approved" type="checkbox">I confirm this was a coach-only test or a student trial approved through the school’s own process.</label>
+  <div class="actions"><button class="btn" type="button" id="copy">Copy anonymous feedback</button><button class="btn alt" type="button" id="reset">Reset card</button></div>
+  <p id="status" role="status" aria-live="polite"></p><output id="result"></output>
+</section>
+<section><h2>For the December 4 partnership check-in</h2>
+  <p>Bring only three answers: <strong>Did a student try it?</strong> <strong>What was useful?</strong> <strong>What should change?</strong> Agree on next steps and consent before any wider distribution. USPA has not approved a school-wide rollout.</p>
+</section>
+<footer>Independent APERTURE prototype prepared for limited USPA review. Not an official USPA service. No analytics, forms, storage or automatic sending on this page.</footer>
+</main><script>
+"use strict";
+const id=x=>document.getElementById(x);
+function report(){
+ const note=id("suggestion").value.trim().replace(/\s+/g," ").slice(0,280);
+ return [
+ "APERTURE × USPA | Anonymous athlete-week pilot observation",
+ "Trial: "+id("participant").value,
+ "Realistic: "+id("relevance").value,
+ "Skill observed: "+id("learning").value,
+ "Worth another approved test: "+id("fit").value,
+ "Improvement: "+(note||"None recorded"),
+ "Recorded by coach; no student-identifying information requested.",
+ "Status: feedback only — no new student access approved."
+ ].join("\n");
+}
+id("copy").addEventListener("click",async()=>{
+ if(!id("approved").checked){id("status").textContent="Please confirm this was an approved trial or a coach-only test.";return}
+ const text=report();id("result").textContent=text;id("result").style.display="block";
+ try{await navigator.clipboard.writeText(text);id("status").textContent="Anonymous feedback copied. Paste only into an approved channel."}
+ catch(e){id("status").textContent="Preview shown below. Select and copy it manually; nothing was sent."}
+});
+id("reset").addEventListener("click",()=>{
+ ["participant","relevance","learning","fit"].forEach(x=>id(x).selectedIndex=0);
+ id("suggestion").value="";id("approved").checked=false;id("status").textContent="Feedback card cleared.";id("result").style.display="none";id("result").textContent="";
+});
+</script></body></html>
