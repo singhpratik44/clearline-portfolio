@@ -86,7 +86,7 @@
   const checkoutContinue = $('#continue-checkout');
   const checkoutButtons = $$('.checkout-trigger');
   if (checkoutUrl) {
-    checkoutButtons.forEach(button => { button.disabled = false; button.innerHTML = 'Get creator license — $19 <span aria-hidden="true">↗</span>'; });
+    checkoutButtons.forEach(button => { button.disabled = false; button.innerHTML = 'Get creator license — $19 <span aria-hidden="true"><svg class="icon-arrow" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 19 19 5M5 5h14v14"/></svg></span>'; });
     $('#checkout-status').textContent = 'One-time payment. Secure checkout with Stripe.';
     $$('.purchase-request-link').forEach(link => { link.hidden = true; });
   }
