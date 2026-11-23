@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aperture-ai-girls.onrender.com/sitemap.xml
