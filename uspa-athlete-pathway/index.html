@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#071e25">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="A free, independent, interactive planning tool for families of student-athletes exploring how training, travel and academics might fit together.">
+<meta property="og:title" content="The Athlete Pathway — Train. Learn. Move.">
+<meta property="og:description" content="Build a flexible school conversation in 90 seconds. An independent APERTURE preview for student-athlete families.">
+<meta property="og:type" content="website">
+<title>The Athlete Pathway · APERTURE Preview</title>
+<style>
+:root{--ink:#071e25;--ink2:#102f36;--mint:#baffc9;--teal:#57ddc5;--cream:#f4f5ec;--muted:#a6bec2;--orange:#ffce95;--line:rgba(207,246,233,.16);--radius:22px;font-family:Inter,"Avenir Next",Arial,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--ink);color:var(--cream);-webkit-font-smoothing:antialiased}
+a{color:inherit}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--mint);outline-offset:4px}::selection{background:var(--mint);color:var(--ink)}
+.wrap{max-width:1220px;margin:auto;padding:0 28px}
+.review{background:#baffc9;color:#133632;padding:9px 20px;text-align:center;font-size:12px;font-weight:800;letter-spacing:.04em}
+nav{height:84px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}.symbol{width:36px;height:36px;display:grid;place-items:center;border:2px solid var(--mint);border-radius:12px;transform:rotate(-7deg);font-size:20px;font-weight:900;color:var(--mint)}.brand strong{font-size:17px;letter-spacing:.18em}.brand small{display:block;letter-spacing:.15em;font-size:9px;color:var(--muted);margin-top:4px}
+.navlinks{display:flex;align-items:center;gap:22px}.navlinks a{font-size:13px;color:var(--muted);text-decoration:none}.navlinks a:hover{color:white}.navlinks .nav-cta{background:#f0f7ed;color:#071e25;padding:12px 18px;border-radius:999px;font-weight:800}
+.eyebrow{text-transform:uppercase;letter-spacing:.23em;color:var(--mint);font-size:11px;font-weight:900}
+.hero{display:grid;grid-template-columns:1.12fr .88fr;gap:40px;align-items:center;min-height:600px;padding:88px 0 66px;position:relative}
+.hero:before{content:"";position:absolute;width:490px;height:490px;top:-80px;right:0;background:radial-gradient(circle,rgba(83,221,181,.14),transparent 62%);pointer-events:none}
+h1,h2,h3,p{margin-top:0}h1{font-size:clamp(54px,6.4vw,92px);letter-spacing:-.075em;line-height:.98;max-width:790px;margin:24px 0 26px;font-weight:830}h1 em{font-style:normal;color:var(--mint)}
+.lead{color:#c9d6d5;max-width:570px;font-size:18px;line-height:1.7}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:30px 0 28px}.btn{border:1px solid transparent;border-radius:999px;padding:15px 23px;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-weight:800;text-decoration:none;font-size:14px;min-height:52px;transition:transform .2s,background .2s}.btn:hover{transform:translateY(-2px)}.primary{background:var(--mint);color:var(--ink)}.secondary{background:transparent;border-color:rgba(229,252,240,.3);color:var(--cream)}.ghost{background:rgba(186,255,201,.08);border-color:rgba(186,255,201,.25);color:var(--mint)}.mini{color:var(--muted);font-size:12px}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px}.pill{border:1px solid var(--line);color:#c1d8d1;background:rgba(255,255,255,.025);padding:8px 12px;border-radius:999px;font-size:12px}
+.art{height:470px;position:relative;display:grid;place-items:center}.ring{width:min(100%,455px);aspect-ratio:1;border:1px solid rgba(186,255,201,.26);border-radius:50%;position:relative;display:grid;place-items:center;transform:rotate(-13deg);background:radial-gradient(circle at 50% 50%,rgba(126,248,182,.05),transparent 60%)}
+.ring:before,.ring:after{content:"";position:absolute;border:1px dashed rgba(186,255,201,.15);inset:35px;border-radius:50%}.ring:after{inset:80px;border-style:solid}
+.orbit{position:absolute;width:100%;height:100%;border-radius:50%;animation:spin 26s linear infinite}.dot{position:absolute;background:var(--mint);width:12px;height:12px;border-radius:50%;top:11%;left:16%;box-shadow:0 0 25px rgba(186,255,201,.8)}
+.center-card{transform:rotate(13deg);background:linear-gradient(145deg,#1b4550,#0d2832);border:1px solid rgba(186,255,201,.35);border-radius:25px;padding:25px;width:255px;box-shadow:0 35px 70px rgba(0,0,0,.25)}.center-card small{color:var(--teal);letter-spacing:.14em;font-size:10px;font-weight:800}.center-card .number{font-size:54px;font-weight:850;letter-spacing:-.08em;margin:8px 0}.center-card .bar{height:10px;border-radius:999px;background:linear-gradient(90deg,var(--mint) 50%,#427280 50%)}.center-card p{color:#abc9c6;font-size:11px;line-height:1.5;margin:15px 0 0}
+.float{position:absolute;background:#eff9ed;color:#14342f;border-radius:14px;padding:13px 17px;box-shadow:0 18px 55px rgba(0,0,0,.24);font-size:12px;font-weight:850}.float.one{top:15%;right:0;transform:rotate(8deg)}.float.two{bottom:12%;left:3%;transform:rotate(-8deg);background:#ffd39d}.float i{font-style:normal;font-size:16px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.proofs{border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr);margin:5px 0 88px}
+.proof{padding:29px 24px;border-right:1px solid var(--line)}.proof:last-child{border-right:none}.proof strong{font-size:20px;display:block}.proof p{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.5}.proof a{color:#baf4ce}
+.section-top{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:28px}.section-top h2{font-size:clamp(34px,4vw,55px);letter-spacing:-.055em;line-height:1.08;max-width:700px;margin:13px 0 0}.section-top .hint{color:var(--muted);font-size:13px;max-width:300px;line-height:1.55}
+.lab{border:1px solid rgba(151,240,194,.29);border-radius:30px;background:#0f2c35;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.14);margin-bottom:96px}
+.labhead{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 32px;border-bottom:1px solid var(--line)}.labhead strong{font-size:13px}.labhead span{font-size:12px;color:var(--muted)}
+.progress{display:flex;gap:6px;width:170px}.progress span{height:5px;border-radius:999px;flex:1;background:#31525c}.progress span.on{background:var(--mint)}
+.labbody{display:grid;grid-template-columns:1.1fr .9fr;min-height:460px}.questions{padding:40px 36px 38px}.stage{display:none}.stage.active{display:block;animation:fade .35s ease}@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.stepnum{font-size:11px;color:var(--mint);font-weight:850;letter-spacing:.16em;text-transform:uppercase}.questions h3{font-size:clamp(29px,3vw,40px);letter-spacing:-.055em;margin:13px 0 12px}.sub{font-size:14px;color:#abc5c7;line-height:1.55;margin-bottom:27px}
+.choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.choice{border:1px solid #43636c;border-radius:16px;background:rgba(255,255,255,.025);color:white;text-align:left;min-height:86px;padding:17px;display:flex;align-items:center;gap:13px;font-weight:750;transition:background .15s,border-color .15s}
+.choice:hover{background:rgba(186,255,201,.055)}.choice[aria-pressed=true]{background:rgba(186,255,201,.13);border-color:var(--mint);box-shadow:inset 0 0 0 1px rgba(186,255,201,.2)}.choice .ico{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;background:rgba(186,255,201,.1);font-size:21px;flex-shrink:0}
+.rangebox{background:rgba(255,255,255,.035);border:1px solid var(--line);padding:22px;border-radius:18px;margin-bottom:18px}.rangehead{display:flex;justify-content:space-between;font-size:13px;font-weight:750;margin-bottom:15px}.rangehead output{color:var(--mint);font-size:19px;font-weight:850}.rangebox input[type=range]{width:100%;accent-color:#baffc9;cursor:pointer}.rangefoot{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:9px}
+.selectlabel{font-size:13px;font-weight:750;display:block;margin-bottom:10px}.select{width:100%;color:white;background:#163944;border:1px solid #48727a;border-radius:13px;padding:15px}
+.step-actions{display:flex;gap:12px;align-items:center;margin-top:28px}.back{background:transparent;border:0;color:var(--muted);padding:13px;font-size:14px}.back:hover{color:white}
+.viz{border-left:1px solid var(--line);background:radial-gradient(circle at 55% 22%,rgba(117,243,192,.12),transparent 60%),#0a252d;padding:42px 32px;display:flex;flex-direction:column;justify-content:center;gap:24px}
+.viz small{color:#a3bec0;letter-spacing:.15em;font-size:11px;font-weight:800}.viz h3{font-size:26px;letter-spacing:-.04em;margin:4px 0 6px}.viz p{font-size:13px;color:#a5bcbf;line-height:1.5}
+.week{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;align-items:end;margin-top:8px}.day{text-align:center}.day .track{height:166px;border:1px solid rgba(180,240,217,.15);border-radius:11px;display:flex;flex-direction:column;overflow:hidden;background:#153841}.seg{width:100%;transition:height .25s}.seg.school{background:#baffc9}.seg.training{background:#4cc5b9}.seg.buffer{background:#f4ba85}.day span{display:block;font-size:10px;color:#a6c0c0;margin-top:10px}
+.legend{display:flex;gap:15px;flex-wrap:wrap}.legend span{color:#b4c9ca;font-size:11px;display:inline-flex;align-items:center;gap:6px}.legend i{display:inline-block;height:9px;width:9px;border-radius:2px}.legend .school{background:#baffc9}.legend .training{background:#4cc5b9}.legend .buffer{background:#f4ba85}
+.preview-note{border-top:1px solid var(--line);padding-top:17px;font-size:11px;color:#82a4a5;line-height:1.55}
+.result{display:none;padding:44px 40px;background:radial-gradient(ellipse at right top,rgba(186,255,201,.085),transparent 60%)}.result.active{display:block}.result h3{font-size:clamp(32px,4vw,52px);letter-spacing:-.06em;margin:14px 0}.result .resultlead{font-size:16px;color:#b4ccca;max-width:720px;line-height:1.6}.result-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:24px;margin:27px 0}.paper{background:#f3f7ef;color:#11353a;border-radius:22px;padding:30px}.paper h4{font-size:21px;margin:0 0 18px;letter-spacing:-.03em}.paper ul{margin:0;padding:0 0 0 19px}.paper li{margin:0 0 13px;line-height:1.5;font-size:14px}.paper li:last-child{margin-bottom:0}.facts{border:1px solid var(--line);border-radius:22px;padding:26px}.facts h4{font-size:18px;margin:0 0 14px}.facts p{font-size:14px;color:#b0c5c4;line-height:1.6}.facts a{color:#d0f9dd}.resultactions{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}.notice{color:#a2bebc;font-size:11px;line-height:1.6;max-width:850px;margin-top:20px}
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:95px}.panel{border:1px solid var(--line);border-radius:25px;padding:34px;background:linear-gradient(145deg,#10313b,#0a2730)}.panel h3{font-size:28px;letter-spacing:-.04em}.panel p{color:#a5bfc0;line-height:1.65;font-size:14px}.panel .eyebrow{margin-bottom:20px}.panel a:not(.btn){color:var(--mint)}
+.section-cta{margin:0 0 60px;border-radius:30px;background:#c0ffcf;color:#07342f;padding:53px;display:flex;justify-content:space-between;gap:30px;align-items:center}.section-cta h2{font-size:clamp(30px,4vw,48px);line-height:1.08;letter-spacing:-.06em;margin:12px 0 0}.section-cta p{color:#346056;font-size:14px;max-width:460px;line-height:1.65;margin-top:13px}.section-cta .btn{background:#0b3434;color:#dffff0;flex-shrink:0}
+footer{padding:28px 0 45px;border-top:1px solid var(--line);color:#91aeaf;display:flex;justify-content:space-between;gap:25px;font-size:11px;line-height:1.65}footer p{max-width:670px}footer a{color:#baffc9}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#e8fff0;color:#113934;padding:14px 18px;border-radius:12px;box-shadow:0 15px 50px #0015;font-size:13px;font-weight:800;display:none;z-index:5}
+@media(max-width:960px){.hero{grid-template-columns:1fr 1fr;gap:12px}.art{height:390px}.center-card{width:210px}.float.one{right:-5%}.float.two{left:-5%}h1{font-size:clamp(48px,6vw,75px)}.labbody{grid-template-columns:1fr 1fr}}
+@media(max-width:720px){.wrap{padding:0 18px}nav{height:69px}.navlinks a:not(.nav-cta){display:none}.hero{grid-template-columns:1fr;padding:55px 0 38px;min-height:0}.hero h1{font-size:clamp(50px,11vw,70px)}.art{height:320px;margin-top:12px}.ring{width:280px}.center-card{width:170px;padding:18px}.center-card .number{font-size:41px}.float.one{top:2%;right:1%}.float.two{bottom:0;left:1%}.proofs{grid-template-columns:1fr;margin-bottom:60px}.proof{padding:20px 12px;border-bottom:1px solid var(--line);border-right:0}.proof:last-child{border-bottom:0}.section-top{display:block}.section-top .hint{margin-top:14px}.lab{border-radius:22px;margin-bottom:60px}.labhead{padding:20px}.labbody{grid-template-columns:1fr}.questions{padding:26px 21px}.viz{border-left:0;border-top:1px solid var(--line);padding:25px 22px}.viz .track{height:110px}.choice-grid{gap:8px}.choice{padding:11px;min-height:79px;gap:8px;font-size:12px}.choice .ico{width:31px;height:31px;font-size:18px}.result{padding:27px 20px}.result-grid{grid-template-columns:1fr}.paper,.facts{padding:24px}.lower{grid-template-columns:1fr;margin-bottom:65px}.section-cta{padding:31px 23px;display:block}.section-cta .btn{margin-top:20px}footer{display:block}}
+@media(max-width:375px){.navlinks .nav-cta{padding:11px;font-size:11px}.brand strong{font-size:14px}.hero h1{font-size:49px}.hero-actions .btn{width:100%}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+@media print{body{background:white;color:black}.review,nav,.hero,.proofs,.section-top,.labhead,.labbody,.lower,.section-cta,footer,.resultactions,.toast{display:none!important}.lab{border:none;box-shadow:none}.result{display:block!important;background:white;color:black;padding:0}.resultlead,.notice,.facts p{color:black!important}.paper{border:1px solid black}.facts{border:1px solid #333}h3,h4{color:black!important}}
+</style>
+</head>
+<body>
+<div class="review">INDEPENDENT APERTURE CONCEPT · FOR REVIEW · NOT AN OFFICIAL US PERFORMANCE ACADEMY PAGE</div>
+<div class="wrap">
+<nav aria-label="Primary navigation">
+  <a class="brand" href="https://singhpratik44.github.io/clearline-portfolio/" aria-label="APERTURE home">
+    <span class="symbol" aria-hidden="true">A</span><span><strong>APERTURE</strong><small>THE ATHLETE PATHWAY</small></span>
+  </a>
+  <div class="navlinks"><a href="#how">How it works</a><a href="#resources">Resources</a><a class="nav-cta" href="https://gouspa.org/admissions/" target="_blank" rel="noopener noreferrer">Official USPA admissions ↗</a></div>
+</nav>
+<main>
+<section class="hero" aria-labelledby="hero-title">
+  <div>
+    <div class="eyebrow">An independent tool for student-athlete families</div>
+    <h1 id="hero-title">Your sport moves.<br><em>Your school can, too.</em></h1>
+    <p class="lead">Early practices. Tournament travel. Big ambitions. Explore how your athlete’s real schedule could shape a smarter conversation about school—with no form, no login, and no pressure.</p>
+    <div class="hero-actions"><a class="btn primary" href="#how">Build your pathway <span aria-hidden="true">↗</span></a><a class="btn secondary" href="https://gouspa.org/for-student-athletes/" target="_blank" rel="noopener noreferrer">Explore USPA officially</a></div>
+    <div class="mini">About 90 seconds · Nothing submitted or saved · All choices stay in this page</div>
+    <div class="pills"><span class="pill">Built for travel weeks</span><span class="pill">For parents & athletes</span><span class="pill">Real questions, not a sales quiz</span></div>
+  </div>
+  <div class="art" role="img" aria-label="Abstract circular athlete schedule with a flexible time dashboard">
+    <div class="ring"><div class="orbit"><div class="dot"></div></div><div class="center-card"><small>YOUR WEEK · REIMAGINED</small><div class="number">24/7</div><div class="bar"></div><p>School that adapts to movement, not a promise of extra hours.</p></div></div>
+    <div class="float one"><i>✓</i> Training stays important</div><div class="float two"><i>↗</i> Academics stay in focus</div>
+  </div>
+</section>
+<section class="proofs" aria-label="Verified USPA facts">
+  <div class="proof"><strong>Grades 6–12</strong><p>USPA is an accredited online middle and high school. <a href="https://gouspa.org/about/" target="_blank" rel="noopener noreferrer">Source</a></p></div>
+  <div class="proof"><strong>Asynchronous learning</strong><p>Its program is structured for students managing training and travel. <a href="https://gouspa.org/about/" target="_blank" rel="noopener noreferrer">Source</a></p></div>
+  <div class="proof"><strong>Dedicated Learning Coach</strong><p>Every USPA student has a learning coach for planning and support. <a href="https://gouspa.org/student-support/" target="_blank" rel="noopener noreferrer">Source</a></p></div>
+</section>
+<section id="how" aria-labelledby="lab-heading">
+<div class="section-top"><div><div class="eyebrow">The 90-second pathway</div><h2 id="lab-heading">What would school look like <em style="font-style:normal;color:var(--mint)">for your athlete?</em></h2></div><p class="hint">Three choices. One conversation starter. No test score, eligibility check, or enrollment commitment.</p></div>
+<div class="lab" id="lab">
+  <div class="labhead"><div><strong>APERTURE · ATHLETE PATHWAY LAB</strong><span style="display:block;margin-top:4px">Interactive exploration · private in your browser</span></div><div class="progress" role="progressbar" aria-label="Pathway progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1" id="progress"><span class="on"></span><span></span><span></span></div></div>
+  <div class="labbody" id="labbody">
+    <div class="questions">
+      <section class="stage active" data-step="1" aria-label="Step 1: sport"><div class="stepnum">01 / 03 · The athlete</div><h3>What’s their world?</h3><p class="sub">Pick a sport. This only changes the examples in your summary.</p>
+        <div class="choice-grid" role="group" aria-label="Choose a sport">
+          <button class="choice" type="button" data-sport="Tennis" aria-pressed="true"><span class="ico" aria-hidden="true">🎾</span>Tennis</button>
+          <button class="choice" type="button" data-sport="Gymnastics" aria-pressed="false"><span class="ico" aria-hidden="true">🤸</span>Gymnastics</button>
+          <button class="choice" type="button" data-sport="Soccer" aria-pressed="false"><span class="ico" aria-hidden="true">⚽</span>Soccer</button>
+          <button class="choice" type="button" data-sport="Swimming" aria-pressed="false"><span class="ico" aria-hidden="true">🏊</span>Swimming</button>
+          <button class="choice" type="button" data-sport="Basketball" aria-pressed="false"><span class="ico" aria-hidden="true">🏀</span>Basketball</button>
+          <button class="choice" type="button" data-sport="Other sport" aria-pressed="false"><span class="ico" aria-hidden="true">✦</span>Other sport</button>
+        </div><div class="step-actions"><button class="btn primary" type="button" id="next1">Continue <span aria-hidden="true">→</span></button></div>
+      </section>
+      <section class="stage" data-step="2" aria-label="Step 2: school challenge"><div class="stepnum">02 / 03 · The challenge</div><h3>What makes school harder?</h3><p class="sub">Choose the toughest trade-off right now. Your result will give you three questions to ask a real admissions advisor.</p>
+        <div class="choice-grid" role="group" aria-label="Choose a scheduling challenge">
+          <button class="choice" type="button" data-challenge="Travel and tournaments" aria-pressed="true"><span class="ico" aria-hidden="true">🧳</span>Travel & tournaments</button>
+          <button class="choice" type="button" data-challenge="Early or long training" aria-pressed="false"><span class="ico" aria-hidden="true">⏱</span>Long training days</button>
+          <button class="choice" type="button" data-challenge="Staying on top of coursework" aria-pressed="false"><span class="ico" aria-hidden="true">📚</span>Coursework pressure</button>
+          <button class="choice" type="button" data-challenge="Changing schools" aria-pressed="false"><span class="ico" aria-hidden="true">🧭</span>Changing schools</button>
+        </div><div class="step-actions"><button class="btn primary" type="button" id="next2">Continue <span aria-hidden="true">→</span></button><button class="back" type="button" data-back="1">← Back</button></div>
+      </section>
+      <section class="stage" data-step="3" aria-label="Step 3: schedule"><div class="stepnum">03 / 03 · The calendar</div><h3>How much does the week move?</h3><p class="sub">These are only planning inputs, not an admissions assessment. No dates, names, grades or contacts are collected.</p>
+        <div class="rangebox"><div class="rangehead"><label for="hours">Training hours per week</label><output id="hoursout" for="hours">12 hours</output></div><input id="hours" type="range" min="4" max="32" step="2" value="12"><div class="rangefoot"><span>4 hours</span><span>32 hours</span></div></div>
+        <label class="selectlabel" for="travel">How often does travel disrupt school routines?</label><select class="select" id="travel"><option value="rare">Rarely — mostly local</option><option value="month" selected>Once or twice a month</option><option value="often">Most weeks</option></select>
+        <div class="step-actions"><button class="btn primary" type="button" id="finish">Reveal my pathway <span aria-hidden="true">↗</span></button><button class="back" type="button" data-back="2">← Back</button></div>
+      </section>
+    </div>
+    <aside class="viz" aria-label="Illustrative learning week">
+      <div><small>LIVE PREVIEW · NOT A SCHOOL TIMETABLE</small><h3>Make room for what matters.</h3><p id="viz-caption">An illustrative sample week changes as you make choices. Real schedules are individual.</p></div>
+      <div class="week" aria-hidden="true" id="week"></div>
+      <div class="legend"><span><i class="school"></i> Learning</span><span><i class="training"></i> Training</span><span><i class="buffer"></i> Buffer / recovery</span></div>
+      <div class="preview-note">Visualization is conceptual and does not represent required USPA hours, promises of available time, or a school-approved study plan.</div>
+    </aside>
+  </div>
+  <section class="result" id="result" aria-live="polite" tabindex="-1">
+    <div class="eyebrow">Your conversation starter · not an admissions determination</div><h3 id="result-title">A possible pathway for your athlete</h3>
+    <p class="resultlead" id="result-lead"></p>
+    <div class="result-grid">
+      <article class="paper"><h4>Three questions worth asking USPA</h4><ul id="result-questions"></ul></article>
+      <aside class="facts"><h4>What USPA says it offers</h4><p>A fully asynchronous online middle/high school for grades 6–12, with a dedicated Learning Coach, and rolling admissions. Individual fit, credit transfer and any special arrangements require a conversation with USPA's team.</p><a href="https://gouspa.org/about/" target="_blank" rel="noopener noreferrer">Verify school details ↗</a><p style="margin-top:17px">Next step: a family can choose to explore the school's official admissions process. APERTURE does not receive or handle the application.</p></aside>
+    </div>
+    <div class="resultactions"><a class="btn primary" href="https://gouspa.org/admissions/" target="_blank" rel="noopener noreferrer">Explore official admissions <span aria-hidden="true">↗</span></a><button type="button" class="btn ghost" id="copy">Copy my questions</button><button type="button" class="btn secondary" id="print">Print / save as PDF</button><button type="button" class="btn secondary" id="restart">Start again</button></div>
+    <div class="notice">No personal information is collected, transmitted, tracked or stored by this prototype. Do not enter student names or private details in anything you choose to share. This result is an educational discussion guide, not a recommendation to enroll, transcript review, athletic recruiting advice or a prediction of eligibility.</div>
+  </section>
+</div>
+</section>
+<section class="lower" id="resources">
+  <article class="panel"><div class="eyebrow">For the athlete</div><h3>Try the travel-week challenge.</h3><p>What happens when a bus runs late and an assignment is due? Try the existing APERTURE decision game, then compare your choices with a coach or parent.</p><a class="btn secondary" href="https://singhpratik44.github.io/clearline-portfolio/learning/athlete-week/" target="_blank" rel="noopener noreferrer">Play “Build Your Athlete Week” ↗</a></article>
+  <article class="panel"><div class="eyebrow">For the family or academy</div><h3>Know the right next question.</h3><p>Ask about pacing, support, credit mapping, the school's admissions process, and whether the program suits your student's individual needs. USPA—not APERTURE—makes admissions decisions.</p><a class="btn secondary" href="https://gouspa.org/contact/" target="_blank" rel="noopener noreferrer">Ask USPA directly ↗</a></article>
+</section>
+<section class="section-cta"><div><div class="eyebrow" style="color:#315d49">Explore, then decide</div><h2>Training changes. Ambition doesn't.</h2><p>Ready for a real conversation? The next step is on US Performance Academy's official website—not inside this independent prototype.</p></div><a class="btn" href="https://gouspa.org/admissions/" target="_blank" rel="noopener noreferrer">Go to official USPA admissions ↗</a></section>
+</main>
+<footer><p><strong style="color:#eff8ee">An independent APERTURE educational preview.</strong> This is not an official US Performance Academy website, endorsement, authorized admissions channel, or approved school campaign. USPA controls its own academic descriptions, admissions, pricing, tuition, and decisions. No guarantee of acceptance, credit transfer, athletic eligibility, scholarship or placement is made here.</p><p>School facts: <a href="https://gouspa.org/about/" target="_blank" rel="noopener noreferrer">About USPA</a> · <a href="https://gouspa.org/student-support/" target="_blank" rel="noopener noreferrer">Student support</a> · <a href="https://gouspa.org/admissions/" target="_blank" rel="noopener noreferrer">Admissions</a></p></footer>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite">Copied — ready to share.</div>
+<script>
+(function(){
+"use strict";
+var state={sport:"Tennis",challenge:"Travel and tournaments",hours:12,travel:"month"};
+var el=function(id){return document.getElementById(id);};
+var steps=Array.prototype.slice.call(document.querySelectorAll(".stage"));
+var toastTimer;
+function show(step){
+  steps.forEach(function(s){s.classList.toggle("active",Number(s.getAttribute("data-step"))===step);});
+  el("labbody").hidden=false;el("result").classList.remove("active");
+  var p=el("progress");p.setAttribute("aria-valuenow",String(step));
+  Array.prototype.forEach.call(p.querySelectorAll("span"),function(s,i){s.classList.toggle("on",i<step);});
+  el("lab").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function select(group,key,value,button){
+  state[key]=value;
+  Array.prototype.forEach.call(document.querySelectorAll("button["+group+"]"),function(b){b.setAttribute("aria-pressed",b===button?"true":"false");});
+  drawWeek();
+}
+Array.prototype.forEach.call(document.querySelectorAll("[data-sport]"),function(b){b.addEventListener("click",function(){select("data-sport","sport",b.getAttribute("data-sport"),b);});});
+Array.prototype.forEach.call(document.querySelectorAll("[data-challenge]"),function(b){b.addEventListener("click",function(){select("data-challenge","challenge",b.getAttribute("data-challenge"),b);});});
+el("next1").addEventListener("click",function(){show(2);});
+el("next2").addEventListener("click",function(){show(3);});
+Array.prototype.forEach.call(document.querySelectorAll("[data-back]"),function(b){b.addEventListener("click",function(){show(Number(b.getAttribute("data-back")));});});
+el("hours").addEventListener("input",function(e){state.hours=Number(e.target.value);el("hoursout").textContent=state.hours+" hours";drawWeek();});
+el("travel").addEventListener("change",function(e){state.travel=e.target.value;drawWeek();});
+function drawWeek(){
+ var training=Math.min(65,25+state.hours*1.05);
+ var disrupted=state.travel==="often"?2:state.travel==="month"?1:0;
+ var h="";
+ ["Mon","Tue","Wed","Thu","Fri"].forEach(function(d,i){
+  var tr=Math.max(18,training+(i===2?7:0)-(disrupted>0&&i===3?9:0));
+  var buffer=(disrupted>0&&i===3?36:21)+(state.challenge==="Travel and tournaments"&&i===4?11:0);
+  var school=100-tr-buffer;
+  h+='<div class="day"><div class="track"><div class="seg school" style="height:'+school+'%"></div><div class="seg training" style="height:'+tr+'%"></div><div class="seg buffer" style="height:'+buffer+'%"></div></div><span>'+d+'</span></div>';
+ });
+ el("week").innerHTML=h;
+ var label=state.sport.toLowerCase();
+ el("viz-caption").textContent="Illustrative "+label+" week · "+state.hours+" training hours. "+(state.travel==="often"?"Frequent travel adds buffer time.":state.travel==="month"?"Occasional travel is reflected in the buffer.":"Mostly local routines.");
+}
+function makeQuestions(){
+ var map={
+  "Travel and tournaments":"How could your athlete work with a Learning Coach to plan coursework around travel and tournament dates?",
+  "Early or long training":"How is academic pacing set when practice starts early or training takes much of the day?",
+  "Staying on top of coursework":"What specific check-ins and teacher support are available when assignments start slipping?",
+  "Changing schools":"What transcripts or grade reports should the family provide for an individual credit and course review?"
+ };
+ var travel=state.travel==="often"?"most weeks":state.travel==="month"?"once or twice a month":"rarely";
+ return [
+ map[state.challenge],
+ "With around "+state.hours+" hours of "+state.sport.toLowerCase()+" training weekly and travel "+travel+", what would a realistic sample academic routine involve?",
+ "What would the USPA admissions team need to assess individual fit, timing, costs and next steps?"
+ ];
+}
+function finish(){
+ el("labbody").hidden=true;el("result").classList.add("active");el("progress").setAttribute("aria-valuenow","3");
+ Array.prototype.forEach.call(el("progress").querySelectorAll("span"),function(s){s.classList.add("on");});
+ el("result-title").textContent="A flexible conversation for "+state.sport.toLowerCase()+".";
+ el("result-lead").textContent="Your main challenge is "+state.challenge.toLowerCase()+". With "+state.hours+" weekly training hours, the useful next move is to ask USPA what an individualized school plan would actually require—not assume one model fits every athlete.";
+ var ul=el("result-questions");ul.textContent="";makeQuestions().forEach(function(t){var li=document.createElement("li");li.textContent=t;ul.appendChild(li);});
+ el("result").focus();el("result").scrollIntoView({behavior:"smooth",block:"start"});
+}
+el("finish").addEventListener("click",finish);
+function copyText(){
+ var payload="APERTURE — independent Athlete Pathway discussion guide\nSport: "+state.sport+"\nSchool challenge: "+state.challenge+"\nTraining: "+state.hours+" hours/week\nQuestions for USPA:\n"+makeQuestions().map(function(q,i){return (i+1)+". "+q;}).join("\n")+"\nOfficial USPA admissions: https://gouspa.org/admissions/\nIndependent educational tool; not a USPA application.";
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(payload).then(function(){showToast("Questions copied.")},function(){fallbackCopy(payload);});}else{fallbackCopy(payload);}
+}
+function fallbackCopy(text){var t=document.createElement("textarea");t.value=text;t.style.position="fixed";t.style.opacity="0";document.body.appendChild(t);t.select();var ok=false;try{ok=document.execCommand("copy");}catch(e){}document.body.removeChild(t);showToast(ok?"Questions copied.":"Select and copy the questions from the page.");}
+function showToast(text){var t=el("toast");t.textContent=text;t.style.display="block";clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.style.display="none";},2600);}
+el("copy").addEventListener("click",copyText);
+el("print").addEventListener("click",function(){window.print();});
+el("restart").addEventListener("click",function(){show(1);});
+drawWeek();
+})();
+</script>
+</body>
+</html>
