@@ -1,0 +1,109 @@
+/* Shared APERTURE storefront tokens and interaction defaults. */
+:root {
+  color-scheme: light;
+  --ap-ink: #0e142a;
+  --ap-paper: #eff7f9;
+  --ap-cobalt: #4733db;
+  --ap-coral: #f56b4b;
+  --ap-yellow: #f6cb56;
+  --ap-white: #fff;
+  --ap-muted: #45536b;
+  --ap-rule: #bfced8;
+  --ap-display: Georgia, "Times New Roman", serif;
+  --ap-sans: "Trebuchet MS", Arial, sans-serif;
+  --ap-display-leading: 1.07;
+  --ap-body-leading: 1.55;
+  --ap-copy-measure: 62ch;
+  --ap-pill: 999px;
+  --ap-mark: url("./assets/aperture-mark.svg");
+  --ap-ease: cubic-bezier(.2, .75, .25, 1);
+  --ap-instant: 120ms;
+  --ap-response: 220ms;
+  --ap-deck: 380ms;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--ap-paper);
+  color: var(--ap-ink);
+  font-family: var(--ap-sans);
+  line-height: var(--ap-body-leading);
+  accent-color: var(--ap-cobalt);
+  caret-color: var(--ap-cobalt);
+}
+
+:where(h1, h2) {
+  font-family: var(--ap-display);
+  line-height: var(--ap-display-leading);
+  text-wrap: balance;
+}
+
+:where(.lede, .section-intro) {
+  max-inline-size: var(--ap-copy-measure);
+  text-wrap: pretty;
+}
+
+:where(button, input, textarea, select) {
+  font: inherit;
+}
+
+:where(a) {
+  text-underline-offset: .2em;
+}
+
+.wordmark .mark {
+  display: inline-block;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
+  flex: 0 0 auto;
+  border-radius: .44rem;
+  background: var(--ap-mark) center / contain no-repeat;
+  clip-path: none;
+}
+
+::selection {
+  background: var(--ap-yellow);
+  color: var(--ap-ink);
+}
+
+:where(a, button, summary, input, textarea, select, [tabindex]):focus-visible {
+  outline: 3px solid var(--ap-cobalt);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 3px var(--ap-white);
+}
+
+:where(.button) {
+  border-radius: var(--ap-pill);
+}
+
+:where(.button, .choices button, .deck-control button, .ap-press) {
+  transition: background-color var(--ap-instant) var(--ap-ease),
+    border-color var(--ap-instant) var(--ap-ease),
+    color var(--ap-instant) var(--ap-ease),
+    translate var(--ap-instant) var(--ap-ease);
+}
+
+:where(.button, .choices button, .deck-control button, .ap-press):active {
+  translate: 0 1px;
+}
+
+:where(.ap-deck-motion, .deck .sheet) {
+  transition: transform var(--ap-deck) var(--ap-ease),
+    background-color var(--ap-response) var(--ap-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --ap-instant: 0ms;
+    --ap-response: 0ms;
+    --ap-deck: 0ms;
+  }
+
+  :where(.button, .choices button, .deck-control button, .ap-press):active {
+    translate: none;
+  }
+}
