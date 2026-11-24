@@ -1,13 +1,13 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-22T23:47:39+00:00",
+  "generated_at": "2026-11-24T04:03:59+00:00",
   "method": "Independent public ATS API and GitHub Pages checks; no private accounts accessed",
   "automation": "read-only; does not email, apply, or attest human approval",
   "summary": {
     "roles_checked": 7,
-    "verified_for_review": 1,
-    "posting_blocked": 2,
-    "needs_review": 5,
+    "verified_for_review": 0,
+    "posting_blocked": 3,
+    "needs_review": 7,
     "demo_not_confirmed": 0
   },
   "jobs": [
@@ -97,8 +97,8 @@
         "url": "https://jobs.lever.co/lemnis/c564cb47-6822-4b27-9b10-b543d299475e"
       },
       "employer_needs": {
-        "state": "confirmed",
-        "reason": "3 posting-backed needs with traceable proposed features; external content still requires review",
+        "state": "review",
+        "reason": "Needs evidence is 15 days old, outside the 14-day confirmation window",
         "url": ""
       },
       "local_build": {
@@ -130,13 +130,13 @@
       "company": "Mural",
       "title": "Customer Enablement Manager",
       "posting": {
-        "state": "confirmed",
-        "reason": "Exact requisition ID and compatible job title found in current employer Ashby API; not proof of application",
+        "state": "blocked",
+        "reason": "Exact job requisition ID absent from current employer Ashby jobs list",
         "url": "https://jobs.ashbyhq.com/mural/aad647a2-273e-4185-b9e0-7476ddfce4c0"
       },
       "employer_needs": {
-        "state": "confirmed",
-        "reason": "3 posting-backed needs with traceable proposed features; external content still requires review",
+        "state": "review",
+        "reason": "Needs evidence is 15 days old, outside the 14-day confirmation window",
         "url": ""
       },
       "local_build": {
@@ -159,7 +159,7 @@
         "reason": "Sender, recipient, Gmail Sent confirmation and ATS submission require connected account verification",
         "url": ""
       },
-      "ready_for_human_outreach_review": true,
+      "ready_for_human_outreach_review": false,
       "email_sent": "unverified",
       "application_submitted": "unverified"
     },
