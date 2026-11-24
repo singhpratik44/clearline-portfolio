@@ -87,6 +87,10 @@
   }
 
   const activities = {
+    "Give me a tracing hint": () => card(
+      "Trace the trip",
+      "Start at the first square. Point to each step toward your spot. Press Play and try it once. Afterwards, keep your route or change it."
+    ),
     "A secret passage": (maze) => card(
       "Where would a curious player look twice?",
       maze.walls > 0
@@ -182,6 +186,18 @@
   }
 
   function playtester(maze, turn) {
+    if (turn === 0 && maze.mode === "edit" && maze.hasFinish && !maze.moves) {
+      if (maze.solvable === false) {
+        return card("Where do you think your route will stop?",
+          "Point to your guess. Press Play and try that route once. Keep the barrier, move a goal, or open a path. You choose.",
+          "Give me a tracing hint");
+      }
+      if (maze.solvable === true && maze.coins === 0) {
+        return card("Where would you like a player to linger?",
+          "Pick a spot or aim straight for the finish. Predict your route, then play it once. Keep the quiet walk or change one tile.",
+          "Give me a tracing hint");
+      }
+    }
     if (!maze.hasFinish) {
       return card("Where should a player know the adventure is over?",
         "Choose the Finish tool and place the ending. Trace a path to it with your finger before pressing Play.",
