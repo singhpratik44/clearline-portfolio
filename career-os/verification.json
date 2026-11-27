@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-11-26T01:56:23+00:00",
+  "generated_at": "2026-11-27T01:53:56+00:00",
   "method": "Independent public ATS API and GitHub Pages checks; no private accounts accessed",
   "automation": "read-only; does not email, apply, or attest human approval",
   "summary": {
@@ -98,7 +98,7 @@
       },
       "employer_needs": {
         "state": "review",
-        "reason": "Needs evidence is 17 days old, outside the 14-day confirmation window",
+        "reason": "Needs evidence is 18 days old, outside the 14-day confirmation window",
         "url": ""
       },
       "local_build": {
@@ -136,7 +136,7 @@
       },
       "employer_needs": {
         "state": "review",
-        "reason": "Needs evidence is 17 days old, outside the 14-day confirmation window",
+        "reason": "Needs evidence is 18 days old, outside the 14-day confirmation window",
         "url": ""
       },
       "local_build": {
